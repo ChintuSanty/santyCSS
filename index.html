@@ -1,0 +1,2273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SantyCSS — Plain-English Utility CSS Framework</title>
+  <link rel="icon" type="image/png" href="assest/santy_css.png" />
+  <link rel="stylesheet" href="santy.css" />
+  <style>
+    /* Tiny extras for the docs page only */
+    html { scroll-behavior: smooth; }
+    body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    pre  { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .code-block {
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 10px;
+      padding: 20px 24px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .code-block .c-key   { color: #7dd3fc; }
+    .code-block .c-val   { color: #86efac; }
+    .code-block .c-str   { color: #fcd34d; }
+    .code-block .c-tag   { color: #f472b6; }
+    .code-block .c-attr  { color: #a5b4fc; }
+    .code-block .c-com   { color: #64748b; font-style: italic; }
+    .nav-link { transition: color 0.2s; }
+    .nav-link:hover { color: #3b82f6; }
+    .copy-btn {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: #334155;
+      color: #94a3b8;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { background: #475569; color: #e2e8f0; }
+    .section { scroll-margin-top: 72px; }
+    .chip {
+      display: inline-block;
+      background: #1e293b;
+      color: #7dd3fc;
+      border-radius: 6px;
+      padding: 2px 9px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: ui-monospace, monospace;
+      border: 1px solid #334155;
+    }
+    .table-wrap { overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #e5e7eb; font-size: 13px; }
+    th { background: #f8fafc; font-weight: 600; color: #374151; }
+    td:first-child { font-family: ui-monospace, monospace; color: #2563eb; }
+    td:last-child  { color: #6b7280; }
+    tr:last-child td { border-bottom: none; }
+    .demo-box {
+      background: #eff6ff;
+      border: 2px dashed #bfdbfe;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #3b82f6;
+      font-weight: 600;
+      min-height: 60px;
+    }
+    .sidebar-link {
+      display: block;
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #475569;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .sidebar-link:hover { background: #f1f5f9; color: #1e293b; }
+    .sidebar-link.active { background: #eff6ff; color: #2563eb; font-weight: 600; }
+    .hero-gradient {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #312e81 100%);
+    }
+    .class-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      padding: 4px 12px;
+      font-size: 13px;
+      font-family: ui-monospace, monospace;
+      color: #7dd3fc;
+      margin: 4px;
+    }
+    .feature-card {
+      border-radius: 16px;
+      padding: 28px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
+    .tab-btn { border-bottom: 2px solid transparent; padding: 8px 16px; cursor: pointer; font-size: 14px; color: #6b7280; background: none; border-top: none; border-left: none; border-right: none; transition: all 0.2s; }
+    .tab-btn.active { border-bottom-color: #3b82f6; color: #2563eb; font-weight: 600; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Scrollbar for code blocks */
+    .code-block::-webkit-scrollbar { height: 6px; }
+    .code-block::-webkit-scrollbar-track { background: #1e293b; border-radius: 3px; }
+    .code-block::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
+
+    /* ── Mobile Hamburger ─────────────────────────────────────── */
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 7px 9px;
+      cursor: pointer;
+      color: #374151;
+      line-height: 1;
+    }
+    @media (max-width: 767px) {
+      .nav-hamburger { display: flex; align-items: center; justify-content: center; }
+      #main-nav {
+        display: none;
+        position: fixed;
+        top: 61px; left: 0; right: 0; bottom: 0;
+        background: #fff;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+        gap: 4px;
+        z-index: 98;
+        border-top: 1px solid #e5e7eb;
+        overflow-y: auto;
+        box-shadow: 0 4px 24px rgba(0,0,0,.12);
+      }
+      #main-nav.nav-open { display: flex; }
+      #main-nav .nav-link {
+        display: block;
+        padding: 12px !important;
+        font-size: 16px !important;
+        border-radius: 8px;
+        color: #1f2937 !important;
+        border-bottom: 1px solid #f3f4f6;
+      }
+      #main-nav .nav-link:hover { background: #f9fafb; }
+      #main-nav .btn { margin-top: 8px; text-align: center; padding: 12px; font-size: 15px; }
+      /* Grid collapse */
+      .grid-cols-2, .grid-cols-3, .grid-cols-4, .grid-cols-5 { grid-template-columns: 1fr !important; }
+      [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+      /* Hero text */
+      .set-text-64 { font-size: 32px !important; letter-spacing: -1px !important; }
+      .set-text-48 { font-size: 26px !important; }
+      .set-text-40 { font-size: 24px !important; }
+      .add-padding-y-96 { padding-top: 48px !important; padding-bottom: 48px !important; }
+      /* Docs layout */
+      .docs-layout { display: block !important; }
+      .docs-sidebar { display: none !important; }
+      /* Misc */
+      .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .hero-cta-group { flex-direction: column !important; gap: 12px !important; }
+      .hero-cta-group .btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body class="background-gray-50">
+
+<!-- ─── TOP NAV ─────────────────────────────────────────────────────────────── -->
+<header class="position-sticky pin-top-0 layer-50 background-white add-shadow-sm" style="border-bottom:1px solid #e5e7eb;">
+  <div class="container make-flex align-center justify-between add-padding-y-14">
+    <a href="#" class="make-flex align-center gap-10 text-no-decoration">
+      <img src="assest/santy_css.png" alt="SantyCSS" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
+      <span class="set-text-20 text-bold color-gray-900">Santy<span class="color-blue-600">CSS</span></span>
+      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v1.0</span>
+    </a>
+    <button class="nav-hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
+      <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg id="ham-close" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:none"><path d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <nav id="main-nav" class="make-flex align-center gap-24">
+      <a href="#getting-started" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Docs</a>
+      <a href="#utilities" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Utilities</a>
+      <a href="#components" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Components</a>
+      <a href="#integrations" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Integrations</a>
+      <a href="#vs-tailwind" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Compare</a>
+      <a href="#examples" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Examples</a>
+      <a href="animations.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Animations</a>
+      <a href="demo.html" class="btn btn-primary btn-sm">Live Demo →</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ─── HERO ──────────────────────────────────────────────────────────────────── -->
+<section class="hero-gradient add-padding-y-96 add-padding-x-16">
+  <div class="container text-center">
+    <div class="make-flex justify-center add-margin-bottom-20">
+      <span class="badge" style="background:rgba(255,255,255,0.1);color:#7dd3fc;font-size:13px;border:1px solid rgba(255,255,255,0.2);">
+        ✦ Plain English · No Build Step · 580KB
+      </span>
+    </div>
+    <h1 class="set-text-64 text-bold color-white add-margin-bottom-20" style="letter-spacing:-2px;line-height:1.1;">
+      CSS that reads<br>like <span style="color:#7dd3fc;">plain English</span>
+    </h1>
+    <p class="set-text-20 add-margin-bottom-40" style="color:rgba(255,255,255,0.7);max-width:600px;margin-left:auto;margin-right:auto;line-height:1.6;">
+      SantyCSS is a utility-first framework where class names describe what they do — in words you already know.
+      No cryptic abbreviations, no lookup tables.
+    </p>
+
+    <!-- Class tag showcase -->
+    <div class="add-margin-bottom-48" style="max-width:700px;margin-left:auto;margin-right:auto;">
+      <span class="class-tag">add-padding-24</span>
+      <span class="class-tag">add-border-left-4</span>
+      <span class="class-tag">make-flex</span>
+      <span class="class-tag">align-center</span>
+      <span class="class-tag">justify-between</span>
+      <span class="class-tag">round-corners-12</span>
+      <span class="class-tag">set-text-18</span>
+      <span class="class-tag">text-semibold</span>
+      <span class="class-tag">add-shadow-md</span>
+      <span class="class-tag">opacity-80</span>
+      <span class="class-tag">on-hover:scale-105</span>
+      <span class="class-tag">transition-normal</span>
+      <span class="class-tag">background-blue-500</span>
+      <span class="class-tag">color-white</span>
+      <span class="class-tag">grid-cols-3</span>
+      <span class="class-tag">gap-16</span>
+    </div>
+
+    <div class="make-flex justify-center gap-16 flex-wrap hero-cta-group">
+      <a href="#getting-started" class="btn btn-lg" style="background:#3b82f6;color:#fff;">Get Started</a>
+      <a href="#utilities" class="btn btn-lg" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.3);">Browse Utilities</a>
+      <button onclick="downloadCSS('santy.css')" class="btn btn-lg" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.3);">
+        ↓ Download CSS
+      </button>
+      <button onclick="downloadCSS('santy.min.css')" class="btn btn-lg" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.3);">
+        ↓ Download Minified
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ─── VS TAILWIND COMPARISON ─────────────────────────────────────────────── -->
+<section class="background-white add-padding-y-64">
+  <div class="container">
+    <div class="text-center add-margin-bottom-48">
+      <h2 class="set-text-40 text-bold color-gray-900 add-margin-bottom-12" style="letter-spacing:-1px;">SantyCSS vs Tailwind</h2>
+      <p class="set-text-18 color-gray-500">Same power. Human-readable names.</p>
+    </div>
+    <div class="make-grid grid-cols-2 gap-32" style="max-width:900px;margin:0 auto;">
+      <div>
+        <div class="make-flex align-center gap-10 add-margin-bottom-16">
+          <span class="set-text-13 text-semibold color-gray-400 text-uppercase letter-space-wide">Tailwind CSS</span>
+        </div>
+        <div class="code-block">
+<pre><span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"p-6 mt-4 flex items-center
+      justify-between border-l-4 border-blue-500
+      rounded-xl shadow-lg text-xl font-semibold
+      hover:scale-105 transition-all"</span><span class="c-tag">&gt;</span></pre>
+        </div>
+      </div>
+      <div>
+        <div class="make-flex align-center gap-10 add-margin-bottom-16">
+          <span class="set-text-13 text-semibold color-blue-600 text-uppercase letter-space-wide">SantyCSS ✦</span>
+        </div>
+        <div class="code-block">
+<pre><span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"add-padding-24 add-margin-top-16
+      make-flex align-center justify-between
+      add-border-left-4 border-color-blue-500
+      round-corners-12 add-shadow-lg set-text-20
+      text-semibold on-hover:scale-105
+      transition-normal"</span><span class="c-tag">&gt;</span></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURES ──────────────────────────────────────────────────────────────── -->
+<section class="background-gray-50 add-padding-y-80">
+  <div class="container">
+    <div class="text-center add-margin-bottom-56">
+      <h2 class="set-text-40 text-bold color-gray-900 add-margin-bottom-12" style="letter-spacing:-1px;">Everything you need</h2>
+      <p class="set-text-18 color-gray-500">A complete design system in one file.</p>
+    </div>
+    <div class="make-grid grid-cols-3 gap-24">
+
+      <div class="feature-card background-white add-shadow-sm">
+        <div class="set-width-48 set-height-48 background-blue-100 round-corners-12 make-flex align-center justify-center add-margin-bottom-20">
+          <svg width="24" height="24" fill="none" stroke="#2563eb" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+        </div>
+        <h3 class="set-text-18 text-semibold color-gray-900 add-margin-bottom-8">Plain English Names</h3>
+        <p class="set-text-14 color-gray-500 line-height-relaxed">Class names are full descriptive words. <code class="chip">add-border-left-20</code> does exactly what it says — no memorization needed.</p>
+      </div>
+
+      <div class="feature-card background-white add-shadow-sm">
+        <div class="set-width-48 set-height-48 background-green-100 round-corners-12 make-flex align-center justify-center add-margin-bottom-20">
+          <svg width="24" height="24" fill="none" stroke="#16a34a" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+        </div>
+        <h3 class="set-text-18 text-semibold color-gray-900 add-margin-bottom-8">Zero Build Step</h3>
+        <p class="set-text-14 color-gray-500 line-height-relaxed">Drop <code class="chip">santy.css</code> into any project and start building. No Node, no config, no CLI tools needed.</p>
+      </div>
+
+      <div class="feature-card background-white add-shadow-sm">
+        <div class="set-width-48 set-height-48 background-purple-100 round-corners-12 make-flex align-center justify-center add-margin-bottom-20">
+          <svg width="24" height="24" fill="none" stroke="#7c3aed" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </div>
+        <h3 class="set-text-18 text-semibold color-gray-900 add-margin-bottom-8">Responsive Variants</h3>
+        <p class="set-text-14 color-gray-500 line-height-relaxed">Prefix any class with <code class="chip">on-mobile:</code>, <code class="chip">on-tablet:</code>, <code class="chip">md:</code>, <code class="chip">lg:</code> for responsive design.</p>
+      </div>
+
+      <div class="feature-card background-white add-shadow-sm">
+        <div class="set-width-48 set-height-48 background-orange-100 round-corners-12 make-flex align-center justify-center add-margin-bottom-20">
+          <svg width="24" height="24" fill="none" stroke="#c2410c" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3 class="set-text-18 text-semibold color-gray-900 add-margin-bottom-8">State Variants</h3>
+        <p class="set-text-14 color-gray-500 line-height-relaxed">Hover, focus, active, disabled states with intuitive prefixes like <code class="chip">on-hover:</code> and <code class="chip">on-focus:</code>.</p>
+      </div>
+
+      <div class="feature-card background-white add-shadow-sm">
+        <div class="set-width-48 set-height-48 background-pink-100 round-corners-12 make-flex align-center justify-center add-margin-bottom-20">
+          <svg width="24" height="24" fill="none" stroke="#be185d" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <h3 class="set-text-18 text-semibold color-gray-900 add-margin-bottom-8">20-Palette Color System</h3>
+        <p class="set-text-14 color-gray-500 line-height-relaxed">20 color families × 10 shades each for text, background, border, fill, and stroke. Plus dark mode variants.</p>
+      </div>
+
+      <div class="feature-card background-white add-shadow-sm">
+        <div class="set-width-48 set-height-48 background-teal-100 round-corners-12 make-flex align-center justify-center add-margin-bottom-20">
+          <svg width="24" height="24" fill="none" stroke="#0f766e" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+        </div>
+        <h3 class="set-text-18 text-semibold color-gray-900 add-margin-bottom-8">Component Shortcuts</h3>
+        <p class="set-text-14 color-gray-500 line-height-relaxed">Pre-built components: <code class="chip">.btn</code>, <code class="chip">.card</code>, <code class="chip">.input</code>, <code class="chip">.badge</code>, <code class="chip">.alert</code>, <code class="chip">.spinner</code>, and more.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── GETTING STARTED ────────────────────────────────────────────────────── -->
+<section id="getting-started" class="section background-white add-padding-y-80">
+  <div class="container">
+    <div class="text-center add-margin-bottom-56">
+      <h2 class="set-text-40 text-bold color-gray-900 add-margin-bottom-12" style="letter-spacing:-1px;">Getting Started</h2>
+      <p class="set-text-18 color-gray-500">One line. That's it.</p>
+    </div>
+
+    <div class="make-grid grid-cols-1 gap-32" style="max-width:800px;margin:0 auto;">
+
+      <!-- Option 0: NPM -->
+      <div>
+        <div class="make-flex align-center gap-12 add-margin-bottom-16">
+          <span class="set-width-28 set-height-28 background-gray-900 make-circle make-flex align-center justify-center color-white text-bold set-text-14">npm</span>
+          <h3 class="set-text-20 text-semibold color-gray-900">Install via npm</h3>
+        </div>
+        <div class="code-block add-margin-bottom-8">
+<pre><span class="c-com"># Install</span>
+npm install santycss
+
+<span class="c-com"># Import in JS/TS</span>
+import 'santycss/css';
+
+<span class="c-com"># Or import individual parts</span>
+import 'santycss/core';
+import 'santycss/components';
+import 'santycss/animations';</pre>
+        </div>
+        <div class="make-flex gap-10 flex-wrap">
+          <a href="https://github.com/ChintuSanty/santyCSS" target="_blank" class="chip chip-blue">GitHub ↗</a>
+          <span class="chip chip-green">MIT License</span>
+          <span class="chip">v1.0</span>
+        </div>
+      </div>
+
+      <!-- Option 1: Local -->
+      <div>
+        <div class="make-flex align-center gap-12 add-margin-bottom-16">
+          <span class="set-width-28 set-height-28 background-blue-600 make-circle make-flex align-center justify-center color-white text-bold set-text-14">1</span>
+          <h3 class="set-text-20 text-semibold color-gray-900">Download &amp; Link Locally</h3>
+        </div>
+        <div class="code-block add-margin-bottom-8">
+<pre><span class="c-com">&lt;!-- In your &lt;head&gt; --&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"santy.css"</span><span class="c-tag">&gt;</span></pre>
+        </div>
+      </div>
+
+      <!-- Option 2: Modular loading -->
+      <div>
+        <div class="make-flex align-center gap-12 add-margin-bottom-16">
+          <span class="set-width-28 set-height-28 background-blue-600 make-circle make-flex align-center justify-center color-white text-bold set-text-14">2</span>
+          <h3 class="set-text-20 text-semibold color-gray-900">Or load only what you need — modular</h3>
+        </div>
+        <p class="set-text-14 color-gray-500 add-margin-bottom-12">Split CSS into 3 independent files. Load only the parts your page needs for optimal performance.</p>
+        <div class="code-block">
+<pre><span class="c-com">&lt;!-- Utilities only (layout, spacing, colors, typography) --&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"santy-core.css"</span><span class="c-tag">&gt;</span>
+
+<span class="c-com">&lt;!-- Components only (btn, card, modal, drawer, table…) --&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"santy-components.css"</span><span class="c-tag">&gt;</span>
+
+<span class="c-com">&lt;!-- 70+ animations — only when you need them --&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"santy-animations.css"</span><span class="c-tag">&gt;</span></pre>
+        </div>
+        <div class="make-flex gap-12 add-margin-top-12 flex-wrap">
+          <span class="chip chip-blue">santy-core.css — 568KB</span>
+          <span class="chip chip-green">santy-components.css — 31KB</span>
+          <span class="chip chip-purple">santy-animations.css — 33KB</span>
+        </div>
+      </div>
+
+      <!-- First page -->
+      <div>
+        <div class="make-flex align-center gap-12 add-margin-bottom-16">
+          <span class="set-width-28 set-height-28 background-blue-600 make-circle make-flex align-center justify-center color-white text-bold set-text-14">3</span>
+          <h3 class="set-text-20 text-semibold color-gray-900">Write your first page</h3>
+        </div>
+        <div class="code-block">
+<pre><span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"container add-padding-y-48"</span><span class="c-tag">&gt;</span>
+
+  <span class="c-com">&lt;!-- A card --&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"card add-padding-32 add-shadow-md"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;h1</span> <span class="c-attr">class</span>=<span class="c-str">"set-text-32 text-bold color-gray-900"</span><span class="c-tag">&gt;</span>Hello SantyCSS<span class="c-tag">&lt;/h1&gt;</span>
+
+    <span class="c-com">&lt;!-- Border example --&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"add-border-left-4 border-color-blue-500
+               add-padding-left-16 add-margin-y-24"</span><span class="c-tag">&gt;</span>
+      Border on the left, 4px wide.
+    <span class="c-tag">&lt;/div&gt;</span>
+
+    <span class="c-com">&lt;!-- Button --&gt;</span>
+    <span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"btn btn-primary on-hover:scale-105
+                  transition-normal"</span><span class="c-tag">&gt;</span>
+      Click me
+    <span class="c-tag">&lt;/button&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-tag">&lt;/div&gt;</span></pre>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── FRAMEWORK INTEGRATION ─────────────────────────────────────────────── -->
+<section id="integrations" class="section background-gray-900 add-padding-y-80">
+  <div class="container">
+    <div class="text-center add-margin-bottom-56">
+      <h2 class="set-text-40 text-bold color-white add-margin-bottom-12" style="letter-spacing:-1px;">Framework Integration</h2>
+      <p class="set-text-18" style="color:rgba(255,255,255,0.6);">Drop-in for every major JS framework. Purge works exactly like Tailwind.</p>
+    </div>
+
+    <!-- Framework tabs -->
+    <div style="border-bottom:1px solid #334155;margin-bottom:32px;overflow-x:auto;white-space:nowrap;">
+      <button class="tab-btn active" style="color:#94a3b8;border-bottom-color:transparent;" onclick="openFwTab(event,'fw-react')" id="fw-react-btn">React / Next.js</button>
+      <button class="tab-btn" style="color:#94a3b8;border-bottom-color:transparent;" onclick="openFwTab(event,'fw-vue')" id="fw-vue-btn">Vue / Nuxt</button>
+      <button class="tab-btn" style="color:#94a3b8;border-bottom-color:transparent;" onclick="openFwTab(event,'fw-vite')" id="fw-vite-btn">Vite (any)</button>
+      <button class="tab-btn" style="color:#94a3b8;border-bottom-color:transparent;" onclick="openFwTab(event,'fw-svelte')" id="fw-svelte-btn">SvelteKit</button>
+      <button class="tab-btn" style="color:#94a3b8;border-bottom-color:transparent;" onclick="openFwTab(event,'fw-astro')" id="fw-astro-btn">Astro</button>
+      <button class="tab-btn" style="color:#94a3b8;border-bottom-color:transparent;" onclick="openFwTab(event,'fw-cdn')" id="fw-cdn-btn">Plain HTML / CDN</button>
+    </div>
+
+    <!-- React / Next.js -->
+    <div id="fw-react" class="fw-tab-content active">
+      <div class="make-grid grid-cols-2 gap-24">
+        <div>
+          <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">1. Copy santy.css into your project</p>
+          <div class="code-block"><pre>your-app/
+  public/
+    santy.css   ← copy here
+  src/
+    app/
+      layout.js</pre></div>
+        </div>
+        <div>
+          <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">2. Import in layout.js (App Router) or _app.js</p>
+          <div class="code-block"><pre><span class="c-com">// app/layout.js  (Next.js 13+)</span>
+<span class="c-key">import</span> <span class="c-str">'../public/santy.css'</span>
+
+<span class="c-key">export default function</span> RootLayout({ children }) {
+  <span class="c-key">return</span> (
+    <span class="c-tag">&lt;html&gt;</span>
+      <span class="c-tag">&lt;body&gt;</span>{children}<span class="c-tag">&lt;/body&gt;</span>
+    <span class="c-tag">&lt;/html&gt;</span>
+  )
+}</pre></div>
+        </div>
+      </div>
+      <div class="add-margin-top-24">
+        <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">3. Purge at build time — postcss.config.js</p>
+        <div class="code-block"><pre><span class="c-key">const</span> santycss = <span class="c-key">require</span>(<span class="c-str">'./postcss-santycss'</span>)
+
+module.exports = {
+  plugins: [
+    santycss({
+      content:  [<span class="c-str">'./src/**/*.{js,jsx,ts,tsx}'</span>, <span class="c-str">'./app/**/*.{js,jsx,ts,tsx}'</span>],
+      safelist: [<span class="c-str">'make-hidden'</span>, <span class="c-str">'animate-spin'</span>],  <span class="c-com">// always keep these</span>
+    }),
+  ],
+}
+
+<span class="c-com">// Result: 574 KB → ~15 KB in production automatically</span></pre></div>
+      </div>
+      <div class="add-margin-top-20">
+        <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">4. Use in components</p>
+        <div class="code-block"><pre><span class="c-key">export default function</span> Card({ title, badge }) {
+  <span class="c-key">return</span> (
+    <span class="c-tag">&lt;div</span> <span class="c-attr">className</span>=<span class="c-str">"card add-padding-24 on-hover:add-shadow-lg transition-normal"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;h2</span> <span class="c-attr">className</span>=<span class="c-str">"set-text-20 text-semibold color-gray-900"</span><span class="c-tag">&gt;</span>{title}<span class="c-tag">&lt;/h2&gt;</span>
+      <span class="c-tag">&lt;span</span> <span class="c-attr">className</span>=<span class="c-str">"badge background-blue-100 color-blue-700"</span><span class="c-tag">&gt;</span>{badge}<span class="c-tag">&lt;/span&gt;</span>
+      <span class="c-tag">&lt;button</span> <span class="c-attr">className</span>=<span class="c-str">"btn btn-primary add-margin-top-16"</span><span class="c-tag">&gt;</span>Go<span class="c-tag">&lt;/button&gt;</span>
+    <span class="c-tag">&lt;/div&gt;</span>
+  )
+}</pre></div>
+      </div>
+    </div>
+
+    <!-- Vue / Nuxt -->
+    <div id="fw-vue" class="fw-tab-content" style="display:none;">
+      <div class="make-grid grid-cols-2 gap-24">
+        <div>
+          <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">main.js — import once globally</p>
+          <div class="code-block"><pre><span class="c-com">// src/main.js (Vue 3)</span>
+<span class="c-key">import</span> { createApp } <span class="c-key">from</span> <span class="c-str">'vue'</span>
+<span class="c-key">import</span> <span class="c-str">'./assets/santy.css'</span>   <span class="c-com">← copy santy.css here</span>
+<span class="c-key">import</span> App <span class="c-key">from</span> <span class="c-str">'./App.vue'</span>
+createApp(App).mount(<span class="c-str">'#app'</span>)</pre></div>
+        </div>
+        <div>
+          <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">Nuxt 3 — nuxt.config.ts</p>
+          <div class="code-block"><pre><span class="c-key">export default</span> defineNuxtConfig({
+  css: [<span class="c-str">'~/assets/santy.css'</span>],
+
+  <span class="c-com">// Purge via PostCSS:</span>
+  postcss: {
+    plugins: {
+      <span class="c-str">'./postcss-santycss'</span>: {
+        content: [<span class="c-str">'./pages/**/*.vue'</span>, <span class="c-str">'./components/**/*.vue'</span>],
+      }
+    }
+  }
+})</pre></div>
+        </div>
+      </div>
+      <div class="add-margin-top-24">
+        <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">Use in .vue components</p>
+        <div class="code-block"><pre><span class="c-tag">&lt;template&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"make-flex align-center gap-16 add-padding-24"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;span</span> <span class="c-attr">:class</span>=<span class="c-str">`set-text-${size} ${active ? 'color-blue-600' : 'color-gray-500'}`</span><span class="c-tag">&gt;</span>
+      {{ label }}
+    <span class="c-tag">&lt;/span&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/template&gt;</span></pre></div>
+      </div>
+    </div>
+
+    <!-- Vite -->
+    <div id="fw-vite" class="fw-tab-content" style="display:none;">
+      <div class="make-grid grid-cols-2 gap-24">
+        <div>
+          <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">vite.config.js — use our Vite plugin</p>
+          <div class="code-block"><pre><span class="c-key">import</span> { defineConfig } <span class="c-key">from</span> <span class="c-str">'vite'</span>
+<span class="c-key">import</span> santycss <span class="c-key">from</span> <span class="c-str">'./vite-plugin-santycss.js'</span>
+
+<span class="c-key">export default</span> defineConfig({
+  plugins: [
+    santycss({
+      content: [<span class="c-str">'./src/**/*.{html,js,jsx,ts,tsx,vue,svelte}'</span>],
+      safelist: [<span class="c-str">'make-hidden'</span>, <span class="c-str">'animate-spin'</span>],
+      devMode:  <span class="c-str">'full'</span>,  <span class="c-com">// dev: full CSS (instant). build: purged.</span>
+    }),
+  ],
+})</pre></div>
+        </div>
+        <div>
+          <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">main.js — import the virtual module</p>
+          <div class="code-block"><pre><span class="c-com">// Instead of importing the file directly,</span>
+<span class="c-com">// import it as a virtual module so Vite</span>
+<span class="c-com">// can intercept and serve purged CSS:</span>
+<span class="c-key">import</span> <span class="c-str">'santy.css'</span>
+
+<span class="c-com">// Dev  → serves full 574 KB CSS (all classes available)</span>
+<span class="c-com">// Build → inlines only used classes (~15 KB)</span></pre></div>
+        </div>
+      </div>
+      <div class="add-margin-top-24">
+        <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">How dev vs build works</p>
+        <div class="code-block"><pre><span class="c-com"># Dev server — HMR-aware, full CSS, no purge overhead</span>
+vite
+
+<span class="c-com"># Production build — auto-purges to minimal CSS</span>
+vite build
+<span class="c-com"># → dist/assets/santy-[hash].css ~3-15 KB (gzip ~1-4 KB)</span></pre></div>
+      </div>
+    </div>
+
+    <!-- SvelteKit -->
+    <div id="fw-svelte" class="fw-tab-content" style="display:none;">
+      <div class="make-grid grid-cols-2 gap-24">
+        <div>
+          <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">+layout.svelte — import globally</p>
+          <div class="code-block"><pre><span class="c-tag">&lt;script&gt;</span>
+  <span class="c-key">import</span> <span class="c-str">'$lib/santy.css'</span>  <span class="c-com">// copy santy.css → src/lib/</span>
+<span class="c-tag">&lt;/script&gt;</span>
+
+<span class="c-tag">&lt;slot /&gt;</span></pre></div>
+        </div>
+        <div>
+          <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">vite.config.js (SvelteKit uses Vite)</p>
+          <div class="code-block"><pre><span class="c-key">import</span> { sveltekit } <span class="c-key">from</span> <span class="c-str">'@sveltejs/kit/vite'</span>
+<span class="c-key">import</span> santycss <span class="c-key">from</span> <span class="c-str">'./vite-plugin-santycss.js'</span>
+
+<span class="c-key">export default</span> {
+  plugins: [
+    sveltekit(),
+    santycss({ content: [<span class="c-str">'./src/**/*.svelte'</span>] }),
+  ]
+}</pre></div>
+        </div>
+      </div>
+      <div class="add-margin-top-24">
+        <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">Use in .svelte files</p>
+        <div class="code-block"><pre><span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"card add-padding-24 make-flex flex-column gap-16"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;h1</span> <span class="c-attr">class</span>=<span class="c-str">"set-text-28 text-bold color-gray-900"</span><span class="c-tag">&gt;</span>{title}<span class="c-tag">&lt;/h1&gt;</span>
+  <span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"btn btn-primary on-hover:scale-105 transition-fast"</span><span class="c-tag">&gt;</span>
+    Click
+  <span class="c-tag">&lt;/button&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre></div>
+      </div>
+    </div>
+
+    <!-- Astro -->
+    <div id="fw-astro" class="fw-tab-content" style="display:none;">
+      <div class="make-grid grid-cols-2 gap-24">
+        <div>
+          <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">src/layouts/Base.astro</p>
+          <div class="code-block"><pre><span class="c-tag">---</span>
+<span class="c-key">import</span> <span class="c-str">'../styles/santy.css'</span>
+<span class="c-tag">---</span>
+<span class="c-tag">&lt;html&gt;</span>
+  <span class="c-tag">&lt;head&gt;</span><span class="c-tag">&lt;/head&gt;</span>
+  <span class="c-tag">&lt;body&gt;</span>
+    <span class="c-tag">&lt;slot /&gt;</span>
+  <span class="c-tag">&lt;/body&gt;</span>
+<span class="c-tag">&lt;/html&gt;</span></pre></div>
+        </div>
+        <div>
+          <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">astro.config.mjs — purge via Vite</p>
+          <div class="code-block"><pre><span class="c-key">import</span> { defineConfig } <span class="c-key">from</span> <span class="c-str">'astro/config'</span>
+<span class="c-key">import</span> santycss <span class="c-key">from</span> <span class="c-str">'./vite-plugin-santycss.js'</span>
+
+<span class="c-key">export default</span> defineConfig({
+  vite: {
+    plugins: [
+      santycss({ content: [<span class="c-str">'./src/**/*.{astro,html,js,ts}'</span>] })
+    ]
+  }
+})</pre></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Plain HTML -->
+    <div id="fw-cdn" class="fw-tab-content" style="display:none;">
+      <div class="make-grid grid-cols-2 gap-24">
+        <div>
+          <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">Development — link full CSS</p>
+          <div class="code-block"><pre><span class="c-tag">&lt;head&gt;</span>
+  <span class="c-com">&lt;!-- Full CSS — all classes available --&gt;</span>
+  <span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"santy.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;/head&gt;</span></pre></div>
+        </div>
+        <div>
+          <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">Production — purge before deploy</p>
+          <div class="code-block"><pre><span class="c-com"># Run once before deploying</span>
+node purge.js --input=./src --out=dist/santy.min.css
+
+<span class="c-com"># Then link the minified version:</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"santy.min.css"</span><span class="c-tag">&gt;</span>
+
+<span class="c-com"># Result: 574 KB → 15 KB (3-4 KB gzip)</span></pre></div>
+        </div>
+      </div>
+      <div class="add-margin-top-24">
+        <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">Safelist — protect dynamic classes</p>
+        <div class="code-block"><pre><span class="c-com"># Classes added by JS won't be detected — safelist them:</span>
+node purge.js --input=./src --keep=make-hidden,make-flex,animate-spin,color-red-500
+
+<span class="c-com"># Or via a JSON file:</span>
+echo '["make-hidden","animate-spin"]' > safelist.json
+node purge.js --input=./src --safelist=safelist.json</pre></div>
+      </div>
+    </div>
+
+    <!-- Size summary bar -->
+    <div class="add-margin-top-48 background-gray-800 round-corners-16 add-padding-32">
+      <h3 class="set-text-18 text-semibold color-white add-margin-bottom-24">Production Size Summary</h3>
+      <div class="make-grid grid-cols-4 gap-20">
+        <div class="text-center">
+          <div class="set-text-32 text-bold color-red-400" style="line-height:1;">574 KB</div>
+          <div class="set-text-12 add-margin-top-6" style="color:#64748b;">Full (raw)</div>
+        </div>
+        <div class="text-center">
+          <div class="set-text-32 text-bold color-orange-400" style="line-height:1;">72 KB</div>
+          <div class="set-text-12 add-margin-top-6" style="color:#64748b;">Full (gzip)</div>
+        </div>
+        <div class="text-center">
+          <div class="set-text-32 text-bold color-yellow-400" style="line-height:1;">~15 KB</div>
+          <div class="set-text-12 add-margin-top-6" style="color:#64748b;">Purged (raw)</div>
+        </div>
+        <div class="text-center">
+          <div class="set-text-32 text-bold color-green-400" style="line-height:1;">~3 KB</div>
+          <div class="set-text-12 add-margin-top-6" style="color:#64748b;">Purged (gzip) ✦</div>
+        </div>
+      </div>
+      <div class="add-margin-top-20 add-padding-16 round-corners-8" style="background:#1e293b;">
+        <p class="set-text-13" style="color:#94a3b8;">✦ Typical real-world page using 50–150 classes. Actual size varies by usage. Same order of magnitude as Tailwind's purged output.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── VS TAILWIND DEEP DIVE ──────────────────────────────────────────────── -->
+<section id="vs-tailwind" class="section background-white add-padding-y-80">
+  <div class="container">
+    <div class="text-center add-margin-bottom-56">
+      <h2 class="set-text-40 text-bold color-gray-900 add-margin-bottom-12" style="letter-spacing:-1px;">SantyCSS vs Every Major Framework</h2>
+      <p class="set-text-18 color-gray-500 add-margin-bottom-24">A complete, honest breakdown across Tailwind, Bootstrap, Material UI, Bulma, Foundation &amp; Chakra UI.</p>
+      <div class="make-flex gap-10 justify-center flex-wrap">
+        <span class="badge" style="background:#fef3c7;color:#92400e;">Bootstrap 5</span>
+        <span class="badge" style="background:#e0e7ff;color:#3730a3;">Material UI</span>
+        <span class="badge" style="background:#dcfce7;color:#166534;">Tailwind CSS</span>
+        <span class="badge" style="background:#fce7f3;color:#9d174d;">Bulma</span>
+        <span class="badge" style="background:#f3f4f6;color:#374151;">Foundation</span>
+        <span class="badge" style="background:#ede9fe;color:#4c1d95;">Chakra UI</span>
+      </div>
+    </div>
+
+    <!-- Tabs to switch views -->
+    <div class="add-margin-bottom-40" style="max-width:960px;margin-left:auto;margin-right:auto;">
+      <ul class="tabs tabs-pill add-margin-bottom-28" id="compare-tabs">
+        <li class="tabs-item active" onclick="switchCompare('all',this)">Full Table</li>
+        <li class="tabs-item" onclick="switchCompare('tw',this)">vs Tailwind</li>
+        <li class="tabs-item" onclick="switchCompare('bs',this)">vs Bootstrap</li>
+        <li class="tabs-item" onclick="switchCompare('mui',this)">vs Material UI</li>
+        <li class="tabs-item" onclick="switchCompare('bulma',this)">vs Bulma</li>
+      </ul>
+
+      <!-- Full comparison table -->
+      <div id="cmp-all" style="overflow-x:auto;">
+        <table class="table table-bordered" id="full-table" style="font-size:13px;min-width:700px;">
+          <thead>
+            <tr style="background:#f8fafc;">
+              <th style="width:22%;">Feature</th>
+              <th style="text-align:center;color:#3b82f6;">SantyCSS</th>
+              <th style="text-align:center;">Tailwind</th>
+              <th style="text-align:center;">Bootstrap</th>
+              <th style="text-align:center;">Material UI</th>
+              <th style="text-align:center;">Bulma</th>
+              <th style="text-align:center;">Foundation</th>
+            </tr>
+          </thead>
+          <tbody id="full-table-body"></tbody>
+        </table>
+      </div>
+
+      <!-- 2-col comparison tables (hidden by default) -->
+      <div id="cmp-tw" style="display:none;"><div class="make-flex flex-column gap-16" style="max-width:800px;margin:0 auto;"><div class="make-grid add-padding-x-20" style="grid-template-columns:2fr 1fr 1fr;"><span class="set-text-13 text-semibold color-gray-400 text-uppercase">Feature</span><span class="set-text-13 text-semibold color-gray-400 text-uppercase text-center">Tailwind</span><span class="set-text-13 text-semibold color-blue-600 text-uppercase text-center">SantyCSS</span></div><div id="cmp-tw-rows"></div></div></div>
+      <div id="cmp-bs" style="display:none;"><div class="make-flex flex-column gap-16" style="max-width:800px;margin:0 auto;"><div class="make-grid add-padding-x-20" style="grid-template-columns:2fr 1fr 1fr;"><span class="set-text-13 text-semibold color-gray-400 text-uppercase">Feature</span><span class="set-text-13 text-semibold color-gray-400 text-uppercase text-center">Bootstrap</span><span class="set-text-13 text-semibold color-blue-600 text-uppercase text-center">SantyCSS</span></div><div id="cmp-bs-rows"></div></div></div>
+      <div id="cmp-mui" style="display:none;"><div class="make-flex flex-column gap-16" style="max-width:800px;margin:0 auto;"><div class="make-grid add-padding-x-20" style="grid-template-columns:2fr 1fr 1fr;"><span class="set-text-13 text-semibold color-gray-400 text-uppercase">Feature</span><span class="set-text-13 text-semibold color-gray-400 text-uppercase text-center">Material UI</span><span class="set-text-13 text-semibold color-blue-600 text-uppercase text-center">SantyCSS</span></div><div id="cmp-mui-rows"></div></div></div>
+      <div id="cmp-bulma" style="display:none;"><div class="make-flex flex-column gap-16" style="max-width:800px;margin:0 auto;"><div class="make-grid add-padding-x-20" style="grid-template-columns:2fr 1fr 1fr;"><span class="set-text-13 text-semibold color-gray-400 text-uppercase">Feature</span><span class="set-text-13 text-semibold color-gray-400 text-uppercase text-center">Bulma</span><span class="set-text-13 text-semibold color-blue-600 text-uppercase text-center">SantyCSS</span></div><div id="cmp-bulma-rows"></div></div></div>
+    </div>
+
+    <!-- What SantyCSS uniquely covers -->
+    <div class="text-center add-margin-bottom-40 add-margin-top-64">
+      <h3 class="set-text-28 text-bold color-gray-900 add-margin-bottom-8" style="letter-spacing:-0.5px;">Exclusive to SantyCSS</h3>
+      <p class="set-text-16 color-gray-500">Not available out-of-the-box in any other framework.</p>
+    </div>
+    <div class="make-grid grid-cols-3 gap-20" id="unique-cards">
+      <!-- filled below --></div>
+
+    <!-- Unique to SantyCSS -->
+    <div class="text-center add-margin-bottom-40">
+      <h3 class="set-text-28 text-bold color-gray-900 add-margin-bottom-8" style="letter-spacing:-0.5px;">Features unique to SantyCSS</h3>
+      <p class="set-text-16 color-gray-500">Not available in Tailwind without plugins or custom config.</p>
+    </div>
+    <div class="make-grid grid-cols-3 gap-20">
+
+      <div class="background-blue-50 round-corners-16 add-padding-28 add-border-1 border-color-blue-200">
+        <h4 class="set-text-16 text-semibold color-blue-800 add-margin-bottom-10">Plain-English class names</h4>
+        <p class="set-text-13 color-blue-700 line-height-relaxed add-margin-bottom-12">All other frameworks use abbreviated or cryptic names. SantyCSS reads like English — no memorising abbreviations.</p>
+        <div class="make-flex flex-column gap-4">
+          <div class="code-block" style="padding:8px 12px;font-size:11px;"><span style="color:#94a3b8;">Bootstrap: border-start-5 me-4 p-3</span></div>
+          <div class="code-block" style="padding:8px 12px;font-size:11px;"><span style="color:#94a3b8;">Tailwind:  border-l-5 mr-4 p-3</span></div>
+          <div class="code-block" style="padding:8px 12px;font-size:11px;"><span style="color:#86efac;">Santy:    add-border-left-5 add-margin-right-16 add-padding-12</span></div>
+        </div>
+      </div>
+
+      <div class="background-green-50 round-corners-16 add-padding-28 add-border-1 border-color-green-200">
+        <h4 class="set-text-16 text-semibold color-green-800 add-margin-bottom-10">Pixel-exact values — no arbitrary syntax</h4>
+        <p class="set-text-13 color-green-700 line-height-relaxed add-margin-bottom-12">Every px from 0–200 is pre-generated. Bootstrap uses rem steps. Tailwind needs <code style="background:#bbf7d0;padding:1px 4px;border-radius:3px;">[20px]</code> for custom values.</p>
+        <div class="make-flex flex-column gap-4">
+          <div class="code-block" style="padding:8px 12px;font-size:11px;"><span style="color:#94a3b8;">Tailwind: w-[137px]  ← arbitrary syntax</span></div>
+          <div class="code-block" style="padding:8px 12px;font-size:11px;"><span style="color:#86efac;">Santy:   set-width-137  ← built-in</span></div>
+        </div>
+      </div>
+
+      <div class="background-purple-50 round-corners-16 add-padding-28 add-border-1 border-color-purple-200">
+        <h4 class="set-text-16 text-semibold color-purple-800 add-margin-bottom-10">70+ animations (animate.css parity)</h4>
+        <p class="set-text-13 color-purple-700 line-height-relaxed add-margin-bottom-12">Bootstrap has 0, Tailwind has 4, Bulma has 0. SantyCSS ships <strong>70+</strong> — fades, bounces, slides, zooms, flips, specials.</p>
+        <div class="make-flex flex-wrap gap-4">
+          <span style="background:#ede9fe;color:#6d28d9;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:600;font-family:monospace;">animate-bounce-in-from-left</span>
+          <span style="background:#ede9fe;color:#6d28d9;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:600;font-family:monospace;">animate-flip-in-x</span>
+          <span style="background:#ede9fe;color:#6d28d9;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:600;font-family:monospace;">animate-rubber-band</span>
+        </div>
+        <p class="set-text-11 color-purple-500 add-margin-top-8"><a href="animations.html" style="color:#7c3aed;font-weight:600;text-decoration:none;">View all 70+ animations →</a></p>
+      </div>
+
+      <div class="background-orange-50 round-corners-16 add-padding-28 add-border-1 border-color-orange-200">
+        <h4 class="set-text-16 text-semibold color-orange-800 add-margin-bottom-10">No build step — drop-in CDN</h4>
+        <p class="set-text-13 color-orange-700 line-height-relaxed add-margin-bottom-12">Tailwind and Chakra require Node + bundler. Bootstrap requires PostCSS for customisation. SantyCSS works instantly.</p>
+        <div class="code-block" style="padding:10px 14px;font-size:12px;"><span style="color:#86efac;">&lt;link rel="stylesheet" href="santy.css"&gt;</span><br><span style="color:#64748b;">// All 10,000+ classes ready — no build needed.</span></div>
+      </div>
+
+      <div class="background-pink-50 round-corners-16 add-padding-28 add-border-1 border-color-pink-200">
+        <h4 class="set-text-16 text-semibold color-pink-800 add-margin-bottom-10">Modular loading — load only what you need</h4>
+        <p class="set-text-13 color-pink-700 line-height-relaxed add-margin-bottom-12">Split CSS into 3 separate files so you can load only what a page needs. No other utility framework offers this.</p>
+        <div class="make-flex flex-column gap-4">
+          <div class="code-block" style="padding:8px 12px;font-size:11px;"><span style="color:#60a5fa;">santy-core.css</span><span style="color:#64748b;"> — utilities only</span></div>
+          <div class="code-block" style="padding:8px 12px;font-size:11px;"><span style="color:#60a5fa;">santy-components.css</span><span style="color:#64748b;"> — components only</span></div>
+          <div class="code-block" style="padding:8px 12px;font-size:11px;"><span style="color:#60a5fa;">santy-animations.css</span><span style="color:#64748b;"> — animations only</span></div>
+        </div>
+      </div>
+
+      <div class="background-teal-50 round-corners-16 add-padding-28 add-border-1 border-color-teal-200">
+        <h4 class="set-text-16 text-semibold color-teal-800 add-margin-bottom-10">Skeleton, Spinner, Progress — built-in</h4>
+        <p class="set-text-13 color-teal-700 line-height-relaxed add-margin-bottom-12">Bootstrap ships spinners. Tailwind, Bulma, Foundation ship nothing. SantyCSS ships skeleton loaders, spinners, and progress bars.</p>
+        <div class="make-flex align-center gap-16">
+          <div class="make-flex flex-column gap-6">
+            <div class="set-width-120 set-height-12 skeleton round-corners-4"></div>
+            <div class="set-width-80 set-height-12 skeleton round-corners-4"></div>
+            <div class="set-width-100 set-height-12 skeleton round-corners-4"></div>
+          </div>
+          <div class="spinner spinner-lg" style="border-color:rgba(0,0,0,0.1);border-top-color:#0d9488;"></div>
+        </div>
+      </div>
+
+      <div class="background-indigo-50 round-corners-16 add-padding-28 add-border-1 border-color-indigo-200">
+        <h4 class="set-text-16 text-semibold color-indigo-800 add-margin-bottom-10">Human state prefixes + readable responsiveness</h4>
+        <p class="set-text-13 color-indigo-700 line-height-relaxed add-margin-bottom-12">State prefixes read like English. Responsive prefixes describe the viewport in words, not breakpoint codes.</p>
+        <div class="make-flex flex-column gap-4">
+          <div style="font-size:12px;font-family:monospace;background:#e0e7ff;padding:8px 12px;border-radius:6px;color:#312e81;"><span style="color:#4f46e5;">on-hover:</span>scale-110</div>
+          <div style="font-size:12px;font-family:monospace;background:#e0e7ff;padding:8px 12px;border-radius:6px;color:#312e81;"><span style="color:#4f46e5;">on-mobile:</span>make-hidden</div>
+          <div style="font-size:12px;font-family:monospace;background:#e0e7ff;padding:8px 12px;border-radius:6px;color:#312e81;"><span style="color:#4f46e5;">on-focus:</span>add-shadow-md</div>
+        </div>
+      </div>
+
+      <div class="background-amber-50 round-corners-16 add-padding-28 add-border-1 border-color-amber-200">
+        <h4 class="set-text-16 text-semibold color-amber-800 add-margin-bottom-10">JIT runtime + PostCSS + Vite + CLI</h4>
+        <p class="set-text-13 color-amber-700 line-height-relaxed add-margin-bottom-12">SantyCSS works in every mode — CDN link, JIT runtime, PostCSS plugin, Vite plugin, or CLI purge. No other framework covers all these without plugins.</p>
+        <div class="make-flex flex-wrap gap-6">
+          <span class="chip chip-blue">CDN</span>
+          <span class="chip chip-green">JIT</span>
+          <span class="chip" style="background:#dcfce7;color:#15803d;">PostCSS</span>
+          <span class="chip" style="background:#fef9c3;color:#854d0e;">Vite</span>
+          <span class="chip" style="background:#f3f4f6;color:#374151;">CLI</span>
+        </div>
+      </div>
+
+      <div class="background-rose-50 round-corners-16 add-padding-28 add-border-1 border-color-rose-200">
+        <h4 class="set-text-16 text-semibold color-rose-800 add-margin-bottom-10">Text shadow, elevation, centering shortcuts</h4>
+        <p class="set-text-13 color-rose-700 line-height-relaxed add-margin-bottom-12">All missing from Tailwind and most others. SantyCSS ships text-shadow, Material elevation levels, and single-class absolute centering.</p>
+        <div class="make-flex flex-column gap-4">
+          <p class="set-text-16 text-bold text-shadow color-gray-700 add-margin-0">text-shadow</p>
+          <div class="code-block" style="padding:7px 10px;font-size:11px;"><span style="color:#86efac;">pin-center</span><span style="color:#64748b;"> → absolute center in 1 class</span></div>
+          <div class="code-block" style="padding:7px 10px;font-size:11px;"><span style="color:#86efac;">elevation-3</span><span style="color:#64748b;"> → Material Design shadow</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── NAMING CONVENTION ─────────────────────────────────────────────────── -->
+<section class="background-gray-50 add-padding-y-80">
+  <div class="container">
+    <div class="text-center add-margin-bottom-56">
+      <h2 class="set-text-40 text-bold color-gray-900 add-margin-bottom-12" style="letter-spacing:-1px;">Naming Convention</h2>
+      <p class="set-text-18 color-gray-500">Five intuitive patterns. Read once, use forever.</p>
+    </div>
+    <div class="make-grid grid-cols-1 gap-20" style="max-width:860px;margin:0 auto;">
+
+      <!-- Pattern rows -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm make-flex gap-24 align-start">
+        <div class="set-width-40 set-height-40 background-blue-600 round-corners-10 make-flex align-center justify-center flex-shrink-none">
+          <span class="color-white text-bold set-text-18">+</span>
+        </div>
+        <div>
+          <h4 class="set-text-16 text-semibold color-gray-900 add-margin-bottom-6"><code class="chip" style="font-size:14px;">add-{property}-{value}</code> — Additive utilities</h4>
+          <p class="set-text-14 color-gray-500 line-height-relaxed add-margin-bottom-10">Used for properties that you're adding/applying: padding, margin, border, shadow.</p>
+          <div class="make-flex flex-wrap gap-8">
+            <span class="chip">add-padding-24</span>
+            <span class="chip">add-margin-top-16</span>
+            <span class="chip">add-border-left-4</span>
+            <span class="chip">add-border-y-2</span>
+            <span class="chip">add-shadow-lg</span>
+            <span class="chip">add-letter-space-2</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm make-flex gap-24 align-start">
+        <div class="set-width-40 set-height-40 background-green-600 round-corners-10 make-flex align-center justify-center flex-shrink-none">
+          <span class="color-white text-bold set-text-18">→</span>
+        </div>
+        <div>
+          <h4 class="set-text-16 text-semibold color-gray-900 add-margin-bottom-6"><code class="chip" style="font-size:14px;">make-{value}</code> — Behavioral / display</h4>
+          <p class="set-text-14 color-gray-500 line-height-relaxed add-margin-bottom-10">Changes what an element <em>is</em> or how it behaves.</p>
+          <div class="make-flex flex-wrap gap-8">
+            <span class="chip">make-flex</span>
+            <span class="chip">make-grid</span>
+            <span class="chip">make-hidden</span>
+            <span class="chip">make-block</span>
+            <span class="chip">make-circle</span>
+            <span class="chip">make-pill</span>
+            <span class="chip">make-visible</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm make-flex gap-24 align-start">
+        <div class="set-width-40 set-height-40 background-purple-600 round-corners-10 make-flex align-center justify-center flex-shrink-none">
+          <span class="color-white text-bold set-text-18">S</span>
+        </div>
+        <div>
+          <h4 class="set-text-16 text-semibold color-gray-900 add-margin-bottom-6"><code class="chip" style="font-size:14px;">set-{property}-{value}</code> — Size / value setters</h4>
+          <p class="set-text-14 color-gray-500 line-height-relaxed add-margin-bottom-10">Assigns a specific numeric value to a dimension or font-size.</p>
+          <div class="make-flex flex-wrap gap-8">
+            <span class="chip">set-width-320</span>
+            <span class="chip">set-height-full</span>
+            <span class="chip">set-text-24</span>
+            <span class="chip">set-width-1-of-2</span>
+            <span class="chip">max-width-768</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm make-flex gap-24 align-start">
+        <div class="set-width-40 set-height-40 background-orange-500 round-corners-10 make-flex align-center justify-center flex-shrink-none">
+          <span class="color-white text-bold set-text-18">P</span>
+        </div>
+        <div>
+          <h4 class="set-text-16 text-semibold color-gray-900 add-margin-bottom-6"><code class="chip" style="font-size:14px;">pin-{side}-{value}</code> — Positioning</h4>
+          <p class="set-text-14 color-gray-500 line-height-relaxed add-margin-bottom-10">Positions an absolute/fixed element by anchoring it to a side.</p>
+          <div class="make-flex flex-wrap gap-8">
+            <span class="chip">pin-top-0</span>
+            <span class="chip">pin-right-16</span>
+            <span class="chip">pin-bottom-32</span>
+            <span class="chip">pin-center</span>
+            <span class="chip">pin-center-x</span>
+            <span class="chip">pin-all-0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm make-flex gap-24 align-start">
+        <div class="set-width-40 set-height-40 background-pink-600 round-corners-10 make-flex align-center justify-center flex-shrink-none">
+          <span class="color-white text-bold set-text-18">:</span>
+        </div>
+        <div>
+          <h4 class="set-text-16 text-semibold color-gray-900 add-margin-bottom-6"><code class="chip" style="font-size:14px;">{state}:{class}</code> — State &amp; responsive variants</h4>
+          <p class="set-text-14 color-gray-500 line-height-relaxed add-margin-bottom-10">Prefix any class with a state or breakpoint to scope its effect.</p>
+          <div class="make-flex flex-wrap gap-8">
+            <span class="chip">on-hover:scale-110</span>
+            <span class="chip">on-focus:add-shadow-md</span>
+            <span class="chip">on-mobile:make-hidden</span>
+            <span class="chip">md:grid-cols-3</span>
+            <span class="chip">dark:background-gray-900</span>
+            <span class="chip">group-hover:color-blue-500</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── UTILITIES ─────────────────────────────────────────────────────────── -->
+<section id="utilities" class="section background-white add-padding-y-80">
+  <div class="container">
+    <div class="text-center add-margin-bottom-56">
+      <h2 class="set-text-40 text-bold color-gray-900 add-margin-bottom-12" style="letter-spacing:-1px;">Utility Reference</h2>
+      <p class="set-text-18 color-gray-500">The full class name catalogue, organized by category.</p>
+    </div>
+
+    <!-- Tab bar -->
+    <div style="border-bottom:2px solid #e5e7eb;margin-bottom:32px;overflow-x:auto;white-space:nowrap;">
+      <button class="tab-btn active" onclick="openTab(event,'tab-spacing')">Spacing</button>
+      <button class="tab-btn" onclick="openTab(event,'tab-border')">Border</button>
+      <button class="tab-btn" onclick="openTab(event,'tab-typography')">Typography</button>
+      <button class="tab-btn" onclick="openTab(event,'tab-layout')">Layout &amp; Flex</button>
+      <button class="tab-btn" onclick="openTab(event,'tab-sizing')">Sizing</button>
+      <button class="tab-btn" onclick="openTab(event,'tab-colors')">Colors</button>
+      <button class="tab-btn" onclick="openTab(event,'tab-effects')">Effects</button>
+      <button class="tab-btn" onclick="openTab(event,'tab-responsive')">Responsive</button>
+    </div>
+
+    <!-- SPACING TAB -->
+    <div id="tab-spacing" class="tab-content active">
+      <h3 class="set-text-22 text-semibold color-gray-800 add-margin-bottom-24">Spacing — Padding &amp; Margin</h3>
+      <p class="set-text-15 color-gray-500 add-margin-bottom-24 line-height-relaxed">Replace <code class="chip">{n}</code> with any pixel value from <strong>0–200</strong> (every 1px up to 50, then every 4px), plus larger values like 256, 320, 384, 448, 512, 640, 768, 1024.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Class</th><th>CSS Output</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>add-padding-{n}</td><td>padding: {n}px</td><td>All sides</td></tr>
+            <tr><td>add-padding-top-{n}</td><td>padding-top: {n}px</td><td>Top only</td></tr>
+            <tr><td>add-padding-bottom-{n}</td><td>padding-bottom: {n}px</td><td>Bottom only</td></tr>
+            <tr><td>add-padding-left-{n}</td><td>padding-left: {n}px</td><td>Left only</td></tr>
+            <tr><td>add-padding-right-{n}</td><td>padding-right: {n}px</td><td>Right only</td></tr>
+            <tr><td>add-padding-x-{n}</td><td>padding-left + right: {n}px</td><td>Horizontal axis</td></tr>
+            <tr><td>add-padding-y-{n}</td><td>padding-top + bottom: {n}px</td><td>Vertical axis</td></tr>
+            <tr><td>add-margin-{n}</td><td>margin: {n}px</td><td>All sides</td></tr>
+            <tr><td>add-margin-top-{n}</td><td>margin-top: {n}px</td><td>Top only</td></tr>
+            <tr><td>add-margin-bottom-{n}</td><td>margin-bottom: {n}px</td><td>Bottom only</td></tr>
+            <tr><td>add-margin-left-{n}</td><td>margin-left: {n}px</td><td>Left only</td></tr>
+            <tr><td>add-margin-right-{n}</td><td>margin-right: {n}px</td><td>Right only</td></tr>
+            <tr><td>add-margin-x-{n}</td><td>margin-left + right: {n}px</td><td>Horizontal</td></tr>
+            <tr><td>add-margin-y-{n}</td><td>margin-top + bottom: {n}px</td><td>Vertical</td></tr>
+            <tr><td>add-margin-x-auto</td><td>margin-left: auto; margin-right: auto</td><td>Center horizontally</td></tr>
+            <tr><td>center-margin</td><td>margin: 0 auto</td><td>Center block element</td></tr>
+            <tr><td>subtract-margin-{n}</td><td>margin: -{n}px</td><td>Negative margin</td></tr>
+            <tr><td>gap-{n}</td><td>gap: {n}px</td><td>Flex/grid gap</td></tr>
+            <tr><td>gap-x-{n}</td><td>column-gap: {n}px</td><td>Column gap only</td></tr>
+            <tr><td>gap-y-{n}</td><td>row-gap: {n}px</td><td>Row gap only</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Live demo -->
+      <div class="add-margin-top-32 background-gray-50 round-corners-12 add-padding-24">
+        <p class="set-text-13 text-semibold color-gray-400 text-uppercase letter-space-wide add-margin-bottom-16">Live Demo</p>
+        <div class="make-flex flex-wrap gap-12">
+          <div class="add-padding-8 background-blue-100 round-corners-8 set-text-12 color-blue-700">add-padding-8</div>
+          <div class="add-padding-16 background-blue-200 round-corners-8 set-text-12 color-blue-800">add-padding-16</div>
+          <div class="add-padding-24 background-blue-300 round-corners-8 set-text-12 color-blue-900">add-padding-24</div>
+          <div class="add-padding-32 background-blue-400 round-corners-8 set-text-12 color-white">add-padding-32</div>
+        </div>
+        <div class="make-flex flex-wrap gap-0 add-margin-top-16">
+          <div class="add-margin-right-8 add-padding-12 background-green-100 round-corners-8 set-text-12 color-green-800">margin-right-8</div>
+          <div class="add-margin-right-24 add-padding-12 background-green-200 round-corners-8 set-text-12 color-green-900">margin-right-24</div>
+          <div class="add-padding-12 background-green-300 round-corners-8 set-text-12 color-green-900">no extra margin</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BORDER TAB -->
+    <div id="tab-border" class="tab-content">
+      <h3 class="set-text-22 text-semibold color-gray-800 add-margin-bottom-24">Border &amp; Radius</h3>
+      <p class="set-text-15 color-gray-500 add-margin-bottom-24 line-height-relaxed">Border widths: 0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24, 28, 32, 40, 48px</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Class</th><th>CSS Output</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>add-border-{n}</td><td>border: {n}px solid</td><td>All sides</td></tr>
+            <tr><td>add-border-top-{n}</td><td>border-top: {n}px solid</td><td>Top</td></tr>
+            <tr><td>add-border-bottom-{n}</td><td>border-bottom: {n}px solid</td><td>Bottom</td></tr>
+            <tr><td>add-border-left-{n}</td><td>border-left: {n}px solid</td><td>Left</td></tr>
+            <tr><td>add-border-right-{n}</td><td>border-right: {n}px solid</td><td>Right</td></tr>
+            <tr><td>add-border-x-{n}</td><td>border-left + right: {n}px solid</td><td>Horizontal</td></tr>
+            <tr><td>add-border-y-{n}</td><td>border-top + bottom: {n}px solid</td><td>Vertical</td></tr>
+            <tr><td>border-color-{name}-{shade}</td><td>border-color: {hex}</td><td>e.g. border-color-blue-500</td></tr>
+            <tr><td>border-solid / dashed / dotted / double</td><td>border-style: …</td><td>Border style</td></tr>
+            <tr><td>round-corners-{n}</td><td>border-radius: {n}px</td><td>0–128px</td></tr>
+            <tr><td>make-circle</td><td>border-radius: 50%</td><td>Perfect circle</td></tr>
+            <tr><td>make-pill</td><td>border-radius: 9999px</td><td>Pill/capsule shape</td></tr>
+            <tr><td>round-top-{n}</td><td>border-top-left/right-radius: {n}px</td><td>Top corners</td></tr>
+            <tr><td>round-bottom-{n}</td><td>border-bottom-left/right-radius: {n}px</td><td>Bottom corners</td></tr>
+            <tr><td>round-left-{n}</td><td>border-top/bottom-left-radius: {n}px</td><td>Left corners</td></tr>
+            <tr><td>round-right-{n}</td><td>border-top/bottom-right-radius: {n}px</td><td>Right corners</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="add-margin-top-32 background-gray-50 round-corners-12 add-padding-24">
+        <p class="set-text-13 text-semibold color-gray-400 text-uppercase letter-space-wide add-margin-bottom-16">Live Demo</p>
+        <div class="make-flex flex-wrap gap-16">
+          <div class="add-border-1 border-color-gray-400 add-padding-16 round-corners-0 set-text-12 color-gray-700">add-border-1</div>
+          <div class="add-border-2 border-color-blue-500 add-padding-16 round-corners-8 set-text-12 color-blue-700">add-border-2<br>round-corners-8</div>
+          <div class="add-border-4 border-color-green-500 add-padding-16 round-corners-16 set-text-12 color-green-700">add-border-4<br>round-corners-16</div>
+          <div class="add-border-left-6 border-color-purple-500 add-padding-left-16 add-padding-y-12 set-text-12 color-purple-700">add-border-left-6</div>
+          <div class="add-padding-16 make-circle background-pink-100 border-color-pink-400 add-border-3 set-text-12 color-pink-700 set-width-80 set-height-80 make-flex align-center justify-center text-center">make-circle</div>
+          <div class="add-border-3 border-color-orange-400 border-dashed add-padding-16 make-pill set-text-12 color-orange-700">border-dashed<br>make-pill</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TYPOGRAPHY TAB -->
+    <div id="tab-typography" class="tab-content">
+      <h3 class="set-text-22 text-semibold color-gray-800 add-margin-bottom-24">Typography</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Class</th><th>CSS Output</th></tr></thead>
+          <tbody>
+            <tr><td>set-text-{n}</td><td>font-size: {n}px (8–144)</td></tr>
+            <tr><td>text-thin</td><td>font-weight: 100</td></tr>
+            <tr><td>text-extra-light</td><td>font-weight: 200</td></tr>
+            <tr><td>text-light</td><td>font-weight: 300</td></tr>
+            <tr><td>text-normal</td><td>font-weight: 400</td></tr>
+            <tr><td>text-medium</td><td>font-weight: 500</td></tr>
+            <tr><td>text-semibold</td><td>font-weight: 600</td></tr>
+            <tr><td>text-bold</td><td>font-weight: 700</td></tr>
+            <tr><td>text-extra-bold</td><td>font-weight: 800</td></tr>
+            <tr><td>text-black-weight</td><td>font-weight: 900</td></tr>
+            <tr><td>text-italic / text-not-italic</td><td>font-style: italic / normal</td></tr>
+            <tr><td>font-sans / font-serif / font-mono</td><td>System font stacks</td></tr>
+            <tr><td>text-left / center / right / justify</td><td>text-align</td></tr>
+            <tr><td>text-uppercase / lowercase / capitalize</td><td>text-transform</td></tr>
+            <tr><td>text-underline / strikethrough / no-decoration</td><td>text-decoration</td></tr>
+            <tr><td>text-truncate</td><td>Ellipsis overflow truncation</td></tr>
+            <tr><td>text-nowrap</td><td>white-space: nowrap</td></tr>
+            <tr><td>line-height-none / tight / snug / normal / relaxed / loose</td><td>line-height presets</td></tr>
+            <tr><td>add-letter-space-{n}</td><td>letter-spacing: {n}px</td></tr>
+            <tr><td>letter-space-wide / wider / widest</td><td>em-based letter spacing</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="add-margin-top-32 background-gray-50 round-corners-12 add-padding-32">
+        <p class="set-text-13 text-semibold color-gray-400 text-uppercase letter-space-wide add-margin-bottom-24">Font Scale</p>
+        <p class="set-text-48 text-bold color-gray-900 line-height-none">set-text-48</p>
+        <p class="set-text-36 text-bold color-gray-800 line-height-tight">set-text-36 text-bold</p>
+        <p class="set-text-24 text-semibold color-gray-700">set-text-24 text-semibold</p>
+        <p class="set-text-18 text-medium color-gray-600">set-text-18 text-medium</p>
+        <p class="set-text-14 text-normal color-gray-500">set-text-14 text-normal — body text</p>
+        <p class="set-text-12 color-gray-400 text-uppercase letter-space-wider">set-text-12 letter-space-wider uppercase</p>
+      </div>
+    </div>
+
+    <!-- LAYOUT TAB -->
+    <div id="tab-layout" class="tab-content">
+      <h3 class="set-text-22 text-semibold color-gray-800 add-margin-bottom-24">Layout, Flexbox &amp; Grid</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Class</th><th>CSS Output</th></tr></thead>
+          <tbody>
+            <tr><td>make-flex / make-grid / make-block / make-hidden</td><td>display values</td></tr>
+            <tr><td>flex-row / flex-column</td><td>flex-direction</td></tr>
+            <tr><td>flex-wrap / flex-nowrap</td><td>flex-wrap</td></tr>
+            <tr><td>align-center / align-start / align-end / align-stretch</td><td>align-items</td></tr>
+            <tr><td>justify-center / justify-between / justify-start / justify-end / justify-around / justify-evenly</td><td>justify-content</td></tr>
+            <tr><td>flex-grow / flex-shrink / flex-none / flex-equal</td><td>flex shorthand values</td></tr>
+            <tr><td>self-center / self-start / self-end / self-stretch</td><td>align-self</td></tr>
+            <tr><td>place-center</td><td>place-items: center; place-content: center</td></tr>
+            <tr><td>grid-cols-{1-12}</td><td>grid-template-columns: repeat(n, 1fr)</td></tr>
+            <tr><td>grid-rows-{1-6}</td><td>grid-template-rows: repeat(n, 1fr)</td></tr>
+            <tr><td>span-col-{n}</td><td>grid-column: span n</td></tr>
+            <tr><td>span-col-full</td><td>grid-column: 1 / -1</td></tr>
+            <tr><td>gap-{n} / gap-x-{n} / gap-y-{n}</td><td>gap / column-gap / row-gap</td></tr>
+            <tr><td>order-{1-12} / order-first / order-last</td><td>order</td></tr>
+            <tr><td>grid-flow-row / grid-flow-col / grid-flow-dense</td><td>grid-auto-flow</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="add-margin-top-32 background-gray-50 round-corners-12 add-padding-24">
+        <p class="set-text-13 text-semibold color-gray-400 text-uppercase letter-space-wide add-margin-bottom-16">Grid Demo — grid-cols-4 gap-16</p>
+        <div class="make-grid grid-cols-4 gap-16">
+          <div class="demo-box add-padding-16">1</div>
+          <div class="demo-box add-padding-16 span-col-2" style="background:#dbeafe;border-color:#93c5fd;">span-col-2</div>
+          <div class="demo-box add-padding-16">4</div>
+          <div class="demo-box add-padding-16">5</div>
+          <div class="demo-box add-padding-16">6</div>
+          <div class="demo-box add-padding-16 span-col-full" style="background:#dcfce7;border-color:#86efac;">span-col-full</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIZING TAB -->
+    <div id="tab-sizing" class="tab-content">
+      <h3 class="set-text-22 text-semibold color-gray-800 add-margin-bottom-24">Sizing</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Class</th><th>CSS Output</th></tr></thead>
+          <tbody>
+            <tr><td>set-width-{n}</td><td>width: {n}px (0–1024)</td></tr>
+            <tr><td>set-width-full</td><td>width: 100%</td></tr>
+            <tr><td>set-width-screen</td><td>width: 100vw</td></tr>
+            <tr><td>set-width-auto</td><td>width: auto</td></tr>
+            <tr><td>set-width-min / max / fit</td><td>min-content / max-content / fit-content</td></tr>
+            <tr><td>set-width-1-of-2</td><td>width: 50%</td></tr>
+            <tr><td>set-width-1-of-3 / 2-of-3</td><td>width: 33.33% / 66.66%</td></tr>
+            <tr><td>set-width-1-of-4 … 3-of-4</td><td>width: 25% / 50% / 75%</td></tr>
+            <tr><td>set-height-{n}</td><td>height: {n}px (0–1024)</td></tr>
+            <tr><td>set-height-full</td><td>height: 100%</td></tr>
+            <tr><td>set-height-screen</td><td>height: 100vh</td></tr>
+            <tr><td>min-width-{n} / max-width-{n}</td><td>min/max-width: {n}px</td></tr>
+            <tr><td>min-height-{n} / max-height-{n}</td><td>min/max-height: {n}px</td></tr>
+            <tr><td>max-width-none</td><td>max-width: none</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- COLORS TAB -->
+    <div id="tab-colors" class="tab-content">
+      <h3 class="set-text-22 text-semibold color-gray-800 add-margin-bottom-12">Color System</h3>
+      <p class="set-text-15 color-gray-500 add-margin-bottom-32 line-height-relaxed">20 color families × 10 shades (50–900). Use prefixes: <code class="chip">color-</code>, <code class="chip">background-</code>, <code class="chip">border-color-</code>, <code class="chip">fill-</code>, <code class="chip">stroke-</code>.</p>
+
+      <!-- Color palette display -->
+      <div id="colorPaletteDisplay"></div>
+
+      <div class="add-margin-top-32 table-wrap">
+        <table>
+          <thead><tr><th>Pattern</th><th>Example</th><th>CSS Output</th></tr></thead>
+          <tbody>
+            <tr><td>color-{name}-{shade}</td><td>color-blue-500</td><td>color: #3b82f6</td></tr>
+            <tr><td>background-{name}-{shade}</td><td>background-green-100</td><td>background-color: #dcfce7</td></tr>
+            <tr><td>border-color-{name}-{shade}</td><td>border-color-red-600</td><td>border-color: #dc2626</td></tr>
+            <tr><td>fill-{name}-{shade}</td><td>fill-purple-500</td><td>fill: #a855f7 (SVG)</td></tr>
+            <tr><td>stroke-{name}-{shade}</td><td>stroke-teal-400</td><td>stroke: #2dd4bf (SVG)</td></tr>
+            <tr><td>color-white / color-black</td><td>—</td><td>color: #fff / #000</td></tr>
+            <tr><td>background-white / background-black</td><td>—</td><td>background-color: #fff / #000</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- EFFECTS TAB -->
+    <div id="tab-effects" class="tab-content">
+      <h3 class="set-text-22 text-semibold color-gray-800 add-margin-bottom-24">Effects, Transforms &amp; Animations</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Class</th><th>CSS Output</th></tr></thead>
+          <tbody>
+            <tr><td>add-shadow-sm / md / lg / xl / inner</td><td>box-shadow presets</td></tr>
+            <tr><td>no-shadow</td><td>box-shadow: none</td></tr>
+            <tr><td>opacity-{0–100}</td><td>opacity: 0–1 (in steps of 5)</td></tr>
+            <tr><td>transition-fast / normal / slow</td><td>transition: all 0.15s / 0.3s / 0.5s ease</td></tr>
+            <tr><td>transition-colors / opacity / transform</td><td>Targeted transitions</td></tr>
+            <tr><td>rotate-45 / 90 / 135 / 180 / 270</td><td>transform: rotate(Ndeg)</td></tr>
+            <tr><td>scale-75 / 90 / 95 / 100 / 105 / 110 / 125 / 150</td><td>transform: scale(N)</td></tr>
+            <tr><td>flip-horizontal / flip-vertical</td><td>transform: scaleX(-1) / scaleY(-1)</td></tr>
+            <tr><td>skew-x-3 / 6 / 12 / skew-y-3 / 6 / 12</td><td>transform: skewX/Y(Ndeg)</td></tr>
+            <tr><td>blur-sm / blur / blur-md / blur-lg / blur-xl</td><td>filter: blur(Npx)</td></tr>
+            <tr><td>grayscale / sepia / invert</td><td>filter presets</td></tr>
+            <tr><td>brightness-{50–200} / contrast-{50–200}</td><td>filter: brightness/contrast</td></tr>
+            <tr><td>animate-spin / ping / pulse / bounce</td><td>Looping animations</td></tr>
+            <tr><td>animate-fade-in / fade-in-from-top / …</td><td>9 fade entrances</td></tr>
+            <tr><td>animate-bounce-in-from-{top/bottom/left/right}</td><td>5 bounce entrances</td></tr>
+            <tr><td>animate-slide-in-from-{side} / slide-out-to-{side}</td><td>4+4 slide variants</td></tr>
+            <tr><td>animate-zoom-in / zoom-in-from-{side} / zoom-out-…</td><td>5+5 zoom variants</td></tr>
+            <tr><td>animate-flip / flip-in-x / flip-in-y / flip-out-x / y</td><td>5 flip variants</td></tr>
+            <tr><td>animate-shake-x / shake-y / rubber-band / tada / wobble</td><td>Attention seekers</td></tr>
+            <tr><td>animate-rotate-in / rotate-in-from-{corner}</td><td>5+5 rotate variants</td></tr>
+            <tr><td>animate-back-in-from-{side} / back-out-to-{side}</td><td>4+4 back variants</td></tr>
+            <tr><td>animate-hinge / jack-in-box / roll-in / roll-out</td><td>Specials</td></tr>
+            <tr><td>animation-speed-{fastest → glacial}</td><td>Duration helpers (0.3s–3s)</td></tr>
+            <tr><td>animation-delay-{100–3000}</td><td>Delay in ms</td></tr>
+            <tr><td>animation-loop-{1–5} / forever</td><td>Iteration count</td></tr>
+            <tr><td>animation-fill-{none/forwards/backwards/both}</td><td>Fill mode</td></tr>
+            <tr><td>drop-shadow-sm / md / lg</td><td>filter: drop-shadow(…)</td></tr>
+            <tr><td>text-shadow-sm / md / lg</td><td>text-shadow presets</td></tr>
+            <tr><td>blend-multiply / screen / overlay / …</td><td>mix-blend-mode</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="add-margin-top-32 background-gray-50 round-corners-12 add-padding-24">
+        <p class="set-text-13 text-semibold color-gray-400 text-uppercase letter-space-wide add-margin-bottom-20">Animation Demo</p>
+        <div class="make-flex flex-wrap gap-24 align-center add-margin-bottom-20">
+          <div class="set-width-40 set-height-40 background-blue-500 make-circle animate-spin"></div>
+          <div class="set-width-40 set-height-40 background-green-500 round-corners-8 animate-pulse"></div>
+          <div class="set-width-40 set-height-40 background-orange-500 round-corners-8 animate-bounce"></div>
+          <div class="add-padding-16 background-white add-shadow-md round-corners-12 set-text-14 color-gray-700 animate-fade-in">animate-fade-in</div>
+          <div class="add-padding-16 background-white add-shadow-md round-corners-12 set-text-14 color-gray-700 animate-bounce-in-from-left">animate-bounce-in-from-left</div>
+          <div class="add-padding-16 background-white add-shadow-md round-corners-12 set-text-14 color-gray-700 animate-fade-in-from-top animation-delay-300">animate-fade-in-from-top</div>
+        </div>
+        <div class="make-flex flex-wrap gap-24 align-center">
+          <div class="add-padding-16 background-white add-shadow-md round-corners-12 set-text-14 color-gray-700 animate-rubber-band animation-delay-200">animate-rubber-band</div>
+          <div class="add-padding-16 background-white add-shadow-md round-corners-12 set-text-14 color-gray-700 animate-zoom-in animation-delay-400">animate-zoom-in</div>
+          <div class="set-width-48 set-height-48 skeleton round-corners-8"></div>
+          <div class="progress set-width-200"><div class="progress-bar" style="width:65%"></div></div>
+        </div>
+        <p class="set-text-12 color-gray-400 add-margin-top-16">→ <a href="animations.html" style="color:#3b82f6;text-decoration:none;font-weight:600;">See all 70+ animations with live previews</a></p>
+      </div>
+    </div>
+
+    <!-- RESPONSIVE TAB -->
+    <div id="tab-responsive" class="tab-content">
+      <h3 class="set-text-22 text-semibold color-gray-800 add-margin-bottom-24">Responsive &amp; State Variants</h3>
+
+      <h4 class="set-text-16 text-semibold color-gray-700 add-margin-bottom-12">Breakpoints</h4>
+      <div class="table-wrap add-margin-bottom-32">
+        <table>
+          <thead><tr><th>Prefix</th><th>Media Query</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td>on-mobile:</td><td>max-width: 639px</td><td>on-mobile:make-hidden</td></tr>
+            <tr><td>on-tablet:</td><td>640px – 1023px</td><td>on-tablet:grid-cols-2</td></tr>
+            <tr><td>on-desktop:</td><td>min-width: 1024px</td><td>on-desktop:grid-cols-4</td></tr>
+            <tr><td>on-wide:</td><td>min-width: 1280px</td><td>on-wide:set-text-20</td></tr>
+            <tr><td>sm:</td><td>min-width: 640px</td><td>sm:make-flex</td></tr>
+            <tr><td>md:</td><td>min-width: 768px</td><td>md:grid-cols-3</td></tr>
+            <tr><td>lg:</td><td>min-width: 1024px</td><td>lg:add-padding-48</td></tr>
+            <tr><td>xl:</td><td>min-width: 1280px</td><td>xl:set-text-24</td></tr>
+            <tr><td>xxl:</td><td>min-width: 1536px</td><td>xxl:container</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 class="set-text-16 text-semibold color-gray-700 add-margin-bottom-12">State Variants</h4>
+      <div class="table-wrap add-margin-bottom-32">
+        <table>
+          <thead><tr><th>Prefix</th><th>Targets</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td>on-hover:</td><td>:hover</td><td>on-hover:background-blue-600</td></tr>
+            <tr><td>on-focus:</td><td>:focus</td><td>on-focus:add-shadow-md</td></tr>
+            <tr><td>on-active:</td><td>:active</td><td>on-active:scale-95</td></tr>
+            <tr><td>on-disabled:</td><td>:disabled</td><td>on-disabled:opacity-50</td></tr>
+            <tr><td>on-checked:</td><td>:checked</td><td>on-checked:background-blue-500</td></tr>
+            <tr><td>on-first:</td><td>:first-child</td><td>on-first:add-margin-top-0</td></tr>
+            <tr><td>on-last:</td><td>:last-child</td><td>on-last:add-margin-bottom-0</td></tr>
+            <tr><td>on-odd: / on-even:</td><td>nth-child</td><td>on-odd:background-gray-50</td></tr>
+            <tr><td>on-placeholder:</td><td>::placeholder</td><td>on-placeholder:color-gray-400</td></tr>
+            <tr><td>on-focus-within:</td><td>:focus-within</td><td>on-focus-within:add-shadow-md</td></tr>
+            <tr><td>on-focus-visible:</td><td>:focus-visible</td><td>on-focus-visible:outline</td></tr>
+            <tr><td>dark:</td><td>prefers-color-scheme: dark</td><td>dark:background-gray-900</td></tr>
+            <tr><td>group-hover:</td><td>Parent .group:hover</td><td>group-hover:color-blue-500</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="code-block">
+<pre><span class="c-com">&lt;!-- Responsive card grid: 1 col mobile → 2 col tablet → 3 col desktop --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"make-grid grid-cols-1 gap-16
+          on-tablet:grid-cols-2
+          on-desktop:grid-cols-3"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"card group cursor-pointer transition-normal
+              on-hover:add-shadow-lg on-hover:scale-102"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"color-gray-600 group-hover:color-blue-600 transition-colors"</span><span class="c-tag">&gt;</span>
+      Hover me
+    <span class="c-tag">&lt;/span&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre>
+      </div>
+    </div>
+
+  </div><!-- end container -->
+</section>
+
+<!-- ─── COMPONENTS ────────────────────────────────────────────────────────── -->
+<section id="components" class="section background-gray-50 add-padding-y-80">
+  <div class="container">
+    <div class="text-center add-margin-bottom-56">
+      <h2 class="set-text-40 text-bold color-gray-900 add-margin-bottom-12" style="letter-spacing:-1px;">Component Shortcuts</h2>
+      <p class="set-text-18 color-gray-500">High-level classes for common patterns — built on top of utilities.</p>
+    </div>
+
+    <!-- Component grid: 3 columns on desktop -->
+    <div class="make-grid grid-cols-3 gap-24 add-margin-bottom-32">
+
+      <!-- Buttons -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+        <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Buttons</h3>
+        <div class="make-flex flex-wrap gap-8 add-margin-bottom-12">
+          <button class="btn btn-primary btn-sm">Primary</button>
+          <button class="btn btn-success btn-sm">Success</button>
+          <button class="btn btn-danger btn-sm">Danger</button>
+          <button class="btn btn-warning btn-sm">Warning</button>
+          <button class="btn btn-outline btn-sm color-blue-600">Outline</button>
+          <button class="btn btn-ghost btn-sm color-gray-700">Ghost</button>
+        </div>
+        <code class="chip">.btn .btn-primary .btn-sm/.lg/.xl</code>
+      </div>
+
+      <!-- Modal -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+        <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Modal / Dialog</h3>
+        <a href="#demo-modal" class="btn btn-primary btn-sm">Open Modal</a>
+        <div id="demo-modal" class="modal-overlay">
+          <div class="modal-box" style="max-width:380px;">
+            <div class="modal-header">
+              <h4 class="modal-title">Confirm Action</h4>
+              <a href="#" class="modal-close"></a>
+            </div>
+            <div class="modal-body">Are you sure you want to delete this item? This action cannot be undone.</div>
+            <div class="modal-footer">
+              <a href="#" class="btn btn-ghost btn-sm color-gray-600">Cancel</a>
+              <button class="btn btn-danger btn-sm">Delete</button>
+            </div>
+          </div>
+        </div>
+        <p class="set-text-12 color-gray-500 add-margin-top-12">CSS-only via <code class="chip">&lt;a href="#modal-id"&gt;</code></p>
+      </div>
+
+      <!-- Dropdown -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+        <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Dropdown Menu</h3>
+        <div class="dropdown">
+          <button class="btn btn-primary btn-sm dropdown-toggle" onclick="this.closest('.dropdown').classList.toggle('open')">Options ▾</button>
+          <div class="dropdown-menu">
+            <div class="dropdown-header">Actions</div>
+            <a href="#" class="dropdown-item">✏️ Edit</a>
+            <a href="#" class="dropdown-item">📋 Duplicate</a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item danger">🗑️ Delete</a>
+          </div>
+        </div>
+        <code class="chip add-margin-top-12">.dropdown .dropdown-menu .dropdown-item</code>
+      </div>
+
+      <!-- Tabs -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+        <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Tabs</h3>
+        <div class="tabs add-margin-bottom-12">
+          <button class="tabs-item active" onclick="switchTab(this,'tab1')">Overview</button>
+          <button class="tabs-item" onclick="switchTab(this,'tab2')">Details</button>
+          <button class="tabs-item" onclick="switchTab(this,'tab3')">Settings</button>
+        </div>
+        <div id="tab1" class="tab-panel active set-text-13 color-gray-600">Overview content here.</div>
+        <div id="tab2" class="tab-panel set-text-13 color-gray-600">Details content here.</div>
+        <div id="tab3" class="tab-panel set-text-13 color-gray-600">Settings content here.</div>
+        <code class="chip add-margin-top-12">.tabs .tabs-item.active .tab-panel</code>
+      </div>
+
+      <!-- Accordion -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+        <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Accordion</h3>
+        <div class="accordion">
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" onclick="toggleAccordion(this)">
+              What is SantyCSS?
+              <svg class="accordion-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="accordion-body">A plain-English utility-first CSS framework.</div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" onclick="toggleAccordion(this)">
+              No build step needed?
+              <svg class="accordion-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="accordion-body">Just drop in a single CSS file and go.</div>
+          </div>
+        </div>
+        <code class="chip add-margin-top-12">.accordion .accordion-header .accordion-body</code>
+      </div>
+
+      <!-- Toast / Notification -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+        <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Toast / Notification</h3>
+        <div class="notification notification-success add-margin-bottom-8">
+          <div><div class="notification-title">Saved!</div><div class="notification-desc">Your changes were saved.</div></div>
+        </div>
+        <div class="notification notification-error">
+          <div><div class="notification-title">Error</div><div class="notification-desc">Failed to connect.</div></div>
+        </div>
+        <code class="chip add-margin-top-12">.notification .notification-success/.error</code>
+      </div>
+
+      <!-- Progress + Skeleton -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+        <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Progress &amp; Skeleton</h3>
+        <div class="progress add-margin-bottom-8"><div class="progress-bar" style="width:65%"></div></div>
+        <div class="progress add-margin-bottom-16"><div class="progress-bar" style="width:35%;background:#22c55e;"></div></div>
+        <div class="skeleton set-height-16 round-corners-4 add-margin-bottom-8"></div>
+        <div class="skeleton set-height-16 round-corners-4 add-margin-bottom-8" style="width:80%"></div>
+        <div class="skeleton set-height-16 round-corners-4" style="width:60%"></div>
+        <code class="chip add-margin-top-12">.progress .progress-bar / .skeleton</code>
+      </div>
+
+      <!-- Badges + Chips -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+        <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Badges &amp; Chips</h3>
+        <div class="make-flex flex-wrap gap-8 add-margin-bottom-12">
+          <span class="badge background-blue-100 color-blue-700">New</span>
+          <span class="badge background-green-100 color-green-700">Active</span>
+          <span class="badge background-red-100 color-red-700">Error</span>
+          <span class="badge background-purple-600 color-white">Beta</span>
+        </div>
+        <div class="make-flex flex-wrap gap-8">
+          <span class="chip chip-blue">Design</span>
+          <span class="chip chip-green">Done</span>
+          <span class="chip chip-red">Urgent</span>
+          <span class="chip chip-purple">Review</span>
+        </div>
+        <code class="chip add-margin-top-12">.badge / .chip .chip-blue/.green</code>
+      </div>
+
+      <!-- Drawer / Sidebar -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+        <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Sidebar / Drawer</h3>
+        <a href="#demo-drawer" class="btn btn-primary btn-sm">Open Drawer</a>
+        <div id="demo-drawer" class="drawer-overlay">
+          <div class="drawer-panel">
+            <div class="drawer-header">
+              <span class="set-text-16 text-semibold">Sidebar</span>
+              <a href="#" class="btn-close"></a>
+            </div>
+            <div class="drawer-body">
+              <p class="set-text-14 color-gray-600">Sidebar content goes here.</p>
+            </div>
+          </div>
+        </div>
+        <p class="set-text-12 color-gray-500 add-margin-top-12">CSS-only via <code class="chip">:target</code></p>
+      </div>
+
+      <!-- Table -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+        <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Table</h3>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead><tr><th>Name</th><th>Role</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Alice</td><td>Admin</td><td><span class="badge background-green-100 color-green-700">Active</span></td></tr>
+              <tr><td>Bob</td><td>Editor</td><td><span class="badge background-yellow-100 color-yellow-700">Pending</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <code class="chip add-margin-top-8">.table .table-hover .table-striped</code>
+      </div>
+
+      <!-- Pagination -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+        <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Pagination &amp; Breadcrumb</h3>
+        <ul class="pagination add-margin-bottom-16">
+          <li class="page-item disabled"><a class="page-link" href="#">«</a></li>
+          <li class="page-item active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">»</a></li>
+        </ul>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Docs</a></li>
+          <li class="breadcrumb-item active">Components</li>
+        </ol>
+        <code class="chip add-margin-top-8">.pagination .page-item / .breadcrumb</code>
+      </div>
+
+      <!-- Toggle + Range -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+        <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Toggle &amp; Range</h3>
+        <div class="make-flex align-center gap-16 add-margin-bottom-16">
+          <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+          <label class="toggle toggle-green"><input type="checkbox"><span class="toggle-slider"></span></label>
+          <label class="toggle toggle-purple"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+        </div>
+        <input class="range" type="range" value="60" />
+        <code class="chip add-margin-top-12">.toggle .toggle-slider / .range</code>
+      </div>
+
+      <!-- Stepper -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+        <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Stepper</h3>
+        <ul class="steps">
+          <li class="step done"><div class="step-dot">✓</div><span class="step-label">Account</span></li>
+          <li class="step active"><div class="step-dot">2</div><span class="step-label">Profile</span></li>
+          <li class="step"><div class="step-dot">3</div><span class="step-label">Payment</span></li>
+        </ul>
+        <code class="chip add-margin-top-12">.steps .step .step.active .step.done</code>
+      </div>
+
+      <!-- Cards -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+        <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Card</h3>
+        <div class="card" style="box-shadow:none;border:1px solid #e5e7eb;">
+          <div class="card-header make-flex align-center justify-between">
+            <span class="set-text-14 text-semibold color-gray-800">Card Title</span>
+            <span class="badge background-green-100 color-green-700">Active</span>
+          </div>
+          <div class="card-body set-text-13 color-gray-500">Card body content goes here with a white background, radius, and shadow.</div>
+          <div class="card-footer make-flex justify-end gap-8">
+            <button class="btn btn-ghost btn-sm color-gray-600">Cancel</button>
+            <button class="btn btn-primary btn-sm">Save</button>
+          </div>
+        </div>
+        <code class="chip add-margin-top-8">.card .card-header .card-body .card-footer</code>
+      </div>
+
+      <!-- Inputs -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+        <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Form Inputs</h3>
+        <div class="make-flex flex-column gap-10">
+          <input class="input" type="text" placeholder="Default input" />
+          <select class="select"><option>Select option</option><option>Option 1</option></select>
+          <textarea class="textarea" rows="2" placeholder="Textarea..."></textarea>
+          <div class="input-group">
+            <span class="input-addon">https://</span>
+            <input class="input" type="text" placeholder="yoursite.com" />
+          </div>
+        </div>
+        <code class="chip add-margin-top-8">.input .select .textarea .input-group</code>
+      </div>
+
+      <!-- Avatar + Spinner -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+        <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Avatar &amp; Spinner</h3>
+        <div class="make-flex align-center gap-12 add-margin-bottom-16">
+          <div class="avatar avatar-sm background-blue-600 color-white set-text-12 text-semibold">JS</div>
+          <div class="avatar avatar-md background-green-600 color-white set-text-14 text-semibold">AB</div>
+          <div class="avatar avatar-lg background-purple-600 color-white set-text-18 text-semibold">CD</div>
+        </div>
+        <div class="make-flex align-center gap-16">
+          <div class="spinner spinner-sm"></div>
+          <div class="spinner spinner-md"></div>
+          <div class="spinner spinner-lg"></div>
+        </div>
+        <code class="chip add-margin-top-12">.avatar .avatar-md / .spinner .spinner-lg</code>
+      </div>
+
+      <!-- Alert -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+        <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Alerts</h3>
+        <div class="alert alert-info add-margin-bottom-8 set-text-13"><strong>Info:</strong> Informational message.</div>
+        <div class="alert alert-success add-margin-bottom-8 set-text-13"><strong>Success:</strong> Changes saved.</div>
+        <div class="alert alert-warning add-margin-bottom-8 set-text-13"><strong>Warning:</strong> Review this.</div>
+        <div class="alert alert-danger set-text-13"><strong>Error:</strong> Something failed.</div>
+        <code class="chip add-margin-top-8">.alert .alert-info/.success/.warning/.danger</code>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── EXAMPLES ──────────────────────────────────────────────────────────── -->
+<section id="examples" class="section background-white add-padding-y-80">
+  <div class="container">
+    <div class="text-center add-margin-bottom-56">
+      <h2 class="set-text-40 text-bold color-gray-900 add-margin-bottom-12" style="letter-spacing:-1px;">Real-World Examples</h2>
+      <p class="set-text-18 color-gray-500">Full UI patterns built entirely with SantyCSS classes.</p>
+    </div>
+
+    <!-- Example 1: Pricing card -->
+    <div class="add-margin-bottom-64">
+      <h3 class="set-text-24 text-semibold color-gray-800 add-margin-bottom-24">Pricing Cards</h3>
+      <div class="make-grid grid-cols-3 gap-24">
+        <!-- Starter -->
+        <div class="background-white add-border-1 border-color-gray-200 round-corners-20 add-padding-32 make-flex flex-column">
+          <div class="add-margin-bottom-24">
+            <p class="set-text-13 text-semibold color-gray-500 text-uppercase letter-space-wide add-margin-bottom-8">Starter</p>
+            <div class="make-flex align-end gap-4 add-margin-bottom-8">
+              <span class="set-text-48 text-bold color-gray-900" style="line-height:1;">$0</span>
+              <span class="set-text-16 color-gray-500 add-margin-bottom-8">/month</span>
+            </div>
+            <p class="set-text-14 color-gray-500">Perfect for personal projects.</p>
+          </div>
+          <hr class="divider">
+          <ul class="list-none flex-equal make-flex flex-column gap-10 add-margin-bottom-28">
+            <li class="make-flex align-center gap-10 set-text-14 color-gray-600">
+              <svg width="16" height="16" fill="none" stroke="#22c55e" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>5 Projects
+            </li>
+            <li class="make-flex align-center gap-10 set-text-14 color-gray-600">
+              <svg width="16" height="16" fill="none" stroke="#22c55e" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>2GB Storage
+            </li>
+            <li class="make-flex align-center gap-10 set-text-14 color-gray-400">
+              <svg width="16" height="16" fill="none" stroke="#d1d5db" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>Team features
+            </li>
+          </ul>
+          <button class="btn btn-outline btn-full color-gray-700">Get Started</button>
+        </div>
+        <!-- Pro (featured) -->
+        <div class="background-blue-600 round-corners-20 add-padding-32 make-flex flex-column add-shadow-xl" style="transform:scale(1.04);">
+          <div class="make-flex justify-between align-start add-margin-bottom-24">
+            <div>
+              <p class="set-text-13 text-semibold color-blue-200 text-uppercase letter-space-wide add-margin-bottom-8">Pro</p>
+              <div class="make-flex align-end gap-4 add-margin-bottom-8">
+                <span class="set-text-48 text-bold color-white" style="line-height:1;">$29</span>
+                <span class="set-text-16 color-blue-200 add-margin-bottom-8">/month</span>
+              </div>
+              <p class="set-text-14 color-blue-200">For growing teams.</p>
+            </div>
+            <span class="badge background-white color-blue-600">Popular</span>
+          </div>
+          <hr style="border-color:rgba(255,255,255,0.2);margin:0 0 20px;">
+          <ul class="list-none flex-equal make-flex flex-column gap-10 add-margin-bottom-28">
+            <li class="make-flex align-center gap-10 set-text-14 color-white">
+              <svg width="16" height="16" fill="none" stroke="#86efac" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Unlimited Projects
+            </li>
+            <li class="make-flex align-center gap-10 set-text-14 color-white">
+              <svg width="16" height="16" fill="none" stroke="#86efac" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>50GB Storage
+            </li>
+            <li class="make-flex align-center gap-10 set-text-14 color-white">
+              <svg width="16" height="16" fill="none" stroke="#86efac" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Team features
+            </li>
+          </ul>
+          <button class="btn btn-full" style="background:#fff;color:#2563eb;">Start Free Trial</button>
+        </div>
+        <!-- Enterprise -->
+        <div class="background-white add-border-1 border-color-gray-200 round-corners-20 add-padding-32 make-flex flex-column">
+          <div class="add-margin-bottom-24">
+            <p class="set-text-13 text-semibold color-gray-500 text-uppercase letter-space-wide add-margin-bottom-8">Enterprise</p>
+            <div class="make-flex align-end gap-4 add-margin-bottom-8">
+              <span class="set-text-48 text-bold color-gray-900" style="line-height:1;">Custom</span>
+            </div>
+            <p class="set-text-14 color-gray-500">For large organizations.</p>
+          </div>
+          <hr class="divider">
+          <ul class="list-none flex-equal make-flex flex-column gap-10 add-margin-bottom-28">
+            <li class="make-flex align-center gap-10 set-text-14 color-gray-600">
+              <svg width="16" height="16" fill="none" stroke="#22c55e" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Everything in Pro
+            </li>
+            <li class="make-flex align-center gap-10 set-text-14 color-gray-600">
+              <svg width="16" height="16" fill="none" stroke="#22c55e" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>SLA &amp; Support
+            </li>
+            <li class="make-flex align-center gap-10 set-text-14 color-gray-600">
+              <svg width="16" height="16" fill="none" stroke="#22c55e" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Custom Integrations
+            </li>
+          </ul>
+          <button class="btn btn-outline btn-full color-gray-700">Contact Sales</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Example 2: Profile card -->
+    <div class="add-margin-bottom-64">
+      <h3 class="set-text-24 text-semibold color-gray-800 add-margin-bottom-24">Profile Card</h3>
+      <div class="make-grid grid-cols-3 gap-24">
+        <div class="card group cursor-pointer transition-normal on-hover:add-shadow-lg" style="max-width:300px;">
+          <div style="height:80px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);"></div>
+          <div class="card-body text-center add-padding-top-0">
+            <div class="avatar avatar-xl background-white add-border-4 border-color-white add-shadow-sm center-margin" style="margin-top:-40px;margin-bottom:12px;">
+              <span class="set-text-28 text-bold color-blue-600">JD</span>
+            </div>
+            <h4 class="set-text-18 text-semibold color-gray-900">Jane Doe</h4>
+            <p class="set-text-14 color-gray-500 add-margin-bottom-16">Product Designer · San Francisco</p>
+            <div class="make-flex justify-center gap-16 add-margin-bottom-20">
+              <div class="text-center">
+                <div class="set-text-18 text-bold color-gray-900">128</div>
+                <div class="set-text-12 color-gray-500">Projects</div>
+              </div>
+              <div class="divider-vertical"></div>
+              <div class="text-center">
+                <div class="set-text-18 text-bold color-gray-900">4.9k</div>
+                <div class="set-text-12 color-gray-500">Followers</div>
+              </div>
+              <div class="divider-vertical"></div>
+              <div class="text-center">
+                <div class="set-text-18 text-bold color-gray-900">312</div>
+                <div class="set-text-12 color-gray-500">Following</div>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-full">Follow</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Example 3: Stats -->
+    <div>
+      <h3 class="set-text-24 text-semibold color-gray-800 add-margin-bottom-24">Stats Dashboard</h3>
+      <div class="make-grid grid-cols-4 gap-20">
+        <div class="background-white round-corners-16 add-padding-24 add-shadow-sm add-border-1 border-color-gray-100">
+          <div class="make-flex align-center justify-between add-margin-bottom-16">
+            <span class="set-text-13 text-semibold color-gray-500 text-uppercase letter-space-wide">Revenue</span>
+            <div class="set-width-36 set-height-36 background-green-100 round-corners-8 make-flex align-center justify-center">
+              <svg width="18" height="18" fill="none" stroke="#16a34a" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg>
+            </div>
+          </div>
+          <div class="set-text-32 text-bold color-gray-900 add-margin-bottom-4">$84,250</div>
+          <div class="make-flex align-center gap-4 set-text-13">
+            <span class="color-green-600 text-semibold">↑ 12.5%</span>
+            <span class="color-gray-400">vs last month</span>
+          </div>
+        </div>
+        <div class="background-white round-corners-16 add-padding-24 add-shadow-sm add-border-1 border-color-gray-100">
+          <div class="make-flex align-center justify-between add-margin-bottom-16">
+            <span class="set-text-13 text-semibold color-gray-500 text-uppercase letter-space-wide">Users</span>
+            <div class="set-width-36 set-height-36 background-blue-100 round-corners-8 make-flex align-center justify-center">
+              <svg width="18" height="18" fill="none" stroke="#2563eb" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+          </div>
+          <div class="set-text-32 text-bold color-gray-900 add-margin-bottom-4">24,891</div>
+          <div class="make-flex align-center gap-4 set-text-13">
+            <span class="color-green-600 text-semibold">↑ 8.2%</span>
+            <span class="color-gray-400">vs last month</span>
+          </div>
+        </div>
+        <div class="background-white round-corners-16 add-padding-24 add-shadow-sm add-border-1 border-color-gray-100">
+          <div class="make-flex align-center justify-between add-margin-bottom-16">
+            <span class="set-text-13 text-semibold color-gray-500 text-uppercase letter-space-wide">Orders</span>
+            <div class="set-width-36 set-height-36 background-purple-100 round-corners-8 make-flex align-center justify-center">
+              <svg width="18" height="18" fill="none" stroke="#7c3aed" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 01-8 0"/></svg>
+            </div>
+          </div>
+          <div class="set-text-32 text-bold color-gray-900 add-margin-bottom-4">1,429</div>
+          <div class="make-flex align-center gap-4 set-text-13">
+            <span class="color-red-500 text-semibold">↓ 3.1%</span>
+            <span class="color-gray-400">vs last month</span>
+          </div>
+        </div>
+        <div class="background-white round-corners-16 add-padding-24 add-shadow-sm add-border-1 border-color-gray-100">
+          <div class="make-flex align-center justify-between add-margin-bottom-16">
+            <span class="set-text-13 text-semibold color-gray-500 text-uppercase letter-space-wide">Conversion</span>
+            <div class="set-width-36 set-height-36 background-amber-100 round-corners-8 make-flex align-center justify-center">
+              <svg width="18" height="18" fill="none" stroke="#b45309" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            </div>
+          </div>
+          <div class="set-text-32 text-bold color-gray-900 add-margin-bottom-4">5.74%</div>
+          <div class="make-flex align-center gap-4 set-text-13">
+            <span class="color-green-600 text-semibold">↑ 1.4%</span>
+            <span class="color-gray-400">vs last month</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────────────────────── -->
+<footer class="background-gray-900 add-padding-y-56">
+  <div class="container">
+    <div class="make-grid grid-cols-4 gap-40 add-margin-bottom-48">
+      <div>
+        <div class="make-flex align-center gap-10 add-margin-bottom-16">
+          <div class="make-flex align-center justify-center set-width-32 set-height-32 background-blue-600 round-corners-8">
+            <svg width="18" height="18" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </div>
+          <span class="set-text-18 text-bold color-white">Santy<span class="color-blue-400">CSS</span></span>
+        </div>
+        <p class="set-text-14 color-gray-400 line-height-relaxed">Plain-English utility CSS. No build step. Just drop in and start building.</p>
+      </div>
+      <div>
+        <h5 class="set-text-13 text-semibold color-gray-400 text-uppercase letter-space-wide add-margin-bottom-16">Framework</h5>
+        <ul class="list-none make-flex flex-column gap-10">
+          <li><a href="#getting-started" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Getting Started</a></li>
+          <li><a href="#utilities" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Utilities</a></li>
+          <li><a href="#components" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Components</a></li>
+          <li><a href="#examples" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Examples</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="set-text-13 text-semibold color-gray-400 text-uppercase letter-space-wide add-margin-bottom-16">Resources</h5>
+        <ul class="list-none make-flex flex-column gap-10">
+          <li><a href="demo.html" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Live Demo</a></li>
+          <li><a href="animations.html" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Animations Showcase</a></li>
+          <li><a href="jit-demo.html" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">JIT Demo</a></li>
+          <li><a href="santy.css" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Download CSS</a></li>
+          <li><a href="build.js" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Build Script</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="set-text-13 text-semibold color-gray-400 text-uppercase letter-space-wide add-margin-bottom-16">Quick Stats</h5>
+        <ul class="list-none make-flex flex-column gap-10">
+          <li class="set-text-14 color-gray-400">📦 ~620KB CSS</li>
+          <li class="set-text-14 color-gray-400">🎨 20 color families</li>
+          <li class="set-text-14 color-gray-400">🎬 70+ animations</li>
+          <li class="set-text-14 color-gray-400">⚡ No build step</li>
+          <li class="set-text-14 color-gray-400">📱 Responsive variants</li>
+          <li class="set-text-14 color-gray-400">🌙 Dark mode support</li>
+        </ul>
+      </div>
+    </div>
+    <hr style="border-color:#374151;margin-bottom:24px;">
+    <div class="make-flex align-center justify-between">
+      <p class="set-text-13 color-gray-500">© 2026 SantyCSS. Built with plain English.</p>
+      <p class="set-text-13 color-gray-500">MIT License</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── SCRIPTS ────────────────────────────────────────────────────────────── -->
+<script>
+// ─── Download CSS ──────────────────────────────────────────────────────────
+function downloadCSS(filename) {
+  filename = filename || 'santy.css';
+  var a = document.createElement('a');
+  a.href = filename;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+// Download purged CSS (only classes used on this page)
+function downloadPurgedCSS() {
+  // Collect all unique class names from the current page
+  var used = new Set();
+  document.querySelectorAll('[class]').forEach(function(el) {
+    el.classList.forEach(function(c) { used.add(c); });
+  });
+  // Fetch santy.css and filter
+  fetch('santy.css')
+    .then(function(r){ return r.text(); })
+    .then(function(css) {
+      // Simple rule filter: keep rules whose selector contains a used class
+      var lines = css.split('\n');
+      var output = [];
+      var inBlock = 0;
+      var keepBlock = false;
+      var blockLines = [];
+
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i];
+        var opens  = (line.match(/\{/g) || []).length;
+        var closes = (line.match(/\}/g) || []).length;
+
+        if (inBlock === 0) {
+          // At-rule or rule start
+          if (opens > 0 && line.trim().startsWith('@')) {
+            // @media / @keyframes — buffer until end
+            inBlock = opens - closes;
+            blockLines = [line];
+            // Keyframes always kept
+            keepBlock = /keyframes|font-face|:root/.test(line);
+            if (inBlock <= 0) {
+              output.push(line);
+              blockLines = [];
+              inBlock = 0;
+            }
+          } else if (opens > 0) {
+            // Selector rule — check if used
+            var selMatch = line.match(/\.([\w\-\\:]+)/g);
+            var keep = !selMatch; // non-class selectors (*, html, body) always kept
+            if (!keep && selMatch) {
+              keep = selMatch.some(function(s) {
+                return used.has(s.slice(1).replace(/\\/g,''));
+              });
+            }
+            if (keep) output.push(line);
+          } else {
+            // Comment / plain line
+            output.push(line);
+          }
+        } else {
+          blockLines.push(line);
+          inBlock += opens - closes;
+          if (inBlock <= 0) {
+            // End of @media block — filter inner rules
+            var blockText = blockLines.join('\n');
+            if (/keyframes|font-face|:root/.test(blockLines[0])) {
+              output.push(blockText);
+            } else {
+              // Filter inner rules
+              var filtered = blockText.replace(/([^{]+)\{([^}]+)\}/g, function(m, sel, body) {
+                var sm = sel.match(/\.([\w\-\\:]+)/g);
+                if (!sm) return m;
+                var keep = sm.some(function(s) {
+                  return used.has(s.slice(1).replace(/\\/g,''));
+                });
+                return keep ? m : '';
+              });
+              if (filtered.replace(/[\s@media\(\)\w\-:]+\{\s*\}/g,'').trim()) {
+                output.push(filtered);
+              }
+            }
+            blockLines = [];
+            inBlock = 0;
+          }
+        }
+      }
+
+      var result = output.join('\n')
+        .replace(/\n{3,}/g,'\n\n')
+        .replace(/\s*\{\s*/g,'{').replace(/\s*\}\s*/g,'}')
+        .trim();
+
+      var blob = new Blob([result], { type: 'text/css' });
+      var url  = URL.createObjectURL(blob);
+      var a    = document.createElement('a');
+      a.href   = url;
+      a.download = 'santy-purged.css';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      // Show toast
+      showToast('Downloaded santy-purged.css (' + (result.length/1024).toFixed(1) + ' KB — only classes used on this page)');
+    })
+    .catch(function(){ downloadCSS('santy.css'); });
+}
+
+function showToast(msg) {
+  var toast = document.getElementById('santy-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'santy-toast';
+    toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1e293b;color:#e2e8f0;padding:12px 24px;border-radius:12px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.3);transition:opacity .3s ease;white-space:nowrap;';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.style.opacity = '1';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(function(){ toast.style.opacity = '0'; }, 3500);
+}
+
+// Utility tab switcher
+function openTab(e, tabId) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  e.currentTarget.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+// Framework tab switcher
+function openFwTab(e, tabId) {
+  document.querySelectorAll('.fw-tab-content').forEach(c => { c.style.display = 'none'; });
+  const btns = e.currentTarget.closest('div').querySelectorAll('button');
+  btns.forEach(b => { b.style.borderBottomColor = 'transparent'; b.style.color = '#94a3b8'; });
+  e.currentTarget.style.borderBottomColor = '#3b82f6';
+  e.currentTarget.style.color = '#7dd3fc';
+  document.getElementById(tabId).style.display = 'block';
+}
+
+// ── Multi-framework comparison data ─────────────────────────────────────────
+// s=SantyCSS, tw=Tailwind, bs=Bootstrap, mui=MaterialUI, bu=Bulma, fo=Foundation
+// ✅ = yes, ⚠️ = partial/plugin, ❌ = no
+const FULL = [
+  { feature:'Plain-English class names',      s:'✅',  tw:'❌', bs:'❌', mui:'❌', bu:'⚠️', fo:'❌' },
+  { feature:'Utility-first approach',         s:'✅',  tw:'✅', bs:'⚠️', mui:'⚠️', bu:'⚠️', fo:'⚠️' },
+  { feature:'Pre-built pixels (0–200px)',      s:'✅',  tw:'❌', bs:'❌', mui:'N/A',bu:'❌', fo:'❌' },
+  { feature:'No build step (CDN drop-in)',     s:'✅',  tw:'❌', bs:'✅', mui:'❌', bu:'✅', fo:'✅' },
+  { feature:'Production purge / tree-shake',  s:'✅',  tw:'✅', bs:'⚠️', mui:'✅', bu:'⚠️', fo:'⚠️' },
+  { feature:'JIT / runtime generation',       s:'✅',  tw:'✅', bs:'❌', mui:'❌', bu:'❌', fo:'❌' },
+  { feature:'Component library (CSS-only)',   s:'✅',  tw:'❌', bs:'✅', mui:'✅', bu:'✅', fo:'✅' },
+  { feature:'Button components',              s:'✅',  tw:'❌', bs:'✅', mui:'✅', bu:'✅', fo:'✅' },
+  { feature:'Card component',                 s:'✅',  tw:'❌', bs:'✅', mui:'✅', bu:'✅', fo:'✅' },
+  { feature:'Modal (CSS-only)',               s:'✅',  tw:'❌', bs:'⚠️', mui:'❌', bu:'❌', fo:'⚠️' },
+  { feature:'Drawer / Off-canvas',            s:'✅',  tw:'❌', bs:'✅', mui:'❌', bu:'❌', fo:'✅' },
+  { feature:'Accordion (CSS-only)',           s:'✅',  tw:'❌', bs:'✅', mui:'❌', bu:'❌', fo:'✅' },
+  { feature:'Tabs component',                 s:'✅',  tw:'❌', bs:'✅', mui:'❌', bu:'✅', fo:'✅' },
+  { feature:'Tooltip (CSS-only)',             s:'✅',  tw:'❌', bs:'✅', mui:'❌', bu:'❌', fo:'✅' },
+  { feature:'Table utilities',                s:'✅',  tw:'❌', bs:'✅', mui:'✅', bu:'✅', fo:'✅' },
+  { feature:'Breadcrumb',                     s:'✅',  tw:'❌', bs:'✅', mui:'✅', bu:'❌', fo:'✅' },
+  { feature:'Pagination',                     s:'✅',  tw:'❌', bs:'✅', mui:'✅', bu:'✅', fo:'✅' },
+  { feature:'Form controls (select/textarea)',s:'✅',  tw:'❌', bs:'✅', mui:'✅', bu:'✅', fo:'✅' },
+  { feature:'Toggle / Switch',                s:'✅',  tw:'❌', bs:'❌', mui:'✅', bu:'❌', fo:'❌' },
+  { feature:'Chip / Tag component',           s:'✅',  tw:'❌', bs:'❌', mui:'✅', bu:'✅', fo:'❌' },
+  { feature:'Stepper / Steps',               s:'✅',  tw:'❌', bs:'❌', mui:'✅', bu:'❌', fo:'❌' },
+  { feature:'Skeleton loader',                s:'✅',  tw:'❌', bs:'❌', mui:'✅', bu:'❌', fo:'❌' },
+  { feature:'Progress bar',                   s:'✅',  tw:'❌', bs:'✅', mui:'✅', bu:'✅', fo:'✅' },
+  { feature:'Spinner / Loader',               s:'✅',  tw:'❌', bs:'✅', mui:'✅', bu:'✅', fo:'❌' },
+  { feature:'Navbar component',               s:'✅',  tw:'❌', bs:'✅', mui:'✅', bu:'✅', fo:'✅' },
+  { feature:'Hero section component',         s:'✅',  tw:'❌', bs:'⚠️', mui:'❌', bu:'✅', fo:'❌' },
+  { feature:'FAB (floating action button)',    s:'✅',  tw:'❌', bs:'❌', mui:'✅', bu:'❌', fo:'❌' },
+  { feature:'App Bar',                        s:'✅',  tw:'❌', bs:'⚠️', mui:'✅', bu:'❌', fo:'❌' },
+  { feature:'Material elevation shadows',     s:'✅',  tw:'❌', bs:'❌', mui:'✅', bu:'❌', fo:'❌' },
+  { feature:'70+ animations built-in',        s:'✅',  tw:'❌', bs:'⚠️', mui:'❌', bu:'❌', fo:'❌' },
+  { feature:'Text shadow utilities',          s:'✅',  tw:'❌', bs:'❌', mui:'N/A',bu:'❌', fo:'❌' },
+  { feature:'Dark mode prefix',               s:'✅',  tw:'✅', bs:'✅', mui:'✅', bu:'❌', fo:'❌' },
+  { feature:'Responsive utilities',           s:'✅',  tw:'✅', bs:'✅', mui:'✅', bu:'✅', fo:'✅' },
+  { feature:'Hover / focus / active states',  s:'✅',  tw:'✅', bs:'⚠️', mui:'N/A',bu:'⚠️', fo:'⚠️' },
+  { feature:'Screen reader (sr-only)',        s:'✅',  tw:'✅', bs:'✅', mui:'✅', bu:'❌', fo:'⚠️' },
+  { feature:'Print utilities',               s:'✅',  tw:'✅', bs:'✅', mui:'❌', bu:'❌', fo:'⚠️' },
+  { feature:'CSS custom properties theming', s:'✅',  tw:'✅', bs:'✅', mui:'✅', bu:'✅', fo:'⚠️' },
+  { feature:'PostCSS plugin',                s:'✅',  tw:'✅', bs:'⚠️', mui:'N/A',bu:'❌', fo:'❌' },
+  { feature:'Vite plugin',                   s:'✅',  tw:'✅', bs:'❌', mui:'N/A',bu:'❌', fo:'❌' },
+  { feature:'Modular CSS split files',        s:'✅',  tw:'❌', bs:'❌', mui:'✅', bu:'❌', fo:'❌' },
+  { feature:'Centering shortcut (1 class)',   s:'✅',  tw:'❌', bs:'❌', mui:'❌', bu:'❌', fo:'❌' },
+  { feature:'JS-free (pure CSS)',             s:'✅',  tw:'✅', bs:'❌', mui:'❌', bu:'✅', fo:'⚠️' },
+  { feature:'File size (unminified)',         s:'631KB',tw:'N/A (JIT)',bs:'232KB',mui:'JS bundle',bu:'205KB',fo:'212KB' },
+  { feature:'Purged production size',        s:'~5KB', tw:'~3KB',bs:'~20KB',mui:'~80KB',bu:'~15KB',fo:'~20KB' },
+];
+
+function cell(v) {
+  if (v==='✅') return `<td style="text-align:center;color:#15803d;font-size:16px;">✅</td>`;
+  if (v==='❌') return `<td style="text-align:center;color:#9ca3af;font-size:16px;">❌</td>`;
+  if (v==='⚠️') return `<td style="text-align:center;font-size:13px;color:#b45309;">⚠️</td>`;
+  if (v==='N/A') return `<td style="text-align:center;font-size:11px;color:#d1d5db;">N/A</td>`;
+  return `<td style="text-align:center;font-size:12px;color:#374151;">${v}</td>`;
+}
+
+const ftb = document.getElementById('full-table-body');
+if (ftb) {
+  FULL.forEach((row, i) => {
+    ftb.innerHTML += `<tr style="background:${i%2===0?'#f8fafc':'#fff'}">
+      <td style="font-size:13px;font-weight:500;color:#374151;padding:9px 12px;">${row.feature}</td>
+      <td style="text-align:center;font-size:${row.s==='✅'?'16':'13'}px;color:${row.s==='✅'?'#15803d':row.s==='❌'?'#9ca3af':'#374151'};font-weight:600;">${row.s}</td>
+      ${cell(row.tw)}${cell(row.bs)}${cell(row.mui)}${cell(row.bu)}${cell(row.fo)}
+    </tr>`;
+  });
+}
+
+// 2-col comparison generators
+function make2col(containerId, key) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  FULL.forEach((row, i) => {
+    const rival = row[key];
+    const santyBetter = row.s === '✅' && (rival === '❌' || rival === '⚠️');
+    const div = document.createElement('div');
+    div.style.cssText = `display:grid;grid-template-columns:2fr 1fr 1fr;align-items:center;padding:10px 20px;border-radius:10px;background:${i%2===0?'#f8fafc':'#fff'};`;
+    div.innerHTML = `
+      <span style="font-size:13px;color:#374151;font-weight:500;">${row.feature}</span>
+      <span style="font-size:14px;text-align:center;color:${rival==='✅'?'#15803d':rival==='❌'?'#d1d5db':'#b45309'};">${rival}</span>
+      <span style="font-size:14px;text-align:center;color:${row.s==='✅'?'#15803d':'#9ca3af'};font-weight:${santyBetter?700:400};">${row.s}</span>
+    `;
+    el.appendChild(div);
+  });
+}
+make2col('cmp-tw-rows',  'tw');
+make2col('cmp-bs-rows',  'bs');
+make2col('cmp-mui-rows', 'mui');
+make2col('cmp-bulma-rows','bu');
+
+// Tab switcher for comparison
+function switchCompare(view, btn) {
+  ['all','tw','bs','mui','bulma'].forEach(v => {
+    document.getElementById('cmp-' + v).style.display = v === view ? 'block' : 'none';
+  });
+  document.querySelectorAll('#compare-tabs .tabs-item').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// Color palette display
+const palette = {
+  red:['#fef2f2','#fee2e2','#fecaca','#fca5a5','#f87171','#ef4444','#dc2626','#b91c1c','#991b1b','#7f1d1d'],
+  orange:['#fff7ed','#ffedd5','#fed7aa','#fdba74','#fb923c','#f97316','#ea580c','#c2410c','#9a3412','#7c2d12'],
+  amber:['#fffbeb','#fef3c7','#fde68a','#fcd34d','#fbbf24','#f59e0b','#d97706','#b45309','#92400e','#78350f'],
+  yellow:['#fefce8','#fef9c3','#fef08a','#fde047','#facc15','#eab308','#ca8a04','#a16207','#854d0e','#713f12'],
+  lime:['#f7fee7','#ecfccb','#d9f99d','#bef264','#a3e635','#84cc16','#65a30d','#4d7c0f','#3f6212','#365314'],
+  green:['#f0fdf4','#dcfce7','#bbf7d0','#86efac','#4ade80','#22c55e','#16a34a','#15803d','#166534','#14532d'],
+  teal:['#f0fdfa','#ccfbf1','#99f6e4','#5eead4','#2dd4bf','#14b8a6','#0d9488','#0f766e','#115e59','#134e4a'],
+  cyan:['#ecfeff','#cffafe','#a5f3fc','#67e8f9','#22d3ee','#06b6d4','#0891b2','#0e7490','#155e75','#164e63'],
+  blue:['#eff6ff','#dbeafe','#bfdbfe','#93c5fd','#60a5fa','#3b82f6','#2563eb','#1d4ed8','#1e40af','#1e3a8a'],
+  indigo:['#eef2ff','#e0e7ff','#c7d2fe','#a5b4fc','#818cf8','#6366f1','#4f46e5','#4338ca','#3730a3','#312e81'],
+  violet:['#f5f3ff','#ede9fe','#ddd6fe','#c4b5fd','#a78bfa','#8b5cf6','#7c3aed','#6d28d9','#5b21b6','#4c1d95'],
+  purple:['#faf5ff','#f3e8ff','#e9d5ff','#d8b4fe','#c084fc','#a855f7','#9333ea','#7e22ce','#6b21a8','#581c87'],
+  pink:['#fdf2f8','#fce7f3','#fbcfe8','#f9a8d4','#f472b6','#ec4899','#db2777','#be185d','#9d174d','#831843'],
+  rose:['#fff1f2','#ffe4e6','#fecdd3','#fda4af','#fb7185','#f43f5e','#e11d48','#be123c','#9f1239','#881337'],
+  slate:['#f8fafc','#f1f5f9','#e2e8f0','#cbd5e1','#94a3b8','#64748b','#475569','#334155','#1e293b','#0f172a'],
+  gray:['#f9fafb','#f3f4f6','#e5e7eb','#d1d5db','#9ca3af','#6b7280','#4b5563','#374151','#1f2937','#111827'],
+  zinc:['#fafafa','#f4f4f5','#e4e4e7','#d4d4d8','#a1a1aa','#71717a','#52525b','#3f3f46','#27272a','#18181b'],
+  stone:['#fafaf9','#f5f5f4','#e7e5e4','#d6d3d1','#a8a29e','#78716c','#57534e','#44403c','#292524','#1c1917'],
+};
+const shades = [50,100,200,300,400,500,600,700,800,900];
+const cpd = document.getElementById('colorPaletteDisplay');
+if (cpd) {
+  Object.entries(palette).forEach(([name, colors]) => {
+    const row = document.createElement('div');
+    row.className = 'add-margin-bottom-10';
+    row.innerHTML = `
+      <div class="make-flex align-center gap-10">
+        <span style="min-width:60px;font-size:12px;font-weight:600;color:#6b7280;font-family:monospace;">${name}</span>
+        <div class="make-flex flex-equal gap-2">
+          ${colors.map((hex, i) => `
+            <div title="${name}-${shades[i]}: ${hex}"
+                 style="flex:1;height:36px;background:${hex};border-radius:4px;cursor:default;"
+                 class="add-border-1 border-color-gray-100 on-hover:scale-110 transition-fast">
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    cpd.appendChild(row);
+  });
+  const shadeLabels = document.createElement('div');
+  shadeLabels.innerHTML = `
+    <div class="make-flex align-center gap-10 add-margin-bottom-20">
+      <span style="min-width:60px;"></span>
+      <div class="make-flex flex-equal gap-2">
+        ${shades.map(s => `<div style="flex:1;text-align:center;font-size:10px;color:#9ca3af;font-weight:600;">${s}</div>`).join('')}
+      </div>
+    </div>
+  `;
+  cpd.insertBefore(shadeLabels, cpd.firstChild);
+}
+
+// Copy button functionality (can be wired to real buttons)
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const text = btn.dataset.copy;
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = orig; }, 1500);
+    });
+  });
+});
+</script>
+
+<!-- ─── FLOATING DOWNLOAD WIDGET ─────────────────────────────────────────── -->
+<div id="download-widget" style="position:fixed;bottom:24px;right:24px;z-index:9998;display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+  <div id="download-menu" style="display:none;flex-direction:column;gap:6px;background:#1e293b;border-radius:16px;padding:16px;box-shadow:0 16px 40px rgba(0,0,0,.35);">
+    <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin:0 0 8px;">Download SantyCSS</p>
+
+    <button onclick="downloadCSS('santy.css')" style="display:flex;align-items:center;gap:10px;background:#0f172a;border:1px solid #334155;color:#e2e8f0;border-radius:10px;padding:10px 16px;cursor:pointer;font-size:13px;font-weight:600;text-align:left;width:100%;transition:background .15s;" onmouseover="this.style.background='#1e293b'" onmouseout="this.style.background='#0f172a'">
+      <svg width="16" height="16" fill="none" stroke="#3b82f6" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      <span>
+        <span style="display:block;">santy.css</span>
+        <span style="font-size:11px;color:#64748b;font-weight:400;">Full framework · 574 KB</span>
+      </span>
+    </button>
+
+    <button onclick="downloadCSS('santy.min.css')" style="display:flex;align-items:center;gap:10px;background:#0f172a;border:1px solid #334155;color:#e2e8f0;border-radius:10px;padding:10px 16px;cursor:pointer;font-size:13px;font-weight:600;text-align:left;width:100%;transition:background .15s;" onmouseover="this.style.background='#1e293b'" onmouseout="this.style.background='#0f172a'">
+      <svg width="16" height="16" fill="none" stroke="#22c55e" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      <span>
+        <span style="display:block;">santy.min.css</span>
+        <span style="font-size:11px;color:#64748b;font-weight:400;">Minified &amp; purged · ~15 KB</span>
+      </span>
+    </button>
+
+    <button onclick="downloadCSS('santy-jit.js')" style="display:flex;align-items:center;gap:10px;background:#0f172a;border:1px solid #334155;color:#e2e8f0;border-radius:10px;padding:10px 16px;cursor:pointer;font-size:13px;font-weight:600;text-align:left;width:100%;transition:background .15s;" onmouseover="this.style.background='#1e293b'" onmouseout="this.style.background='#0f172a'">
+      <svg width="16" height="16" fill="none" stroke="#a855f7" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+      <span>
+        <span style="display:block;">santy-jit.js</span>
+        <span style="font-size:11px;color:#64748b;font-weight:400;">JIT runtime · ~35 KB</span>
+      </span>
+    </button>
+
+    <button onclick="downloadPurgedCSS()" style="display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#1e3a8a,#312e81);border:1px solid #4338ca;color:#e2e8f0;border-radius:10px;padding:10px 16px;cursor:pointer;font-size:13px;font-weight:600;text-align:left;width:100%;">
+      <svg width="16" height="16" fill="none" stroke="#7dd3fc" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9 12l2 2 4-4"/></svg>
+      <span>
+        <span style="display:block;color:#7dd3fc;">santy-purged.css ✦</span>
+        <span style="font-size:11px;color:#818cf8;font-weight:400;">Only classes used on this page</span>
+      </span>
+    </button>
+  </div>
+
+  <!-- Toggle button -->
+  <button id="download-toggle" onclick="toggleDownloadMenu()" style="display:flex;align-items:center;gap:8px;background:#2563eb;color:#fff;border:none;border-radius:14px;padding:12px 20px;cursor:pointer;font-size:14px;font-weight:700;box-shadow:0 8px 24px rgba(37,99,235,.4);transition:all .2s;">
+    <svg width="18" height="18" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+    Download
+  </button>
+</div>
+
+<script>
+function toggleDownloadMenu() {
+  var menu = document.getElementById('download-menu');
+  var btn  = document.getElementById('download-toggle');
+  var open = menu.style.display === 'flex';
+  menu.style.display = open ? 'none' : 'flex';
+  btn.style.background = open ? '#2563eb' : '#1e40af';
+}
+// Close on outside click
+document.addEventListener('click', function(e) {
+  var widget = document.getElementById('download-widget');
+  if (widget && !widget.contains(e.target)) {
+    document.getElementById('download-menu').style.display = 'none';
+    document.getElementById('download-toggle').style.background = '#2563eb';
+  }
+});
+</script>
+
+<script>
+function toggleAccordion(btn) {
+  var body = btn.nextElementSibling;
+  var open = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', String(!open));
+  body.classList.toggle('open', !open);
+}
+function switchTab(btn, panelId) {
+  var tabs = btn.closest('.tabs');
+  tabs.querySelectorAll('.tabs-item').forEach(function(t){ t.classList.remove('active'); });
+  btn.classList.add('active');
+  var section = tabs.nextElementSibling;
+  while(section) { if(section.classList.contains('tab-panel')) section.classList.remove('active'); section = section.nextElementSibling; }
+  document.getElementById(panelId).classList.add('active');
+}
+// Close dropdowns when clicking outside
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.dropdown')) {
+    document.querySelectorAll('.dropdown.open').forEach(function(d){ d.classList.remove('open'); });
+  }
+});
+function toggleMobileNav() {
+  var nav = document.getElementById('main-nav');
+  var hamIcon = document.getElementById('ham-icon');
+  var hamClose = document.getElementById('ham-close');
+  var open = nav.classList.toggle('nav-open');
+  hamIcon.style.display = open ? 'none' : 'block';
+  hamClose.style.display = open ? 'block' : 'none';
+}
+document.querySelectorAll('#main-nav .nav-link, #main-nav .btn').forEach(function(el) {
+  el.addEventListener('click', function() {
+    document.getElementById('main-nav').classList.remove('nav-open');
+    document.getElementById('ham-icon').style.display = 'block';
+    document.getElementById('ham-close').style.display = 'none';
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+{
+  "name": "santycss",
+  "version": "1.0.0",
+  "description": "Plain-English utility-first CSS framework — add-border-left-20, make-flex, on-hover:scale-110",
+  "main": "index.js",
+  "bin": {
+    "santycss": "./purge.js"
+  },
+  "exports": {
+    ".":              "./index.js",
+    "./css":          "./santy.css",
+    "./core":         "./santy-core.css",
+    "./components":   "./santy-components.css",
+    "./animations":   "./santy-animations.css",
+    "./jit":          "./santy-jit.js",
+    "./purge":        "./lib/purge-core.js",
+    "./postcss":      "./postcss-santycss.js",
+    "./vite":         "./vite-plugin-santycss.js"
+  },
+  "files": [
+    "santy.css",
+    "santy-core.css",
+    "santy-components.css",
+    "santy-animations.css",
+    "santy-jit.js",
+    "santy.min.css",
+    "index.js",
+    "purge.js",
+    "build.js",
+    "lib/",
+    "postcss-santycss.js",
+    "vite-plugin-santycss.js"
+  ],
+  "keywords": [
+    "css", "framework", "utility", "tailwind", "plain-english",
+    "santycss", "postcss", "vite", "purge"
+  ],
+  "scripts": {
+    "build":   "node build.js",
+    "purge":   "node purge.js",
+    "dev":     "node build.js && echo 'Watching...'",
+    "prepublish": "node build.js"
+  },
+  "peerDependencies": {
+    "postcss": ">=8.0.0"
+  },
+  "peerDependenciesMeta": {
+    "postcss": { "optional": true }
+  },
+  "license": "MIT",
+  "author": "SantyBad"
+}
