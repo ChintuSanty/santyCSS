@@ -7,10 +7,11 @@ frontend:
     build:
       commands:
         - npm run build
-        - mkdir -p dist
-        - cp -r *.html *.css *.js assest dist/
+        - mkdir -p site
+        - cp -r *.html *.css *.js assest site/
+        - cp -r dist site/dist
   artifacts:
-    baseDirectory: dist
+    baseDirectory: site
     files:
       - '**/*'
   cache:

@@ -3,7 +3,8 @@
  * Generates santy.css — a plain-English utility-first CSS framework.
  */
 
-const fs = require('fs');
+const fs   = require('fs');
+const path = require('path');
 const { ANIMATION_CSS } = require('./lib/animations');
 
 // ─── VALUE RANGES ───────────────────────────────────────────────────────────
@@ -2062,8 +2063,32 @@ fs.writeFileSync('santy-core.css', utilCSS);
 fs.writeFileSync('santy-components.css', compCSS);
 fs.writeFileSync('santy-animations.css', animCSS);
 
+// Mirror to dist/ for NPM package
+const distDir = path.join(__dirname, 'dist');
+if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true });
+fs.writeFileSync(path.join(distDir, 'santy.css'), fullCSS);
+fs.writeFileSync(path.join(distDir, 'santy-core.css'), utilCSS);
+fs.writeFileSync(path.join(distDir, 'santy-components.css'), compCSS);
+fs.writeFileSync(path.join(distDir, 'santy-animations.css'), animCSS);
+
+// Generate minified version
+const minCSS = fullCSS
+  .replace(/\/\*[\s\S]*?\*\//g, '')
+  .replace(/\s*\{\s*/g, '{')
+  .replace(/\s*\}\s*/g, '}')
+  .replace(/\s*:\s*/g, ':')
+  .replace(/\s*;\s*/g, ';')
+  .replace(/\s*,\s*/g, ',')
+  .replace(/\n+/g, '')
+  .replace(/\s{2,}/g, ' ')
+  .trim();
+fs.writeFileSync('santy.min.css', minCSS);
+fs.writeFileSync(path.join(distDir, 'santy.min.css'), minCSS);
+
 const kb = n => (n / 1024).toFixed(1) + 'KB';
 console.log(`✅ santy.css          — ${kb(fullCSS.length)} (${fullCSS.split('\n').length.toLocaleString()} lines)`);
+console.log(`✅ santy.min.css      — ${kb(minCSS.length)} (minified)`);
 console.log(`✅ santy-core.css     — ${kb(utilCSS.length)} (utilities only)`);
 console.log(`✅ santy-components.css — ${kb(compCSS.length)} (components only)`);
 console.log(`✅ santy-animations.css — ${kb(animCSS.length)} (animations only)`);
+console.log(`✅ dist/              — mirrored for NPM package`);

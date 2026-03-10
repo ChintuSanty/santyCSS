@@ -1,44 +1,49 @@
 {
   "name": "santycss",
   "version": "1.0.0",
-  "description": "Plain-English utility-first CSS framework — add-border-left-20, make-flex, on-hover:scale-110",
+  "description": "Plain-English utility-first CSS framework — no build step, just classes",
   "main": "index.js",
+  "style": "dist/santy.css",
+  "exports": {
+    ".":                  "./index.js",
+    "./css":              "./dist/santy.css",
+    "./css/core":         "./dist/santy-core.css",
+    "./css/components":   "./dist/santy-components.css",
+    "./css/animations":   "./dist/santy-animations.css",
+    "./min":              "./dist/santy.min.css",
+    "./postcss":          "./postcss/index.js",
+    "./jit":              "./santy-jit.js",
+    "./vite":             "./vite-plugin-santycss.js",
+    "./purge":            "./lib/purge-core.js"
+  },
+  "files": [
+    "dist/",
+    "postcss/",
+    "lib/",
+    "index.js",
+    "santy-jit.js",
+    "vite-plugin-santycss.js",
+    "purge.js",
+    "README.md"
+  ],
   "bin": {
     "santycss": "./purge.js"
   },
-  "exports": {
-    ".":              "./index.js",
-    "./css":          "./santy.css",
-    "./core":         "./santy-core.css",
-    "./components":   "./santy-components.css",
-    "./animations":   "./santy-animations.css",
-    "./jit":          "./santy-jit.js",
-    "./purge":        "./lib/purge-core.js",
-    "./postcss":      "./postcss-santycss.js",
-    "./vite":         "./vite-plugin-santycss.js"
-  },
-  "files": [
-    "santy.css",
-    "santy-core.css",
-    "santy-components.css",
-    "santy-animations.css",
-    "santy-jit.js",
-    "santy.min.css",
-    "index.js",
-    "purge.js",
-    "build.js",
-    "lib/",
-    "postcss-santycss.js",
-    "vite-plugin-santycss.js"
-  ],
   "keywords": [
-    "css", "framework", "utility", "tailwind", "plain-english",
-    "santycss", "postcss", "vite", "purge"
+    "css",
+    "framework",
+    "utility-css",
+    "tailwind-alternative",
+    "plain-english",
+    "no-build",
+    "santycss",
+    "postcss",
+    "vite"
   ],
   "scripts": {
-    "build":   "node build.js",
-    "purge":   "node purge.js",
-    "dev":     "node build.js && echo 'Watching...'",
+    "build":      "node build.js",
+    "purge":      "node purge.js",
+    "dev":        "node build.js && echo 'Watching...'",
     "prepublish": "node build.js"
   },
   "peerDependencies": {
@@ -47,6 +52,14 @@
   "peerDependenciesMeta": {
     "postcss": { "optional": true }
   },
+  "author": "Santy",
   "license": "MIT",
-  "author": "SantyBad"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChintuSanty/santyCSS.git"
+  },
+  "homepage": "https://santycss.santy.in",
+  "bugs": {
+    "url": "https://github.com/ChintuSanty/santyCSS/issues"
+  }
 }

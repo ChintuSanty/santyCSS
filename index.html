@@ -199,10 +199,22 @@
 <!-- ─── HERO ──────────────────────────────────────────────────────────────────── -->
 <section class="hero-gradient add-padding-y-96 add-padding-x-16">
   <div class="container text-center">
-    <div class="make-flex justify-center add-margin-bottom-20">
+    <div class="make-flex justify-center flex-wrap gap-8 add-margin-bottom-20">
       <span class="badge" style="background:rgba(255,255,255,0.1);color:#7dd3fc;font-size:13px;border:1px solid rgba(255,255,255,0.2);">
-        ✦ Plain English · No Build Step · 661KB
+        ✦ Plain English · No Build Step · 667KB
       </span>
+      <a href="https://www.npmjs.com/package/santycss" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;">
+        <img src="https://img.shields.io/npm/v/santycss?style=flat-square&color=cb3837&label=npm" alt="npm version" style="height:22px;">
+      </a>
+      <a href="https://www.npmjs.com/package/santycss" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;">
+        <img src="https://img.shields.io/npm/dm/santycss?style=flat-square&color=3b82f6&label=downloads%2Fmo" alt="npm downloads" style="height:22px;">
+      </a>
+      <a href="https://bundlephobia.com/package/santycss" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;">
+        <img src="https://img.shields.io/bundlephobia/min/santycss?style=flat-square&color=22c55e&label=min" alt="bundle size" style="height:22px;">
+      </a>
+      <a href="https://github.com/ChintuSanty/santyCSS" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;">
+        <img src="https://img.shields.io/github/stars/ChintuSanty/santyCSS?style=flat-square&color=fbbf24&label=stars" alt="GitHub stars" style="height:22px;">
+      </a>
     </div>
     <h1 class="set-text-64 text-bold color-white add-margin-bottom-20" style="letter-spacing:-2px;line-height:1.1;">
       CSS that reads<br>like <span style="color:#7dd3fc;">plain English</span>
@@ -355,25 +367,68 @@
       <!-- Option 0: NPM -->
       <div>
         <div class="make-flex align-center gap-12 add-margin-bottom-16">
-          <span class="set-width-28 set-height-28 background-gray-900 make-circle make-flex align-center justify-center color-white text-bold set-text-14">npm</span>
+          <span class="set-width-28 set-height-28 background-gray-900 make-circle make-flex align-center justify-center color-white text-bold set-text-14" style="font-size:10px;">npm</span>
           <h3 class="set-text-20 text-semibold color-gray-900">Install via npm</h3>
         </div>
         <div class="code-block add-margin-bottom-8">
 <pre><span class="c-com"># Install</span>
 npm install santycss
 
-<span class="c-com"># Import in JS/TS</span>
+<span class="c-com"># Option A — Import full CSS (React / Vue / Vite / Next.js)</span>
 import 'santycss/css';
 
-<span class="c-com"># Or import individual parts</span>
-import 'santycss/core';
-import 'santycss/components';
-import 'santycss/animations';</pre>
+<span class="c-com"># Option B — Import individual parts</span>
+import 'santycss/css/core';
+import 'santycss/css/components';
+import 'santycss/css/animations';
+
+<span class="c-com"># Option C — In CSS / SCSS</span>
+@import 'santycss/dist/santy.css';
+
+<span class="c-com"># Option D — Resolve path (webpack / rollup config)</span>
+const santy = require('santycss');
+// santy.css        → absolute path to dist/santy.css
+// santy.core       → absolute path to dist/santy-core.css
+// santy.components → absolute path to dist/santy-components.css</pre>
         </div>
         <div class="make-flex gap-10 flex-wrap">
-          <a href="https://github.com/ChintuSanty/santyCSS" target="_blank" class="chip chip-blue">GitHub ↗</a>
+          <a href="https://www.npmjs.com/package/santycss" target="_blank" rel="noopener" class="chip" style="background:#cb3837;color:#fff;text-decoration:none;">npm ↗</a>
+          <a href="https://github.com/ChintuSanty/santyCSS" target="_blank" rel="noopener" class="chip chip-blue">GitHub ↗</a>
           <span class="chip chip-green">MIT License</span>
-          <span class="chip">v1.0</span>
+          <span class="chip">v1.0.0</span>
+        </div>
+      </div>
+
+      <!-- CDN -->
+      <div>
+        <div class="make-flex align-center gap-12 add-margin-bottom-16">
+          <span class="set-width-28 set-height-28 background-purple-600 make-circle make-flex align-center justify-center color-white text-bold set-text-14" style="font-size:10px;">CDN</span>
+          <h3 class="set-text-20 text-semibold color-gray-900">Use via CDN — zero install</h3>
+        </div>
+        <p class="set-text-14 color-gray-500 add-margin-bottom-12">Drop one line into any HTML file — no download, no npm, works instantly anywhere.</p>
+        <div class="code-block add-margin-bottom-12">
+<pre><span class="c-com">&lt;!-- jsDelivr (recommended, global CDN) --&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span>
+      <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
+
+<span class="c-com">&lt;!-- Version-pinned (best for production) --&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span>
+      <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@1.0.0/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
+
+<span class="c-com">&lt;!-- unpkg --&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span>
+      <span class="c-attr">href</span>=<span class="c-str">"https://unpkg.com/santycss/dist/santy.css"</span><span class="c-tag">&gt;</span>
+
+<span class="c-com">&lt;!-- Load only components via CDN --&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span>
+      <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-core.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span>
+      <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-components.css"</span><span class="c-tag">&gt;</span></pre>
+        </div>
+        <div class="make-flex gap-10 flex-wrap">
+          <a href="https://www.jsdelivr.com/package/npm/santycss" target="_blank" rel="noopener" class="chip chip-purple">jsDelivr ↗</a>
+          <a href="https://unpkg.com/browse/santycss/" target="_blank" rel="noopener" class="chip chip-blue">unpkg ↗</a>
+          <span class="chip chip-green">Auto-updates on npm publish</span>
         </div>
       </div>
 
