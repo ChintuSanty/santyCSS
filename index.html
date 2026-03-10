@@ -1015,6 +1015,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
       <button class="tab-btn" onclick="openTab(event,'tab-colors')">Colors</button>
       <button class="tab-btn" onclick="openTab(event,'tab-effects')">Effects</button>
       <button class="tab-btn" onclick="openTab(event,'tab-responsive')">Responsive</button>
+      <button class="tab-btn" onclick="openTab(event,'tab-misc')">Position &amp; More</button>
     </div>
 
     <!-- SPACING TAB -->
@@ -1349,6 +1350,176 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
     <span class="c-tag">&lt;/span&gt;</span>
   <span class="c-tag">&lt;/div&gt;</span>
 <span class="c-tag">&lt;/div&gt;</span></pre>
+      </div>
+    </div>
+
+    <!-- POSITION & MORE TAB -->
+    <div id="tab-misc" class="tab-content">
+      <h3 class="set-text-22 text-semibold color-gray-800 add-margin-bottom-24">Position, Z-index, Overflow &amp; More</h3>
+
+      <h4 class="set-text-16 text-semibold color-gray-700 add-margin-bottom-12">Position</h4>
+      <div class="table-wrap add-margin-bottom-32">
+        <table>
+          <thead><tr><th>Class</th><th>CSS Output</th></tr></thead>
+          <tbody>
+            <tr><td>position-static</td><td>position: static</td></tr>
+            <tr><td>position-relative</td><td>position: relative</td></tr>
+            <tr><td>position-absolute</td><td>position: absolute</td></tr>
+            <tr><td>position-fixed</td><td>position: fixed</td></tr>
+            <tr><td>position-sticky</td><td>position: sticky</td></tr>
+            <tr><td>pin-top / pin-bottom / pin-left / pin-right</td><td>top/bottom/left/right: 0</td></tr>
+            <tr><td>pin-top-{n} / pin-left-{n} / …</td><td>top/left/…: {n}px</td></tr>
+            <tr><td>inset-0</td><td>top/right/bottom/left: 0</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 class="set-text-16 text-semibold color-gray-700 add-margin-bottom-12">Z-index</h4>
+      <div class="table-wrap add-margin-bottom-32">
+        <table>
+          <thead><tr><th>Class</th><th>CSS Output</th></tr></thead>
+          <tbody>
+            <tr><td>z-0</td><td>z-index: 0</td></tr>
+            <tr><td>z-10</td><td>z-index: 10</td></tr>
+            <tr><td>z-20</td><td>z-index: 20</td></tr>
+            <tr><td>z-30</td><td>z-index: 30</td></tr>
+            <tr><td>z-40</td><td>z-index: 40</td></tr>
+            <tr><td>z-50</td><td>z-index: 50</td></tr>
+            <tr><td>z-100</td><td>z-index: 100</td></tr>
+            <tr><td>z-auto</td><td>z-index: auto</td></tr>
+            <tr><td>layer-{n} / layer-auto</td><td>z-index: n (alternate name)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 class="set-text-16 text-semibold color-gray-700 add-margin-bottom-12">Overflow</h4>
+      <div class="table-wrap add-margin-bottom-32">
+        <table>
+          <thead><tr><th>Class</th><th>CSS Output</th></tr></thead>
+          <tbody>
+            <tr><td>overflow-hidden</td><td>overflow: hidden</td></tr>
+            <tr><td>overflow-auto</td><td>overflow: auto</td></tr>
+            <tr><td>overflow-scroll</td><td>overflow: scroll</td></tr>
+            <tr><td>overflow-visible</td><td>overflow: visible</td></tr>
+            <tr><td>overflow-x-hidden</td><td>overflow-x: hidden</td></tr>
+            <tr><td>overflow-x-auto</td><td>overflow-x: auto</td></tr>
+            <tr><td>overflow-y-hidden</td><td>overflow-y: hidden</td></tr>
+            <tr><td>overflow-y-auto</td><td>overflow-y: auto</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 class="set-text-16 text-semibold color-gray-700 add-margin-bottom-12">Cursor</h4>
+      <div class="table-wrap add-margin-bottom-32">
+        <table>
+          <thead><tr><th>Class</th><th>CSS Output</th></tr></thead>
+          <tbody>
+            <tr><td>cursor-pointer</td><td>cursor: pointer</td></tr>
+            <tr><td>cursor-default</td><td>cursor: default</td></tr>
+            <tr><td>cursor-not-allowed</td><td>cursor: not-allowed</td></tr>
+            <tr><td>cursor-grab / cursor-grabbing</td><td>cursor: grab / grabbing</td></tr>
+            <tr><td>cursor-wait / cursor-text / cursor-move</td><td>cursor: wait / text / move</td></tr>
+            <tr><td>cursor-crosshair / cursor-zoom-in / cursor-zoom-out</td><td>cursor variants</td></tr>
+            <tr><td>cursor-none / cursor-help / cursor-auto</td><td>cursor variants</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 class="set-text-16 text-semibold color-gray-700 add-margin-bottom-12">Pointer Events &amp; User Select</h4>
+      <div class="table-wrap add-margin-bottom-32">
+        <table>
+          <thead><tr><th>Class</th><th>CSS Output</th></tr></thead>
+          <tbody>
+            <tr><td>pointer-events-none</td><td>pointer-events: none</td></tr>
+            <tr><td>pointer-events-auto</td><td>pointer-events: auto</td></tr>
+            <tr><td>select-none</td><td>user-select: none</td></tr>
+            <tr><td>select-all</td><td>user-select: all</td></tr>
+            <tr><td>select-text</td><td>user-select: text</td></tr>
+            <tr><td>select-auto</td><td>user-select: auto</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 class="set-text-16 text-semibold color-gray-700 add-margin-bottom-12">Object Fit &amp; Aspect Ratio</h4>
+      <div class="table-wrap add-margin-bottom-32">
+        <table>
+          <thead><tr><th>Class</th><th>CSS Output</th></tr></thead>
+          <tbody>
+            <tr><td>object-fit-cover / fit-cover</td><td>object-fit: cover</td></tr>
+            <tr><td>object-fit-contain / fit-contain</td><td>object-fit: contain</td></tr>
+            <tr><td>object-fit-fill / fit-fill</td><td>object-fit: fill</td></tr>
+            <tr><td>object-fit-none / fit-none</td><td>object-fit: none</td></tr>
+            <tr><td>object-position-center / top / bottom / left / right</td><td>object-position</td></tr>
+            <tr><td>aspect-ratio-16-9 / aspect-video</td><td>aspect-ratio: 16 / 9</td></tr>
+            <tr><td>aspect-ratio-1-1 / aspect-square</td><td>aspect-ratio: 1 / 1</td></tr>
+            <tr><td>aspect-ratio-4-3</td><td>aspect-ratio: 4 / 3</td></tr>
+            <tr><td>aspect-ratio-3-2</td><td>aspect-ratio: 3 / 2</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 class="set-text-16 text-semibold color-gray-700 add-margin-bottom-12">Gradients &amp; Color Stops</h4>
+      <div class="table-wrap add-margin-bottom-32">
+        <table>
+          <thead><tr><th>Class</th><th>CSS Output</th></tr></thead>
+          <tbody>
+            <tr><td>gradient-to-right</td><td>background-image: linear-gradient(to right, var(--grad-from), var(--grad-to))</td></tr>
+            <tr><td>gradient-to-bottom</td><td>background-image: linear-gradient(to bottom, …)</td></tr>
+            <tr><td>gradient-to-left / gradient-to-top</td><td>linear-gradient to left / top</td></tr>
+            <tr><td>gradient-to-bottom-right / top-right</td><td>diagonal gradients</td></tr>
+            <tr><td>from-blue-500</td><td>--grad-from: #3b82f6</td></tr>
+            <tr><td>from-purple-500 / from-purple-600</td><td>--grad-from: #a855f7 / #9333ea</td></tr>
+            <tr><td>from-green-500 / from-teal-500</td><td>--grad-from: #22c55e / #14b8a6</td></tr>
+            <tr><td>from-orange-500 / from-red-500 / from-pink-500</td><td>gradient start colors</td></tr>
+            <tr><td>to-purple-600</td><td>--grad-to: #9333ea</td></tr>
+            <tr><td>to-blue-500 / to-indigo-500</td><td>--grad-to: #3b82f6 / #6366f1</td></tr>
+            <tr><td>to-green-500 / to-teal-500 / to-cyan-400</td><td>gradient end colors</td></tr>
+            <tr><td>to-pink-500 / to-rose-500 / to-amber-400</td><td>gradient end colors</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Gradient demo -->
+      <div class="add-margin-bottom-32 background-gray-50 round-corners-12 add-padding-24">
+        <p class="set-text-13 text-semibold color-gray-400 text-uppercase letter-space-wide add-margin-bottom-16">Gradient Demo</p>
+        <div class="make-flex flex-wrap gap-12">
+          <div class="gradient-to-right from-blue-500 to-purple-600 add-padding-16 round-corners-8 color-white set-text-13 text-semibold">blue → purple</div>
+          <div class="gradient-to-right from-green-500 to-teal-500 add-padding-16 round-corners-8 color-white set-text-13 text-semibold">green → teal</div>
+          <div class="gradient-to-right from-orange-500 to-red-500 add-padding-16 round-corners-8 color-white set-text-13 text-semibold">orange → red</div>
+          <div class="gradient-to-bottom-right from-sky-400 to-indigo-500 add-padding-16 round-corners-8 color-white set-text-13 text-semibold">sky → indigo</div>
+          <div class="gradient-to-right from-pink-500 to-rose-500 add-padding-16 round-corners-8 color-white set-text-13 text-semibold">pink → rose</div>
+        </div>
+      </div>
+
+      <h4 class="set-text-16 text-semibold color-gray-700 add-margin-bottom-12">Accessibility &amp; Outline</h4>
+      <div class="table-wrap add-margin-bottom-32">
+        <table>
+          <thead><tr><th>Class</th><th>CSS Output</th></tr></thead>
+          <tbody>
+            <tr><td>sr-only</td><td>Visually hidden, screen-reader accessible</td></tr>
+            <tr><td>not-sr-only</td><td>Undo sr-only (make visible again)</td></tr>
+            <tr><td>outline-none</td><td>outline: none</td></tr>
+            <tr><td>outline</td><td>outline: 2px solid currentColor</td></tr>
+            <tr><td>outline-offset-2 / outline-offset-4</td><td>outline-offset</td></tr>
+            <tr><td>ring-2 / ring-4 / ring-8</td><td>box-shadow focus ring (primary color)</td></tr>
+            <tr><td>ring-blue / ring-green / ring-red / ring-purple</td><td>Colored focus rings</td></tr>
+            <tr><td>ring-offset-1 / ring-offset-2 / ring-offset-4</td><td>Ring with white gap offset</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 class="set-text-16 text-semibold color-gray-700 add-margin-bottom-12">Backdrop Filter</h4>
+      <div class="table-wrap add-margin-bottom-32">
+        <table>
+          <thead><tr><th>Class</th><th>CSS Output</th></tr></thead>
+          <tbody>
+            <tr><td>backdrop-blur-sm</td><td>backdrop-filter: blur(4px)</td></tr>
+            <tr><td>backdrop-blur</td><td>backdrop-filter: blur(8px)</td></tr>
+            <tr><td>backdrop-blur-md</td><td>backdrop-filter: blur(12px)</td></tr>
+            <tr><td>backdrop-blur-lg</td><td>backdrop-filter: blur(16px)</td></tr>
+            <tr><td>backdrop-blur-xl / 2xl / 3xl</td><td>blur(24px / 40px / 64px)</td></tr>
+            <tr><td>navbar-glass</td><td>backdrop-filter: blur(12px) + semi-transparent bg</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
 

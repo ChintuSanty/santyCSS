@@ -554,6 +554,16 @@ add(`.pin-right-full  { right: 100%; }`);
 add(`\n/* ── Layer (z-index) ── */`);
 zIndexes.forEach(v => add(`.layer-${v} { z-index: ${v}; }`));
 add(`.layer-auto { z-index: auto; }`);
+// Standard z-* aliases
+add(`\n/* ── Z-index (standard aliases) ── */
+.z-0    { z-index: 0; }
+.z-10   { z-index: 10; }
+.z-20   { z-index: 20; }
+.z-30   { z-index: 30; }
+.z-40   { z-index: 40; }
+.z-50   { z-index: 50; }
+.z-100  { z-index: 100; }
+.z-auto { z-index: auto; }`);
 
 // ─── OVERFLOW ────────────────────────────────────────────────────────────────
 add(`\n/* ── Overflow ── */
@@ -695,24 +705,43 @@ add(`\n/* ── Object Fit ── */
 .fit-fill    { object-fit: fill; }
 .fit-none    { object-fit: none; }
 .fit-scale   { object-fit: scale-down; }
+/* Standard object-fit-* aliases */
+.object-fit-cover   { object-fit: cover; }
+.object-fit-contain { object-fit: contain; }
+.object-fit-fill    { object-fit: fill; }
+.object-fit-none    { object-fit: none; }
+.object-fit-scale   { object-fit: scale-down; }
 
 /* ── Object Position ── */
-.object-top         { object-position: top; }
-.object-bottom      { object-position: bottom; }
-.object-left        { object-position: left; }
-.object-right       { object-position: right; }
-.object-center      { object-position: center; }
+.object-top              { object-position: top; }
+.object-bottom           { object-position: bottom; }
+.object-left             { object-position: left; }
+.object-right            { object-position: right; }
+.object-center           { object-position: center; }
+.object-position-top     { object-position: top; }
+.object-position-bottom  { object-position: bottom; }
+.object-position-center  { object-position: center; }
+.object-position-left    { object-position: left; }
+.object-position-right   { object-position: right; }
 `);
 
 // ─── ASPECT RATIO ─────────────────────────────────────────────────────────────
 add(`\n/* ── Aspect Ratio ── */
-.ratio-square   { aspect-ratio: 1 / 1; }
-.ratio-video    { aspect-ratio: 16 / 9; }
-.ratio-portrait { aspect-ratio: 9 / 16; }
-.ratio-4-3      { aspect-ratio: 4 / 3; }
-.ratio-3-2      { aspect-ratio: 3 / 2; }
-.ratio-21-9     { aspect-ratio: 21 / 9; }
-.ratio-auto     { aspect-ratio: auto; }
+.ratio-square      { aspect-ratio: 1 / 1; }
+.ratio-video       { aspect-ratio: 16 / 9; }
+.ratio-portrait    { aspect-ratio: 9 / 16; }
+.ratio-4-3         { aspect-ratio: 4 / 3; }
+.ratio-3-2         { aspect-ratio: 3 / 2; }
+.ratio-21-9        { aspect-ratio: 21 / 9; }
+.ratio-auto        { aspect-ratio: auto; }
+/* Standard aspect-ratio-* aliases */
+.aspect-ratio-1-1  { aspect-ratio: 1 / 1; }
+.aspect-ratio-16-9 { aspect-ratio: 16 / 9; }
+.aspect-ratio-4-3  { aspect-ratio: 4 / 3; }
+.aspect-ratio-3-2  { aspect-ratio: 3 / 2; }
+.aspect-ratio-9-16 { aspect-ratio: 9 / 16; }
+.aspect-square     { aspect-ratio: 1 / 1; }
+.aspect-video      { aspect-ratio: 16 / 9; }
 `);
 
 // ─── FILTER ───────────────────────────────────────────────────────────────────
@@ -756,9 +785,12 @@ add(`\n/* ── Filter ── */
 
 // ─── POINTER / USER-SELECT ────────────────────────────────────────────────────
 add(`\n/* ── Pointer Events ── */
-.pointer-none  { pointer-events: none; }
-.pointer-auto  { pointer-events: auto; }
-.pointer-all   { pointer-events: all; }
+.pointer-none         { pointer-events: none; }
+.pointer-auto         { pointer-events: auto; }
+.pointer-all          { pointer-events: all; }
+/* Standard pointer-events-* aliases */
+.pointer-events-none  { pointer-events: none; }
+.pointer-events-auto  { pointer-events: auto; }
 
 /* ── User Select ── */
 .select-none  { user-select: none; }
@@ -1069,6 +1101,58 @@ add(`
 .ring-red    { box-shadow: 0 0 0 3px rgba(239,68,68,.4); }
 .ring-yellow { box-shadow: 0 0 0 3px rgba(234,179,8,.4); }
 .ring-purple { box-shadow: 0 0 0 3px rgba(139,92,246,.4); }
+/* Ring offset */
+.ring-offset-1 { box-shadow: 0 0 0 1px #fff, 0 0 0 3px var(--santy-primary); }
+.ring-offset-2 { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--santy-primary); }
+.ring-offset-4 { box-shadow: 0 0 0 4px #fff, 0 0 0 6px var(--santy-primary); }
+
+/* ── Gradient Color Stops ── */
+.from-transparent { --grad-from: transparent; }
+.from-white       { --grad-from: #ffffff; }
+.from-black       { --grad-from: #000000; }
+.from-gray-100    { --grad-from: #f3f4f6; }
+.from-gray-900    { --grad-from: #111827; }
+.from-blue-400    { --grad-from: #60a5fa; }
+.from-blue-500    { --grad-from: #3b82f6; }
+.from-blue-600    { --grad-from: #2563eb; }
+.from-indigo-500  { --grad-from: #6366f1; }
+.from-purple-500  { --grad-from: #a855f7; }
+.from-purple-600  { --grad-from: #9333ea; }
+.from-pink-500    { --grad-from: #ec4899; }
+.from-rose-500    { --grad-from: #f43f5e; }
+.from-red-500     { --grad-from: #ef4444; }
+.from-orange-500  { --grad-from: #f97316; }
+.from-amber-400   { --grad-from: #fbbf24; }
+.from-yellow-400  { --grad-from: #facc15; }
+.from-green-400   { --grad-from: #4ade80; }
+.from-green-500   { --grad-from: #22c55e; }
+.from-teal-500    { --grad-from: #14b8a6; }
+.from-cyan-400    { --grad-from: #22d3ee; }
+.from-sky-400     { --grad-from: #38bdf8; }
+.from-sky-500     { --grad-from: #0ea5e9; }
+.to-transparent   { --grad-to: transparent; }
+.to-white         { --grad-to: #ffffff; }
+.to-black         { --grad-to: #000000; }
+.to-gray-100      { --grad-to: #f3f4f6; }
+.to-gray-900      { --grad-to: #111827; }
+.to-blue-400      { --grad-to: #60a5fa; }
+.to-blue-500      { --grad-to: #3b82f6; }
+.to-blue-600      { --grad-to: #2563eb; }
+.to-indigo-500    { --grad-to: #6366f1; }
+.to-purple-500    { --grad-to: #a855f7; }
+.to-purple-600    { --grad-to: #9333ea; }
+.to-pink-500      { --grad-to: #ec4899; }
+.to-rose-500      { --grad-to: #f43f5e; }
+.to-red-500       { --grad-to: #ef4444; }
+.to-orange-500    { --grad-to: #f97316; }
+.to-amber-400     { --grad-to: #fbbf24; }
+.to-yellow-400    { --grad-to: #facc15; }
+.to-green-400     { --grad-to: #4ade80; }
+.to-green-500     { --grad-to: #22c55e; }
+.to-teal-500      { --grad-to: #14b8a6; }
+.to-cyan-400      { --grad-to: #22d3ee; }
+.to-sky-400       { --grad-to: #38bdf8; }
+.to-sky-500       { --grad-to: #0ea5e9; }
 
 /* ── Text Wrap ── */
 .text-wrap    { text-wrap: wrap; white-space: normal; }
