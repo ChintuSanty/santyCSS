@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SantyCSS Animations — Full Showcase</title>
+  <link rel="icon" type="image/png" href="assest/santy_css.png" />
+  <link rel="stylesheet" href="santy.css">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface2: #334155;
+      --border: #334155;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #3b82f6;
+      --accent2: #8b5cf6;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: ui-sans-serif, system-ui, sans-serif; }
+
+    /* Nav */
+    .site-nav { position: sticky; top: 0; z-index: 100; background: #fff; border-bottom: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+    .site-nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .site-nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .site-nav-wordmark { font-size: 20px; font-weight: 700; color: #111827; }
+    .site-nav-wordmark span { color: #2563eb; }
+    .site-nav-badge { font-size: 11px; font-weight: 600; background: #dbeafe; color: #1d4ed8; padding: 2px 8px; border-radius: 9999px; }
+    .site-nav-links { display: flex; align-items: center; gap: 24px; }
+    .site-nav-link { color: #4b5563; text-decoration: none; font-size: 14px; font-weight: 600; transition: color .2s; }
+    .site-nav-link:hover { color: #2563eb; }
+    .site-nav-link-active { color: #2563eb !important; }
+    .site-nav-btn { display: inline-flex; align-items: center; padding: 7px 16px; border-radius: 8px; font-size: 14px; font-weight: 600; background: #2563eb; color: #fff; text-decoration: none; transition: background .2s; }
+    .site-nav-btn:hover { background: #1d4ed8; color: #fff; }
+
+    /* Hero */
+    .hero { text-align: center; padding: 80px 24px 60px; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin: 0 0 16px; background: linear-gradient(135deg,#f1f5f9,#94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 18px; color: var(--muted); max-width: 600px; margin: 0 auto 32px; line-height: 1.6; }
+    .hero-badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .badge-pill { padding: 6px 16px; border-radius: 9999px; font-size: 13px; font-weight: 600; }
+    .badge-blue { background: rgba(59,130,246,.15); color: #60a5fa; border: 1px solid rgba(59,130,246,.3); }
+    .badge-purple { background: rgba(139,92,246,.15); color: #a78bfa; border: 1px solid rgba(139,92,246,.3); }
+    .badge-green { background: rgba(34,197,94,.15); color: #4ade80; border: 1px solid rgba(34,197,94,.3); }
+
+    /* Naming guide */
+    .naming-guide { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px; max-width: 900px; margin: 0 auto 60px; }
+    .naming-guide h2 { font-size: 20px; margin: 0 0 20px; }
+    .pattern-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+    .pattern-row { display: flex; gap: 12px; align-items: center; background: var(--bg); border-radius: 8px; padding: 10px 14px; font-size: 13px; }
+    .pattern-class { font-family: ui-monospace, monospace; color: #60a5fa; white-space: nowrap; }
+    .pattern-arrow { color: var(--muted); }
+    .pattern-desc { color: var(--muted); }
+
+    /* Sections */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section { margin-bottom: 72px; }
+    .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    .section-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .section-title { font-size: 22px; font-weight: 700; margin: 0; }
+    .section-count { font-size: 12px; color: var(--muted); background: var(--surface2); padding: 2px 10px; border-radius: 9999px; }
+
+    /* Animation cards grid */
+    .anim-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+    .anim-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 12px 14px; text-align: center; cursor: pointer; transition: border-color .2s, background .2s; }
+    .anim-card:hover { border-color: var(--accent); background: var(--surface2); }
+    .anim-card.playing { border-color: #8b5cf6; background: rgba(139,92,246,.1); }
+    .anim-box { width: 48px; height: 48px; background: linear-gradient(135deg, #3b82f6, #8b5cf6); border-radius: 10px; margin: 0 auto 12px; }
+    .anim-name { font-family: ui-monospace, monospace; font-size: 11px; color: #60a5fa; margin: 0 0 4px; word-break: break-all; }
+    .anim-label { font-size: 11px; color: var(--muted); }
+    .replay-btn { margin-top: 8px; padding: 3px 10px; font-size: 10px; border: 1px solid var(--border); border-radius: 4px; background: transparent; color: var(--muted); cursor: pointer; transition: all .15s; }
+    .replay-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Helper tables */
+    .helper-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+    .helper-row { display: flex; justify-content: space-between; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; font-size: 13px; }
+    .helper-class { font-family: ui-monospace, monospace; color: #60a5fa; }
+    .helper-val { color: var(--muted); font-size: 12px; }
+
+    /* Copy toast */
+    #copy-toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: #1e293b; border: 1px solid #334155; color: #f1f5f9; padding: 10px 20px; border-radius: 9999px; font-size: 13px; pointer-events: none; transition: transform .3s ease; z-index: 9999; }
+    #copy-toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* Sidebar TOC */
+    @media (min-width: 1100px) {
+      .layout { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: start; }
+      .toc { position: sticky; top: 72px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+      .toc h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin: 0 0 12px; }
+      .toc a { display: block; font-size: 13px; color: var(--muted); text-decoration: none; padding: 4px 0; transition: color .15s; }
+      .toc a:hover { color: var(--text); }
+    }
+    @media (max-width: 1099px) {
+      .toc { display: none; }
+    }
+
+    /* ── Mobile Nav ──────────────────────────────── */
+    .nav-hamburger { display: none; background: none; border: 1px solid #e5e7eb; border-radius: 8px; padding: 7px 9px; cursor: pointer; color: #374151; line-height: 1; }
+    @media (max-width: 767px) {
+      .nav-hamburger { display: flex; align-items: center; justify-content: center; }
+      .site-nav-links {
+        display: none;
+        position: fixed;
+        top: 61px; left: 0; right: 0; bottom: 0;
+        background: #fff;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+        gap: 4px;
+        z-index: 98;
+        border-top: 1px solid #e5e7eb;
+        overflow-y: auto;
+        box-shadow: 0 4px 24px rgba(0,0,0,.12);
+      }
+      .site-nav-links.nav-open { display: flex; }
+      .site-nav-link { display: block; padding: 12px !important; font-size: 16px !important; border-radius: 8px; color: #1f2937 !important; border-bottom: 1px solid #f3f4f6; }
+      .site-nav-link:hover { background: #f9fafb; color: #2563eb !important; }
+      .site-nav-btn { margin-top: 8px; text-align: center; padding: 12px; font-size: 15px; }
+      /* Grids */
+      .anim-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important; }
+      .pattern-grid { grid-template-columns: 1fr !important; }
+      .helper-grid { grid-template-columns: 1fr !important; }
+      .hero { padding: 40px 16px 32px; }
+      .hero p { font-size: 15px; }
+      .naming-guide { padding: 20px 16px; }
+      .container { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<header class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="site-nav-logo">
+      <img src="assest/santy_css.png" alt="SantyCSS" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
+      <span class="site-nav-wordmark">Santy<span>CSS</span></span>
+      <span class="site-nav-badge">v1.0</span>
+    </a>
+    <button class="nav-hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
+      <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg id="ham-close" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:none"><path d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <nav id="anim-nav" class="site-nav-links">
+      <a href="index.html#getting-started" class="site-nav-link">Docs</a>
+      <a href="index.html#utilities" class="site-nav-link">Utilities</a>
+      <a href="index.html#components" class="site-nav-link">Components</a>
+      <a href="index.html#integrations" class="site-nav-link">Integrations</a>
+      <a href="index.html#vs-tailwind" class="site-nav-link">Compare</a>
+      <a href="index.html#examples" class="site-nav-link">Examples</a>
+      <a href="animations.html" class="site-nav-link site-nav-link-active">Animations</a>
+      <a href="demo.html" class="site-nav-btn">Live Demo →</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <h1>SantyCSS Animations</h1>
+  <p>70+ animations with plain-English class names. Compatible with animate.css — but simpler to remember and use.</p>
+  <div class="hero-badges">
+    <span class="badge-pill badge-blue">70+ animations</span>
+    <span class="badge-pill badge-purple">animate.css compatible</span>
+    <span class="badge-pill badge-green">JIT supported</span>
+  </div>
+</div>
+
+<!-- Naming Guide -->
+<div class="container">
+  <div class="naming-guide">
+    <h2>Naming Convention</h2>
+    <div class="pattern-grid">
+      <div class="pattern-row"><span class="pattern-class">animate-fade-in</span><span class="pattern-arrow">→</span><span class="pattern-desc">Simple entrance</span></div>
+      <div class="pattern-row"><span class="pattern-class">animate-fade-out</span><span class="pattern-arrow">→</span><span class="pattern-desc">Simple exit</span></div>
+      <div class="pattern-row"><span class="pattern-class">animate-fade-in-from-top</span><span class="pattern-arrow">→</span><span class="pattern-desc">Directional entrance</span></div>
+      <div class="pattern-row"><span class="pattern-class">animate-fade-out-to-right</span><span class="pattern-arrow">→</span><span class="pattern-desc">Directional exit</span></div>
+      <div class="pattern-row"><span class="pattern-class">animate-bounce-in-from-left</span><span class="pattern-arrow">→</span><span class="pattern-desc">Bounce entrance</span></div>
+      <div class="pattern-row"><span class="pattern-class">animate-shake-x</span><span class="pattern-arrow">→</span><span class="pattern-desc">Attention seeker</span></div>
+      <div class="pattern-row"><span class="pattern-class">animation-speed-fast</span><span class="pattern-arrow">→</span><span class="pattern-desc">Duration modifier</span></div>
+      <div class="pattern-row"><span class="pattern-class">animation-delay-500</span><span class="pattern-arrow">→</span><span class="pattern-desc">Delay in ms</span></div>
+      <div class="pattern-row"><span class="pattern-class">animation-loop-forever</span><span class="pattern-arrow">→</span><span class="pattern-desc">Infinite loop</span></div>
+      <div class="pattern-row"><span class="pattern-class">animation-fill-forwards</span><span class="pattern-arrow">→</span><span class="pattern-desc">Fill mode</span></div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <!-- TOC sidebar -->
+    <aside class="toc">
+      <h3>Categories</h3>
+      <a href="#attention">Attention Seekers</a>
+      <a href="#fade-in">Fading In</a>
+      <a href="#fade-out">Fading Out</a>
+      <a href="#bounce-in">Bouncing In</a>
+      <a href="#bounce-out">Bouncing Out</a>
+      <a href="#slide-in">Sliding In</a>
+      <a href="#slide-out">Sliding Out</a>
+      <a href="#zoom-in">Zooming In</a>
+      <a href="#zoom-out">Zooming Out</a>
+      <a href="#flip">Flipping</a>
+      <a href="#rotate-in">Rotating In</a>
+      <a href="#rotate-out">Rotating Out</a>
+      <a href="#back-in">Back In</a>
+      <a href="#back-out">Back Out</a>
+      <a href="#speed">Light Speed</a>
+      <a href="#specials">Specials</a>
+      <a href="#helpers">Helpers</a>
+    </aside>
+
+    <!-- Main content -->
+    <main>
+
+      <!-- ATTENTION SEEKERS -->
+      <section class="section" id="attention">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(251,191,36,.15);color:#fbbf24;">👀</div>
+          <h2 class="section-title">Attention Seekers</h2>
+          <span class="section-count">10 classes</span>
+        </div>
+        <div class="anim-grid" id="grid-attention">
+          <!-- filled by JS -->
+        </div>
+      </section>
+
+      <!-- FADING IN -->
+      <section class="section" id="fade-in">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(59,130,246,.15);color:#60a5fa;">✨</div>
+          <h2 class="section-title">Fading In</h2>
+          <span class="section-count">9 classes</span>
+        </div>
+        <div class="anim-grid" id="grid-fade-in"></div>
+      </section>
+
+      <!-- FADING OUT -->
+      <section class="section" id="fade-out">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(100,116,139,.15);color:#94a3b8;">🌫️</div>
+          <h2 class="section-title">Fading Out</h2>
+          <span class="section-count">9 classes</span>
+        </div>
+        <div class="anim-grid" id="grid-fade-out"></div>
+      </section>
+
+      <!-- BOUNCING IN -->
+      <section class="section" id="bounce-in">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(34,197,94,.15);color:#4ade80;">⬇️</div>
+          <h2 class="section-title">Bouncing In</h2>
+          <span class="section-count">5 classes</span>
+        </div>
+        <div class="anim-grid" id="grid-bounce-in"></div>
+      </section>
+
+      <!-- BOUNCING OUT -->
+      <section class="section" id="bounce-out">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(239,68,68,.15);color:#f87171;">⬆️</div>
+          <h2 class="section-title">Bouncing Out</h2>
+          <span class="section-count">5 classes</span>
+        </div>
+        <div class="anim-grid" id="grid-bounce-out"></div>
+      </section>
+
+      <!-- SLIDING IN -->
+      <section class="section" id="slide-in">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(14,165,233,.15);color:#38bdf8;">➡️</div>
+          <h2 class="section-title">Sliding In</h2>
+          <span class="section-count">4 classes</span>
+        </div>
+        <div class="anim-grid" id="grid-slide-in"></div>
+      </section>
+
+      <!-- SLIDING OUT -->
+      <section class="section" id="slide-out">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(249,115,22,.15);color:#fb923c;">⬅️</div>
+          <h2 class="section-title">Sliding Out</h2>
+          <span class="section-count">4 classes</span>
+        </div>
+        <div class="anim-grid" id="grid-slide-out"></div>
+      </section>
+
+      <!-- ZOOMING IN -->
+      <section class="section" id="zoom-in">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(139,92,246,.15);color:#a78bfa;">🔍</div>
+          <h2 class="section-title">Zooming In</h2>
+          <span class="section-count">5 classes</span>
+        </div>
+        <div class="anim-grid" id="grid-zoom-in"></div>
+      </section>
+
+      <!-- ZOOMING OUT -->
+      <section class="section" id="zoom-out">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(236,72,153,.15);color:#f472b6;">🔎</div>
+          <h2 class="section-title">Zooming Out</h2>
+          <span class="section-count">5 classes</span>
+        </div>
+        <div class="anim-grid" id="grid-zoom-out"></div>
+      </section>
+
+      <!-- FLIPPING -->
+      <section class="section" id="flip">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(234,179,8,.15);color:#facc15;">🔄</div>
+          <h2 class="section-title">Flipping</h2>
+          <span class="section-count">5 classes</span>
+        </div>
+        <div class="anim-grid" id="grid-flip"></div>
+      </section>
+
+      <!-- ROTATING IN -->
+      <section class="section" id="rotate-in">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(20,184,166,.15);color:#2dd4bf;">↩️</div>
+          <h2 class="section-title">Rotating In</h2>
+          <span class="section-count">5 classes</span>
+        </div>
+        <div class="anim-grid" id="grid-rotate-in"></div>
+      </section>
+
+      <!-- ROTATING OUT -->
+      <section class="section" id="rotate-out">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(244,63,94,.15);color:#fb7185;">↪️</div>
+          <h2 class="section-title">Rotating Out</h2>
+          <span class="section-count">5 classes</span>
+        </div>
+        <div class="anim-grid" id="grid-rotate-out"></div>
+      </section>
+
+      <!-- BACK IN -->
+      <section class="section" id="back-in">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(99,102,241,.15);color:#818cf8;">🔙</div>
+          <h2 class="section-title">Back In</h2>
+          <span class="section-count">4 classes</span>
+        </div>
+        <div class="anim-grid" id="grid-back-in"></div>
+      </section>
+
+      <!-- BACK OUT -->
+      <section class="section" id="back-out">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(168,85,247,.15);color:#c084fc;">🔜</div>
+          <h2 class="section-title">Back Out</h2>
+          <span class="section-count">4 classes</span>
+        </div>
+        <div class="anim-grid" id="grid-back-out"></div>
+      </section>
+
+      <!-- LIGHT SPEED -->
+      <section class="section" id="speed">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(251,191,36,.15);color:#fbbf24;">⚡</div>
+          <h2 class="section-title">Light Speed</h2>
+          <span class="section-count">4 classes</span>
+        </div>
+        <div class="anim-grid" id="grid-speed"></div>
+      </section>
+
+      <!-- SPECIALS -->
+      <section class="section" id="specials">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(239,68,68,.15);color:#f87171;">🎭</div>
+          <h2 class="section-title">Specials</h2>
+          <span class="section-count">4 classes</span>
+        </div>
+        <div class="anim-grid" id="grid-specials"></div>
+      </section>
+
+      <!-- HELPERS -->
+      <section class="section" id="helpers">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(94,234,212,.15);color:#5eead4;">🛠️</div>
+          <h2 class="section-title">Helper Classes</h2>
+        </div>
+
+        <h3 style="font-size:15px;color:var(--muted);margin:0 0 12px;">Speed</h3>
+        <div class="helper-grid" style="margin-bottom:24px;">
+          <div class="helper-row"><span class="helper-class">animation-speed-fastest</span><span class="helper-val">0.3s</span></div>
+          <div class="helper-row"><span class="helper-class">animation-speed-fast</span><span class="helper-val">0.5s</span></div>
+          <div class="helper-row"><span class="helper-class">animation-speed-normal</span><span class="helper-val">1s</span></div>
+          <div class="helper-row"><span class="helper-class">animation-speed-slow</span><span class="helper-val">1.5s</span></div>
+          <div class="helper-row"><span class="helper-class">animation-speed-slowest</span><span class="helper-val">2s</span></div>
+          <div class="helper-row"><span class="helper-class">animation-speed-glacial</span><span class="helper-val">3s</span></div>
+        </div>
+
+        <h3 style="font-size:15px;color:var(--muted);margin:0 0 12px;">Delay</h3>
+        <div class="helper-grid" style="margin-bottom:24px;">
+          <div class="helper-row"><span class="helper-class">animation-delay-100</span><span class="helper-val">0.1s</span></div>
+          <div class="helper-row"><span class="helper-class">animation-delay-200</span><span class="helper-val">0.2s</span></div>
+          <div class="helper-row"><span class="helper-class">animation-delay-300</span><span class="helper-val">0.3s</span></div>
+          <div class="helper-row"><span class="helper-class">animation-delay-500</span><span class="helper-val">0.5s</span></div>
+          <div class="helper-row"><span class="helper-class">animation-delay-1000</span><span class="helper-val">1s</span></div>
+          <div class="helper-row"><span class="helper-class">animation-delay-2000</span><span class="helper-val">2s</span></div>
+        </div>
+
+        <h3 style="font-size:15px;color:var(--muted);margin:0 0 12px;">Loop / Fill / Easing</h3>
+        <div class="helper-grid">
+          <div class="helper-row"><span class="helper-class">animation-loop-1</span><span class="helper-val">once</span></div>
+          <div class="helper-row"><span class="helper-class">animation-loop-3</span><span class="helper-val">3 times</span></div>
+          <div class="helper-row"><span class="helper-class">animation-loop-forever</span><span class="helper-val">infinite</span></div>
+          <div class="helper-row"><span class="helper-class">animation-fill-forwards</span><span class="helper-val">keep end state</span></div>
+          <div class="helper-row"><span class="helper-class">animation-fill-both</span><span class="helper-val">both ends</span></div>
+          <div class="helper-row"><span class="helper-class">animation-ease-in-out</span><span class="helper-val">smooth</span></div>
+          <div class="helper-row"><span class="helper-class">animation-linear</span><span class="helper-val">constant</span></div>
+          <div class="helper-row"><span class="helper-class">animation-paused</span><span class="helper-val">pause</span></div>
+          <div class="helper-row"><span class="helper-class">animation-running</span><span class="helper-val">play</span></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- Copy toast -->
+<div id="copy-toast">Copied!</div>
+
+<script>
+// ─── Animation data ─────────────────────────────────────────────────────────
+const ANIMATIONS = {
+  'attention': [
+    { cls: 'animate-flash',       label: 'Flash' },
+    { cls: 'animate-rubber-band', label: 'Rubber Band' },
+    { cls: 'animate-shake-x',     label: 'Shake X' },
+    { cls: 'animate-shake-y',     label: 'Shake Y' },
+    { cls: 'animate-shake-head',  label: 'Shake Head' },
+    { cls: 'animate-swing',       label: 'Swing' },
+    { cls: 'animate-tada',        label: 'Tada' },
+    { cls: 'animate-wobble',      label: 'Wobble' },
+    { cls: 'animate-jelly',       label: 'Jelly' },
+    { cls: 'animate-heartbeat',   label: 'Heartbeat' },
+  ],
+  'fade-in': [
+    { cls: 'animate-fade-in',              label: 'Fade In' },
+    { cls: 'animate-fade-in-from-top',     label: 'From Top' },
+    { cls: 'animate-fade-in-from-bottom',  label: 'From Bottom' },
+    { cls: 'animate-fade-in-from-left',    label: 'From Left' },
+    { cls: 'animate-fade-in-from-right',   label: 'From Right' },
+    { cls: 'animate-fade-in-top-left',     label: 'Top Left' },
+    { cls: 'animate-fade-in-top-right',    label: 'Top Right' },
+    { cls: 'animate-fade-in-bottom-left',  label: 'Bottom Left' },
+    { cls: 'animate-fade-in-bottom-right', label: 'Bottom Right' },
+  ],
+  'fade-out': [
+    { cls: 'animate-fade-out',              label: 'Fade Out' },
+    { cls: 'animate-fade-out-to-top',       label: 'To Top' },
+    { cls: 'animate-fade-out-to-bottom',    label: 'To Bottom' },
+    { cls: 'animate-fade-out-to-left',      label: 'To Left' },
+    { cls: 'animate-fade-out-to-right',     label: 'To Right' },
+    { cls: 'animate-fade-out-top-left',     label: 'Top Left' },
+    { cls: 'animate-fade-out-top-right',    label: 'Top Right' },
+    { cls: 'animate-fade-out-bottom-left',  label: 'Bottom Left' },
+    { cls: 'animate-fade-out-bottom-right', label: 'Bottom Right' },
+  ],
+  'bounce-in': [
+    { cls: 'animate-bounce-in',             label: 'Bounce In' },
+    { cls: 'animate-bounce-in-from-top',    label: 'From Top' },
+    { cls: 'animate-bounce-in-from-bottom', label: 'From Bottom' },
+    { cls: 'animate-bounce-in-from-left',   label: 'From Left' },
+    { cls: 'animate-bounce-in-from-right',  label: 'From Right' },
+  ],
+  'bounce-out': [
+    { cls: 'animate-bounce-out',            label: 'Bounce Out' },
+    { cls: 'animate-bounce-out-to-top',     label: 'To Top' },
+    { cls: 'animate-bounce-out-to-bottom',  label: 'To Bottom' },
+    { cls: 'animate-bounce-out-to-left',    label: 'To Left' },
+    { cls: 'animate-bounce-out-to-right',   label: 'To Right' },
+  ],
+  'slide-in': [
+    { cls: 'animate-slide-in-from-top',    label: 'From Top' },
+    { cls: 'animate-slide-in-from-bottom', label: 'From Bottom' },
+    { cls: 'animate-slide-in-from-left',   label: 'From Left' },
+    { cls: 'animate-slide-in-from-right',  label: 'From Right' },
+  ],
+  'slide-out': [
+    { cls: 'animate-slide-out-to-top',    label: 'To Top' },
+    { cls: 'animate-slide-out-to-bottom', label: 'To Bottom' },
+    { cls: 'animate-slide-out-to-left',   label: 'To Left' },
+    { cls: 'animate-slide-out-to-right',  label: 'To Right' },
+  ],
+  'zoom-in': [
+    { cls: 'animate-zoom-in',             label: 'Zoom In' },
+    { cls: 'animate-zoom-in-from-top',    label: 'From Top' },
+    { cls: 'animate-zoom-in-from-bottom', label: 'From Bottom' },
+    { cls: 'animate-zoom-in-from-left',   label: 'From Left' },
+    { cls: 'animate-zoom-in-from-right',  label: 'From Right' },
+  ],
+  'zoom-out': [
+    { cls: 'animate-zoom-out',            label: 'Zoom Out' },
+    { cls: 'animate-zoom-out-to-top',     label: 'To Top' },
+    { cls: 'animate-zoom-out-to-bottom',  label: 'To Bottom' },
+    { cls: 'animate-zoom-out-to-left',    label: 'To Left' },
+    { cls: 'animate-zoom-out-to-right',   label: 'To Right' },
+  ],
+  'flip': [
+    { cls: 'animate-flip',       label: 'Flip' },
+    { cls: 'animate-flip-in-x',  label: 'Flip In X' },
+    { cls: 'animate-flip-in-y',  label: 'Flip In Y' },
+    { cls: 'animate-flip-out-x', label: 'Flip Out X' },
+    { cls: 'animate-flip-out-y', label: 'Flip Out Y' },
+  ],
+  'rotate-in': [
+    { cls: 'animate-rotate-in',                   label: 'Rotate In' },
+    { cls: 'animate-rotate-in-from-top-left',     label: 'From Top Left' },
+    { cls: 'animate-rotate-in-from-top-right',    label: 'From Top Right' },
+    { cls: 'animate-rotate-in-from-bottom-left',  label: 'From Bottom Left' },
+    { cls: 'animate-rotate-in-from-bottom-right', label: 'From Bottom Right' },
+  ],
+  'rotate-out': [
+    { cls: 'animate-rotate-out',                   label: 'Rotate Out' },
+    { cls: 'animate-rotate-out-to-top-left',       label: 'To Top Left' },
+    { cls: 'animate-rotate-out-to-top-right',      label: 'To Top Right' },
+    { cls: 'animate-rotate-out-to-bottom-left',    label: 'To Bottom Left' },
+    { cls: 'animate-rotate-out-to-bottom-right',   label: 'To Bottom Right' },
+  ],
+  'back-in': [
+    { cls: 'animate-back-in-from-top',    label: 'From Top' },
+    { cls: 'animate-back-in-from-bottom', label: 'From Bottom' },
+    { cls: 'animate-back-in-from-left',   label: 'From Left' },
+    { cls: 'animate-back-in-from-right',  label: 'From Right' },
+  ],
+  'back-out': [
+    { cls: 'animate-back-out-to-top',    label: 'To Top' },
+    { cls: 'animate-back-out-to-bottom', label: 'To Bottom' },
+    { cls: 'animate-back-out-to-left',   label: 'To Left' },
+    { cls: 'animate-back-out-to-right',  label: 'To Right' },
+  ],
+  'speed': [
+    { cls: 'animate-speed-in-from-left',  label: 'In from Left' },
+    { cls: 'animate-speed-in-from-right', label: 'In from Right' },
+    { cls: 'animate-speed-out-to-left',   label: 'Out to Left' },
+    { cls: 'animate-speed-out-to-right',  label: 'Out to Right' },
+  ],
+  'specials': [
+    { cls: 'animate-hinge',       label: 'Hinge' },
+    { cls: 'animate-jack-in-box', label: 'Jack In Box' },
+    { cls: 'animate-roll-in',     label: 'Roll In' },
+    { cls: 'animate-roll-out',    label: 'Roll Out' },
+  ],
+};
+
+// ─── Render cards ────────────────────────────────────────────────────────────
+function playAnimation(card, cls) {
+  const box = card.querySelector('.anim-box');
+  // Remove all known animate classes
+  Object.values(ANIMATIONS).flat().forEach(a => box.classList.remove(a.cls));
+  // Force reflow
+  void box.offsetWidth;
+  // Add class
+  box.classList.add(cls);
+  card.classList.add('playing');
+  // Clean up after animation
+  const dur = parseFloat(getComputedStyle(box).animationDuration || '1') * 1000 + 100;
+  setTimeout(() => {
+    box.classList.remove(cls);
+    card.classList.remove('playing');
+  }, Math.max(dur, 800));
+}
+
+function copyClass(cls) {
+  navigator.clipboard.writeText(cls).then(() => {
+    const toast = document.getElementById('copy-toast');
+    toast.textContent = `Copied: ${cls}`;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1800);
+  });
+}
+
+function renderGrid(id, items) {
+  const grid = document.getElementById('grid-' + id);
+  if (!grid) return;
+  items.forEach(({ cls, label }) => {
+    const card = document.createElement('div');
+    card.className = 'anim-card';
+    card.innerHTML = `
+      <div class="anim-box"></div>
+      <div class="anim-name">${cls}</div>
+      <div class="anim-label">${label}</div>
+      <button class="replay-btn">▶ Play</button>
+    `;
+    // Click card to copy
+    card.addEventListener('click', (e) => {
+      if (e.target.tagName === 'BUTTON') return;
+      copyClass(cls);
+    });
+    // Button replays
+    card.querySelector('.replay-btn').addEventListener('click', () => {
+      playAnimation(card, cls);
+    });
+    // Auto-play on load after a small stagger
+    grid.appendChild(card);
+  });
+
+  // Stagger auto-play using IntersectionObserver
+  let played = new Set();
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !played.has(id)) {
+        played.add(id);
+        const cards = grid.querySelectorAll('.anim-card');
+        cards.forEach((card, i) => {
+          const cls2 = items[i]?.cls;
+          if (cls2) setTimeout(() => playAnimation(card, cls2), i * 80);
+        });
+      }
+    });
+  }, { threshold: 0.2 });
+  observer.observe(grid);
+}
+
+Object.keys(ANIMATIONS).forEach(id => renderGrid(id, ANIMATIONS[id]));
+</script>
+<script>
+function toggleMobileNav() {
+  var nav = document.getElementById('anim-nav');
+  var hamIcon = document.getElementById('ham-icon');
+  var hamClose = document.getElementById('ham-close');
+  var open = nav.classList.toggle('nav-open');
+  hamIcon.style.display = open ? 'none' : 'block';
+  hamClose.style.display = open ? 'block' : 'none';
+}
+document.querySelectorAll('#anim-nav .site-nav-link, #anim-nav .site-nav-btn').forEach(function(el) {
+  el.addEventListener('click', function() {
+    document.getElementById('anim-nav').classList.remove('nav-open');
+    document.getElementById('ham-icon').style.display = 'block';
+    document.getElementById('ham-close').style.display = 'none';
+  });
+});
+</script>
+</body>
+</html>

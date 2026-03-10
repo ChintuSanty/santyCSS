@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node --version)",
+      "Bash(node build.js)",
+      "Bash(node -e \":*)",
+      "Bash(grep \"on-hover\\\\\\\\:scale\" c:/Users/SanthoshBadhri/repos/santy_css/santy.css)",
+      "Bash(gzip -k -9 santy.css -c)",
+      "Bash(brotli --best santy.css -o santy.css.br)",
+      "Bash(rm -f santy.css.gz santy.css.br)",
+      "Bash(node purge.js --input=. --out=santy.min.css --verbose)",
+      "Bash(node purge.js --input=. --out=santy.min.css)",
+      "Bash(gzip -k -9 santy.min.css -c)",
+      "Read(//c/Users/SanthoshBadhri/repos/santy_css/{printf \"\"\"\"Gzip: %.1f KB/n\"\"\"\", $1/**)"
+    ]
+  }
+}
