@@ -185,6 +185,7 @@
     <nav id="main-nav" class="make-flex align-center gap-24">
       <a href="#getting-started" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Docs</a>
       <a href="#utilities" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Utilities</a>
+      <a href="#theming" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Theming</a>
       <a href="#components" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Components</a>
       <a href="#integrations" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Integrations</a>
       <a href="#vs-tailwind" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Compare</a>
@@ -1524,6 +1525,213 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
     </div>
 
   </div><!-- end container -->
+</section>
+
+<!-- ─── THEMING ──────────────────────────────────────────────────────────── -->
+<section id="theming" class="section background-white add-padding-y-80">
+  <div class="container">
+    <div class="text-center add-margin-bottom-56">
+      <h2 class="set-text-40 text-bold color-gray-900 add-margin-bottom-12" style="letter-spacing:-1px;">Theming &amp; Advanced Features</h2>
+      <p class="set-text-18 color-gray-500">CSS variables, dark mode, peer variants, print styles, RTL support.</p>
+    </div>
+
+    <div class="make-grid grid-cols-2 gap-32 add-margin-bottom-48">
+
+      <!-- CSS Variables / Theming -->
+      <div>
+        <h3 class="set-text-22 text-semibold color-gray-800 add-margin-bottom-16">CSS Variables / Theming</h3>
+        <p class="set-text-15 color-gray-500 add-margin-bottom-20 line-height-relaxed">Override design tokens in your own stylesheet — no build step, no config file, just CSS. Every component reads from these variables.</p>
+        <div class="code-block add-margin-bottom-16">
+<pre><span class="c-com">/* Override in your CSS file */</span>
+<span class="c-tag">:root</span> {
+  <span class="c-attr">--santy-primary</span>:       <span class="c-str">#7c3aed</span>;  <span class="c-com">/* brand purple */</span>
+  <span class="c-attr">--santy-primary-dark</span>:  <span class="c-str">#6d28d9</span>;
+  <span class="c-attr">--santy-primary-light</span>: <span class="c-str">#ede9fe</span>;
+  <span class="c-attr">--santy-secondary</span>:     <span class="c-str">#0f172a</span>;
+  <span class="c-attr">--santy-success</span>:       <span class="c-str">#16a34a</span>;
+  <span class="c-attr">--santy-danger</span>:        <span class="c-str">#dc2626</span>;
+  <span class="c-attr">--santy-radius</span>:        <span class="c-str">12px</span>;
+  <span class="c-attr">--santy-radius-sm</span>:     <span class="c-str">6px</span>;
+  <span class="c-attr">--santy-radius-lg</span>:     <span class="c-str">20px</span>;
+  <span class="c-attr">--santy-font-sans</span>:     <span class="c-str">'Inter', sans-serif</span>;
+}</pre>
+        </div>
+        <!-- Live demo: tokens applied -->
+        <div style="--santy-primary:#7c3aed;--santy-primary-dark:#6d28d9;--santy-radius:12px;" class="make-flex flex-wrap gap-10">
+          <button class="btn btn-primary btn-sm" style="background:#7c3aed;border-radius:12px;">Branded btn</button>
+          <button class="btn btn-outline btn-sm" style="border-color:#7c3aed;color:#7c3aed;border-radius:12px;">Outlined</button>
+          <span class="badge" style="background:#ede9fe;color:#6d28d9;border-radius:12px;">Token Badge</span>
+        </div>
+        <div class="table-wrap add-margin-top-20">
+          <table>
+            <thead><tr><th>Token</th><th>Default</th><th>Used by</th></tr></thead>
+            <tbody>
+              <tr><td>--santy-primary</td><td>#3b82f6</td><td>.btn-primary, .ring-*, .tabs-item.active</td></tr>
+              <tr><td>--santy-primary-dark</td><td>#2563eb</td><td>.btn-primary:hover</td></tr>
+              <tr><td>--santy-primary-light</td><td>#dbeafe</td><td>light bg accents</td></tr>
+              <tr><td>--santy-secondary</td><td>#6b7280</td><td>.btn-secondary</td></tr>
+              <tr><td>--santy-success / danger / warning / info</td><td>green/red/amber/cyan</td><td>.btn-success, .alert-*, notification-*</td></tr>
+              <tr><td>--santy-radius / -sm / -md / -lg / -xl / -full</td><td>8px … 9999px</td><td>all rounded corners</td></tr>
+              <tr><td>--santy-font-sans / -serif / -mono</td><td>system-ui / Georgia / monospace</td><td>.font-sans, .font-serif, .font-mono</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Dark Mode -->
+      <div>
+        <h3 class="set-text-22 text-semibold color-gray-800 add-margin-bottom-16">Dark Mode</h3>
+        <p class="set-text-15 color-gray-500 add-margin-bottom-20 line-height-relaxed">Add <code class="chip">.dark</code> to <code class="chip">&lt;html&gt;</code> or <code class="chip">&lt;body&gt;</code> — all components auto-adapt. Use <code class="chip">.dark-auto</code> to follow the OS preference.</p>
+        <div class="code-block add-margin-bottom-16">
+<pre><span class="c-com">&lt;!-- Manual dark mode --&gt;</span>
+<span class="c-tag">&lt;html</span> <span class="c-attr">class</span>=<span class="c-str">"dark"</span><span class="c-tag">&gt;</span>
+
+<span class="c-com">&lt;!-- Follow OS preference --&gt;</span>
+<span class="c-tag">&lt;html</span> <span class="c-attr">class</span>=<span class="c-str">"dark-auto"</span><span class="c-tag">&gt;</span>
+
+<span class="c-com">&lt;!-- Per-element dark override --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"dark:background-gray-900 dark:color-white"</span><span class="c-tag">&gt;</span></pre>
+        </div>
+        <!-- Dark mode live preview -->
+        <div style="background:#0f172a;border-radius:12px;padding:20px;" class="make-flex flex-column gap-10">
+          <div style="background:#1e293b;border-radius:8px;padding:12px 16px;color:#f1f5f9;border:1px solid #334155;font-size:13px;font-weight:500;">Dark Card</div>
+          <div class="make-flex gap-8">
+            <button style="background:#3b82f6;color:#fff;border:none;padding:6px 14px;border-radius:6px;font-size:13px;cursor:pointer;">Primary</button>
+            <button style="border:1px solid #475569;color:#e2e8f0;background:transparent;padding:6px 14px;border-radius:6px;font-size:13px;cursor:pointer;">Outline</button>
+          </div>
+          <div style="background:#052e16;border:1px solid #166534;color:#86efac;padding:8px 12px;border-radius:6px;font-size:12px;">✅ Dark alert-success</div>
+          <div style="background:#2d0a0a;border:1px solid #991b1b;color:#fca5a5;padding:8px 12px;border-radius:6px;font-size:12px;">❌ Dark alert-danger</div>
+        </div>
+        <div class="table-wrap add-margin-top-16">
+          <table>
+            <thead><tr><th>Component</th><th>.dark class adapts</th></tr></thead>
+            <tbody>
+              <tr><td>.card / .card-header / .card-body / .card-footer</td><td>✅</td></tr>
+              <tr><td>.btn-outline / .btn-ghost / .btn-secondary</td><td>✅</td></tr>
+              <tr><td>.alert-info / -success / -warning / -danger</td><td>✅</td></tr>
+              <tr><td>.badge / .notification-*</td><td>✅</td></tr>
+              <tr><td>.input / .select / .textarea</td><td>✅</td></tr>
+              <tr><td>.modal-box / .drawer-panel</td><td>✅</td></tr>
+              <tr><td>.accordion / .tabs / .dropdown-menu</td><td>✅</td></tr>
+              <tr><td>.table / .navbar / .pagination</td><td>✅</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="make-grid grid-cols-2 gap-32 add-margin-bottom-48">
+
+      <!-- Peer Variants -->
+      <div>
+        <h3 class="set-text-22 text-semibold color-gray-800 add-margin-bottom-16">Peer &amp; Group Variants</h3>
+        <p class="set-text-15 color-gray-500 add-margin-bottom-20 line-height-relaxed">Target sibling elements when an ancestor or peer changes state — no JS required.</p>
+        <div class="code-block add-margin-bottom-20">
+<pre><span class="c-com">&lt;!-- peer-checked: show sibling --&gt;</span>
+<span class="c-tag">&lt;input</span> <span class="c-attr">type</span>=<span class="c-str">"checkbox"</span> <span class="c-attr">class</span>=<span class="c-str">"peer"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;p</span> <span class="c-attr">class</span>=<span class="c-str">"make-hidden peer-checked:make-block"</span><span class="c-tag">&gt;</span>
+  Visible when checked!
+<span class="c-tag">&lt;/p&gt;</span>
+
+<span class="c-com">&lt;!-- peer-hover: change color --&gt;</span>
+<span class="c-tag">&lt;input</span> <span class="c-attr">class</span>=<span class="c-str">"peer"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;label</span> <span class="c-attr">class</span>=<span class="c-str">"peer-focus:color-blue-600"</span><span class="c-tag">&gt;</span>
+  Label<span class="c-tag">&lt;/label&gt;</span>
+
+<span class="c-com">&lt;!-- group-hover: child reacts to parent --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"group cursor-pointer"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"group-hover:color-blue-500"</span><span class="c-tag">&gt;</span>hover me<span class="c-tag">&lt;/span&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Variant</th><th>Triggers when</th></tr></thead>
+            <tbody>
+              <tr><td>peer-hover:{cls}</td><td>peer element is hovered</td></tr>
+              <tr><td>peer-focus:{cls}</td><td>peer element is focused</td></tr>
+              <tr><td>peer-checked:{cls}</td><td>peer checkbox/radio is checked</td></tr>
+              <tr><td>peer-disabled:{cls}</td><td>peer element is disabled</td></tr>
+              <tr><td>group-hover:{cls}</td><td>parent .group is hovered</td></tr>
+              <tr><td>group-focus:{cls}</td><td>parent .group has focus</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Print + Motion + on-visited -->
+      <div>
+        <h3 class="set-text-22 text-semibold color-gray-800 add-margin-bottom-16">Print, Motion &amp; Link Variants</h3>
+        <p class="set-text-15 color-gray-500 add-margin-bottom-20 line-height-relaxed">Built-in accessibility and print utilities — no plugins or extra config.</p>
+        <div class="code-block add-margin-bottom-20">
+<pre><span class="c-com">&lt;!-- Print styles --&gt;</span>
+<span class="c-tag">&lt;nav</span> <span class="c-attr">class</span>=<span class="c-str">"print:make-hidden"</span><span class="c-tag">&gt;</span>…<span class="c-tag">&lt;/nav&gt;</span>
+<span class="c-tag">&lt;footer</span> <span class="c-attr">class</span>=<span class="c-str">"print:make-hidden"</span><span class="c-tag">&gt;</span>…<span class="c-tag">&lt;/footer&gt;</span>
+<span class="c-tag">&lt;article</span> <span class="c-attr">class</span>=<span class="c-str">"print:set-text-12 print:color-black"</span><span class="c-tag">&gt;</span>…<span class="c-tag">&lt;/article&gt;</span>
+
+<span class="c-com">&lt;!-- Motion accessibility --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"motion-safe:animate-spin
+         motion-reduce:animate-none"</span><span class="c-tag">&gt;</span>…<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-com">&lt;!-- Link states --&gt;</span>
+<span class="c-tag">&lt;a</span> <span class="c-attr">class</span>=<span class="c-str">"color-blue-500
+        on-visited:color-purple-600
+        on-hover:color-blue-700"</span><span class="c-tag">&gt;</span>
+  Link
+<span class="c-tag">&lt;/a&gt;</span></pre>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Variant</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td>print:{cls}</td><td>Applied only when printing</td></tr>
+              <tr><td>print:make-hidden</td><td>Hide element in print</td></tr>
+              <tr><td>print:make-block</td><td>Show element only in print</td></tr>
+              <tr><td>motion-safe:{cls}</td><td>Only if user has no reduce-motion preference</td></tr>
+              <tr><td>motion-reduce:{cls}</td><td>Applied when reduce-motion is set</td></tr>
+              <tr><td>motion-reduce:animate-none</td><td>Kills animations for accessibility</td></tr>
+              <tr><td>on-visited:{cls}</td><td>Visited links</td></tr>
+              <tr><td>on-required:{cls}</td><td>Required form fields</td></tr>
+              <tr><td>on-invalid:{cls}</td><td>Invalid form fields</td></tr>
+              <tr><td>on-read-only:{cls}</td><td>Read-only inputs</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- RTL Support -->
+    <div class="add-margin-bottom-0">
+      <h3 class="set-text-22 text-semibold color-gray-800 add-margin-bottom-16">RTL / Logical Properties</h3>
+      <p class="set-text-15 color-gray-500 add-margin-bottom-24 line-height-relaxed">SantyCSS ships logical property utilities. Add <code class="chip">dir="rtl"</code> to <code class="chip">&lt;html&gt;</code> and spacing/borders automatically flip — no extra classes needed.</p>
+      <div class="make-grid grid-cols-2 gap-24">
+        <div class="code-block">
+<pre><span class="c-com">&lt;!-- RTL-safe layout --&gt;</span>
+<span class="c-tag">&lt;html</span> <span class="c-attr">dir</span>=<span class="c-str">"rtl"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"ps-16 pe-8"</span><span class="c-tag">&gt;</span>
+    <span class="c-com">&lt;!-- padding-inline-start/end flips in RTL --&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"ms-auto border-start-4"</span><span class="c-tag">&gt;</span>
+    <span class="c-com">&lt;!-- start/end flip in RTL --&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span></pre>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Class</th><th>Logical Property</th></tr></thead>
+            <tbody>
+              <tr><td>ps-{n}</td><td>padding-inline-start (LTR: left, RTL: right)</td></tr>
+              <tr><td>pe-{n}</td><td>padding-inline-end (LTR: right, RTL: left)</td></tr>
+              <tr><td>ms-auto</td><td>margin-inline-start: auto</td></tr>
+              <tr><td>me-auto</td><td>margin-inline-end: auto</td></tr>
+              <tr><td>border-start-1/2/4</td><td>border-inline-start (flips in RTL)</td></tr>
+              <tr><td>border-end-1/2/4</td><td>border-inline-end (flips in RTL)</td></tr>
+              <tr><td>start-0 / end-0</td><td>inset-inline-start/end: 0</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </section>
 
 <!-- ─── COMPONENTS ────────────────────────────────────────────────────────── -->
