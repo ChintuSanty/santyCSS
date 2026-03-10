@@ -1625,6 +1625,51 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
         <code class="chip add-margin-top-8">.alert .alert-info/.success/.warning/.danger</code>
       </div>
 
+      <!-- Navbar / Header -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+        <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Navbar / Header</h3>
+        <div class="navbar round-corners-8 add-border-1 border-color-gray-200 add-margin-bottom-12" style="padding:8px 12px;">
+          <a href="#" class="navbar-brand set-text-14">SantyCSS</a>
+          <div class="navbar-menu">
+            <a href="#" class="navbar-item active set-text-12">Home</a>
+            <a href="#" class="navbar-item set-text-12">Docs</a>
+            <a href="#" class="navbar-item set-text-12">Blog</a>
+          </div>
+        </div>
+        <div class="navbar navbar-dark round-corners-8" style="padding:8px 12px;">
+          <a href="#" class="navbar-brand set-text-14">Dark</a>
+          <div class="navbar-menu">
+            <a href="#" class="navbar-item set-text-12">Home</a>
+            <a href="#" class="navbar-item active set-text-12">Docs</a>
+          </div>
+        </div>
+        <code class="chip add-margin-top-12">.navbar .navbar-brand .navbar-item .navbar-dark</code>
+      </div>
+
+      <!-- Tooltip -->
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+        <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Tooltip</h3>
+        <div class="make-flex flex-wrap gap-16 align-center add-margin-bottom-16">
+          <span class="tooltip tooltip-top">
+            <button class="btn btn-primary btn-sm">Top</button>
+            <span class="tooltip-content">Tooltip on top</span>
+          </span>
+          <span class="tooltip tooltip-bottom">
+            <button class="btn btn-success btn-sm">Bottom</button>
+            <span class="tooltip-content">Tooltip on bottom</span>
+          </span>
+          <span class="tooltip tooltip-right">
+            <button class="btn btn-warning btn-sm">Right</button>
+            <span class="tooltip-content">Tooltip on right</span>
+          </span>
+          <span class="tooltip tooltip-left">
+            <button class="btn btn-danger btn-sm">Left</button>
+            <span class="tooltip-content">Tooltip on left</span>
+          </span>
+        </div>
+        <code class="chip">.tooltip .tooltip-top/.bottom/.left/.right .tooltip-content</code>
+      </div>
+
     </div>
   </div>
 </section>
