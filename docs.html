@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SantyCSS Docs — All Modules Explained</title>
+  <link rel="icon" type="image/png" href="assest/santy_css.png" />
+  <link rel="stylesheet" href="santy.css" />
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    pre  { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; margin: 0; }
+
+    /* Code blocks */
+    .code-block {
+      background: #0f172a; color: #e2e8f0;
+      border-radius: 10px; padding: 20px 24px;
+      overflow-x: auto; font-size: 13px; line-height: 1.7;
+      position: relative;
+    }
+    .c-key  { color: #7dd3fc; }
+    .c-val  { color: #86efac; }
+    .c-str  { color: #fcd34d; }
+    .c-tag  { color: #f472b6; }
+    .c-attr { color: #a5b4fc; }
+    .c-com  { color: #64748b; font-style: italic; }
+    .c-fn   { color: #c084fc; }
+    .c-num  { color: #fb923c; }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid #e5e7eb; }
+    table { border-collapse: collapse; width: 100%; font-size: 13px; }
+    th { background: #f8fafc; font-weight: 600; color: #374151; padding: 10px 14px; text-align: left; border-bottom: 2px solid #e5e7eb; }
+    td { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; color: #374151; }
+    td:first-child { font-family: ui-monospace, monospace; color: #2563eb; font-size: 12px; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f9fafb; }
+
+    /* Sidebar */
+    .docs-sidebar {
+      width: 240px; flex-shrink: 0; position: sticky;
+      top: 72px; height: calc(100vh - 72px);
+      overflow-y: auto; padding: 24px 16px 24px 0;
+      border-right: 1px solid #e5e7eb;
+    }
+    .docs-sidebar::-webkit-scrollbar { width: 4px; }
+    .docs-sidebar::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 2px; }
+    .sidebar-group { margin-bottom: 20px; }
+    .sidebar-group-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #9ca3af; padding: 0 10px; margin-bottom: 4px; }
+    .sidebar-link {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 10px; border-radius: 7px;
+      font-size: 13px; color: #475569; text-decoration: none;
+      transition: all 0.15s; margin-bottom: 1px;
+    }
+    .sidebar-link:hover { background: #f1f5f9; color: #1e293b; }
+    .sidebar-link.active { background: #eff6ff; color: #2563eb; font-weight: 600; }
+    .sidebar-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+    /* Nav */
+    .nav-link { transition: color 0.2s; }
+    .nav-link:hover { color: #3b82f6; }
+    .nav-hamburger {
+      display: none; background: none; border: 1px solid #e5e7eb;
+      border-radius: 8px; padding: 7px 9px; cursor: pointer; color: #374151; line-height: 1;
+    }
+
+    /* Module hero banner */
+    .module-banner {
+      border-radius: 16px; padding: 32px 36px; margin-bottom: 32px;
+      display: flex; align-items: flex-start; gap: 20px;
+    }
+    .module-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; flex-shrink: 0;
+    }
+
+    /* Section scroll margin */
+    .doc-section { scroll-margin-top: 80px; padding-bottom: 64px; border-bottom: 1px solid #f1f5f9; margin-bottom: 48px; }
+    .doc-section:last-child { border-bottom: none; }
+
+    /* Chip */
+    .chip {
+      display: inline-block; background: #1e293b; color: #7dd3fc;
+      border-radius: 6px; padding: 2px 9px; font-size: 12px; font-weight: 600;
+      font-family: ui-monospace, monospace; border: 1px solid #334155;
+    }
+    .chip-blue   { background: #dbeafe; color: #1d4ed8; border: none; }
+    .chip-green  { background: #dcfce7; color: #15803d; border: none; }
+    .chip-purple { background: #f3e8ff; color: #7e22ce; border: none; }
+    .chip-orange { background: #ffedd5; color: #c2410c; border: none; }
+    .chip-red    { background: #fee2e2; color: #dc2626; border: none; }
+    .chip-gray   { background: #f3f4f6; color: #374151; border: none; }
+
+    /* Install box */
+    .install-box {
+      background: #0f172a; border-radius: 12px; padding: 20px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .install-box code { color: #7dd3fc; font-size: 15px; font-family: ui-monospace, monospace; }
+
+    /* Copy button */
+    .copy-btn {
+      font-size: 11px; padding: 4px 12px; border-radius: 6px;
+      background: #334155; color: #94a3b8; border: none; cursor: pointer;
+      transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+    }
+    .copy-btn:hover { background: #475569; color: #e2e8f0; }
+
+    /* Class preview pills */
+    .class-pill {
+      display: inline-block; background: rgba(59,130,246,0.1); color: #2563eb;
+      border: 1px solid rgba(59,130,246,0.2); border-radius: 6px;
+      padding: 3px 10px; font-size: 12px; font-family: ui-monospace, monospace;
+      margin: 3px;
+    }
+
+    /* Feature row */
+    .feature-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+    .feature-check { width: 20px; height: 20px; border-radius: 50%; background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    /* Mobile */
+    @media (max-width: 767px) {
+      .nav-hamburger { display: flex; align-items: center; justify-content: center; }
+      #main-nav {
+        display: none; position: fixed; top: 61px; left: 0; right: 0; bottom: 0;
+        background: #fff; flex-direction: column; align-items: stretch;
+        padding: 16px; gap: 4px; z-index: 98; border-top: 1px solid #e5e7eb;
+        overflow-y: auto; box-shadow: 0 4px 24px rgba(0,0,0,.12);
+      }
+      #main-nav.nav-open { display: flex; }
+      #main-nav .nav-link { display: block; padding: 12px !important; font-size: 16px !important; border-radius: 8px; color: #1f2937 !important; border-bottom: 1px solid #f3f4f6; }
+      .docs-layout { flex-direction: column !important; }
+      .docs-sidebar { display: none; }
+      .module-banner { flex-direction: column; padding: 20px; }
+      .grid-cols-2, .grid-cols-3 { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body class="background-white">
+
+<!-- ─── TOP NAV ──────────────────────────────────────────────────────────── -->
+<header class="position-sticky pin-top-0 z-50 background-white" style="border-bottom:1px solid #e5e7eb;box-shadow:0 1px 3px rgba(0,0,0,.06);">
+  <div class="container make-flex align-center justify-between add-padding-y-14">
+    <a href="index.html" class="make-flex align-center gap-10 text-no-decoration">
+      <img src="assest/santy_css.png" alt="SantyCSS" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
+      <span class="set-text-20 text-bold color-gray-900">Santy<span class="color-blue-600">CSS</span></span>
+      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v1.1</span>
+    </a>
+    <button class="nav-hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
+      <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg id="ham-close" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:none"><path d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <nav id="main-nav" class="make-flex align-center gap-24">
+      <a href="index.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Home</a>
+      <a href="docs.html" class="nav-link color-blue-600 text-no-decoration set-text-14 text-semibold">Docs</a>
+      <a href="index.html#utilities" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Utilities</a>
+      <a href="index.html#components" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Components</a>
+      <a href="animations.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Animations</a>
+      <a href="demo.html" class="btn btn-primary btn-sm">Live Demo →</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ─── PAGE LAYOUT ─────────────────────────────────────────────────────── -->
+<div class="container make-flex gap-0 docs-layout" style="align-items:flex-start;padding-top:0;">
+
+  <!-- ── SIDEBAR ────────────────────────────────────────────────────────── -->
+  <aside class="docs-sidebar">
+
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">Getting Started</div>
+      <a href="#install" class="sidebar-link active"><span class="sidebar-dot" style="background:#3b82f6;"></span>Installation</a>
+      <a href="#package-structure" class="sidebar-link"><span class="sidebar-dot" style="background:#3b82f6;"></span>Package Structure</a>
+      <a href="#import-options" class="sidebar-link"><span class="sidebar-dot" style="background:#3b82f6;"></span>Import Options</a>
+      <a href="#cdn" class="sidebar-link"><span class="sidebar-dot" style="background:#3b82f6;"></span>CDN Links</a>
+    </div>
+
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">CSS Modules</div>
+      <a href="#module-full" class="sidebar-link"><span class="sidebar-dot" style="background:#6366f1;"></span>santy.css — Full Bundle</a>
+      <a href="#module-core" class="sidebar-link"><span class="sidebar-dot" style="background:#3b82f6;"></span>santy-core.css — Utilities</a>
+      <a href="#module-components" class="sidebar-link"><span class="sidebar-dot" style="background:#22c55e;"></span>santy-components.css</a>
+      <a href="#module-animations" class="sidebar-link"><span class="sidebar-dot" style="background:#f59e0b;"></span>santy-animations.css</a>
+      <a href="#module-email" class="sidebar-link"><span class="sidebar-dot" style="background:#ec4899;"></span>santy-email.css</a>
+    </div>
+
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">Tooling</div>
+      <a href="#postcss-plugin" class="sidebar-link"><span class="sidebar-dot" style="background:#ef4444;"></span>PostCSS Plugin</a>
+      <a href="#vite-plugin" class="sidebar-link"><span class="sidebar-dot" style="background:#646cff;"></span>Vite Plugin</a>
+      <a href="#purge-api" class="sidebar-link"><span class="sidebar-dot" style="background:#14b8a6;"></span>Purge / Tree-shake</a>
+    </div>
+
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">Framework Guides</div>
+      <a href="#guide-react" class="sidebar-link"><span class="sidebar-dot" style="background:#61dafb;"></span>React / Next.js</a>
+      <a href="#guide-vue" class="sidebar-link"><span class="sidebar-dot" style="background:#42b883;"></span>Vue / Nuxt</a>
+      <a href="#guide-html" class="sidebar-link"><span class="sidebar-dot" style="background:#e34f26;"></span>Plain HTML</a>
+    </div>
+
+  </aside>
+
+  <!-- ── MAIN CONTENT ──────────────────────────────────────────────────── -->
+  <main style="flex:1;min-width:0;padding:40px 0 80px 48px;">
+
+    <!-- Page title -->
+    <div class="add-margin-bottom-48">
+      <div class="make-flex align-center gap-12 add-margin-bottom-12">
+        <span class="chip chip-blue">v1.1.0</span>
+        <span class="chip chip-green">MIT License</span>
+        <a href="https://www.npmjs.com/package/santycss" target="_blank" class="chip chip-red" style="text-decoration:none;">npm ↗</a>
+      </div>
+      <h1 class="set-text-40 text-bold color-gray-900 add-margin-bottom-12" style="letter-spacing:-1px;">Module Documentation</h1>
+      <p class="set-text-18 color-gray-500 line-height-relaxed" style="max-width:640px;">SantyCSS ships as 5 independent CSS modules. Use the full bundle, or load only what you need for optimal performance.</p>
+    </div>
+
+    <!-- ── INSTALLATION ─────────────────────────────────────────────────── -->
+    <section id="install" class="doc-section">
+      <h2 class="set-text-28 text-bold color-gray-900 add-margin-bottom-8">Installation</h2>
+      <p class="set-text-15 color-gray-500 add-margin-bottom-24 line-height-relaxed">Install once, use everywhere. Zero dependencies, no build step required.</p>
+
+      <div class="install-box add-margin-bottom-16">
+        <code>npm install santycss</code>
+        <button class="copy-btn" onclick="copyText('npm install santycss', this)">Copy</button>
+      </div>
+
+      <div class="make-grid grid-cols-3 gap-16 add-margin-bottom-32">
+        <div class="background-gray-50 round-corners-12 add-padding-20">
+          <div class="set-text-24 add-margin-bottom-8">📦</div>
+          <div class="set-text-13 text-semibold color-gray-800 add-margin-bottom-4">Package size</div>
+          <div class="set-text-20 text-bold color-blue-600">284 KB</div>
+          <div class="set-text-12 color-gray-400">compressed tarball</div>
+        </div>
+        <div class="background-gray-50 round-corners-12 add-padding-20">
+          <div class="set-text-24 add-margin-bottom-8">🗂️</div>
+          <div class="set-text-13 text-semibold color-gray-800 add-margin-bottom-4">Files included</div>
+          <div class="set-text-20 text-bold color-blue-600">15 files</div>
+          <div class="set-text-12 color-gray-400">CSS + JS tooling</div>
+        </div>
+        <div class="background-gray-50 round-corners-12 add-padding-20">
+          <div class="set-text-24 add-margin-bottom-8">⚡</div>
+          <div class="set-text-13 text-semibold color-gray-800 add-margin-bottom-4">Dependencies</div>
+          <div class="set-text-20 text-bold color-green-600">Zero</div>
+          <div class="set-text-12 color-gray-400">no runtime deps</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PACKAGE STRUCTURE ────────────────────────────────────────────── -->
+    <section id="package-structure" class="doc-section">
+      <h2 class="set-text-28 text-bold color-gray-900 add-margin-bottom-8">Package Structure</h2>
+      <p class="set-text-15 color-gray-500 add-margin-bottom-24 line-height-relaxed">Everything ships inside the <code class="chip">dist/</code> folder with the JS tooling at the root level.</p>
+
+      <div class="code-block add-margin-bottom-24">
+<pre><span class="c-com">santycss/</span>
+├── <span class="c-key">dist/</span>
+│   ├── <span class="c-str">santy.css</span>            <span class="c-com">← Full bundle (667KB) — all utilities + components + animations</span>
+│   ├── <span class="c-str">santy.min.css</span>        <span class="c-com">← Minified full bundle (587KB)</span>
+│   ├── <span class="c-str">santy-core.css</span>       <span class="c-com">← Utilities only (597KB)</span>
+│   ├── <span class="c-str">santy-components.css</span> <span class="c-com">← Components only (37KB)</span>
+│   ├── <span class="c-str">santy-animations.css</span> <span class="c-com">← 70+ animations (33KB)</span>
+│   └── <span class="c-str">santy-email.css</span>      <span class="c-com">← Email template CSS (13KB)</span>
+├── <span class="c-key">postcss/</span>
+│   └── <span class="c-str">index.js</span>             <span class="c-com">← PostCSS plugin (tree-shaking)</span>
+├── <span class="c-key">lib/</span>
+│   ├── <span class="c-str">purge-core.js</span>        <span class="c-com">← Purge API (tree-shaking engine)</span>
+│   └── <span class="c-str">animations.js</span>        <span class="c-com">← Animation definitions</span>
+├── <span class="c-str">index.js</span>               <span class="c-com">← Main entry — CSS path helpers + purge API</span>
+├── <span class="c-str">santy-jit.js</span>           <span class="c-com">← JIT runtime (generates classes on-the-fly)</span>
+├── <span class="c-str">vite-plugin-santycss.js</span> <span class="c-com">← Vite plugin</span>
+└── <span class="c-str">purge.js</span>               <span class="c-com">← CLI purge tool</span></pre>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Export</th><th>Resolves to</th><th>Use when</th></tr></thead>
+          <tbody>
+            <tr><td>santycss/css</td><td>dist/santy.css</td><td>You want everything in one file</td></tr>
+            <tr><td>santycss/min</td><td>dist/santy.min.css</td><td>Production, CDN, smallest file size</td></tr>
+            <tr><td>santycss/css/core</td><td>dist/santy-core.css</td><td>Only utilities, no components</td></tr>
+            <tr><td>santycss/css/components</td><td>dist/santy-components.css</td><td>Only UI components (.btn, .card…)</td></tr>
+            <tr><td>santycss/css/animations</td><td>dist/santy-animations.css</td><td>Only animation classes</td></tr>
+            <tr><td>santycss/css/email</td><td>dist/santy-email.css</td><td>HTML email templates</td></tr>
+            <tr><td>santycss/postcss</td><td>postcss/index.js</td><td>PostCSS tree-shaking plugin</td></tr>
+            <tr><td>santycss/vite</td><td>vite-plugin-santycss.js</td><td>Vite plugin</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── IMPORT OPTIONS ───────────────────────────────────────────────── -->
+    <section id="import-options" class="doc-section">
+      <h2 class="set-text-28 text-bold color-gray-900 add-margin-bottom-8">Import Options</h2>
+      <p class="set-text-15 color-gray-500 add-margin-bottom-32 line-height-relaxed">4 ways to use SantyCSS depending on your setup.</p>
+
+      <div class="make-grid grid-cols-2 gap-24 add-margin-bottom-0">
+
+        <div>
+          <div class="make-flex align-center gap-10 add-margin-bottom-12">
+            <span class="chip chip-blue">Option A</span>
+            <span class="set-text-15 text-semibold color-gray-800">JS import (React / Vue / Vite)</span>
+          </div>
+          <div class="code-block add-margin-bottom-20">
+<pre><span class="c-com">// Full bundle</span>
+<span class="c-key">import</span> <span class="c-str">'santycss/css'</span>;
+
+<span class="c-com">// Modular — load only what you need</span>
+<span class="c-key">import</span> <span class="c-str">'santycss/css/core'</span>;
+<span class="c-key">import</span> <span class="c-str">'santycss/css/components'</span>;
+<span class="c-key">import</span> <span class="c-str">'santycss/css/animations'</span>;
+<span class="c-key">import</span> <span class="c-str">'santycss/css/email'</span>;</pre>
+          </div>
+        </div>
+
+        <div>
+          <div class="make-flex align-center gap-10 add-margin-bottom-12">
+            <span class="chip chip-purple">Option B</span>
+            <span class="set-text-15 text-semibold color-gray-800">CSS / SCSS @import</span>
+          </div>
+          <div class="code-block add-margin-bottom-20">
+<pre><span class="c-com">/* In your main.css */</span>
+<span class="c-key">@import</span> <span class="c-str">'santycss/dist/santy.css'</span>;
+
+<span class="c-com">/* Or individual modules */</span>
+<span class="c-key">@import</span> <span class="c-str">'santycss/dist/santy-core.css'</span>;
+<span class="c-key">@import</span> <span class="c-str">'santycss/dist/santy-components.css'</span>;
+<span class="c-key">@import</span> <span class="c-str">'santycss/dist/santy-email.css'</span>;</pre>
+          </div>
+        </div>
+
+        <div>
+          <div class="make-flex align-center gap-10 add-margin-bottom-12">
+            <span class="chip chip-green">Option C</span>
+            <span class="set-text-15 text-semibold color-gray-800">Next.js layout.js</span>
+          </div>
+          <div class="code-block add-margin-bottom-20">
+<pre><span class="c-com">// app/layout.js or pages/_app.js</span>
+<span class="c-key">import</span> <span class="c-str">'santycss/css'</span>;
+
+<span class="c-key">export default function</span> <span class="c-fn">RootLayout</span>({ children }) {
+  <span class="c-key">return</span> (
+    <span class="c-tag">&lt;html&gt;</span>
+      <span class="c-tag">&lt;body&gt;</span>{children}<span class="c-tag">&lt;/body&gt;</span>
+    <span class="c-tag">&lt;/html&gt;</span>
+  );
+}</pre>
+          </div>
+        </div>
+
+        <div>
+          <div class="make-flex align-center gap-10 add-margin-bottom-12">
+            <span class="chip chip-orange">Option D</span>
+            <span class="set-text-15 text-semibold color-gray-800">Path resolver (webpack / rollup)</span>
+          </div>
+          <div class="code-block add-margin-bottom-20">
+<pre><span class="c-com">// Get absolute paths for config files</span>
+<span class="c-key">const</span> santy = <span class="c-fn">require</span>(<span class="c-str">'santycss'</span>);
+
+santy.css        <span class="c-com">// → /path/to/dist/santy.css</span>
+santy.min        <span class="c-com">// → /path/to/dist/santy.min.css</span>
+santy.core       <span class="c-com">// → /path/to/dist/santy-core.css</span>
+santy.components <span class="c-com">// → /path/to/dist/santy-components.css</span>
+santy.animations <span class="c-com">// → /path/to/dist/santy-animations.css</span>
+santy.email      <span class="c-com">// → /path/to/dist/santy-email.css</span></pre>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── CDN ──────────────────────────────────────────────────────────── -->
+    <section id="cdn" class="doc-section">
+      <h2 class="set-text-28 text-bold color-gray-900 add-margin-bottom-8">CDN Links</h2>
+      <p class="set-text-15 color-gray-500 add-margin-bottom-24 line-height-relaxed">Once published on npm, jsDelivr and unpkg serve the files instantly — no setup needed.</p>
+
+      <div class="code-block add-margin-bottom-16">
+<pre><span class="c-com">&lt;!-- Full minified bundle — recommended for production --&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
+
+<span class="c-com">&lt;!-- Version-pinned (best practice for production) --&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@1.1.0/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
+
+<span class="c-com">&lt;!-- Utilities only --&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-core.css"</span><span class="c-tag">&gt;</span>
+
+<span class="c-com">&lt;!-- Components --&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-components.css"</span><span class="c-tag">&gt;</span>
+
+<span class="c-com">&lt;!-- Animations --&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-animations.css"</span><span class="c-tag">&gt;</span>
+
+<span class="c-com">&lt;!-- Email module --&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-email.css"</span><span class="c-tag">&gt;</span>
+
+<span class="c-com">&lt;!-- unpkg alternative --&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://unpkg.com/santycss/dist/santy.css"</span><span class="c-tag">&gt;</span></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         MODULE: FULL BUNDLE
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="module-full" class="doc-section">
+      <div class="module-banner" style="background:linear-gradient(135deg,#ede9fe,#dbeafe);">
+        <div class="module-icon" style="background:#6366f1;color:#fff;">📦</div>
+        <div>
+          <div class="make-flex align-center gap-10 add-margin-bottom-8">
+            <h2 class="set-text-24 text-bold color-gray-900" style="margin:0;">santy.css</h2>
+            <span class="chip chip-purple">Full Bundle</span>
+            <span class="chip chip-gray">667KB</span>
+          </div>
+          <p class="set-text-15 color-gray-600 line-height-relaxed" style="margin:0;">The complete SantyCSS package — all utilities, components, and animations in a single file. The simplest way to get started.</p>
+        </div>
+      </div>
+
+      <h3 class="set-text-18 text-semibold color-gray-800 add-margin-bottom-16">What's included</h3>
+      <div class="make-grid grid-cols-2 gap-16 add-margin-bottom-24">
+        <div>
+          <div class="feature-row"><div class="feature-check">✓</div><div class="set-text-14 color-gray-700">All 10,000+ utility classes (spacing, color, layout, typography…)</div></div>
+          <div class="feature-row"><div class="feature-check">✓</div><div class="set-text-14 color-gray-700">20 color families × 10 shades each</div></div>
+          <div class="feature-row"><div class="feature-check">✓</div><div class="set-text-14 color-gray-700">Responsive prefixes: <code class="chip">sm: md: lg: xl:</code></div></div>
+          <div class="feature-row"><div class="feature-check">✓</div><div class="set-text-14 color-gray-700">State variants: <code class="chip">on-hover: on-focus: dark:</code></div></div>
+        </div>
+        <div>
+          <div class="feature-row"><div class="feature-check">✓</div><div class="set-text-14 color-gray-700">15+ UI components: btn, card, modal, drawer, table…</div></div>
+          <div class="feature-row"><div class="feature-check">✓</div><div class="set-text-14 color-gray-700">70+ animations with entrance/exit variants</div></div>
+          <div class="feature-row"><div class="feature-check">✓</div><div class="set-text-14 color-gray-700">CSS design tokens (<code class="chip">--santy-primary</code> etc.)</div></div>
+          <div class="feature-row"><div class="feature-check">✓</div><div class="set-text-14 color-gray-700">Dark mode, RTL, print, motion-reduce variants</div></div>
+        </div>
+      </div>
+
+      <div class="code-block">
+<pre><span class="c-com">&lt;!-- HTML --&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"santy.css"</span><span class="c-tag">&gt;</span>
+<span class="c-com">&lt;!-- or --&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
+
+<span class="c-com">// JS</span>
+<span class="c-key">import</span> <span class="c-str">'santycss/css'</span>;</pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         MODULE: CORE
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="module-core" class="doc-section">
+      <div class="module-banner" style="background:linear-gradient(135deg,#dbeafe,#e0f2fe);">
+        <div class="module-icon" style="background:#3b82f6;color:#fff;">🔧</div>
+        <div>
+          <div class="make-flex align-center gap-10 add-margin-bottom-8">
+            <h2 class="set-text-24 text-bold color-gray-900" style="margin:0;">santy-core.css</h2>
+            <span class="chip chip-blue">Utilities Only</span>
+            <span class="chip chip-gray">597KB</span>
+          </div>
+          <p class="set-text-15 color-gray-600 line-height-relaxed" style="margin:0;">Pure utility classes only — no components, no animations. Ideal when you want to build your own component styles on top of the utility system.</p>
+        </div>
+      </div>
+
+      <h3 class="set-text-18 text-semibold color-gray-800 add-margin-bottom-16">Utility categories</h3>
+      <div class="table-wrap add-margin-bottom-24">
+        <table>
+          <thead><tr><th>Category</th><th>Example classes</th><th>Count</th></tr></thead>
+          <tbody>
+            <tr><td>Spacing</td><td>add-padding-{n}, add-margin-{n}, gap-{n}, space-x-{n}</td><td>~2400 classes</td></tr>
+            <tr><td>Colors</td><td>color-blue-500, background-green-100, border-color-red-600</td><td>~1200 classes</td></tr>
+            <tr><td>Typography</td><td>set-text-{n}, text-bold, text-center, font-sans, line-height-relaxed</td><td>~400 classes</td></tr>
+            <tr><td>Layout</td><td>make-flex, make-grid, grid-cols-{1-12}, flex-row, align-center</td><td>~300 classes</td></tr>
+            <tr><td>Sizing</td><td>set-width-{n}, set-height-{n}, max-width-{n}, aspect-ratio-16-9</td><td>~800 classes</td></tr>
+            <tr><td>Position</td><td>position-relative, pin-top-0, z-10, z-50, inset-0</td><td>~200 classes</td></tr>
+            <tr><td>Overflow</td><td>overflow-hidden, overflow-x-auto, overflow-y-scroll</td><td>12 classes</td></tr>
+            <tr><td>Borders</td><td>add-border-{n}, round-corners-{n}, make-circle, make-pill</td><td>~300 classes</td></tr>
+            <tr><td>Effects</td><td>add-shadow-md, opacity-50, blur-md, backdrop-blur-lg, ring-2</td><td>~200 classes</td></tr>
+            <tr><td>Transforms</td><td>rotate-45, scale-110, flip-horizontal, skew-x-6</td><td>~80 classes</td></tr>
+            <tr><td>Gradients</td><td>gradient-to-right, from-blue-500, to-purple-600</td><td>~100 classes</td></tr>
+            <tr><td>Transitions</td><td>transition-fast, transition-colors, transition-transform</td><td>~30 classes</td></tr>
+            <tr><td>State variants</td><td>on-hover:*, on-focus:*, dark:*, group-hover:*, peer-checked:*</td><td>~3000 classes</td></tr>
+            <tr><td>Responsive</td><td>sm:*, md:*, lg:*, xl:*, on-mobile:*, on-tablet:*</td><td>~3000 classes</td></tr>
+            <tr><td>Accessibility</td><td>sr-only, not-sr-only, outline-none, pointer-events-none</td><td>~30 classes</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="code-block">
+<pre><span class="c-key">import</span> <span class="c-str">'santycss/css/core'</span>;
+
+<span class="c-com">&lt;!-- Example: build your own card using utilities --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"background-white round-corners-16 add-padding-24 add-shadow-md
+         on-hover:add-shadow-lg on-hover:scale-102 transition-normal"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;h3</span> <span class="c-attr">class</span>=<span class="c-str">"set-text-18 text-semibold color-gray-900 add-margin-bottom-8"</span><span class="c-tag">&gt;</span>Title<span class="c-tag">&lt;/h3&gt;</span>
+  <span class="c-tag">&lt;p</span>  <span class="c-attr">class</span>=<span class="c-str">"set-text-14 color-gray-500 line-height-relaxed"</span><span class="c-tag">&gt;</span>Body text.<span class="c-tag">&lt;/p&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         MODULE: COMPONENTS
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="module-components" class="doc-section">
+      <div class="module-banner" style="background:linear-gradient(135deg,#dcfce7,#d1fae5);">
+        <div class="module-icon" style="background:#22c55e;color:#fff;">🧩</div>
+        <div>
+          <div class="make-flex align-center gap-10 add-margin-bottom-8">
+            <h2 class="set-text-24 text-bold color-gray-900" style="margin:0;">santy-components.css</h2>
+            <span class="chip chip-green">Components</span>
+            <span class="chip chip-gray">37KB</span>
+          </div>
+          <p class="set-text-15 color-gray-600 line-height-relaxed" style="margin:0;">Pre-built UI components with full dark mode support. Load alongside <code class="chip">santy-core.css</code> for the complete design system.</p>
+        </div>
+      </div>
+
+      <h3 class="set-text-18 text-semibold color-gray-800 add-margin-bottom-16">All components</h3>
+      <div class="make-grid grid-cols-2 gap-16 add-margin-bottom-24">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Component</th><th>Key classes</th></tr></thead>
+            <tbody>
+              <tr><td>.btn</td><td>.btn-primary .btn-success .btn-danger .btn-sm .btn-lg .btn-outline .btn-ghost</td></tr>
+              <tr><td>.card</td><td>.card-header .card-body .card-footer</td></tr>
+              <tr><td>.modal</td><td>.modal-overlay .modal-box .modal-header .modal-body .modal-footer .modal-close</td></tr>
+              <tr><td>.drawer</td><td>.drawer-overlay .drawer-panel .drawer-header .drawer-body</td></tr>
+              <tr><td>.navbar</td><td>.navbar-brand .navbar-menu .navbar-item .navbar-dark .navbar-glass</td></tr>
+              <tr><td>.dropdown</td><td>.dropdown-menu .dropdown-item .dropdown-divider .dropdown-header</td></tr>
+              <tr><td>.tabs</td><td>.tabs-item .tabs-item.active .tab-panel .tabs-pill</td></tr>
+              <tr><td>.accordion</td><td>.accordion-item .accordion-header .accordion-body .accordion-icon</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Component</th><th>Key classes</th></tr></thead>
+            <tbody>
+              <tr><td>.alert</td><td>.alert-info .alert-success .alert-warning .alert-danger</td></tr>
+              <tr><td>.badge / .chip</td><td>.badge .chip .chip-blue .chip-green .chip-red</td></tr>
+              <tr><td>.input / .select</td><td>.input .select .textarea .input-group .input-addon</td></tr>
+              <tr><td>.table</td><td>.table-hover .table-striped .table-responsive</td></tr>
+              <tr><td>.pagination</td><td>.page-item .page-link .page-item.active .page-item.disabled</td></tr>
+              <tr><td>.toggle</td><td>.toggle .toggle-slider .toggle-green .toggle-purple</td></tr>
+              <tr><td>.progress</td><td>.progress .progress-bar</td></tr>
+              <tr><td>.skeleton</td><td>.skeleton (animated loading placeholder)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Dark mode note -->
+      <div class="alert alert-info add-margin-bottom-24" style="background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;border-radius:10px;padding:14px 18px;">
+        <strong>Dark mode:</strong> All components adapt automatically when you add <code class="chip">class="dark"</code> to <code class="chip">&lt;html&gt;</code>. Use <code class="chip">class="dark-auto"</code> to follow the OS preference.
+      </div>
+
+      <div class="code-block">
+<pre><span class="c-com">// Load utilities + components (most common setup)</span>
+<span class="c-key">import</span> <span class="c-str">'santycss/css/core'</span>;
+<span class="c-key">import</span> <span class="c-str">'santycss/css/components'</span>;
+
+<span class="c-com">&lt;!-- Button examples --&gt;</span>
+<span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"btn btn-primary"</span><span class="c-tag">&gt;</span>Save<span class="c-tag">&lt;/button&gt;</span>
+<span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"btn btn-outline btn-sm"</span><span class="c-tag">&gt;</span>Cancel<span class="c-tag">&lt;/button&gt;</span>
+
+<span class="c-com">&lt;!-- CSS-only modal (no JS needed) --&gt;</span>
+<span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#my-modal"</span> <span class="c-attr">class</span>=<span class="c-str">"btn btn-primary"</span><span class="c-tag">&gt;</span>Open<span class="c-tag">&lt;/a&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">id</span>=<span class="c-str">"my-modal"</span> <span class="c-attr">class</span>=<span class="c-str">"modal-overlay"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"modal-box"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"modal-header"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;h4</span> <span class="c-attr">class</span>=<span class="c-str">"modal-title"</span><span class="c-tag">&gt;</span>Confirm<span class="c-tag">&lt;/h4&gt;</span>
+      <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"modal-close"</span><span class="c-tag">&gt;&lt;/a&gt;</span>
+    <span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"modal-body"</span><span class="c-tag">&gt;</span>Are you sure?<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         MODULE: ANIMATIONS
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="module-animations" class="doc-section">
+      <div class="module-banner" style="background:linear-gradient(135deg,#fef9c3,#fef3c7);">
+        <div class="module-icon" style="background:#f59e0b;color:#fff;">✨</div>
+        <div>
+          <div class="make-flex align-center gap-10 add-margin-bottom-8">
+            <h2 class="set-text-24 text-bold color-gray-900" style="margin:0;">santy-animations.css</h2>
+            <span class="chip chip-orange">Animations</span>
+            <span class="chip chip-gray">33KB</span>
+          </div>
+          <p class="set-text-15 color-gray-600 line-height-relaxed" style="margin:0;">70+ production-ready CSS animations. Entrance, exit, looping, attention-seeker variants — all pure CSS, no JS required.</p>
+        </div>
+      </div>
+
+      <div class="table-wrap add-margin-bottom-24">
+        <table>
+          <thead><tr><th>Group</th><th>Classes</th></tr></thead>
+          <tbody>
+            <tr><td>Looping</td><td>animate-spin, animate-ping, animate-pulse, animate-bounce</td></tr>
+            <tr><td>Fade</td><td>animate-fade-in, animate-fade-in-from-top/bottom/left/right, animate-fade-out</td></tr>
+            <tr><td>Slide</td><td>animate-slide-in-from-top/bottom/left/right, animate-slide-out-to-*</td></tr>
+            <tr><td>Zoom</td><td>animate-zoom-in, animate-zoom-in-from-*, animate-zoom-out-*</td></tr>
+            <tr><td>Bounce</td><td>animate-bounce-in, animate-bounce-in-from-top/bottom/left/right</td></tr>
+            <tr><td>Flip</td><td>animate-flip, animate-flip-in-x/y, animate-flip-out-x/y</td></tr>
+            <tr><td>Rotate</td><td>animate-rotate-in, animate-rotate-in-from-top-left/right/bottom-left/right</td></tr>
+            <tr><td>Back</td><td>animate-back-in-from-*, animate-back-out-to-*</td></tr>
+            <tr><td>Attention</td><td>animate-shake-x/y, animate-rubber-band, animate-tada, animate-wobble</td></tr>
+            <tr><td>Specials</td><td>animate-hinge, animate-jack-in-box, animate-roll-in, animate-roll-out</td></tr>
+            <tr><td>Speed</td><td>animation-speed-fastest (0.3s) → animation-speed-glacial (3s)</td></tr>
+            <tr><td>Delay</td><td>animation-delay-100 → animation-delay-3000 (ms)</td></tr>
+            <tr><td>Repeat</td><td>animation-loop-1/2/3/4/5, animation-loop-forever</td></tr>
+            <tr><td>Fill</td><td>animation-fill-none/forwards/backwards/both</td></tr>
+            <tr><td>Motion</td><td>motion-safe:animate-spin, motion-reduce:animate-none</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="code-block add-margin-bottom-16">
+<pre><span class="c-key">import</span> <span class="c-str">'santycss/css/animations'</span>;
+
+<span class="c-com">&lt;!-- Fade in on page load --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"animate-fade-in"</span><span class="c-tag">&gt;</span>Appears smoothly<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-com">&lt;!-- Staggered entrance --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"animate-slide-in-from-left animation-delay-0"</span><span class="c-tag">&gt;</span>Item 1<span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"animate-slide-in-from-left animation-delay-200"</span><span class="c-tag">&gt;</span>Item 2<span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"animate-slide-in-from-left animation-delay-400"</span><span class="c-tag">&gt;</span>Item 3<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-com">&lt;!-- Reduced motion accessibility --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"motion-safe:animate-bounce motion-reduce:animate-none"</span><span class="c-tag">&gt;</span>
+  Bounces only if user hasn't requested reduce-motion
+<span class="c-tag">&lt;/div&gt;</span></pre>
+      </div>
+      <p class="set-text-13 color-gray-400">→ <a href="animations.html" style="color:#3b82f6;text-decoration:none;font-weight:600;">See all 70+ animations with live previews ↗</a></p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         MODULE: EMAIL
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="module-email" class="doc-section">
+      <div class="module-banner" style="background:linear-gradient(135deg,#fce7f3,#fdf2f8);">
+        <div class="module-icon" style="background:#ec4899;color:#fff;">✉️</div>
+        <div>
+          <div class="make-flex align-center gap-10 add-margin-bottom-8">
+            <h2 class="set-text-24 text-bold color-gray-900" style="margin:0;">santy-email.css</h2>
+            <span class="chip" style="background:#fce7f3;color:#be185d;border-color:#fbcfe8;">Email</span>
+            <span class="chip chip-gray">13KB</span>
+          </div>
+          <p class="set-text-15 color-gray-600 line-height-relaxed" style="margin:0;">Email-safe CSS for HTML email templates. Compatible with Gmail, Outlook, Apple Mail, Yahoo Mail. Includes responsive layout, dark mode, and all common email patterns.</p>
+        </div>
+      </div>
+
+      <!-- Compatibility badges -->
+      <div class="make-flex flex-wrap gap-8 add-margin-bottom-24">
+        <span class="chip chip-blue">✓ Gmail</span>
+        <span class="chip chip-blue">✓ Outlook 2016+</span>
+        <span class="chip chip-blue">✓ Apple Mail</span>
+        <span class="chip chip-blue">✓ Yahoo Mail</span>
+        <span class="chip chip-blue">✓ Thunderbird</span>
+        <span class="chip chip-blue">✓ Hey</span>
+        <span class="chip chip-green">✓ Mobile responsive</span>
+        <span class="chip chip-purple">✓ Dark mode</span>
+      </div>
+
+      <div class="table-wrap add-margin-bottom-24">
+        <table>
+          <thead><tr><th>Category</th><th>Key classes</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>.email-wrapper / container</td><td>.email-wrapper, .email-container</td><td>Outer 600px max-width wrapper</td></tr>
+            <tr><td>Table layout</td><td>.email-table, .email-cell, .email-col-half, .email-col-third</td><td>Email-safe column layouts</td></tr>
+            <tr><td>Header / Footer</td><td>.email-header, .email-header-light, .email-footer, .email-footer-dark</td><td>Branding sections</td></tr>
+            <tr><td>Hero</td><td>.email-hero, .email-hero-light, .email-hero-gradient</td><td>Bold banner area</td></tr>
+            <tr><td>Body</td><td>.email-body-wrap, .email-body-wrap-gray, .email-section</td><td>Main content area</td></tr>
+            <tr><td>Typography</td><td>.email-h1/h2/h3, .email-p, .email-p-lead, .email-link, .email-muted</td><td>Email-safe fonts</td></tr>
+            <tr><td>Buttons</td><td>.email-btn, .email-btn-sm/lg/outline/dark/success/danger/warning</td><td>CTA buttons</td></tr>
+            <tr><td>Cards & Callouts</td><td>.email-card, .email-callout-success/warning/danger</td><td>Content blocks</td></tr>
+            <tr><td>Lists</td><td>.email-list, .email-check-list</td><td>Styled bulleted / checkmark lists</td></tr>
+            <tr><td>Badges</td><td>.email-badge-blue/green/red/yellow/purple/gray/new</td><td>Status labels</td></tr>
+            <tr><td>Images</td><td>.email-img, .email-img-rounded, .email-img-circle, .email-img-full</td><td>Responsive images</td></tr>
+            <tr><td>Avatars</td><td>.email-avatar-sm/md/lg</td><td>Profile pictures</td></tr>
+            <tr><td>Stats</td><td>.email-stat-value, .email-stat-label</td><td>Large number blocks</td></tr>
+            <tr><td>Code</td><td>.email-code, .email-code-inline</td><td>Developer emails</td></tr>
+            <tr><td>Spacers</td><td>.email-spacer-4 → .email-spacer-64</td><td>Vertical spacing blocks</td></tr>
+            <tr><td>Social</td><td>.email-social-wrap, .email-social-link, .email-social-text-link</td><td>Social media links</td></tr>
+            <tr><td>Preheader</td><td>.email-preheader</td><td>Hidden preview text</td></tr>
+            <tr><td>Legal</td><td>.email-legal, .email-address, .email-unsubscribe</td><td>Footer compliance text</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="set-text-18 text-semibold color-gray-800 add-margin-bottom-16">Complete email template</h3>
+      <div class="code-block">
+<pre><span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-email.css"</span><span class="c-tag">&gt;</span>
+
+<span class="c-tag">&lt;table</span> <span class="c-attr">class</span>=<span class="c-str">"email-wrapper"</span> <span class="c-attr">role</span>=<span class="c-str">"presentation"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;tr&gt;&lt;td&gt;</span>
+    <span class="c-com">&lt;!-- Preheader --&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-preheader"</span><span class="c-tag">&gt;</span>Your order has been confirmed ✓<span class="c-tag">&lt;/div&gt;</span>
+
+    <span class="c-tag">&lt;table</span> <span class="c-attr">class</span>=<span class="c-str">"email-container"</span> <span class="c-attr">role</span>=<span class="c-str">"presentation"</span><span class="c-tag">&gt;</span>
+
+      <span class="c-com">&lt;!-- Header --&gt;</span>
+      <span class="c-tag">&lt;tr&gt;&lt;td</span> <span class="c-attr">class</span>=<span class="c-str">"email-header"</span><span class="c-tag">&gt;</span>
+        <span class="c-tag">&lt;img</span> <span class="c-attr">src</span>=<span class="c-str">"logo.png"</span> <span class="c-attr">class</span>=<span class="c-str">"email-logo"</span> <span class="c-attr">alt</span>=<span class="c-str">"Brand"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;/td&gt;&lt;/tr&gt;</span>
+
+      <span class="c-com">&lt;!-- Hero --&gt;</span>
+      <span class="c-tag">&lt;tr&gt;&lt;td</span> <span class="c-attr">class</span>=<span class="c-str">"email-hero"</span><span class="c-tag">&gt;</span>
+        <span class="c-tag">&lt;h1</span> <span class="c-attr">class</span>=<span class="c-str">"email-h1"</span> <span class="c-attr">style</span>=<span class="c-str">"color:#fff;"</span><span class="c-tag">&gt;</span>Order Confirmed! 🎉<span class="c-tag">&lt;/h1&gt;</span>
+        <span class="c-tag">&lt;p</span>  <span class="c-attr">class</span>=<span class="c-str">"email-p"</span> <span class="c-attr">style</span>=<span class="c-str">"color:rgba(255,255,255,.8);"</span><span class="c-tag">&gt;</span>Order #12345<span class="c-tag">&lt;/p&gt;</span>
+      <span class="c-tag">&lt;/td&gt;&lt;/tr&gt;</span>
+
+      <span class="c-com">&lt;!-- Body --&gt;</span>
+      <span class="c-tag">&lt;tr&gt;&lt;td</span> <span class="c-attr">class</span>=<span class="c-str">"email-body-wrap"</span><span class="c-tag">&gt;</span>
+        <span class="c-tag">&lt;p</span> <span class="c-attr">class</span>=<span class="c-str">"email-p"</span><span class="c-tag">&gt;</span>Hi Sarah, your order is on its way!<span class="c-tag">&lt;/p&gt;</span>
+
+        <span class="c-com">&lt;!-- Success callout --&gt;</span>
+        <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-callout-success"</span><span class="c-tag">&gt;</span>
+          <span class="c-tag">&lt;strong&gt;</span>Estimated delivery: 2–3 business days<span class="c-tag">&lt;/strong&gt;</span>
+        <span class="c-tag">&lt;/div&gt;</span>
+
+        <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-spacer-24"</span><span class="c-tag">&gt;&lt;/div&gt;</span>
+
+        <span class="c-com">&lt;!-- CTA button --&gt;</span>
+        <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-btn-center"</span><span class="c-tag">&gt;</span>
+          <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"email-btn"</span><span class="c-tag">&gt;</span>Track Your Order<span class="c-tag">&lt;/a&gt;</span>
+        <span class="c-tag">&lt;/div&gt;</span>
+      <span class="c-tag">&lt;/td&gt;&lt;/tr&gt;</span>
+
+      <span class="c-com">&lt;!-- Footer --&gt;</span>
+      <span class="c-tag">&lt;tr&gt;&lt;td</span> <span class="c-attr">class</span>=<span class="c-str">"email-footer"</span><span class="c-tag">&gt;</span>
+        <span class="c-tag">&lt;p</span> <span class="c-attr">class</span>=<span class="c-str">"email-legal"</span><span class="c-tag">&gt;</span>© 2026 Brand Inc · 123 Main St<span class="c-tag">&lt;/p&gt;</span>
+        <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"email-unsubscribe"</span><span class="c-tag">&gt;</span>Unsubscribe<span class="c-tag">&lt;/a&gt;</span>
+      <span class="c-tag">&lt;/td&gt;&lt;/tr&gt;</span>
+
+    <span class="c-tag">&lt;/table&gt;</span>
+  <span class="c-tag">&lt;/td&gt;&lt;/tr&gt;</span>
+<span class="c-tag">&lt;/table&gt;</span></pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         POSTCSS PLUGIN
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="postcss-plugin" class="doc-section">
+      <div class="module-banner" style="background:linear-gradient(135deg,#fee2e2,#fef2f2);">
+        <div class="module-icon" style="background:#ef4444;color:#fff;">⚙️</div>
+        <div>
+          <div class="make-flex align-center gap-10 add-margin-bottom-8">
+            <h2 class="set-text-24 text-bold color-gray-900" style="margin:0;">PostCSS Plugin</h2>
+            <span class="chip chip-red">Tree-shaking</span>
+          </div>
+          <p class="set-text-15 color-gray-600 line-height-relaxed" style="margin:0;">Scan your source files and strip every class you don't use. Takes 667KB → as low as 5–20KB for typical projects.</p>
+        </div>
+      </div>
+      <div class="code-block add-margin-bottom-16">
+<pre><span class="c-com">// postcss.config.js</span>
+<span class="c-key">const</span> santycss = <span class="c-fn">require</span>(<span class="c-str">'santycss/postcss'</span>);
+
+<span class="c-key">module.exports</span> = {
+  plugins: [
+    <span class="c-fn">santycss</span>({
+      content: [
+        <span class="c-str">'./src/**/*.{html,js,jsx,ts,tsx,vue,svelte}'</span>,
+        <span class="c-str">'./pages/**/*.{js,jsx,ts,tsx}'</span>,
+      ],
+      safelist: [<span class="c-str">'animate-spin'</span>, <span class="c-str">'make-hidden'</span>], <span class="c-com">// never purge these</span>
+    }),
+  ],
+};</pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         VITE PLUGIN
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="vite-plugin" class="doc-section">
+      <div class="module-banner" style="background:linear-gradient(135deg,#ede9fe,#eef2ff);">
+        <div class="module-icon" style="background:#646cff;color:#fff;">⚡</div>
+        <div>
+          <div class="make-flex align-center gap-10 add-margin-bottom-8">
+            <h2 class="set-text-24 text-bold color-gray-900" style="margin:0;">Vite Plugin</h2>
+            <span class="chip chip-purple">Vite / Rollup</span>
+          </div>
+          <p class="set-text-15 color-gray-600 line-height-relaxed" style="margin:0;">First-class Vite integration — auto-purges unused classes during build, injects CSS in dev mode.</p>
+        </div>
+      </div>
+      <div class="code-block">
+<pre><span class="c-com">// vite.config.js</span>
+<span class="c-key">import</span> { defineConfig } <span class="c-key">from</span> <span class="c-str">'vite'</span>;
+<span class="c-key">import</span> santycss <span class="c-key">from</span> <span class="c-str">'santycss/vite'</span>;
+
+<span class="c-key">export default</span> <span class="c-fn">defineConfig</span>({
+  plugins: [
+    <span class="c-fn">santycss</span>({
+      content: [<span class="c-str">'./src/**/*.{html,vue,jsx,tsx}'</span>],
+    }),
+  ],
+});</pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         PURGE API
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="purge-api" class="doc-section">
+      <h2 class="set-text-28 text-bold color-gray-900 add-margin-bottom-8">Purge / Tree-shake API</h2>
+      <p class="set-text-15 color-gray-500 add-margin-bottom-24 line-height-relaxed">Use the Node.js API directly for custom build pipelines, CI steps, or scripts.</p>
+      <div class="code-block">
+<pre><span class="c-key">const</span> { purge, purgeFiles } = <span class="c-fn">require</span>(<span class="c-str">'santycss'</span>);
+
+<span class="c-com">// Purge from a string of HTML/JS</span>
+<span class="c-key">const</span> purgedCSS = <span class="c-fn">purge</span>(originalCSS, htmlContent, {
+  safelist: [<span class="c-str">'animate-spin'</span>],
+});
+
+<span class="c-com">// Purge from file globs</span>
+<span class="c-key">const</span> purgedCSS = <span class="c-fn">purgeFiles</span>(originalCSS, [
+  <span class="c-str">'./src/**/*.html'</span>,
+  <span class="c-str">'./src/**/*.jsx'</span>,
+], { safelist: [] });</pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         FRAMEWORK GUIDES
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="guide-react" class="doc-section">
+      <h2 class="set-text-28 text-bold color-gray-900 add-margin-bottom-8">React / Next.js</h2>
+      <div class="code-block add-margin-bottom-16">
+<pre><span class="c-com">// Install</span>
+npm install santycss
+
+<span class="c-com">// app/layout.tsx  (Next.js App Router)</span>
+<span class="c-key">import</span> <span class="c-str">'santycss/css'</span>;
+<span class="c-key">export default function</span> <span class="c-fn">RootLayout</span>({ children }) {
+  <span class="c-key">return</span> <span class="c-tag">&lt;html&gt;&lt;body&gt;</span>{children}<span class="c-tag">&lt;/body&gt;&lt;/html&gt;</span>;
+}
+
+<span class="c-com">// Usage in any component</span>
+<span class="c-key">export default function</span> <span class="c-fn">Card</span>() {
+  <span class="c-key">return</span> (
+    <span class="c-tag">&lt;div</span> <span class="c-attr">className</span>=<span class="c-str">"background-white round-corners-16 add-padding-24 add-shadow-md"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;h2</span> <span class="c-attr">className</span>=<span class="c-str">"set-text-20 text-bold color-gray-900"</span><span class="c-tag">&gt;</span>Hello<span class="c-tag">&lt;/h2&gt;</span>
+      <span class="c-tag">&lt;button</span> <span class="c-attr">className</span>=<span class="c-str">"btn btn-primary add-margin-top-16"</span><span class="c-tag">&gt;</span>Click<span class="c-tag">&lt;/button&gt;</span>
+    <span class="c-tag">&lt;/div&gt;</span>
+  );
+}</pre>
+      </div>
+    </section>
+
+    <section id="guide-vue" class="doc-section">
+      <h2 class="set-text-28 text-bold color-gray-900 add-margin-bottom-8">Vue / Nuxt</h2>
+      <div class="code-block add-margin-bottom-16">
+<pre><span class="c-com">// main.js</span>
+<span class="c-key">import</span> { createApp } <span class="c-key">from</span> <span class="c-str">'vue'</span>;
+<span class="c-key">import</span> <span class="c-str">'santycss/css'</span>;
+<span class="c-key">import</span> App <span class="c-key">from</span> <span class="c-str">'./App.vue'</span>;
+<span class="c-fn">createApp</span>(App).<span class="c-fn">mount</span>(<span class="c-str">'#app'</span>);
+
+<span class="c-com">// nuxt.config.ts</span>
+<span class="c-key">export default</span> <span class="c-fn">defineNuxtConfig</span>({
+  css: [<span class="c-str">'santycss/dist/santy.css'</span>],
+});
+
+<span class="c-com">&lt;!-- MyComponent.vue --&gt;</span>
+<span class="c-tag">&lt;template&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"make-flex align-center gap-16"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"btn btn-primary"</span><span class="c-tag">&gt;</span>Save<span class="c-tag">&lt;/button&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/template&gt;</span></pre>
+      </div>
+    </section>
+
+    <section id="guide-html" class="doc-section">
+      <h2 class="set-text-28 text-bold color-gray-900 add-margin-bottom-8">Plain HTML</h2>
+      <div class="code-block">
+<pre><span class="c-tag">&lt;!DOCTYPE html&gt;</span>
+<span class="c-tag">&lt;html</span> <span class="c-attr">lang</span>=<span class="c-str">"en"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;head&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">charset</span>=<span class="c-str">"UTF-8"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;meta</span> <span class="c-attr">name</span>=<span class="c-str">"viewport"</span> <span class="c-attr">content</span>=<span class="c-str">"width=device-width, initial-scale=1.0"</span><span class="c-tag">&gt;</span>
+  <span class="c-com">&lt;!-- Option 1: CDN --&gt;</span>
+  <span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span>
+        <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
+  <span class="c-com">&lt;!-- Option 2: Local file --&gt;</span>
+  <span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"santy.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;/head&gt;</span>
+<span class="c-tag">&lt;body</span> <span class="c-attr">class</span>=<span class="c-str">"background-gray-50"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"container add-padding-y-64"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;h1</span> <span class="c-attr">class</span>=<span class="c-str">"set-text-40 text-bold color-gray-900"</span><span class="c-tag">&gt;</span>Hello, SantyCSS!<span class="c-tag">&lt;/h1&gt;</span>
+    <span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"btn btn-primary add-margin-top-24"</span><span class="c-tag">&gt;</span>Get Started<span class="c-tag">&lt;/button&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/body&gt;</span>
+<span class="c-tag">&lt;/html&gt;</span></pre>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ─── FOOTER ──────────────────────────────────────────────────────────── -->
+<footer class="background-gray-900 add-padding-y-48">
+  <div class="container text-center">
+    <div class="make-flex justify-center align-center gap-10 add-margin-bottom-16">
+      <img src="assest/santy_css.png" alt="SantyCSS" style="width:28px;height:28px;border-radius:6px;object-fit:cover;opacity:0.8;" />
+      <span class="set-text-16 text-semibold color-white">Santy<span class="color-blue-400">CSS</span></span>
+    </div>
+    <p class="set-text-13 color-gray-500 add-margin-bottom-16">Plain-English utility CSS framework · MIT License</p>
+    <div class="make-flex justify-center gap-20 flex-wrap">
+      <a href="index.html" class="set-text-13 color-gray-400 text-no-decoration nav-link">Home</a>
+      <a href="docs.html" class="set-text-13 color-gray-400 text-no-decoration nav-link">Docs</a>
+      <a href="demo.html" class="set-text-13 color-gray-400 text-no-decoration nav-link">Demo</a>
+      <a href="animations.html" class="set-text-13 color-gray-400 text-no-decoration nav-link">Animations</a>
+      <a href="https://github.com/ChintuSanty/santyCSS" target="_blank" class="set-text-13 color-gray-400 text-no-decoration nav-link">GitHub ↗</a>
+      <a href="https://www.npmjs.com/package/santycss" target="_blank" class="set-text-13 color-gray-400 text-no-decoration nav-link">npm ↗</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile nav
+function toggleMobileNav() {
+  var nav = document.getElementById('main-nav');
+  var hi  = document.getElementById('ham-icon');
+  var hc  = document.getElementById('ham-close');
+  nav.classList.toggle('nav-open');
+  hi.style.display = nav.classList.contains('nav-open') ? 'none' : '';
+  hc.style.display = nav.classList.contains('nav-open') ? '' : 'none';
+}
+
+// Copy button
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(function() {
+    var orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    btn.style.background = '#166534';
+    btn.style.color = '#bbf7d0';
+    setTimeout(function() {
+      btn.textContent = orig;
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 1800);
+  });
+}
+
+// Active sidebar link on scroll
+var sections = document.querySelectorAll('.doc-section');
+var links    = document.querySelectorAll('.sidebar-link');
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      links.forEach(function(l) { l.classList.remove('active'); });
+      var link = document.querySelector('.sidebar-link[href="#' + entry.target.id + '"]');
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -60% 0px' });
+sections.forEach(function(s) { observer.observe(s); });
+</script>
+</body>
+</html>
