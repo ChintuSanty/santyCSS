@@ -687,6 +687,242 @@ santy.email      <span class="c-com">// → /path/to/dist/santy-email.css</span>
         </table>
       </div>
 
+      <!-- ── How to include ─────────────────────────────── -->
+      <h3 class="set-text-18 text-semibold color-gray-800 add-margin-bottom-12" style="margin-top:8px;">How to include</h3>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-16">Pick any one of these methods depending on your setup:</p>
+
+      <div class="grid-cols-2 add-margin-bottom-24" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;">
+        <div class="code-block" style="margin:0;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin-bottom:8px;">① CDN / Plain HTML email</div>
+<pre style="margin:0;"><span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span>
+  <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-email.css"</span><span class="c-tag">&gt;</span></pre>
+        </div>
+        <div class="code-block" style="margin:0;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin-bottom:8px;">② npm (React / Vue / Next.js)</div>
+<pre style="margin:0;"><span class="c-key">import</span> <span class="c-str">'santycss/css/email'</span>;</pre>
+        </div>
+        <div class="code-block" style="margin:0;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin-bottom:8px;">③ PostCSS / Sass @import</div>
+<pre style="margin:0;"><span class="c-key">@import</span> <span class="c-str">'santycss/dist/santy-email.css'</span>;</pre>
+        </div>
+        <div class="code-block" style="margin:0;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin-bottom:8px;">④ Node.js path resolver</div>
+<pre style="margin:0;"><span class="c-key">const</span> santy = <span class="c-fn">require</span>(<span class="c-str">'santycss'</span>);
+<span class="c-com">// santy.email → absolute path</span>
+fs.<span class="c-fn">readFileSync</span>(santy.email, <span class="c-str">'utf8'</span>);</pre>
+        </div>
+      </div>
+
+      <!-- ── Component examples ─────────────────────────── -->
+      <h3 class="set-text-18 text-semibold color-gray-800 add-margin-bottom-16">Component examples</h3>
+
+      <!-- Layout -->
+      <div class="add-margin-bottom-8">
+        <span class="chip chip-gray" style="font-size:11px;">Layout &amp; Structure</span>
+      </div>
+      <div class="code-block add-margin-bottom-20">
+<pre><span class="c-com">&lt;!-- Full outer wrapper → max 600px, centered --&gt;</span>
+<span class="c-tag">&lt;table</span> <span class="c-attr">class</span>=<span class="c-str">"email-wrapper"</span> <span class="c-attr">role</span>=<span class="c-str">"presentation"</span><span class="c-tag">&gt;&lt;tr&gt;&lt;td&gt;</span>
+  <span class="c-tag">&lt;table</span> <span class="c-attr">class</span>=<span class="c-str">"email-container"</span> <span class="c-attr">role</span>=<span class="c-str">"presentation"</span><span class="c-tag">&gt;</span>
+
+    <span class="c-com">&lt;!-- Two-column layout --&gt;</span>
+    <span class="c-tag">&lt;tr&gt;</span>
+      <span class="c-tag">&lt;td</span> <span class="c-attr">class</span>=<span class="c-str">"email-col-half"</span><span class="c-tag">&gt;</span>Left column<span class="c-tag">&lt;/td&gt;</span>
+      <span class="c-tag">&lt;td</span> <span class="c-attr">class</span>=<span class="c-str">"email-col-half"</span><span class="c-tag">&gt;</span>Right column<span class="c-tag">&lt;/td&gt;</span>
+    <span class="c-tag">&lt;/tr&gt;</span>
+
+    <span class="c-com">&lt;!-- Three-column layout --&gt;</span>
+    <span class="c-tag">&lt;tr&gt;</span>
+      <span class="c-tag">&lt;td</span> <span class="c-attr">class</span>=<span class="c-str">"email-col-third"</span><span class="c-tag">&gt;</span>Col 1<span class="c-tag">&lt;/td&gt;</span>
+      <span class="c-tag">&lt;td</span> <span class="c-attr">class</span>=<span class="c-str">"email-col-third"</span><span class="c-tag">&gt;</span>Col 2<span class="c-tag">&lt;/td&gt;</span>
+      <span class="c-tag">&lt;td</span> <span class="c-attr">class</span>=<span class="c-str">"email-col-third"</span><span class="c-tag">&gt;</span>Col 3<span class="c-tag">&lt;/td&gt;</span>
+    <span class="c-tag">&lt;/tr&gt;</span>
+
+  <span class="c-tag">&lt;/table&gt;</span>
+<span class="c-tag">&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</span></pre>
+      </div>
+
+      <!-- Header / Footer / Hero -->
+      <div class="add-margin-bottom-8">
+        <span class="chip chip-gray" style="font-size:11px;">Header · Hero · Footer</span>
+      </div>
+      <div class="code-block add-margin-bottom-20">
+<pre><span class="c-com">&lt;!-- Dark header with logo --&gt;</span>
+<span class="c-tag">&lt;tr&gt;&lt;td</span> <span class="c-attr">class</span>=<span class="c-str">"email-header"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;img</span> <span class="c-attr">src</span>=<span class="c-str">"logo.png"</span> <span class="c-attr">class</span>=<span class="c-str">"email-logo"</span> <span class="c-attr">alt</span>=<span class="c-str">"Brand"</span> <span class="c-attr">width</span>=<span class="c-str">"140"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;/td&gt;&lt;/tr&gt;</span>
+
+<span class="c-com">&lt;!-- Light header variant --&gt;</span>
+<span class="c-tag">&lt;tr&gt;&lt;td</span> <span class="c-attr">class</span>=<span class="c-str">"email-header-light"</span><span class="c-tag">&gt;</span> ... <span class="c-tag">&lt;/td&gt;&lt;/tr&gt;</span>
+
+<span class="c-com">&lt;!-- Gradient hero banner --&gt;</span>
+<span class="c-tag">&lt;tr&gt;&lt;td</span> <span class="c-attr">class</span>=<span class="c-str">"email-hero-gradient"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;h1</span> <span class="c-attr">class</span>=<span class="c-str">"email-h1"</span> <span class="c-attr">style</span>=<span class="c-str">"color:#fff;"</span><span class="c-tag">&gt;</span>Welcome aboard! 🎉<span class="c-tag">&lt;/h1&gt;</span>
+  <span class="c-tag">&lt;p</span>  <span class="c-attr">class</span>=<span class="c-str">"email-p-lead"</span> <span class="c-attr">style</span>=<span class="c-str">"color:rgba(255,255,255,.85);"</span><span class="c-tag">&gt;</span>Let's get started.<span class="c-tag">&lt;/p&gt;</span>
+<span class="c-tag">&lt;/td&gt;&lt;/tr&gt;</span>
+
+<span class="c-com">&lt;!-- Footer with legal --&gt;</span>
+<span class="c-tag">&lt;tr&gt;&lt;td</span> <span class="c-attr">class</span>=<span class="c-str">"email-footer"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;p</span> <span class="c-attr">class</span>=<span class="c-str">"email-legal"</span><span class="c-tag">&gt;</span>© 2026 Company Inc · 123 Street, City<span class="c-tag">&lt;/p&gt;</span>
+  <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"{{unsubscribe_url}}"</span> <span class="c-attr">class</span>=<span class="c-str">"email-unsubscribe"</span><span class="c-tag">&gt;</span>Unsubscribe<span class="c-tag">&lt;/a&gt;</span>
+<span class="c-tag">&lt;/td&gt;&lt;/tr&gt;</span></pre>
+      </div>
+
+      <!-- Typography -->
+      <div class="add-margin-bottom-8">
+        <span class="chip chip-gray" style="font-size:11px;">Typography</span>
+      </div>
+      <div class="code-block add-margin-bottom-20">
+<pre><span class="c-tag">&lt;tr&gt;&lt;td</span> <span class="c-attr">class</span>=<span class="c-str">"email-body-wrap"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;h1</span> <span class="c-attr">class</span>=<span class="c-str">"email-h1"</span><span class="c-tag">&gt;</span>Main heading<span class="c-tag">&lt;/h1&gt;</span>
+  <span class="c-tag">&lt;h2</span> <span class="c-attr">class</span>=<span class="c-str">"email-h2"</span><span class="c-tag">&gt;</span>Section heading<span class="c-tag">&lt;/h2&gt;</span>
+  <span class="c-tag">&lt;h3</span> <span class="c-attr">class</span>=<span class="c-str">"email-h3"</span><span class="c-tag">&gt;</span>Sub-heading<span class="c-tag">&lt;/h3&gt;</span>
+  <span class="c-tag">&lt;p</span>  <span class="c-attr">class</span>=<span class="c-str">"email-p-lead"</span><span class="c-tag">&gt;</span>Large intro paragraph<span class="c-tag">&lt;/p&gt;</span>
+  <span class="c-tag">&lt;p</span>  <span class="c-attr">class</span>=<span class="c-str">"email-p"</span><span class="c-tag">&gt;</span>Normal body text. <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"email-link"</span><span class="c-tag">&gt;</span>Inline link<span class="c-tag">&lt;/a&gt;&lt;/p&gt;</span>
+  <span class="c-tag">&lt;p</span>  <span class="c-attr">class</span>=<span class="c-str">"email-muted"</span><span class="c-tag">&gt;</span>Small muted helper text<span class="c-tag">&lt;/p&gt;</span>
+  <span class="c-tag">&lt;p</span>  <span class="c-attr">class</span>=<span class="c-str">"email-small"</span><span class="c-tag">&gt;</span>Fine print / disclaimer<span class="c-tag">&lt;/p&gt;</span>
+<span class="c-tag">&lt;/td&gt;&lt;/tr&gt;</span></pre>
+      </div>
+
+      <!-- Buttons -->
+      <div class="add-margin-bottom-8">
+        <span class="chip chip-gray" style="font-size:11px;">Buttons (CTAs)</span>
+      </div>
+      <div class="code-block add-margin-bottom-20">
+<pre><span class="c-com">&lt;!-- Primary button (blue) --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-btn-center"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"https://example.com"</span> <span class="c-attr">class</span>=<span class="c-str">"email-btn"</span><span class="c-tag">&gt;</span>Get Started<span class="c-tag">&lt;/a&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-com">&lt;!-- Button variants --&gt;</span>
+<span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"email-btn email-btn-sm"</span><span class="c-tag">&gt;</span>Small button<span class="c-tag">&lt;/a&gt;</span>
+<span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"email-btn email-btn-lg"</span><span class="c-tag">&gt;</span>Large button<span class="c-tag">&lt;/a&gt;</span>
+<span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"email-btn email-btn-outline"</span><span class="c-tag">&gt;</span>Outline button<span class="c-tag">&lt;/a&gt;</span>
+<span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"email-btn email-btn-dark"</span><span class="c-tag">&gt;</span>Dark button<span class="c-tag">&lt;/a&gt;</span>
+<span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"email-btn email-btn-success"</span><span class="c-tag">&gt;</span>Confirm order ✓<span class="c-tag">&lt;/a&gt;</span>
+<span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"email-btn email-btn-danger"</span><span class="c-tag">&gt;</span>Cancel subscription<span class="c-tag">&lt;/a&gt;</span>
+<span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"email-btn email-btn-warning"</span><span class="c-tag">&gt;</span>Action required ⚠<span class="c-tag">&lt;/a&gt;</span></pre>
+      </div>
+
+      <!-- Callouts -->
+      <div class="add-margin-bottom-8">
+        <span class="chip chip-gray" style="font-size:11px;">Cards &amp; Callouts</span>
+      </div>
+      <div class="code-block add-margin-bottom-20">
+<pre><span class="c-com">&lt;!-- White card with border --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-card"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;h3</span> <span class="c-attr">class</span>=<span class="c-str">"email-h3"</span><span class="c-tag">&gt;</span>Order Summary<span class="c-tag">&lt;/h3&gt;</span>
+  <span class="c-tag">&lt;p</span> <span class="c-attr">class</span>=<span class="c-str">"email-p"</span><span class="c-tag">&gt;</span>Item × 2 — $49.00<span class="c-tag">&lt;/p&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-com">&lt;!-- Coloured callout banners --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-callout-success"</span><span class="c-tag">&gt;</span>✓ Payment received — thank you!<span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-callout-warning"</span><span class="c-tag">&gt;</span>⚠ Your subscription expires in 3 days.<span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-callout-danger"</span><span class="c-tag">&gt;</span>✕ We couldn't process your payment.<span class="c-tag">&lt;/div&gt;</span></pre>
+      </div>
+
+      <!-- Lists -->
+      <div class="add-margin-bottom-8">
+        <span class="chip chip-gray" style="font-size:11px;">Lists</span>
+      </div>
+      <div class="code-block add-margin-bottom-20">
+<pre><span class="c-com">&lt;!-- Bulleted list --&gt;</span>
+<span class="c-tag">&lt;ul</span> <span class="c-attr">class</span>=<span class="c-str">"email-list"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;li&gt;</span>Unlimited projects<span class="c-tag">&lt;/li&gt;</span>
+  <span class="c-tag">&lt;li&gt;</span>Priority support<span class="c-tag">&lt;/li&gt;</span>
+<span class="c-tag">&lt;/ul&gt;</span>
+
+<span class="c-com">&lt;!-- Checkmark list (✓ prefix via CSS) --&gt;</span>
+<span class="c-tag">&lt;ul</span> <span class="c-attr">class</span>=<span class="c-str">"email-check-list"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;li&gt;</span>No credit card required<span class="c-tag">&lt;/li&gt;</span>
+  <span class="c-tag">&lt;li&gt;</span>Cancel any time<span class="c-tag">&lt;/li&gt;</span>
+  <span class="c-tag">&lt;li&gt;</span>Free 14-day trial<span class="c-tag">&lt;/li&gt;</span>
+<span class="c-tag">&lt;/ul&gt;</span></pre>
+      </div>
+
+      <!-- Badges -->
+      <div class="add-margin-bottom-8">
+        <span class="chip chip-gray" style="font-size:11px;">Badges &amp; Status labels</span>
+      </div>
+      <div class="code-block add-margin-bottom-20">
+<pre><span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"email-badge-blue"</span><span class="c-tag">&gt;</span>Info<span class="c-tag">&lt;/span&gt;</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"email-badge-green"</span><span class="c-tag">&gt;</span>Active<span class="c-tag">&lt;/span&gt;</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"email-badge-red"</span><span class="c-tag">&gt;</span>Expired<span class="c-tag">&lt;/span&gt;</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"email-badge-yellow"</span><span class="c-tag">&gt;</span>Pending<span class="c-tag">&lt;/span&gt;</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"email-badge-purple"</span><span class="c-tag">&gt;</span>Pro<span class="c-tag">&lt;/span&gt;</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"email-badge-gray"</span><span class="c-tag">&gt;</span>Draft<span class="c-tag">&lt;/span&gt;</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"email-badge-new"</span><span class="c-tag">&gt;</span>New<span class="c-tag">&lt;/span&gt;</span></pre>
+      </div>
+
+      <!-- Stats -->
+      <div class="add-margin-bottom-8">
+        <span class="chip chip-gray" style="font-size:11px;">Stats &amp; Metrics</span>
+      </div>
+      <div class="code-block add-margin-bottom-20">
+<pre><span class="c-tag">&lt;table</span> <span class="c-attr">class</span>=<span class="c-str">"email-table"</span><span class="c-tag">&gt;&lt;tr&gt;</span>
+  <span class="c-tag">&lt;td</span> <span class="c-attr">class</span>=<span class="c-str">"email-cell"</span> <span class="c-attr">style</span>=<span class="c-str">"text-align:center;"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-stat-value"</span><span class="c-tag">&gt;</span>1,284<span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-stat-label"</span><span class="c-tag">&gt;</span>Page views<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;/td&gt;</span>
+  <span class="c-tag">&lt;td</span> <span class="c-attr">class</span>=<span class="c-str">"email-cell"</span> <span class="c-attr">style</span>=<span class="c-str">"text-align:center;"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-stat-value"</span><span class="c-tag">&gt;</span>42%<span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-stat-label"</span><span class="c-tag">&gt;</span>Open rate<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;/td&gt;</span>
+  <span class="c-tag">&lt;td</span> <span class="c-attr">class</span>=<span class="c-str">"email-cell"</span> <span class="c-attr">style</span>=<span class="c-str">"text-align:center;"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-stat-value"</span><span class="c-tag">&gt;</span>$3.2k<span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-stat-label"</span><span class="c-tag">&gt;</span>Revenue<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;/td&gt;</span>
+<span class="c-tag">&lt;/tr&gt;&lt;/table&gt;</span></pre>
+      </div>
+
+      <!-- Spacers / Dividers -->
+      <div class="add-margin-bottom-8">
+        <span class="chip chip-gray" style="font-size:11px;">Spacers &amp; Dividers</span>
+      </div>
+      <div class="code-block add-margin-bottom-20">
+<pre><span class="c-com">&lt;!-- Horizontal rule --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-divider"</span><span class="c-tag">&gt;&lt;/div&gt;</span>
+
+<span class="c-com">&lt;!-- Vertical spacing blocks (px values: 4 8 16 24 32 48 64) --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-spacer-8"</span><span class="c-tag">&gt;&lt;/div&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-spacer-24"</span><span class="c-tag">&gt;&lt;/div&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-spacer-48"</span><span class="c-tag">&gt;&lt;/div&gt;</span></pre>
+      </div>
+
+      <!-- Code blocks & Images -->
+      <div class="add-margin-bottom-8">
+        <span class="chip chip-gray" style="font-size:11px;">Code &amp; Images</span>
+      </div>
+      <div class="code-block add-margin-bottom-20">
+<pre><span class="c-com">&lt;!-- Code block (developer emails) --&gt;</span>
+<span class="c-tag">&lt;pre</span> <span class="c-attr">class</span>=<span class="c-str">"email-code"</span><span class="c-tag">&gt;</span>npm install santycss<span class="c-tag">&lt;/pre&gt;</span>
+
+<span class="c-com">&lt;!-- Inline code --&gt;</span>
+Use the <span class="c-tag">&lt;code</span> <span class="c-attr">class</span>=<span class="c-str">"email-code-inline"</span><span class="c-tag">&gt;</span>email-btn<span class="c-tag">&lt;/code&gt;</span> class for buttons.
+
+<span class="c-com">&lt;!-- Responsive images --&gt;</span>
+<span class="c-tag">&lt;img</span> <span class="c-attr">src</span>=<span class="c-str">"banner.jpg"</span> <span class="c-attr">class</span>=<span class="c-str">"email-img-full"</span> <span class="c-attr">alt</span>=<span class="c-str">"Banner"</span><span class="c-tag">&gt;</span>     <span class="c-com">&lt;!-- full-width --&gt;</span>
+<span class="c-tag">&lt;img</span> <span class="c-attr">src</span>=<span class="c-str">"photo.jpg"</span>  <span class="c-attr">class</span>=<span class="c-str">"email-img-rounded"</span> <span class="c-attr">alt</span>=<span class="c-str">"Photo"</span><span class="c-tag">&gt;</span>  <span class="c-com">&lt;!-- 8px radius --&gt;</span>
+<span class="c-tag">&lt;img</span> <span class="c-attr">src</span>=<span class="c-str">"avatar.jpg"</span> <span class="c-attr">class</span>=<span class="c-str">"email-avatar-md"</span>   <span class="c-attr">alt</span>=<span class="c-str">"Avatar"</span><span class="c-tag">&gt;</span>  <span class="c-com">&lt;!-- 48px circle --&gt;</span></pre>
+      </div>
+
+      <!-- Social / Preheader -->
+      <div class="add-margin-bottom-8">
+        <span class="chip chip-gray" style="font-size:11px;">Social links &amp; Preheader</span>
+      </div>
+      <div class="code-block add-margin-bottom-24">
+<pre><span class="c-com">&lt;!-- Hidden preview text (shows in inbox before open) --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-preheader"</span><span class="c-tag">&gt;</span>Your invoice is ready — view it now<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-com">&lt;!-- Social media row --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"email-social-wrap"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"https://twitter.com/yourco"</span> <span class="c-attr">class</span>=<span class="c-str">"email-social-link"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;img</span> <span class="c-attr">src</span>=<span class="c-str">"twitter-icon.png"</span> <span class="c-attr">width</span>=<span class="c-str">"24"</span> <span class="c-attr">alt</span>=<span class="c-str">"Twitter"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;/a&gt;</span>
+  <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"https://linkedin.com/company/yourco"</span> <span class="c-attr">class</span>=<span class="c-str">"email-social-text-link"</span><span class="c-tag">&gt;</span>LinkedIn<span class="c-tag">&lt;/a&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre>
+      </div>
+
       <h3 class="set-text-18 text-semibold color-gray-800 add-margin-bottom-16">Complete email template</h3>
       <div class="code-block">
 <pre><span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-email.css"</span><span class="c-tag">&gt;</span>
