@@ -21,18 +21,9 @@
     body { margin: 0; background: var(--bg); color: var(--text); font-family: ui-sans-serif, system-ui, sans-serif; }
 
     /* Nav */
-    .site-nav { position: sticky; top: 0; z-index: 100; background: #fff; border-bottom: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
-    .site-nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
-    .site-nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .site-nav-wordmark { font-size: 20px; font-weight: 700; color: #111827; }
-    .site-nav-wordmark span { color: #2563eb; }
-    .site-nav-badge { font-size: 11px; font-weight: 600; background: #dbeafe; color: #1d4ed8; padding: 2px 8px; border-radius: 9999px; }
-    .site-nav-links { display: flex; align-items: center; gap: 24px; }
-    .site-nav-link { color: #4b5563; text-decoration: none; font-size: 14px; font-weight: 600; transition: color .2s; }
-    .site-nav-link:hover { color: #2563eb; }
-    .site-nav-link-active { color: #2563eb !important; }
-    .site-nav-btn { display: inline-flex; align-items: center; padding: 7px 16px; border-radius: 8px; font-size: 14px; font-weight: 600; background: #2563eb; color: #fff; text-decoration: none; transition: background .2s; }
-    .site-nav-btn:hover { background: #1d4ed8; color: #fff; }
+    .nav-link { transition: color 0.2s; }
+    .nav-link:hover { color: #3b82f6 !important; }
+    .nav-link-active { color: #2563eb !important; }
 
     /* Hero */
     .hero { text-align: center; padding: 80px 24px 60px; }
@@ -98,24 +89,11 @@
     .nav-hamburger { display: none; background: none; border: 1px solid #e5e7eb; border-radius: 8px; padding: 7px 9px; cursor: pointer; color: #374151; line-height: 1; }
     @media (max-width: 767px) {
       .nav-hamburger { display: flex; align-items: center; justify-content: center; }
-      .site-nav-links {
-        display: none;
-        position: fixed;
-        top: 61px; left: 0; right: 0; bottom: 0;
-        background: #fff;
-        flex-direction: column;
-        align-items: stretch;
-        padding: 16px;
-        gap: 4px;
-        z-index: 98;
-        border-top: 1px solid #e5e7eb;
-        overflow-y: auto;
-        box-shadow: 0 4px 24px rgba(0,0,0,.12);
-      }
-      .site-nav-links.nav-open { display: flex; }
-      .site-nav-link { display: block; padding: 12px !important; font-size: 16px !important; border-radius: 8px; color: #1f2937 !important; border-bottom: 1px solid #f3f4f6; }
-      .site-nav-link:hover { background: #f9fafb; color: #2563eb !important; }
-      .site-nav-btn { margin-top: 8px; text-align: center; padding: 12px; font-size: 15px; }
+      #main-nav { display: none; position: fixed; top: 61px; left: 0; right: 0; bottom: 0; background: #fff; flex-direction: column; align-items: stretch; padding: 16px; gap: 4px; z-index: 98; border-top: 1px solid #e5e7eb; overflow-y: auto; box-shadow: 0 4px 24px rgba(0,0,0,.12); }
+      #main-nav.nav-open { display: flex; }
+      #main-nav .nav-link { display: block; padding: 12px !important; font-size: 16px !important; border-radius: 8px; color: #1f2937 !important; border-bottom: 1px solid #f3f4f6; }
+      #main-nav .nav-link:hover { background: #f9fafb; }
+      #main-nav .btn { margin-top: 8px; text-align: center; padding: 12px; font-size: 15px; }
       /* Grids */
       .anim-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important; }
       .pattern-grid { grid-template-columns: 1fr !important; }
@@ -130,27 +108,27 @@
 <body>
 
 <!-- Nav -->
-<header class="site-nav">
-  <div class="site-nav-inner">
-    <a href="index.html" class="site-nav-logo">
+<header class="position-sticky pin-top-0 layer-50 background-white add-shadow-sm" style="border-bottom:1px solid #e5e7eb;">
+  <div class="container make-flex align-center justify-between add-padding-y-14">
+    <a href="index.html" class="make-flex align-center gap-10 text-no-decoration">
       <img src="assest/santy_css.png" alt="SantyCSS" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
-      <span class="site-nav-wordmark">Santy<span>CSS</span></span>
-      <span class="site-nav-badge">v1.0</span>
+      <span class="set-text-20 text-bold color-gray-900">Santy<span class="color-blue-600">CSS</span></span>
+      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v1.1</span>
     </a>
     <button class="nav-hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
       <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
       <svg id="ham-close" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:none"><path d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
-    <nav id="anim-nav" class="site-nav-links">
-      <a href="index.html#getting-started" class="site-nav-link">Docs</a>
-      <a href="index.html#utilities" class="site-nav-link">Utilities</a>
-      <a href="index.html#components" class="site-nav-link">Components</a>
-      <a href="index.html#integrations" class="site-nav-link">Integrations</a>
-      <a href="index.html#vs-tailwind" class="site-nav-link">Compare</a>
-      <a href="index.html#examples" class="site-nav-link">Examples</a>
-      <a href="animations.html" class="site-nav-link site-nav-link-active">Animations</a>
-      <a href="docs.html" class="site-nav-link">npm Docs</a>
-      <a href="demo.html" class="site-nav-btn">Live Demo →</a>
+    <nav id="main-nav" class="make-flex align-center gap-24">
+      <a href="index.html#getting-started" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Docs</a>
+      <a href="index.html#utilities" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Utilities</a>
+      <a href="index.html#components" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Components</a>
+      <a href="index.html#integrations" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Integrations</a>
+      <a href="index.html#vs-tailwind" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Compare</a>
+      <a href="index.html#examples" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Examples</a>
+      <a href="animations.html" class="nav-link nav-link-active text-no-decoration set-text-14 text-semibold">Animations</a>
+      <a href="docs.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">npm Docs</a>
+      <a href="demo.html" class="btn btn-primary btn-sm">Live Demo →</a>
     </nav>
   </div>
 </header>
@@ -617,16 +595,16 @@ Object.keys(ANIMATIONS).forEach(id => renderGrid(id, ANIMATIONS[id]));
 </script>
 <script>
 function toggleMobileNav() {
-  var nav = document.getElementById('anim-nav');
+  var nav = document.getElementById('main-nav');
   var hamIcon = document.getElementById('ham-icon');
   var hamClose = document.getElementById('ham-close');
   var open = nav.classList.toggle('nav-open');
   hamIcon.style.display = open ? 'none' : 'block';
   hamClose.style.display = open ? 'block' : 'none';
 }
-document.querySelectorAll('#anim-nav .site-nav-link, #anim-nav .site-nav-btn').forEach(function(el) {
+document.querySelectorAll('#main-nav .nav-link, #main-nav .btn').forEach(function(el) {
   el.addEventListener('click', function() {
-    document.getElementById('anim-nav').classList.remove('nav-open');
+    document.getElementById('main-nav').classList.remove('nav-open');
     document.getElementById('ham-icon').style.display = 'block';
     document.getElementById('ham-close').style.display = 'none';
   });
