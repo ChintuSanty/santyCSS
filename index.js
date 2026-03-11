@@ -29,6 +29,7 @@ const min        = path.join(dist, 'santy.min.css');
 const core       = path.join(dist, 'santy-core.css');
 const components = path.join(dist, 'santy-components.css');
 const animations = path.join(dist, 'santy-animations.css');
+const email      = path.join(dist, 'santy-email.css');
 
 // Purge API (tree-shaking)
 const { purge, purgeFiles, extractClasses, minify, EXTS } = require('./lib/purge-core');
@@ -40,6 +41,7 @@ module.exports = {
   core,
   components,
   animations,
+  email,
 
   // Purge API
   purge,

@@ -1,20 +1,21 @@
 {
   "name": "santycss",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Plain-English utility-first CSS framework — no build step, just classes",
   "main": "index.js",
   "style": "dist/santy.css",
   "exports": {
-    ".":                  "./index.js",
-    "./css":              "./dist/santy.css",
-    "./css/core":         "./dist/santy-core.css",
-    "./css/components":   "./dist/santy-components.css",
-    "./css/animations":   "./dist/santy-animations.css",
-    "./min":              "./dist/santy.min.css",
-    "./postcss":          "./postcss/index.js",
-    "./jit":              "./santy-jit.js",
-    "./vite":             "./vite-plugin-santycss.js",
-    "./purge":            "./lib/purge-core.js"
+    ".": "./index.js",
+    "./css": "./dist/santy.css",
+    "./css/core": "./dist/santy-core.css",
+    "./css/components": "./dist/santy-components.css",
+    "./css/animations": "./dist/santy-animations.css",
+    "./css/email": "./dist/santy-email.css",
+    "./min": "./dist/santy.min.css",
+    "./postcss": "./postcss/index.js",
+    "./jit": "./santy-jit.js",
+    "./vite": "./vite-plugin-santycss.js",
+    "./purge": "./lib/purge-core.js"
   },
   "files": [
     "dist/",
@@ -41,16 +42,18 @@
     "vite"
   ],
   "scripts": {
-    "build":      "node build.js",
-    "purge":      "node purge.js",
-    "dev":        "node build.js && echo 'Watching...'",
+    "build": "node build.js",
+    "purge": "node purge.js",
+    "dev": "node build.js && echo 'Watching...'",
     "prepublish": "node build.js"
   },
   "peerDependencies": {
     "postcss": ">=8.0.0"
   },
   "peerDependenciesMeta": {
-    "postcss": { "optional": true }
+    "postcss": {
+      "optional": true
+    }
   },
   "author": "Santy",
   "license": "MIT",

@@ -2057,11 +2057,208 @@ const utilCSS = animSplit > -1 ? coreCSS.slice(0, animSplit).trim() : coreCSS;
 const animCSS  = animSplit > -1 ? coreCSS.slice(animSplit) : '';
 const compCSS  = compSplit > -1 ? fullCSS.slice(compSplit) : '';
 
+// ─── EMAIL CSS MODULE ────────────────────────────────────────────────────────
+const EMAIL_CSS = `
+/* ═══════════════════════════════════════════════════════════════════════════
+   SANTY EMAIL — Email-safe CSS for HTML email templates
+   Compatible with: Gmail, Outlook, Apple Mail, Yahoo Mail, Thunderbird
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Reset & Base ── */
+.email-html, .email-body { margin: 0; padding: 0; width: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+.email-wrapper { width: 100%; table-layout: fixed; background-color: #f4f4f5; }
+.email-container { max-width: 600px; margin: 0 auto; background-color: #ffffff; }
+
+/* ── Preheader (hidden preview text) ── */
+.email-preheader { display: none; max-height: 0; max-width: 0; overflow: hidden; opacity: 0; visibility: hidden; mso-hide: all; font-size: 1px; color: transparent; }
+
+/* ── Table Layout (email-safe) ── */
+.email-table  { border-spacing: 0; border-collapse: collapse; width: 100%; }
+.email-cell   { padding: 0; vertical-align: top; word-break: break-word; }
+.email-cell-middle { vertical-align: middle; }
+.email-cell-bottom { vertical-align: bottom; }
+.email-row    { width: 100%; }
+.email-col-half  { width: 50%; vertical-align: top; }
+.email-col-third { width: 33.33%; vertical-align: top; }
+.email-col-two-thirds { width: 66.66%; vertical-align: top; }
+
+/* ── Header ── */
+.email-header       { background-color: #1e293b; padding: 24px 32px; text-align: center; }
+.email-header-light { background-color: #ffffff; padding: 20px 32px; border-bottom: 1px solid #e5e7eb; }
+.email-logo         { max-width: 160px; height: auto; display: block; margin: 0 auto; }
+.email-logo-left    { margin: 0; }
+
+/* ── Body Wrapper ── */
+.email-body-wrap        { background-color: #ffffff; padding: 40px 32px; }
+.email-body-wrap-gray   { background-color: #f9fafb; padding: 32px; }
+.email-section          { padding: 24px 0; }
+.email-section-bordered { border-bottom: 1px solid #e5e7eb; padding: 24px 0; }
+
+/* ── Footer ── */
+.email-footer      { background-color: #f9fafb; padding: 24px 32px; text-align: center; border-top: 1px solid #e5e7eb; }
+.email-footer-dark { background-color: #0f172a; border-top-color: #1e293b; }
+
+/* ── Typography ── */
+.email-h1 { font-size: 28px; font-weight: 700; color: #111827; margin: 0 0 16px 0; line-height: 1.2; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; }
+.email-h2 { font-size: 22px; font-weight: 700; color: #111827; margin: 0 0 12px 0; line-height: 1.3; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; }
+.email-h3 { font-size: 18px; font-weight: 600; color: #1e293b; margin: 0 0 10px 0; line-height: 1.4; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; }
+.email-p  { font-size: 15px; line-height: 1.7; color: #374151; margin: 0 0 16px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; }
+.email-p-lead { font-size: 18px; line-height: 1.6; color: #374151; margin: 0 0 20px 0; }
+.email-small { font-size: 12px; color: #6b7280; line-height: 1.5; }
+.email-muted { color: #9ca3af; font-size: 13px; }
+.email-link  { color: #3b82f6; text-decoration: underline; }
+.email-link:hover { color: #2563eb; }
+.email-text-center { text-align: center; }
+.email-text-left   { text-align: left; }
+.email-text-right  { text-align: right; }
+.email-bold   { font-weight: 700; }
+.email-semibold { font-weight: 600; }
+
+/* ── Buttons ── */
+.email-btn         { display: inline-block; padding: 13px 28px; background-color: #3b82f6; color: #ffffff !important; font-size: 15px; font-weight: 600; text-decoration: none; border-radius: 8px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; mso-padding-alt: 0; }
+.email-btn-sm      { padding: 9px 20px; font-size: 13px; }
+.email-btn-lg      { padding: 16px 36px; font-size: 17px; }
+.email-btn-outline { display: inline-block; padding: 11px 26px; background-color: transparent; color: #3b82f6 !important; font-size: 15px; font-weight: 600; text-decoration: none; border-radius: 8px; border: 2px solid #3b82f6; }
+.email-btn-dark    { background-color: #1e293b; color: #ffffff !important; }
+.email-btn-success { background-color: #22c55e; color: #ffffff !important; }
+.email-btn-danger  { background-color: #ef4444; color: #ffffff !important; }
+.email-btn-warning { background-color: #f59e0b; color: #ffffff !important; }
+.email-btn-center  { text-align: center; padding: 24px 0; }
+.email-btn-full    { display: block; text-align: center; }
+
+/* ── Dividers ── */
+.email-divider      { border: none; border-top: 1px solid #e5e7eb; margin: 24px 0; }
+.email-divider-dark { border-top-color: #334155; }
+.email-divider-thick { border-top: 3px solid #3b82f6; }
+
+/* ── Cards & Callouts ── */
+.email-card         { background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 24px; }
+.email-card-gray    { background-color: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px; padding: 24px; }
+.email-callout         { background-color: #eff6ff; border-left: 4px solid #3b82f6; padding: 16px 20px; margin: 0 0 16px 0; }
+.email-callout-success { background-color: #f0fdf4; border-left: 4px solid #22c55e; padding: 16px 20px; margin: 0 0 16px 0; }
+.email-callout-warning { background-color: #fffbeb; border-left: 4px solid #f59e0b; padding: 16px 20px; margin: 0 0 16px 0; }
+.email-callout-danger  { background-color: #fef2f2; border-left: 4px solid #ef4444; padding: 16px 20px; margin: 0 0 16px 0; }
+.email-highlight    { background-color: #fef9c3; padding: 2px 6px; border-radius: 3px; }
+
+/* ── Hero Section ── */
+.email-hero         { padding: 48px 32px; text-align: center; background-color: #1e40af; }
+.email-hero-light   { padding: 48px 32px; text-align: center; background-color: #eff6ff; }
+.email-hero-gradient { padding: 48px 32px; text-align: center; background: linear-gradient(135deg, #1e40af, #7c3aed); }
+
+/* ── Images ── */
+.email-img         { max-width: 100%; height: auto; display: block; }
+.email-img-rounded { border-radius: 8px; max-width: 100%; height: auto; display: block; }
+.email-img-circle  { border-radius: 50%; }
+.email-img-center  { margin: 0 auto; display: block; }
+.email-img-full    { width: 100%; height: auto; display: block; }
+
+/* ── Avatar ── */
+.email-avatar-sm { width: 32px; height: 32px; border-radius: 50%; }
+.email-avatar-md { width: 48px; height: 48px; border-radius: 50%; }
+.email-avatar-lg { width: 64px; height: 64px; border-radius: 50%; }
+
+/* ── List / Items ── */
+.email-list       { padding: 0 0 0 20px; margin: 0 0 16px 0; }
+.email-list li    { font-size: 15px; line-height: 1.7; color: #374151; margin-bottom: 6px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; }
+.email-check-list { list-style: none; padding: 0; margin: 0 0 16px 0; }
+.email-check-list li { font-size: 15px; line-height: 1.7; color: #374151; margin-bottom: 8px; padding-left: 24px; position: relative; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; }
+.email-check-list li::before { content: '✓'; position: absolute; left: 0; color: #22c55e; font-weight: 700; }
+
+/* ── Product / Feature Rows ── */
+.email-product-img  { width: 80px; height: 80px; border-radius: 8px; }
+.email-product-name { font-size: 16px; font-weight: 600; color: #111827; margin: 0 0 4px 0; }
+.email-product-desc { font-size: 13px; color: #6b7280; margin: 0; }
+.email-product-price { font-size: 16px; font-weight: 700; color: #111827; }
+
+/* ── Badges ── */
+.email-badge         { display: inline-block; padding: 3px 10px; border-radius: 9999px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.email-badge-blue    { background-color: #dbeafe; color: #1d4ed8; }
+.email-badge-green   { background-color: #dcfce7; color: #15803d; }
+.email-badge-red     { background-color: #fee2e2; color: #dc2626; }
+.email-badge-yellow  { background-color: #fef9c3; color: #a16207; }
+.email-badge-purple  { background-color: #f3e8ff; color: #7e22ce; }
+.email-badge-gray    { background-color: #f3f4f6; color: #374151; }
+.email-badge-new     { background-color: #3b82f6; color: #ffffff; }
+
+/* ── Stat Blocks ── */
+.email-stat-value { font-size: 32px; font-weight: 700; color: #111827; line-height: 1; margin: 0 0 4px 0; }
+.email-stat-label { font-size: 13px; color: #6b7280; margin: 0; }
+
+/* ── Code Block ── */
+.email-code { display: block; background-color: #1e293b; color: #e2e8f0; padding: 16px 20px; border-radius: 8px; font-family: 'Courier New', Courier, monospace; font-size: 13px; line-height: 1.6; }
+.email-code-inline { background-color: #f1f5f9; color: #e11d48; padding: 2px 6px; border-radius: 4px; font-family: 'Courier New', Courier, monospace; font-size: 13px; }
+
+/* ── Spacers ── */
+.email-spacer-4  { height: 4px;  line-height: 4px;  font-size: 4px;  display: block; }
+.email-spacer-8  { height: 8px;  line-height: 8px;  font-size: 8px;  display: block; }
+.email-spacer-16 { height: 16px; line-height: 16px; font-size: 16px; display: block; }
+.email-spacer-24 { height: 24px; line-height: 24px; font-size: 24px; display: block; }
+.email-spacer-32 { height: 32px; line-height: 32px; font-size: 32px; display: block; }
+.email-spacer-48 { height: 48px; line-height: 48px; font-size: 48px; display: block; }
+.email-spacer-64 { height: 64px; line-height: 64px; font-size: 64px; display: block; }
+
+/* ── Social Links ── */
+.email-social-wrap { text-align: center; padding: 16px 0; }
+.email-social-link { display: inline-block; margin: 0 6px; width: 36px; height: 36px; border-radius: 50%; background-color: #e5e7eb; text-align: center; line-height: 36px; text-decoration: none; font-size: 14px; color: #374151; }
+.email-social-link-blue   { background-color: #dbeafe; color: #1d4ed8; }
+.email-social-link-dark   { background-color: #334155; color: #e2e8f0; }
+.email-social-text-link   { display: inline-block; margin: 0 8px; font-size: 13px; color: #6b7280; text-decoration: underline; }
+
+/* ── Unsubscribe / Legal ── */
+.email-legal    { font-size: 11px; color: #9ca3af; line-height: 1.6; text-align: center; }
+.email-address  { font-size: 11px; color: #9ca3af; line-height: 1.6; }
+.email-unsubscribe { font-size: 12px; color: #9ca3af; text-decoration: underline; }
+
+/* ── Responsive (Mobile) ── */
+@media screen and (max-width: 600px) {
+  .email-container       { width: 100% !important; max-width: 100% !important; }
+  .email-body-wrap       { padding: 24px 20px !important; }
+  .email-header          { padding: 20px !important; }
+  .email-footer          { padding: 20px !important; }
+  .email-hero            { padding: 32px 20px !important; }
+  .email-h1              { font-size: 22px !important; }
+  .email-h2              { font-size: 18px !important; }
+  .email-h3              { font-size: 16px !important; }
+  .email-p-lead          { font-size: 16px !important; }
+  .email-btn, .email-btn-outline { display: block !important; text-align: center !important; }
+  .email-col-half, .email-col-third, .email-col-two-thirds { width: 100% !important; display: block !important; }
+  .email-mobile-hidden   { display: none !important; max-height: 0 !important; overflow: hidden !important; }
+  .email-mobile-visible  { display: block !important; }
+  .email-mobile-full     { width: 100% !important; }
+  .email-mobile-center   { text-align: center !important; }
+  .email-mobile-padding  { padding: 16px !important; }
+  .email-stat-value      { font-size: 24px !important; }
+}
+
+/* ── Dark Mode (Apple Mail, Outlook 2019+, Hey) ── */
+@media (prefers-color-scheme: dark) {
+  .email-wrapper, .email-body  { background-color: #0f172a !important; }
+  .email-container             { background-color: #1e293b !important; }
+  .email-body-wrap             { background-color: #1e293b !important; }
+  .email-body-wrap-gray        { background-color: #0f172a !important; }
+  .email-header-light          { background-color: #1e293b !important; border-bottom-color: #334155 !important; }
+  .email-footer                { background-color: #0f172a !important; border-top-color: #1e293b !important; }
+  .email-h1, .email-h2, .email-h3 { color: #f1f5f9 !important; }
+  .email-p, .email-list li, .email-check-list li { color: #cbd5e1 !important; }
+  .email-p-lead                { color: #e2e8f0 !important; }
+  .email-card                  { background-color: #1e293b !important; border-color: #334155 !important; }
+  .email-card-gray             { background-color: #0f172a !important; border-color: #334155 !important; }
+  .email-divider               { border-top-color: #334155 !important; }
+  .email-code                  { background-color: #0f172a !important; }
+  .email-code-inline           { background-color: #334155 !important; color: #f472b6 !important; }
+  .email-stat-value            { color: #f1f5f9 !important; }
+  .email-product-name          { color: #f1f5f9 !important; }
+  .email-product-price         { color: #f1f5f9 !important; }
+  .email-social-link           { background-color: #334155 !important; color: #e2e8f0 !important; }
+}
+`;
+
 // Write all output files
 fs.writeFileSync('santy.css', fullCSS);
 fs.writeFileSync('santy-core.css', utilCSS);
 fs.writeFileSync('santy-components.css', compCSS);
 fs.writeFileSync('santy-animations.css', animCSS);
+fs.writeFileSync('santy-email.css', EMAIL_CSS.trim());
 
 // Mirror to dist/ for NPM package
 const distDir = path.join(__dirname, 'dist');
@@ -2070,6 +2267,7 @@ fs.writeFileSync(path.join(distDir, 'santy.css'), fullCSS);
 fs.writeFileSync(path.join(distDir, 'santy-core.css'), utilCSS);
 fs.writeFileSync(path.join(distDir, 'santy-components.css'), compCSS);
 fs.writeFileSync(path.join(distDir, 'santy-animations.css'), animCSS);
+fs.writeFileSync(path.join(distDir, 'santy-email.css'), EMAIL_CSS.trim());
 
 // Generate minified version
 const minCSS = fullCSS
@@ -2091,4 +2289,5 @@ console.log(`✅ santy.min.css      — ${kb(minCSS.length)} (minified)`);
 console.log(`✅ santy-core.css     — ${kb(utilCSS.length)} (utilities only)`);
 console.log(`✅ santy-components.css — ${kb(compCSS.length)} (components only)`);
 console.log(`✅ santy-animations.css — ${kb(animCSS.length)} (animations only)`);
+console.log(`✅ santy-email.css    — ${kb(EMAIL_CSS.length)} (email templates)`);
 console.log(`✅ dist/              — mirrored for NPM package`);
