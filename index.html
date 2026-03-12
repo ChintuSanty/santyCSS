@@ -3107,9 +3107,18 @@ function generateAIClasses() {
 
   // ── Structural presets ──────────────────────────────
   if (/\bcard\b/.test(p))               { classes.push('card'); explain.push('card component styles'); }
-  if (/\bbtn\b|button/.test(p) && !/no.?button/.test(p)) {
-    var bv = p.indexOf('outline') !== -1 ? 'btn-outline' : p.indexOf('ghost') !== -1 ? 'btn-ghost' : 'btn-primary';
-    classes.push('btn', bv); explain.push('button styles');
+  var isButton = /\bbtn\b|button/.test(p) && !/no.?button/.test(p);
+  if (isButton) {
+    var bv;
+    if (p.indexOf('outline') !== -1) bv = 'btn-outline';
+    else if (p.indexOf('ghost') !== -1) bv = 'btn-ghost';
+    else if (/\bgreen\b|success/.test(p)) bv = 'btn-success';
+    else if (/\bred\b|danger|delete|remove/.test(p)) bv = 'btn-danger';
+    else if (/\byellow\b|warning/.test(p)) bv = 'btn-warning';
+    else if (/\bgray\b|secondary/.test(p)) bv = 'btn-secondary';
+    else if (/\bblue\b|primary/.test(p)) bv = 'btn-primary';
+    else bv = color ? 'btn-' + color : 'btn-primary';
+    classes.push('btn', bv); explain.push('button (' + bv + ')');
   }
 
   // ── Layout ──────────────────────────────────────────
@@ -3153,7 +3162,7 @@ function generateAIClasses() {
   }
 
   // ── Background ──────────────────────────────────────
-  if (/background|bg/.test(p)) {
+  if (/background|bg/.test(p) && !isButton) {
     if (/white/.test(p))            classes.push('background-white');
     else if (/dark|black/.test(p))  classes.push('background-gray-900');
     else if (color) { classes.push('background-' + color + '-' + shade); explain.push(color + ' background'); }
