@@ -183,16 +183,10 @@
       <svg id="ham-close" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:none"><path d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
     <nav id="main-nav" class="make-flex align-center gap-24">
-      <a href="#getting-started" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Docs</a>
       <a href="#utilities" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Utilities</a>
-      <a href="#theming" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Theming</a>
       <a href="#components" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Components</a>
-      <a href="#integrations" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Integrations</a>
-      <a href="#vs-tailwind" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Compare</a>
-      <a href="#examples" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Examples</a>
       <a href="animations.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Animations</a>
       <a href="#ai-generator" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">AI Gen</a>
-      <a href="#roadmap" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Roadmap</a>
       <a href="docs.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">npm Docs</a>
       <a href="#feedback" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Feedback</a>
       <a href="demo.html" class="btn btn-primary btn-sm">Live Demo →</a>
@@ -2385,7 +2379,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
             <p class="set-text-13 color-gray-500" style="margin:4px 0 0;">Autocomplete + live hover preview for every class</p>
           </div>
         </div>
-        <p class="set-text-13 color-gray-400">IntelliSense, docs on hover, go-to-CSS. AI tools use editors — SantyCSS should own that layer.</p>
+        <!-- <p class="set-text-13 color-gray-400">IntelliSense, docs on hover, go-to-CSS. AI tools use editors — SantyCSS should own that layer.</p> -->
       </div>
 
       <!-- 3 Design Tokens -->
@@ -2415,7 +2409,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
             <p class="set-text-13 color-gray-500" style="margin:4px 0 0;">Composable, AI-friendly class naming for components</p>
           </div>
         </div>
-        <p class="set-text-13 color-gray-400">e.g. <code style="font-family:ui-monospace,monospace;font-size:12px;background:#f9fafb;padding:1px 5px;border-radius:4px;">make-button style-primary size-large shape-rounded</code></p>
+        <!-- <p class="set-text-13 color-gray-400">e.g. <code style="font-family:ui-monospace,monospace;font-size:12px;background:#f9fafb;padding:1px 5px;border-radius:4px;">make-button style-primary size-large shape-rounded</code></p> -->
       </div>
 
       <!-- 5 Figma Plugin -->
@@ -2430,7 +2424,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
             <p class="set-text-13 color-gray-500" style="margin:4px 0 0;">Select a frame → export SantyCSS classes instantly</p>
           </div>
         </div>
-        <p class="set-text-13 color-gray-400">Bridge the design-to-code gap. This is where readable CSS frameworks win or die.</p>
+        <!-- <p class="set-text-13 color-gray-400">Bridge the design-to-code gap. This is where readable CSS frameworks win or die.</p> -->
       </div>
 
       <!-- 6 Playground -->
@@ -3106,19 +3100,34 @@ function generateAIClasses() {
   var shade    = p.indexOf('dark') !== -1 ? '700' : p.indexOf('light') !== -1 ? '300' : '500';
 
   // ── Structural presets ──────────────────────────────
-  if (/\bcard\b/.test(p))               { classes.push('card'); explain.push('card component styles'); }
+  if (/\bcard\b/.test(p)) {
+    var cv = /elevated|shadow/.test(p) ? 'style-elevated' : /flat/.test(p) ? 'style-flat' : /dark/.test(p) ? 'style-dark' : 'style-bordered';
+    classes.push('make-card', cv); explain.push('card component');
+  }
   var isButton = /\bbtn\b|button/.test(p) && !/no.?button/.test(p);
   if (isButton) {
-    var bv;
-    if (p.indexOf('outline') !== -1) bv = 'btn-outline';
-    else if (p.indexOf('ghost') !== -1) bv = 'btn-ghost';
-    else if (/\bgreen\b|success/.test(p)) bv = 'btn-success';
-    else if (/\bred\b|danger|delete|remove/.test(p)) bv = 'btn-danger';
-    else if (/\byellow\b|warning/.test(p)) bv = 'btn-warning';
-    else if (/\bgray\b|secondary/.test(p)) bv = 'btn-secondary';
-    else if (/\bblue\b|primary/.test(p)) bv = 'btn-primary';
-    else bv = color ? 'btn-' + color : 'btn-primary';
-    classes.push('btn', bv); explain.push('button (' + bv + ')');
+    var bstyle = p.indexOf('outline') !== -1 ? 'style-outline'
+               : p.indexOf('ghost')   !== -1 ? 'style-ghost'
+               : /\bgreen\b|success/.test(p) ? 'style-success'
+               : /\bred\b|danger|delete|remove/.test(p) ? 'style-danger'
+               : /\byellow\b|warning/.test(p) ? 'style-warning'
+               : /\bgray\b|secondary/.test(p) ? 'style-secondary'
+               : /\bdark\b/.test(p) ? 'style-dark'
+               : 'style-primary';
+    var bsize  = /large|big|lg/.test(p) ? 'size-large' : /small|sm/.test(p) ? 'size-small' : /full.width|full width/.test(p) ? 'size-full' : '';
+    var bshape = /\bpill\b/.test(p) ? 'shape-pill' : /rounded|round/.test(p) ? 'shape-rounded' : /square/.test(p) ? 'shape-square' : '';
+    classes.push('make-button', bstyle);
+    if (bsize)  classes.push(bsize);
+    if (bshape) classes.push(bshape);
+    explain.push('make-button ' + bstyle + (bsize ? ' ' + bsize : '') + (bshape ? ' ' + bshape : ''));
+  }
+  if (/\bbadge\b|label|tag/.test(p) && !isButton) {
+    var badgestyle = /success|green/.test(p) ? 'style-success' : /danger|red|error/.test(p) ? 'style-danger' : /warning|yellow/.test(p) ? 'style-warning' : /dark/.test(p) ? 'style-dark' : /outline/.test(p) ? 'style-outline' : 'style-primary';
+    classes.push('make-badge', badgestyle); explain.push('badge');
+  }
+  if (/\balert\b|notification|toast/.test(p) && !isButton) {
+    var alertstyle = /success|green/.test(p) ? 'style-success' : /danger|red|error/.test(p) ? 'style-danger' : /warning|yellow/.test(p) ? 'style-warning' : /dark/.test(p) ? 'style-dark' : 'style-info';
+    classes.push('make-alert', alertstyle); explain.push('alert');
   }
 
   // ── Layout ──────────────────────────────────────────
