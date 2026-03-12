@@ -191,6 +191,8 @@
       <a href="#vs-tailwind" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Compare</a>
       <a href="#examples" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Examples</a>
       <a href="animations.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Animations</a>
+      <a href="#ai-generator" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">AI Gen</a>
+      <a href="#roadmap" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Roadmap</a>
       <a href="docs.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">npm Docs</a>
       <a href="#feedback" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Feedback</a>
       <a href="demo.html" class="btn btn-primary btn-sm">Live Demo →</a>
@@ -2295,6 +2297,221 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
   </div>
 </section>
 
+<!-- ════════════════════════════════════════════════════════════════════════
+     AI GENERATOR
+════════════════════════════════════════════════════════════════════════ -->
+<section id="ai-generator" class="section add-padding-y-80" style="background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 50%,#0f172a 100%);">
+  <div class="container">
+    <div class="text-center add-margin-bottom-48">
+      <span class="chip add-margin-bottom-16" style="display:inline-block;background:rgba(139,92,246,.2);color:#a78bfa;border-color:rgba(139,92,246,.3);">✨ AI-Powered</span>
+      <h2 class="set-text-40 text-bold add-margin-bottom-16" style="color:#f1f5f9;">Prompt → SantyCSS Classes</h2>
+      <p class="set-text-18 line-height-relaxed" style="color:#94a3b8;max-width:540px;margin:0 auto;">Describe what you want in plain English and get ready-to-use SantyCSS classes instantly.</p>
+    </div>
+
+    <div style="max-width:760px;margin:0 auto;">
+      <!-- Input area -->
+      <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:8px;margin-bottom:16px;">
+        <textarea id="ai-prompt" rows="3" placeholder="e.g. a card with a blue left border, shadow, and hover scale effect..."
+          style="width:100%;background:transparent;border:none;outline:none;color:#f1f5f9;font-size:16px;font-family:inherit;resize:none;padding:16px;line-height:1.6;"></textarea>
+        <div class="make-flex justify-between align-center" style="padding:8px 12px 4px;border-top:1px solid rgba(255,255,255,.07);">
+          <div class="make-flex flex-wrap gap-8">
+            <button onclick="aiSetExample('a card with a blue left border, shadow, and hover scale')" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;">card + blue border</button>
+            <button onclick="aiSetExample('centered flex container with gap and dark background')" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;">flex center</button>
+            <button onclick="aiSetExample('large bold heading with purple gradient text and fade in animation')" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;">gradient heading</button>
+            <button onclick="aiSetExample('green success button rounded pill with hover shadow')" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;">success button</button>
+          </div>
+          <button onclick="generateAIClasses()" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;border-radius:10px;padding:10px 24px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;">Generate ✨</button>
+        </div>
+      </div>
+
+      <!-- Output -->
+      <div id="ai-output" style="display:none;">
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:24px;margin-bottom:16px;">
+          <div class="make-flex justify-between align-center add-margin-bottom-12">
+            <span style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#6366f1;">Generated classes</span>
+            <button onclick="aiCopyClasses()" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 12px;font-size:12px;cursor:pointer;" id="ai-copy-btn">Copy</button>
+          </div>
+          <code id="ai-classes" style="display:block;font-family:ui-monospace,monospace;font-size:14px;color:#a78bfa;line-height:1.8;word-break:break-all;"></code>
+        </div>
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:24px;">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#6366f1;margin-bottom:12px;">Live preview</div>
+          <div id="ai-preview" style="min-height:80px;display:flex;align-items:center;justify-content:center;padding:24px;border-radius:8px;background:rgba(255,255,255,.02);"></div>
+          <div style="font-size:12px;color:#475569;margin-top:12px;font-style:italic;" id="ai-explain"></div>
+        </div>
+      </div>
+
+      <p class="set-text-13 text-center add-margin-top-20" style="color:#475569;">100% client-side · no API key · works offline</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     ROADMAP
+════════════════════════════════════════════════════════════════════════ -->
+<section id="roadmap" class="section background-gray-50 add-padding-y-80" style="border-top:1px solid #e5e7eb;">
+  <div class="container">
+    <div class="text-center add-margin-bottom-56">
+      <span class="chip background-blue-100 color-blue-700 add-margin-bottom-16" style="display:inline-block;">🗺 Roadmap</span>
+      <h2 class="set-text-40 text-bold color-gray-900 add-margin-bottom-16">What We're Building</h2>
+      <p class="set-text-18 color-gray-500 line-height-relaxed" style="max-width:560px;margin:0 auto;">SantyCSS is growing. Here's where we're taking it — from AI tooling to design systems.</p>
+    </div>
+
+    <div class="make-grid gap-20" style="grid-template-columns:repeat(auto-fill,minmax(320px,1fr));">
+
+      <!-- 1 AI Generator -->
+      <div class="background-white round-corners-20 add-padding-28 add-shadow-sm add-border-1 border-color-gray-200" style="border-left:4px solid #8b5cf6;">
+        <div class="make-flex align-center gap-12 add-margin-bottom-16">
+          <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">✨</div>
+          <div>
+            <div class="make-flex align-center gap-8">
+              <h3 class="set-text-16 text-semibold color-gray-900" style="margin:0;">AI Prompt-to-Classes</h3>
+              <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:9999px;background:#dcfce7;color:#16a34a;">LIVE</span>
+            </div>
+            <p class="set-text-13 color-gray-500" style="margin:4px 0 0;">Type a description → get SantyCSS classes instantly</p>
+          </div>
+        </div>
+        <a href="#ai-generator" class="set-text-13 color-purple-600 text-no-decoration text-semibold">Try it above ↑</a>
+      </div>
+
+      <!-- 2 VS Code Extension -->
+      <div class="background-white round-corners-20 add-padding-28 add-shadow-sm add-border-1 border-color-gray-200" style="border-left:4px solid #3b82f6;">
+        <div class="make-flex align-center gap-12 add-margin-bottom-16">
+          <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#2563eb,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🧩</div>
+          <div>
+            <div class="make-flex align-center gap-8">
+              <h3 class="set-text-16 text-semibold color-gray-900" style="margin:0;">VS Code Extension</h3>
+              <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:9999px;background:#dbeafe;color:#1d4ed8;">PLANNED</span>
+            </div>
+            <p class="set-text-13 color-gray-500" style="margin:4px 0 0;">Autocomplete + live hover preview for every class</p>
+          </div>
+        </div>
+        <p class="set-text-13 color-gray-400">IntelliSense, docs on hover, go-to-CSS. AI tools use editors — SantyCSS should own that layer.</p>
+      </div>
+
+      <!-- 3 Design Tokens -->
+      <div class="background-white round-corners-20 add-padding-28 add-shadow-sm add-border-1 border-color-gray-200" style="border-left:4px solid #10b981;">
+        <div class="make-flex align-center gap-12 add-margin-bottom-16">
+          <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#059669,#10b981);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🎨</div>
+          <div>
+            <div class="make-flex align-center gap-8">
+              <h3 class="set-text-16 text-semibold color-gray-900" style="margin:0;">Design Token System</h3>
+              <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:9999px;background:#dcfce7;color:#16a34a;">LIVE</span>
+            </div>
+            <p class="set-text-13 color-gray-500" style="margin:4px 0 0;">Brand your entire UI with CSS vars — zero build step</p>
+          </div>
+        </div>
+        <a href="#theming" class="set-text-13 color-green-600 text-no-decoration text-semibold">See theming docs ↑</a>
+      </div>
+
+      <!-- 4 Component Variants -->
+      <div class="background-white round-corners-20 add-padding-28 add-shadow-sm add-border-1 border-color-gray-200" style="border-left:4px solid #f59e0b;">
+        <div class="make-flex align-center gap-12 add-margin-bottom-16">
+          <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#d97706,#f59e0b);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🔧</div>
+          <div>
+            <div class="make-flex align-center gap-8">
+              <h3 class="set-text-16 text-semibold color-gray-900" style="margin:0;">Component Variant System</h3>
+              <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:9999px;background:#fef3c7;color:#b45309;">IN PROGRESS</span>
+            </div>
+            <p class="set-text-13 color-gray-500" style="margin:4px 0 0;">Composable, AI-friendly class naming for components</p>
+          </div>
+        </div>
+        <p class="set-text-13 color-gray-400">e.g. <code style="font-family:ui-monospace,monospace;font-size:12px;background:#f9fafb;padding:1px 5px;border-radius:4px;">make-button style-primary size-large shape-rounded</code></p>
+      </div>
+
+      <!-- 5 Figma Plugin -->
+      <div class="background-white round-corners-20 add-padding-28 add-shadow-sm add-border-1 border-color-gray-200" style="border-left:4px solid #ec4899;">
+        <div class="make-flex align-center gap-12 add-margin-bottom-16">
+          <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#db2777,#ec4899);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🖼</div>
+          <div>
+            <div class="make-flex align-center gap-8">
+              <h3 class="set-text-16 text-semibold color-gray-900" style="margin:0;">Figma → SantyCSS Plugin</h3>
+              <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:9999px;background:#dbeafe;color:#1d4ed8;">PLANNED</span>
+            </div>
+            <p class="set-text-13 color-gray-500" style="margin:4px 0 0;">Select a frame → export SantyCSS classes instantly</p>
+          </div>
+        </div>
+        <p class="set-text-13 color-gray-400">Bridge the design-to-code gap. This is where readable CSS frameworks win or die.</p>
+      </div>
+
+      <!-- 6 Playground -->
+      <div class="background-white round-corners-20 add-padding-28 add-shadow-sm add-border-1 border-color-gray-200" style="border-left:4px solid #06b6d4;">
+        <div class="make-flex align-center gap-12 add-margin-bottom-16">
+          <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#0891b2,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🛝</div>
+          <div>
+            <div class="make-flex align-center gap-8">
+              <h3 class="set-text-16 text-semibold color-gray-900" style="margin:0;">SantyCSS Playground</h3>
+              <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:9999px;background:#fef3c7;color:#b45309;">IN PROGRESS</span>
+            </div>
+            <p class="set-text-13 color-gray-500" style="margin:4px 0 0;">In-browser editor — try SantyCSS in 30 seconds</p>
+          </div>
+        </div>
+        <a href="jit-demo.html" class="set-text-13 color-cyan-600 text-no-decoration text-semibold">Try the JIT demo →</a>
+      </div>
+
+      <!-- 7 Explain This Class -->
+      <div class="background-white round-corners-20 add-padding-28 add-shadow-sm add-border-1 border-color-gray-200" style="border-left:4px solid #a855f7;">
+        <div class="make-flex align-center gap-12 add-margin-bottom-16">
+          <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#9333ea,#a855f7);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">💡</div>
+          <div>
+            <div class="make-flex align-center gap-8">
+              <h3 class="set-text-16 text-semibold color-gray-900" style="margin:0;">"Explain This Class"</h3>
+              <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:9999px;background:#fef3c7;color:#b45309;">IN PROGRESS</span>
+            </div>
+            <p class="set-text-13 color-gray-500" style="margin:4px 0 0;">Hover any class → see the raw CSS it generates</p>
+          </div>
+        </div>
+        <p class="set-text-13 color-gray-400">Flip the AI script — SantyCSS explains itself instead of you explaining Tailwind to AI.</p>
+      </div>
+
+      <!-- 8 CLI -->
+      <div class="background-white round-corners-20 add-padding-28 add-shadow-sm add-border-1 border-color-gray-200" style="border-left:4px solid #64748b;">
+        <div class="make-flex align-center gap-12 add-margin-bottom-16">
+          <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#475569,#64748b);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">⚡</div>
+          <div>
+            <div class="make-flex align-center gap-8">
+              <h3 class="set-text-16 text-semibold color-gray-900" style="margin:0;">Framework CLI</h3>
+              <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:9999px;background:#dcfce7;color:#16a34a;">LIVE</span>
+            </div>
+            <p class="set-text-13 color-gray-500" style="margin:4px 0 0;">Scaffold, purge, and manage SantyCSS from the terminal</p>
+          </div>
+        </div>
+        <code style="font-family:ui-monospace,monospace;font-size:12px;color:#475569;display:block;background:#f8fafc;padding:8px 12px;border-radius:8px;border:1px solid #e5e7eb;">npx santycss [your-html-files]</code>
+      </div>
+
+      <!-- 9 Accessibility -->
+      <div class="background-white round-corners-20 add-padding-28 add-shadow-sm add-border-1 border-color-gray-200" style="border-left:4px solid #14b8a6;">
+        <div class="make-flex align-center gap-12 add-margin-bottom-16">
+          <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#0d9488,#14b8a6);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">♿</div>
+          <div>
+            <div class="make-flex align-center gap-8">
+              <h3 class="set-text-16 text-semibold color-gray-900" style="margin:0;">Accessibility Utilities</h3>
+              <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:9999px;background:#fef3c7;color:#b45309;">IN PROGRESS</span>
+            </div>
+            <p class="set-text-13 color-gray-500" style="margin:4px 0 0;">Built-in ARIA-friendly classes AI consistently misses</p>
+          </div>
+        </div>
+        <p class="set-text-13 color-gray-400"><code style="font-family:ui-monospace,monospace;font-size:12px;background:#f9fafb;padding:1px 5px;border-radius:4px;">make-sr-only</code> &nbsp;<code style="font-family:ui-monospace,monospace;font-size:12px;background:#f9fafb;padding:1px 5px;border-radius:4px;">make-focusable</code> &nbsp;<code style="font-family:ui-monospace,monospace;font-size:12px;background:#f9fafb;padding:1px 5px;border-radius:4px;">skip-to-content</code></p>
+      </div>
+
+      <!-- 10 LLM Context -->
+      <div class="background-white round-corners-20 add-padding-28 add-shadow-sm add-border-1 border-color-gray-200" style="border-left:4px solid #f97316;">
+        <div class="make-flex align-center gap-12 add-margin-bottom-16">
+          <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#ea580c,#f97316);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🤖</div>
+          <div>
+            <div class="make-flex align-center gap-8">
+              <h3 class="set-text-16 text-semibold color-gray-900" style="margin:0;">SantyCSS for LLMs</h3>
+              <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:9999px;background:#dcfce7;color:#16a34a;">LIVE</span>
+            </div>
+            <p class="set-text-13 color-gray-500" style="margin:4px 0 0;">Paste into Claude / ChatGPT / Cursor — AI generates SantyCSS instead of Tailwind</p>
+          </div>
+        </div>
+        <a href="santycss.context.md" target="_blank" class="set-text-13 color-orange-600 text-no-decoration text-semibold">Download santycss.context.md →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ─── FOOTER ─────────────────────────────────────────────────────────────── -->
 <!-- ════════════════════════════════════════════════════════════════════════
      FEEDBACK
@@ -2865,6 +3082,185 @@ document.querySelectorAll('#main-nav .nav-link, #main-nav .btn').forEach(functio
     document.getElementById('main-nav').classList.remove('nav-open');
     document.getElementById('ham-icon').style.display = 'block';
     document.getElementById('ham-close').style.display = 'none';
+  });
+});
+
+// ── AI Prompt-to-SantyCSS Generator ──────────────────────────────────────────
+var AI_COLORS = ['blue','red','green','yellow','purple','pink','orange','gray','indigo','cyan','teal','rose','violet','emerald','amber','lime','sky'];
+
+function aiDetectColor(p) {
+  for (var i = 0; i < AI_COLORS.length; i++) {
+    if (p.indexOf(AI_COLORS[i]) !== -1) return AI_COLORS[i];
+  }
+  return null;
+}
+
+function generateAIClasses() {
+  var raw = document.getElementById('ai-prompt').value || '';
+  var p   = raw.toLowerCase();
+  if (!p.trim()) return;
+
+  var classes  = [];
+  var explain  = [];
+  var color    = aiDetectColor(p);
+  var shade    = p.indexOf('dark') !== -1 ? '700' : p.indexOf('light') !== -1 ? '300' : '500';
+
+  // ── Structural presets ──────────────────────────────
+  if (/\bcard\b/.test(p))               { classes.push('card'); explain.push('card component styles'); }
+  if (/\bbtn\b|button/.test(p) && !/no.?button/.test(p)) {
+    var bv = p.indexOf('outline') !== -1 ? 'btn-outline' : p.indexOf('ghost') !== -1 ? 'btn-ghost' : 'btn-primary';
+    classes.push('btn', bv); explain.push('button styles');
+  }
+
+  // ── Layout ──────────────────────────────────────────
+  if (/flex|horizontal.layout/.test(p))            { classes.push('make-flex'); explain.push('flexbox'); }
+  if (/\bgrid\b/.test(p))                           { classes.push('make-grid', 'grid-cols-3'); explain.push('3-column grid'); }
+  if (/\bcenter\b/.test(p))                         { classes.push('align-center','justify-center'); explain.push('center-aligned'); }
+  if (/\bcolumn\b|vertical.stack/.test(p))          { classes.push('flex-column'); explain.push('column direction'); }
+  if (/\bwrap\b/.test(p))                           { classes.push('flex-wrap'); }
+  if (/space.between|between/.test(p))              { classes.push('justify-between'); }
+  if (/full.width|full width/.test(p))              { classes.push('set-width-full'); }
+  if (/full.screen|fullscreen|viewport/.test(p))   { classes.push('min-height-screen'); }
+  if (/\bgap\b/.test(p))                            { classes.push('gap-16'); }
+
+  // ── Borders ─────────────────────────────────────────
+  var bside = /left.border|border.left/.test(p) ? 'left'
+            : /right.border|border.right/.test(p) ? 'right'
+            : /top.border|border.top/.test(p) ? 'top'
+            : /bottom.border|border.bottom/.test(p) ? 'bottom' : null;
+  if (bside) {
+    var bc = color || 'blue';
+    classes.push('add-border-' + bside + '-4', 'border-color-' + bc + '-' + shade);
+    explain.push(bc + ' ' + bside + ' border');
+  } else if (/\bborder\b/.test(p)) {
+    classes.push('add-border-1', 'border-color-gray-200');
+    if (color) { classes.push('border-color-' + color + '-300'); }
+    explain.push('border');
+  }
+
+  // ── Shape ───────────────────────────────────────────
+  if (/\bcircle\b/.test(p))                         { classes.push('make-circle'); explain.push('circle'); }
+  else if (/\bpill\b/.test(p))                      { classes.push('make-pill'); explain.push('pill shape'); }
+  else if (/rounded|round.corners/.test(p)) {
+    var r = /very|full|extra/.test(p) ? '24' : /large|big/.test(p) ? '16' : /small|sm/.test(p) ? '4' : '10';
+    classes.push('round-corners-' + r); explain.push('rounded corners');
+  }
+
+  // ── Shadow ──────────────────────────────────────────
+  if (/shadow/.test(p)) {
+    var sv = /large|lg|big|heavy/.test(p) ? 'lg' : /small|sm|subtle/.test(p) ? 'sm' : 'md';
+    classes.push('add-shadow-' + sv); explain.push(sv + ' shadow');
+  }
+
+  // ── Background ──────────────────────────────────────
+  if (/background|bg/.test(p)) {
+    if (/white/.test(p))            classes.push('background-white');
+    else if (/dark|black/.test(p))  classes.push('background-gray-900');
+    else if (color) { classes.push('background-' + color + '-' + shade); explain.push(color + ' background'); }
+  }
+
+  // ── Text color ──────────────────────────────────────
+  if (color && /text.color|color.text|\btext\b.*color|color.*\btext\b/.test(p))
+    { classes.push('color-' + color + '-700'); explain.push(color + ' text'); }
+  else if (color && !bside && !/background|bg/.test(p) && /\btext\b|\bheading\b|\btitle\b/.test(p))
+    { classes.push('color-' + color + '-600'); explain.push(color + ' text'); }
+
+  // ── Gradient text ────────────────────────────────────
+  if (/gradient.text|text.gradient/.test(p)) {
+    var gc1 = color || 'blue', gc2 = gc1 === 'purple' ? 'pink' : gc1 === 'blue' ? 'purple' : gc1 === 'green' ? 'cyan' : 'purple';
+    classes.push('from-' + gc1 + '-500', 'to-' + gc2 + '-600');
+    explain.push('gradient text via CSS vars');
+  }
+
+  // ── Spacing ─────────────────────────────────────────
+  if (/padding|padded/.test(p)) {
+    var pv = /large|lg|big/.test(p) ? '32' : /small|sm/.test(p) ? '12' : '20';
+    classes.push('add-padding-' + pv); explain.push('padding ' + pv + 'px');
+  }
+  if (/\bmargin\b/.test(p)) classes.push('add-margin-16');
+
+  // ── Typography ──────────────────────────────────────
+  if (/\bbold\b/.test(p))                            { classes.push('text-bold'); explain.push('bold'); }
+  if (/semibold|semi.bold/.test(p))                  { classes.push('text-semibold'); }
+  if (/\bitalic\b/.test(p))                          { classes.push('text-italic'); }
+  if (/uppercase|all.caps/.test(p))                  { classes.push('text-uppercase'); }
+  if (/center.text|text.center/.test(p))             { classes.push('text-center'); }
+  if (/large.text|big.text|heading|title/.test(p))   { classes.push('set-text-32'); explain.push('large text'); }
+  else if (/small.text/.test(p))                     { classes.push('set-text-12'); }
+  if (/line.height|leading|readable/.test(p))        { classes.push('line-height-relaxed'); }
+
+  // ── Hover ───────────────────────────────────────────
+  if (/hover/.test(p)) {
+    if (/scale|grow|zoom|enlarge/.test(p))           { classes.push('on-hover:scale-110'); explain.push('scale on hover'); }
+    if (/shadow.*hover|hover.*shadow/.test(p))       { classes.push('on-hover:add-shadow-lg'); }
+    if (/lift|float/.test(p))                        { classes.push('on-hover:scale-105','on-hover:add-shadow-lg'); explain.push('lift on hover'); }
+    if (/opacity|fade/.test(p))                      { classes.push('on-hover:opacity-75'); }
+    if (color && /hover/.test(p) && !bside)          { classes.push('on-hover:background-' + color + '-600'); }
+  }
+
+  // ── Animation ───────────────────────────────────────
+  if (/fade.in|fade in/.test(p))                     { classes.push('animate-fade-in'); explain.push('fade-in animation'); }
+  if (/\bbounce\b/.test(p))                          { classes.push('animate-bounce'); explain.push('bounce animation'); }
+  if (/\bspin\b|spinning/.test(p))                   { classes.push('animate-spin'); explain.push('spin animation'); }
+  if (/\bpulse\b/.test(p))                           { classes.push('animate-pulse'); }
+  if (/slide.up|slide up/.test(p))                   { classes.push('animate-slide-up'); explain.push('slide-up animation'); }
+  if (/zoom.in|zoom in/.test(p))                     { classes.push('animate-zoom-in'); }
+
+  // ── Misc ─────────────────────────────────────────────
+  if (/overflow.hidden|hidden.overflow/.test(p))     { classes.push('overflow-hidden'); }
+  if (/\bscroll\b/.test(p))                          { classes.push('overflow-y-auto'); }
+  if (/sticky/.test(p))                              { classes.push('position-sticky','pin-top-0','z-50'); }
+  if (/\bfixed\b/.test(p))                           { classes.push('position-fixed'); }
+  if (/pointer|clickable/.test(p))                   { classes.push('cursor-pointer'); }
+  if (/transition|smooth/.test(p))                   { classes.push('transition-all'); }
+  if (/dark.mode|dark mode/.test(p))                 { classes.push('dark:background-gray-900','dark:color-white'); explain.push('dark mode support'); }
+  if (/\bhidden\b/.test(p) && !/overflow/.test(p))  { classes.push('make-hidden'); }
+
+  // Deduplicate
+  var unique = [], seen = {};
+  for (var i = 0; i < classes.length; i++) {
+    if (!seen[classes[i]]) { seen[classes[i]] = 1; unique.push(classes[i]); }
+  }
+
+  var out = unique.join(' ');
+  if (!out) out = '/* No recognized patterns — try: card, flex, blue left border, shadow, hover scale */';
+
+  document.getElementById('ai-classes').textContent = out;
+  document.getElementById('ai-explain').textContent = explain.length ? '📌 Detected: ' + explain.join(' · ') : '';
+
+  // Live preview
+  var preview = document.getElementById('ai-preview');
+  preview.innerHTML = '';
+  var el = document.createElement('div');
+  el.className = out.split(' ').filter(function(c){ return c && c[0] !== '/'; }).join(' ');
+  el.style.minWidth = '120px';
+  el.style.minHeight = '48px';
+  el.style.padding = el.className.indexOf('add-padding') === -1 ? '16px 24px' : '';
+  el.textContent = 'Preview';
+  preview.appendChild(el);
+
+  document.getElementById('ai-output').style.display = 'block';
+}
+
+function aiSetExample(text) {
+  document.getElementById('ai-prompt').value = text;
+  generateAIClasses();
+}
+
+function aiCopyClasses() {
+  var text = document.getElementById('ai-classes').textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = document.getElementById('ai-copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(function(){ btn.textContent = 'Copy'; }, 1500);
+  });
+}
+
+// Enter key triggers generate
+document.addEventListener('DOMContentLoaded', function() {
+  var ta = document.getElementById('ai-prompt');
+  if (ta) ta.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); generateAIClasses(); }
   });
 });
 
