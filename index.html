@@ -176,7 +176,7 @@
     <a href="#" class="make-flex align-center gap-10 text-no-decoration">
       <img src="assest/santy_css.png" alt="SantyCSS" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
       <span class="set-text-20 text-bold color-gray-900">Santy<span class="color-blue-600">CSS</span></span>
-      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v1.1</span>
+      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v1.2.0</span>
     </a>
     <button class="nav-hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
       <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -199,7 +199,7 @@
   <div class="container text-center">
     <div class="make-flex justify-center flex-wrap gap-8 add-margin-bottom-20">
       <span class="badge" style="background:rgba(255,255,255,0.1);color:#7dd3fc;font-size:13px;border:1px solid rgba(255,255,255,0.2);">
-        ✦ Plain English · No Build Step · 667KB
+        ✦ Plain English · No Build Step · 723KB
       </span>
       <a href="https://www.npmjs.com/package/santycss" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;">
         <img src="https://img.shields.io/npm/v/santycss?style=flat-square&color=cb3837&label=npm" alt="npm version" style="height:22px;">
@@ -215,7 +215,7 @@
       </a>
     </div>
     <h1 class="set-text-64 text-bold color-white add-margin-bottom-20" style="letter-spacing:-2px;line-height:1.1;">
-      CSS that reads<br>like <span style="color:#7dd3fc;">plain English</span>
+      CSS that reads like<br><span style="color:#7dd3fc;">plain English</span>
     </h1>
     <p class="set-text-20 add-margin-bottom-40" style="color:rgba(255,255,255,0.7);max-width:600px;margin-left:auto;margin-right:auto;line-height:1.6;">
       SantyCSS is a utility-first framework where class names describe what they do — in words you already know.
@@ -606,7 +606,7 @@ const santy = require('santycss');
       </div>
       <div class="add-margin-top-24">
         <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">3. Purge at build time — postcss.config.js</p>
-        <div class="code-block"><pre><span class="c-key">const</span> santycss = <span class="c-key">require</span>(<span class="c-str">'./postcss-santycss'</span>)
+        <div class="code-block"><pre><span class="c-key">const</span> santycss = <span class="c-key">require</span>(<span class="c-str">'santycss/postcss'</span>)
 
 module.exports = {
   plugins: [
@@ -617,7 +617,7 @@ module.exports = {
   ],
 }
 
-<span class="c-com">// Result: 574 KB → ~15 KB in production automatically</span></pre></div>
+<span class="c-com">// Result: 723 KB → ~15 KB in production automatically</span></pre></div>
       </div>
       <div class="add-margin-top-20">
         <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">4. Use in components</p>
@@ -678,7 +678,7 @@ createApp(App).mount(<span class="c-str">'#app'</span>)</pre></div>
         <div>
           <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">vite.config.js — use our Vite plugin</p>
           <div class="code-block"><pre><span class="c-key">import</span> { defineConfig } <span class="c-key">from</span> <span class="c-str">'vite'</span>
-<span class="c-key">import</span> santycss <span class="c-key">from</span> <span class="c-str">'./vite-plugin-santycss.js'</span>
+<span class="c-key">import</span> santycss <span class="c-key">from</span> <span class="c-str">'santycss/vite'</span>
 
 <span class="c-key">export default</span> defineConfig({
   plugins: [
@@ -697,7 +697,7 @@ createApp(App).mount(<span class="c-str">'#app'</span>)</pre></div>
 <span class="c-com">// can intercept and serve purged CSS:</span>
 <span class="c-key">import</span> <span class="c-str">'santy.css'</span>
 
-<span class="c-com">// Dev  → serves full 574 KB CSS (all classes available)</span>
+<span class="c-com">// Dev  → serves full 723 KB CSS (all classes available)</span>
 <span class="c-com">// Build → inlines only used classes (~15 KB)</span></pre></div>
         </div>
       </div>
@@ -726,7 +726,7 @@ vite build
         <div>
           <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">vite.config.js (SvelteKit uses Vite)</p>
           <div class="code-block"><pre><span class="c-key">import</span> { sveltekit } <span class="c-key">from</span> <span class="c-str">'@sveltejs/kit/vite'</span>
-<span class="c-key">import</span> santycss <span class="c-key">from</span> <span class="c-str">'./vite-plugin-santycss.js'</span>
+<span class="c-key">import</span> santycss <span class="c-key">from</span> <span class="c-str">'santycss/vite'</span>
 
 <span class="c-key">export default</span> {
   plugins: [
@@ -765,7 +765,7 @@ vite build
         <div>
           <p class="set-text-13 text-semibold add-margin-bottom-12" style="color:#7dd3fc;">astro.config.mjs — purge via Vite</p>
           <div class="code-block"><pre><span class="c-key">import</span> { defineConfig } <span class="c-key">from</span> <span class="c-str">'astro/config'</span>
-<span class="c-key">import</span> santycss <span class="c-key">from</span> <span class="c-str">'./vite-plugin-santycss.js'</span>
+<span class="c-key">import</span> santycss <span class="c-key">from</span> <span class="c-str">'santycss/vite'</span>
 
 <span class="c-key">export default</span> defineConfig({
   vite: {
@@ -796,7 +796,7 @@ node purge.js --input=./src --out=dist/santy.min.css
 <span class="c-com"># Then link the minified version:</span>
 <span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"santy.min.css"</span><span class="c-tag">&gt;</span>
 
-<span class="c-com"># Result: 574 KB → 15 KB (3-4 KB gzip)</span></pre></div>
+<span class="c-com"># Result: 723 KB → 15 KB (3-4 KB gzip)</span></pre></div>
         </div>
       </div>
       <div class="add-margin-top-24">
@@ -815,7 +815,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
       <h3 class="set-text-18 text-semibold color-white add-margin-bottom-24">Production Size Summary</h3>
       <div class="make-grid grid-cols-4 gap-20">
         <div class="text-center">
-          <div class="set-text-32 text-bold color-red-400" style="line-height:1;">574 KB</div>
+          <div class="set-text-32 text-bold color-red-400" style="line-height:1;">723 KB</div>
           <div class="set-text-12 add-margin-top-6" style="color:#64748b;">Full (raw)</div>
         </div>
         <div class="text-center">
@@ -925,14 +925,14 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
       </div>
 
       <div class="background-purple-50 round-corners-16 add-padding-28 add-border-1 border-color-purple-200">
-        <h4 class="set-text-16 text-semibold color-purple-800 add-margin-bottom-10">70+ animations (animate.css parity)</h4>
-        <p class="set-text-13 color-purple-700 line-height-relaxed add-margin-bottom-12">Bootstrap has 0, Tailwind has 4, Bulma has 0. SantyCSS ships <strong>70+</strong> — fades, bounces, slides, zooms, flips, specials.</p>
+        <h4 class="set-text-16 text-semibold color-purple-800 add-margin-bottom-10">120+ animations built-in</h4>
+        <p class="set-text-13 color-purple-700 line-height-relaxed add-margin-bottom-12">Bootstrap has 0, Tailwind has 4, Bulma has 0. SantyCSS ships <strong>120+</strong> — fades, bounces, slides, zooms, flips, scroll-triggered, stagger, and more.</p>
         <div class="make-flex flex-wrap gap-4">
           <span style="background:#ede9fe;color:#6d28d9;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:600;font-family:monospace;">animate-bounce-in-from-left</span>
           <span style="background:#ede9fe;color:#6d28d9;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:600;font-family:monospace;">animate-flip-in-x</span>
           <span style="background:#ede9fe;color:#6d28d9;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:600;font-family:monospace;">animate-rubber-band</span>
         </div>
-        <p class="set-text-11 color-purple-500 add-margin-top-8"><a href="animations.html" style="color:#7c3aed;font-weight:600;text-decoration:none;">View all 70+ animations →</a></p>
+        <p class="set-text-11 color-purple-500 add-margin-top-8"><a href="animations.html" style="color:#7c3aed;font-weight:600;text-decoration:none;">View all 120+ animations →</a></p>
       </div>
 
       <div class="background-orange-50 round-corners-16 add-padding-28 add-border-1 border-color-orange-200">
@@ -2661,9 +2661,9 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
       <div>
         <h5 class="set-text-13 text-semibold color-gray-400 text-uppercase letter-space-wide add-margin-bottom-16">Quick Stats</h5>
         <ul class="list-none make-flex flex-column gap-10">
-          <li class="set-text-14 color-gray-400">📦 ~661KB full · 35KB components · 33KB animations</li>
+          <li class="set-text-14 color-gray-400">📦 ~723KB full · 52KB components · 60KB animations</li>
           <li class="set-text-14 color-gray-400">🎨 20 color families</li>
-          <li class="set-text-14 color-gray-400">🎬 70+ animations</li>
+          <li class="set-text-14 color-gray-400">🎬 120+ animations</li>
           <li class="set-text-14 color-gray-400">⚡ No build step</li>
           <li class="set-text-14 color-gray-400">📱 Responsive variants</li>
           <li class="set-text-14 color-gray-400">🌙 Dark mode support</li>
@@ -2855,7 +2855,7 @@ const FULL = [
   { feature:'FAB (floating action button)',    s:'✅',  tw:'❌', bs:'❌', mui:'✅', bu:'❌', fo:'❌' },
   { feature:'App Bar',                        s:'✅',  tw:'❌', bs:'⚠️', mui:'✅', bu:'❌', fo:'❌' },
   { feature:'Material elevation shadows',     s:'✅',  tw:'❌', bs:'❌', mui:'✅', bu:'❌', fo:'❌' },
-  { feature:'70+ animations built-in',        s:'✅',  tw:'❌', bs:'⚠️', mui:'❌', bu:'❌', fo:'❌' },
+  { feature:'120+ animations built-in',        s:'✅',  tw:'❌', bs:'⚠️', mui:'❌', bu:'❌', fo:'❌' },
   { feature:'Text shadow utilities',          s:'✅',  tw:'❌', bs:'❌', mui:'N/A',bu:'❌', fo:'❌' },
   { feature:'Dark mode prefix',               s:'✅',  tw:'✅', bs:'✅', mui:'✅', bu:'❌', fo:'❌' },
   { feature:'Responsive utilities',           s:'✅',  tw:'✅', bs:'✅', mui:'✅', bu:'✅', fo:'✅' },
@@ -2868,7 +2868,7 @@ const FULL = [
   { feature:'Modular CSS split files',        s:'✅',  tw:'❌', bs:'❌', mui:'✅', bu:'❌', fo:'❌' },
   { feature:'Centering shortcut (1 class)',   s:'✅',  tw:'❌', bs:'❌', mui:'❌', bu:'❌', fo:'❌' },
   { feature:'JS-free (pure CSS)',             s:'✅',  tw:'✅', bs:'❌', mui:'❌', bu:'✅', fo:'⚠️' },
-  { feature:'File size (unminified)',         s:'631KB',tw:'N/A (JIT)',bs:'232KB',mui:'JS bundle',bu:'205KB',fo:'212KB' },
+  { feature:'File size (unminified)',         s:'723KB',tw:'N/A (JIT)',bs:'232KB',mui:'JS bundle',bu:'205KB',fo:'212KB' },
   { feature:'Purged production size',        s:'~5KB', tw:'~3KB',bs:'~20KB',mui:'~80KB',bu:'~15KB',fo:'~20KB' },
 ];
 
@@ -2895,7 +2895,8 @@ if (ftb) {
 function make2col(containerId, key) {
   const el = document.getElementById(containerId);
   if (!el) return;
-  FULL.forEach((row, i) => {
+  const EMOJI = new Set(['✅','❌','⚠️','N/A']);
+  FULL.filter(row => EMOJI.has(row.s) && EMOJI.has(row[key])).forEach((row, i) => {
     const rival = row[key];
     const santyBetter = row.s === '✅' && (rival === '❌' || rival === '⚠️');
     const div = document.createElement('div');
@@ -2998,7 +2999,7 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
       <svg width="16" height="16" fill="none" stroke="#3b82f6" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
       <span>
         <span style="display:block;">santy.css</span>
-        <span style="font-size:11px;color:#64748b;font-weight:400;">Full framework · 574 KB</span>
+        <span style="font-size:11px;color:#64748b;font-weight:400;">Full framework · 723 KB</span>
       </span>
     </button>
 

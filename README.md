@@ -328,11 +328,11 @@ For new projects, the **Component Variant System** (`make-button style-*`) is re
 
 | File | Size | Contents |
 |---|---|---|
-| `dist/santy.css` | 701KB | Everything — utilities + components + animations |
+| `dist/santy.css` | 723KB | Everything — utilities + components + animations |
 | `dist/santy.min.css` | 615KB | Minified full bundle |
-| `dist/santy-core.css` | 597KB | Utilities only (no components) |
+| `dist/santy-core.css` | 598KB | Utilities only (no components) |
 | `dist/santy-components.css` | 52KB | Component shortcuts only |
-| `dist/santy-animations.css` | 53KB | 120+ animations only |
+| `dist/santy-animations.css` | 60KB | 120+ animations only |
 | `dist/santy-email.css` | 13KB | Email-safe CSS for HTML email |
 
 ---
