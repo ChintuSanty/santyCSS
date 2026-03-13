@@ -120,13 +120,13 @@
       <svg id="ham-close" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:none"><path d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
     <nav id="main-nav" class="make-flex align-center gap-24">
-      <a href="index.html#utilities" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Utilities</a>
+      <a href="classes.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Classes</a>
       <a href="index.html#components" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Components</a>
       <a href="animations.html" class="nav-link nav-link-active text-no-decoration set-text-14 text-semibold">Animations</a>
       <a href="index.html#ai-generator" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">AI Gen</a>
       <a href="docs.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">npm Docs</a>
       <a href="index.html#feedback" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Feedback</a>
-      <a href="demo.html" class="btn btn-primary btn-sm">Live Demo →</a>
+      <a href="demo.html" class="make-button style-primary size-small">Live Demo →</a>
     </nav>
   </div>
 </header>
@@ -134,11 +134,13 @@
 <!-- Hero -->
 <div class="hero">
   <h1>SantyCSS Animations</h1>
-  <p>70+ animations with plain-English class names. Compatible with animate.css — but simpler to remember and use.</p>
+  <p>120+ animations with plain-English class names — scroll-triggered, hover-triggered, 3D, text, stagger, UI feedback, and more.</p>
   <div class="hero-badges">
-    <span class="badge-pill badge-blue">70+ animations</span>
+    <span class="badge-pill badge-blue">120+ animations</span>
     <span class="badge-pill badge-purple">animate.css compatible</span>
-    <span class="badge-pill badge-green">JIT supported</span>
+    <span class="badge-pill badge-green">Scroll-triggered</span>
+    <span class="badge-pill" style="background:rgba(245,158,11,.15);color:#d97706;">Hover-triggered</span>
+    <span class="badge-pill" style="background:rgba(139,92,246,.15);color:#7c3aed;">3D animations</span>
   </div>
 </div>
 
@@ -181,6 +183,16 @@
       <a href="#speed">Light Speed</a>
       <a href="#specials">Specials</a>
       <a href="#helpers">Helpers</a>
+      <hr style="border:none;border-top:1px solid #e5e7eb;margin:12px 0;">
+      <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;padding:4px 0;display:block;">New in v1.2</span>
+      <a href="#scroll-triggered">🖱️ Scroll-Triggered</a>
+      <a href="#hover-animated">🎯 Hover Animations</a>
+      <a href="#text-animations">✍️ Text Animations</a>
+      <a href="#stagger">🔲 Stagger Sequences</a>
+      <a href="#morphing">🌊 Morphing & Shape</a>
+      <a href="#three-d">🎪 3D Animations</a>
+      <a href="#exit-page">💥 Exit & Page</a>
+      <a href="#ui-feedback">🔔 UI Feedback</a>
     </aside>
 
     <!-- Main content -->
@@ -376,16 +388,263 @@
         </div>
 
         <h3 style="font-size:15px;color:var(--muted);margin:0 0 12px;">Loop / Fill / Easing</h3>
-        <div class="helper-grid">
+        <div class="helper-grid" style="margin-bottom:24px;">
           <div class="helper-row"><span class="helper-class">animation-loop-1</span><span class="helper-val">once</span></div>
+          <div class="helper-row"><span class="helper-class">animation-loop-2</span><span class="helper-val">2 times</span></div>
           <div class="helper-row"><span class="helper-class">animation-loop-3</span><span class="helper-val">3 times</span></div>
+          <div class="helper-row"><span class="helper-class">animation-loop-4</span><span class="helper-val">4 times</span></div>
+          <div class="helper-row"><span class="helper-class">animation-loop-5</span><span class="helper-val">5 times</span></div>
           <div class="helper-row"><span class="helper-class">animation-loop-forever</span><span class="helper-val">infinite</span></div>
           <div class="helper-row"><span class="helper-class">animation-fill-forwards</span><span class="helper-val">keep end state</span></div>
           <div class="helper-row"><span class="helper-class">animation-fill-both</span><span class="helper-val">both ends</span></div>
           <div class="helper-row"><span class="helper-class">animation-ease-in-out</span><span class="helper-val">smooth</span></div>
-          <div class="helper-row"><span class="helper-class">animation-linear</span><span class="helper-val">constant</span></div>
+          <div class="helper-row"><span class="helper-class">animation-ease-bounce</span><span class="helper-val">overshoot bounce</span></div>
+          <div class="helper-row"><span class="helper-class">animation-ease-elastic</span><span class="helper-val">elastic snap</span></div>
+          <div class="helper-row"><span class="helper-class">animation-ease-spring</span><span class="helper-val">spring physics</span></div>
+          <div class="helper-row"><span class="helper-class">animation-direction-reverse</span><span class="helper-val">play backwards</span></div>
+          <div class="helper-row"><span class="helper-class">animation-direction-alternate</span><span class="helper-val">ping-pong</span></div>
           <div class="helper-row"><span class="helper-class">animation-paused</span><span class="helper-val">pause</span></div>
-          <div class="helper-row"><span class="helper-class">animation-running</span><span class="helper-val">play</span></div>
+          <div class="helper-row"><span class="helper-class">animation-pause-on-hover</span><span class="helper-val">pause on hover</span></div>
+          <div class="helper-row"><span class="helper-class">animation-speed-ultra-fast</span><span class="helper-val">0.15s</span></div>
+          <div class="helper-row"><span class="helper-class">animation-delay-750</span><span class="helper-val">0.75s</span></div>
+          <div class="helper-row"><span class="helper-class">animation-delay-1500</span><span class="helper-val">1.5s</span></div>
+          <div class="helper-row"><span class="helper-class">animation-delay-2500</span><span class="helper-val">2.5s</span></div>
+          <div class="helper-row"><span class="helper-class">animation-delay-3000</span><span class="helper-val">3s</span></div>
+        </div>
+      </section>
+
+      <!-- ── SCROLL-TRIGGERED ── -->
+      <section class="section" id="scroll-triggered">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(59,130,246,.15);color:#3b82f6;">🖱️</div>
+          <h2 class="section-title">Scroll-Triggered Animations</h2>
+        </div>
+        <p style="font-size:13px;color:var(--muted);margin:0 0 16px;line-height:1.6;">Elements start invisible and animate in when they enter the viewport. Requires a tiny <strong>IntersectionObserver</strong> script (shown below) to add <code style="background:#f1f5f9;padding:2px 5px;border-radius:4px;">.is-visible</code> on scroll.</p>
+        <div class="anim-grid">
+          <div class="anim-card" onclick="triggerScrollAnim(this,'animate-on-scroll-fade-in')">
+            <div class="anim-box animate-on-scroll-fade-in is-visible">Aa</div>
+            <div class="anim-name">animate-on-scroll-fade-in</div>
+          </div>
+          <div class="anim-card" onclick="triggerScrollAnim(this,'animate-on-scroll-slide-up')">
+            <div class="anim-box animate-on-scroll-slide-up is-visible">Aa</div>
+            <div class="anim-name">animate-on-scroll-slide-up</div>
+          </div>
+          <div class="anim-card" onclick="triggerScrollAnim(this,'animate-on-scroll-zoom-in')">
+            <div class="anim-box animate-on-scroll-zoom-in is-visible">Aa</div>
+            <div class="anim-name">animate-on-scroll-zoom-in</div>
+          </div>
+          <div class="anim-card" onclick="triggerScrollAnim(this,'animate-on-scroll-from-left')">
+            <div class="anim-box animate-on-scroll-from-left is-visible">Aa</div>
+            <div class="anim-name">animate-on-scroll-from-left</div>
+          </div>
+          <div class="anim-card" onclick="triggerScrollAnim(this,'animate-on-scroll-from-right')">
+            <div class="anim-box animate-on-scroll-from-right is-visible">Aa</div>
+            <div class="anim-name">animate-on-scroll-from-right</div>
+          </div>
+          <div class="anim-card" onclick="triggerScrollAnim(this,'scroll-reveal-once')">
+            <div class="anim-box scroll-reveal-once is-visible">Aa</div>
+            <div class="anim-name">scroll-reveal-once</div>
+          </div>
+        </div>
+        <div style="background:#0f172a;border-radius:12px;padding:20px 24px;margin-top:20px;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#6366f1;margin-bottom:10px;">Required: IntersectionObserver snippet</div>
+          <code style="display:block;font-family:ui-monospace,monospace;font-size:12px;color:#a78bfa;line-height:1.8;">new IntersectionObserver((entries) => {<br>&nbsp;&nbsp;entries.forEach(e => {<br>&nbsp;&nbsp;&nbsp;&nbsp;if(e.isIntersecting) e.target.classList.add('is-visible');<br>&nbsp;&nbsp;});<br>}, { threshold: 0.15 }).observe(<br>&nbsp;&nbsp;...document.querySelectorAll('[class*="animate-on-scroll"],[class*="scroll-reveal"]')<br>);</code>
+        </div>
+      </section>
+
+      <!-- ── HOVER-TRIGGERED ── -->
+      <section class="section" id="hover-animated">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(245,158,11,.15);color:#f59e0b;">🎯</div>
+          <h2 class="section-title">Hover-Triggered Animations</h2>
+        </div>
+        <p style="font-size:13px;color:var(--muted);margin:0 0 16px;line-height:1.6;">Animations fire on <code style="background:#f1f5f9;padding:2px 5px;border-radius:4px;">:hover</code>. Hover over each card to preview.</p>
+        <div class="anim-grid">
+          <div class="anim-card"><div class="anim-box on-hover:animate-bounce">Aa</div><div class="anim-name">on-hover:animate-bounce</div></div>
+          <div class="anim-card"><div class="anim-box on-hover:animate-pulse">Aa</div><div class="anim-name">on-hover:animate-pulse</div></div>
+          <div class="anim-card"><div class="anim-box on-hover:animate-shake-x">Aa</div><div class="anim-name">on-hover:animate-shake-x</div></div>
+          <div class="anim-card"><div class="anim-box on-hover:animate-rubber-band">Aa</div><div class="anim-name">on-hover:animate-rubber-band</div></div>
+          <div class="anim-card"><div class="anim-box on-hover:animate-tada">Aa</div><div class="anim-name">on-hover:animate-tada</div></div>
+          <div class="anim-card"><div class="anim-box on-hover:animate-wobble">Aa</div><div class="anim-name">on-hover:animate-wobble</div></div>
+          <div class="anim-card"><div class="anim-box on-hover:animate-swing">Aa</div><div class="anim-name">on-hover:animate-swing</div></div>
+          <div class="anim-card"><div class="anim-box on-hover:animate-heartbeat">Aa</div><div class="anim-name">on-hover:animate-heartbeat</div></div>
+          <div class="anim-card"><div class="anim-box on-hover:animate-spin-once">Aa</div><div class="anim-name">on-hover:animate-spin-once</div></div>
+          <div class="anim-card"><div class="anim-box on-hover:animate-flip-once">Aa</div><div class="anim-name">on-hover:animate-flip-once</div></div>
+          <div class="anim-card"><div class="anim-box on-hover:animate-jello">Aa</div><div class="anim-name">on-hover:animate-jello</div></div>
+          <div class="anim-card"><div class="anim-box on-hover:animate-zoom-in">Aa</div><div class="anim-name">on-hover:animate-zoom-in</div></div>
+        </div>
+      </section>
+
+      <!-- ── TEXT ANIMATIONS ── -->
+      <section class="section" id="text-animations">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(16,185,129,.15);color:#10b981;">✍️</div>
+          <h2 class="section-title">Text Animations</h2>
+        </div>
+        <div class="anim-grid">
+          <div class="anim-card" onclick="triggerAnim(this,'animate-typewriter')">
+            <div class="anim-box" style="font-size:13px;white-space:nowrap;overflow:hidden;"><span class="animate-typewriter" style="display:inline-block;">Hello, World!</span></div>
+            <div class="anim-name">animate-typewriter</div>
+          </div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-text-blur-in')">
+            <div class="anim-box animate-text-blur-in">Blur</div>
+            <div class="anim-name">animate-text-blur-in</div>
+          </div>
+          <div class="anim-card">
+            <div class="anim-box animate-text-gradient-flow set-text-24 text-bold">Gradient</div>
+            <div class="anim-name">animate-text-gradient-flow</div>
+          </div>
+          <div class="anim-card">
+            <div class="anim-box animate-text-glitch set-text-22 text-bold">Glitch</div>
+            <div class="anim-name">animate-text-glitch</div>
+          </div>
+          <div class="anim-card">
+            <div class="anim-box animate-text-neon-pulse set-text-22 text-bold color-blue-400">Neon</div>
+            <div class="anim-name">animate-text-neon-pulse</div>
+          </div>
+          <div class="anim-card">
+            <div class="anim-box animate-text-wave set-text-22">
+              <span>W</span><span>a</span><span>v</span><span>e</span><span>!</span>
+            </div>
+            <div class="anim-name">animate-text-wave</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── STAGGER ── -->
+      <section class="section" id="stagger">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(139,92,246,.15);color:#8b5cf6;">🔲</div>
+          <h2 class="section-title">Staggered Entrance Sequences</h2>
+        </div>
+        <p style="font-size:13px;color:var(--muted);margin:0 0 16px;line-height:1.6;">Apply parent class — each child gets an automatic delay. Combine with an entrance like <code style="background:#f1f5f9;padding:2px 5px;border-radius:4px;">animate-stagger-slide-up</code>.</p>
+        <div class="anim-grid">
+          <div class="anim-card" onclick="triggerStagger(this,'animate-stagger-fade-in animate-stagger-children-100')">
+            <div class="anim-box make-flex gap-4 align-center justify-center animate-stagger-fade-in animate-stagger-children-100">
+              <div style="width:10px;height:10px;border-radius:50%;background:#3b82f6;"></div>
+              <div style="width:10px;height:10px;border-radius:50%;background:#8b5cf6;"></div>
+              <div style="width:10px;height:10px;border-radius:50%;background:#ec4899;"></div>
+              <div style="width:10px;height:10px;border-radius:50%;background:#10b981;"></div>
+            </div>
+            <div class="anim-name">stagger-fade-in + children-100</div>
+          </div>
+          <div class="anim-card" onclick="triggerStagger(this,'animate-stagger-slide-up animate-stagger-children-200')">
+            <div class="anim-box make-flex gap-4 align-center justify-center animate-stagger-slide-up animate-stagger-children-200">
+              <div style="width:10px;height:24px;border-radius:3px;background:#3b82f6;"></div>
+              <div style="width:10px;height:24px;border-radius:3px;background:#8b5cf6;"></div>
+              <div style="width:10px;height:24px;border-radius:3px;background:#ec4899;"></div>
+              <div style="width:10px;height:24px;border-radius:3px;background:#10b981;"></div>
+            </div>
+            <div class="anim-name">stagger-slide-up + children-200</div>
+          </div>
+          <div class="anim-card" onclick="triggerStagger(this,'animate-stagger-zoom-in animate-stagger-children-300')">
+            <div class="anim-box make-flex gap-4 align-center justify-center animate-stagger-zoom-in animate-stagger-children-300">
+              <div style="width:14px;height:14px;border-radius:3px;background:#f59e0b;"></div>
+              <div style="width:14px;height:14px;border-radius:3px;background:#ef4444;"></div>
+              <div style="width:14px;height:14px;border-radius:3px;background:#22c55e;"></div>
+            </div>
+            <div class="anim-name">stagger-zoom-in + children-300</div>
+          </div>
+        </div>
+        <div class="helper-grid" style="margin-top:20px;">
+          <div class="helper-row"><span class="helper-class">animate-stagger-children-100</span><span class="helper-val">+100ms per child</span></div>
+          <div class="helper-row"><span class="helper-class">animate-stagger-children-200</span><span class="helper-val">+200ms per child</span></div>
+          <div class="helper-row"><span class="helper-class">animate-stagger-children-300</span><span class="helper-val">+300ms per child</span></div>
+          <div class="helper-row"><span class="helper-class">animate-stagger-fade-in</span><span class="helper-val">fade entrance</span></div>
+          <div class="helper-row"><span class="helper-class">animate-stagger-slide-up</span><span class="helper-val">slide-up entrance</span></div>
+          <div class="helper-row"><span class="helper-class">animate-stagger-zoom-in</span><span class="helper-val">zoom entrance</span></div>
+          <div class="helper-row"><span class="helper-class">animate-stagger-from-left</span><span class="helper-val">from left entrance</span></div>
+          <div class="helper-row"><span class="helper-class">animate-stagger-from-right</span><span class="helper-val">from right entrance</span></div>
+        </div>
+      </section>
+
+      <!-- ── MORPHING ── -->
+      <section class="section" id="morphing">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(6,182,212,.15);color:#06b6d4;">🌊</div>
+          <h2 class="section-title">Morphing &amp; Shape Animations</h2>
+        </div>
+        <div class="anim-grid">
+          <div class="anim-card">
+            <div class="anim-box animate-morph-blob" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);width:60px;height:60px;"></div>
+            <div class="anim-name">animate-morph-blob</div>
+          </div>
+          <div class="anim-card">
+            <div style="width:60px;height:60px;border-radius:12px;overflow:hidden;position:relative;margin:0 auto 8px;"><div class="animate-border-spin" style="position:absolute;inset:-20px;"></div><div style="position:absolute;inset:3px;background:#fff;border-radius:9px;"></div></div>
+            <div class="anim-name">animate-border-spin</div>
+          </div>
+          <div class="anim-card">
+            <div class="anim-box animate-shimmer" style="width:80px;height:20px;border-radius:6px;background:#e5e7eb;"></div>
+            <div class="anim-name">animate-shimmer</div>
+          </div>
+          <div class="anim-card">
+            <div class="anim-box animate-gradient-shift" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6,#ec4899);background-size:200% 200%;width:60px;height:60px;border-radius:12px;"></div>
+            <div class="anim-name">animate-gradient-shift</div>
+          </div>
+          <div class="anim-card">
+            <div class="anim-box animate-morph-circle-to-square" style="width:50px;height:50px;background:#10b981;"></div>
+            <div class="anim-name">animate-morph-circle-to-square</div>
+          </div>
+          <div class="anim-card">
+            <div class="anim-box animate-liquid" style="width:54px;height:54px;background:linear-gradient(135deg,#3b82f6,#06b6d4);"></div>
+            <div class="anim-name">animate-liquid</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 3D ANIMATIONS ── -->
+      <section class="section" id="three-d">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(249,115,22,.15);color:#f97316;">🎪</div>
+          <h2 class="section-title">3D Animations</h2>
+        </div>
+        <div class="anim-grid">
+          <div class="anim-card" onclick="triggerAnim(this,'animate-flip-3d-x')"><div class="anim-box animate-flip-3d-x">Aa</div><div class="anim-name">animate-flip-3d-x</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-flip-3d-y')"><div class="anim-box animate-flip-3d-y">Aa</div><div class="anim-name">animate-flip-3d-y</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-depth-in')"><div class="anim-box animate-depth-in">Aa</div><div class="anim-name">animate-depth-in</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-depth-out')"><div class="anim-box animate-depth-out">Aa</div><div class="anim-name">animate-depth-out</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-tilt-left')"><div class="anim-box animate-tilt-left">Aa</div><div class="anim-name">animate-tilt-left</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-tilt-right')"><div class="anim-box animate-tilt-right">Aa</div><div class="anim-name">animate-tilt-right</div></div>
+          <div class="anim-card"><div class="anim-box animate-rotate-3d">Aa</div><div class="anim-name">animate-rotate-3d</div></div>
+          <div class="anim-card"><div class="anim-box animate-swing-3d">Aa</div><div class="anim-name">animate-swing-3d</div></div>
+        </div>
+      </section>
+
+      <!-- ── EXIT & PAGE ── -->
+      <section class="section" id="exit-page">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(239,68,68,.15);color:#ef4444;">💥</div>
+          <h2 class="section-title">Exit &amp; Page Transition Animations</h2>
+        </div>
+        <div class="anim-grid">
+          <div class="anim-card" onclick="triggerAnim(this,'animate-exit-fade-out')"><div class="anim-box animate-exit-fade-out">Aa</div><div class="anim-name">animate-exit-fade-out</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-exit-slide-left')"><div class="anim-box animate-exit-slide-left">Aa</div><div class="anim-name">animate-exit-slide-left</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-exit-slide-right')"><div class="anim-box animate-exit-slide-right">Aa</div><div class="anim-name">animate-exit-slide-right</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-exit-scale-down')"><div class="anim-box animate-exit-scale-down">Aa</div><div class="anim-name">animate-exit-scale-down</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-page-in-from-right')"><div class="anim-box animate-page-in-from-right">Aa</div><div class="anim-name">animate-page-in-from-right</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-page-in-from-left')"><div class="anim-box animate-page-in-from-left">Aa</div><div class="anim-name">animate-page-in-from-left</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-page-out-to-left')"><div class="anim-box animate-page-out-to-left">Aa</div><div class="anim-name">animate-page-out-to-left</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-page-out-to-right')"><div class="anim-box animate-page-out-to-right">Aa</div><div class="anim-name">animate-page-out-to-right</div></div>
+        </div>
+      </section>
+
+      <!-- ── UI FEEDBACK ── -->
+      <section class="section" id="ui-feedback">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(34,197,94,.15);color:#22c55e;">🔔</div>
+          <h2 class="section-title">Notification &amp; UI Feedback Animations</h2>
+        </div>
+        <p style="font-size:13px;color:var(--muted);margin:0 0 16px;line-height:1.6;">Paired with SantyCSS components — toast, modal, drawer, dropdown, tooltip.</p>
+        <div class="anim-grid">
+          <div class="anim-card" onclick="triggerAnim(this,'animate-toast-in')"><div class="anim-box animate-toast-in" style="font-size:12px;">Toast</div><div class="anim-name">animate-toast-in</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-toast-out')"><div class="anim-box animate-toast-out" style="font-size:12px;">Toast</div><div class="anim-name">animate-toast-out</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-modal-in')"><div class="anim-box animate-modal-in" style="font-size:12px;">Modal</div><div class="anim-name">animate-modal-in</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-modal-out')"><div class="anim-box animate-modal-out" style="font-size:12px;">Modal</div><div class="anim-name">animate-modal-out</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-drawer-in-right')"><div class="anim-box animate-drawer-in-right" style="font-size:12px;">Drawer</div><div class="anim-name">animate-drawer-in-right</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-drawer-in-bottom')"><div class="anim-box animate-drawer-in-bottom" style="font-size:12px;">Bottom</div><div class="anim-name">animate-drawer-in-bottom</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-dropdown-in')"><div class="anim-box animate-dropdown-in" style="font-size:12px;">Menu</div><div class="anim-name">animate-dropdown-in</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-badge-pop')"><div class="anim-box animate-badge-pop" style="font-size:12px;background:#ef4444;color:#fff;border-radius:9999px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;">3</div><div class="anim-name">animate-badge-pop</div></div>
+          <div class="anim-card" onclick="triggerAnim(this,'animate-error-shake')"><div class="anim-box animate-error-shake" style="font-size:12px;background:#fee2e2;color:#dc2626;border-radius:8px;padding:4px 12px;">Error!</div><div class="anim-name">animate-error-shake</div></div>
         </div>
       </section>
 
@@ -536,6 +795,34 @@ function playAnimation(card, cls) {
     box.classList.remove(cls);
     card.classList.remove('playing');
   }, Math.max(dur, 800));
+}
+
+// Trigger for manual-markup cards (new sections)
+function triggerAnim(card, cls) {
+  const box = card.querySelector('.anim-box');
+  if (!box) return;
+  box.classList.remove(cls);
+  void box.offsetWidth;
+  box.classList.add(cls);
+}
+
+// Trigger scroll-reveal animations by toggling is-visible
+function triggerScrollAnim(card, cls) {
+  const box = card.querySelector('.' + cls.replace(/:/g,'\\:'));
+  if (!box) return;
+  box.classList.remove('is-visible');
+  void box.offsetWidth;
+  setTimeout(() => box.classList.add('is-visible'), 50);
+}
+
+// Trigger stagger animations by re-adding classes
+function triggerStagger(card, clsStr) {
+  const box = card.querySelector('.anim-box');
+  if (!box) return;
+  const classes = clsStr.split(' ');
+  classes.forEach(c => box.classList.remove(c));
+  void box.offsetWidth;
+  classes.forEach(c => box.classList.add(c));
 }
 
 function copyClass(cls) {

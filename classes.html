@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SantyCSS — Complete Class Reference</title>
+  <link rel="icon" type="image/png" href="assest/santy_css.png" />
+  <link rel="stylesheet" href="santy.css" />
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    pre  { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+    .nav-link { transition: color 0.2s; }
+    .nav-link:hover { color: #3b82f6 !important; }
+    .nav-link-active { color: #2563eb !important; font-weight: 700 !important; }
+
+    /* ── Mobile Hamburger ─────────────────────────────────────── */
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 7px 9px;
+      cursor: pointer;
+      color: #374151;
+      line-height: 1;
+    }
+    @media (max-width: 767px) {
+      .nav-hamburger { display: flex; align-items: center; justify-content: center; }
+      #main-nav {
+        display: none;
+        position: fixed;
+        top: 61px; left: 0; right: 0; bottom: 0;
+        background: #fff;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+        gap: 4px;
+        z-index: 98;
+        border-top: 1px solid #e5e7eb;
+        overflow-y: auto;
+        box-shadow: 0 4px 24px rgba(0,0,0,.12);
+      }
+      #main-nav.nav-open { display: flex; }
+      #main-nav .nav-link { display: block; padding: 12px !important; font-size: 16px !important; border-radius: 8px; color: #1f2937 !important; border-bottom: 1px solid #f3f4f6; }
+      #main-nav .nav-link:hover { background: #f9fafb; }
+      #main-nav .btn { margin-top: 8px; text-align: center; padding: 12px; font-size: 15px; }
+    }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #312e81 100%);
+    }
+
+    /* ── Filter bar ───────────────────────────────────────────── */
+    .filter-bar {
+      position: sticky;
+      top: 61px;
+      z-index: 40;
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 12px 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .filter-bar .container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .search-input {
+      width: 100%;
+      max-width: 480px;
+      padding: 9px 16px 9px 42px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #1e293b;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #f8fafc url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%2394a3b8' stroke-width='2' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='M21 21l-4.35-4.35'/%3E%3C/svg%3E") no-repeat 14px center;
+    }
+    .search-input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.15); background-color: #fff; }
+    .pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pill {
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1.5px solid #e2e8f0;
+      background: #f8fafc;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .pill:hover { border-color: #3b82f6; color: #2563eb; background: #eff6ff; }
+    .pill.active { background: #2563eb; border-color: #2563eb; color: #fff; }
+
+    /* ── Table styling ────────────────────────────────────────── */
+    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid #e5e7eb; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { padding: 10px 16px; text-align: left; font-size: 13px; border-bottom: 1px solid #f1f5f9; }
+    th { background: #f8fafc; font-weight: 600; color: #374151; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f9fafb; }
+    td:first-child { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #2563eb; font-size: 12.5px; }
+    td:nth-child(2) { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #0f766e; font-size: 12px; }
+    td:last-child { color: #6b7280; }
+
+    /* ── Section header ───────────────────────────────────────── */
+    .cat-section { scroll-margin-top: 120px; }
+    .cat-section.hidden { display: none; }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .section-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    /* ── Row highlight on search ──────────────────────────────── */
+    tr.row-hidden { display: none; }
+    tr.row-match td:first-child { background: #fefce8; }
+
+    /* ── Back to top ──────────────────────────────────────────── */
+    #back-to-top {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.4);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 999;
+    }
+    #back-to-top.visible { opacity: 1; pointer-events: auto; }
+    #back-to-top:hover { transform: translateY(-2px); }
+
+    /* ── No results message ───────────────────────────────────── */
+    #no-results {
+      display: none;
+      text-align: center;
+      padding: 64px 16px;
+      color: #94a3b8;
+    }
+
+    /* ── Code tag ─────────────────────────────────────────────── */
+    .chip {
+      display: inline-block;
+      background: #1e293b;
+      color: #7dd3fc;
+      border-radius: 6px;
+      padding: 2px 9px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: ui-monospace, monospace;
+      border: 1px solid #334155;
+    }
+  </style>
+</head>
+<body class="background-gray-50">
+
+<!-- ─── TOP NAV ─────────────────────────────────────────────────────────────── -->
+<header class="position-sticky pin-top-0 layer-50 background-white add-shadow-sm" style="border-bottom:1px solid #e5e7eb;">
+  <div class="container make-flex align-center justify-between add-padding-y-14">
+    <a href="index.html" class="make-flex align-center gap-10 text-no-decoration">
+      <img src="assest/santy_css.png" alt="SantyCSS" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
+      <span class="set-text-20 text-bold color-gray-900">Santy<span class="color-blue-600">CSS</span></span>
+      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v1.1</span>
+    </a>
+    <button class="nav-hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
+      <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg id="ham-close" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:none"><path d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <nav id="main-nav" class="make-flex align-center gap-24">
+      <a href="classes.html" class="nav-link nav-link-active text-no-decoration set-text-14 text-semibold">Classes</a>
+      <a href="index.html#components" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Components</a>
+      <a href="animations.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Animations</a>
+      <a href="index.html#ai-generator" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">AI Gen</a>
+      <a href="docs.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">npm Docs</a>
+      <a href="index.html#feedback" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Feedback</a>
+      <a href="demo.html" class="make-button style-primary size-small">Live Demo →</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ─── HERO ──────────────────────────────────────────────────────────────────── -->
+<section class="hero-gradient add-padding-y-64 add-padding-x-16">
+  <div class="container text-center">
+    <h1 class="set-text-56 text-bold color-white add-margin-bottom-16" style="letter-spacing:-2px;line-height:1.1;">
+      Complete Class <span style="color:#7dd3fc;">Reference</span>
+    </h1>
+    <p class="set-text-18 add-margin-bottom-32" style="color:rgba(255,255,255,0.7);max-width:540px;margin-left:auto;margin-right:auto;">
+      Every SantyCSS utility class, its CSS output, and a plain-English description — all searchable.
+    </p>
+    <div class="make-flex justify-center flex-wrap gap-12">
+      <span class="chip">add-padding-y-16</span>
+      <span class="chip">make-flex</span>
+      <span class="chip">set-text-24</span>
+      <span class="chip">on-hover:scale-110</span>
+      <span class="chip">background-blue-500</span>
+      <span class="chip">round-corners-8</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FILTER BAR ───────────────────────────────────────────────────────────── -->
+<div class="filter-bar">
+  <div class="container">
+    <div class="make-flex align-center gap-12 flex-wrap">
+      <div style="position:relative;flex:1;min-width:240px;max-width:480px;">
+        <input
+          type="search"
+          id="class-search"
+          class="search-input"
+          placeholder="Search classes, e.g. flex, padding, color…"
+          oninput="filterClasses()"
+          autocomplete="off"
+        />
+      </div>
+      <span class="set-text-13 color-gray-400" id="result-count"></span>
+    </div>
+    <div class="pills-row" id="cat-pills">
+      <button class="pill active" data-cat="all" onclick="filterCat(this)">All</button>
+      <button class="pill" data-cat="layout" onclick="filterCat(this)">Layout</button>
+      <button class="pill" data-cat="spacing" onclick="filterCat(this)">Spacing</button>
+      <button class="pill" data-cat="sizing" onclick="filterCat(this)">Sizing</button>
+      <button class="pill" data-cat="colors" onclick="filterCat(this)">Colors</button>
+      <button class="pill" data-cat="borders" onclick="filterCat(this)">Borders &amp; Radius</button>
+      <button class="pill" data-cat="typography" onclick="filterCat(this)">Typography</button>
+      <button class="pill" data-cat="shadows" onclick="filterCat(this)">Shadows</button>
+      <button class="pill" data-cat="positioning" onclick="filterCat(this)">Positioning</button>
+      <button class="pill" data-cat="transitions" onclick="filterCat(this)">Transitions</button>
+      <button class="pill" data-cat="animations" onclick="filterCat(this)">Animations</button>
+      <button class="pill" data-cat="state" onclick="filterCat(this)">State Variants</button>
+      <button class="pill" data-cat="responsive" onclick="filterCat(this)">Responsive</button>
+      <button class="pill" data-cat="display" onclick="filterCat(this)">Display &amp; Overflow</button>
+      <button class="pill" data-cat="gradients" onclick="filterCat(this)">Gradients</button>
+      <button class="pill" data-cat="components" onclick="filterCat(this)">Component Variants</button>
+      <button class="pill" data-cat="scroll" onclick="filterCat(this)">Scroll</button>
+      <button class="pill" data-cat="logical" onclick="filterCat(this)">Logical Properties</button>
+      <button class="pill" data-cat="viewport" onclick="filterCat(this)">Viewport</button>
+      <button class="pill" data-cat="print" onclick="filterCat(this)">Print</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CONTENT ──────────────────────────────────────────────────────────────── -->
+<main class="container add-padding-y-48 add-padding-x-16">
+
+  <div id="no-results">
+    <svg width="48" height="48" fill="none" stroke="#cbd5e1" stroke-width="1.5" viewBox="0 0 24 24" style="margin:0 auto 12px;display:block;"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <p class="set-text-16 color-gray-400">No classes matched your search.</p>
+    <p class="set-text-13 color-gray-300">Try a different keyword or clear the search.</p>
+  </div>
+
+  <!-- ── LAYOUT ─────────────────────────────────────────────────────────────── -->
+  <section class="cat-section add-margin-bottom-56" id="layout" data-cat="layout">
+    <div class="section-header">
+      <div class="section-icon background-blue-100">🧱</div>
+      <div>
+        <h2 class="set-text-24 text-bold color-gray-900">Layout</h2>
+        <p class="set-text-13 color-gray-500">Flexbox, grid, alignment and justification helpers.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Class</th><th>CSS Output</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>make-flex</td><td>display: flex</td><td>Enable flex container</td></tr>
+          <tr><td>make-inline-flex</td><td>display: inline-flex</td><td>Inline flex container</td></tr>
+          <tr><td>make-grid</td><td>display: grid</td><td>Enable grid container</td></tr>
+          <tr><td>make-inline-grid</td><td>display: inline-grid</td><td>Inline grid container</td></tr>
+          <tr><td>flex-row</td><td>flex-direction: row</td><td>Horizontal flex direction</td></tr>
+          <tr><td>flex-column</td><td>flex-direction: column</td><td>Vertical flex direction</td></tr>
+          <tr><td>flex-row-reverse</td><td>flex-direction: row-reverse</td><td>Reverse horizontal flex</td></tr>
+          <tr><td>flex-column-reverse</td><td>flex-direction: column-reverse</td><td>Reverse vertical flex</td></tr>
+          <tr><td>flex-wrap</td><td>flex-wrap: wrap</td><td>Allow flex items to wrap</td></tr>
+          <tr><td>flex-nowrap</td><td>flex-wrap: nowrap</td><td>Prevent flex wrapping</td></tr>
+          <tr><td>flex-1</td><td>flex: 1 1 0%</td><td>Flex grow and shrink equally</td></tr>
+          <tr><td>flex-auto</td><td>flex: 1 1 auto</td><td>Flex based on natural size</td></tr>
+          <tr><td>flex-none</td><td>flex: none</td><td>Prevent flex grow/shrink</td></tr>
+          <tr><td>flex-grow</td><td>flex-grow: 1</td><td>Grow to fill available space</td></tr>
+          <tr><td>flex-shrink</td><td>flex-shrink: 1</td><td>Allow shrinking</td></tr>
+          <tr><td>align-start</td><td>align-items: flex-start</td><td>Align cross-axis to start</td></tr>
+          <tr><td>align-end</td><td>align-items: flex-end</td><td>Align cross-axis to end</td></tr>
+          <tr><td>align-center</td><td>align-items: center</td><td>Center on cross axis</td></tr>
+          <tr><td>align-stretch</td><td>align-items: stretch</td><td>Stretch to fill cross axis</td></tr>
+          <tr><td>align-baseline</td><td>align-items: baseline</td><td>Align to text baseline</td></tr>
+          <tr><td>justify-start</td><td>justify-content: flex-start</td><td>Justify items to start</td></tr>
+          <tr><td>justify-end</td><td>justify-content: flex-end</td><td>Justify items to end</td></tr>
+          <tr><td>justify-center</td><td>justify-content: center</td><td>Center on main axis</td></tr>
+          <tr><td>justify-between</td><td>justify-content: space-between</td><td>Equal space between items</td></tr>
+          <tr><td>justify-around</td><td>justify-content: space-around</td><td>Equal space around items</td></tr>
+          <tr><td>justify-evenly</td><td>justify-content: space-evenly</td><td>Evenly distributed space</td></tr>
+          <tr><td>grid-cols-{1-12}</td><td>grid-template-columns: repeat(n, minmax(0,1fr))</td><td>Define grid column count</td></tr>
+          <tr><td>grid-rows-{1-6}</td><td>grid-template-rows: repeat(n, minmax(0,1fr))</td><td>Define grid row count</td></tr>
+          <tr><td>col-span-{1-12}</td><td>grid-column: span n / span n</td><td>Column span</td></tr>
+          <tr><td>row-span-{1-6}</td><td>grid-row: span n / span n</td><td>Row span</td></tr>
+          <tr><td>gap-{n}</td><td>gap: {n}px</td><td>Grid/flex gap (0–200)</td></tr>
+          <tr><td>gap-x-{n}</td><td>column-gap: {n}px</td><td>Horizontal gap only</td></tr>
+          <tr><td>gap-y-{n}</td><td>row-gap: {n}px</td><td>Vertical gap only</td></tr>
+          <tr><td>place-center</td><td>place-items: center</td><td>Center items on both axes</td></tr>
+          <tr><td>self-auto</td><td>align-self: auto</td><td>Self alignment auto</td></tr>
+          <tr><td>self-start</td><td>align-self: flex-start</td><td>Self align to start</td></tr>
+          <tr><td>self-end</td><td>align-self: flex-end</td><td>Self align to end</td></tr>
+          <tr><td>self-center</td><td>align-self: center</td><td>Self center on cross axis</td></tr>
+          <tr><td>self-stretch</td><td>align-self: stretch</td><td>Self stretch on cross axis</td></tr>
+          <tr><td>order-{0-12}</td><td>order: {n}</td><td>Item order in flex/grid</td></tr>
+          <tr><td>order-first</td><td>order: -9999</td><td>Force item to be first</td></tr>
+          <tr><td>order-last</td><td>order: 9999</td><td>Force item to be last</td></tr>
+          <tr><td>container</td><td>max-width: 1200px; margin: 0 auto; padding: 0 16px</td><td>Centered max-width wrapper</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── SPACING ────────────────────────────────────────────────────────────── -->
+  <section class="cat-section add-margin-bottom-56" id="spacing" data-cat="spacing">
+    <div class="section-header">
+      <div class="section-icon background-purple-100">↔</div>
+      <div>
+        <h2 class="set-text-24 text-bold color-gray-900">Spacing</h2>
+        <p class="set-text-13 color-gray-500">Padding and margin utilities. Values: 0–50 every 1px, 52–200 every 4px, plus 240, 256, 320, 384, 512.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Class</th><th>CSS Output</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>add-padding-{n}</td><td>padding: {n}px</td><td>Padding on all sides</td></tr>
+          <tr><td>add-padding-x-{n}</td><td>padding-left: {n}px; padding-right: {n}px</td><td>Horizontal padding</td></tr>
+          <tr><td>add-padding-y-{n}</td><td>padding-top: {n}px; padding-bottom: {n}px</td><td>Vertical padding</td></tr>
+          <tr><td>add-padding-top-{n}</td><td>padding-top: {n}px</td><td>Top padding</td></tr>
+          <tr><td>add-padding-bottom-{n}</td><td>padding-bottom: {n}px</td><td>Bottom padding</td></tr>
+          <tr><td>add-padding-left-{n}</td><td>padding-left: {n}px</td><td>Left padding</td></tr>
+          <tr><td>add-padding-right-{n}</td><td>padding-right: {n}px</td><td>Right padding</td></tr>
+          <tr><td>add-margin-{n}</td><td>margin: {n}px</td><td>Margin on all sides</td></tr>
+          <tr><td>add-margin-x-{n}</td><td>margin-left: {n}px; margin-right: {n}px</td><td>Horizontal margin</td></tr>
+          <tr><td>add-margin-y-{n}</td><td>margin-top: {n}px; margin-bottom: {n}px</td><td>Vertical margin</td></tr>
+          <tr><td>add-margin-top-{n}</td><td>margin-top: {n}px</td><td>Top margin</td></tr>
+          <tr><td>add-margin-bottom-{n}</td><td>margin-bottom: {n}px</td><td>Bottom margin</td></tr>
+          <tr><td>add-margin-left-{n}</td><td>margin-left: {n}px</td><td>Left margin</td></tr>
+          <tr><td>add-margin-right-{n}</td><td>margin-right: {n}px</td><td>Right margin</td></tr>
+          <tr><td>margin-auto</td><td>margin: auto</td><td>Auto margin (centering)</td></tr>
+          <tr><td>margin-x-auto</td><td>margin-left: auto; margin-right: auto</td><td>Horizontal auto margin</td></tr>
+          <tr><td>margin-left-auto</td><td>margin-left: auto</td><td>Push left with auto margin</td></tr>
+          <tr><td>margin-right-auto</td><td>margin-right: auto</td><td>Push right with auto margin</td></tr>
+          <tr><td>space-x-{n}</td><td>margin-left: {n}px on children (except first)</td><td>Horizontal spacing between children</td></tr>
+          <tr><td>space-y-{n}</td><td>margin-top: {n}px on children (except first)</td><td>Vertical spacing between children</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── SIZING ─────────────────────────────────────────────────────────────── -->
+  <section class="cat-section add-margin-bottom-56" id="sizing" data-cat="sizing">
+    <div class="section-header">
+      <div class="section-icon background-green-100">📐</div>
+      <div>
+        <h2 class="set-text-24 text-bold color-gray-900">Sizing</h2>
+        <p class="set-text-13 color-gray-500">Width, height, min/max dimensions, and aspect ratio.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Class</th><th>CSS Output</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>set-width-{n}</td><td>width: {n}px</td><td>Fixed pixel width</td></tr>
+          <tr><td>set-height-{n}</td><td>height: {n}px</td><td>Fixed pixel height</td></tr>
+          <tr><td>set-size-{n}</td><td>width: {n}px; height: {n}px</td><td>Fixed square size</td></tr>
+          <tr><td>set-min-width-{n}</td><td>min-width: {n}px</td><td>Minimum width</td></tr>
+          <tr><td>set-min-height-{n}</td><td>min-height: {n}px</td><td>Minimum height</td></tr>
+          <tr><td>set-max-width-{n}</td><td>max-width: {n}px</td><td>Maximum width</td></tr>
+          <tr><td>set-max-height-{n}</td><td>max-height: {n}px</td><td>Maximum height</td></tr>
+          <tr><td>width-full</td><td>width: 100%</td><td>Full width</td></tr>
+          <tr><td>width-screen</td><td>width: 100vw</td><td>Full viewport width</td></tr>
+          <tr><td>width-auto</td><td>width: auto</td><td>Auto width</td></tr>
+          <tr><td>width-half</td><td>width: 50%</td><td>Half width</td></tr>
+          <tr><td>width-third</td><td>width: 33.333%</td><td>One-third width</td></tr>
+          <tr><td>width-quarter</td><td>width: 25%</td><td>One-quarter width</td></tr>
+          <tr><td>height-full</td><td>height: 100%</td><td>Full height</td></tr>
+          <tr><td>height-screen</td><td>height: 100vh</td><td>Full viewport height</td></tr>
+          <tr><td>height-auto</td><td>height: auto</td><td>Auto height</td></tr>
+          <tr><td>min-height-screen</td><td>min-height: 100vh</td><td>At least full viewport height</td></tr>
+          <tr><td>aspect-square</td><td>aspect-ratio: 1 / 1</td><td>Square aspect ratio</td></tr>
+          <tr><td>aspect-video</td><td>aspect-ratio: 16 / 9</td><td>16:9 video aspect ratio</td></tr>
+          <tr><td>aspect-portrait</td><td>aspect-ratio: 3 / 4</td><td>Portrait aspect ratio</td></tr>
+          <tr><td>object-cover</td><td>object-fit: cover</td><td>Cover container preserving ratio</td></tr>
+          <tr><td>object-contain</td><td>object-fit: contain</td><td>Contain within bounds</td></tr>
+          <tr><td>object-fill</td><td>object-fit: fill</td><td>Stretch to fill</td></tr>
+          <tr><td>object-center</td><td>object-position: center</td><td>Center object position</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── COLORS ─────────────────────────────────────────────────────────────── -->
+  <section class="cat-section add-margin-bottom-56" id="colors" data-cat="colors">
+    <div class="section-header">
+      <div class="section-icon background-pink-100">🎨</div>
+      <div>
+        <h2 class="set-text-24 text-bold color-gray-900">Colors</h2>
+        <p class="set-text-13 color-gray-500">Text color, background color, and border color — 20 families × 10 shades (50–950).</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Class</th><th>CSS Output</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>color-{name}-{shade}</td><td>color: var(--{name}-{shade})</td><td>Text color. e.g. color-blue-500</td></tr>
+          <tr><td>background-{name}-{shade}</td><td>background-color: var(--{name}-{shade})</td><td>Background color. e.g. background-red-100</td></tr>
+          <tr><td>border-color-{name}-{shade}</td><td>border-color: var(--{name}-{shade})</td><td>Border color. e.g. border-color-green-600</td></tr>
+          <tr><td>color-white</td><td>color: #ffffff</td><td>White text</td></tr>
+          <tr><td>color-black</td><td>color: #000000</td><td>Black text</td></tr>
+          <tr><td>background-white</td><td>background-color: #ffffff</td><td>White background</td></tr>
+          <tr><td>background-black</td><td>background-color: #000000</td><td>Black background</td></tr>
+          <tr><td>background-transparent</td><td>background-color: transparent</td><td>Transparent background</td></tr>
+          <tr><td>color-current</td><td>color: currentColor</td><td>Inherit current color</td></tr>
+          <tr><td>opacity-{0-100}</td><td>opacity: {n/100}</td><td>Element opacity (0, 10, 20 … 100)</td></tr>
+          <tr><td>bg-opacity-{0-100}</td><td>--bg-opacity: {n/100}</td><td>Background opacity variable</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="add-margin-top-16 add-padding-16 round-corners-10" style="background:#f0f9ff;border:1px solid #bae6fd;">
+      <p class="set-text-13 color-blue-700 text-semibold add-margin-bottom-8">Color families</p>
+      <p class="set-text-13 color-blue-600">gray, red, orange, amber, yellow, lime, green, emerald, teal, cyan, sky, blue, indigo, violet, purple, fuchsia, pink, rose, slate, zinc</p>
+    </div>
+  </section>
+
+  <!-- ── BORDERS & RADIUS ───────────────────────────────────────────────────── -->
+  <section class="cat-section add-margin-bottom-56" id="borders" data-cat="borders">
+    <div class="section-header">
+      <div class="section-icon background-orange-100">⬡</div>
+      <div>
+        <h2 class="set-text-24 text-bold color-gray-900">Borders &amp; Radius</h2>
+        <p class="set-text-13 color-gray-500">Border width, style, and border-radius utilities.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Class</th><th>CSS Output</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>add-border-{n}</td><td>border: {n}px solid currentColor</td><td>Border on all sides</td></tr>
+          <tr><td>add-border-top-{n}</td><td>border-top: {n}px solid currentColor</td><td>Top border only</td></tr>
+          <tr><td>add-border-bottom-{n}</td><td>border-bottom: {n}px solid currentColor</td><td>Bottom border only</td></tr>
+          <tr><td>add-border-left-{n}</td><td>border-left: {n}px solid currentColor</td><td>Left border only</td></tr>
+          <tr><td>add-border-right-{n}</td><td>border-right: {n}px solid currentColor</td><td>Right border only</td></tr>
+          <tr><td>border-solid</td><td>border-style: solid</td><td>Solid border style</td></tr>
+          <tr><td>border-dashed</td><td>border-style: dashed</td><td>Dashed border style</td></tr>
+          <tr><td>border-dotted</td><td>border-style: dotted</td><td>Dotted border style</td></tr>
+          <tr><td>border-none</td><td>border: none</td><td>Remove all borders</td></tr>
+          <tr><td>round-corners-{n}</td><td>border-radius: {n}px</td><td>Rounded corners (0–48)</td></tr>
+          <tr><td>round-corners-top-{n}</td><td>border-top-left-radius: {n}px; border-top-right-radius: {n}px</td><td>Top corners only</td></tr>
+          <tr><td>round-corners-bottom-{n}</td><td>border-bottom-left-radius: {n}px; border-bottom-right-radius: {n}px</td><td>Bottom corners only</td></tr>
+          <tr><td>round-corners-left-{n}</td><td>border-top-left-radius: {n}px; border-bottom-left-radius: {n}px</td><td>Left corners only</td></tr>
+          <tr><td>round-corners-right-{n}</td><td>border-top-right-radius: {n}px; border-bottom-right-radius: {n}px</td><td>Right corners only</td></tr>
+          <tr><td>make-circle</td><td>border-radius: 50%</td><td>Fully round (circle/ellipse)</td></tr>
+          <tr><td>make-pill</td><td>border-radius: 9999px</td><td>Pill / capsule shape</td></tr>
+          <tr><td>outline-none</td><td>outline: none</td><td>Remove focus outline</td></tr>
+          <tr><td>ring-{n}</td><td>box-shadow: 0 0 0 {n}px</td><td>Focus ring via box-shadow</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── TYPOGRAPHY ─────────────────────────────────────────────────────────── -->
+  <section class="cat-section add-margin-bottom-56" id="typography" data-cat="typography">
+    <div class="section-header">
+      <div class="section-icon background-yellow-100">Aa</div>
+      <div>
+        <h2 class="set-text-24 text-bold color-gray-900">Typography</h2>
+        <p class="set-text-13 color-gray-500">Font size, weight, style, alignment, decoration, line-height, and letter-spacing.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Class</th><th>CSS Output</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>set-text-{n}</td><td>font-size: {n}px</td><td>Font size in px (8–144)</td></tr>
+          <tr><td>text-bold</td><td>font-weight: 700</td><td>Bold text</td></tr>
+          <tr><td>text-semibold</td><td>font-weight: 600</td><td>Semibold text</td></tr>
+          <tr><td>text-medium</td><td>font-weight: 500</td><td>Medium weight</td></tr>
+          <tr><td>text-normal</td><td>font-weight: 400</td><td>Normal weight</td></tr>
+          <tr><td>text-light</td><td>font-weight: 300</td><td>Light weight</td></tr>
+          <tr><td>text-thin</td><td>font-weight: 100</td><td>Thin / hairline weight</td></tr>
+          <tr><td>text-extrabold</td><td>font-weight: 800</td><td>Extra bold</td></tr>
+          <tr><td>text-black-weight</td><td>font-weight: 900</td><td>Black / heaviest weight</td></tr>
+          <tr><td>text-italic</td><td>font-style: italic</td><td>Italic text</td></tr>
+          <tr><td>text-not-italic</td><td>font-style: normal</td><td>Remove italic</td></tr>
+          <tr><td>text-center</td><td>text-align: center</td><td>Center-align text</td></tr>
+          <tr><td>text-left</td><td>text-align: left</td><td>Left-align text</td></tr>
+          <tr><td>text-right</td><td>text-align: right</td><td>Right-align text</td></tr>
+          <tr><td>text-justify</td><td>text-align: justify</td><td>Justify text</td></tr>
+          <tr><td>text-uppercase</td><td>text-transform: uppercase</td><td>Uppercase text</td></tr>
+          <tr><td>text-lowercase</td><td>text-transform: lowercase</td><td>Lowercase text</td></tr>
+          <tr><td>text-capitalize</td><td>text-transform: capitalize</td><td>Capitalize first letters</td></tr>
+          <tr><td>text-no-transform</td><td>text-transform: none</td><td>Remove text transform</td></tr>
+          <tr><td>text-underline</td><td>text-decoration: underline</td><td>Underline text</td></tr>
+          <tr><td>text-line-through</td><td>text-decoration: line-through</td><td>Strikethrough text</td></tr>
+          <tr><td>text-no-decoration</td><td>text-decoration: none</td><td>Remove text decoration</td></tr>
+          <tr><td>text-overline</td><td>text-decoration: overline</td><td>Overline text</td></tr>
+          <tr><td>line-height-tight</td><td>line-height: 1.25</td><td>Tight line height</td></tr>
+          <tr><td>line-height-normal</td><td>line-height: 1.5</td><td>Normal line height</td></tr>
+          <tr><td>line-height-relaxed</td><td>line-height: 1.75</td><td>Relaxed line height</td></tr>
+          <tr><td>line-height-loose</td><td>line-height: 2</td><td>Loose line height</td></tr>
+          <tr><td>letter-space-tight</td><td>letter-spacing: -0.05em</td><td>Tight letter spacing</td></tr>
+          <tr><td>letter-space-normal</td><td>letter-spacing: 0</td><td>Normal letter spacing</td></tr>
+          <tr><td>letter-space-wide</td><td>letter-spacing: 0.05em</td><td>Wide letter spacing</td></tr>
+          <tr><td>letter-space-wider</td><td>letter-spacing: 0.1em</td><td>Wider letter spacing</td></tr>
+          <tr><td>text-truncate</td><td>overflow: hidden; text-overflow: ellipsis; white-space: nowrap</td><td>Single-line text truncation</td></tr>
+          <tr><td>text-nowrap</td><td>white-space: nowrap</td><td>Prevent line wrapping</td></tr>
+          <tr><td>text-wrap</td><td>white-space: normal</td><td>Allow line wrapping</td></tr>
+          <tr><td>text-break</td><td>word-break: break-all</td><td>Break long words</td></tr>
+          <tr><td>font-mono</td><td>font-family: ui-monospace, monospace</td><td>Monospace font</td></tr>
+          <tr><td>font-sans</td><td>font-family: ui-sans-serif, system-ui, sans-serif</td><td>Sans-serif font stack</td></tr>
+          <tr><td>font-serif</td><td>font-family: ui-serif, Georgia, serif</td><td>Serif font stack</td></tr>
+          <tr><td>list-none</td><td>list-style: none; padding: 0; margin: 0</td><td>Remove list markers</td></tr>
+          <tr><td>list-disc</td><td>list-style-type: disc</td><td>Bullet list</td></tr>
+          <tr><td>list-decimal</td><td>list-style-type: decimal</td><td>Numbered list</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── SHADOWS ────────────────────────────────────────────────────────────── -->
+  <section class="cat-section add-margin-bottom-56" id="shadows" data-cat="shadows">
+    <div class="section-header">
+      <div class="section-icon background-gray-200">◫</div>
+      <div>
+        <h2 class="set-text-24 text-bold color-gray-900">Shadows</h2>
+        <p class="set-text-13 color-gray-500">Box shadow and text shadow utilities.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Class</th><th>CSS Output</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>add-shadow-none</td><td>box-shadow: none</td><td>Remove shadow</td></tr>
+          <tr><td>add-shadow-xs</td><td>box-shadow: 0 1px 2px rgba(0,0,0,0.05)</td><td>Extra small shadow</td></tr>
+          <tr><td>add-shadow-sm</td><td>box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)</td><td>Small shadow</td></tr>
+          <tr><td>add-shadow-md</td><td>box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06)</td><td>Medium shadow</td></tr>
+          <tr><td>add-shadow-lg</td><td>box-shadow: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05)</td><td>Large shadow</td></tr>
+          <tr><td>add-shadow-xl</td><td>box-shadow: 0 20px 25px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.04)</td><td>Extra large shadow</td></tr>
+          <tr><td>add-shadow-2xl</td><td>box-shadow: 0 25px 50px rgba(0,0,0,0.25)</td><td>2xl shadow</td></tr>
+          <tr><td>add-shadow-inner</td><td>box-shadow: inset 0 2px 4px rgba(0,0,0,0.06)</td><td>Inner shadow</td></tr>
+          <tr><td>add-shadow-colored-{name}</td><td>box-shadow: 0 4px 14px var(--{name}-shadow)</td><td>Colored shadow (e.g. add-shadow-colored-blue)</td></tr>
+          <tr><td>text-shadow-sm</td><td>text-shadow: 0 1px 2px rgba(0,0,0,0.2)</td><td>Small text shadow</td></tr>
+          <tr><td>text-shadow-md</td><td>text-shadow: 0 2px 4px rgba(0,0,0,0.3)</td><td>Medium text shadow</td></tr>
+          <tr><td>text-shadow-lg</td><td>text-shadow: 0 4px 8px rgba(0,0,0,0.4)</td><td>Large text shadow</td></tr>
+          <tr><td>text-shadow-none</td><td>text-shadow: none</td><td>Remove text shadow</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── POSITIONING ────────────────────────────────────────────────────────── -->
+  <section class="cat-section add-margin-bottom-56" id="positioning" data-cat="positioning">
+    <div class="section-header">
+      <div class="section-icon background-red-100">📌</div>
+      <div>
+        <h2 class="set-text-24 text-bold color-gray-900">Positioning</h2>
+        <p class="set-text-13 color-gray-500">Position type, inset values, z-index, and float utilities.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Class</th><th>CSS Output</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>position-relative</td><td>position: relative</td><td>Relative positioning</td></tr>
+          <tr><td>position-absolute</td><td>position: absolute</td><td>Absolute positioning</td></tr>
+          <tr><td>position-fixed</td><td>position: fixed</td><td>Fixed to viewport</td></tr>
+          <tr><td>position-sticky</td><td>position: sticky</td><td>Sticky positioning</td></tr>
+          <tr><td>position-static</td><td>position: static</td><td>Default static positioning</td></tr>
+          <tr><td>pin-top-{n}</td><td>top: {n}px</td><td>Top inset (0–100)</td></tr>
+          <tr><td>pin-bottom-{n}</td><td>bottom: {n}px</td><td>Bottom inset</td></tr>
+          <tr><td>pin-left-{n}</td><td>left: {n}px</td><td>Left inset</td></tr>
+          <tr><td>pin-right-{n}</td><td>right: {n}px</td><td>Right inset</td></tr>
+          <tr><td>pin-center</td><td>top: 50%; left: 50%; transform: translate(-50%,-50%)</td><td>Absolutely center element</td></tr>
+          <tr><td>pin-center-x</td><td>left: 50%; transform: translateX(-50%)</td><td>Center horizontally</td></tr>
+          <tr><td>pin-center-y</td><td>top: 50%; transform: translateY(-50%)</td><td>Center vertically</td></tr>
+          <tr><td>pin-inset-0</td><td>inset: 0</td><td>Stretch to all edges</td></tr>
+          <tr><td>layer-{n}</td><td>z-index: {n}</td><td>Z-index (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100)</td></tr>
+          <tr><td>layer-auto</td><td>z-index: auto</td><td>Auto z-index</td></tr>
+          <tr><td>float-left</td><td>float: left</td><td>Float element left</td></tr>
+          <tr><td>float-right</td><td>float: right</td><td>Float element right</td></tr>
+          <tr><td>float-none</td><td>float: none</td><td>Remove float</td></tr>
+          <tr><td>clear-both</td><td>clear: both</td><td>Clear float</td></tr>
+          <tr><td>clearfix</td><td>::after { content:''; display:table; clear:both }</td><td>Clearfix hack</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── TRANSITIONS ────────────────────────────────────────────────────────── -->
+  <section class="cat-section add-margin-bottom-56" id="transitions" data-cat="transitions">
+    <div class="section-header">
+      <div class="section-icon background-teal-100">⚡</div>
+      <div>
+        <h2 class="set-text-24 text-bold color-gray-900">Transitions</h2>
+        <p class="set-text-13 color-gray-500">Transition shorthand, duration, timing, and transform utilities.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Class</th><th>CSS Output</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>transition</td><td>transition: all 0.15s ease</td><td>Default transition all properties</td></tr>
+          <tr><td>transition-colors</td><td>transition: color, background-color, border-color 0.15s ease</td><td>Transition color properties</td></tr>
+          <tr><td>transition-opacity</td><td>transition: opacity 0.15s ease</td><td>Transition opacity</td></tr>
+          <tr><td>transition-transform</td><td>transition: transform 0.15s ease</td><td>Transition transforms</td></tr>
+          <tr><td>transition-shadow</td><td>transition: box-shadow 0.15s ease</td><td>Transition box-shadow</td></tr>
+          <tr><td>duration-75</td><td>transition-duration: 75ms</td><td>75ms transition</td></tr>
+          <tr><td>duration-100</td><td>transition-duration: 100ms</td><td>100ms transition</td></tr>
+          <tr><td>duration-150</td><td>transition-duration: 150ms</td><td>150ms transition</td></tr>
+          <tr><td>duration-200</td><td>transition-duration: 200ms</td><td>200ms transition</td></tr>
+          <tr><td>duration-300</td><td>transition-duration: 300ms</td><td>300ms transition</td></tr>
+          <tr><td>duration-500</td><td>transition-duration: 500ms</td><td>500ms transition</td></tr>
+          <tr><td>duration-700</td><td>transition-duration: 700ms</td><td>700ms transition</td></tr>
+          <tr><td>duration-1000</td><td>transition-duration: 1000ms</td><td>1000ms transition</td></tr>
+          <tr><td>ease-linear</td><td>transition-timing-function: linear</td><td>Linear easing</td></tr>
+          <tr><td>ease-in</td><td>transition-timing-function: ease-in</td><td>Ease in</td></tr>
+          <tr><td>ease-out</td><td>transition-timing-function: ease-out</td><td>Ease out</td></tr>
+          <tr><td>ease-in-out</td><td>transition-timing-function: ease-in-out</td><td>Ease in and out</td></tr>
+          <tr><td>scale-{n}</td><td>transform: scale({n/100})</td><td>Scale transform (e.g. scale-110 = 1.1)</td></tr>
+          <tr><td>rotate-{n}</td><td>transform: rotate({n}deg)</td><td>Rotation (0, 45, 90, 135, 180, 270)</td></tr>
+          <tr><td>translate-x-{n}</td><td>transform: translateX({n}px)</td><td>Horizontal translate</td></tr>
+          <tr><td>translate-y-{n}</td><td>transform: translateY({n}px)</td><td>Vertical translate</td></tr>
+          <tr><td>skew-x-{n}</td><td>transform: skewX({n}deg)</td><td>Horizontal skew</td></tr>
+          <tr><td>skew-y-{n}</td><td>transform: skewY({n}deg)</td><td>Vertical skew</td></tr>
+          <tr><td>will-change-transform</td><td>will-change: transform</td><td>Hint GPU acceleration for transforms</td></tr>
+          <tr><td>will-change-opacity</td><td>will-change: opacity</td><td>Hint GPU acceleration for opacity</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── ANIMATIONS ─────────────────────────────────────────────────────────── -->
+  <section class="cat-section add-margin-bottom-56" id="animations" data-cat="animations">
+    <div class="section-header">
+      <div class="section-icon background-indigo-100">🎬</div>
+      <div>
+        <h2 class="set-text-24 text-bold color-gray-900">Animations</h2>
+        <p class="set-text-13 color-gray-500">Keyframe animation helpers. See <a href="animations.html" class="color-blue-600">animations.html</a> for a full showcase of 70+ animations.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Class</th><th>CSS Output</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>animate-spin</td><td>animation: spin 1s linear infinite</td><td>Continuous rotation</td></tr>
+          <tr><td>animate-ping</td><td>animation: ping 1s cubic-bezier(0,0,0.2,1) infinite</td><td>Ripple / beacon pulse</td></tr>
+          <tr><td>animate-pulse</td><td>animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite</td><td>Slow opacity pulse</td></tr>
+          <tr><td>animate-bounce</td><td>animation: bounce 1s infinite</td><td>Up-and-down bounce</td></tr>
+          <tr><td>animate-fade-in</td><td>animation: fadeIn 0.5s ease forwards</td><td>Fade in on load</td></tr>
+          <tr><td>animate-fade-out</td><td>animation: fadeOut 0.5s ease forwards</td><td>Fade out</td></tr>
+          <tr><td>animate-slide-up</td><td>animation: slideUp 0.4s ease forwards</td><td>Slide in from below</td></tr>
+          <tr><td>animate-slide-down</td><td>animation: slideDown 0.4s ease forwards</td><td>Slide in from above</td></tr>
+          <tr><td>animate-slide-left</td><td>animation: slideLeft 0.4s ease forwards</td><td>Slide in from right</td></tr>
+          <tr><td>animate-slide-right</td><td>animation: slideRight 0.4s ease forwards</td><td>Slide in from left</td></tr>
+          <tr><td>animate-zoom-in</td><td>animation: zoomIn 0.3s ease forwards</td><td>Scale up from 0.8</td></tr>
+          <tr><td>animate-zoom-out</td><td>animation: zoomOut 0.3s ease forwards</td><td>Scale down to 0.8</td></tr>
+          <tr><td>animate-shake</td><td>animation: shake 0.5s ease</td><td>Horizontal shake</td></tr>
+          <tr><td>animate-wiggle</td><td>animation: wiggle 0.5s ease</td><td>Rotation wiggle</td></tr>
+          <tr><td>animate-flip-x</td><td>animation: flipX 0.5s ease forwards</td><td>Flip on X axis</td></tr>
+          <tr><td>animate-flip-y</td><td>animation: flipY 0.5s ease forwards</td><td>Flip on Y axis</td></tr>
+          <tr><td>animate-heartbeat</td><td>animation: heartbeat 1s ease infinite</td><td>Pulsing heartbeat scale</td></tr>
+          <tr><td>animate-float</td><td>animation: float 3s ease-in-out infinite</td><td>Gentle floating effect</td></tr>
+          <tr><td>animate-glow</td><td>animation: glow 2s ease-in-out infinite</td><td>Glowing box-shadow pulse</td></tr>
+          <tr><td>animate-typewriter</td><td>animation: typewriter steps(30) forwards</td><td>Typewriter reveal effect</td></tr>
+          <tr><td>animate-none</td><td>animation: none</td><td>Disable animation</td></tr>
+          <tr><td>delay-{n}</td><td>animation-delay: {n}ms</td><td>Animation delay (75, 100, 150, 200, 300, 500, 700, 1000)</td></tr>
+          <tr><td>iteration-{n}</td><td>animation-iteration-count: {n}</td><td>Play count (1, 2, 3, infinite)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── STATE VARIANTS ─────────────────────────────────────────────────────── -->
+  <section class="cat-section add-margin-bottom-56" id="state" data-cat="state">
+    <div class="section-header">
+      <div class="section-icon background-violet-100">👆</div>
+      <div>
+        <h2 class="set-text-24 text-bold color-gray-900">State Variants</h2>
+        <p class="set-text-13 color-gray-500">Prefix any utility with a state modifier to apply it conditionally.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Class</th><th>CSS Output</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>on-hover:{utility}</td><td>.on-hover\\:{utility}:hover { … }</td><td>Apply utility on :hover</td></tr>
+          <tr><td>on-focus:{utility}</td><td>.on-focus\\:{utility}:focus { … }</td><td>Apply utility on :focus</td></tr>
+          <tr><td>on-active:{utility}</td><td>.on-active\\:{utility}:active { … }</td><td>Apply utility on :active</td></tr>
+          <tr><td>on-disabled:{utility}</td><td>.on-disabled\\:{utility}:disabled { … }</td><td>Apply utility when disabled</td></tr>
+          <tr><td>on-checked:{utility}</td><td>.on-checked\\:{utility}:checked { … }</td><td>Apply utility when checked</td></tr>
+          <tr><td>on-visited:{utility}</td><td>.on-visited\\:{utility}:visited { … }</td><td>Apply utility on visited links</td></tr>
+          <tr><td>on-placeholder:{utility}</td><td>.on-placeholder\\:{utility}::placeholder { … }</td><td>Style placeholder text</td></tr>
+          <tr><td>group-hover:{utility}</td><td>.group:hover .group-hover\\:{utility} { … }</td><td>Apply when parent .group is hovered</td></tr>
+          <tr><td>group-focus:{utility}</td><td>.group:focus-within .group-focus\\:{utility} { … }</td><td>Apply when child inside group is focused</td></tr>
+          <tr><td>dark:{utility}</td><td>@media (prefers-color-scheme: dark) { … }</td><td>Apply in dark mode</td></tr>
+          <tr><td>first:{utility}</td><td>.first\\:{utility}:first-child { … }</td><td>Apply on first child</td></tr>
+          <tr><td>last:{utility}</td><td>.last\\:{utility}:last-child { … }</td><td>Apply on last child</td></tr>
+          <tr><td>odd:{utility}</td><td>.odd\\:{utility}:nth-child(odd) { … }</td><td>Apply on odd children</td></tr>
+          <tr><td>even:{utility}</td><td>.even\\:{utility}:nth-child(even) { … }</td><td>Apply on even children</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── RESPONSIVE ─────────────────────────────────────────────────────────── -->
+  <section class="cat-section add-margin-bottom-56" id="responsive" data-cat="responsive">
+    <div class="section-header">
+      <div class="section-icon background-sky-100">📱</div>
+      <div>
+        <h2 class="set-text-24 text-bold color-gray-900">Responsive</h2>
+        <p class="set-text-13 color-gray-500">Breakpoint prefixes. Prefix any utility to apply it at a specific screen size.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Prefix</th><th>Breakpoint</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>sm:{utility}</td><td>@media (min-width: 640px)</td><td>Small screens and up</td></tr>
+          <tr><td>md:{utility}</td><td>@media (min-width: 768px)</td><td>Medium screens and up</td></tr>
+          <tr><td>lg:{utility}</td><td>@media (min-width: 1024px)</td><td>Large screens and up</td></tr>
+          <tr><td>xl:{utility}</td><td>@media (min-width: 1280px)</td><td>Extra large screens and up</td></tr>
+          <tr><td>2xl:{utility}</td><td>@media (min-width: 1536px)</td><td>2XL screens and up</td></tr>
+          <tr><td>on-mobile:{utility}</td><td>@media (max-width: 767px)</td><td>Mobile only (max 767px)</td></tr>
+          <tr><td>on-tablet:{utility}</td><td>@media (min-width: 768px) and (max-width: 1023px)</td><td>Tablet only</td></tr>
+          <tr><td>on-desktop:{utility}</td><td>@media (min-width: 1024px)</td><td>Desktop and above</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="add-margin-top-16 add-padding-16 round-corners-10" style="background:#f0fdf4;border:1px solid #bbf7d0;">
+      <p class="set-text-13 color-green-700 text-semibold add-margin-bottom-4">Usage example</p>
+      <code class="set-text-12 color-green-800 font-mono">class="grid-cols-1 md:grid-cols-2 lg:grid-cols-3"</code>
+    </div>
+  </section>
+
+  <!-- ── DISPLAY & OVERFLOW ─────────────────────────────────────────────────── -->
+  <section class="cat-section add-margin-bottom-56" id="display" data-cat="display">
+    <div class="section-header">
+      <div class="section-icon background-cyan-100">👁</div>
+      <div>
+        <h2 class="set-text-24 text-bold color-gray-900">Display &amp; Overflow</h2>
+        <p class="set-text-13 color-gray-500">Display modes, visibility, overflow control, and cursor utilities.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Class</th><th>CSS Output</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>make-block</td><td>display: block</td><td>Block element</td></tr>
+          <tr><td>make-inline</td><td>display: inline</td><td>Inline element</td></tr>
+          <tr><td>make-inline-block</td><td>display: inline-block</td><td>Inline block element</td></tr>
+          <tr><td>make-hidden</td><td>display: none</td><td>Hide element (removes from flow)</td></tr>
+          <tr><td>make-invisible</td><td>visibility: hidden</td><td>Hide but keep space</td></tr>
+          <tr><td>make-visible</td><td>visibility: visible</td><td>Make visible</td></tr>
+          <tr><td>make-table</td><td>display: table</td><td>Table display</td></tr>
+          <tr><td>make-table-cell</td><td>display: table-cell</td><td>Table cell display</td></tr>
+          <tr><td>make-table-row</td><td>display: table-row</td><td>Table row display</td></tr>
+          <tr><td>overflow-hidden</td><td>overflow: hidden</td><td>Hide overflow content</td></tr>
+          <tr><td>overflow-auto</td><td>overflow: auto</td><td>Scroll when needed</td></tr>
+          <tr><td>overflow-scroll</td><td>overflow: scroll</td><td>Always show scrollbar</td></tr>
+          <tr><td>overflow-visible</td><td>overflow: visible</td><td>Show overflow content</td></tr>
+          <tr><td>overflow-x-auto</td><td>overflow-x: auto</td><td>Horizontal scroll when needed</td></tr>
+          <tr><td>overflow-x-hidden</td><td>overflow-x: hidden</td><td>Hide horizontal overflow</td></tr>
+          <tr><td>overflow-y-auto</td><td>overflow-y: auto</td><td>Vertical scroll when needed</td></tr>
+          <tr><td>overflow-y-hidden</td><td>overflow-y: hidden</td><td>Hide vertical overflow</td></tr>
+          <tr><td>cursor-pointer</td><td>cursor: pointer</td><td>Hand cursor</td></tr>
+          <tr><td>cursor-default</td><td>cursor: default</td><td>Default cursor</td></tr>
+          <tr><td>cursor-not-allowed</td><td>cursor: not-allowed</td><td>Not-allowed cursor</td></tr>
+          <tr><td>cursor-grab</td><td>cursor: grab</td><td>Grab cursor</td></tr>
+          <tr><td>cursor-text</td><td>cursor: text</td><td>Text cursor</td></tr>
+          <tr><td>cursor-crosshair</td><td>cursor: crosshair</td><td>Crosshair cursor</td></tr>
+          <tr><td>cursor-wait</td><td>cursor: wait</td><td>Wait / spinner cursor</td></tr>
+          <tr><td>pointer-events-none</td><td>pointer-events: none</td><td>Disable mouse events</td></tr>
+          <tr><td>pointer-events-auto</td><td>pointer-events: auto</td><td>Enable mouse events</td></tr>
+          <tr><td>select-none</td><td>user-select: none</td><td>Disable text selection</td></tr>
+          <tr><td>select-all</td><td>user-select: all</td><td>Select all on click</td></tr>
+          <tr><td>select-text</td><td>user-select: text</td><td>Allow text selection</td></tr>
+          <tr><td>resize-none</td><td>resize: none</td><td>Disable textarea resize</td></tr>
+          <tr><td>resize</td><td>resize: both</td><td>Enable both-axis resize</td></tr>
+          <tr><td>resize-x</td><td>resize: horizontal</td><td>Horizontal resize only</td></tr>
+          <tr><td>resize-y</td><td>resize: vertical</td><td>Vertical resize only</td></tr>
+          <tr><td>isolate</td><td>isolation: isolate</td><td>Create new stacking context</td></tr>
+          <tr><td>mix-blend-multiply</td><td>mix-blend-mode: multiply</td><td>Multiply blend mode</td></tr>
+          <tr><td>mix-blend-screen</td><td>mix-blend-mode: screen</td><td>Screen blend mode</td></tr>
+          <tr><td>mix-blend-overlay</td><td>mix-blend-mode: overlay</td><td>Overlay blend mode</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── GRADIENTS ──────────────────────────────────────────────────────────── -->
+  <section class="cat-section add-margin-bottom-56" id="gradients" data-cat="gradients">
+    <div class="section-header">
+      <div class="section-icon background-fuchsia-100">🌈</div>
+      <div>
+        <h2 class="set-text-24 text-bold color-gray-900">Gradients</h2>
+        <p class="set-text-13 color-gray-500">Linear gradient backgrounds and text gradient effects.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Class</th><th>CSS Output</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>gradient-to-r</td><td>background-image: linear-gradient(to right, var(--from-color), var(--to-color))</td><td>Gradient left to right</td></tr>
+          <tr><td>gradient-to-l</td><td>background-image: linear-gradient(to left, var(--from-color), var(--to-color))</td><td>Gradient right to left</td></tr>
+          <tr><td>gradient-to-t</td><td>background-image: linear-gradient(to top, var(--from-color), var(--to-color))</td><td>Gradient bottom to top</td></tr>
+          <tr><td>gradient-to-b</td><td>background-image: linear-gradient(to bottom, var(--from-color), var(--to-color))</td><td>Gradient top to bottom</td></tr>
+          <tr><td>gradient-to-tr</td><td>background-image: linear-gradient(to top right, …)</td><td>Diagonal gradient (bottom-left to top-right)</td></tr>
+          <tr><td>gradient-to-br</td><td>background-image: linear-gradient(to bottom right, …)</td><td>Diagonal gradient (top-left to bottom-right)</td></tr>
+          <tr><td>from-{name}-{shade}</td><td>--from-color: var(--{name}-{shade})</td><td>Gradient start color</td></tr>
+          <tr><td>via-{name}-{shade}</td><td>--via-color: var(--{name}-{shade})</td><td>Gradient middle stop</td></tr>
+          <tr><td>to-{name}-{shade}</td><td>--to-color: var(--{name}-{shade})</td><td>Gradient end color</td></tr>
+          <tr><td>text-gradient</td><td>background-clip: text; -webkit-background-clip: text; color: transparent</td><td>Apply gradient to text (combine with gradient-to-r)</td></tr>
+          <tr><td>gradient-blue-purple</td><td>linear-gradient(135deg, #3b82f6, #8b5cf6)</td><td>Blue to purple preset</td></tr>
+          <tr><td>gradient-pink-orange</td><td>linear-gradient(135deg, #ec4899, #f97316)</td><td>Pink to orange preset</td></tr>
+          <tr><td>gradient-green-teal</td><td>linear-gradient(135deg, #22c55e, #14b8a6)</td><td>Green to teal preset</td></tr>
+          <tr><td>gradient-dark</td><td>linear-gradient(135deg, #0f172a, #1e293b)</td><td>Dark hero gradient</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── COMPONENT VARIANTS ─────────────────────────────────────────────────── -->
+  <section class="cat-section add-margin-bottom-56" id="components" data-cat="components">
+    <div class="section-header">
+      <div class="section-icon background-emerald-100">🧩</div>
+      <div>
+        <h2 class="set-text-24 text-bold color-gray-900">Component Variants</h2>
+        <p class="set-text-13 color-gray-500">make-button, style-*, size-*, and other component modifier classes.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Class</th><th>CSS Output / Notes</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>make-button</td><td>display:inline-flex; align-items:center; …</td><td>Base button reset &amp; layout</td></tr>
+          <tr><td>style-primary</td><td>background:#2563eb; color:#fff; …</td><td>Primary (blue) button style</td></tr>
+          <tr><td>style-secondary</td><td>background:#f1f5f9; color:#1e293b; …</td><td>Secondary (gray) button style</td></tr>
+          <tr><td>style-danger</td><td>background:#dc2626; color:#fff; …</td><td>Danger (red) button style</td></tr>
+          <tr><td>style-success</td><td>background:#16a34a; color:#fff; …</td><td>Success (green) button style</td></tr>
+          <tr><td>style-warning</td><td>background:#d97706; color:#fff; …</td><td>Warning (amber) button style</td></tr>
+          <tr><td>style-ghost</td><td>background:transparent; border:1.5px solid currentColor; …</td><td>Ghost / outlined button style</td></tr>
+          <tr><td>style-link</td><td>background:none; color:#2563eb; text-decoration:underline</td><td>Link-style button</td></tr>
+          <tr><td>size-small</td><td>padding: 6px 14px; font-size: 13px</td><td>Small button size</td></tr>
+          <tr><td>size-medium</td><td>padding: 10px 20px; font-size: 15px</td><td>Medium button size (default)</td></tr>
+          <tr><td>size-large</td><td>padding: 14px 28px; font-size: 17px</td><td>Large button size</td></tr>
+          <tr><td>size-xl</td><td>padding: 18px 36px; font-size: 19px</td><td>Extra large button size</td></tr>
+          <tr><td>.btn</td><td>Component class — styled button</td><td>Pre-built button component</td></tr>
+          <tr><td>.btn-primary / btn-secondary / btn-danger</td><td>Colored button variants</td><td>Button color variants (component API)</td></tr>
+          <tr><td>.btn-sm / .btn-lg</td><td>Small/large size variants</td><td>Button size variants (component API)</td></tr>
+          <tr><td>.card</td><td>background:#fff; border-radius:12px; box-shadow:…</td><td>Card component wrapper</td></tr>
+          <tr><td>.card-header / .card-body / .card-footer</td><td>Padded sections inside card</td><td>Card layout sub-components</td></tr>
+          <tr><td>.badge</td><td>inline-flex; padding; border-radius:999px; …</td><td>Badge / chip component</td></tr>
+          <tr><td>.alert / .alert-success / .alert-danger / .alert-warning</td><td>Colored alert box</td><td>Alert component variants</td></tr>
+          <tr><td>.input</td><td>Styled form input</td><td>Base input component</td></tr>
+          <tr><td>.avatar / .avatar-sm / .avatar-lg</td><td>Circular image container</td><td>Avatar component</td></tr>
+          <tr><td>.spinner</td><td>Animated border spinner</td><td>Loading spinner component</td></tr>
+          <tr><td>.skeleton</td><td>Shimmer loading placeholder</td><td>Skeleton screen component</td></tr>
+          <tr><td>.progress / .progress-bar</td><td>Progress bar container and fill</td><td>Progress bar component</td></tr>
+          <tr><td>.tooltip</td><td>[data-tooltip]::after content</td><td>CSS-only tooltip component</td></tr>
+          <tr><td>.modal / .modal-content / .modal-header / .modal-body / .modal-footer</td><td>Overlay modal layout</td><td>Modal dialog component</td></tr>
+          <tr><td>.table / .table-striped / .table-bordered</td><td>Styled table variants</td><td>Table component classes</td></tr>
+          <tr><td>.nav / .nav-link / .nav-link-active</td><td>Navigation bar helpers</td><td>Nav component classes</td></tr>
+          <tr><td>.breadcrumb / .breadcrumb-item</td><td>Breadcrumb navigation</td><td>Breadcrumb component</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── SCROLL UTILITIES ───────────────────────────────────────────────────── -->
+  <section class="cat-section add-margin-bottom-56" id="scroll" data-cat="scroll">
+    <div class="section-header">
+      <div class="section-icon background-lime-100">↕</div>
+      <div>
+        <h2 class="set-text-24 text-bold color-gray-900">Scroll Utilities</h2>
+        <p class="set-text-13 color-gray-500">Scroll snapping, smooth scrolling, and scrollbar control.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Class</th><th>CSS Output</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>scroll-smooth</td><td>scroll-behavior: smooth</td><td>Smooth page scrolling</td></tr>
+          <tr><td>scroll-auto</td><td>scroll-behavior: auto</td><td>Instant scroll jump</td></tr>
+          <tr><td>scroll-snap-x</td><td>scroll-snap-type: x mandatory</td><td>Horizontal scroll snap container</td></tr>
+          <tr><td>scroll-snap-y</td><td>scroll-snap-type: y mandatory</td><td>Vertical scroll snap container</td></tr>
+          <tr><td>scroll-snap-start</td><td>scroll-snap-align: start</td><td>Snap item to start</td></tr>
+          <tr><td>scroll-snap-center</td><td>scroll-snap-align: center</td><td>Snap item to center</td></tr>
+          <tr><td>scroll-snap-end</td><td>scroll-snap-align: end</td><td>Snap item to end</td></tr>
+          <tr><td>scroll-margin-{n}</td><td>scroll-margin-top: {n}px</td><td>Offset for scroll anchors (sticky header compensation)</td></tr>
+          <tr><td>scrollbar-hide</td><td>scrollbar-width: none; &amp;::-webkit-scrollbar { display:none }</td><td>Hide scrollbar visually</td></tr>
+          <tr><td>scrollbar-thin</td><td>scrollbar-width: thin</td><td>Thin native scrollbar</td></tr>
+          <tr><td>overscroll-none</td><td>overscroll-behavior: none</td><td>Prevent scroll chaining</td></tr>
+          <tr><td>overscroll-contain</td><td>overscroll-behavior: contain</td><td>Contain scroll bounce to element</td></tr>
+          <tr><td>touch-pan-x</td><td>touch-action: pan-x</td><td>Allow horizontal touch pan only</td></tr>
+          <tr><td>touch-pan-y</td><td>touch-action: pan-y</td><td>Allow vertical touch pan only</td></tr>
+          <tr><td>touch-none</td><td>touch-action: none</td><td>Disable all touch actions</td></tr>
+          <tr><td>touch-auto</td><td>touch-action: auto</td><td>Default touch handling</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── LOGICAL PROPERTIES ─────────────────────────────────────────────────── -->
+  <section class="cat-section add-margin-bottom-56" id="logical" data-cat="logical">
+    <div class="section-header">
+      <div class="section-icon background-rose-100">↔</div>
+      <div>
+        <h2 class="set-text-24 text-bold color-gray-900">Logical Properties</h2>
+        <p class="set-text-13 color-gray-500">Writing-mode-aware margin, padding, and border utilities (LTR / RTL support).</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Class</th><th>CSS Output</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>add-padding-inline-{n}</td><td>padding-inline: {n}px</td><td>Inline-axis padding (LTR: left+right)</td></tr>
+          <tr><td>add-padding-block-{n}</td><td>padding-block: {n}px</td><td>Block-axis padding (LTR: top+bottom)</td></tr>
+          <tr><td>add-padding-inline-start-{n}</td><td>padding-inline-start: {n}px</td><td>Logical padding start</td></tr>
+          <tr><td>add-padding-inline-end-{n}</td><td>padding-inline-end: {n}px</td><td>Logical padding end</td></tr>
+          <tr><td>add-margin-inline-{n}</td><td>margin-inline: {n}px</td><td>Inline-axis margin</td></tr>
+          <tr><td>add-margin-block-{n}</td><td>margin-block: {n}px</td><td>Block-axis margin</td></tr>
+          <tr><td>add-margin-inline-start-{n}</td><td>margin-inline-start: {n}px</td><td>Logical margin start</td></tr>
+          <tr><td>add-margin-inline-end-{n}</td><td>margin-inline-end: {n}px</td><td>Logical margin end</td></tr>
+          <tr><td>border-inline-{n}</td><td>border-inline: {n}px solid</td><td>Logical inline border</td></tr>
+          <tr><td>border-block-{n}</td><td>border-block: {n}px solid</td><td>Logical block border</td></tr>
+          <tr><td>inset-inline-{n}</td><td>inset-inline: {n}px</td><td>Logical inline inset (pin left+right)</td></tr>
+          <tr><td>inset-block-{n}</td><td>inset-block: {n}px</td><td>Logical block inset (pin top+bottom)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── DYNAMIC VIEWPORT ───────────────────────────────────────────────────── -->
+  <section class="cat-section add-margin-bottom-56" id="viewport" data-cat="viewport">
+    <div class="section-header">
+      <div class="section-icon background-amber-100">📐</div>
+      <div>
+        <h2 class="set-text-24 text-bold color-gray-900">Dynamic Viewport</h2>
+        <p class="set-text-13 color-gray-500">Modern dvh / svh / lvh viewport units for mobile-aware layouts.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Class</th><th>CSS Output</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>height-dvh</td><td>height: 100dvh</td><td>Dynamic viewport height (accounts for mobile chrome)</td></tr>
+          <tr><td>min-height-dvh</td><td>min-height: 100dvh</td><td>Minimum dynamic viewport height</td></tr>
+          <tr><td>height-svh</td><td>height: 100svh</td><td>Small viewport height (keyboard-visible)</td></tr>
+          <tr><td>height-lvh</td><td>height: 100lvh</td><td>Large viewport height (keyboard-hidden)</td></tr>
+          <tr><td>width-dvw</td><td>width: 100dvw</td><td>Dynamic viewport width</td></tr>
+          <tr><td>width-svw</td><td>width: 100svw</td><td>Small viewport width</td></tr>
+          <tr><td>width-lvw</td><td>width: 100lvw</td><td>Large viewport width</td></tr>
+          <tr><td>height-fit</td><td>height: fit-content</td><td>Height based on content</td></tr>
+          <tr><td>width-fit</td><td>width: fit-content</td><td>Width based on content</td></tr>
+          <tr><td>width-min-content</td><td>width: min-content</td><td>Minimum content width</td></tr>
+          <tr><td>width-max-content</td><td>width: max-content</td><td>Maximum content width</td></tr>
+          <tr><td>height-min-content</td><td>height: min-content</td><td>Minimum content height</td></tr>
+          <tr><td>height-max-content</td><td>height: max-content</td><td>Maximum content height</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── PRINT ──────────────────────────────────────────────────────────────── -->
+  <section class="cat-section add-margin-bottom-56" id="print" data-cat="print">
+    <div class="section-header">
+      <div class="section-icon background-slate-100">🖨</div>
+      <div>
+        <h2 class="set-text-24 text-bold color-gray-900">Print</h2>
+        <p class="set-text-13 color-gray-500">Control element visibility and layout when printing.</p>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Class</th><th>CSS Output</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>print:make-hidden</td><td>@media print { display: none }</td><td>Hide element when printing</td></tr>
+          <tr><td>print:make-block</td><td>@media print { display: block }</td><td>Show as block when printing</td></tr>
+          <tr><td>print:make-flex</td><td>@media print { display: flex }</td><td>Show as flex when printing</td></tr>
+          <tr><td>print:color-black</td><td>@media print { color: #000 }</td><td>Force black text for print</td></tr>
+          <tr><td>print:background-white</td><td>@media print { background: #fff }</td><td>Force white background for print</td></tr>
+          <tr><td>print:add-shadow-none</td><td>@media print { box-shadow: none }</td><td>Remove shadows for print</td></tr>
+          <tr><td>print:break-before</td><td>@media print { page-break-before: always }</td><td>Page break before element</td></tr>
+          <tr><td>print:break-after</td><td>@media print { page-break-after: always }</td><td>Page break after element</td></tr>
+          <tr><td>print:break-inside-avoid</td><td>@media print { page-break-inside: avoid }</td><td>Prevent breaking inside element</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<!-- ─── FOOTER ───────────────────────────────────────────────────────────────── -->
+<footer class="background-gray-900 add-padding-y-56">
+  <div class="container">
+    <div class="make-grid grid-cols-4 gap-40 add-margin-bottom-48">
+      <div>
+        <div class="make-flex align-center gap-10 add-margin-bottom-16">
+          <div class="make-flex align-center justify-center set-width-32 set-height-32 background-blue-600 round-corners-8">
+            <svg width="18" height="18" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </div>
+          <span class="set-text-18 text-bold color-white">Santy<span class="color-blue-400">CSS</span></span>
+        </div>
+        <p class="set-text-14 color-gray-400 line-height-relaxed">Plain-English utility CSS. No build step. Just drop in and start building.</p>
+      </div>
+      <div>
+        <h5 class="set-text-13 text-semibold color-gray-400 text-uppercase letter-space-wide add-margin-bottom-16">Framework</h5>
+        <ul class="list-none make-flex flex-column gap-10">
+          <li><a href="index.html#getting-started" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Getting Started</a></li>
+          <li><a href="classes.html" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Class Reference</a></li>
+          <li><a href="index.html#components" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Components</a></li>
+          <li><a href="index.html#examples" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Examples</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="set-text-13 text-semibold color-gray-400 text-uppercase letter-space-wide add-margin-bottom-16">Resources</h5>
+        <ul class="list-none make-flex flex-column gap-10">
+          <li><a href="demo.html" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Live Demo</a></li>
+          <li><a href="animations.html" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Animations Showcase</a></li>
+          <li><a href="jit-demo.html" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">JIT Demo</a></li>
+          <li><a href="santy.css" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Download CSS</a></li>
+          <li><a href="build.js" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Build Script</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="set-text-13 text-semibold color-gray-400 text-uppercase letter-space-wide add-margin-bottom-16">Quick Stats</h5>
+        <ul class="list-none make-flex flex-column gap-10">
+          <li class="set-text-14 color-gray-400">📦 ~661KB full · 35KB components · 33KB animations</li>
+          <li class="set-text-14 color-gray-400">🎨 20 color families</li>
+          <li class="set-text-14 color-gray-400">🎬 70+ animations</li>
+          <li class="set-text-14 color-gray-400">⚡ No build step</li>
+          <li class="set-text-14 color-gray-400">📱 Responsive variants</li>
+          <li class="set-text-14 color-gray-400">🌙 Dark mode support</li>
+        </ul>
+      </div>
+    </div>
+    <hr style="border-color:#374151;margin-bottom:24px;">
+    <div class="make-flex align-center justify-between">
+      <p class="set-text-13 color-gray-500">© 2026 SantyCSS. Built with plain English.</p>
+      <p class="set-text-13 color-gray-500">MIT License</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── BACK TO TOP ───────────────────────────────────────────────────────────── -->
+<button id="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<!-- ─── SCRIPTS ───────────────────────────────────────────────────────────────── -->
+<script>
+// ── Mobile nav ────────────────────────────────────────────────────────────────
+function toggleMobileNav() {
+  var nav = document.getElementById('main-nav');
+  var ham = document.getElementById('ham-icon');
+  var close = document.getElementById('ham-close');
+  var open = nav.classList.toggle('nav-open');
+  ham.style.display = open ? 'none' : '';
+  close.style.display = open ? '' : 'none';
+}
+document.querySelectorAll('#main-nav .nav-link, #main-nav .make-button').forEach(function(el) {
+  el.addEventListener('click', function() {
+    document.getElementById('main-nav').classList.remove('nav-open');
+    document.getElementById('ham-icon').style.display = '';
+    document.getElementById('ham-close').style.display = 'none';
+  });
+});
+
+// ── Back to top ────────────────────────────────────────────────────────────────
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('back-to-top');
+  if (window.scrollY > 300) btn.classList.add('visible');
+  else btn.classList.remove('visible');
+}, { passive: true });
+
+// ── State ─────────────────────────────────────────────────────────────────────
+var activeCat = 'all';
+var searchTerm = '';
+
+// ── Category filter ────────────────────────────────────────────────────────────
+function filterCat(pill) {
+  document.querySelectorAll('.pill').forEach(function(p) { p.classList.remove('active'); });
+  pill.classList.add('active');
+  activeCat = pill.getAttribute('data-cat');
+  applyFilters();
+  // Scroll to section if a specific category is selected
+  if (activeCat !== 'all') {
+    var sec = document.getElementById(activeCat);
+    if (sec) {
+      setTimeout(function() {
+        sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 60);
+    }
+  }
+}
+
+// ── Search filter ──────────────────────────────────────────────────────────────
+function filterClasses() {
+  searchTerm = document.getElementById('class-search').value.toLowerCase().trim();
+  applyFilters();
+}
+
+// ── Apply both filters ─────────────────────────────────────────────────────────
+function applyFilters() {
+  var totalVisible = 0;
+  var sections = document.querySelectorAll('.cat-section');
+
+  sections.forEach(function(section) {
+    var cat = section.getAttribute('data-cat');
+
+    // Category gating
+    var catMatch = (activeCat === 'all' || activeCat === cat);
+    if (!catMatch) {
+      section.classList.add('hidden');
+      return;
+    }
+    section.classList.remove('hidden');
+
+    if (!searchTerm) {
+      // No search — show all rows in this section
+      section.querySelectorAll('tbody tr').forEach(function(row) {
+        row.classList.remove('row-hidden', 'row-match');
+      });
+      totalVisible++;
+      return;
+    }
+
+    // Row-level search within the section
+    var sectionHasMatch = false;
+    section.querySelectorAll('tbody tr').forEach(function(row) {
+      var text = row.textContent.toLowerCase();
+      if (text.includes(searchTerm)) {
+        row.classList.remove('row-hidden');
+        row.classList.add('row-match');
+        sectionHasMatch = true;
+      } else {
+        row.classList.add('row-hidden');
+        row.classList.remove('row-match');
+      }
+    });
+
+    if (sectionHasMatch) {
+      section.classList.remove('hidden');
+      totalVisible++;
+    } else {
+      section.classList.add('hidden');
+    }
+  });
+
+  // Update count badge
+  var countEl = document.getElementById('result-count');
+  if (searchTerm) {
+    var matchCount = document.querySelectorAll('tbody tr.row-match').length;
+    countEl.textContent = matchCount + ' match' + (matchCount !== 1 ? 'es' : '');
+  } else {
+    countEl.textContent = '';
+  }
+
+  // No results state
+  document.getElementById('no-results').style.display = (totalVisible === 0) ? 'block' : 'none';
+}
+</script>
+</body>
+</html>

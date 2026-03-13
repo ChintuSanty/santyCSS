@@ -183,13 +183,13 @@
       <svg id="ham-close" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:none"><path d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
     <nav id="main-nav" class="make-flex align-center gap-24">
-      <a href="#utilities" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Utilities</a>
+      <a href="classes.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Classes</a>
       <a href="#components" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Components</a>
       <a href="animations.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Animations</a>
       <a href="#ai-generator" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">AI Gen</a>
       <a href="docs.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">npm Docs</a>
       <a href="#feedback" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Feedback</a>
-      <a href="demo.html" class="btn btn-primary btn-sm">Live Demo →</a>
+      <a href="demo.html" class="make-button style-primary size-small">Live Demo →</a>
     </nav>
   </div>
 </header>
@@ -243,14 +243,10 @@
     </div>
 
     <div class="make-flex justify-center gap-16 flex-wrap hero-cta-group">
-      <a href="#getting-started" class="btn btn-lg" style="background:#3b82f6;color:#fff;">Get Started</a>
-      <a href="#utilities" class="btn btn-lg" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.3);">Browse Utilities</a>
-      <button onclick="downloadCSS('santy.css')" class="btn btn-lg" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.3);">
-        ↓ Download CSS
-      </button>
-      <button onclick="downloadCSS('santy.min.css')" class="btn btn-lg" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.3);">
-        ↓ Download Minified
-      </button>
+      <a href="#getting-started" class="make-button style-primary size-large">Get Started</a>
+      <a href="#utilities" class="make-button style-ghost size-large" style="color:#fff;border-color:rgba(255,255,255,0.4);">Browse Utilities</a>
+      <button onclick="downloadCSS('santy.css')" class="make-button style-ghost size-large" style="color:#fff;border-color:rgba(255,255,255,0.4);">↓ Download CSS</button>
+      <button onclick="downloadCSS('santy.min.css')" class="make-button style-ghost size-large" style="color:#fff;border-color:rgba(255,255,255,0.4);">↓ Download Minified</button>
     </div>
   </div>
 </section>
@@ -288,6 +284,70 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ─── WHY SANTYCSS IN THE ERA OF AI ─────────────────────────────────────── -->
+<section id="ai-era" class="background-white add-padding-y-80" style="border-top:1px solid #f1f5f9;">
+  <div class="container">
+    <div class="text-center add-margin-bottom-56">
+      <span class="chip add-margin-bottom-16" style="display:inline-block;background:#f3e8ff;color:#7c3aed;border-color:#ddd6fe;">🤖 Built for the AI Era</span>
+      <h2 class="set-text-40 text-bold color-gray-900 add-margin-bottom-16" style="letter-spacing:-1px;">Why SantyCSS in the Age of AI?</h2>
+      <p class="set-text-18 color-gray-500 line-height-relaxed" style="max-width:640px;margin:0 auto;">
+        AI tools like Claude, ChatGPT, and Copilot write CSS every day — but they default to Tailwind or Bootstrap. SantyCSS is different: its class names <em>are</em> the documentation.
+      </p>
+    </div>
+
+    <div class="make-grid gap-24 add-margin-bottom-56" style="grid-template-columns:repeat(auto-fill,minmax(268px,1fr));">
+
+      <div style="background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border:1px solid #bae6fd;border-radius:20px;padding:32px;">
+        <div style="font-size:32px;margin-bottom:16px;">🧠</div>
+        <h3 class="set-text-18 text-semibold color-gray-900 add-margin-bottom-10">LLMs understand it instantly</h3>
+        <p class="set-text-14 color-gray-600 line-height-relaxed">Class names like <code style="background:#dbeafe;color:#1d4ed8;padding:2px 6px;border-radius:4px;">make-flex align-center</code> are self-documenting. Any AI can generate, read, and modify SantyCSS without a lookup table.</p>
+      </div>
+
+      <div style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1px solid #bbf7d0;border-radius:20px;padding:32px;">
+        <div style="font-size:32px;margin-bottom:16px;">📋</div>
+        <h3 class="set-text-18 text-semibold color-gray-900 add-margin-bottom-10">One context file, any AI tool</h3>
+        <p class="set-text-14 color-gray-600 line-height-relaxed">Paste <code style="background:#dcfce7;color:#166534;padding:2px 6px;border-radius:4px;">santycss.context.md</code> into Claude, GPT-4, or Cursor system prompt and the AI generates SantyCSS instead of Tailwind — every time.</p>
+        <a href="santycss.context.md" download class="set-text-13 color-green-700 text-semibold text-no-decoration" style="display:inline-block;margin-top:14px;">↓ Download context file</a>
+      </div>
+
+      <div style="background:linear-gradient(135deg,#faf5ff,#ede9fe);border:1px solid #ddd6fe;border-radius:20px;padding:32px;">
+        <div style="font-size:32px;margin-bottom:16px;">⚡</div>
+        <h3 class="set-text-18 text-semibold color-gray-900 add-margin-bottom-10">No build step, ever</h3>
+        <p class="set-text-14 color-gray-600 line-height-relaxed">AI-generated code should just work. Link one CSS file and use 8,500+ classes — no Webpack, no PostCSS, no config. Paste AI output directly into your HTML.</p>
+      </div>
+
+      <div style="background:linear-gradient(135deg,#fff7ed,#fed7aa);border:1px solid #fdba74;border-radius:20px;padding:32px;">
+        <div style="font-size:32px;margin-bottom:16px;">🔁</div>
+        <h3 class="set-text-18 text-semibold color-gray-900 add-margin-bottom-10">Prompt → Class → Done</h3>
+        <p class="set-text-14 color-gray-600 line-height-relaxed">The built-in AI Generator turns plain English into ready-to-use SantyCSS classes instantly — right in the browser, no API key required.</p>
+        <a href="#ai-generator" class="set-text-13 color-orange-700 text-semibold text-no-decoration" style="display:inline-block;margin-top:14px;">Try the generator ↓</a>
+      </div>
+
+    </div>
+
+    <!-- Code comparison panel -->
+    <div style="max-width:860px;margin:0 auto;background:#0f172a;border-radius:20px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.18);">
+      <div style="padding:14px 24px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:10px;">
+        <div style="width:11px;height:11px;border-radius:50%;background:#ef4444;"></div>
+        <div style="width:11px;height:11px;border-radius:50%;background:#f59e0b;"></div>
+        <div style="width:11px;height:11px;border-radius:50%;background:#22c55e;"></div>
+        <span style="color:#475569;font-size:12px;margin-left:10px;font-family:ui-monospace,monospace;">AI prompt → SantyCSS classes</span>
+      </div>
+      <div style="padding:32px 36px;display:grid;grid-template-columns:1fr 1fr;gap:40px;">
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#6366f1;margin-bottom:14px;">You tell the AI</div>
+          <p style="color:#94a3b8;font-size:15px;line-height:1.75;font-style:italic;">"a card with shadow, blue left border, rounded corners and hover scale effect"</p>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#22c55e;margin-bottom:14px;">AI outputs</div>
+          <code style="display:block;color:#a78bfa;font-size:13px;font-family:ui-monospace,monospace;line-height:2;">make-card style-bordered<br>add-border-left-4<br>border-color-blue-500<br>round-corners-16<br>add-shadow-md<br>on-hover:scale-105<br>transition-all</code>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1611,8 +1671,8 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
         </div>
         <!-- Live demo: tokens applied -->
         <div style="--santy-primary:#7c3aed;--santy-primary-dark:#6d28d9;--santy-radius:12px;" class="make-flex flex-wrap gap-10">
-          <button class="btn btn-primary btn-sm" style="background:#7c3aed;border-radius:12px;">Branded btn</button>
-          <button class="btn btn-outline btn-sm" style="border-color:#7c3aed;color:#7c3aed;border-radius:12px;">Outlined</button>
+          <button class="make-button style-primary size-small" style="background:#7c3aed;border-radius:12px;">Branded btn</button>
+          <button class="make-button style-outline size-small" style="border-color:#7c3aed;color:#7c3aed;border-radius:12px;">Outlined</button>
           <span class="badge" style="background:#ede9fe;color:#6d28d9;border-radius:12px;">Token Badge</span>
         </div>
         <div class="table-wrap add-margin-top-20">
@@ -1802,20 +1862,20 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
       <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
         <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Buttons</h3>
         <div class="make-flex flex-wrap gap-8 add-margin-bottom-12">
-          <button class="btn btn-primary btn-sm">Primary</button>
-          <button class="btn btn-success btn-sm">Success</button>
-          <button class="btn btn-danger btn-sm">Danger</button>
-          <button class="btn btn-warning btn-sm">Warning</button>
-          <button class="btn btn-outline btn-sm color-blue-600">Outline</button>
-          <button class="btn btn-ghost btn-sm color-gray-700">Ghost</button>
+          <button class="make-button style-primary size-small">Primary</button>
+          <button class="make-button style-success size-small">Success</button>
+          <button class="make-button style-danger size-small">Danger</button>
+          <button class="make-button style-warning size-small">Warning</button>
+          <button class="make-button style-outline size-small">Outline</button>
+          <button class="make-button style-ghost size-small">Ghost</button>
         </div>
-        <code class="chip">.btn .btn-primary .btn-sm/.lg/.xl</code>
+        <code class="chip">.make-button .style-primary .size-small/.large/.xl</code>
       </div>
 
       <!-- Modal -->
       <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
         <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Modal / Dialog</h3>
-        <a href="#demo-modal" class="btn btn-primary btn-sm">Open Modal</a>
+        <a href="#demo-modal" class="make-button style-primary size-small">Open Modal</a>
         <div id="demo-modal" class="modal-overlay">
           <div class="modal-box" style="max-width:380px;">
             <div class="modal-header">
@@ -1824,8 +1884,8 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
             </div>
             <div class="modal-body">Are you sure you want to delete this item? This action cannot be undone.</div>
             <div class="modal-footer">
-              <a href="#" class="btn btn-ghost btn-sm color-gray-600">Cancel</a>
-              <button class="btn btn-danger btn-sm">Delete</button>
+              <a href="#" class="make-button style-ghost size-small">Cancel</a>
+              <button class="make-button style-danger size-small">Delete</button>
             </div>
           </div>
         </div>
@@ -1836,7 +1896,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
       <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
         <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Dropdown Menu</h3>
         <div class="dropdown">
-          <button class="btn btn-primary btn-sm dropdown-toggle" onclick="this.closest('.dropdown').classList.toggle('open')">Options ▾</button>
+          <button class="make-button style-primary size-small dropdown-toggle" onclick="this.closest('.dropdown').classList.toggle('open')">Options ▾</button>
           <div class="dropdown-menu">
             <div class="dropdown-header">Actions</div>
             <a href="#" class="dropdown-item">✏️ Edit</a>
@@ -1928,7 +1988,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
       <!-- Drawer / Sidebar -->
       <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
         <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Sidebar / Drawer</h3>
-        <a href="#demo-drawer" class="btn btn-primary btn-sm">Open Drawer</a>
+        <a href="#demo-drawer" class="make-button style-primary size-small">Open Drawer</a>
         <div id="demo-drawer" class="drawer-overlay">
           <div class="drawer-panel">
             <div class="drawer-header">
@@ -2009,8 +2069,8 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
           </div>
           <div class="card-body set-text-13 color-gray-500">Card body content goes here with a white background, radius, and shadow.</div>
           <div class="card-footer make-flex justify-end gap-8">
-            <button class="btn btn-ghost btn-sm color-gray-600">Cancel</button>
-            <button class="btn btn-primary btn-sm">Save</button>
+            <button class="make-button style-ghost size-small">Cancel</button>
+            <button class="make-button style-primary size-small">Save</button>
           </div>
         </div>
         <code class="chip add-margin-top-8">.card .card-header .card-body .card-footer</code>
@@ -2083,19 +2143,19 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
         <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-16">Tooltip</h3>
         <div class="make-flex flex-wrap gap-16 align-center add-margin-bottom-16">
           <span class="tooltip tooltip-top">
-            <button class="btn btn-primary btn-sm">Top</button>
+            <button class="make-button style-primary size-small">Top</button>
             <span class="tooltip-content">Tooltip on top</span>
           </span>
           <span class="tooltip tooltip-bottom">
-            <button class="btn btn-success btn-sm">Bottom</button>
+            <button class="make-button style-success size-small">Bottom</button>
             <span class="tooltip-content">Tooltip on bottom</span>
           </span>
           <span class="tooltip tooltip-right">
-            <button class="btn btn-warning btn-sm">Right</button>
+            <button class="make-button style-warning size-small">Right</button>
             <span class="tooltip-content">Tooltip on right</span>
           </span>
           <span class="tooltip tooltip-left">
-            <button class="btn btn-danger btn-sm">Left</button>
+            <button class="make-button style-danger size-small">Left</button>
             <span class="tooltip-content">Tooltip on left</span>
           </span>
         </div>
@@ -2140,7 +2200,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
               <svg width="16" height="16" fill="none" stroke="#d1d5db" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>Team features
             </li>
           </ul>
-          <button class="btn btn-outline btn-full color-gray-700">Get Started</button>
+          <button class="make-button style-outline size-full">Get Started</button>
         </div>
         <!-- Pro (featured) -->
         <div class="background-blue-600 round-corners-20 add-padding-32 make-flex flex-column add-shadow-xl" style="transform:scale(1.04);">
@@ -2167,7 +2227,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
               <svg width="16" height="16" fill="none" stroke="#86efac" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Team features
             </li>
           </ul>
-          <button class="btn btn-full" style="background:#fff;color:#2563eb;">Start Free Trial</button>
+          <button class="make-button size-full" style="background:#fff;color:#2563eb;">Start Free Trial</button>
         </div>
         <!-- Enterprise -->
         <div class="background-white add-border-1 border-color-gray-200 round-corners-20 add-padding-32 make-flex flex-column">
@@ -2190,7 +2250,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
               <svg width="16" height="16" fill="none" stroke="#22c55e" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Custom Integrations
             </li>
           </ul>
-          <button class="btn btn-outline btn-full color-gray-700">Contact Sales</button>
+          <button class="make-button style-outline size-full">Contact Sales</button>
         </div>
       </div>
     </div>
@@ -2223,7 +2283,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
                 <div class="set-text-12 color-gray-500">Following</div>
               </div>
             </div>
-            <button class="btn btn-primary btn-full">Follow</button>
+            <button class="make-button style-primary size-full">Follow</button>
           </div>
         </div>
       </div>
@@ -2309,10 +2369,10 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
           style="width:100%;background:transparent;border:none;outline:none;color:#f1f5f9;font-size:16px;font-family:inherit;resize:none;padding:16px;line-height:1.6;"></textarea>
         <div class="make-flex justify-between align-center" style="padding:8px 12px 4px;border-top:1px solid rgba(255,255,255,.07);">
           <div class="make-flex flex-wrap gap-8">
-            <button onclick="aiSetExample('a card with a blue left border, shadow, and hover scale')" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;">card + blue border</button>
-            <button onclick="aiSetExample('centered flex container with gap and dark background')" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;">flex center</button>
+            <button onclick="aiSetExample('a card with a blue left border shadow and hover scale effect')" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;">card + blue border</button>
+            <button onclick="aiSetExample('centered flex container with gap and green background and white text')" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;">flex center</button>
             <button onclick="aiSetExample('large bold heading with purple gradient text and fade in animation')" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;">gradient heading</button>
-            <button onclick="aiSetExample('green success button rounded pill with hover shadow')" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;">success button</button>
+            <button onclick="aiSetExample('green success button large rounded with hover shadow')" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;">success button</button>
           </div>
           <button onclick="generateAIClasses()" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;border-radius:10px;padding:10px 24px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;">Generate ✨</button>
         </div>
@@ -2555,7 +2615,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
         <div id="fb-error" class="set-text-13 color-red-600 add-margin-bottom-12" style="display:none;">Please write a message before sending.</div>
 
         <button onclick="sendFeedbackToWhatsApp()"
-          class="btn btn-primary set-width-full add-padding-y-14 set-text-15 text-semibold round-corners-12"
+          class="make-button style-primary size-full set-text-15 text-semibold round-corners-12"
           style="background:linear-gradient(135deg,#25d366,#128c7e);border:none;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Send via WhatsApp
@@ -3080,181 +3140,237 @@ document.querySelectorAll('#main-nav .nav-link, #main-nav .btn').forEach(functio
 });
 
 // ── AI Prompt-to-SantyCSS Generator ──────────────────────────────────────────
-var AI_COLORS = ['blue','red','green','yellow','purple','pink','orange','gray','indigo','cyan','teal','rose','violet','emerald','amber','lime','sky'];
+// ─── SantyCSS AI Generator ──────────────────────────────────────────────────
+// Context-aware NLP: detects background/text/border colors in their correct roles
 
-function aiDetectColor(p) {
-  for (var i = 0; i < AI_COLORS.length; i++) {
-    if (p.indexOf(AI_COLORS[i]) !== -1) return AI_COLORS[i];
-  }
-  return null;
+var AI_NAMED_COLORS = 'blue|red|green|yellow|purple|pink|orange|gray|indigo|cyan|teal|rose|violet|emerald|amber|lime|sky|slate|zinc|neutral|stone';
+var AI_ALL_COLORS   = AI_NAMED_COLORS + '|white|black|transparent|dark|light';
+
+// Parse contextual color roles from a prompt
+function aiParseColors(p) {
+  var NAMED = AI_NAMED_COLORS, ALL = AI_ALL_COLORS;
+  var result = { bg: null, text: null, border: null, accent: null };
+
+  // Background: "green background" / "background green" / "bg-green"
+  var m = p.match(new RegExp('\\b(' + ALL + ')\\s+(?:background|bg)\\b'));
+  if (!m) m = p.match(new RegExp('\\b(?:background|bg)[-\\s]+(' + ALL + ')\\b'));
+  if (m) result.bg = m[1];
+
+  // Text color: "white text" / "text white" / "blue text" / "text blue"
+  var mtxt = p.match(new RegExp('\\b(white|black|' + NAMED + ')\\s+text\\b'));
+  if (!mtxt) mtxt = p.match(new RegExp('\\btext[-\\s]+(white|black|' + NAMED + ')\\b'));
+  if (mtxt) result.text = mtxt[1];
+
+  // Border color: "blue border" / "border blue" / "blue left border"
+  var mbrd = p.match(new RegExp('\\b(' + NAMED + ')\\s+(?:left |right |top |bottom )?border\\b'));
+  if (!mbrd) mbrd = p.match(new RegExp('\\bborder(?:-color)?[-\\s]+(' + NAMED + ')\\b'));
+  if (mbrd) result.border = mbrd[1];
+
+  // Accent: first named color mentioned (fallback for generic usage)
+  var acRe = new RegExp('\\b(' + NAMED + ')\\b');
+  var acm = p.match(acRe);
+  if (acm) result.accent = acm[1];
+
+  return result;
+}
+
+function aiShade(p, base) {
+  base = base || '500';
+  if (/\bdark\b/.test(p) && base === '500') return '700';
+  if (/\blight\b/.test(p) && base === '500') return '300';
+  return base;
 }
 
 function generateAIClasses() {
-  var raw = document.getElementById('ai-prompt').value || '';
-  var p   = raw.toLowerCase();
-  if (!p.trim()) return;
+  var raw = (document.getElementById('ai-prompt').value || '').trim();
+  if (!raw) return;
+  var p = raw.toLowerCase();
 
-  var classes  = [];
-  var explain  = [];
-  var color    = aiDetectColor(p);
-  var shade    = p.indexOf('dark') !== -1 ? '700' : p.indexOf('light') !== -1 ? '300' : '500';
+  var classes = [], explain = [];
+  var colors  = aiParseColors(p);
+  var shade   = aiShade(p);
 
-  // ── Structural presets ──────────────────────────────
+  // ── Components ──────────────────────────────────────
   if (/\bcard\b/.test(p)) {
-    var cv = /elevated|shadow/.test(p) ? 'style-elevated' : /flat/.test(p) ? 'style-flat' : /dark/.test(p) ? 'style-dark' : 'style-bordered';
-    classes.push('make-card', cv); explain.push('card component');
+    var cv = /elevated|raised/.test(p) ? 'style-elevated' : /flat|no.shadow/.test(p) ? 'style-flat' : /dark/.test(p) ? 'style-dark' : 'style-bordered';
+    classes.push('make-card', cv); explain.push('card (' + cv + ')');
   }
-  var isButton = /\bbtn\b|button/.test(p) && !/no.?button/.test(p);
+
+  var isButton = /\b(btn|button|cta)\b/.test(p) && !/no.?button/.test(p);
   if (isButton) {
-    var bstyle = p.indexOf('outline') !== -1 ? 'style-outline'
-               : p.indexOf('ghost')   !== -1 ? 'style-ghost'
-               : /\bgreen\b|success/.test(p) ? 'style-success'
-               : /\bred\b|danger|delete|remove/.test(p) ? 'style-danger'
-               : /\byellow\b|warning/.test(p) ? 'style-warning'
-               : /\bgray\b|secondary/.test(p) ? 'style-secondary'
-               : /\bdark\b/.test(p) ? 'style-dark'
+    var bstyle = /outline/.test(p) ? 'style-outline'
+               : /ghost/.test(p) ? 'style-ghost'
+               : /\b(green|success)\b/.test(p) ? 'style-success'
+               : /\b(red|danger|delete|remove|error)\b/.test(p) ? 'style-danger'
+               : /\b(yellow|warning|warn)\b/.test(p) ? 'style-warning'
+               : /\b(gray|grey|secondary|neutral)\b/.test(p) ? 'style-secondary'
+               : /\b(dark|black)\b/.test(p) ? 'style-dark'
+               : /\b(blue|primary)\b/.test(p) ? 'style-primary'
+               : colors.accent ? ('style-' + (colors.accent === 'green' ? 'success' : colors.accent === 'red' ? 'danger' : colors.accent === 'yellow' ? 'warning' : 'primary'))
                : 'style-primary';
-    var bsize  = /large|big|lg/.test(p) ? 'size-large' : /small|sm/.test(p) ? 'size-small' : /full.width|full width/.test(p) ? 'size-full' : '';
-    var bshape = /\bpill\b/.test(p) ? 'shape-pill' : /rounded|round/.test(p) ? 'shape-rounded' : /square/.test(p) ? 'shape-square' : '';
+    var bsize  = /\b(large|big|lg|xl)\b/.test(p) ? 'size-large' : /\b(small|sm|tiny)\b/.test(p) ? 'size-small' : /\b(full.?width|full width|wide)\b/.test(p) ? 'size-full' : '';
+    var bshape = /\bpill\b/.test(p) ? 'shape-pill' : /\b(rounded|round)\b/.test(p) ? 'shape-rounded' : /\bsquare\b/.test(p) ? 'shape-square' : '';
     classes.push('make-button', bstyle);
     if (bsize)  classes.push(bsize);
     if (bshape) classes.push(bshape);
-    explain.push('make-button ' + bstyle + (bsize ? ' ' + bsize : '') + (bshape ? ' ' + bshape : ''));
+    explain.push('button → ' + bstyle + (bsize ? ' ' + bsize : '') + (bshape ? ' ' + bshape : ''));
   }
-  if (/\bbadge\b|label|tag/.test(p) && !isButton) {
-    var badgestyle = /success|green/.test(p) ? 'style-success' : /danger|red|error/.test(p) ? 'style-danger' : /warning|yellow/.test(p) ? 'style-warning' : /dark/.test(p) ? 'style-dark' : /outline/.test(p) ? 'style-outline' : 'style-primary';
-    classes.push('make-badge', badgestyle); explain.push('badge');
+
+  if (/\bbadge\b|\blabel\b|\btag\b/.test(p) && !isButton) {
+    var bs = /\b(success|green)\b/.test(p) ? 'style-success' : /\b(danger|red|error)\b/.test(p) ? 'style-danger' : /\b(warning|yellow)\b/.test(p) ? 'style-warning' : /dark/.test(p) ? 'style-dark' : /outline/.test(p) ? 'style-outline' : 'style-primary';
+    classes.push('make-badge', bs); explain.push('badge (' + bs + ')');
   }
-  if (/\balert\b|notification|toast/.test(p) && !isButton) {
-    var alertstyle = /success|green/.test(p) ? 'style-success' : /danger|red|error/.test(p) ? 'style-danger' : /warning|yellow/.test(p) ? 'style-warning' : /dark/.test(p) ? 'style-dark' : 'style-info';
-    classes.push('make-alert', alertstyle); explain.push('alert');
+
+  if (/\balert\b|\bnotification\b|\btoast\b|\bbanner\b/.test(p) && !isButton) {
+    var as = /\b(success|green)\b/.test(p) ? 'style-success' : /\b(danger|red|error)\b/.test(p) ? 'style-danger' : /\b(warning|yellow)\b/.test(p) ? 'style-warning' : 'style-info';
+    classes.push('make-alert', as); explain.push('alert (' + as + ')');
   }
 
   // ── Layout ──────────────────────────────────────────
-  if (/flex|horizontal.layout/.test(p))            { classes.push('make-flex'); explain.push('flexbox'); }
-  if (/\bgrid\b/.test(p))                           { classes.push('make-grid', 'grid-cols-3'); explain.push('3-column grid'); }
-  if (/\bcenter\b/.test(p))                         { classes.push('align-center','justify-center'); explain.push('center-aligned'); }
-  if (/\bcolumn\b|vertical.stack/.test(p))          { classes.push('flex-column'); explain.push('column direction'); }
-  if (/\bwrap\b/.test(p))                           { classes.push('flex-wrap'); }
-  if (/space.between|between/.test(p))              { classes.push('justify-between'); }
-  if (/full.width|full width/.test(p))              { classes.push('set-width-full'); }
-  if (/full.screen|fullscreen|viewport/.test(p))   { classes.push('min-height-screen'); }
-  if (/\bgap\b/.test(p))                            { classes.push('gap-16'); }
+  if (/\b(flex|flexbox|horizontal)\b/.test(p)) { classes.push('make-flex'); explain.push('flex'); }
+  if (/\b(grid)\b/.test(p)) {
+    var gc = /(\d+).col/.test(p) ? p.match(/(\d+).col/)[1] : /two|2/.test(p) ? '2' : /four|4/.test(p) ? '4' : '3';
+    classes.push('make-grid', 'grid-cols-' + gc); explain.push(gc + '-col grid');
+  }
+  if (/\bcenter(ed)?\b/.test(p))               { classes.push('align-center', 'justify-center'); explain.push('centered'); }
+  if (/\bcolumn\b|\bvertical\b|\bstack\b/.test(p)) { classes.push('flex-column'); explain.push('column'); }
+  if (/\bwrap\b/.test(p))                      { classes.push('flex-wrap'); }
+  if (/space.between|\bbetween\b/.test(p))     { classes.push('justify-between'); }
+  if (/full.?width|full width/.test(p))        { classes.push('set-width-full'); }
+  if (/full.?screen|viewport|full.?height/.test(p)) { classes.push('set-height-screen'); }
+  if (/\bgap\b/.test(p)) {
+    var gv = /large|big/.test(p) ? '32' : /small|sm/.test(p) ? '8' : '16';
+    classes.push('gap-' + gv); explain.push('gap ' + gv + 'px');
+  }
 
   // ── Borders ─────────────────────────────────────────
-  var bside = /left.border|border.left/.test(p) ? 'left'
-            : /right.border|border.right/.test(p) ? 'right'
-            : /top.border|border.top/.test(p) ? 'top'
-            : /bottom.border|border.bottom/.test(p) ? 'bottom' : null;
+  var bside = /left.?border|border.?left/.test(p) ? 'left'
+            : /right.?border|border.?right/.test(p) ? 'right'
+            : /top.?border|border.?top/.test(p) ? 'top'
+            : /bottom.?border|border.?bottom/.test(p) ? 'bottom' : null;
   if (bside) {
-    var bc = color || 'blue';
+    var bc = colors.border || colors.accent || 'blue';
     classes.push('add-border-' + bside + '-4', 'border-color-' + bc + '-' + shade);
     explain.push(bc + ' ' + bside + ' border');
-  } else if (/\bborder\b/.test(p)) {
-    classes.push('add-border-1', 'border-color-gray-200');
-    if (color) { classes.push('border-color-' + color + '-300'); }
+  } else if (/\bborder\b/.test(p) && !isButton) {
+    var bc2 = colors.border || colors.accent;
+    classes.push('add-border-1');
+    classes.push('border-color-' + (bc2 ? bc2 + '-300' : 'gray-200'));
     explain.push('border');
   }
 
   // ── Shape ───────────────────────────────────────────
-  if (/\bcircle\b/.test(p))                         { classes.push('make-circle'); explain.push('circle'); }
-  else if (/\bpill\b/.test(p))                      { classes.push('make-pill'); explain.push('pill shape'); }
-  else if (/rounded|round.corners/.test(p)) {
-    var r = /very|full|extra/.test(p) ? '24' : /large|big/.test(p) ? '16' : /small|sm/.test(p) ? '4' : '10';
-    classes.push('round-corners-' + r); explain.push('rounded corners');
+  if (/\bcircle\b/.test(p))                          { classes.push('make-circle'); explain.push('circle'); }
+  else if (/\bpill\b/.test(p) && !isButton)          { classes.push('make-pill'); explain.push('pill'); }
+  else if (/\b(rounded|round.corners)\b/.test(p) && !isButton) {
+    var rv = /very|full|extra/.test(p) ? '24' : /\b(large|big)\b/.test(p) ? '16' : /\b(small|sm)\b/.test(p) ? '4' : '10';
+    classes.push('round-corners-' + rv); explain.push('rounded-' + rv);
   }
 
   // ── Shadow ──────────────────────────────────────────
-  if (/shadow/.test(p)) {
-    var sv = /large|lg|big|heavy/.test(p) ? 'lg' : /small|sm|subtle/.test(p) ? 'sm' : 'md';
+  if (/\bshadow\b/.test(p)) {
+    var sv = /\b(large|lg|big|heavy|deep)\b/.test(p) ? 'lg' : /\b(small|sm|light|subtle)\b/.test(p) ? 'sm' : /\bxl\b/.test(p) ? 'xl' : 'md';
     classes.push('add-shadow-' + sv); explain.push(sv + ' shadow');
   }
 
-  // ── Background ──────────────────────────────────────
-  if (/background|bg/.test(p) && !isButton) {
-    if (/white/.test(p))            classes.push('background-white');
-    else if (/dark|black/.test(p))  classes.push('background-gray-900');
-    else if (color) { classes.push('background-' + color + '-' + shade); explain.push(color + ' background'); }
+  // ── Background (context-aware: ignores "white text") ──
+  if (!isButton) {
+    var bgColor = colors.bg;
+    if (bgColor) {
+      if (bgColor === 'white')       classes.push('background-white');
+      else if (bgColor === 'black' || bgColor === 'dark') classes.push('background-gray-900');
+      else if (bgColor === 'transparent') classes.push('background-transparent');
+      else { classes.push('background-' + bgColor + '-' + shade); explain.push(bgColor + ' bg'); }
+    } else if (/\b(dark.?mode|dark.?background|night.?mode)\b/.test(p)) {
+      classes.push('background-gray-900');
+    }
   }
 
-  // ── Text color ──────────────────────────────────────
-  if (color && /text.color|color.text|\btext\b.*color|color.*\btext\b/.test(p))
-    { classes.push('color-' + color + '-700'); explain.push(color + ' text'); }
-  else if (color && !bside && !/background|bg/.test(p) && /\btext\b|\bheading\b|\btitle\b/.test(p))
-    { classes.push('color-' + color + '-600'); explain.push(color + ' text'); }
+  // ── Text color (context-aware) ────────────────────
+  if (colors.text) {
+    if (colors.text === 'white')  { classes.push('color-white'); explain.push('white text'); }
+    else if (colors.text === 'black') { classes.push('color-gray-900'); explain.push('dark text'); }
+    else { classes.push('color-' + colors.text + '-700'); explain.push(colors.text + ' text'); }
+  } else if (!isButton && !colors.bg && colors.accent && /\b(text|heading|title|label)\b/.test(p)) {
+    classes.push('color-' + colors.accent + '-600'); explain.push(colors.accent + ' text');
+  }
 
-  // ── Gradient text ────────────────────────────────────
+  // ── Gradient text ─────────────────────────────────
   if (/gradient.text|text.gradient/.test(p)) {
-    var gc1 = color || 'blue', gc2 = gc1 === 'purple' ? 'pink' : gc1 === 'blue' ? 'purple' : gc1 === 'green' ? 'cyan' : 'purple';
-    classes.push('from-' + gc1 + '-500', 'to-' + gc2 + '-600');
-    explain.push('gradient text via CSS vars');
+    var gc1 = colors.accent || 'blue';
+    var gc2 = gc1 === 'purple' ? 'pink' : gc1 === 'blue' ? 'purple' : gc1 === 'green' ? 'cyan' : gc1 === 'red' ? 'orange' : 'purple';
+    classes.push('gradient-to-right', 'from-' + gc1 + '-500', 'to-' + gc2 + '-500');
+    explain.push('gradient text');
   }
 
   // ── Spacing ─────────────────────────────────────────
-  if (/padding|padded/.test(p)) {
-    var pv = /large|lg|big/.test(p) ? '32' : /small|sm/.test(p) ? '12' : '20';
-    classes.push('add-padding-' + pv); explain.push('padding ' + pv + 'px');
+  if (/\b(padding|padded)\b/.test(p) && !isButton) {
+    var pv = /\b(large|lg|big)\b/.test(p) ? '32' : /\b(small|sm)\b/.test(p) ? '12' : '20';
+    classes.push('add-padding-' + pv); explain.push('padding-' + pv);
   }
-  if (/\bmargin\b/.test(p)) classes.push('add-margin-16');
+  if (/\bmargin\b/.test(p) && !isButton) { classes.push('add-margin-16'); }
 
   // ── Typography ──────────────────────────────────────
-  if (/\bbold\b/.test(p))                            { classes.push('text-bold'); explain.push('bold'); }
-  if (/semibold|semi.bold/.test(p))                  { classes.push('text-semibold'); }
-  if (/\bitalic\b/.test(p))                          { classes.push('text-italic'); }
-  if (/uppercase|all.caps/.test(p))                  { classes.push('text-uppercase'); }
-  if (/center.text|text.center/.test(p))             { classes.push('text-center'); }
-  if (/large.text|big.text|heading|title/.test(p))   { classes.push('set-text-32'); explain.push('large text'); }
-  else if (/small.text/.test(p))                     { classes.push('set-text-12'); }
-  if (/line.height|leading|readable/.test(p))        { classes.push('line-height-relaxed'); }
+  if (/\bbold\b/.test(p))                              { classes.push('text-bold'); explain.push('bold'); }
+  if (/semibold|semi.bold/.test(p))                    { classes.push('text-semibold'); }
+  if (/\bitalic\b/.test(p))                            { classes.push('text-italic'); }
+  if (/uppercase|all.caps/.test(p))                    { classes.push('text-uppercase'); }
+  if (/center.text|text.center/.test(p))               { classes.push('text-center'); }
+  if (/\b(heading|title|large.text|big.text)\b/.test(p)) { classes.push('set-text-32'); explain.push('32px text'); }
+  else if (/small.text|tiny.text/.test(p))             { classes.push('set-text-12'); }
+  if (/line.height|leading|readable/.test(p))          { classes.push('line-height-relaxed'); }
 
   // ── Hover ───────────────────────────────────────────
-  if (/hover/.test(p)) {
-    if (/scale|grow|zoom|enlarge/.test(p))           { classes.push('on-hover:scale-110'); explain.push('scale on hover'); }
-    if (/shadow.*hover|hover.*shadow/.test(p))       { classes.push('on-hover:add-shadow-lg'); }
-    if (/lift|float/.test(p))                        { classes.push('on-hover:scale-105','on-hover:add-shadow-lg'); explain.push('lift on hover'); }
-    if (/opacity|fade/.test(p))                      { classes.push('on-hover:opacity-75'); }
-    if (color && /hover/.test(p) && !bside)          { classes.push('on-hover:background-' + color + '-600'); }
+  if (/\bhover\b/.test(p)) {
+    if (/\b(scale|grow|zoom|enlarge)\b/.test(p))       { classes.push('on-hover:scale-110'); explain.push('scale on hover'); }
+    if (/shadow.*hover|hover.*shadow/.test(p))         { classes.push('on-hover:add-shadow-lg'); }
+    if (/\b(lift|float|raise)\b/.test(p))              { classes.push('on-hover:scale-105', 'on-hover:add-shadow-lg'); explain.push('lift on hover'); }
+    if (/\b(opacity|fade|dim)\b/.test(p))              { classes.push('on-hover:opacity-75'); }
+    classes.push('transition-all');
   }
 
-  // ── Animation ───────────────────────────────────────
-  if (/fade.in|fade in/.test(p))                     { classes.push('animate-fade-in'); explain.push('fade-in animation'); }
-  if (/\bbounce\b/.test(p))                          { classes.push('animate-bounce'); explain.push('bounce animation'); }
-  if (/\bspin\b|spinning/.test(p))                   { classes.push('animate-spin'); explain.push('spin animation'); }
-  if (/\bpulse\b/.test(p))                           { classes.push('animate-pulse'); }
-  if (/slide.up|slide up/.test(p))                   { classes.push('animate-slide-up'); explain.push('slide-up animation'); }
-  if (/zoom.in|zoom in/.test(p))                     { classes.push('animate-zoom-in'); }
+  // ── Animations ──────────────────────────────────────
+  if (/fade.in|fade in/.test(p))                       { classes.push('animate-fade-in'); explain.push('fade-in'); }
+  if (/\bbounce\b/.test(p))                            { classes.push('animate-bounce'); explain.push('bounce'); }
+  if (/\bspin\b|spinning/.test(p))                     { classes.push('animate-spin'); explain.push('spin'); }
+  if (/\bpulse\b/.test(p))                             { classes.push('animate-pulse'); explain.push('pulse'); }
+  if (/slide.up|slide up/.test(p))                     { classes.push('animate-slide-up'); explain.push('slide-up'); }
+  if (/zoom.in|zoom in/.test(p))                       { classes.push('animate-zoom-in'); explain.push('zoom-in'); }
+  if (/shake/.test(p))                                 { classes.push('animate-shake'); }
+  if (/swing/.test(p))                                 { classes.push('animate-swing'); }
 
   // ── Misc ─────────────────────────────────────────────
-  if (/overflow.hidden|hidden.overflow/.test(p))     { classes.push('overflow-hidden'); }
-  if (/\bscroll\b/.test(p))                          { classes.push('overflow-y-auto'); }
-  if (/sticky/.test(p))                              { classes.push('position-sticky','pin-top-0','z-50'); }
-  if (/\bfixed\b/.test(p))                           { classes.push('position-fixed'); }
-  if (/pointer|clickable/.test(p))                   { classes.push('cursor-pointer'); }
-  if (/transition|smooth/.test(p))                   { classes.push('transition-all'); }
-  if (/dark.mode|dark mode/.test(p))                 { classes.push('dark:background-gray-900','dark:color-white'); explain.push('dark mode support'); }
-  if (/\bhidden\b/.test(p) && !/overflow/.test(p))  { classes.push('make-hidden'); }
+  if (/overflow.hidden|no.overflow/.test(p))           { classes.push('overflow-hidden'); }
+  if (/\bscroll\b/.test(p))                            { classes.push('overflow-y-auto'); }
+  if (/\bsticky\b/.test(p))                            { classes.push('position-sticky', 'pin-top-0', 'z-50'); }
+  if (/\bfixed\b/.test(p) && !/position/.test(p))     { classes.push('position-fixed'); }
+  if (/\b(pointer|clickable|interactive)\b/.test(p))  { classes.push('cursor-pointer'); }
+  if (/\b(transition|smooth|animate)\b/.test(p) && !classes.includes('transition-all')) { classes.push('transition-all'); }
+  if (/dark.mode|dark mode/.test(p))                   { classes.push('dark:background-gray-900', 'dark:color-white'); explain.push('dark mode'); }
+  if (/\bhidden\b/.test(p) && !/overflow/.test(p))    { classes.push('make-hidden'); }
 
-  // Deduplicate
+  // ── Deduplicate & output ────────────────────────────
   var unique = [], seen = {};
-  for (var i = 0; i < classes.length; i++) {
-    if (!seen[classes[i]]) { seen[classes[i]] = 1; unique.push(classes[i]); }
-  }
+  classes.forEach(function(c) { if (c && !seen[c]) { seen[c] = 1; unique.push(c); } });
 
-  var out = unique.join(' ');
-  if (!out) out = '/* No recognized patterns — try: card, flex, blue left border, shadow, hover scale */';
+  var out = unique.join(' ') || '/* No patterns found — try: "green success button large pill" or "centered flex with gap and blue left border" */';
 
   document.getElementById('ai-classes').textContent = out;
-  document.getElementById('ai-explain').textContent = explain.length ? '📌 Detected: ' + explain.join(' · ') : '';
+  document.getElementById('ai-explain').textContent = explain.length ? '📌 ' + explain.join(' · ') : '';
 
-  // Live preview
+  // Live preview element
   var preview = document.getElementById('ai-preview');
   preview.innerHTML = '';
   var el = document.createElement('div');
-  el.className = out.split(' ').filter(function(c){ return c && c[0] !== '/'; }).join(' ');
+  var safeClasses = unique.filter(function(c){ return /^[a-z0-9:_\-\/]+$/i.test(c); });
+  el.className = safeClasses.join(' ');
+  if (!el.className.includes('add-padding')) el.style.cssText += 'padding:14px 24px;';
+  if (!el.className.includes('set-height') && !el.className.includes('make-grid') && !el.className.includes('make-flex')) el.style.minHeight = '52px';
   el.style.minWidth = '120px';
-  el.style.minHeight = '48px';
-  el.style.padding = el.className.indexOf('add-padding') === -1 ? '16px 24px' : '';
-  el.textContent = 'Preview';
+  el.textContent = isButton ? 'Button' : el.className.includes('make-card') ? '' : 'Preview';
+  if (el.className.includes('make-card')) {
+    el.innerHTML = '<div class="card-body" style="padding:16px"><strong>Card Title</strong><p style="margin:6px 0 0;font-size:13px;opacity:.7;">Card body content.</p></div>';
+  }
   preview.appendChild(el);
 
   document.getElementById('ai-output').style.display = 'block';
