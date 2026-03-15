@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Icons — SantyCSS</title>
+  <meta name="description" content="70+ SVG icons for SantyCSS — 35 brand icons (social, dev, platforms, payment) plus 35 business &amp; finance icons. All customisable with SantyCSS color utilities." />
+  <link rel="icon" type="image/png" href="assest/santy_css.png" />
+  <link rel="stylesheet" href="santy.css" />
+  <link rel="stylesheet" href="santy-icons.css" />
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    pre  { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+    .nav-link { transition: color 0.2s; }
+    .nav-link:hover { color: #3b82f6; }
+
+    /* ── Hamburger ── */
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 7px 9px;
+      cursor: pointer;
+      color: #374151;
+      line-height: 1;
+    }
+    @media (max-width: 767px) {
+      .nav-hamburger { display: flex; align-items: center; justify-content: center; }
+      #main-nav {
+        display: none;
+        position: fixed;
+        top: 61px; left: 0; right: 0; bottom: 0;
+        background: #fff;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+        gap: 4px;
+        z-index: 98;
+        border-top: 1px solid #e5e7eb;
+        overflow-y: auto;
+      }
+      #main-nav.open { display: flex; }
+      #main-nav a { padding: 12px 16px; border-radius: 8px; }
+    }
+
+    /* ── Hero ── */
+    .hero-gradient {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #312e81 100%);
+    }
+    .chip {
+      display: inline-block;
+      background: #1e293b;
+      color: #7dd3fc;
+      border-radius: 6px;
+      padding: 2px 9px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: ui-monospace, monospace;
+      border: 1px solid #334155;
+    }
+
+    /* ── Icon Grid ── */
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 12px;
+    }
+    .icon-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 20px 12px 16px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.18s;
+      position: relative;
+      overflow: hidden;
+    }
+    .icon-card:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 4px 16px rgba(59,130,246,0.12);
+      transform: translateY(-2px);
+    }
+    .icon-card:hover .icon-name { color: #2563eb; }
+    .icon-card .icon-preview {
+      width: 40px;
+      height: 40px;
+      background-color: #1e293b;
+      -webkit-mask: var(--brand-icon-url, var(--icon-url)) no-repeat center / contain;
+      mask: var(--brand-icon-url, var(--icon-url)) no-repeat center / contain;
+      flex-shrink: 0;
+    }
+    .icon-card .icon-name {
+      font-size: 11px;
+      font-family: ui-monospace, monospace;
+      color: #475569;
+      text-align: center;
+      word-break: break-all;
+      line-height: 1.4;
+      transition: color 0.18s;
+    }
+    .icon-card .copy-badge {
+      position: absolute;
+      top: 6px; right: 6px;
+      background: #3b82f6;
+      color: #fff;
+      font-size: 9px;
+      padding: 2px 5px;
+      border-radius: 4px;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
+    .icon-card:hover .copy-badge { opacity: 1; }
+
+    /* ── Coloured preview strip ── */
+    .color-strip {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .color-swatch {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .color-swatch .brand-icon { background-color: #fff; }
+
+    /* ── Code block ── */
+    .code-block {
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 10px;
+      padding: 20px 24px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.7;
+      font-family: ui-monospace, monospace;
+    }
+    .code-block .c-tag  { color: #f472b6; }
+    .code-block .c-attr { color: #a5b4fc; }
+    .code-block .c-str  { color: #fcd34d; }
+    .code-block .c-com  { color: #64748b; font-style: italic; }
+
+    /* ── Category pills ── */
+    .cat-pill {
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 2px solid #e5e7eb;
+      background: #fff;
+      color: #374151;
+      transition: all 0.2s;
+    }
+    .cat-pill:hover { border-color: #3b82f6; color: #2563eb; }
+    .cat-pill.active { background: #2563eb; color: #fff; border-color: #2563eb; }
+
+    /* ── Search ── */
+    .search-input {
+      width: 100%;
+      max-width: 420px;
+      padding: 10px 16px 10px 44px;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      background: #f8fafc url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%2394a3b8' stroke-width='2' viewBox='0 0 24 24'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='M21 21l-4.35-4.35'/%3E%3C/svg%3E") no-repeat 14px center;
+    }
+    .search-input:focus { border-color: #3b82f6; background-color: #fff; }
+
+    /* ── Size demo ── */
+    .size-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .size-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .size-label {
+      font-size: 11px;
+      color: #94a3b8;
+      font-family: ui-monospace, monospace;
+    }
+
+    /* ── Toast notification ── */
+    #copy-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      z-index: 9999;
+      transition: transform 0.3s ease;
+      pointer-events: none;
+    }
+    #copy-toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ── Sections ── */
+    section { scroll-margin-top: 72px; }
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+    .section-sub {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 24px;
+    }
+
+    /* ── Usage table ── */
+    .usage-table { border-collapse: collapse; width: 100%; }
+    .usage-table th, .usage-table td {
+      padding: 10px 16px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 13px;
+    }
+    .usage-table th { background: #f8fafc; font-weight: 600; color: #374151; }
+    .usage-table td:first-child { font-family: ui-monospace, monospace; color: #2563eb; }
+    .usage-table tr:last-child td { border-bottom: none; }
+  </style>
+</head>
+<body class="background-gray-50">
+
+<!-- ─── NAVBAR ─────────────────────────────────────────────────────────────── -->
+<header class="position-sticky pin-top-0 layer-50 background-white add-border-bottom" style="border-color:#e5e7eb;">
+  <div class="make-flex align-center justify-between add-padding-x-24 add-padding-y-16" style="max-width:1280px;margin:0 auto;">
+    <a href="index.html" class="make-flex align-center gap-12 text-no-decoration">
+      <div class="make-flex align-center justify-center background-blue-600 round-corners-8" style="width:32px;height:32px;">
+        <span style="color:#fff;font-size:16px;font-weight:900;font-family:ui-monospace,monospace;">S</span>
+      </div>
+      <span class="text-bold color-gray-900 set-text-16">SantyCSS</span>
+      <span class="chip">v1.3.0</span>
+    </a>
+
+    <button class="nav-hamburger" id="hamburger-btn" aria-label="Toggle menu">
+      <svg id="icon-menu" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <svg id="icon-close" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <nav id="main-nav" class="make-flex align-center gap-28">
+      <a href="classes.html"    class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Classes</a>
+      <a href="index.html#components" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Components</a>
+      <a href="animations.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Animations</a>
+      <a href="icons.html"      class="nav-link color-blue-600 text-no-decoration set-text-14 text-semibold">Icons</a>
+      <a href="index.html#ai-generator" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">AI Gen</a>
+      <a href="docs.html"       class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">npm Docs</a>
+      <a href="demo.html"       class="make-button style-primary size-small">Live Demo →</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ─── HERO ────────────────────────────────────────────────────────────────── -->
+<section class="hero-gradient add-padding-y-80 add-padding-x-24">
+  <div style="max-width:860px;margin:0 auto;text-align:center;">
+    <span class="chip add-margin-bottom-20" style="display:inline-block;">🎨 Icons v1.3.0</span>
+    <h1 class="set-text-56 text-bold add-margin-bottom-16" style="color:#f8fafc;letter-spacing:-2px;line-height:1.1;">
+      SantyCSS Icons
+    </h1>
+    <p class="set-text-20 add-margin-bottom-32" style="color:#94a3b8;line-height:1.6;">
+      70+ SVG icons — brand icons (social, dev, platforms, payment) plus
+      business &amp; finance icons. Colour them with any SantyCSS utility.
+    </p>
+    <!-- Live icon strip in hero -->
+    <div class="make-flex justify-center align-center gap-16 add-padding-y-16" style="flex-wrap:wrap;">
+      <!-- A taste of icons rendered white against dark hero -->
+      <span class="brand-icon brand-icon-github brand-icon-lg" style="background-color:#fff;width:32px;height:32px;" title="GitHub"></span>
+      <span class="brand-icon brand-icon-react brand-icon-lg" style="background-color:#61DAFB;width:32px;height:32px;" title="React"></span>
+      <span class="brand-icon brand-icon-youtube brand-icon-lg" style="background-color:#FF0000;width:32px;height:32px;" title="YouTube"></span>
+      <span class="brand-icon brand-icon-discord brand-icon-lg" style="background-color:#5865F2;width:32px;height:32px;" title="Discord"></span>
+      <span class="brand-icon brand-icon-twitter brand-icon-lg" style="background-color:#1DA1F2;width:32px;height:32px;" title="Twitter"></span>
+      <span class="brand-icon brand-icon-instagram brand-icon-lg" style="background-color:#E4405F;width:32px;height:32px;" title="Instagram"></span>
+      <span class="brand-icon brand-icon-node-js brand-icon-lg" style="background-color:#339933;width:32px;height:32px;" title="Node.js"></span>
+      <span class="brand-icon brand-icon-docker brand-icon-lg" style="background-color:#2496ED;width:32px;height:32px;" title="Docker"></span>
+      <span class="brand-icon brand-icon-python brand-icon-lg" style="background-color:#3776AB;width:32px;height:32px;" title="Python"></span>
+      <span class="brand-icon brand-icon-aws brand-icon-lg" style="background-color:#FF9900;width:32px;height:32px;" title="AWS"></span>
+      <span class="brand-icon brand-icon-spotify brand-icon-lg" style="background-color:#1DB954;width:32px;height:32px;" title="Spotify"></span>
+      <span class="brand-icon brand-icon-stripe brand-icon-lg" style="background-color:#635BFF;width:32px;height:32px;" title="Stripe"></span>
+    </div>
+    <div class="make-flex justify-center gap-12 add-margin-top-8" style="flex-wrap:wrap;">
+      <span class="chip">70+ icons</span>
+      <span class="chip">SVG files</span>
+      <span class="chip">CSS mask-image</span>
+      <span class="chip">Any color</span>
+      <span class="chip">Any size</span>
+      <span class="chip">CC BY 4.0</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── QUICK START ──────────────────────────────────────────────────────────── -->
+<section id="quickstart" class="add-padding-y-64 add-padding-x-24">
+  <div style="max-width:1000px;margin:0 auto;">
+    <div class="section-title">Quick Start</div>
+    <p class="section-sub">Add one CSS file — then combine <code style="background:#eff6ff;color:#1d4ed8;padding:2px 6px;border-radius:4px;">.brand-icon</code> with any <code style="background:#eff6ff;color:#1d4ed8;padding:2px 6px;border-radius:4px;">.brand-icon-*</code> class.</p>
+
+    <div class="make-grid" style="grid-template-columns:1fr 1fr;gap:24px;">
+      <!-- Step 1 -->
+      <div class="background-white round-corners-12 add-padding-24" style="border:1px solid #e5e7eb;">
+        <div class="make-flex align-center gap-8 add-margin-bottom-16">
+          <span class="make-flex align-center justify-center background-blue-600 round-corners-full" style="width:24px;height:24px;color:#fff;font-size:12px;font-weight:700;">1</span>
+          <span class="text-semibold color-gray-800">Include the CSS</span>
+        </div>
+        <div class="code-block">
+&lt;<span class="c-tag">link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"santy.css"</span>&gt;
+&lt;<span class="c-tag">link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"santy-icons.css"</span>&gt;</div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="background-white round-corners-12 add-padding-24" style="border:1px solid #e5e7eb;">
+        <div class="make-flex align-center gap-8 add-margin-bottom-16">
+          <span class="make-flex align-center justify-center background-blue-600 round-corners-full" style="width:24px;height:24px;color:#fff;font-size:12px;font-weight:700;">2</span>
+          <span class="text-semibold color-gray-800">Use any icon</span>
+        </div>
+        <div class="code-block">
+&lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"brand-icon brand-icon-github"</span>&gt;&lt;/<span class="c-tag">span</span>&gt;
+<span class="c-com">&lt;!-- with brand color --&gt;</span>
+&lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"brand-icon brand-icon-react brand-icon-color-react brand-icon-xl"</span>&gt;&lt;/<span class="c-tag">span</span>&gt;</div>
+      </div>
+    </div>
+
+    <!-- npm install -->
+    <div class="background-white round-corners-12 add-padding-24 add-margin-top-20" style="border:1px solid #e5e7eb;">
+      <p class="text-semibold color-gray-800 add-margin-bottom-12">Or install via npm</p>
+      <div class="code-block">npm install santycss</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ICON BROWSER ─────────────────────────────────────────────────────────── -->
+<section id="icons" class="add-padding-bottom-80 add-padding-x-24">
+  <div style="max-width:1200px;margin:0 auto;">
+
+    <!-- Filter + Search bar -->
+    <div class="make-flex align-center justify-between add-margin-bottom-24" style="flex-wrap:wrap;gap:16px;">
+      <div class="make-flex gap-8" style="flex-wrap:wrap;" id="cat-pills">
+        <button class="cat-pill active" data-cat="all">All (70)</button>
+        <button class="cat-pill" data-cat="social">Social (15)</button>
+        <button class="cat-pill" data-cat="dev">Dev Tools (13)</button>
+        <button class="cat-pill" data-cat="platform">Platforms (5)</button>
+        <button class="cat-pill" data-cat="payment">Payment (2)</button>
+        <button class="cat-pill" data-cat="business">Business (35)</button>
+      </div>
+      <input class="search-input" type="search" id="icon-search" placeholder="Search icons…" />
+    </div>
+
+    <!-- ── SOCIAL ── -->
+    <div class="add-margin-bottom-32" id="section-social">
+      <h2 class="set-text-16 text-semibold color-gray-700 add-margin-bottom-16" style="text-transform:uppercase;letter-spacing:.08em;">
+        Social Media
+      </h2>
+      <div class="icon-grid" id="grid-social">
+        <!-- cards injected by JS -->
+      </div>
+    </div>
+
+    <!-- ── DEV ── -->
+    <div class="add-margin-bottom-32" id="section-dev">
+      <h2 class="set-text-16 text-semibold color-gray-700 add-margin-bottom-16" style="text-transform:uppercase;letter-spacing:.08em;">
+        Developer Tools
+      </h2>
+      <div class="icon-grid" id="grid-dev"></div>
+    </div>
+
+    <!-- ── PLATFORM ── -->
+    <div class="add-margin-bottom-32" id="section-platform">
+      <h2 class="set-text-16 text-semibold color-gray-700 add-margin-bottom-16" style="text-transform:uppercase;letter-spacing:.08em;">
+        Platforms &amp; Devices
+      </h2>
+      <div class="icon-grid" id="grid-platform"></div>
+    </div>
+
+    <!-- ── PAYMENT ── -->
+    <div class="add-margin-bottom-32" id="section-payment">
+      <h2 class="set-text-16 text-semibold color-gray-700 add-margin-bottom-16" style="text-transform:uppercase;letter-spacing:.08em;">
+        Payment
+      </h2>
+      <div class="icon-grid" id="grid-payment"></div>
+    </div>
+
+    <!-- ── BUSINESS & FINANCE ── -->
+    <div class="add-margin-bottom-32" id="section-business">
+      <h2 class="set-text-16 text-semibold color-gray-700 add-margin-bottom-16" style="text-transform:uppercase;letter-spacing:.08em;">
+        Business &amp; Finance
+      </h2>
+      <div class="icon-grid" id="grid-business"></div>
+    </div>
+
+    <!-- No results -->
+    <div id="no-results" class="background-white round-corners-12 add-padding-48 text-center" style="border:1px solid #e5e7eb;display:none;">
+      <p class="set-text-16 color-gray-500">No icons matched your search.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SIZES ────────────────────────────────────────────────────────────────── -->
+<section id="sizes" class="add-padding-y-64 add-padding-x-24 background-white" style="border-top:1px solid #e5e7eb;">
+  <div style="max-width:1000px;margin:0 auto;">
+    <div class="section-title">Sizes</div>
+    <p class="section-sub">Use <code style="background:#eff6ff;color:#1d4ed8;padding:2px 6px;border-radius:4px;">.brand-icon-{size}</code> classes or set <code style="background:#eff6ff;color:#1d4ed8;padding:2px 6px;border-radius:4px;">font-size</code> on the parent.</p>
+
+    <div class="size-row add-margin-bottom-32">
+      <div class="size-item">
+        <span class="brand-icon brand-icon-github brand-icon-xs" style="background-color:#1e293b;width:10px;height:10px;"></span>
+        <span class="size-label">.brand-icon-xs<br>0.625rem</span>
+      </div>
+      <div class="size-item">
+        <span class="brand-icon brand-icon-github brand-icon-sm" style="background-color:#1e293b;width:14px;height:14px;"></span>
+        <span class="size-label">.brand-icon-sm<br>0.875rem</span>
+      </div>
+      <div class="size-item">
+        <span class="brand-icon brand-icon-github brand-icon-md" style="background-color:#1e293b;width:16px;height:16px;"></span>
+        <span class="size-label">.brand-icon-md<br>1rem</span>
+      </div>
+      <div class="size-item">
+        <span class="brand-icon brand-icon-github brand-icon-lg" style="background-color:#1e293b;width:24px;height:24px;"></span>
+        <span class="size-label">.brand-icon-lg<br>1.5rem</span>
+      </div>
+      <div class="size-item">
+        <span class="brand-icon brand-icon-github brand-icon-xl" style="background-color:#1e293b;width:32px;height:32px;"></span>
+        <span class="size-label">.brand-icon-xl<br>2rem</span>
+      </div>
+      <div class="size-item">
+        <span class="brand-icon brand-icon-github brand-icon-3x" style="background-color:#1e293b;width:48px;height:48px;"></span>
+        <span class="size-label">.brand-icon-3x<br>3rem</span>
+      </div>
+      <div class="size-item">
+        <span class="brand-icon brand-icon-github brand-icon-5x" style="background-color:#1e293b;width:80px;height:80px;"></span>
+        <span class="size-label">.brand-icon-5x<br>5rem</span>
+      </div>
+    </div>
+
+    <!-- Fixed pixel sizes -->
+    <p class="text-semibold color-gray-700 add-margin-bottom-12">Fixed pixel classes</p>
+    <div class="code-block" style="margin-bottom:24px;">
+&lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"brand-icon brand-icon-github brand-icon-16"</span>&gt;&lt;/<span class="c-tag">span</span>&gt;  <span class="c-com">&lt;!-- 16px --&gt;</span>
+&lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"brand-icon brand-icon-github brand-icon-24"</span>&gt;&lt;/<span class="c-tag">span</span>&gt;  <span class="c-com">&lt;!-- 24px --&gt;</span>
+&lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"brand-icon brand-icon-github brand-icon-48"</span>&gt;&lt;/<span class="c-tag">span</span>&gt;  <span class="c-com">&lt;!-- 48px --&gt;</span></div>
+  </div>
+</section>
+
+<!-- ─── COLORS ───────────────────────────────────────────────────────────────── -->
+<section id="colors" class="add-padding-y-64 add-padding-x-24" style="border-top:1px solid #e5e7eb;">
+  <div style="max-width:1000px;margin:0 auto;">
+    <div class="section-title">Colors</div>
+    <p class="section-sub">
+      Icons use <code style="background:#eff6ff;color:#1d4ed8;padding:2px 6px;border-radius:4px;">background-color: currentColor</code> — so any SantyCSS colour class works.
+      Use <code style="background:#eff6ff;color:#1d4ed8;padding:2px 6px;border-radius:4px;">.brand-icon-color-*</code> for exact brand colours.
+    </p>
+
+    <!-- Brand color swatches -->
+    <h3 class="text-semibold color-gray-700 add-margin-bottom-16">Brand colours</h3>
+    <div class="color-strip add-margin-bottom-32">
+      <div class="color-swatch brand-icon-color-twitter round-corners-8" style="width:48px;height:48px;">
+        <span class="brand-icon brand-icon-twitter brand-icon-lg" style="background-color:#fff;width:24px;height:24px;"></span>
+      </div>
+      <div class="color-swatch brand-icon-color-facebook round-corners-8" style="width:48px;height:48px;">
+        <span class="brand-icon brand-icon-facebook brand-icon-lg" style="background-color:#fff;width:24px;height:24px;"></span>
+      </div>
+      <div class="color-swatch brand-icon-color-instagram round-corners-8" style="width:48px;height:48px;">
+        <span class="brand-icon brand-icon-instagram brand-icon-lg" style="background-color:#fff;width:24px;height:24px;"></span>
+      </div>
+      <div class="color-swatch brand-icon-color-linkedin round-corners-8" style="width:48px;height:48px;">
+        <span class="brand-icon brand-icon-linkedin brand-icon-lg" style="background-color:#fff;width:24px;height:24px;"></span>
+      </div>
+      <div class="color-swatch brand-icon-color-youtube round-corners-8" style="width:48px;height:48px;">
+        <span class="brand-icon brand-icon-youtube brand-icon-lg" style="background-color:#fff;width:24px;height:24px;"></span>
+      </div>
+      <div class="color-swatch brand-icon-color-discord round-corners-8" style="width:48px;height:48px;">
+        <span class="brand-icon brand-icon-discord brand-icon-lg" style="background-color:#fff;width:24px;height:24px;"></span>
+      </div>
+      <div class="color-swatch brand-icon-color-github round-corners-8" style="width:48px;height:48px;">
+        <span class="brand-icon brand-icon-github brand-icon-lg" style="background-color:#fff;width:24px;height:24px;"></span>
+      </div>
+      <div class="color-swatch brand-icon-color-react round-corners-8" style="width:48px;height:48px;">
+        <span class="brand-icon brand-icon-react brand-icon-lg" style="background-color:#fff;width:24px;height:24px;"></span>
+      </div>
+      <div class="color-swatch brand-icon-color-node-js round-corners-8" style="width:48px;height:48px;">
+        <span class="brand-icon brand-icon-node-js brand-icon-lg" style="background-color:#fff;width:24px;height:24px;"></span>
+      </div>
+      <div class="color-swatch brand-icon-color-docker round-corners-8" style="width:48px;height:48px;">
+        <span class="brand-icon brand-icon-docker brand-icon-lg" style="background-color:#fff;width:24px;height:24px;"></span>
+      </div>
+      <div class="color-swatch brand-icon-color-stripe round-corners-8" style="width:48px;height:48px;">
+        <span class="brand-icon brand-icon-stripe brand-icon-lg" style="background-color:#fff;width:24px;height:24px;"></span>
+      </div>
+      <div class="color-swatch brand-icon-color-spotify round-corners-8" style="width:48px;height:48px;">
+        <span class="brand-icon brand-icon-spotify brand-icon-lg" style="background-color:#fff;width:24px;height:24px;"></span>
+      </div>
+    </div>
+
+    <div class="code-block" style="margin-bottom:24px;">
+<span class="c-com">&lt;!-- Official brand color --&gt;</span>
+&lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"brand-icon brand-icon-github brand-icon-color-github brand-icon-xl"</span>&gt;&lt;/<span class="c-tag">span</span>&gt;
+
+<span class="c-com">&lt;!-- Any SantyCSS color --&gt;</span>
+&lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"brand-icon brand-icon-github color-blue-600 brand-icon-xl"</span>&gt;&lt;/<span class="c-tag">span</span>&gt;
+
+<span class="c-com">&lt;!-- Inline color --&gt;</span>
+&lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"brand-icon brand-icon-react brand-icon-xl"</span> <span class="c-attr">style</span>=<span class="c-str">"background-color:#61DAFB"</span>&gt;&lt;/<span class="c-tag">span</span>&gt;</div>
+  </div>
+</section>
+
+<!-- ─── USAGE PATTERNS ────────────────────────────────────────────────────────── -->
+<section id="usage" class="add-padding-y-64 add-padding-x-24 background-white" style="border-top:1px solid #e5e7eb;">
+  <div style="max-width:1000px;margin:0 auto;">
+    <div class="section-title">Usage Patterns</div>
+    <p class="section-sub">Common ways to use brand icons in your UI.</p>
+
+    <div class="make-grid add-margin-bottom-32" style="grid-template-columns:1fr 1fr;gap:24px;">
+
+      <!-- Pattern: social links -->
+      <div class="background-gray-50 round-corners-12 add-padding-24" style="border:1px solid #e5e7eb;">
+        <p class="text-semibold color-gray-700 add-margin-bottom-16">Social links footer</p>
+        <!-- Preview -->
+        <div class="make-flex gap-12 add-margin-bottom-16">
+          <a href="#" class="make-flex align-center justify-center round-corners-full" style="width:40px;height:40px;background:#1DA1F2;">
+            <span class="brand-icon brand-icon-twitter" style="background-color:#fff;width:18px;height:18px;"></span>
+          </a>
+          <a href="#" class="make-flex align-center justify-center round-corners-full" style="width:40px;height:40px;background:#1877F2;">
+            <span class="brand-icon brand-icon-facebook" style="background-color:#fff;width:18px;height:18px;"></span>
+          </a>
+          <a href="#" class="make-flex align-center justify-center round-corners-full" style="width:40px;height:40px;background:#E4405F;">
+            <span class="brand-icon brand-icon-instagram" style="background-color:#fff;width:18px;height:18px;"></span>
+          </a>
+          <a href="#" class="make-flex align-center justify-center round-corners-full" style="width:40px;height:40px;background:#0A66C2;">
+            <span class="brand-icon brand-icon-linkedin" style="background-color:#fff;width:18px;height:18px;"></span>
+          </a>
+          <a href="#" class="make-flex align-center justify-center round-corners-full" style="width:40px;height:40px;background:#181717;">
+            <span class="brand-icon brand-icon-github" style="background-color:#fff;width:18px;height:18px;"></span>
+          </a>
+        </div>
+        <div class="code-block" style="font-size:11px;">
+&lt;<span class="c-tag">a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"make-flex align-center justify-center round-corners-full"</span>
+   <span class="c-attr">style</span>=<span class="c-str">"width:40px;height:40px;background:#1DA1F2;"</span>&gt;
+  &lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"brand-icon brand-icon-twitter"</span>
+        <span class="c-attr">style</span>=<span class="c-str">"background-color:#fff;width:18px;height:18px;"</span>&gt;&lt;/<span class="c-tag">span</span>&gt;
+&lt;/<span class="c-tag">a</span>&gt;</div>
+      </div>
+
+      <!-- Pattern: tech badge -->
+      <div class="background-gray-50 round-corners-12 add-padding-24" style="border:1px solid #e5e7eb;">
+        <p class="text-semibold color-gray-700 add-margin-bottom-16">Tech stack badges</p>
+        <div class="make-flex gap-8 add-margin-bottom-16" style="flex-wrap:wrap;">
+          <span class="make-flex align-center gap-6 add-padding-x-12 add-padding-y-6 round-corners-8" style="background:#eff6ff;border:1px solid #bfdbfe;">
+            <span class="brand-icon brand-icon-react" style="background-color:#61DAFB;width:16px;height:16px;"></span>
+            <span class="set-text-13 text-semibold color-blue-700">React</span>
+          </span>
+          <span class="make-flex align-center gap-6 add-padding-x-12 add-padding-y-6 round-corners-8" style="background:#f0fdf4;border:1px solid #bbf7d0;">
+            <span class="brand-icon brand-icon-node-js" style="background-color:#339933;width:16px;height:16px;"></span>
+            <span class="set-text-13 text-semibold color-green-700">Node.js</span>
+          </span>
+          <span class="make-flex align-center gap-6 add-padding-x-12 add-padding-y-6 round-corners-8" style="background:#eff6ff;border:1px solid #bfdbfe;">
+            <span class="brand-icon brand-icon-docker" style="background-color:#2496ED;width:16px;height:16px;"></span>
+            <span class="set-text-13 text-semibold color-blue-700">Docker</span>
+          </span>
+          <span class="make-flex align-center gap-6 add-padding-x-12 add-padding-y-6 round-corners-8" style="background:#fffbeb;border:1px solid #fde68a;">
+            <span class="brand-icon brand-icon-aws" style="background-color:#FF9900;width:16px;height:16px;"></span>
+            <span class="set-text-13 text-semibold" style="color:#b45309;">AWS</span>
+          </span>
+        </div>
+        <div class="code-block" style="font-size:11px;">
+&lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"make-flex align-center gap-6 add-padding-x-12 add-padding-y-6 round-corners-8"</span>
+      <span class="c-attr">style</span>=<span class="c-str">"background:#eff6ff;border:1px solid #bfdbfe;"</span>&gt;
+  &lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"brand-icon brand-icon-react"</span>
+        <span class="c-attr">style</span>=<span class="c-str">"background-color:#61DAFB;width:16px;height:16px;"</span>&gt;&lt;/<span class="c-tag">span</span>&gt;
+  &lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"set-text-13 text-semibold color-blue-700"</span>&gt;React&lt;/<span class="c-tag">span</span>&gt;
+&lt;/<span class="c-tag">span</span>&gt;</div>
+      </div>
+
+      <!-- Pattern: Login buttons -->
+      <div class="background-gray-50 round-corners-12 add-padding-24" style="border:1px solid #e5e7eb;">
+        <p class="text-semibold color-gray-700 add-margin-bottom-16">OAuth login buttons</p>
+        <div class="make-flex flex-col gap-10 add-margin-bottom-16">
+          <button class="make-flex align-center justify-center gap-10 add-padding-x-20 add-padding-y-12 round-corners-8 text-semibold set-text-14 background-white" style="border:1px solid #e5e7eb;cursor:pointer;color:#374151;">
+            <span class="brand-icon brand-icon-google" style="background-color:#4285F4;width:18px;height:18px;"></span>
+            Continue with Google
+          </button>
+          <button class="make-flex align-center justify-center gap-10 add-padding-x-20 add-padding-y-12 round-corners-8 text-semibold set-text-14" style="background:#181717;color:#fff;border:none;cursor:pointer;">
+            <span class="brand-icon brand-icon-github" style="background-color:#fff;width:18px;height:18px;"></span>
+            Continue with GitHub
+          </button>
+        </div>
+        <div class="code-block" style="font-size:11px;">
+&lt;<span class="c-tag">button</span> <span class="c-attr">class</span>=<span class="c-str">"make-flex align-center gap-10 ..."</span>&gt;
+  &lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"brand-icon brand-icon-google"</span>
+        <span class="c-attr">style</span>=<span class="c-str">"background-color:#4285F4;width:18px;height:18px;"</span>&gt;&lt;/<span class="c-tag">span</span>&gt;
+  Continue with Google
+&lt;/<span class="c-tag">button</span>&gt;</div>
+      </div>
+
+      <!-- Pattern: inline in text -->
+      <div class="background-gray-50 round-corners-12 add-padding-24" style="border:1px solid #e5e7eb;">
+        <p class="text-semibold color-gray-700 add-margin-bottom-16">Inline in text</p>
+        <p class="set-text-14 color-gray-700 add-margin-bottom-16" style="line-height:1.7;">
+          Star us on
+          <span class="brand-icon brand-icon-github" style="background-color:#181717;width:16px;height:16px;vertical-align:-3px;display:inline-block;"></span>
+          GitHub, follow on
+          <span class="brand-icon brand-icon-x-twitter" style="background-color:#000;width:16px;height:16px;vertical-align:-3px;display:inline-block;"></span>
+          X, and join the
+          <span class="brand-icon brand-icon-discord" style="background-color:#5865F2;width:16px;height:16px;vertical-align:-3px;display:inline-block;"></span>
+          Discord.
+        </p>
+        <div class="code-block" style="font-size:11px;">
+Star us on
+&lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"brand-icon brand-icon-github"</span>
+      <span class="c-attr">style</span>=<span class="c-str">"background-color:#181717;width:16px;height:16px;vertical-align:-3px;display:inline-block;"</span>&gt;&lt;/<span class="c-tag">span</span>&gt;
+GitHub</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CLASS REFERENCE ──────────────────────────────────────────────────────── -->
+<section id="reference" class="add-padding-y-64 add-padding-x-24" style="border-top:1px solid #e5e7eb;">
+  <div style="max-width:1000px;margin:0 auto;">
+    <div class="section-title">Class Reference</div>
+    <p class="section-sub">All available classes from <code style="background:#eff6ff;color:#1d4ed8;padding:2px 6px;border-radius:4px;">santy-icons.css</code>.</p>
+
+    <div style="overflow-x:auto;">
+      <table class="usage-table">
+        <thead>
+          <tr><th>Class</th><th>Description</th><th>Example value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>.brand-icon</td><td>Base icon class — required on every icon element</td><td>display:inline-block; mask: var(--brand-icon-url)</td></tr>
+          <tr><td>.brand-icon-{name}</td><td>Sets the icon SVG via --brand-icon-url CSS variable</td><td>.brand-icon-github, .brand-icon-react, .brand-icon-twitter …</td></tr>
+          <tr><td>.brand-icon-xs</td><td>Extra small size</td><td>font-size: 0.625rem</td></tr>
+          <tr><td>.brand-icon-sm</td><td>Small size</td><td>font-size: 0.875rem</td></tr>
+          <tr><td>.brand-icon-md</td><td>Medium size (default)</td><td>font-size: 1rem</td></tr>
+          <tr><td>.brand-icon-lg</td><td>Large size</td><td>font-size: 1.5rem</td></tr>
+          <tr><td>.brand-icon-xl</td><td>Extra large size</td><td>font-size: 2rem</td></tr>
+          <tr><td>.brand-icon-2x — 6x</td><td>Multiplier sizes</td><td>font-size: 2rem — 6rem</td></tr>
+          <tr><td>.brand-icon-16 — 96</td><td>Fixed pixel sizes</td><td>width/height: 16px — 96px</td></tr>
+          <tr><td>.brand-icon-color-{name}</td><td>Apply official brand background colour</td><td>.brand-icon-color-github → #181717</td></tr>
+          <tr><td>.brand-icon-badge</td><td>Circular badge wrapper for an icon</td><td>Displays icon in a colour circle</td></tr>
+          <tr><td>.shape-square</td><td>Modifier for .brand-icon-badge — square with 6px radius</td><td>border-radius: 6px</td></tr>
+          <tr><td>.shape-rounded</td><td>Modifier for .brand-icon-badge — rounded square</td><td>border-radius: 12px</td></tr>
+          <tr><td>.brand-icon-spin</td><td>Continuously rotating animation</td><td>animation: brand-icon-spin 2s linear infinite</td></tr>
+          <tr><td>.brand-icon-pulse</td><td>8-step pulse rotation animation</td><td>animation: brand-icon-spin 1s steps(8) infinite</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ─── LICENSE ───────────────────────────────────────────────────────────────── -->
+<section class="add-padding-y-48 add-padding-x-24 background-white" style="border-top:1px solid #e5e7eb;">
+  <div style="max-width:1000px;margin:0 auto;" class="make-flex align-start gap-16">
+    <div style="font-size:24px;">📄</div>
+    <div>
+      <p class="text-semibold color-gray-800 add-margin-bottom-4">License</p>
+      <p class="set-text-14 color-gray-600" style="line-height:1.6;">
+        All brand icons are part of the SantyCSS framework and are MIT licensed.
+        Brand logos remain the property of their respective owners.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────────────────────── -->
+<footer class="add-padding-y-32 add-padding-x-24 background-gray-900">
+  <div style="max-width:1200px;margin:0 auto;" class="make-flex align-center justify-between" style="flex-wrap:wrap;gap:16px;">
+    <span class="color-gray-400 set-text-14">© 2025 SantyCSS — Icons v1.3.0</span>
+    <div class="make-flex gap-20">
+      <a href="index.html"    class="color-gray-400 text-no-decoration set-text-14 nav-link">Home</a>
+      <a href="classes.html"  class="color-gray-400 text-no-decoration set-text-14 nav-link">Classes</a>
+      <a href="animations.html" class="color-gray-400 text-no-decoration set-text-14 nav-link">Animations</a>
+      <a href="docs.html"     class="color-gray-400 text-no-decoration set-text-14 nav-link">npm Docs</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── COPY TOAST ────────────────────────────────────────────────────────────── -->
+<div id="copy-toast">Copied to clipboard!</div>
+
+<!-- ─── SCRIPTS ──────────────────────────────────────────────────────────────── -->
+<script>
+  /* ── Icon data ── */
+  const ICONS = {
+    social: [
+      { name: 'twitter',   label: 'Twitter'   },
+      { name: 'x-twitter', label: 'X (Twitter)' },
+      { name: 'facebook',  label: 'Facebook'  },
+      { name: 'instagram', label: 'Instagram' },
+      { name: 'linkedin',  label: 'LinkedIn'  },
+      { name: 'youtube',   label: 'YouTube'   },
+      { name: 'tiktok',    label: 'TikTok'    },
+      { name: 'discord',   label: 'Discord'   },
+      { name: 'whatsapp',  label: 'WhatsApp'  },
+      { name: 'telegram',  label: 'Telegram'  },
+      { name: 'reddit',    label: 'Reddit'    },
+      { name: 'twitch',    label: 'Twitch'    },
+      { name: 'spotify',   label: 'Spotify'   },
+      { name: 'pinterest', label: 'Pinterest' },
+      { name: 'slack',     label: 'Slack'     },
+    ],
+    dev: [
+      { name: 'github',    label: 'GitHub'    },
+      { name: 'npm',       label: 'npm'       },
+      { name: 'node-js',   label: 'Node.js'   },
+      { name: 'react',     label: 'React'     },
+      { name: 'vuejs',     label: 'Vue.js'    },
+      { name: 'bootstrap', label: 'Bootstrap' },
+      { name: 'css3',      label: 'CSS3'      },
+      { name: 'html5',     label: 'HTML5'     },
+      { name: 'js',        label: 'JavaScript'},
+      { name: 'python',    label: 'Python'    },
+      { name: 'docker',    label: 'Docker'    },
+      { name: 'aws',       label: 'AWS'       },
+      { name: 'php',       label: 'PHP'       },
+    ],
+    platform: [
+      { name: 'google',    label: 'Google'    },
+      { name: 'apple',     label: 'Apple'     },
+      { name: 'android',   label: 'Android'   },
+      { name: 'windows',   label: 'Windows'   },
+      { name: 'microsoft', label: 'Microsoft' },
+    ],
+    payment: [
+      { name: 'paypal',    label: 'PayPal'    },
+      { name: 'stripe',    label: 'Stripe'    },
+    ],
+  };
+
+  const BUSINESS_ICONS = [
+    { name: 'arrow-trend-up',      label: 'Trend Up'           },
+    { name: 'arrow-trend-down',    label: 'Trend Down'         },
+    { name: 'briefcase',           label: 'Briefcase'          },
+    { name: 'building',            label: 'Building'           },
+    { name: 'building-columns',    label: 'Bank'               },
+    { name: 'calculator',          label: 'Calculator'         },
+    { name: 'cash-register',       label: 'Cash Register'      },
+    { name: 'chart-area',          label: 'Chart Area'         },
+    { name: 'chart-bar',           label: 'Chart Bar'          },
+    { name: 'chart-column',        label: 'Chart Column'       },
+    { name: 'chart-line',          label: 'Chart Line'         },
+    { name: 'chart-pie',           label: 'Chart Pie'          },
+    { name: 'chart-simple',        label: 'Chart Simple'       },
+    { name: 'coins',               label: 'Coins'              },
+    { name: 'credit-card',         label: 'Credit Card'        },
+    { name: 'dollar-sign',         label: 'Dollar Sign'        },
+    { name: 'euro-sign',           label: 'Euro Sign'          },
+    { name: 'file-invoice',        label: 'File Invoice'       },
+    { name: 'file-invoice-dollar', label: 'Invoice Dollar'     },
+    { name: 'hand-holding-dollar', label: 'Hand Holding Dollar'},
+    { name: 'handshake',           label: 'Handshake'          },
+    { name: 'hotel',               label: 'Hotel'              },
+    { name: 'house',               label: 'House'              },
+    { name: 'landmark',            label: 'Landmark'           },
+    { name: 'money-bill',          label: 'Money Bill'         },
+    { name: 'money-bill-wave',     label: 'Money Bill Wave'    },
+    { name: 'percent',             label: 'Percent'            },
+    { name: 'piggy-bank',          label: 'Piggy Bank'         },
+    { name: 'receipt',             label: 'Receipt'            },
+    { name: 'sack-dollar',         label: 'Sack Dollar'        },
+    { name: 'scale-balanced',      label: 'Scale Balanced'     },
+    { name: 'store',               label: 'Store'              },
+    { name: 'tag',                 label: 'Tag'                },
+    { name: 'tags',                label: 'Tags'               },
+    { name: 'wallet',              label: 'Wallet'             },
+  ];
+
+  /* ── Build grid cards ── */
+  function makeCard(icon, prefix) {
+    prefix = prefix || 'brand-icon';
+    const cls = prefix + '-' + icon.name;
+    const card = document.createElement('div');
+    card.className = 'icon-card';
+    card.dataset.name = icon.name;
+    card.dataset.label = icon.label.toLowerCase();
+    card.innerHTML =
+      '<div class="icon-preview ' + prefix + ' ' + cls + '"></div>' +
+      '<span class="icon-name">.' + prefix + '-' + icon.name + '</span>' +
+      '<span class="copy-badge">Copy</span>';
+    card.addEventListener('click', function() {
+      const txt = '<span class="' + prefix + ' ' + prefix + '-' + icon.name + '"></span>';
+      navigator.clipboard.writeText(txt).catch(function() {});
+      showToast('Copied .' + prefix + '-' + icon.name);
+    });
+    return card;
+  }
+
+  Object.entries(ICONS).forEach(function(entry) {
+    const cat = entry[0]; const icons = entry[1];
+    const grid = document.getElementById('grid-' + cat);
+    icons.forEach(function(icon) { grid.appendChild(makeCard(icon, 'brand-icon')); });
+  });
+
+  const gridBusiness = document.getElementById('grid-business');
+  BUSINESS_ICONS.forEach(function(icon) { gridBusiness.appendChild(makeCard(icon, 'icon')); });
+
+  /* ── Category filter ── */
+  const pills = document.querySelectorAll('.cat-pill');
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      const cat = pill.dataset.cat;
+      ['social','dev','platform','payment','business'].forEach(function(c) {
+        const sec = document.getElementById('section-' + c);
+        if (cat === 'all' || cat === c) {
+          sec.style.display = '';
+        } else {
+          sec.style.display = 'none';
+        }
+      });
+      applySearch();
+    });
+  });
+
+  /* ── Search ── */
+  const searchInput = document.getElementById('icon-search');
+  function applySearch() {
+    const q = searchInput.value.toLowerCase().trim();
+    let total = 0;
+    document.querySelectorAll('.icon-card').forEach(card => {
+      const sec = card.closest('[id^="section-"]');
+      if (sec && sec.style.display === 'none') return;
+      const match = !q || card.dataset.name.includes(q) || card.dataset.label.includes(q);
+      card.style.display = match ? '' : 'none';
+      if (match) total++;
+    });
+    document.getElementById('no-results').style.display = total === 0 ? '' : 'none';
+  }
+  searchInput.addEventListener('input', applySearch);
+
+  /* ── Toast ── */
+  function showToast(msg) {
+    const toast = document.getElementById('copy-toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2000);
+  }
+
+  /* ── Hamburger ── */
+  const hamburger = document.getElementById('hamburger-btn');
+  const mainNav   = document.getElementById('main-nav');
+  const iconMenu  = document.getElementById('icon-menu');
+  const iconClose = document.getElementById('icon-close');
+  hamburger.addEventListener('click', () => {
+    const open = mainNav.classList.toggle('open');
+    iconMenu.style.display  = open ? 'none'  : '';
+    iconClose.style.display = open ? ''      : 'none';
+  });
+</script>
+</body>
+</html>

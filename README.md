@@ -20,6 +20,57 @@ Class names read like sentences. No build step. No configuration. Just link and 
 
 ---
 
+## What's New in v1.3
+
+### 🎨 70+ SVG Icons (new: Business & Finance)
+
+SantyCSS now ships **two icon systems** in `santy-icons.css`:
+
+**Brand Icons** (35) — `.brand-icon` + `.brand-icon-{name}`
+Social media, developer tools, platforms & payment services.
+
+**Business & Finance Icons** (35) — `.icon` + `.icon-{name}`
+35 utility icons sourced from Font Awesome 6 Free (CC BY 4.0):
+
+| Category | Icons |
+|---|---|
+| Charts | `chart-bar` · `chart-column` · `chart-line` · `chart-pie` · `chart-area` · `chart-simple` |
+| Money | `dollar-sign` · `euro-sign` · `coins` · `money-bill` · `money-bill-wave` · `sack-dollar` · `percent` |
+| Business | `briefcase` · `handshake` · `building` · `building-columns` · `landmark` · `store` · `hotel` |
+| Documents | `file-invoice` · `file-invoice-dollar` · `receipt` · `credit-card` · `wallet` |
+| Commerce | `tag` · `tags` · `cash-register` · `calculator` · `piggy-bank` · `scale-balanced` |
+| Trends | `arrow-trend-up` · `arrow-trend-down` · `hand-holding-dollar` · `house` |
+
+```html
+<!-- Include the icon stylesheet -->
+<link rel="stylesheet" href="santy-icons.css">
+
+<!-- Brand icon (social/dev) -->
+<span class="brand-icon brand-icon-github"></span>
+<span class="brand-icon brand-icon-react brand-icon-color-react brand-icon-xl"></span>
+
+<!-- Business & Finance icon -->
+<span class="icon icon-briefcase"></span>
+<span class="icon icon-dollar-sign icon-xl" style="color:#16a34a;"></span>
+<span class="icon icon-chart-line icon-32"></span>
+```
+
+**Size modifiers** (same for both systems):
+```
+.icon-xs  .icon-sm  .icon-md  .icon-lg  .icon-xl
+.icon-2x  .icon-3x  .icon-4x  .icon-5x  .icon-6x
+.icon-16  .icon-24  .icon-32  .icon-48  .icon-64
+```
+
+**Animations:**
+```html
+<span class="icon icon-coins icon-spin icon-xl" style="color:#f59e0b;"></span>
+```
+
+> 🎨 **[Icon Browser](https://santycss.santy.in/icons.html)** — search, filter, and copy-click any icon
+
+---
+
 ## What's New in v1.2
 
 ### 🎬 120+ Animations (was 70+)
