@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SantyCSS Playground — Try it live</title>
+  <link rel="icon" type="image/png" href="assest/santy_css.png">
+  <link rel="stylesheet" href="santy.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ed-bg:     #0d1117;
+      --ed-hdr:    #161b22;
+      --ed-border: #30363d;
+      --ed-text:   #e6edf3;
+      --ed-muted:  #7d8590;
+    }
+
+    html, body { height: 100%; overflow: hidden; }
+    body {
+      display: flex;
+      flex-direction: column;
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      background: #f1f5f9;
+    }
+
+    /* ─── Navbar ─── */
+    .nav {
+      height: 54px;
+      background: #0a0f1e;
+      display: flex;
+      align-items: center;
+      padding: 0 18px;
+      gap: 14px;
+      flex-shrink: 0;
+      border-bottom: 1px solid #1e293b;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+    .nav-logo img { width: 30px; height: 30px; border-radius: 7px; }
+    .nav-logo-name { font-size: 17px; font-weight: 800; color: #f1f5f9; letter-spacing: -.3px; }
+    .nav-logo-name span { color: #3b82f6; }
+    .nav-sep { width: 1px; height: 18px; background: #334155; }
+    .nav-tag { font-size: 12px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: .06em; }
+    .nav-badge {
+      background: #1e3a5f;
+      color: #93c5fd;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 20px;
+      border: 1px solid #2563eb44;
+    }
+    .nav-right { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+    .nav-link {
+      background: #1e293b;
+      color: #94a3b8;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 5px 13px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all .15s;
+    }
+    .nav-link:hover { background: #334155; color: #e2e8f0; border-color: #475569; }
+
+    /* ─── Challenge bar ─── */
+    .challenge-bar {
+      background: linear-gradient(90deg, #1e1b4b, #312e81 60%, #1e1b4b);
+      border-bottom: 1px solid #4338ca55;
+      padding: 9px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .challenge-icon { font-size: 18px; }
+    .challenge-text { font-size: 13px; color: #c7d2fe; flex: 1; min-width: 0; }
+    .challenge-text strong { color: #fff; }
+    .ch-btn {
+      background: rgba(255,255,255,.08);
+      color: #a5b4fc;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 8px;
+      padding: 5px 13px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all .15s;
+    }
+    .ch-btn:hover { background: rgba(255,255,255,.16); }
+
+    /* ─── Body wrapper (main + picker) ─── */
+    .body-wrap {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ─── Main split ─── */
+    .split {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* ─── Editor panel ─── */
+    .editor-panel {
+      width: 50%;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+      background: var(--ed-bg);
+      flex-shrink: 0;
+    }
+
+    .editor-toolbar {
+      height: 50px;
+      background: var(--ed-hdr);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 6px;
+      flex-shrink: 0;
+      border-bottom: 1px solid var(--ed-border);
+      border-right: 1px solid var(--ed-border);
+    }
+
+    .e-select {
+      background: #21262d;
+      color: #e6edf3;
+      border: 1px solid var(--ed-border);
+      border-radius: 7px;
+      padding: 4px 9px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+      max-width: 160px;
+    }
+    .e-select:hover { border-color: #8b949e; }
+
+    .e-btn {
+      background: #21262d;
+      color: #8b949e;
+      border: 1px solid var(--ed-border);
+      border-radius: 7px;
+      padding: 4px 11px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      transition: all .15s;
+    }
+    .e-btn:hover { background: #30363d; color: #e6edf3; border-color: #8b949e; }
+    .e-btn.g:hover { background: #0f2e15; color: #3fb950; border-color: #3fb950; }
+    .e-btn.r:hover { background: #2d0e0e; color: #f85149; border-color: #f85149; }
+    .e-spacer { flex: 1; }
+    .e-count { font-size: 11px; color: #484f58; font-family: ui-monospace, monospace; }
+
+    .editor-wrap { flex: 1; min-height: 0; position: relative; }
+    .editor-gutter {
+      position: absolute;
+      top: 0; left: 0;
+      width: 44px;
+      height: 100%;
+      background: #161b22;
+      border-right: 1px solid var(--ed-border);
+      font-family: ui-monospace, monospace;
+      font-size: 12px;
+      color: #484f58;
+      padding-top: 18px;
+      line-height: 1.7;
+      text-align: right;
+      padding-right: 8px;
+      pointer-events: none;
+      overflow: hidden;
+      user-select: none;
+    }
+    .code-editor {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--ed-bg);
+      color: var(--ed-text);
+      font-family: ui-monospace, 'Cascadia Code', 'Fira Code', Menlo, monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      padding: 18px 18px 18px 52px;
+      border: none;
+      outline: none;
+      resize: none;
+      tab-size: 2;
+    }
+    .code-editor::selection { background: #264f78; }
+
+    /* AI bar */
+    .ai-bar {
+      background: #161b22;
+      border-top: 1px solid var(--ed-border);
+      border-right: 1px solid var(--ed-border);
+      padding: 9px 12px;
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .ai-label { font-size: 13px; flex-shrink: 0; }
+    .ai-input {
+      flex: 1;
+      background: var(--ed-bg);
+      color: var(--ed-text);
+      border: 1px solid var(--ed-border);
+      border-radius: 8px;
+      padding: 6px 11px;
+      font-size: 12.5px;
+      outline: none;
+      font-family: inherit;
+    }
+    .ai-input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px #3b82f620; }
+    .ai-input::placeholder { color: #484f58; }
+    .ai-go {
+      background: #1d4ed8;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .ai-go:hover { background: #2563eb; }
+
+    /* ─── Resizer ─── */
+    .resizer {
+      width: 5px;
+      background: #1e293b;
+      cursor: col-resize;
+      flex-shrink: 0;
+      transition: background .15s;
+      position: relative;
+    }
+    .resizer::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 3px;
+      height: 32px;
+      background: #334155;
+      border-radius: 3px;
+    }
+    .resizer:hover, .resizer.dragging { background: #2563eb; }
+    .resizer:hover::after, .resizer.dragging::after { background: #60a5fa; }
+
+    /* ─── Preview panel ─── */
+    .preview-panel {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      background: #e8edf5;
+    }
+    .preview-toolbar {
+      height: 50px;
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .preview-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+    }
+    .vp-group { display: flex; gap: 3px; }
+    .vp-btn {
+      background: none;
+      border: 1px solid #e2e8f0;
+      border-radius: 7px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #94a3b8;
+      transition: all .15s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .vp-btn.active { background: #eff6ff; border-color: #3b82f6; color: #2563eb; }
+    .vp-btn:hover:not(.active) { background: #f8fafc; color: #64748b; }
+    .p-spacer { flex: 1; }
+    .p-btn {
+      background: #f8fafc;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+      border-radius: 7px;
+      padding: 4px 11px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all .15s;
+    }
+    .p-btn:hover { background: #f1f5f9; border-color: #cbd5e1; }
+
+    .preview-wrap {
+      flex: 1;
+      min-height: 0;
+      overflow: auto;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .preview-shell {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.14), 0 1px 4px rgba(0,0,0,.06);
+      overflow: hidden;
+      width: 100%;
+      transition: width .25s cubic-bezier(.4,0,.2,1);
+      flex-shrink: 0;
+    }
+    .preview-shell.mobile  { width: 375px; }
+    .preview-shell.tablet  { width: 768px; }
+    .preview-shell.desktop { width: 100%; }
+
+    /* Browser chrome bar */
+    .browser-chrome {
+      background: #f1f5f9;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot.r { background: #fc6056; }
+    .dot.y { background: #fdbc2c; }
+    .dot.g { background: #33c748; }
+    .url-bar {
+      flex: 1;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 12px;
+      color: #94a3b8;
+      font-family: ui-monospace, monospace;
+    }
+
+    .preview-frame {
+      width: 100%;
+      height: 500px;
+      border: none;
+      display: block;
+    }
+
+    /* ─── Class picker ─── */
+    .picker {
+      background: #fff;
+      border-top: 2px solid #e2e8f0;
+      flex-shrink: 0;
+      height: 210px;
+      display: flex;
+      flex-direction: column;
+      transition: height .2s;
+    }
+    .picker.closed { height: 42px; }
+    .picker-header {
+      height: 42px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      gap: 6px;
+      border-bottom: 1px solid #f1f5f9;
+      flex-shrink: 0;
+    }
+    .picker-title { font-size: 11px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: .07em; flex-shrink: 0; }
+    .picker-tabs { display: flex; gap: 2px; flex: 1; overflow-x: auto; scrollbar-width: none; }
+    .picker-tabs::-webkit-scrollbar { display: none; }
+    .ptab {
+      background: none;
+      border: none;
+      border-radius: 7px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #94a3b8;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all .15s;
+    }
+    .ptab.active { background: #eff6ff; color: #2563eb; }
+    .ptab:hover:not(.active) { background: #f8fafc; color: #64748b; }
+    .picker-toggle { background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 14px; padding: 4px 8px; border-radius: 7px; transition: all .15s; flex-shrink: 0; }
+    .picker-toggle:hover { background: #f1f5f9; color: #475569; }
+
+    .picker-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      align-content: flex-start;
+    }
+    .chip {
+      background: #f8fafc;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 3px 9px;
+      font-size: 11.5px;
+      font-family: ui-monospace, monospace;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .1s;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .chip:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+    .chip[data-cat="layout"]:hover  { background: #eef2ff; color: #4338ca; border-color: #6366f1; }
+    .chip[data-cat="spacing"]:hover { background: #ecfdf5; color: #059669; border-color: #10b981; }
+    .chip[data-cat="type"]:hover    { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+    .chip[data-cat="color"]:hover   { background: #fdf2f8; color: #be185d; border-color: #ec4899; }
+    .chip[data-cat="border"]:hover  { background: #eff6ff; color: #1d4ed8; border-color: #3b82f6; }
+    .chip[data-cat="fx"]:hover      { background: #f5f3ff; color: #6d28d9; border-color: #8b5cf6; }
+    .chip[data-cat="comp"]:hover    { background: #fff1f2; color: #be123c; border-color: #ef4444; }
+    .chip[data-cat="anim"]:hover    { background: #f0fdfa; color: #0f766e; border-color: #14b8a6; }
+
+    /* ─── Toast ─── */
+    .toast {
+      position: fixed;
+      bottom: 260px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1e293b;
+      color: #f1f5f9;
+      padding: 9px 20px;
+      border-radius: 24px;
+      font-size: 13px;
+      font-weight: 600;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity .2s, transform .2s cubic-bezier(.34,1.56,.64,1);
+      pointer-events: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,.3);
+      white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .split { flex-direction: column; }
+      .editor-panel { width: 100%; height: 50%; }
+      .resizer { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="assest/santy_css.png" alt="SantyCSS">
+    <span class="nav-logo-name">Santy<span>CSS</span></span>
+  </a>
+  <div class="nav-sep"></div>
+  <span class="nav-tag">Playground</span>
+  <span class="nav-badge">v1.3.1</span>
+  <div class="nav-right">
+    <a href="classes.html" class="nav-link" target="_blank">📖 Classes</a>
+    <a href="animations.html" class="nav-link" target="_blank">🎬 Animations</a>
+    <a href="docs.html" class="nav-link" target="_blank">📦 Docs</a>
+  </div>
+</nav>
+
+<!-- Challenge bar -->
+<div class="challenge-bar" id="challengeBar">
+  <span class="challenge-icon">🎯</span>
+  <span class="challenge-text"><strong>Challenge:</strong> <span id="challengeText">Build a card with a blue left border, hover shadow, and a "New" badge</span></span>
+  <button class="ch-btn" onclick="nextChallenge()">Next →</button>
+  <button class="ch-btn" onclick="document.getElementById('challengeBar').style.display='none'" style="padding:5px 8px;">✕</button>
+</div>
+
+<!-- Main content wrapper -->
+<div class="body-wrap">
+  <!-- Split: editor + preview -->
+  <div class="split" id="split">
+
+    <!-- ── Editor ── -->
+    <div class="editor-panel" id="editorPanel">
+
+      <!-- Toolbar -->
+      <div class="editor-toolbar">
+        <select class="e-select" id="presetSel" onchange="loadPreset(this.value)">
+          <option value="">📂 Load preset…</option>
+          <option value="card">📇 Card</option>
+          <option value="hero">🦸 Hero Section</option>
+          <option value="pricing">💰 Pricing Cards</option>
+          <option value="dashboard">📊 Dashboard</option>
+          <option value="form">📝 Sign-up Form</option>
+          <option value="buttons">🔘 Button Gallery</option>
+          <option value="animations">✨ Animations</option>
+          <option value="grid">🏗️ Bento Grid</option>
+          <option value="navbar">🧭 Navbar</option>
+          <option value="testimonial">💬 Testimonials</option>
+        </select>
+
+        <button class="e-btn g" onclick="copyHTML()">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Copy
+        </button>
+
+        <button class="e-btn" onclick="downloadHTML()">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Save
+        </button>
+
+        <button class="e-btn" onclick="formatCode()">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h8M4 18h12"/></svg>
+          Format
+        </button>
+
+        <div class="e-spacer"></div>
+        <span class="e-count" id="classCount">0 classes</span>
+
+        <button class="e-btn r" onclick="clearEditor()">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M3 6h18M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
+          Clear
+        </button>
+      </div>
+
+      <!-- Code area -->
+      <div class="editor-wrap">
+        <div class="editor-gutter" id="gutter"></div>
+        <textarea class="code-editor" id="codeEditor"
+          spellcheck="false" autocorrect="off" autocapitalize="off"
+          placeholder="Write SantyCSS HTML here…&#10;&#10;Or load a preset from the dropdown above."></textarea>
+      </div>
+
+      <!-- AI prompt bar -->
+      <div class="ai-bar">
+        <span class="ai-label">✨</span>
+        <input class="ai-input" id="aiInput" type="text"
+          placeholder="Describe a component… e.g. 'blue card with shadow and button'">
+        <button class="ai-go" onclick="aiGenerate()">Generate</button>
+      </div>
+    </div>
+
+    <!-- ── Resizer ── -->
+    <div class="resizer" id="resizer"></div>
+
+    <!-- ── Preview ── -->
+    <div class="preview-panel" id="previewPanel">
+
+      <!-- Preview toolbar -->
+      <div class="preview-toolbar">
+        <span class="preview-label">Live Preview</span>
+        <div class="vp-group">
+          <button class="vp-btn active" id="vp-desktop" onclick="setViewport('desktop')">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Desktop
+          </button>
+          <button class="vp-btn" id="vp-tablet" onclick="setViewport('tablet')">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="18" r=".5" fill="currentColor"/></svg>Tablet
+          </button>
+          <button class="vp-btn" id="vp-mobile" onclick="setViewport('mobile')">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r=".5" fill="currentColor"/></svg>Mobile
+          </button>
+        </div>
+        <div class="p-spacer"></div>
+        <button class="p-btn" onclick="toggleDark()" id="darkBtn">🌙 Dark</button>
+        <button class="p-btn" onclick="updatePreview()">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+          Refresh
+        </button>
+      </div>
+
+      <!-- Preview frame -->
+      <div class="preview-wrap" id="previewWrap">
+        <div class="preview-shell desktop" id="previewShell">
+          <div class="browser-chrome">
+            <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+            <div class="url-bar">santycss-playground</div>
+          </div>
+          <iframe class="preview-frame" id="previewFrame"
+            sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+        </div>
+      </div>
+    </div>
+  </div><!-- /split -->
+
+  <!-- ── Class Picker ── -->
+  <div class="picker" id="picker">
+    <div class="picker-header">
+      <span class="picker-title">Class Picker</span>
+      <div class="picker-tabs">
+        <button class="ptab active" onclick="showTab('layout',this)">Layout</button>
+        <button class="ptab" onclick="showTab('spacing',this)">Spacing</button>
+        <button class="ptab" onclick="showTab('type',this)">Typography</button>
+        <button class="ptab" onclick="showTab('color',this)">Colors</button>
+        <button class="ptab" onclick="showTab('border',this)">Borders</button>
+        <button class="ptab" onclick="showTab('fx',this)">Effects</button>
+        <button class="ptab" onclick="showTab('comp',this)">Components</button>
+        <button class="ptab" onclick="showTab('anim',this)">Animations</button>
+      </div>
+      <button class="picker-toggle" id="pickerToggle" onclick="togglePicker()">▼</button>
+    </div>
+    <div class="picker-body" id="pickerBody"></div>
+  </div>
+
+</div><!-- /body-wrap -->
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── Class data ───────────────────────────────────────────────────────────────
+const CATS = {
+  layout: [
+    'make-flex','make-grid','make-block','make-inline-flex','make-hidden',
+    'flex-row','flex-column','flex-wrap','flex-nowrap',
+    'align-center','align-start','align-end','align-stretch',
+    'justify-center','justify-between','justify-start','justify-end','justify-around',
+    'grid-cols-1','grid-cols-2','grid-cols-3','grid-cols-4','grid-cols-6','grid-cols-12',
+    'gap-4','gap-8','gap-12','gap-16','gap-20','gap-24','gap-32','gap-48',
+    'container','overflow-hidden','overflow-auto','overflow-scroll',
+    'pin-center','pin-top-0','pin-bottom-0',
+    'make-relative','make-absolute','make-fixed','make-sticky',
+  ],
+  spacing: [
+    'add-padding-4','add-padding-8','add-padding-12','add-padding-16','add-padding-20',
+    'add-padding-24','add-padding-32','add-padding-40','add-padding-48','add-padding-64',
+    'add-padding-x-8','add-padding-x-16','add-padding-x-24','add-padding-x-32','add-padding-x-48',
+    'add-padding-y-8','add-padding-y-16','add-padding-y-24','add-padding-y-32','add-padding-y-48',
+    'add-margin-4','add-margin-8','add-margin-16','add-margin-24','add-margin-32',
+    'add-margin-bottom-8','add-margin-bottom-12','add-margin-bottom-16','add-margin-bottom-24','add-margin-bottom-32',
+    'add-margin-top-8','add-margin-top-16','add-margin-top-24',
+    'add-margin-x-auto','add-margin-left-auto','add-margin-right-auto',
+    'gap-x-8','gap-x-16','gap-y-8','gap-y-16',
+  ],
+  type: [
+    'set-text-10','set-text-12','set-text-13','set-text-14','set-text-16','set-text-18',
+    'set-text-20','set-text-24','set-text-28','set-text-32','set-text-40','set-text-48','set-text-56','set-text-64',
+    'text-bold','text-semibold','text-medium','text-regular','text-light',
+    'text-center','text-left','text-right',
+    'text-uppercase','text-lowercase','text-capitalize',
+    'line-height-tight','line-height-normal','line-height-relaxed','line-height-loose',
+    'text-no-decoration','text-underline','text-italic',
+    'text-clamp-1','text-clamp-2','text-clamp-3',
+    'text-balance','text-pretty','drop-cap',
+    'text-fluid-sm','text-fluid-md','text-fluid-lg','text-fluid-xl','text-fluid-hero',
+  ],
+  color: [
+    'color-blue-400','color-blue-500','color-blue-600','color-blue-700',
+    'color-red-500','color-red-600',
+    'color-green-500','color-green-600','color-green-700',
+    'color-amber-500','color-yellow-500',
+    'color-purple-500','color-purple-600',
+    'color-pink-500','color-teal-500','color-indigo-500',
+    'color-gray-400','color-gray-500','color-gray-600','color-gray-700','color-gray-900',
+    'color-white',
+    'background-blue-50','background-blue-100','background-blue-500','background-blue-600','background-blue-700',
+    'background-green-50','background-green-100','background-green-500',
+    'background-red-50','background-red-100','background-red-500',
+    'background-purple-50','background-purple-100','background-purple-500',
+    'background-amber-50','background-amber-100','background-amber-400',
+    'background-gray-50','background-gray-100','background-gray-800','background-gray-900',
+    'background-white',
+  ],
+  border: [
+    'add-border-1','add-border-2','add-border-4',
+    'add-border-top-1','add-border-bottom-1','add-border-left-2','add-border-left-4','add-border-right-2',
+    'border-color-blue-500','border-color-blue-300','border-color-green-500','border-color-red-500',
+    'border-color-gray-100','border-color-gray-200','border-color-gray-300',
+    'round-corners-4','round-corners-6','round-corners-8','round-corners-12',
+    'round-corners-16','round-corners-20','round-corners-24','round-corners-32',
+    'make-circle','make-pill',
+  ],
+  fx: [
+    'add-shadow-sm','add-shadow-md','add-shadow-lg','add-shadow-xl','add-shadow-none',
+    'opacity-0','opacity-25','opacity-50','opacity-75','opacity-100',
+    'transition-all','transition-colors','transition-transform',
+    'on-hover:add-shadow-md','on-hover:add-shadow-lg','on-hover:add-shadow-xl',
+    'on-hover:scale-105','on-hover:scale-110','on-hover:scale-95','on-hover:opacity-75',
+    'on-hover:color-blue-500','on-hover:background-blue-50',
+    'dark:background-gray-800','dark:background-gray-900','dark:color-white',
+    'cursor-pointer','cursor-default','cursor-not-allowed','cursor-grab',
+    'select-none','will-change-transform',
+    'isolate','z-modal','z-tooltip','z-toast',
+  ],
+  comp: [
+    'btn','btn-primary','btn-secondary','btn-success','btn-danger','btn-warning',
+    'btn-outline','btn-ghost','btn-dark','btn-sm','btn-lg',
+    'make-button','style-primary','style-secondary','style-success','style-danger',
+    'style-warning','style-info','style-outline','style-ghost','style-dark',
+    'size-small','size-large','size-xl','size-full',
+    'shape-pill','shape-rounded','shape-square',
+    'card','card-body','card-hover',
+    'badge','badge-primary','badge-success','badge-danger','badge-warning',
+    'make-badge','make-card','make-alert',
+    'alert','alert-success','alert-warning','alert-danger',
+    'input','input-sm','input-lg',
+    'spinner','skeleton','progress',
+    'avatar','avatar-sm','avatar-lg',
+    'table','table-bordered','table-striped',
+  ],
+  anim: [
+    'animate-spin','animate-pulse','animate-bounce',
+    'animate-fade-in','animate-fade-out',
+    'animate-slide-up','animate-slide-down','animate-slide-left','animate-slide-right',
+    'animate-zoom-in','animate-zoom-out',
+    'animate-flip-in-x','animate-flip-in-y',
+    'animate-bounce-in','animate-bounce-in-from-left','animate-bounce-in-from-right',
+    'animate-rubber-band','animate-shake','animate-wobble','animate-tada','animate-jello',
+    'animate-heartbeat','animate-flash','animate-swing',
+    'animate-text-gradient-flow','animate-text-glitch','animate-text-neon-pulse',
+    'animate-border-spin','animate-morph-blob','animate-error-shake',
+    'animate-toast-in','animate-modal-in',
+    'animate-on-scroll-slide-up','animate-on-scroll-fade-in',
+    'animate-stagger-slide-up','animate-stagger-children-100','animate-stagger-children-200',
+    'on-hover:animate-bounce','on-hover:animate-rubber-band','on-hover:animate-tada',
+    'on-hover:animate-shake','on-hover:animate-wobble',
+    'animation-pause-on-hover','animation-ease-bounce','animation-ease-elastic',
+    'animation-delay-100','animation-delay-200','animation-delay-500','animation-delay-1000',
+  ],
+};
+
+// ─── Presets ─────────────────────────────────────────────────────────────────
+const PRESETS = {
+  card: `<div class="make-flex justify-center align-center add-padding-48 background-gray-50" style="min-height:100vh;">
+  <div class="background-white round-corners-20 add-shadow-lg add-border-1 border-color-gray-100 add-padding-36 on-hover:add-shadow-xl transition-all add-border-left-4 border-color-blue-500 cursor-pointer" style="width:360px;">
+    <span class="badge badge-primary add-margin-bottom-16">New Feature</span>
+    <h2 class="set-text-22 text-bold color-gray-900 add-margin-bottom-10">Beautiful Components</h2>
+    <p class="set-text-14 color-gray-500 line-height-relaxed add-margin-bottom-24">SantyCSS makes building UI fast and readable. Class names that just work — no lookup tables.</p>
+    <div class="make-flex gap-10">
+      <button class="make-button style-primary shape-pill">Get started</button>
+      <button class="make-button style-outline shape-pill">Learn more</button>
+    </div>
+  </div>
+</div>`,
+
+  hero: `<section class="make-flex flex-column align-center justify-center text-center add-padding-y-96 add-padding-x-24" style="min-height:100vh;background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 50%,#312e81 100%);">
+  <span class="badge add-margin-bottom-24 animate-fade-in" style="background:rgba(255,255,255,.1);color:#a5b4fc;border:1px solid rgba(255,255,255,.15);">✦ Plain English · No Build Step · 723KB</span>
+  <h1 class="set-text-64 text-bold color-white add-margin-bottom-20 animate-slide-up" style="line-height:1.1;letter-spacing:-2px;">
+    CSS that reads like<br><span style="color:#818cf8;">plain English</span>
+  </h1>
+  <p class="set-text-20 add-margin-bottom-40 line-height-relaxed animate-slide-up animation-delay-200" style="color:rgba(255,255,255,.65);max-width:540px;">
+    No cryptic abbreviations. No lookup tables. Class names that describe exactly what they do.
+  </p>
+  <div class="make-flex gap-16 flex-wrap justify-center animate-slide-up animation-delay-500">
+    <button class="make-button style-primary size-large shape-pill on-hover:scale-105 transition-all">Get started →</button>
+    <button class="make-button size-large shape-pill on-hover:scale-105 transition-all" style="background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.25);">View docs</button>
+  </div>
+</section>`,
+
+  pricing: `<div class="make-flex flex-column align-center add-padding-64 background-gray-50" style="min-height:100vh;">
+  <h2 class="set-text-36 text-bold color-gray-900 add-margin-bottom-8 text-center" style="letter-spacing:-.5px;">Simple Pricing</h2>
+  <p class="set-text-16 color-gray-500 add-margin-bottom-48 text-center">No surprises. No hidden fees. Cancel any time.</p>
+  <div class="make-grid grid-cols-3 gap-24" style="max-width:960px;width:100%;">
+    <div class="background-white round-corners-20 add-shadow-sm add-border-1 border-color-gray-200 add-padding-32 on-hover:add-shadow-md transition-all">
+      <div class="set-text-13 text-semibold color-gray-500 text-uppercase letter-space-wide add-margin-bottom-12">Starter</div>
+      <div class="set-text-40 text-bold color-gray-900 add-margin-bottom-4">$0 <span class="set-text-16 text-regular color-gray-400">/mo</span></div>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-28">Perfect for side projects</p>
+      <button class="make-button style-outline shape-pill" style="width:100%;">Get started free</button>
+    </div>
+    <div class="background-blue-600 round-corners-20 add-shadow-xl add-padding-32 on-hover:scale-105 transition-all" style="position:relative;">
+      <span class="badge background-white color-blue-600" style="position:absolute;top:-14px;right:20px;font-weight:700;">Most Popular</span>
+      <div class="set-text-13 text-semibold text-uppercase letter-space-wide add-margin-bottom-12" style="color:rgba(255,255,255,.7);">Pro</div>
+      <div class="set-text-40 text-bold color-white add-margin-bottom-4">$29 <span class="set-text-16" style="opacity:.65;">/mo</span></div>
+      <p class="set-text-14 add-margin-bottom-28" style="color:rgba(255,255,255,.75);">For growing teams</p>
+      <button class="make-button shape-pill" style="width:100%;background:#fff;color:#1d4ed8;font-weight:700;">Get Pro →</button>
+    </div>
+    <div class="background-white round-corners-20 add-shadow-sm add-border-1 border-color-gray-200 add-padding-32 on-hover:add-shadow-md transition-all">
+      <div class="set-text-13 text-semibold color-gray-500 text-uppercase letter-space-wide add-margin-bottom-12">Enterprise</div>
+      <div class="set-text-40 text-bold color-gray-900 add-margin-bottom-4">$99 <span class="set-text-16 text-regular color-gray-400">/mo</span></div>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-28">For large organisations</p>
+      <button class="make-button style-outline shape-pill" style="width:100%;">Contact sales</button>
+    </div>
+  </div>
+</div>`,
+
+  dashboard: `<div class="add-padding-32 background-gray-50" style="min-height:100vh;">
+  <div class="make-flex align-center justify-between add-margin-bottom-32">
+    <div>
+      <h1 class="set-text-24 text-bold color-gray-900">Dashboard</h1>
+      <p class="set-text-13 color-gray-400 add-margin-top-2">Welcome back! Here's what's happening.</p>
+    </div>
+    <div class="make-flex gap-8 align-center">
+      <span class="badge badge-success animate-pulse">● Live</span>
+      <button class="make-button style-primary size-small">Export CSV</button>
+    </div>
+  </div>
+  <div class="make-grid grid-cols-4 gap-20 add-margin-bottom-28">
+    <div class="background-white round-corners-16 add-padding-24 add-shadow-sm add-border-left-4 border-color-blue-500 on-hover:add-shadow-md transition-all">
+      <div class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-6">Revenue</div>
+      <div class="set-text-28 text-bold color-gray-900 add-margin-bottom-4">$48,295</div>
+      <span class="set-text-12 color-green-600 text-semibold">↑ 12.5% this month</span>
+    </div>
+    <div class="background-white round-corners-16 add-padding-24 add-shadow-sm add-border-left-4 border-color-green-500 on-hover:add-shadow-md transition-all">
+      <div class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-6">Users</div>
+      <div class="set-text-28 text-bold color-gray-900 add-margin-bottom-4">3,847</div>
+      <span class="set-text-12 color-green-600 text-semibold">↑ 8.2% this month</span>
+    </div>
+    <div class="background-white round-corners-16 add-padding-24 add-shadow-sm add-border-left-4 border-color-purple-500 on-hover:add-shadow-md transition-all">
+      <div class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-6">Orders</div>
+      <div class="set-text-28 text-bold color-gray-900 add-margin-bottom-4">1,293</div>
+      <span class="set-text-12 color-red-500 text-semibold">↓ 3.1% this month</span>
+    </div>
+    <div class="background-white round-corners-16 add-padding-24 add-shadow-sm add-border-left-4 border-color-amber-400 on-hover:add-shadow-md transition-all">
+      <div class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-6">Conversion</div>
+      <div class="set-text-28 text-bold color-gray-900 add-margin-bottom-4">4.7%</div>
+      <span class="set-text-12 color-green-600 text-semibold">↑ 0.8% this month</span>
+    </div>
+  </div>
+  <div class="background-white round-corners-16 add-padding-28 add-shadow-sm">
+    <h3 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-20">Recent Orders</h3>
+    <table class="table table-bordered" style="width:100%;font-size:13px;">
+      <thead style="background:#f8fafc;"><tr><th>Order</th><th>Customer</th><th>Status</th><th>Amount</th></tr></thead>
+      <tbody>
+        <tr><td>#1042</td><td>Alex Johnson</td><td><span class="badge badge-success">Shipped</span></td><td class="text-bold">$128.00</td></tr>
+        <tr><td>#1041</td><td>Maria Garcia</td><td><span class="badge badge-warning">Processing</span></td><td class="text-bold">$64.50</td></tr>
+        <tr><td>#1040</td><td>Sam Lee</td><td><span class="badge badge-danger">Cancelled</span></td><td class="text-bold color-gray-400" style="text-decoration:line-through;">$220.00</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>`,
+
+  form: `<div class="make-flex justify-center align-center add-padding-48 background-gray-50" style="min-height:100vh;">
+  <div class="background-white round-corners-20 add-shadow-lg add-padding-40" style="width:440px;">
+    <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-4">Create account</h2>
+    <p class="set-text-14 color-gray-500 add-margin-bottom-28">Start building with SantyCSS today.</p>
+    <div class="make-grid grid-cols-2 gap-16 add-margin-bottom-16">
+      <div>
+        <label class="set-text-13 text-semibold color-gray-700 add-margin-bottom-6" style="display:block;">First name</label>
+        <input class="input" placeholder="Alex" style="width:100%;">
+      </div>
+      <div>
+        <label class="set-text-13 text-semibold color-gray-700 add-margin-bottom-6" style="display:block;">Last name</label>
+        <input class="input" placeholder="Johnson" style="width:100%;">
+      </div>
+    </div>
+    <div class="add-margin-bottom-16">
+      <label class="set-text-13 text-semibold color-gray-700 add-margin-bottom-6" style="display:block;">Email</label>
+      <input class="input" type="email" placeholder="alex@example.com" style="width:100%;">
+    </div>
+    <div class="add-margin-bottom-28">
+      <label class="set-text-13 text-semibold color-gray-700 add-margin-bottom-6" style="display:block;">Password</label>
+      <input class="input" type="password" placeholder="8+ characters" style="width:100%;">
+    </div>
+    <button class="make-button style-primary on-hover:scale-105 transition-all" style="width:100%;">Create account →</button>
+    <p class="set-text-13 color-gray-400 text-center add-margin-top-20">
+      Already have an account? <a href="#" style="color:#3b82f6;font-weight:600;">Sign in</a>
+    </p>
+  </div>
+</div>`,
+
+  buttons: `<div class="add-padding-40 background-gray-50" style="min-height:100vh;">
+  <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-4">Button Gallery</h2>
+  <p class="set-text-14 color-gray-500 add-margin-bottom-32">Every button style in SantyCSS v1.3</p>
+
+  <h4 class="set-text-11 text-semibold color-gray-400 text-uppercase letter-space-wide add-margin-bottom-12">Styles</h4>
+  <div class="make-flex flex-wrap gap-10 add-margin-bottom-32">
+    <button class="make-button style-primary">Primary</button>
+    <button class="make-button style-secondary">Secondary</button>
+    <button class="make-button style-success">Success</button>
+    <button class="make-button style-danger">Danger</button>
+    <button class="make-button style-warning">Warning</button>
+    <button class="make-button style-outline">Outline</button>
+    <button class="make-button style-ghost">Ghost</button>
+    <button class="make-button style-dark">Dark</button>
+  </div>
+
+  <h4 class="set-text-11 text-semibold color-gray-400 text-uppercase letter-space-wide add-margin-bottom-12">Sizes</h4>
+  <div class="make-flex flex-wrap align-center gap-10 add-margin-bottom-32">
+    <button class="make-button style-primary size-small">Small</button>
+    <button class="make-button style-primary">Default</button>
+    <button class="make-button style-primary size-large">Large</button>
+    <button class="make-button style-primary size-xl">XL</button>
+  </div>
+
+  <h4 class="set-text-11 text-semibold color-gray-400 text-uppercase letter-space-wide add-margin-bottom-12">Shapes</h4>
+  <div class="make-flex flex-wrap gap-10 add-margin-bottom-32">
+    <button class="make-button style-primary shape-square">Square</button>
+    <button class="make-button style-primary shape-rounded">Rounded</button>
+    <button class="make-button style-primary shape-pill">Pill</button>
+  </div>
+
+  <h4 class="set-text-11 text-semibold color-gray-400 text-uppercase letter-space-wide add-margin-bottom-12">Hover animations</h4>
+  <div class="make-flex flex-wrap gap-10">
+    <button class="make-button style-primary on-hover:scale-105 transition-all">Scale</button>
+    <button class="make-button style-success on-hover:animate-bounce">Bounce</button>
+    <button class="make-button style-danger on-hover:animate-rubber-band">Rubber band</button>
+    <button class="make-button style-warning on-hover:animate-tada">Tada! 🎉</button>
+    <button class="make-button style-outline on-hover:animate-shake">Shake</button>
+    <button class="make-button style-dark on-hover:animate-wobble">Wobble</button>
+  </div>
+</div>`,
+
+  animations: `<div class="add-padding-40 background-gray-900" style="min-height:100vh;">
+  <h2 class="set-text-24 text-bold color-white add-margin-bottom-4">Animation Showcase</h2>
+  <p class="set-text-14 color-gray-400 add-margin-bottom-32">120+ animations — hover the cards for interactive ones.</p>
+  <div class="make-grid grid-cols-4 gap-16 add-margin-bottom-28">
+    <div class="background-gray-800 round-corners-16 add-padding-24 text-center add-border-1 border-color-gray-700 animate-fade-in">
+      <div class="set-text-36 add-margin-bottom-12">👋</div>
+      <code class="set-text-11 color-blue-400">fade-in</code>
+    </div>
+    <div class="background-gray-800 round-corners-16 add-padding-24 text-center add-border-1 border-color-gray-700 animate-slide-up animation-delay-100">
+      <div class="set-text-36 add-margin-bottom-12">⬆️</div>
+      <code class="set-text-11 color-blue-400">slide-up</code>
+    </div>
+    <div class="background-gray-800 round-corners-16 add-padding-24 text-center add-border-1 border-color-gray-700 animate-zoom-in animation-delay-200">
+      <div class="set-text-36 add-margin-bottom-12">🔍</div>
+      <code class="set-text-11 color-blue-400">zoom-in</code>
+    </div>
+    <div class="background-gray-800 round-corners-16 add-padding-24 text-center add-border-1 border-color-gray-700 animate-bounce-in animation-delay-300">
+      <div class="set-text-36 add-margin-bottom-12">🎯</div>
+      <code class="set-text-11 color-blue-400">bounce-in</code>
+    </div>
+    <div class="background-gray-800 round-corners-16 add-padding-24 text-center add-border-1 border-color-gray-700 cursor-pointer on-hover:animate-rubber-band">
+      <div class="set-text-36 add-margin-bottom-12">🎸</div>
+      <code class="set-text-11 color-teal-400">hover: rubber-band</code>
+    </div>
+    <div class="background-gray-800 round-corners-16 add-padding-24 text-center add-border-1 border-color-gray-700 cursor-pointer on-hover:animate-tada">
+      <div class="set-text-36 add-margin-bottom-12">🎉</div>
+      <code class="set-text-11 color-teal-400">hover: tada</code>
+    </div>
+    <div class="background-gray-800 round-corners-16 add-padding-24 text-center add-border-1 border-color-gray-700 cursor-pointer on-hover:animate-wobble">
+      <div class="set-text-36 add-margin-bottom-12">🌊</div>
+      <code class="set-text-11 color-teal-400">hover: wobble</code>
+    </div>
+    <div class="background-gray-800 round-corners-16 add-padding-24 text-center add-border-1 border-color-gray-700">
+      <div class="set-text-36 add-margin-bottom-12 animate-pulse">💓</div>
+      <code class="set-text-11 color-blue-400">pulse</code>
+    </div>
+  </div>
+  <div class="background-gray-800 round-corners-20 add-padding-40 text-center add-border-1 border-color-gray-700">
+    <h3 class="set-text-40 text-bold add-margin-bottom-8 animate-text-gradient-flow" style="background:linear-gradient(90deg,#60a5fa,#a78bfa,#f472b6,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200%;">Gradient Flow Text</h3>
+    <p class="set-text-13 color-gray-500">animate-text-gradient-flow</p>
+  </div>
+</div>`,
+
+  grid: `<div class="add-padding-32 background-gray-50" style="min-height:100vh;">
+  <h2 class="set-text-22 text-bold color-gray-900 add-margin-bottom-24">Bento Grid Layout</h2>
+  <div class="make-grid gap-16" style="grid-template-columns:2fr 1fr 1fr;grid-template-rows:200px 180px;margin-bottom:24px;">
+    <div class="background-blue-600 round-corners-20 add-padding-32 color-white" style="grid-row:1/3;">
+      <h3 class="set-text-22 text-bold add-margin-bottom-12">Featured</h3>
+      <p class="set-text-15 line-height-relaxed" style="opacity:.85;">This tall card spans two rows using CSS grid placement. Perfect for a featured story or hero stat.</p>
+    </div>
+    <div class="background-green-400 round-corners-16 add-padding-24 color-white">
+      <div class="set-text-28 text-bold add-margin-bottom-4">3,847</div>
+      <div class="set-text-13" style="opacity:.85;">Active users</div>
+    </div>
+    <div class="background-amber-400 round-corners-16 add-padding-24 color-white">
+      <div class="set-text-28 text-bold add-margin-bottom-4">98.7%</div>
+      <div class="set-text-13" style="opacity:.85;">Uptime</div>
+    </div>
+    <div class="background-purple-500 round-corners-16 add-padding-24 color-white">
+      <div class="set-text-28 text-bold add-margin-bottom-4">120+</div>
+      <div class="set-text-13" style="opacity:.85;">Animations</div>
+    </div>
+    <div class="background-red-400 round-corners-16 add-padding-24 color-white">
+      <div class="set-text-28 text-bold add-margin-bottom-4">20k+</div>
+      <div class="set-text-13" style="opacity:.85;">Downloads</div>
+    </div>
+  </div>
+  <div class="make-grid grid-cols-3 gap-16">
+    <div class="background-white round-corners-16 add-padding-24 add-shadow-sm add-border-1 border-color-gray-100">Plain card</div>
+    <div class="background-white round-corners-16 add-padding-24 add-shadow-sm add-border-left-4 border-color-blue-500">Accent border</div>
+    <div class="background-white round-corners-16 add-padding-24 add-shadow-sm on-hover:add-shadow-xl on-hover:scale-105 transition-all cursor-pointer">Hover me!</div>
+  </div>
+</div>`,
+
+  navbar: `<div style="min-height:100vh;background:#f8fafc;">
+  <nav class="background-white add-shadow-sm" style="border-bottom:1px solid #f1f5f9;">
+    <div class="make-flex align-center justify-between add-padding-y-16 add-padding-x-28">
+      <div class="make-flex align-center gap-12">
+        <div class="background-blue-600 round-corners-10 make-flex align-center justify-center" style="width:38px;height:38px;">
+          <span class="color-white text-bold">S</span>
+        </div>
+        <span class="set-text-18 text-bold color-gray-900">SantyCSS</span>
+        <span class="badge badge-primary">v1.3</span>
+      </div>
+      <div class="make-flex align-center gap-4">
+        <a href="#" class="set-text-14 text-semibold color-gray-600 add-padding-x-12 add-padding-y-8 round-corners-8 on-hover:background-gray-100 transition-all text-no-decoration">Docs</a>
+        <a href="#" class="set-text-14 text-semibold color-gray-600 add-padding-x-12 add-padding-y-8 round-corners-8 on-hover:background-gray-100 transition-all text-no-decoration">Components</a>
+        <a href="#" class="set-text-14 text-semibold color-gray-600 add-padding-x-12 add-padding-y-8 round-corners-8 on-hover:background-gray-100 transition-all text-no-decoration">Playground</a>
+        <div style="width:1px;height:20px;background:#e2e8f0;margin:0 4px;"></div>
+        <button class="make-button style-outline size-small">Log in</button>
+        <button class="make-button style-primary size-small shape-pill">Sign up →</button>
+      </div>
+    </div>
+  </nav>
+  <div class="make-flex flex-column align-center justify-center text-center add-padding-y-96">
+    <h1 class="set-text-48 text-bold color-gray-900 add-margin-bottom-16" style="letter-spacing:-1.5px;">A clean navbar</h1>
+    <p class="set-text-18 color-gray-500 add-margin-bottom-32">Edit the HTML on the left to make it yours.</p>
+    <button class="make-button style-primary size-large shape-pill">Explore →</button>
+  </div>
+</div>`,
+
+  testimonial: `<div class="make-flex flex-column align-center add-padding-64 background-gray-50" style="min-height:100vh;">
+  <h2 class="set-text-36 text-bold color-gray-900 add-margin-bottom-8 text-center" style="letter-spacing:-.5px;">What developers say</h2>
+  <p class="set-text-16 color-gray-500 add-margin-bottom-48 text-center">Loved by teams worldwide.</p>
+  <div class="make-grid grid-cols-3 gap-24" style="max-width:960px;width:100%;">
+    <div class="background-white round-corners-20 add-padding-28 add-shadow-sm add-border-1 border-color-gray-100 on-hover:add-shadow-lg transition-all">
+      <div class="add-margin-bottom-16" style="color:#f59e0b;font-size:18px;letter-spacing:2px;">★★★★★</div>
+      <p class="set-text-15 color-gray-700 line-height-relaxed add-margin-bottom-20">"I built a whole landing page in 30 minutes. The class names are so readable I barely had to think."</p>
+      <div class="make-flex align-center gap-12">
+        <div class="background-blue-500 make-flex align-center justify-center round-corners-full color-white text-bold set-text-16" style="width:40px;height:40px;flex-shrink:0;">A</div>
+        <div><div class="set-text-14 text-semibold color-gray-900">Alex Chen</div><div class="set-text-12 color-gray-400">Frontend Dev</div></div>
+      </div>
+    </div>
+    <div class="background-blue-600 round-corners-20 add-padding-28 add-shadow-xl">
+      <div class="add-margin-bottom-16" style="color:#fbbf24;font-size:18px;letter-spacing:2px;">★★★★★</div>
+      <p class="set-text-15 color-white line-height-relaxed add-margin-bottom-20" style="opacity:.9;">"Finally, CSS class names I can read like plain English. Switched from Tailwind and never looked back."</p>
+      <div class="make-flex align-center gap-12">
+        <div class="background-white make-flex align-center justify-center round-corners-full text-bold set-text-16" style="width:40px;height:40px;flex-shrink:0;color:#2563eb;">S</div>
+        <div><div class="set-text-14 text-semibold color-white">Sarah Kim</div><div class="set-text-12 color-white" style="opacity:.7;">UI Designer</div></div>
+      </div>
+    </div>
+    <div class="background-white round-corners-20 add-padding-28 add-shadow-sm add-border-1 border-color-gray-100 on-hover:add-shadow-lg transition-all">
+      <div class="add-margin-bottom-16" style="color:#f59e0b;font-size:18px;letter-spacing:2px;">★★★★★</div>
+      <p class="set-text-15 color-gray-700 line-height-relaxed add-margin-bottom-20">"Zero config, zero build step, and the class names are self-documenting. Game changer for rapid prototyping."</p>
+      <div class="make-flex align-center gap-12">
+        <div class="background-green-500 make-flex align-center justify-center round-corners-full color-white text-bold set-text-16" style="width:40px;height:40px;flex-shrink:0;">M</div>
+        <div><div class="set-text-14 text-semibold color-gray-900">Marcus Webb</div><div class="set-text-12 color-gray-400">Full-stack Dev</div></div>
+      </div>
+    </div>
+  </div>
+</div>`,
+};
+
+// ─── Challenges ───────────────────────────────────────────────────────────────
+const CHALLENGES = [
+  'Build a card with a blue left border, hover shadow, and a "New" badge',
+  'Create a hero section with a gradient background and two CTA buttons',
+  'Make a 3-column grid of feature cards with icons and a hover scale effect',
+  'Build a pricing card with a highlighted "Most Popular" tier',
+  'Create a dashboard stat card with a coloured accent border and trend arrow',
+  'Build a sign-up form with a two-column name row and email/password fields',
+  'Make a navbar with a logo, nav links, and a sign-up button on the right',
+  'Create a testimonial card with a star rating and a circular avatar',
+  'Build an animation showcase: 4 cards using different animate-* classes',
+  'Make a dark-mode card (background-gray-900, color-white) with a glow shadow',
+  'Create a badge group: success, warning, danger — all in a flex row',
+  'Build a bento grid with one tall featured card spanning two rows',
+];
+let challengeIdx = 0;
+
+// ─── AI map ───────────────────────────────────────────────────────────────────
+const AI_MAP = [
+  [/flex|row|inline/,            'make-flex flex-row align-center gap-16'],
+  [/column|stack|vertical/,      'make-flex flex-column gap-16'],
+  [/grid/,                       (t) => { const m=t.match(/(\d)\s*col/); return `make-grid grid-cols-${m?m[1]:'3'} gap-20`; }],
+  [/center(ed)?|middle/,         'make-flex align-center justify-center'],
+  [/hero|banner|jumbotron/,      'make-flex flex-column align-center justify-center text-center add-padding-y-96'],
+  [/card/,                       'background-white round-corners-16 add-shadow-md add-padding-28 add-border-1 border-color-gray-100'],
+  [/button|btn/,                 'make-button style-primary shape-pill size-large'],
+  [/badge|tag|chip/,             'badge badge-primary'],
+  [/form|input/,                 'input round-corners-8 add-padding-12'],
+  [/nav(bar)?/,                  'background-white add-shadow-sm add-padding-y-16 add-padding-x-24 make-flex align-center justify-between'],
+  [/shadow/,                     'add-shadow-lg on-hover:add-shadow-xl transition-all'],
+  [/hover/,                      'on-hover:scale-105 on-hover:add-shadow-lg transition-all'],
+  [/blue/,                       'background-blue-500 color-white'],
+  [/green/,                      'background-green-500 color-white'],
+  [/red|danger/,                 'background-red-500 color-white'],
+  [/purple/,                     'background-purple-500 color-white'],
+  [/dark|night/,                 'background-gray-900 color-white'],
+  [/gradient/,                   (t) => `style="background:linear-gradient(135deg,#3b82f6,#8b5cf6)"`],
+  [/rounded|pill/,               'round-corners-24'],
+  [/bounce|jump/,                'animate-bounce'],
+  [/fade/,                       'animate-fade-in'],
+  [/slide/,                      'animate-slide-up'],
+  [/spin|rotate/,                'animate-spin'],
+  [/pulse|glow/,                 'animate-pulse'],
+  [/rubber|elastic/,             'on-hover:animate-rubber-band'],
+  [/shake|error/,                'animate-shake'],
+  [/large|big|huge/,             'set-text-32 add-padding-32'],
+  [/small|tiny|sm/,              'set-text-12 add-padding-8'],
+  [/bold|strong/,                'text-bold'],
+  [/border/,                     'add-border-2 border-color-blue-500'],
+  [/circle|round/,               'make-circle add-padding-20'],
+  [/padding|space/,              'add-padding-24'],
+  [/white|light|clean/,          'background-white color-gray-900 add-shadow-sm'],
+];
+
+// ─── Core refs ────────────────────────────────────────────────────────────────
+const editor    = document.getElementById('codeEditor');
+const frame     = document.getElementById('previewFrame');
+const gutter    = document.getElementById('gutter');
+const countEl   = document.getElementById('classCount');
+let darkPreview = false;
+let debounce;
+
+// ─── Preview update ───────────────────────────────────────────────────────────
+function updatePreview() {
+  const html = editor.value;
+  // Class count
+  const all = html.match(/class="([^"]*)"/g) || [];
+  let n = 0;
+  all.forEach(m => { n += m.replace(/class="|"/g,'').trim().split(/\s+/).filter(Boolean).length; });
+  countEl.textContent = `${n} class${n!==1?'es':''}`;
+
+  const base = location.href.replace(/[^/]*$/,'');
+  const bg   = darkPreview ? '#0f172a' : '#ffffff';
+  frame.srcdoc = `<!DOCTYPE html><html><head>
+  <base href="${base}">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="santy.css">
+  <style>*{box-sizing:border-box;}body{margin:0;padding:0;background:${bg};font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;}</style>
+</head><body>${html}
+<script>
+  function ping(){window.parent.postMessage({t:'h',v:document.documentElement.scrollHeight},'*');}
+  new ResizeObserver(ping).observe(document.body); ping();
+<\/script></body></html>`;
+}
+
+// ─── Auto-resize frame ────────────────────────────────────────────────────────
+window.addEventListener('message', e => {
+  if (e.data && e.data.t === 'h') {
+    frame.style.height = Math.max(e.data.v, 300) + 'px';
+  }
+});
+
+editor.addEventListener('input', () => {
+  clearTimeout(debounce);
+  debounce = setTimeout(updatePreview, 180);
+  updateGutter();
+});
+
+// ─── Line numbers ─────────────────────────────────────────────────────────────
+function updateGutter() {
+  const lines = editor.value.split('\n').length;
+  gutter.innerHTML = Array.from({length: lines}, (_,i) => i+1).join('<br>');
+}
+editor.addEventListener('scroll', () => { gutter.scrollTop = editor.scrollTop; });
+
+// ─── Tab key ─────────────────────────────────────────────────────────────────
+editor.addEventListener('keydown', e => {
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    const s = editor.selectionStart, val = editor.value;
+    editor.value = val.slice(0,s) + '  ' + val.slice(editor.selectionEnd);
+    editor.selectionStart = editor.selectionEnd = s + 2;
+    editor.dispatchEvent(new Event('input'));
+  }
+  if ((e.ctrlKey||e.metaKey) && e.key==='s') { e.preventDefault(); copyHTML(); }
+  if ((e.ctrlKey||e.metaKey) && e.shiftKey && e.key==='F') { e.preventDefault(); formatCode(); }
+});
+
+// ─── Presets ─────────────────────────────────────────────────────────────────
+function loadPreset(key) {
+  if (!key || !PRESETS[key]) return;
+  editor.value = PRESETS[key];
+  updatePreview(); updateGutter();
+  document.getElementById('presetSel').value = '';
+}
+function clearEditor() {
+  if (!editor.value || confirm('Clear the editor?')) { editor.value=''; updatePreview(); updateGutter(); }
+}
+
+// ─── Copy / save ─────────────────────────────────────────────────────────────
+function copyHTML() {
+  navigator.clipboard.writeText(editor.value).then(() => toast('✅ HTML copied!'));
+}
+function downloadHTML() {
+  const base = location.href.replace(/[^/]*/,'');
+  const full = `<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>SantyCSS Component</title>\n  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.css">\n</head>\n<body style="font-family:ui-sans-serif,system-ui,sans-serif;">\n${editor.value}\n</body>\n</html>`;
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([full],{type:'text/html'}));
+  a.download = 'santycss-component.html';
+  a.click();
+  toast('📥 Downloaded!');
+}
+
+// ─── Format ───────────────────────────────────────────────────────────────────
+function formatCode() {
+  let ind=0, lines=editor.value.split('\n');
+  editor.value = lines.map(l=>{
+    const t=l.trim(); if(!t) return '';
+    if(t.startsWith('</')) ind=Math.max(0,ind-1);
+    const out='  '.repeat(ind)+t;
+    if(/^<[^/!][^>]*[^/]>$/.test(t)&&!/^<(br|hr|input|img|link|meta)/.test(t)) ind++;
+    return out;
+  }).join('\n');
+  updatePreview(); updateGutter();
+  toast('✨ Formatted!');
+}
+
+// ─── Viewport ─────────────────────────────────────────────────────────────────
+function setViewport(size) {
+  document.getElementById('previewShell').className = `preview-shell ${size}`;
+  ['desktop','tablet','mobile'].forEach(v =>
+    document.getElementById('vp-'+v).classList.toggle('active', v===size));
+}
+
+// ─── Dark preview ─────────────────────────────────────────────────────────────
+function toggleDark() {
+  darkPreview = !darkPreview;
+  const b = document.getElementById('darkBtn');
+  b.textContent = darkPreview ? '☀️ Light' : '🌙 Dark';
+  document.getElementById('previewWrap').style.background = darkPreview ? '#0a0f1e' : '#e8edf5';
+  updatePreview();
+}
+
+// ─── Class picker ─────────────────────────────────────────────────────────────
+let pickerOpen = true;
+let activeTab = 'layout';
+
+function showTab(tab, btn) {
+  activeTab = tab;
+  document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderChips(tab);
+}
+function renderChips(tab) {
+  const body = document.getElementById('pickerBody');
+  body.innerHTML = (CATS[tab]||[]).map(cls =>
+    `<span class="chip" data-cat="${tab}" onclick="chipClick('${cls}')" title="Click to insert / copy">${cls}</span>`
+  ).join('');
+}
+function chipClick(cls) {
+  const sel = editor.selectionStart, val = editor.value;
+  const before = val.slice(0, sel);
+  const inside = before.match(/class="([^"]*)$/);
+  if (inside) {
+    const gap = before.endsWith(' ') || before.endsWith('"') ? '' : ' ';
+    const after = val.slice(editor.selectionEnd);
+    editor.value = before + gap + cls + after;
+    editor.selectionStart = editor.selectionEnd = sel + gap.length + cls.length;
+    editor.focus();
+    editor.dispatchEvent(new Event('input'));
+    toast(`Added: ${cls}`);
+  } else {
+    navigator.clipboard.writeText(cls).then(() => toast(`📋 ${cls}`));
+  }
+}
+function togglePicker() {
+  pickerOpen = !pickerOpen;
+  document.getElementById('picker').classList.toggle('closed', !pickerOpen);
+  document.getElementById('pickerToggle').textContent = pickerOpen ? '▼' : '▲';
+}
+
+// ─── AI generator ─────────────────────────────────────────────────────────────
+function aiGenerate() {
+  const raw = document.getElementById('aiInput').value.toLowerCase().trim();
+  if (!raw) return;
+  const classes = [], styles = [];
+  AI_MAP.forEach(([pat, res]) => {
+    if (pat.test(raw)) {
+      const r = typeof res === 'function' ? res(raw) : res;
+      if (r.startsWith('style=')) styles.push(r.replace(/^style="/,'').replace(/"$/,''));
+      else classes.push(...r.split(' ').filter(Boolean));
+    }
+  });
+  if (!classes.length && !styles.length) { toast('🤔 Try: "blue card with shadow" or "hero section"'); return; }
+  const cls = [...new Set(classes)].join(' ');
+  const sty = styles.join(';');
+  const sAttr = sty ? ` style="${sty}"` : '';
+  let snippet;
+  if (/hero|banner/.test(raw))
+    snippet = `<section class="${cls}"${sAttr}>\n  <h1 class="set-text-56 text-bold add-margin-bottom-16">Hero Heading</h1>\n  <p class="set-text-18 add-margin-bottom-32" style="opacity:.8;">Your subtitle goes here.</p>\n  <button class="make-button style-primary size-large shape-pill">Get started →</button>\n</section>`;
+  else if (/button|btn/.test(raw))
+    snippet = `<button class="${cls}"${sAttr}>Click me</button>`;
+  else if (/nav/.test(raw))
+    snippet = `<nav class="${cls}"${sAttr}>\n  <span class="set-text-18 text-bold">Logo</span>\n  <div class="make-flex gap-16">\n    <a href="#">Home</a>\n    <a href="#">About</a>\n    <button class="make-button style-primary size-small">Sign up</button>\n  </div>\n</nav>`;
+  else
+    snippet = `<div class="${cls}"${sAttr}>\n  <h3 class="set-text-18 text-bold add-margin-bottom-8">Card Title</h3>\n  <p class="set-text-14 color-gray-500 line-height-relaxed">Your content goes here.</p>\n</div>`;
+
+  editor.value = (editor.value ? editor.value + '\n\n' : '') + snippet;
+  updatePreview(); updateGutter();
+  document.getElementById('aiInput').value = '';
+  toast('✨ Generated!');
+}
+document.getElementById('aiInput').addEventListener('keydown', e => { if (e.key==='Enter') aiGenerate(); });
+
+// ─── Challenges ───────────────────────────────────────────────────────────────
+function nextChallenge() {
+  challengeIdx = (challengeIdx + 1) % CHALLENGES.length;
+  document.getElementById('challengeText').textContent = CHALLENGES[challengeIdx];
+}
+
+// ─── Toast ────────────────────────────────────────────────────────────────────
+let toastT;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => el.classList.remove('show'), 2000);
+}
+
+// ─── Drag resizer ─────────────────────────────────────────────────────────────
+const resizer = document.getElementById('resizer');
+const edPanel = document.getElementById('editorPanel');
+const splitEl = document.getElementById('split');
+let dragging = false;
+
+resizer.addEventListener('mousedown', () => {
+  dragging = true;
+  resizer.classList.add('dragging');
+  document.body.style.cursor = 'col-resize';
+  document.body.style.userSelect = 'none';
+});
+document.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  const r = splitEl.getBoundingClientRect();
+  const pct = ((e.clientX - r.left) / r.width) * 100;
+  edPanel.style.width = Math.min(Math.max(pct, 20), 80) + '%';
+});
+document.addEventListener('mouseup', () => {
+  if (dragging) { dragging=false; resizer.classList.remove('dragging'); document.body.style.cursor=''; document.body.style.userSelect=''; }
+});
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+renderChips('layout');
+loadPreset('card');
+updateGutter();
+</script>
+</body>
+</html>
