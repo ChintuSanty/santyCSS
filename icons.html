@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Icons — SantyCSS</title>
-  <meta name="description" content="70+ SVG icons for SantyCSS — 35 brand icons (social, dev, platforms, payment) plus 35 business &amp; finance icons. All customisable with SantyCSS color utilities." />
+  <meta name="description" content="113+ SVG icons for SantyCSS — 35 brand icons, 35 business &amp; finance icons, plus 43 communication icons. All customisable with SantyCSS color utilities." />
   <link rel="icon" type="image/png" href="assest/santy_css.png" />
   <link rel="stylesheet" href="santy.css" />
   <link rel="stylesheet" href="santy-icons.css" />
@@ -254,7 +254,7 @@
         <span style="color:#fff;font-size:16px;font-weight:900;font-family:ui-monospace,monospace;">S</span>
       </div>
       <span class="text-bold color-gray-900 set-text-16">SantyCSS</span>
-      <span class="chip">v1.3.0</span>
+      <span class="chip">v1.3.1</span>
     </a>
 
     <button class="nav-hamburger" id="hamburger-btn" aria-label="Toggle menu">
@@ -277,13 +277,13 @@
 <!-- ─── HERO ────────────────────────────────────────────────────────────────── -->
 <section class="hero-gradient add-padding-y-80 add-padding-x-24">
   <div style="max-width:860px;margin:0 auto;text-align:center;">
-    <span class="chip add-margin-bottom-20" style="display:inline-block;">🎨 Icons v1.3.0</span>
+    <span class="chip add-margin-bottom-20" style="display:inline-block;">🎨 Icons v1.3.1</span>
     <h1 class="set-text-56 text-bold add-margin-bottom-16" style="color:#f8fafc;letter-spacing:-2px;line-height:1.1;">
       SantyCSS Icons
     </h1>
     <p class="set-text-20 add-margin-bottom-32" style="color:#94a3b8;line-height:1.6;">
-      70+ SVG icons — brand icons (social, dev, platforms, payment) plus
-      business &amp; finance icons. Colour them with any SantyCSS utility.
+      113+ SVG icons — brand icons, business &amp; finance icons, plus
+      communication icons. Colour them with any SantyCSS utility.
     </p>
     <!-- Live icon strip in hero -->
     <div class="make-flex justify-center align-center gap-16 add-padding-y-16" style="flex-wrap:wrap;">
@@ -302,7 +302,7 @@
       <span class="brand-icon brand-icon-stripe brand-icon-lg" style="background-color:#635BFF;width:32px;height:32px;" title="Stripe"></span>
     </div>
     <div class="make-flex justify-center gap-12 add-margin-top-8" style="flex-wrap:wrap;">
-      <span class="chip">70+ icons</span>
+      <span class="chip">113+ icons</span>
       <span class="chip">SVG files</span>
       <span class="chip">CSS mask-image</span>
       <span class="chip">Any color</span>
@@ -358,12 +358,13 @@
     <!-- Filter + Search bar -->
     <div class="make-flex align-center justify-between add-margin-bottom-24" style="flex-wrap:wrap;gap:16px;">
       <div class="make-flex gap-8" style="flex-wrap:wrap;" id="cat-pills">
-        <button class="cat-pill active" data-cat="all">All (70)</button>
+        <button class="cat-pill active" data-cat="all">All (113)</button>
         <button class="cat-pill" data-cat="social">Social (15)</button>
         <button class="cat-pill" data-cat="dev">Dev Tools (13)</button>
         <button class="cat-pill" data-cat="platform">Platforms (5)</button>
         <button class="cat-pill" data-cat="payment">Payment (2)</button>
         <button class="cat-pill" data-cat="business">Business (35)</button>
+        <button class="cat-pill" data-cat="communication">Communication (43)</button>
       </div>
       <input class="search-input" type="search" id="icon-search" placeholder="Search icons…" />
     </div>
@@ -408,6 +409,14 @@
         Business &amp; Finance
       </h2>
       <div class="icon-grid" id="grid-business"></div>
+    </div>
+
+    <!-- ── COMMUNICATION ── -->
+    <div class="add-margin-bottom-32" id="section-communication">
+      <h2 class="set-text-16 text-semibold color-gray-700 add-margin-bottom-16" style="text-transform:uppercase;letter-spacing:.08em;">
+        Communication
+      </h2>
+      <div class="icon-grid" id="grid-communication"></div>
     </div>
 
     <!-- No results -->
@@ -685,7 +694,7 @@ GitHub</div>
 <!-- ─── FOOTER ────────────────────────────────────────────────────────────────── -->
 <footer class="add-padding-y-32 add-padding-x-24 background-gray-900">
   <div style="max-width:1200px;margin:0 auto;" class="make-flex align-center justify-between" style="flex-wrap:wrap;gap:16px;">
-    <span class="color-gray-400 set-text-14">© 2025 SantyCSS — Icons v1.3.0</span>
+    <span class="color-gray-400 set-text-14">© 2025 SantyCSS — Icons v1.3.1</span>
     <div class="make-flex gap-20">
       <a href="index.html"    class="color-gray-400 text-no-decoration set-text-14 nav-link">Home</a>
       <a href="classes.html"  class="color-gray-400 text-no-decoration set-text-14 nav-link">Classes</a>
@@ -814,6 +823,54 @@ GitHub</div>
   const gridBusiness = document.getElementById('grid-business');
   BUSINESS_ICONS.forEach(function(icon) { gridBusiness.appendChild(makeCard(icon, 'icon')); });
 
+  const COMMUNICATION_ICONS = [
+    { name: 'at',                    label: 'At'                   },
+    { name: 'bell',                  label: 'Bell'                 },
+    { name: 'bell-concierge',        label: 'Bell Concierge'       },
+    { name: 'bell-slash',            label: 'Bell Slash'           },
+    { name: 'blender-phone',         label: 'Blender Phone'        },
+    { name: 'bullhorn',              label: 'Bullhorn'             },
+    { name: 'comment',               label: 'Comment'              },
+    { name: 'comment-dots',          label: 'Comment Dots'         },
+    { name: 'comment-medical',       label: 'Comment Medical'      },
+    { name: 'comment-slash',         label: 'Comment Slash'        },
+    { name: 'comment-sms',           label: 'Comment SMS'          },
+    { name: 'comments',              label: 'Comments'             },
+    { name: 'comments-dollar',       label: 'Comments Dollar'      },
+    { name: 'envelope',              label: 'Envelope'             },
+    { name: 'envelope-open',         label: 'Envelope Open'        },
+    { name: 'envelope-open-text',    label: 'Envelope Open Text'   },
+    { name: 'envelopes-bulk',        label: 'Envelopes Bulk'       },
+    { name: 'fax',                   label: 'Fax'                  },
+    { name: 'feather',               label: 'Feather'              },
+    { name: 'feather-pointed',       label: 'Feather Pointed'      },
+    { name: 'flag',                  label: 'Flag'                 },
+    { name: 'headphones',            label: 'Headphones'           },
+    { name: 'inbox',                 label: 'Inbox'                },
+    { name: 'message',               label: 'Message'              },
+    { name: 'microphone',            label: 'Microphone'           },
+    { name: 'microphone-lines',      label: 'Microphone Lines'     },
+    { name: 'microphone-lines-slash',label: 'Mic Lines Slash'      },
+    { name: 'microphone-slash',      label: 'Microphone Slash'     },
+    { name: 'pager',                 label: 'Pager'                },
+    { name: 'phone',                 label: 'Phone'                },
+    { name: 'phone-flip',            label: 'Phone Flip'           },
+    { name: 'phone-slash',           label: 'Phone Slash'          },
+    { name: 'phone-volume',          label: 'Phone Volume'         },
+    { name: 'reply',                 label: 'Reply'                },
+    { name: 'reply-all',             label: 'Reply All'            },
+    { name: 'satellite',             label: 'Satellite'            },
+    { name: 'satellite-dish',        label: 'Satellite Dish'       },
+    { name: 'scroll',                label: 'Scroll'               },
+    { name: 'signature',             label: 'Signature'            },
+    { name: 'square-envelope',       label: 'Square Envelope'      },
+    { name: 'square-phone',          label: 'Square Phone'         },
+    { name: 'square-phone-flip',     label: 'Square Phone Flip'    },
+    { name: 'voicemail',             label: 'Voicemail'            },
+  ];
+  const gridCommunication = document.getElementById('grid-communication');
+  COMMUNICATION_ICONS.forEach(function(icon) { gridCommunication.appendChild(makeCard(icon, 'icon')); });
+
   /* ── Category filter ── */
   const pills = document.querySelectorAll('.cat-pill');
   pills.forEach(pill => {
@@ -821,7 +878,7 @@ GitHub</div>
       pills.forEach(p => p.classList.remove('active'));
       pill.classList.add('active');
       const cat = pill.dataset.cat;
-      ['social','dev','platform','payment','business'].forEach(function(c) {
+      ['social','dev','platform','payment','business','communication'].forEach(function(c) {
         const sec = document.getElementById('section-' + c);
         if (cat === 'all' || cat === c) {
           sec.style.display = '';
