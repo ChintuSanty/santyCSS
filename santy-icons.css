@@ -34,26 +34,26 @@
 /* ------------------------------------------------------------
    Size modifiers
    ------------------------------------------------------------ */
-.brand-icon-xs  { font-size: 0.625rem; }
-.brand-icon-sm  { font-size: 0.875rem; }
-.brand-icon-md  { font-size: 1rem;     }
-.brand-icon-lg  { font-size: 1.5rem;   }
-.brand-icon-xl  { font-size: 2rem;     }
-.brand-icon-2x  { font-size: 2rem;     }
-.brand-icon-3x  { font-size: 3rem;     }
-.brand-icon-4x  { font-size: 4rem;     }
-.brand-icon-5x  { font-size: 5rem;     }
-.brand-icon-6x  { font-size: 6rem;     }
+.brand-icon-size-xs  { font-size: 0.625rem; }
+.brand-icon-size-sm  { font-size: 0.875rem; }
+.brand-icon-size-md  { font-size: 1rem;     }
+.brand-icon-size-lg  { font-size: 1.5rem;   }
+.brand-icon-size-xl  { font-size: 2rem;     }
+.brand-icon-size-2x  { font-size: 2rem;     }
+.brand-icon-size-3x  { font-size: 3rem;     }
+.brand-icon-size-4x  { font-size: 4rem;     }
+.brand-icon-size-5x  { font-size: 5rem;     }
+.brand-icon-size-6x  { font-size: 6rem;     }
 
 /* Fixed pixel sizes */
-.brand-icon-16 { width: 16px; height: 16px; font-size: 16px; }
-.brand-icon-20 { width: 20px; height: 20px; font-size: 20px; }
-.brand-icon-24 { width: 24px; height: 24px; font-size: 24px; }
-.brand-icon-32 { width: 32px; height: 32px; font-size: 32px; }
-.brand-icon-40 { width: 40px; height: 40px; font-size: 40px; }
-.brand-icon-48 { width: 48px; height: 48px; font-size: 48px; }
-.brand-icon-64 { width: 64px; height: 64px; font-size: 64px; }
-.brand-icon-96 { width: 96px; height: 96px; font-size: 96px; }
+.brand-icon-size-16 { width: 16px; height: 16px; font-size: 16px; }
+.brand-icon-size-20 { width: 20px; height: 20px; font-size: 20px; }
+.brand-icon-size-24 { width: 24px; height: 24px; font-size: 24px; }
+.brand-icon-size-32 { width: 32px; height: 32px; font-size: 32px; }
+.brand-icon-size-40 { width: 40px; height: 40px; font-size: 40px; }
+.brand-icon-size-48 { width: 48px; height: 48px; font-size: 48px; }
+.brand-icon-size-64 { width: 64px; height: 64px; font-size: 64px; }
+.brand-icon-size-96 { width: 96px; height: 96px; font-size: 96px; }
 
 /* Spin / pulse animations */
 .brand-icon-spin  { animation: brand-icon-spin 2s linear infinite; }
@@ -289,26 +289,26 @@
 }
 
 /* ── Size modifiers ── */
-.icon-xs  { font-size: 0.625rem; }
-.icon-sm  { font-size: 0.875rem; }
-.icon-md  { font-size: 1rem;     }
-.icon-lg  { font-size: 1.5rem;   }
-.icon-xl  { font-size: 2rem;     }
-.icon-2x  { font-size: 2rem;     }
-.icon-3x  { font-size: 3rem;     }
-.icon-4x  { font-size: 4rem;     }
-.icon-5x  { font-size: 5rem;     }
-.icon-6x  { font-size: 6rem;     }
+.icon-size-xs  { font-size: 0.625rem; }
+.icon-size-sm  { font-size: 0.875rem; }
+.icon-size-md  { font-size: 1rem;     }
+.icon-size-lg  { font-size: 1.5rem;   }
+.icon-size-xl  { font-size: 2rem;     }
+.icon-size-2x  { font-size: 2rem;     }
+.icon-size-3x  { font-size: 3rem;     }
+.icon-size-4x  { font-size: 4rem;     }
+.icon-size-5x  { font-size: 5rem;     }
+.icon-size-6x  { font-size: 6rem;     }
 
 /* Fixed pixel sizes */
-.icon-16 { width: 16px; height: 16px; font-size: 16px; }
-.icon-20 { width: 20px; height: 20px; font-size: 20px; }
-.icon-24 { width: 24px; height: 24px; font-size: 24px; }
-.icon-32 { width: 32px; height: 32px; font-size: 32px; }
-.icon-40 { width: 40px; height: 40px; font-size: 40px; }
-.icon-48 { width: 48px; height: 48px; font-size: 48px; }
-.icon-64 { width: 64px; height: 64px; font-size: 64px; }
-.icon-96 { width: 96px; height: 96px; font-size: 96px; }
+.icon-size-16 { width: 16px; height: 16px; font-size: 16px; }
+.icon-size-20 { width: 20px; height: 20px; font-size: 20px; }
+.icon-size-24 { width: 24px; height: 24px; font-size: 24px; }
+.icon-size-32 { width: 32px; height: 32px; font-size: 32px; }
+.icon-size-40 { width: 40px; height: 40px; font-size: 40px; }
+.icon-size-48 { width: 48px; height: 48px; font-size: 48px; }
+.icon-size-64 { width: 64px; height: 64px; font-size: 64px; }
+.icon-size-96 { width: 96px; height: 96px; font-size: 96px; }
 
 /* Spin / pulse animations */
 .icon-spin  { animation: icon-spin 2s linear infinite; }

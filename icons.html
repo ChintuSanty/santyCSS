@@ -3,8 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Icons — SantyCSS</title>
-  <meta name="description" content="113+ SVG icons for SantyCSS — 35 brand icons, 35 business &amp; finance icons, plus 43 communication icons. All customisable with SantyCSS color utilities." />
+  <title>SantyCSS Icons — 113+ Free SVG Icons for Web Development</title>
+  <meta name="description" content="113+ free SVG icons for SantyCSS — brand icons, business & finance icons, and communication icons. CSS mask-image technique, any color, any size, no JavaScript required." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://santycss.santy.in/icons.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="SantyCSS" />
+  <meta property="og:title"       content="SantyCSS Icons — 113+ Free SVG Icons for Web Development" />
+  <meta property="og:description" content="113+ free SVG icons for SantyCSS. Brand, business & finance, and communication icons. Colorize with any CSS utility class — no JS, no build step." />
+  <meta property="og:url"         content="https://santycss.santy.in/icons.html" />
+  <meta property="og:image"       content="https://santycss.santy.in/assest/santy_css.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="SantyCSS Icons — 113+ Free SVG Icons for Web Development" />
+  <meta name="twitter:description" content="113+ free SVG icons — brand, business & finance, communication. CSS mask-image, any color, any size." />
+  <meta name="twitter:image"       content="https://santycss.santy.in/assest/santy_css.png" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "SantyCSS Icons",
+    "url": "https://santycss.santy.in/icons.html",
+    "description": "113+ free SVG icons for SantyCSS — brand icons, business & finance icons, and communication icons. CSS mask-image technique, any color, any size.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "SantyCSS",
+      "url": "https://santycss.santy.in"
+    }
+  }
+  </script>
+
   <link rel="icon" type="image/png" href="assest/santy_css.png" />
   <link rel="stylesheet" href="santy.css" />
   <link rel="stylesheet" href="santy-icons.css" />
@@ -198,6 +231,42 @@
       font-size: 11px;
       color: #94a3b8;
       font-family: ui-monospace, monospace;
+    }
+
+    /* ── Mobile / Tablet responsive ── */
+    @media (max-width: 640px) {
+      /* Collapse any 2-col grid to 1 col */
+      .make-grid { grid-template-columns: 1fr !important; }
+
+      /* Search full-width */
+      .search-input { max-width: 100%; }
+
+      /* Hero heading */
+      h1.set-text-56 { font-size: 2.25rem !important; letter-spacing: -1px !important; }
+
+      /* Hero paragraph */
+      section.hero-gradient p.set-text-20 { font-size: 1rem !important; }
+
+      /* Icon grid narrower min */
+      .icon-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+
+      /* Size demo — allow smaller items to wrap nicely */
+      .size-row { gap: 12px; }
+      .size-label { font-size: 10px; }
+
+      /* Code blocks */
+      .code-block { font-size: 11px !important; padding: 14px 16px; }
+
+      /* Filter + search bar — stack vertically */
+      .make-flex.align-center.justify-between[style*="flex-wrap:wrap"] { flex-direction: column; align-items: stretch; }
+
+      /* Padding relief on narrow screens */
+      .add-padding-x-24 { padding-left: 16px !important; padding-right: 16px !important; }
+    }
+
+    @media (max-width: 480px) {
+      /* Prevent long monospace class names from causing card overflow */
+      .size-label { word-break: break-all; max-width: 80px; text-align: center; }
     }
 
     /* ── Toast notification ── */
@@ -430,45 +499,82 @@
 <section id="sizes" class="add-padding-y-64 add-padding-x-24 background-white" style="border-top:1px solid #e5e7eb;">
   <div style="max-width:1000px;margin:0 auto;">
     <div class="section-title">Sizes</div>
-    <p class="section-sub">Use <code style="background:#eff6ff;color:#1d4ed8;padding:2px 6px;border-radius:4px;">.brand-icon-{size}</code> classes or set <code style="background:#eff6ff;color:#1d4ed8;padding:2px 6px;border-radius:4px;">font-size</code> on the parent.</p>
 
+    <p class="section-sub">Both icon systems use the same <code style="background:#eff6ff;color:#1d4ed8;padding:2px 6px;border-radius:4px;">{prefix}-size-{size}</code> pattern.</p>
+
+    <!-- Brand icons sizes -->
+    <p class="text-semibold color-gray-700 add-margin-bottom-8">Brand icons — <code style="background:#eff6ff;color:#1d4ed8;padding:2px 6px;border-radius:4px;">.brand-icon-size-{size}</code></p>
     <div class="size-row add-margin-bottom-32">
       <div class="size-item">
-        <span class="brand-icon brand-icon-github brand-icon-xs" style="background-color:#1e293b;width:10px;height:10px;"></span>
-        <span class="size-label">.brand-icon-xs<br>0.625rem</span>
+        <span class="brand-icon brand-icon-github brand-icon-size-xs" style="background-color:#1e293b;width:10px;height:10px;"></span>
+        <span class="size-label">.brand-icon-size-xs<br>0.625rem</span>
       </div>
       <div class="size-item">
-        <span class="brand-icon brand-icon-github brand-icon-sm" style="background-color:#1e293b;width:14px;height:14px;"></span>
-        <span class="size-label">.brand-icon-sm<br>0.875rem</span>
+        <span class="brand-icon brand-icon-github brand-icon-size-sm" style="background-color:#1e293b;width:14px;height:14px;"></span>
+        <span class="size-label">.brand-icon-size-sm<br>0.875rem</span>
       </div>
       <div class="size-item">
-        <span class="brand-icon brand-icon-github brand-icon-md" style="background-color:#1e293b;width:16px;height:16px;"></span>
-        <span class="size-label">.brand-icon-md<br>1rem</span>
+        <span class="brand-icon brand-icon-github brand-icon-size-md" style="background-color:#1e293b;width:16px;height:16px;"></span>
+        <span class="size-label">.brand-icon-size-md<br>1rem</span>
       </div>
       <div class="size-item">
-        <span class="brand-icon brand-icon-github brand-icon-lg" style="background-color:#1e293b;width:24px;height:24px;"></span>
-        <span class="size-label">.brand-icon-lg<br>1.5rem</span>
+        <span class="brand-icon brand-icon-github brand-icon-size-lg" style="background-color:#1e293b;width:24px;height:24px;"></span>
+        <span class="size-label">.brand-icon-size-lg<br>1.5rem</span>
       </div>
       <div class="size-item">
-        <span class="brand-icon brand-icon-github brand-icon-xl" style="background-color:#1e293b;width:32px;height:32px;"></span>
-        <span class="size-label">.brand-icon-xl<br>2rem</span>
+        <span class="brand-icon brand-icon-github brand-icon-size-xl" style="background-color:#1e293b;width:32px;height:32px;"></span>
+        <span class="size-label">.brand-icon-size-xl<br>2rem</span>
       </div>
       <div class="size-item">
-        <span class="brand-icon brand-icon-github brand-icon-3x" style="background-color:#1e293b;width:48px;height:48px;"></span>
-        <span class="size-label">.brand-icon-3x<br>3rem</span>
+        <span class="brand-icon brand-icon-github brand-icon-size-3x" style="background-color:#1e293b;width:48px;height:48px;"></span>
+        <span class="size-label">.brand-icon-size-3x<br>3rem</span>
       </div>
       <div class="size-item">
-        <span class="brand-icon brand-icon-github brand-icon-5x" style="background-color:#1e293b;width:80px;height:80px;"></span>
-        <span class="size-label">.brand-icon-5x<br>5rem</span>
+        <span class="brand-icon brand-icon-github brand-icon-size-5x" style="background-color:#1e293b;width:80px;height:80px;"></span>
+        <span class="size-label">.brand-icon-size-5x<br>5rem</span>
+      </div>
+    </div>
+
+    <!-- General icons sizes -->
+    <p class="text-semibold color-gray-700 add-margin-bottom-8">General icons — <code style="background:#eff6ff;color:#1d4ed8;padding:2px 6px;border-radius:4px;">.icon-size-{size}</code></p>
+    <div class="size-row add-margin-bottom-32">
+      <div class="size-item">
+        <span class="icon icon-envelope icon-size-xs" style="background-color:#1e293b;width:10px;height:10px;"></span>
+        <span class="size-label">.icon-size-xs<br>0.625rem</span>
+      </div>
+      <div class="size-item">
+        <span class="icon icon-envelope icon-size-sm" style="background-color:#1e293b;width:14px;height:14px;"></span>
+        <span class="size-label">.icon-size-sm<br>0.875rem</span>
+      </div>
+      <div class="size-item">
+        <span class="icon icon-envelope icon-size-md" style="background-color:#1e293b;width:16px;height:16px;"></span>
+        <span class="size-label">.icon-size-md<br>1rem</span>
+      </div>
+      <div class="size-item">
+        <span class="icon icon-envelope icon-size-lg" style="background-color:#1e293b;width:24px;height:24px;"></span>
+        <span class="size-label">.icon-size-lg<br>1.5rem</span>
+      </div>
+      <div class="size-item">
+        <span class="icon icon-envelope icon-size-xl" style="background-color:#1e293b;width:32px;height:32px;"></span>
+        <span class="size-label">.icon-size-xl<br>2rem</span>
+      </div>
+      <div class="size-item">
+        <span class="icon icon-envelope icon-size-3x" style="background-color:#1e293b;width:48px;height:48px;"></span>
+        <span class="size-label">.icon-size-3x<br>3rem</span>
+      </div>
+      <div class="size-item">
+        <span class="icon icon-envelope icon-size-5x" style="background-color:#1e293b;width:80px;height:80px;"></span>
+        <span class="size-label">.icon-size-5x<br>5rem</span>
       </div>
     </div>
 
     <!-- Fixed pixel sizes -->
     <p class="text-semibold color-gray-700 add-margin-bottom-12">Fixed pixel classes</p>
     <div class="code-block" style="margin-bottom:24px;">
-&lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"brand-icon brand-icon-github brand-icon-16"</span>&gt;&lt;/<span class="c-tag">span</span>&gt;  <span class="c-com">&lt;!-- 16px --&gt;</span>
-&lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"brand-icon brand-icon-github brand-icon-24"</span>&gt;&lt;/<span class="c-tag">span</span>&gt;  <span class="c-com">&lt;!-- 24px --&gt;</span>
-&lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"brand-icon brand-icon-github brand-icon-48"</span>&gt;&lt;/<span class="c-tag">span</span>&gt;  <span class="c-com">&lt;!-- 48px --&gt;</span></div>
+&lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"brand-icon brand-icon-github brand-icon-size-16"</span>&gt;&lt;/<span class="c-tag">span</span>&gt;  <span class="c-com">&lt;!-- 16px --&gt;</span>
+&lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"brand-icon brand-icon-github brand-icon-size-48"</span>&gt;&lt;/<span class="c-tag">span</span>&gt;  <span class="c-com">&lt;!-- 48px --&gt;</span>
+&lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"icon icon-envelope icon-size-16"</span>&gt;&lt;/<span class="c-tag">span</span>&gt;          <span class="c-com">&lt;!-- 16px --&gt;</span>
+&lt;<span class="c-tag">span</span> <span class="c-attr">class</span>=<span class="c-str">"icon icon-envelope icon-size-48"</span>&gt;&lt;/<span class="c-tag">span</span>&gt;          <span class="c-com">&lt;!-- 48px --&gt;</span></div>
   </div>
 </section>
 
@@ -658,13 +764,13 @@ GitHub</div>
         <tbody>
           <tr><td>.brand-icon</td><td>Base icon class — required on every icon element</td><td>display:inline-block; mask: var(--brand-icon-url)</td></tr>
           <tr><td>.brand-icon-{name}</td><td>Sets the icon SVG via --brand-icon-url CSS variable</td><td>.brand-icon-github, .brand-icon-react, .brand-icon-twitter …</td></tr>
-          <tr><td>.brand-icon-xs</td><td>Extra small size</td><td>font-size: 0.625rem</td></tr>
-          <tr><td>.brand-icon-sm</td><td>Small size</td><td>font-size: 0.875rem</td></tr>
-          <tr><td>.brand-icon-md</td><td>Medium size (default)</td><td>font-size: 1rem</td></tr>
-          <tr><td>.brand-icon-lg</td><td>Large size</td><td>font-size: 1.5rem</td></tr>
-          <tr><td>.brand-icon-xl</td><td>Extra large size</td><td>font-size: 2rem</td></tr>
-          <tr><td>.brand-icon-2x — 6x</td><td>Multiplier sizes</td><td>font-size: 2rem — 6rem</td></tr>
-          <tr><td>.brand-icon-16 — 96</td><td>Fixed pixel sizes</td><td>width/height: 16px — 96px</td></tr>
+          <tr><td>.brand-icon-size-xs</td><td>Extra small size</td><td>font-size: 0.625rem</td></tr>
+          <tr><td>.brand-icon-size-sm</td><td>Small size</td><td>font-size: 0.875rem</td></tr>
+          <tr><td>.brand-icon-size-md</td><td>Medium size (default)</td><td>font-size: 1rem</td></tr>
+          <tr><td>.brand-icon-size-lg</td><td>Large size</td><td>font-size: 1.5rem</td></tr>
+          <tr><td>.brand-icon-size-xl</td><td>Extra large size</td><td>font-size: 2rem</td></tr>
+          <tr><td>.brand-icon-size-2x — 6x</td><td>Multiplier sizes</td><td>font-size: 2rem — 6rem</td></tr>
+          <tr><td>.brand-icon-size-16 — 96</td><td>Fixed pixel sizes</td><td>width/height: 16px — 96px</td></tr>
           <tr><td>.brand-icon-color-{name}</td><td>Apply official brand background colour</td><td>.brand-icon-color-github → #181717</td></tr>
           <tr><td>.brand-icon-badge</td><td>Circular badge wrapper for an icon</td><td>Displays icon in a colour circle</td></tr>
           <tr><td>.shape-square</td><td>Modifier for .brand-icon-badge — square with 6px radius</td><td>border-radius: 6px</td></tr>
