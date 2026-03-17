@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://santycss.santy.in/sitemap.xml
