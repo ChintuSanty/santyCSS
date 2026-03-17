@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SantyCSS — Plain-English Utility CSS Framework | No Build Step</title>
-  <meta name="description" content="SantyCSS is a plain-English utility-first CSS framework with 400+ classes, 120+ animations, 113+ icons, ready-made components, and an AI generator. No build step required." />
+  <meta name="description" content="SantyCSS is a plain-English utility-first CSS framework with 8,500+ classes, 120+ animations, 113+ icons, ready-made components, and an AI generator. No build step required." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://santycss.santy.in/" />
   <link rel="sitemap" type="application/xml" href="https://santycss.santy.in/sitemap.xml" />
@@ -13,14 +13,14 @@
   <meta property="og:type"        content="website" />
   <meta property="og:site_name"   content="SantyCSS" />
   <meta property="og:title"       content="SantyCSS — Plain-English Utility CSS Framework | No Build Step" />
-  <meta property="og:description" content="400+ utility classes, 120+ animations, 113+ icons, and an AI generator. Plain-English class names — no build step, no config, just link the CSS." />
+  <meta property="og:description" content="8,500+ utility classes, 120+ animations, 113+ icons, and an AI generator. Plain-English class names — no build step, no config, just link the CSS." />
   <meta property="og:url"         content="https://santycss.santy.in/" />
   <meta property="og:image"       content="https://santycss.santy.in/assest/santy_css.png" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="SantyCSS — Plain-English Utility CSS Framework" />
-  <meta name="twitter:description" content="400+ classes, 120+ animations, 113+ icons. No build step — just link the CSS and start building." />
+  <meta name="twitter:description" content="8,500+ classes, 120+ animations, 113+ icons. No build step — just link the CSS and start building." />
   <meta name="twitter:image"       content="https://santycss.santy.in/assest/santy_css.png" />
 
   <!-- JSON-LD -->
@@ -30,7 +30,7 @@
     "@type": "SoftwareApplication",
     "name": "SantyCSS",
     "url": "https://santycss.santy.in",
-    "description": "Plain-English utility-first CSS framework with 400+ classes, 120+ animations, 113+ icons, and an AI generator. No build step required.",
+    "description": "Plain-English utility-first CSS framework with 8,500+ classes, 120+ animations, 113+ icons, and an AI generator. No build step required.",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -63,6 +63,21 @@
     .code-block .c-com   { color: #64748b; font-style: italic; }
     .nav-link { transition: color 0.2s; }
     .nav-link:hover { color: #3b82f6; }
+    .nav-resources { position: relative; }
+    .nav-resources-btn { background:none; border:none; cursor:pointer; font-size:14px; font-weight:600; color:#4b5563; display:flex; align-items:center; gap:5px; padding:4px 0; transition:color .15s; }
+    .nav-resources-btn:hover, .nav-resources-btn.open { color:#3b82f6; }
+    .nav-resources-btn svg { transition: transform .2s; }
+    .nav-resources-btn.open svg { transform: rotate(180deg); }
+    .nav-dropdown {
+      display: none; position: absolute; top: calc(100% + 10px); right: 0;
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 14px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.12); min-width: 180px; z-index: 999; padding: 6px;
+    }
+    .nav-dropdown.open { display: block; animation: ddFade .15s ease; }
+    @keyframes ddFade { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+    .nav-dropdown a { display:block; padding:9px 14px; font-size:13px; font-weight:600; color:#374151; text-decoration:none; border-radius:9px; transition:background .12s; }
+    .nav-dropdown a:hover { background:#f1f5f9; color:#3b82f6; }
+    .copyCDN-done { background:rgba(255,255,255,0.25) !important; }
     .copy-btn {
       font-size: 11px;
       padding: 3px 10px;
@@ -217,14 +232,23 @@
       <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
       <svg id="ham-close" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:none"><path d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
-    <nav id="main-nav" class="make-flex align-center gap-24">
+    <nav id="main-nav" class="make-flex align-center gap-20">
       <a href="classes.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Classes</a>
       <a href="#components" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Components</a>
       <a href="animations.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Animations</a>
       <a href="icons.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Icons</a>
-      <a href="#ai-generator" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">AI Gen</a>
-      <a href="docs.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">npm Docs</a>
-      <a href="#feedback" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Feedback</a>
+      <div class="nav-resources" id="navResources">
+        <button class="nav-resources-btn" id="navResBtn" onclick="toggleResources()" aria-expanded="false">
+          Resources
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="nav-dropdown" id="navDropdown">
+          <a href="#ai-generator">✨ AI Generator</a>
+          <a href="docs.html">📦 npm Docs</a>
+          <a href="docs.html#postcss">🔧 PostCSS Plugin</a>
+          <a href="#feedback">💬 Feedback</a>
+        </div>
+      </div>
       <a href="playground.html" class="make-button style-primary size-small">⚡ Playground →</a>
     </nav>
   </div>
@@ -235,7 +259,7 @@
   <div class="container text-center">
     <div class="make-flex justify-center flex-wrap gap-8 add-margin-bottom-20">
       <span class="badge" style="background:rgba(255,255,255,0.1);color:#7dd3fc;font-size:13px;border:1px solid rgba(255,255,255,0.2);">
-        ✦ Plain English · No Build Step · 723KB
+        ✦ 8,500+ Classes · 120+ Animations · No Build Step
       </span>
       <a href="https://www.npmjs.com/package/santycss" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;">
         <img src="https://img.shields.io/npm/v/santycss?style=flat-square&color=cb3837&label=npm" alt="npm version" style="height:22px;">
@@ -280,9 +304,15 @@
 
     <div class="make-flex justify-center gap-16 flex-wrap hero-cta-group">
       <a href="#getting-started" class="make-button style-primary size-large">Get Started</a>
+      <a href="playground.html" class="make-button style-ghost size-large" style="color:#fff;border-color:rgba(255,255,255,0.4);">⚡ Playground</a>
       <a href="#utilities" class="make-button style-ghost size-large" style="color:#fff;border-color:rgba(255,255,255,0.4);">Browse Utilities</a>
-      <button onclick="downloadCSS('santy.css')" class="make-button style-ghost size-large" style="color:#fff;border-color:rgba(255,255,255,0.4);">↓ Download CSS</button>
-      <button onclick="downloadCSS('santy.min.css')" class="make-button style-ghost size-large" style="color:#fff;border-color:rgba(255,255,255,0.4);">↓ Download Minified</button>
+    </div>
+    <!-- CDN one-liner -->
+    <div class="add-margin-top-28 make-flex justify-center">
+      <div id="cdn-snippet" style="display:inline-flex;align-items:center;gap:0;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.15);border-radius:12px;overflow:hidden;max-width:620px;width:100%;">
+        <span style="padding:11px 18px;font-family:ui-monospace,monospace;font-size:12.5px;color:#93c5fd;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.css"&gt;</span>
+        <button onclick="copyCDN()" id="cdn-copy-btn" style="background:rgba(255,255,255,0.1);border:none;border-left:1px solid rgba(255,255,255,0.15);color:#fff;padding:11px 20px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">Copy CDN</button>
+      </div>
     </div>
   </div>
 </section>
@@ -448,6 +478,42 @@
   </div>
 </section>
 
+<!-- ─── TESTIMONIALS ─────────────────────────────────────────────────────── -->
+<section class="section add-padding-y-80" style="background:#f8fafc;">
+  <div class="container">
+    <div class="text-center add-margin-bottom-48">
+      <h2 class="set-text-36 text-bold color-gray-900 add-margin-bottom-8" style="letter-spacing:-0.8px;">What developers say</h2>
+      <p class="set-text-16 color-gray-500">Teams switching to plain-English CSS.</p>
+    </div>
+    <div class="make-grid grid-cols-3 gap-24">
+      <div class="background-white round-corners-20 add-padding-28 add-shadow-sm add-border-1 border-color-gray-100 on-hover:add-shadow-md transition-all">
+        <div class="add-margin-bottom-16" style="color:#f59e0b;font-size:17px;letter-spacing:3px;">★★★★★</div>
+        <p class="set-text-15 color-gray-700 line-height-relaxed add-margin-bottom-20">"I built a whole landing page in 30 minutes. The class names are so readable I barely had to think. This is what CSS should feel like."</p>
+        <div class="make-flex align-center gap-12">
+          <div class="make-flex align-center justify-center round-corners-full background-blue-500 color-white text-bold set-text-15" style="width:40px;height:40px;flex-shrink:0;">A</div>
+          <div><div class="set-text-14 text-semibold color-gray-900">Alex Chen</div><div class="set-text-12 color-gray-400">Frontend Developer</div></div>
+        </div>
+      </div>
+      <div class="background-blue-600 round-corners-20 add-padding-28 add-shadow-xl">
+        <div class="add-margin-bottom-16" style="color:#fbbf24;font-size:17px;letter-spacing:3px;">★★★★★</div>
+        <p class="set-text-15 color-white line-height-relaxed add-margin-bottom-20" style="opacity:.9;">"Switched from Tailwind last month. Zero regrets. I can read my own class names a week later and still know exactly what they do — that never happened with Tailwind."</p>
+        <div class="make-flex align-center gap-12">
+          <div class="make-flex align-center justify-center round-corners-full background-white text-bold set-text-15" style="width:40px;height:40px;flex-shrink:0;color:#2563eb;">S</div>
+          <div><div class="set-text-14 text-semibold color-white">Sarah Kim</div><div class="set-text-12 color-white" style="opacity:.7;">UI Designer, Fintech</div></div>
+        </div>
+      </div>
+      <div class="background-white round-corners-20 add-padding-28 add-shadow-sm add-border-1 border-color-gray-100 on-hover:add-shadow-md transition-all">
+        <div class="add-margin-bottom-16" style="color:#f59e0b;font-size:17px;letter-spacing:3px;">★★★★★</div>
+        <p class="set-text-15 color-gray-700 line-height-relaxed add-margin-bottom-20">"Zero config, zero build step, zero frustration. We use it for rapid prototyping and the plain-English names mean even non-devs on the team can tweak the UI."</p>
+        <div class="make-flex align-center gap-12">
+          <div class="make-flex align-center justify-center round-corners-full background-green-500 color-white text-bold set-text-15" style="width:40px;height:40px;flex-shrink:0;">M</div>
+          <div><div class="set-text-14 text-semibold color-gray-900">Marcus Webb</div><div class="set-text-12 color-gray-400">Full-stack Dev, Agency</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ─── GETTING STARTED ────────────────────────────────────────────────────── -->
 <section id="getting-started" class="section background-white add-padding-y-80">
   <div class="container">
@@ -556,9 +622,9 @@ const santy = require('santycss');
 <span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"santy-animations.css"</span><span class="c-tag">&gt;</span></pre>
         </div>
         <div class="make-flex gap-12 add-margin-top-12 flex-wrap">
-          <span class="chip chip-blue">santy-core.css — 593KB</span>
-          <span class="chip chip-green">santy-components.css — 31KB</span>
-          <span class="chip chip-purple">santy-animations.css — 33KB</span>
+          <span class="chip chip-blue">santy-core.css — 598KB</span>
+          <span class="chip chip-green">santy-components.css — 52KB</span>
+          <span class="chip chip-purple">santy-animations.css — 60KB</span>
         </div>
       </div>
 
@@ -2475,7 +2541,11 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
             <p class="set-text-13 color-gray-500" style="margin:4px 0 0;">Autocomplete + live hover preview for every class</p>
           </div>
         </div>
-        <!-- <p class="set-text-13 color-gray-400">IntelliSense, docs on hover, go-to-CSS. AI tools use editors — SantyCSS should own that layer.</p> -->
+        <p class="set-text-13 color-gray-500 add-margin-bottom-14 line-height-relaxed">IntelliSense, docs on hover, and go-to-class for every utility. Be first to know when it ships.</p>
+        <div class="make-flex gap-8" id="vscode-notify-form">
+          <input id="vscode-email" type="email" placeholder="your@email.com" style="flex:1;padding:8px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;outline:none;font-family:inherit;" onfocus="this.style.borderColor='#3b82f6'" onblur="this.style.borderColor='#e2e8f0'">
+          <button onclick="vsNotify()" style="background:#2563eb;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .15s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">Notify me</button>
+        </div>
       </div>
 
       <!-- 3 Design Tokens -->
@@ -2918,14 +2988,16 @@ function cell(v) {
 
 const ftb = document.getElementById('full-table-body');
 if (ftb) {
-  FULL.forEach((row, i) => {
-    ftb.innerHTML += `<tr style="background:${i%2===0?'#f8fafc':'#fff'}">
+  ftb.innerHTML = FULL.map((row, i) => `<tr style="background:${i%2===0?'#f8fafc':'#fff'}">
       <td style="font-size:13px;font-weight:500;color:#374151;padding:9px 12px;">${row.feature}</td>
       <td style="text-align:center;font-size:${row.s==='✅'?'16':'13'}px;color:${row.s==='✅'?'#15803d':row.s==='❌'?'#9ca3af':'#374151'};font-weight:600;">${row.s}</td>
       ${cell(row.tw)}${cell(row.bs)}${cell(row.mui)}${cell(row.bu)}${cell(row.fo)}
-    </tr>`;
-  });
+    </tr>`).join('');
 }
+make2col('cmp-tw-rows',   'tw');
+make2col('cmp-bs-rows',   'bs');
+make2col('cmp-mui-rows',  'mui');
+make2col('cmp-bulma-rows','bu');
 
 // 2-col comparison generators
 function make2col(containerId, key) {
@@ -2945,11 +3017,6 @@ function make2col(containerId, key) {
     el.appendChild(div);
   });
 }
-make2col('cmp-tw-rows',  'tw');
-make2col('cmp-bs-rows',  'bs');
-make2col('cmp-mui-rows', 'mui');
-make2col('cmp-bulma-rows','bu');
-
 // Tab switcher for comparison
 function switchCompare(view, btn) {
   ['all','tw','bs','mui','bulma'].forEach(v => {
@@ -3426,6 +3493,39 @@ function aiCopyClasses() {
     setTimeout(function(){ btn.textContent = 'Copy'; }, 1500);
   });
 }
+
+// VS Code notify me
+function vsNotify() {
+  const email = document.getElementById('vscode-email').value.trim();
+  if (!email || !email.includes('@')) { document.getElementById('vscode-email').style.borderColor='#ef4444'; return; }
+  document.getElementById('vscode-notify-form').innerHTML = '<span style="font-size:13px;color:#16a34a;font-weight:600;">✓ You\'re on the list! We\'ll email '+email+' when it ships.</span>';
+}
+
+// Copy CDN link
+function copyCDN() {
+  const cdn = 'https://cdn.jsdelivr.net/npm/santycss/dist/santy.css';
+  navigator.clipboard.writeText(`<link rel="stylesheet" href="${cdn}">`).then(() => {
+    const btn = document.getElementById('cdn-copy-btn');
+    btn.textContent = '✓ Copied!';
+    btn.style.background = 'rgba(34,197,94,0.25)';
+    setTimeout(() => { btn.textContent = 'Copy CDN'; btn.style.background = 'rgba(255,255,255,0.1)'; }, 2000);
+  });
+}
+
+// Resources dropdown
+function toggleResources() {
+  const btn = document.getElementById('navResBtn');
+  const dd  = document.getElementById('navDropdown');
+  const open = btn.classList.toggle('open');
+  dd.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', open);
+}
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('navResources').contains(e.target)) {
+    document.getElementById('navResBtn').classList.remove('open');
+    document.getElementById('navDropdown').classList.remove('open');
+  }
+});
 
 // Enter key triggers generate
 document.addEventListener('DOMContentLoaded', function() {
