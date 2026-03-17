@@ -3,7 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SantyCSS — Complete Class Reference</title>
+  <title>SantyCSS Classes — Complete Reference of 400+ Utility Classes</title>
+  <meta name="description" content="Browse all 400+ SantyCSS utility classes — layout, typography, colors, spacing, flexbox, grid, borders, shadows, animations, and more. Plain-English class names." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://santycss.santy.in/classes.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="SantyCSS" />
+  <meta property="og:title"       content="SantyCSS Classes — Complete Reference of 400+ Utility Classes" />
+  <meta property="og:description" content="Full reference for all 400+ SantyCSS utility classes. Layout, typography, colors, spacing, flexbox, grid, and more — all with plain-English class names." />
+  <meta property="og:url"         content="https://santycss.santy.in/classes.html" />
+  <meta property="og:image"       content="https://santycss.santy.in/assest/santy_css.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="SantyCSS Classes — 400+ Utility Class Reference" />
+  <meta name="twitter:description" content="Browse every SantyCSS utility class. Plain-English names, grouped by category with live examples." />
+  <meta name="twitter:image"       content="https://santycss.santy.in/assest/santy_css.png" />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "SantyCSS Class Reference",
+    "url": "https://santycss.santy.in/classes.html",
+    "description": "Complete reference for all 400+ SantyCSS utility classes — layout, typography, colors, spacing, flexbox, grid, borders, shadows, and more.",
+    "isPartOf": { "@type": "WebSite", "name": "SantyCSS", "url": "https://santycss.santy.in" }
+  }
+  </script>
+
   <link rel="icon" type="image/png" href="assest/santy_css.png" />
   <link rel="stylesheet" href="santy.css" />
   <style>
@@ -157,6 +187,22 @@
       text-align: center;
       padding: 64px 16px;
       color: #94a3b8;
+    }
+
+    /* ── Mobile / Tablet ─────────────────────────────────────── */
+    @media (max-width: 640px) {
+      /* Padding relief */
+      .container { padding-left: 16px !important; padding-right: 16px !important; }
+      /* Search full-width */
+      .search-input { max-width: 100%; }
+      /* Table scroll */
+      .table-wrap { -webkit-overflow-scrolling: touch; }
+      /* Code blocks */
+      .code-block { font-size: 11px !important; padding: 14px 16px !important; }
+      /* Hero text if present */
+      .set-text-56, .set-text-64 { font-size: 2rem !important; letter-spacing: -1px !important; }
+      /* Filter bar stacks on smallest screens */
+      .filter-bar .container { gap: 8px; }
     }
 
     /* ── Code tag ─────────────────────────────────────────────── */

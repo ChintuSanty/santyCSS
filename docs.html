@@ -3,7 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SantyCSS Docs — All Modules Explained</title>
+  <title>SantyCSS Docs — npm Install, PostCSS, Vite, JIT & Purge Guide</title>
+  <meta name="description" content="Complete SantyCSS documentation — npm install, CDN link, PostCSS plugin, Vite plugin, JIT mode, CSS purge/tree-shaking, and all module usage explained." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://santycss.santy.in/docs.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="SantyCSS" />
+  <meta property="og:title"       content="SantyCSS Docs — npm, PostCSS, Vite, JIT & Purge" />
+  <meta property="og:description" content="Full SantyCSS setup guide: npm install, CDN, PostCSS plugin, Vite plugin, JIT mode, and CSS purge for production. All modules documented." />
+  <meta property="og:url"         content="https://santycss.santy.in/docs.html" />
+  <meta property="og:image"       content="https://santycss.santy.in/assest/santy_css.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="SantyCSS Docs — Setup, PostCSS, Vite, JIT Guide" />
+  <meta name="twitter:description" content="Everything you need to integrate SantyCSS — npm, CDN, PostCSS, Vite, JIT, and purge docs." />
+  <meta name="twitter:image"       content="https://santycss.santy.in/assest/santy_css.png" />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "name": "SantyCSS Documentation",
+    "url": "https://santycss.santy.in/docs.html",
+    "description": "Complete SantyCSS documentation — npm install, CDN, PostCSS plugin, Vite plugin, JIT mode, CSS purge, and all module usage.",
+    "isPartOf": { "@type": "WebSite", "name": "SantyCSS", "url": "https://santycss.santy.in" }
+  }
+  </script>
+
   <link rel="icon" type="image/png" href="assest/santy_css.png" />
   <link rel="stylesheet" href="santy.css" />
   <style>
@@ -135,6 +165,14 @@
       .docs-sidebar { display: none; }
       .module-banner { flex-direction: column; padding: 20px; }
       .grid-cols-2, .grid-cols-3 { grid-template-columns: 1fr !important; }
+      [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+    }
+    @media (max-width: 640px) {
+      .container { padding-left: 16px !important; padding-right: 16px !important; }
+      .code-block { font-size: 11px !important; padding: 14px 16px !important; }
+      .install-box { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .install-box code { font-size: 13px; }
+      .table-wrap { -webkit-overflow-scrolling: touch; }
     }
   </style>
 </head>
