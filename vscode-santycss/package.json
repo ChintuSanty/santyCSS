@@ -1,0 +1,80 @@
+{
+  "name": "santycss-intellisense",
+  "displayName": "SantyCSS IntelliSense",
+  "description": "Autocomplete, hover docs, and class preview for SantyCSS — the plain-English utility CSS framework",
+  "version": "1.0.0",
+  "publisher": "SantyCSS",
+  "icon": "icon.png",
+  "license": "MIT",
+  "homepage": "https://santycss.santy.in",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChintuSanty/santyCSS.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ChintuSanty/santyCSS/issues"
+  },
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other",
+    "Snippets",
+    "Linters"
+  ],
+  "keywords": [
+    "css",
+    "santycss",
+    "autocomplete",
+    "intellisense",
+    "utility-css",
+    "plain-english",
+    "tailwind-alternative",
+    "html",
+    "class names"
+  ],
+  "activationEvents": [
+    "onLanguage:html",
+    "onLanguage:javascript",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescript",
+    "onLanguage:typescriptreact",
+    "onLanguage:vue",
+    "onLanguage:svelte",
+    "onLanguage:php",
+    "onLanguage:erb"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "santycss.toggle",
+        "title": "SantyCSS: Toggle IntelliSense"
+      }
+    ],
+    "configuration": {
+      "title": "SantyCSS IntelliSense",
+      "properties": {
+        "santycss.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable SantyCSS IntelliSense"
+        },
+        "santycss.showCSSOnHover": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show generated CSS when hovering over a SantyCSS class"
+        },
+        "santycss.completionTrigger": {
+          "type": "string",
+          "default": "both",
+          "enum": ["classAttr", "anywhere", "both"],
+          "description": "When to trigger completions: inside class attributes only, anywhere, or both"
+        }
+      }
+    }
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.75.0"
+  }
+}

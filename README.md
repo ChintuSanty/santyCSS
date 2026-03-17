@@ -20,6 +20,21 @@ Class names read like sentences. No build step. No configuration. Just link and 
 
 ---
 
+## What's New in v1.4
+
+### 🧩 VS Code IntelliSense Extension
+
+**SantyCSS IntelliSense** is now available as a VS Code extension — similar to Tailwind CSS IntelliSense.
+
+- **Autocomplete** — type inside `class=""` or `className=""` and get instant suggestions for all 8,500+ SantyCSS classes
+- **Hover docs** — hover any class to see the CSS it generates
+- **Works in** HTML, JSX, TSX, Vue, Svelte, PHP, ERB
+- **Toggle command** — `SantyCSS: Toggle IntelliSense` in the Command Palette
+
+Install: search **SantyCSS IntelliSense** in the Extensions panel.
+
+---
+
 ## What's New in v1.3
 
 ### 🎨 70+ SVG Icons (new: Business & Finance)
