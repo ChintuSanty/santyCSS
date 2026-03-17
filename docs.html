@@ -38,8 +38,8 @@
   <link rel="icon" type="image/png" href="assest/santy_css.png" />
   <link rel="stylesheet" href="santy.css" />
   <style>
-    html { scroll-behavior: smooth; }
-    body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; overflow-x: hidden; }
     pre  { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; margin: 0; }
 
     /* Code blocks */
@@ -47,7 +47,7 @@
       background: #0f172a; color: #e2e8f0;
       border-radius: 10px; padding: 20px 24px;
       overflow-x: auto; font-size: 13px; line-height: 1.7;
-      position: relative;
+      position: relative; max-width: 100%;
     }
     .c-key  { color: #7dd3fc; }
     .c-val  { color: #86efac; }

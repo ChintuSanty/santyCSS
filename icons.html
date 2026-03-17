@@ -43,9 +43,9 @@
   <link rel="stylesheet" href="santy.css" />
   <link rel="stylesheet" href="santy-icons.css" />
   <style>
-    html { scroll-behavior: smooth; }
-    body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
-    pre  { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; overflow-x: hidden; }
+    pre  { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; max-width: 100%; overflow-x: auto; }
 
     .nav-link { transition: color 0.2s; }
     .nav-link:hover { color: #3b82f6; }
@@ -180,6 +180,7 @@
       font-size: 13px;
       line-height: 1.7;
       font-family: ui-monospace, monospace;
+      max-width: 100%;
     }
     .code-block .c-tag  { color: #f472b6; }
     .code-block .c-attr { color: #a5b4fc; }

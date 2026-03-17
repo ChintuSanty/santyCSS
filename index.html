@@ -42,8 +42,8 @@
   <link rel="stylesheet" href="santy.css" />
   <style>
     /* Tiny extras for the docs page only */
-    html { scroll-behavior: smooth; }
-    body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; overflow-x: hidden; }
     pre  { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
     .code-block {
       background: #0f172a;
@@ -53,6 +53,7 @@
       overflow-x: auto;
       font-size: 13px;
       line-height: 1.7;
+      max-width: 100%;
     }
     .code-block .c-key   { color: #7dd3fc; }
     .code-block .c-val   { color: #86efac; }
