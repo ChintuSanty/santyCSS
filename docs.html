@@ -545,7 +545,7 @@ santy.email      <span class="c-com">// → /path/to/dist/santy-email.css</span>
           <div class="make-flex align-center gap-10 add-margin-bottom-8">
             <h2 class="set-text-24 text-bold color-gray-900" style="margin:0;">santy-components.css</h2>
             <span class="chip chip-green">Components</span>
-            <span class="chip chip-gray">37KB</span>
+            <span class="chip chip-gray">56KB</span>
           </div>
           <p class="set-text-15 color-gray-600 line-height-relaxed" style="margin:0;">Pre-built UI components with full dark mode support. Load alongside <code class="chip">santy-core.css</code> for the complete design system.</p>
         </div>
@@ -573,17 +573,78 @@ santy.email      <span class="c-com">// → /path/to/dist/santy-email.css</span>
             <thead><tr><th>Component</th><th>Key classes</th></tr></thead>
             <tbody>
               <tr><td>.alert</td><td>.alert-info .alert-success .alert-warning .alert-danger</td></tr>
-              <tr><td>.badge / .chip</td><td>.badge .chip .chip-blue .chip-green .chip-red</td></tr>
-              <tr><td>.input / .select</td><td>.input .select .textarea .input-group .input-addon</td></tr>
+              <tr><td>.badge / .chip</td><td>.badge .badge-green .badge-blue .badge-yellow .badge-red .chip</td></tr>
+              <tr><td>.input / .select</td><td>.input .input-text .select .textarea .input-group .input-addon</td></tr>
               <tr><td>.table</td><td>.table-hover .table-striped .table-responsive</td></tr>
               <tr><td>.pagination</td><td>.page-item .page-link .page-item.active .page-item.disabled</td></tr>
-              <tr><td>.toggle</td><td>.toggle .toggle-slider .toggle-green .toggle-purple</td></tr>
-              <tr><td>.progress</td><td>.progress .progress-bar</td></tr>
+              <tr><td>.toggle / .slider</td><td>.toggle .toggle-slider .toggle-green .slider</td></tr>
+              <tr><td>.progress</td><td>.progress .progress-bar .progress-bar-green .progress-bar-red .progress-bar-yellow</td></tr>
               <tr><td>.skeleton</td><td>.skeleton (animated loading placeholder)</td></tr>
             </tbody>
           </table>
         </div>
       </div>
+
+      <!-- v1.4 New Components -->
+      <h3 class="set-text-18 text-semibold color-gray-800 add-margin-bottom-12 add-margin-top-8">New in v1.4 — Dark Theme UI Components</h3>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-16">CSS custom property tokens + ready-made dark-theme components for mobile apps, chat UIs, dashboards, and scanners.</p>
+
+      <h4 class="set-text-14 text-semibold color-gray-700 add-margin-bottom-8">Dark theme tokens</h4>
+      <div class="table-wrap add-margin-bottom-20">
+        <table>
+          <thead><tr><th>Token</th><th>Value</th><th>Utility class</th></tr></thead>
+          <tbody>
+            <tr><td>--color-surface</td><td>#0f172a</td><td>.bg-surface</td></tr>
+            <tr><td>--color-card</td><td>#1e293b</td><td>—</td></tr>
+            <tr><td>--color-accent</td><td>#38bdf8</td><td>.text-accent</td></tr>
+            <tr><td>--color-accent-light</td><td>rgba(56,189,248,.13)</td><td>.bg-accent-light</td></tr>
+            <tr><td>--color-text</td><td>#f1f5f9</td><td>.text-primary</td></tr>
+            <tr><td>--color-muted</td><td>#64748b</td><td>.text-muted</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 class="set-text-14 text-semibold color-gray-700 add-margin-bottom-8">New component classes</h4>
+      <div class="table-wrap add-margin-bottom-20">
+        <table>
+          <thead><tr><th>Class</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>.badge-green / -blue / -yellow / -red</td><td>Semi-transparent tinted badge variants</td></tr>
+            <tr><td>.progress-bar-green / -red / -yellow / -purple / -orange</td><td>Colour overrides for .progress-bar fill</td></tr>
+            <tr><td>.h-xs / .h-sm / .h-md / .h-lg</td><td>Named height utilities: 24 / 48 / 96 / 160px</td></tr>
+            <tr><td>.slider</td><td>Dark-themed range input (accent colour thumb)</td></tr>
+            <tr><td>.stat-card</td><td>Dark card for KPI / metric tiles</td></tr>
+            <tr><td>.btn-icon</td><td>44×44 circular icon button</td></tr>
+            <tr><td>.input-text</td><td>Dark-themed text input with accent focus ring</td></tr>
+            <tr><td>.chat-bubble-user</td><td>Right-aligned user message bubble</td></tr>
+            <tr><td>.chat-bubble-ai</td><td>Left-aligned AI / assistant message bubble</td></tr>
+            <tr><td>.typing-indicator</td><td>Three-dot animated typing indicator</td></tr>
+            <tr><td>.calorie-ring</td><td>Wrapper for SVG ring / donut charts</td></tr>
+            <tr><td>.scan-overlay</td><td>Accent-bordered camera scan frame</td></tr>
+            <tr><td>.scan-line-animated</td><td>Animated horizontal scan sweep line</td></tr>
+            <tr><td>.bar-chart-wrapper</td><td>Dark card wrapper for bar chart content</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="code-block add-margin-bottom-24"><pre><span class="c-com">&lt;!-- Typing indicator --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"typing-indicator"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-com">&lt;!-- Chat bubbles --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"chat-bubble-user"</span><span class="c-tag">&gt;</span>How many calories in a banana?<span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"chat-bubble-ai"</span><span class="c-tag">&gt;</span>About 89 calories.<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-com">&lt;!-- Tinted badges --&gt;</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"badge badge-green"</span><span class="c-tag">&gt;</span>Protein<span class="c-tag">&lt;/span&gt;</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"badge badge-blue"</span><span class="c-tag">&gt;</span>Carbs<span class="c-tag">&lt;/span&gt;</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"badge badge-yellow"</span><span class="c-tag">&gt;</span>Fat<span class="c-tag">&lt;/span&gt;</span>
+
+<span class="c-com">&lt;!-- Progress with colour variants --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"progress"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"progress-bar progress-bar-green"</span> <span class="c-attr">style</span>=<span class="c-str">"width:70%"</span><span class="c-tag">&gt;&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre></div>
 
       <!-- Dark mode note -->
       <div class="alert alert-info add-margin-bottom-24" style="background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af;border-radius:10px;padding:14px 18px;">
