@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git rm:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(npm publish:*)",
+      "Bash(npm view:*)",
+      "Read(//\"\"\"\"\"\"\"\"category\"\"\"\"\"\"\"\": \"\"\"\"\"\"\"\"communication\"\"\"\"\"\"\"\"/ {getline; getline} /\"\"\"\"\"\"\"\"name\"\"\"\"\"\"\"\"/ {name=$0; getline; if \\(/\"\"\"\"\"\"\"\"label\"\"\"\"\"\"\"\"/\\) print name \"\"\"\"\"\"\"\"/**)",
+      "Bash(jq \".icons[] | select\\(.category == \"\"communication\"\"\\) | {name: .name, label: .label}\")",
+      "Bash(node create-comm-icons.js)",
+      "Bash(rm create-comm-icons.js)",
+      "Bash(git add:*)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\hello\\Downloads"
+    ]
+  }
+}
