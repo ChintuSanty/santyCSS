@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SantyCSS Inspector</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff;
+    --bg2: #f9fafb;
+    --bg3: #f3f4f6;
+    --border: #e5e7eb;
+    --text: #111827;
+    --text2: #4b5563;
+    --text3: #9ca3af;
+    --accent: #3b82f6;
+    --accent-bg: #eff6ff;
+    --accent-border: #bfdbfe;
+    --green: #16a34a;
+    --green-bg: #f0fdf4;
+    --chip-bg: #f3f4f6;
+    --chip-hover: #e5e7eb;
+    --radius: 8px;
+    --radius-sm: 6px;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --mono: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1e1e2e;
+      --bg2: #181825;
+      --bg3: #313244;
+      --border: #45475a;
+      --text: #cdd6f4;
+      --text2: #a6adc8;
+      --text3: #585b70;
+      --accent: #89b4fa;
+      --accent-bg: #1e3a5f;
+      --accent-border: #2563eb;
+      --green: #a6e3a1;
+      --green-bg: #1a2e1a;
+      --chip-bg: #313244;
+      --chip-hover: #45475a;
+    }
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px 8px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .logo-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    flex-shrink: 0;
+  }
+  .version-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: var(--accent-bg);
+    color: var(--accent);
+    border: 1px solid var(--accent-border);
+  }
+
+  /* ── Body area ── */
+  .body { padding: 0; }
+
+  /* ── Empty / error states ── */
+  .state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+    gap: 8px;
+  }
+  .state-icon { font-size: 32px; opacity: 0.4; }
+  .state-title { font-size: 13px; font-weight: 600; color: var(--text2); }
+  .state-desc  { font-size: 11px; color: var(--text3); max-width: 220px; line-height: 1.6; }
+
+  /* ── Node info bar ── */
+  .node-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+  }
+  .node-type-tag {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: var(--bg3);
+    color: var(--text3);
+    flex-shrink: 0;
+  }
+  .node-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+  }
+
+  /* ── Copy All bar ── */
+  .copy-all-bar {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .copy-all-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text3);
+  }
+  .copy-all-classes {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text2);
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 8px 10px;
+    word-break: break-all;
+    line-height: 1.7;
+    max-height: 72px;
+    overflow-y: auto;
+  }
+  .copy-all-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 8px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s, background 0.15s;
+  }
+  .copy-all-btn:hover { opacity: 0.9; }
+  .copy-all-btn.copied { background: var(--green); }
+
+  /* ── Groups ── */
+  .groups { padding: 0 0 16px; }
+
+  .group { border-bottom: 1px solid var(--border); }
+  .group:last-child { border-bottom: none; }
+
+  .group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 14px 6px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .group-header:hover { background: var(--bg2); }
+
+  .group-title-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .group-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .group-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text2);
+  }
+  .group-count {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 999px;
+    background: var(--bg3);
+    color: var(--text3);
+  }
+  .group-chevron {
+    color: var(--text3);
+    font-size: 10px;
+    transition: transform 0.15s;
+  }
+  .group.collapsed .group-chevron { transform: rotate(-90deg); }
+
+  .group-body { padding: 4px 14px 10px; display: flex; flex-direction: column; gap: 4px; }
+  .group.collapsed .group-body { display: none; }
+
+  /* ── Class chip ── */
+  .cls-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 6px;
+    padding: 4px 6px 4px 4px;
+    transition: background 0.1s;
+  }
+  .cls-row:hover { background: var(--bg3); }
+
+  .cls-chip {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent);
+    background: var(--accent-bg);
+    border: 1px solid var(--accent-border);
+    border-radius: 4px;
+    padding: 2px 7px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: opacity 0.12s;
+    user-select: none;
+  }
+  .cls-chip:hover { opacity: 0.85; }
+  .cls-chip.note-chip {
+    color: var(--text3);
+    background: var(--bg3);
+    border-color: var(--border);
+    font-size: 10px;
+  }
+  .cls-chip.copied-chip {
+    color: var(--green);
+    background: var(--green-bg);
+    border-color: #bbf7d0;
+  }
+  .cls-desc {
+    font-size: 11px;
+    color: var(--text3);
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cls-copy-btn {
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    border: none; background: transparent;
+    color: var(--text3);
+    border-radius: 4px;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-size: 11px;
+    transition: background 0.1s, color 0.1s;
+    opacity: 0;
+  }
+  .cls-row:hover .cls-copy-btn { opacity: 1; }
+  .cls-copy-btn:hover { background: var(--bg3); color: var(--accent); }
+
+  /* ── Footer ── */
+  .footer {
+    padding: 8px 14px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--text3);
+    position: sticky;
+    bottom: 0;
+    background: var(--bg);
+  }
+  .footer a { color: var(--accent); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+
+  /* ── Scrollbar ── */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon">S</div>
+    SantyCSS Inspector
+  </div>
+  <span class="version-badge">v1.7</span>
+</div>
+
+<!-- Main content -->
+<div class="body" id="body">
+  <!-- Empty state shown by default -->
+  <div class="state" id="emptyState">
+    <div class="state-icon">🔍</div>
+    <div class="state-title">Select a layer</div>
+    <div class="state-desc">Click any frame, component, or text in your Figma canvas to see the matching SantyCSS classes.</div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <span>santycss.santy.in</span>
+  <a href="#" onclick="parent.postMessage({pluginMessage:{type:'close'}},'*')">Close</a>
+</div>
+
+<script>
+const GROUP_META = {
+  layout:     { label: 'Layout',     dot: '#3b82f6', icon: '⊞' },
+  spacing:    { label: 'Spacing',    dot: '#22c55e', icon: '↔' },
+  size:       { label: 'Size',       dot: '#f59e0b', icon: '⤢' },
+  typography: { label: 'Typography', dot: '#a855f7', icon: 'T' },
+  color:      { label: 'Color',      dot: '#ec4899', icon: '◉' },
+  border:     { label: 'Border',     dot: '#64748b', icon: '□' },
+  effects:    { label: 'Effects',    dot: '#14b8a6', icon: '✨' },
+  misc:       { label: 'Misc',       dot: '#9ca3af', icon: '⚙' },
+};
+
+function copy(text, el) {
+  navigator.clipboard.writeText(text).then(() => {
+    if (!el) return;
+    const orig = el.textContent;
+    el.textContent = '✓';
+    el.style.color = 'var(--green)';
+    setTimeout(() => { el.textContent = orig; el.style.color = ''; }, 1200);
+  });
+}
+
+function copyChip(cls, chipEl) {
+  navigator.clipboard.writeText(cls).then(() => {
+    chipEl.classList.add('copied-chip');
+    const orig = chipEl.textContent;
+    chipEl.textContent = '✓ copied';
+    setTimeout(() => {
+      chipEl.textContent = orig;
+      chipEl.classList.remove('copied-chip');
+    }, 1200);
+  });
+}
+
+function render(data) {
+  const body = document.getElementById('body');
+  body.innerHTML = '';
+
+  // Node info bar
+  const nodeBar = document.createElement('div');
+  nodeBar.className = 'node-bar';
+  nodeBar.innerHTML = `
+    <span class="node-type-tag">${data.nodeType.toLowerCase()}</span>
+    <span class="node-name" title="${data.nodeName}">${data.nodeName}</span>
+  `;
+  body.appendChild(nodeBar);
+
+  // Copy-all bar
+  if (data.allClasses) {
+    const bar = document.createElement('div');
+    bar.className = 'copy-all-bar';
+    bar.innerHTML = `
+      <div class="copy-all-label">All classes</div>
+      <div class="copy-all-classes">${data.allClasses}</div>
+      <button class="copy-all-btn" id="copyAllBtn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copy all classes
+      </button>
+    `;
+    body.appendChild(bar);
+
+    const btn = bar.querySelector('#copyAllBtn');
+    btn.addEventListener('click', () => {
+      navigator.clipboard.writeText(data.allClasses).then(() => {
+        btn.textContent = '✓ Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy all classes`;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+  }
+
+  // Groups
+  const groups = document.createElement('div');
+  groups.className = 'groups';
+
+  let hasAny = false;
+
+  for (const [key, items] of Object.entries(data.groups)) {
+    if (!items.length) continue;
+    hasAny = true;
+
+    const meta = GROUP_META[key] || { label: key, dot: '#9ca3af' };
+    const groupEl = document.createElement('div');
+    groupEl.className = 'group';
+
+    groupEl.innerHTML = `
+      <div class="group-header">
+        <div class="group-title-row">
+          <span class="group-dot" style="background:${meta.dot}"></span>
+          <span class="group-title">${meta.label}</span>
+          <span class="group-count">${items.length}</span>
+        </div>
+        <span class="group-chevron">▾</span>
+      </div>
+      <div class="group-body" id="group-body-${key}"></div>
+    `;
+
+    const header = groupEl.querySelector('.group-header');
+    header.addEventListener('click', () => {
+      groupEl.classList.toggle('collapsed');
+    });
+
+    const groupBody = groupEl.querySelector('.group-body');
+    items.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'cls-row';
+
+      const isNote = item.note;
+      row.innerHTML = `
+        <span class="cls-chip ${isNote ? 'note-chip' : ''}" title="Click to copy">${item.cls}</span>
+        <span class="cls-desc">${item.desc || ''}</span>
+        ${!isNote ? `<button class="cls-copy-btn" title="Copy">⎘</button>` : ''}
+      `;
+
+      if (!isNote) {
+        const chip = row.querySelector('.cls-chip');
+        const copyBtn = row.querySelector('.cls-copy-btn');
+        chip.addEventListener('click', () => copyChip(item.cls, chip));
+        copyBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          copy(item.cls, copyBtn);
+        });
+      }
+
+      groupBody.appendChild(row);
+    });
+
+    groups.appendChild(groupEl);
+  }
+
+  if (!hasAny) {
+    const empty = document.createElement('div');
+    empty.className = 'state';
+    empty.innerHTML = `
+      <div class="state-icon">🤔</div>
+      <div class="state-title">Nothing to map</div>
+      <div class="state-desc">This layer has no properties that map to SantyCSS classes. Try selecting a frame, auto-layout container, or text layer.</div>
+    `;
+    body.appendChild(empty);
+    return;
+  }
+
+  body.appendChild(groups);
+}
+
+function showError(msg) {
+  document.getElementById('body').innerHTML = `
+    <div class="state">
+      <div class="state-icon">⚠️</div>
+      <div class="state-title">Couldn't inspect layer</div>
+      <div class="state-desc">${msg || 'An unexpected error occurred.'}</div>
+    </div>
+  `;
+}
+
+function showEmpty() {
+  document.getElementById('body').innerHTML = `
+    <div class="state" id="emptyState">
+      <div class="state-icon">🔍</div>
+      <div class="state-title">Select a layer</div>
+      <div class="state-desc">Click any frame, component, or text in your Figma canvas to see the matching SantyCSS classes.</div>
+    </div>
+  `;
+}
+
+window.onmessage = (event) => {
+  const msg = event.data.pluginMessage;
+  if (!msg) return;
+  if (msg.type === 'no-selection') showEmpty();
+  else if (msg.type === 'result')  render(msg.data);
+  else if (msg.type === 'error')   showError(msg.message);
+};
+
+// Tell the backend we're ready
+parent.postMessage({ pluginMessage: { type: 'ready' } }, '*');
+</script>
+</body>
+</html>
