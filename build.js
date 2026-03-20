@@ -52,7 +52,7 @@ const add = (...css) => lines.push(...css);
 // ─── CSS RESET + BASE ────────────────────────────────────────────────────────
 add(
 `/* ============================================================
-   SantyCSS v1.0  —  Plain-English Utility CSS Framework
+   SantyCSS v1.4.0  —  Plain-English Utility CSS Framework
    https://github.com/santybad/santy_css
    ============================================================ */
 
@@ -2389,6 +2389,131 @@ add(`
 @container (min-width: 800px) { .cq-lg\\:grid-cols-4 { grid-template-columns: repeat(4,1fr); } }
 .container-query { container-type: inline-size; }
 .container-query-size { container-type: size; }
+`);
+
+// ─── DARK THEME TOKENS + UI COMPONENTS (v1.4) ─────────────────────────────────
+add(`
+/* ── Dark Theme CSS Tokens ── */
+:root {
+  --color-surface:      #0f172a;
+  --color-card:         #1e293b;
+  --color-accent:       #38bdf8;
+  --color-accent-light: rgba(56,189,248,.13);
+  --color-text:         #f1f5f9;
+  --color-muted:        #64748b;
+  --color-warning:      #facc15;
+}
+
+/* ── Semantic Color Utilities ── */
+.bg-surface      { background-color: var(--color-surface); }
+.bg-accent-light { background-color: var(--color-accent-light); }
+.text-accent     { color: var(--color-accent); }
+.text-primary    { color: var(--color-text); }
+.text-muted      { color: var(--color-muted); }
+
+/* ── Badge Color Variants ── */
+.badge-green  { background-color: rgba(22,163,74,.13);  color: #4ade80; }
+.badge-blue   { background-color: rgba(37,99,235,.13);  color: #60a5fa; }
+.badge-yellow { background-color: rgba(202,138,4,.13);  color: #facc15; }
+.badge-red    { background-color: rgba(220,38,38,.13);  color: #f87171; }
+
+/* ── Named Height Utilities ── */
+.h-xs { height: 24px; }
+.h-sm { height: 48px; }
+.h-md { height: 96px; }
+.h-lg { height: 160px; }
+
+/* ── Progress Bar Color Variants ── */
+.progress-bar-green  { background-color: #22c55e; }
+.progress-bar-red    { background-color: #ef4444; }
+.progress-bar-yellow { background-color: #eab308; }
+.progress-bar-purple { background-color: #8b5cf6; }
+.progress-bar-orange { background-color: #f97316; }
+
+/* ── Slider (Range — dark-themed) ── */
+.slider { -webkit-appearance: none; appearance: none; width: 100%; height: 4px; border-radius: 2px; background: var(--color-card, #1e293b); outline: none; cursor: pointer; }
+.slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--color-accent, #38bdf8); cursor: pointer; box-shadow: 0 0 0 3px rgba(56,189,248,.2); }
+.slider::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--color-accent, #38bdf8); cursor: pointer; border: none; }
+
+/* ── Stat Card ── */
+.stat-card {
+  background: var(--color-card, #1e293b);
+  border-radius: 8px;
+  padding: 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ── Button Icon ── */
+.btn-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent-light, rgba(56,189,248,.13));
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn-icon:hover { opacity: 0.8; }
+
+/* ── Input Text (dark-theme) ── */
+.input-text {
+  flex: 1;
+  width: 100%;
+  background: var(--color-surface, #0f172a);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--color-text, #f1f5f9);
+  font-size: 15px;
+  min-height: 44px;
+  border: 1px solid #334155;
+  outline: none;
+}
+.input-text:focus { border-color: var(--color-accent, #38bdf8); }
+
+/* ── Chat Bubbles ── */
+.chat-bubble-user {
+  align-self: flex-end;
+  background: var(--color-accent-light, rgba(56,189,248,.13));
+  border-radius: 16px 16px 4px 16px;
+  padding: 10px 14px;
+  max-width: 78%;
+  color: var(--color-text, #f1f5f9);
+}
+.chat-bubble-ai {
+  align-self: flex-start;
+  background: var(--color-card, #1e293b);
+  border-radius: 16px 16px 16px 4px;
+  padding: 10px 14px;
+  max-width: 78%;
+  color: var(--color-text, #f1f5f9);
+}
+
+/* ── Typing Indicator ── */
+.typing-indicator { display: flex; gap: 4px; padding: 10px; align-self: flex-start; }
+.typing-indicator span { width: 8px; height: 8px; border-radius: 50%; background: var(--color-muted, #64748b); animation: santy-blink 1.2s ease-in-out infinite; }
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes santy-blink { 0%, 80%, 100% { opacity: 0; transform: scale(0.8); } 40% { opacity: 1; transform: scale(1); } }
+
+/* ── Calorie Ring (SVG ring chart wrapper) ── */
+.calorie-ring { position: relative; display: inline-flex; align-items: center; justify-content: center; }
+
+/* ── Scan Overlay ── */
+.scan-overlay { position: absolute; border: 2px solid var(--color-accent, #38bdf8); border-radius: 12px; overflow: hidden; }
+
+/* ── Scan Line Animated ── */
+.scan-line-animated { position: absolute; left: 0; right: 0; height: 2px; background: var(--color-accent, #38bdf8); animation: santy-scan-sweep 1.8s ease-in-out infinite alternate; }
+@keyframes santy-scan-sweep { from { top: 0%; } to { top: 100%; } }
+
+/* ── Bar Chart Wrapper ── */
+.bar-chart-wrapper { background: var(--color-card, #1e293b); border-radius: 12px; padding: 16px; overflow: hidden; }
 `);
 
 // ─── WRITE FILES (full + split) ───────────────────────────────────────────────
