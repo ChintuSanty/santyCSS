@@ -1,0 +1,102 @@
+/* SantyCSS Builder — frontend component styles */
+
+/* ── Code Block ──────────────────────────────────────────────────────── */
+.code-block {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0f172a;
+  font-family: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', Consolas, monospace;
+  box-shadow: 0 4px 24px rgba(0,0,0,.18);
+}
+.code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #1e293b;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.code-block-dots { display: flex; gap: 6px; align-items: center; }
+.code-block-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.code-block-dot-red    { background: #ff5f56; }
+.code-block-dot-yellow { background: #ffbd2e; }
+.code-block-dot-green  { background: #27c93f; }
+
+.code-block-lang {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+.code-block-copy {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 6px;
+  padding: 3px 10px;
+  color: #94a3b8;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all .15s;
+  font-family: inherit;
+}
+.code-block-copy:hover { background: rgba(255,255,255,.14); color: #e2e8f0; }
+
+.code-block pre { background: transparent !important; color: #e2e8f0; font-size: 13.5px; line-height: 1.7; }
+.code-block code { font-family: inherit; font-size: inherit; }
+
+/* ── Stat Card ───────────────────────────────────────────────────────── */
+.stat-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+}
+
+/* ── Hotspot ─────────────────────────────────────────────────────────── */
+.scb-hotspot { line-height: 0; }
+
+/* ── WooCommerce Products ────────────────────────────────────────────── */
+.scb-woo-products .card { transition: box-shadow .2s, transform .2s; }
+.scb-woo-products .card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,.1);
+  transform: translateY(-2px);
+}
+
+/* ── Login Form ──────────────────────────────────────────────────────── */
+.scb-login-form input[type="text"],
+.scb-login-form input[type="password"] {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 12px;
+  outline: none;
+  transition: border-color .15s;
+}
+.scb-login-form input[type="text"]:focus,
+.scb-login-form input[type="password"]:focus { border-color: #3b82f6; }
+.scb-login-form input[type="submit"] {
+  width: 100%;
+  padding: 11px;
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s;
+}
+.scb-login-form input[type="submit"]:hover { background: #2563eb; }
+.scb-login-form label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 4px;
+}
