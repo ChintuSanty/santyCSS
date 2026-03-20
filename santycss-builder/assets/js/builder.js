@@ -33,7 +33,7 @@
   function findWidget(widgetId) {
     for (const sec of S.data.sections) {
       for (const col of sec.columns) {
-        const w = col.find(w => w.id === widgetId);
+        const w = col.widgets.find(w => w.id === widgetId);
         if (w) return w;
       }
     }
@@ -235,7 +235,8 @@
 
       /* section bar */
       const bar     = el('div', { className: 'scb-sec-bar' });
-      const barLeft = el('span', { className: 'scb-sec-label' }, `Section ${si + 1} · ${sec.cols} col${sec.cols > 1 ? 's' : ''}`);
+      const ncols   = sec.columns.length;
+      const barLeft = el('span', { className: 'scb-sec-label' }, `Section ${si + 1} · ${ncols} col${ncols > 1 ? 's' : ''}`);
       const barR    = el('div',  { className: 'scb-sec-acts' });
 
       barR.append(
@@ -247,10 +248,10 @@
       secEl.appendChild(bar);
 
       /* columns */
-      const colsEl = el('div', { className: `scb-cols scb-cols-${sec.cols}` });
+      const colsEl = el('div', { className: `scb-cols scb-cols-${sec.columns.length}` });
       sec.columns.forEach((col, ci) => {
         const colEl = el('div', { className: 'scb-col' });
-        col.forEach((w, wi) => colEl.appendChild(this._buildWidgetCard(w, sec.id, ci, wi)));
+        col.widgets.forEach((w, wi) => colEl.appendChild(this._buildWidgetCard(w, sec.id, ci, wi)));
 
         /* drop zone at bottom of column */
         const dz = el('div', { className: 'scb-dz' }, 'Drop widget here');
@@ -532,7 +533,11 @@
 
     /* ── Data mutations ───────────────────────────────────────────── */
     _addSection(cols) {
-      S.data.sections.push({ id: uid(), cols, columns: Array.from({ length: cols }, () => []) });
+      const widths = { 1: ['1-of-1'], 2: ['1-of-2','1-of-2'], 3: ['1-of-3','1-of-3','1-of-3'] };
+      const columns = (widths[cols] || widths[1]).map(width => ({
+        id: uid(), width, settings: {}, widgets: [],
+      }));
+      S.data.sections.push({ id: uid(), settings: { padding_y: '60', padding_x: '20' }, columns });
       S.dirty = true;
       this.renderCanvas();
     },
@@ -560,7 +565,7 @@
       const def = getWidgetDef(type);
       if (!sec || !def) return;
       const w = { id: uid(), type, settings: Object.assign({}, def.defaults) };
-      sec.columns[colIdx].push(w);
+      sec.columns[colIdx].widgets.push(w);
       S.dirty = true;
       this.renderCanvas();
       this._selectWidget(w.id);
@@ -569,8 +574,8 @@
     _removeWidget(widgetId) {
       for (const sec of S.data.sections) {
         for (const col of sec.columns) {
-          const i = col.findIndex(w => w.id === widgetId);
-          if (i !== -1) { col.splice(i, 1); break; }
+          const i = col.widgets.findIndex(w => w.id === widgetId);
+          if (i !== -1) { col.widgets.splice(i, 1); break; }
         }
       }
       if (S.selectedId === widgetId) { S.selectedId = null; this._renderControls(); }
@@ -581,11 +586,11 @@
     _moveWidget(secId, colIdx, widgetIdx, dir) {
       const sec = findSection(secId);
       if (!sec) return;
-      const col = sec.columns[colIdx];
+      const widgets = sec.columns[colIdx].widgets;
       const nxt = widgetIdx + dir;
-      if (nxt < 0 || nxt >= col.length) return;
-      const [w] = col.splice(widgetIdx, 1);
-      col.splice(nxt, 0, w);
+      if (nxt < 0 || nxt >= widgets.length) return;
+      const [w] = widgets.splice(widgetIdx, 1);
+      widgets.splice(nxt, 0, w);
       S.dirty = true;
       this.renderCanvas();
     },
@@ -593,10 +598,10 @@
     _moveWidgetTo(widgetId, src, destSecId, destColIdx) {
       const srcSec = findSection(src.secId);
       if (!srcSec) return;
-      const [w] = srcSec.columns[src.colIdx].splice(src.widgetIdx, 1);
+      const [w] = srcSec.columns[src.colIdx].widgets.splice(src.widgetIdx, 1);
       const dst = findSection(destSecId);
       if (!dst) return;
-      dst.columns[destColIdx].push(w);
+      dst.columns[destColIdx].widgets.push(w);
       S.dirty = true;
       this.renderCanvas();
     },
