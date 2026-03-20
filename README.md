@@ -16,7 +16,7 @@ Class names read like sentences. No build step. No configuration. Just link and 
 </div>
 ```
 
-> 🌐 **[santycss.santy.in](https://santycss.santy.in)** · 📖 **[Class Reference](https://santycss.santy.in/classes.html)** · 🎬 **[Animations](https://santycss.santy.in/animations.html)** · 📦 **[npm Docs](https://santycss.santy.in/docs.html)**
+> 🌐 **[santycss.santy.in](https://santycss.santy.in)** · 📖 **[Class Reference](https://santycss.santy.in/classes.html)** · 🌊 **[Webflow](https://santycss.santy.in/webflow.html)** · 🎬 **[Animations](https://santycss.santy.in/animations.html)** · 📦 **[npm Docs](https://santycss.santy.in/docs.html)**
 
 ---
 
@@ -309,6 +309,14 @@ The **built-in AI Generator** converts plain English → SantyCSS classes in the
 
 ---
 
+## Webflow
+
+Use SantyCSS on **[Webflow](https://webflow.com/)** without a build step: add the CDN `<link>` in **Project settings → Custom Code → Head**, then enter utility classes in the **Style → Selector** field on any element.
+
+- **[Webflow guide + copy-paste snippets + sidebar class index](https://santycss.santy.in/webflow.html)** — head/footer code, optional split bundles, scroll-animation helper, design tokens.
+
+---
+
 ## Installation
 
 ```bash
@@ -532,6 +540,7 @@ The file `santycss.context.md` (in the GitHub repo) is a ready-made system promp
 
 - 🌐 Website: [santycss.santy.in](https://santycss.santy.in)
 - 📖 Class Reference: [santycss.santy.in/classes.html](https://santycss.santy.in/classes.html)
+- 🌊 Webflow: [santycss.santy.in/webflow.html](https://santycss.santy.in/webflow.html)
 - 🎬 Animations: [santycss.santy.in/animations.html](https://santycss.santy.in/animations.html)
 - 🎮 Live Demo: [santycss.santy.in/demo.html](https://santycss.santy.in/demo.html)
 - 📦 npm Docs: [santycss.santy.in/docs.html](https://santycss.santy.in/docs.html)

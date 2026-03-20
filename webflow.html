@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SantyCSS for Webflow — Custom Code &amp; Class Reference Sidebar</title>
+  <meta name="description" content="Paste-ready SantyCSS links for Webflow Project Settings → Custom Code, plus a sidebar class reference. Use utilities on any Webflow element via Settings → Style → Selector." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://santycss.santy.in/webflow.html" />
+  <link rel="icon" type="image/png" href="assest/santy_css.png" />
+  <link rel="stylesheet" href="santy.css" />
+  <style>
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    pre, code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+    .nav-link { transition: color 0.2s; }
+    .nav-link:hover {	color: #3b82f6; }
+    .nav-link-active { color: #2563eb !important; font-weight: 700 !important; }
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 7px 9px;
+      cursor: pointer;
+      color: #374151;
+      line-height: 1;
+    }
+
+    .wf-layout { display: flex; align-items: flex-start; gap: 0; }
+    .wf-sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 61px;
+      height: calc(100vh - 61px);
+      overflow-y: auto;
+      padding: 28px 16px 48px 0;
+      border-right: 1px solid #e5e7eb;
+      background: #fafafa;
+    }
+    .wf-sidebar::-webkit-scrollbar { width: 4px; }
+    .wf-sidebar::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 2px; }
+    .sidebar-group { margin-bottom: 22px; }
+    .sidebar-group-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9ca3af;
+      padding: 0 10px;
+      margin-bottom: 6px;
+    }
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 7px;
+      font-size: 13px;
+      color: #475569;
+      text-decoration: none;
+      transition: all 0.15s;
+      margin-bottom: 1px;
+    }
+    .sidebar-link:hover { background: #f1f5f9; color: #1e293b; }
+    .sidebar-link.active { background: #eff6ff; color: #2563eb; font-weight: 600; }
+    .sidebar-link.external { font-size: 12px; }
+    .sidebar-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+    .code-wrap {
+      position: relative;
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 12px;
+      padding: 18px 20px 18px 20px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.65;
+      margin: 0;
+    }
+    .copy-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 8px;
+    }
+    .copy-btn {
+      font-size: 11px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: #334155;
+      color: #94a3b8;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { background: #475569; color: #e2e8f0; }
+    .copy-btn.copied { background: #166534; color: #dcfce7; }
+
+    .wf-main { flex: 1; min-width: 0; padding: 36px 0 80px 40px; }
+    .wf-section { scroll-margin-top: 88px; margin-bottom: 48px; }
+    .wf-card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-top: 16px;
+    }
+    .tip-list li { margin-bottom: 10px; color: #374151; font-size: 14px; line-height: 1.55; }
+
+    @media (max-width: 767px) {
+      .nav-hamburger { display: flex; align-items: center; justify-content: center; }
+      #main-nav {
+        display: none;
+        position: fixed;
+        top: 61px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #fff;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+        gap: 4px;
+        z-index: 98;
+        border-top: 1px solid #e5e7eb;
+        overflow-y: auto;
+        box-shadow: 0 4px 24px rgba(0,0,0,.12);
+      }
+      #main-nav.nav-open { display: flex; }
+      #main-nav .nav-link {
+        display: block;
+        padding: 12px !important;
+        font-size: 16px !important;
+        border-radius: 8px;
+        color: #1f2937 !important;
+        border-bottom: 1px solid #f3f4f6;
+      }
+      .wf-layout { flex-direction: column; }
+      .wf-sidebar {
+        display: none;
+      }
+      .wf-main { padding: 24px 16px 64px; }
+      .wf-card { padding: 18px; }
+    }
+  </style>
+</head>
+<body class="background-white">
+
+<header class="position-sticky pin-top-0 z-50 background-white" style="border-bottom:1px solid #e5e7eb;box-shadow:0 1px 3px rgba(0,0,0,.06);">
+  <div class="container make-flex align-center justify-between add-padding-y-14">
+    <a href="index.html" class="make-flex align-center gap-10 text-no-decoration">
+      <img src="assest/santy_css.png" alt="SantyCSS" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
+      <span class="set-text-20 text-bold color-gray-900">Santy<span class="color-blue-600">CSS</span></span>
+      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v1.8.0</span>
+    </a>
+    <button class="nav-hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
+      <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg id="ham-close" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:none"><path d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <nav id="main-nav" class="make-flex align-center gap-24">
+      <a href="classes.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Classes</a>
+      <a href="webflow.html" class="nav-link nav-link-active text-no-decoration set-text-14 text-semibold">Webflow</a>
+      <a href="index.html#components" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Components</a>
+      <a href="animations.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Animations</a>
+      <a href="icons.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Icons</a>
+      <a href="index.html#ai-generator" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">AI Gen</a>
+      <a href="docs.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">npm Docs</a>
+      <a href="demo.html" class="make-button style-primary size-small">Live Demo →</a>
+    </nav>
+  </div>
+</header>
+
+<div class="container wf-layout">
+
+  <aside class="wf-sidebar" aria-label="Page and class reference">
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">This page</div>
+      <a href="#intro" class="sidebar-link active" data-spy="intro"><span class="sidebar-dot" style="background:#3b82f6;"></span>Overview</a>
+      <a href="#head-full" class="sidebar-link" data-spy="head-full"><span class="sidebar-dot" style="background:#22c55e;"></span>Head · Full CSS</a>
+      <a href="#head-split" class="sidebar-link" data-spy="head-split"><span class="sidebar-dot" style="background:#8b5cf6;"></span>Head · Split bundles</a>
+      <a href="#head-icons" class="sidebar-link" data-spy="head-icons"><span class="sidebar-dot" style="background:#f59e0b;"></span>Head · Icons</a>
+      <a href="#footer-script" class="sidebar-link" data-spy="footer-script"><span class="sidebar-dot" style="background:#ec4899;"></span>Footer · Scroll reveal</a>
+      <a href="#webflow-tips" class="sidebar-link" data-spy="webflow-tips"><span class="sidebar-dot" style="background:#64748b;"></span>Webflow workflow</a>
+      <a href="#tokens" class="sidebar-link" data-spy="tokens"><span class="sidebar-dot" style="background:#0ea5e9;"></span>Design tokens</a>
+    </div>
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">Full class tables</div>
+      <a href="classes.html#layout" class="sidebar-link external"><span class="sidebar-dot" style="background:#3b82f6;"></span>Layout</a>
+      <a href="classes.html#spacing" class="sidebar-link external"><span class="sidebar-dot" style="background:#6366f1;"></span>Spacing</a>
+      <a href="classes.html#sizing" class="sidebar-link external"><span class="sidebar-dot" style="background:#8b5cf6;"></span>Sizing</a>
+      <a href="classes.html#colors" class="sidebar-link external"><span class="sidebar-dot" style="background:#ef4444;"></span>Colors</a>
+      <a href="classes.html#borders" class="sidebar-link external"><span class="sidebar-dot" style="background:#f97316;"></span>Borders &amp; radius</a>
+      <a href="classes.html#typography" class="sidebar-link external"><span class="sidebar-dot" style="background:#14b8a6;"></span>Typography</a>
+      <a href="classes.html#shadows" class="sidebar-link external"><span class="sidebar-dot" style="background:#78716c;"></span>Shadows</a>
+      <a href="classes.html#positioning" class="sidebar-link external"><span class="sidebar-dot" style="background:#ca8a04;"></span>Positioning</a>
+      <a href="classes.html#transitions" class="sidebar-link external"><span class="sidebar-dot" style="background:#a855f7;"></span>Transitions</a>
+      <a href="classes.html#animations" class="sidebar-link external"><span class="sidebar-dot" style="background:#db2777;"></span>Animations</a>
+      <a href="classes.html#state" class="sidebar-link external"><span class="sidebar-dot" style="background:#059669;"></span>State variants</a>
+      <a href="classes.html#responsive" class="sidebar-link external"><span class="sidebar-dot" style="background:#2563eb;"></span>Responsive</a>
+      <a href="classes.html#display" class="sidebar-link external"><span class="sidebar-dot" style="background:#475569;"></span>Display &amp; overflow</a>
+      <a href="classes.html#gradients" class="sidebar-link external"><span class="sidebar-dot" style="background:#d946ef;"></span>Gradients</a>
+      <a href="classes.html#components" class="sidebar-link external"><span class="sidebar-dot" style="background:#ea580c;"></span>Components</a>
+      <a href="classes.html" class="sidebar-link external" style="font-weight:600;"><span class="sidebar-dot" style="background:#1e293b;"></span>All categories →</a>
+    </div>
+    <div class="sidebar-group">
+      <div class="sidebar-group-label">Also</div>
+      <a href="animations.html" class="sidebar-link external"><span class="sidebar-dot" style="background:#f59e0b;"></span>Animation gallery</a>
+      <a href="icons.html" class="sidebar-link external"><span class="sidebar-dot" style="background:#22c55e;"></span>Icon browser</a>
+      <a href="https://github.com/ChintuSanty/santyCSS/blob/main/santycss.context.md" class="sidebar-link external" target="_blank" rel="noopener"><span class="sidebar-dot" style="background:#64748b;"></span>LLM context</a>
+    </div>
+  </aside>
+
+  <main class="wf-main">
+    <section class="wf-section" id="intro">
+      <p class="set-text-13 text-semibold color-blue-600 text-uppercase add-margin-bottom-8" style="letter-spacing:0.06em;">Webflow · Custom code</p>
+      <h1 class="set-text-40 text-bold color-gray-900 add-margin-bottom-16" style="letter-spacing:-1px;line-height:1.15;">
+        SantyCSS in Webflow
+      </h1>
+      <p class="set-text-17 color-gray-600 line-height-relaxed" style="max-width:640px;">
+        Add SantyCSS once in <strong class="color-gray-800">Project settings → Custom code</strong>, then type utility classes on any element under
+        <strong class="color-gray-800">Style panel → Selector</strong> (the field next to the class name). Keep this page open: the left sidebar jumps to snippets and the full class reference on <a href="classes.html" class="color-blue-600 text-no-decoration">classes.html</a>.
+      </p>
+    </section>
+
+    <section class="wf-section" id="head-full">
+      <h2 class="set-text-22 text-bold color-gray-900 add-margin-bottom-8">Head · Full bundle (recommended)</h2>
+      <p class="set-text-14 color-gray-600 add-margin-bottom-12" style="max-width:640px;">
+        Paste into <strong>Head code</strong>. Delivers utilities, components, and animations in one request (~615KB minified from CDN).
+      </p>
+      <div class="wf-card">
+        <div class="copy-row">
+          <button type="button" class="copy-btn" data-copy-id="snip-head-full">Copy</button>
+        </div>
+        <pre class="code-wrap" id="snip-head-full">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css"&gt;</pre>
+      </div>
+      <p class="set-text-13 color-gray-500 add-margin-top-12">Non-minified: swap <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;">santy.min.css</code> for <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;">santy.css</code>.</p>
+    </section>
+
+    <section class="wf-section" id="head-split">
+      <h2 class="set-text-22 text-bold color-gray-900 add-margin-bottom-8">Head · Split bundles (lighter first paint)</h2>
+      <p class="set-text-14 color-gray-600 add-margin-bottom-12" style="max-width:640px;">
+        Load only what you need. Add <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;">santy-animations.css</code> if you use scroll or hover animations. On the CDN, split modules ship as readable CSS; the single-file <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;">santy.min.css</code> bundle is the minified option.
+      </p>
+      <div class="wf-card">
+        <div class="copy-row">
+          <button type="button" class="copy-btn" data-copy-id="snip-head-split">Copy</button>
+        </div>
+        <pre class="code-wrap" id="snip-head-split">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy-core.css"&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy-components.css"&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy-animations.css"&gt;</pre>
+      </div>
+    </section>
+
+    <section class="wf-section" id="head-icons">
+      <h2 class="set-text-22 text-bold color-gray-900 add-margin-bottom-8">Head · Icons</h2>
+      <p class="set-text-14 color-gray-600 add-margin-bottom-12" style="max-width:640px;">
+        Optional. Add an <strong>Embed</strong> or icon span with classes from the <a href="icons.html" class="color-blue-600 text-no-decoration">icon browser</a>.
+      </p>
+      <div class="wf-card">
+        <div class="copy-row">
+          <button type="button" class="copy-btn" data-copy-id="snip-head-icons">Copy</button>
+        </div>
+        <pre class="code-wrap" id="snip-head-icons">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy-icons.css"&gt;</pre>
+      </div>
+    </section>
+
+    <section class="wf-section" id="footer-script">
+      <h2 class="set-text-22 text-bold color-gray-900 add-margin-bottom-8">Footer · Scroll-triggered animations</h2>
+      <p class="set-text-14 color-gray-600 add-margin-bottom-12" style="max-width:640px;">
+        SantyCSS scroll utilities (e.g. <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;">animate-on-scroll-*</code>) need a one-time <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;">is-visible</code> class. Paste into <strong>Footer code</strong>.
+      </p>
+      <div class="wf-card">
+        <div class="copy-row">
+          <button type="button" class="copy-btn" data-copy-id="snip-footer">Copy</button>
+        </div>
+        <pre class="code-wrap" id="snip-footer">&lt;script&gt;
+(function () {
+  var o = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) e.target.classList.add('is-visible');
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('[class*="animate-on-scroll"],[class*="scroll-reveal"]').forEach(function (el) {
+    o.observe(el);
+  });
+})();
+&lt;/script&gt;</pre>
+      </div>
+    </section>
+
+    <section class="wf-section" id="webflow-tips">
+      <h2 class="set-text-22 text-bold color-gray-900 add-margin-bottom-8">Webflow workflow</h2>
+      <div class="wf-card">
+        <ul class="tip-list add-padding-left-20" style="margin:0;">
+          <li><strong>Combining classes:</strong> Webflow shows one “selector” string per combo. Add multiple Santy utilities as space-separated classes on the same element (same as HTML <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;">class</code>).</li>
+          <li><strong>CMS &amp; embeds:</strong> Rich text and embeds still inherit project CSS, so utilities apply there too once the head link is global.</li>
+          <li><strong>Breakpoints:</strong> Use Santy responsive prefixes (<code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;">md:grid-cols-3</code>, <code style="background:#f1f5f9;padding:2px 6px;border-radius:4px;">on-mobile:</code>…) on any class field — Webflow’s own breakpoints are separate; test in preview.</li>
+          <li><strong>Conflicts:</strong> If a Webflow style and a utility both set the same property, remove the Webflow property or use a more specific combo class.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="wf-section" id="tokens">
+      <h2 class="set-text-22 text-bold color-gray-900 add-margin-bottom-8">Design tokens (optional)</h2>
+      <p class="set-text-14 color-gray-600 add-margin-bottom-12" style="max-width:640px;">
+        Override brand colors globally via <strong>Project settings → Custom code → Head</strong> <em>after</em> the SantyCSS link.
+      </p>
+      <div class="wf-card">
+        <div class="copy-row">
+          <button type="button" class="copy-btn" data-copy-id="snip-tokens">Copy</button>
+        </div>
+        <pre class="code-wrap" id="snip-tokens">&lt;style&gt;
+  :root {
+    --santy-primary: #3b82f6;
+    --santy-secondary: #8b5cf6;
+    --santy-accent: #10b981;
+    --santy-radius: 0.5rem;
+    --santy-font: 'Inter', system-ui, sans-serif;
+  }
+&lt;/style&gt;</pre>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+function toggleMobileNav() {
+  var nav = document.getElementById('main-nav');
+  var hi = document.getElementById('ham-icon');
+  var hc = document.getElementById('ham-close');
+  if (!nav) return;
+  var open = nav.classList.toggle('nav-open');
+  if (hi) hi.style.display = open ? 'none' : '';
+  if (hc) hc.style.display = open ? '' : 'none';
+}
+
+document.querySelectorAll('.copy-btn[data-copy-id]').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var id = btn.getAttribute('data-copy-id');
+    var el = document.getElementById(id);
+    if (!el) return;
+    var text = el.textContent;
+    navigator.clipboard.writeText(text).then(function () {
+      btn.classList.add('copied');
+      var t = btn.textContent;
+      btn.textContent = 'Copied';
+      setTimeout(function () {
+        btn.classList.remove('copied');
+        btn.textContent = t;
+      }, 1800);
+    });
+  });
+});
+
+(function sidebarSpy() {
+  var links = document.querySelectorAll('.wf-sidebar .sidebar-link[data-spy]');
+  var sections = [];
+  links.forEach(function (a) {
+    var id = a.getAttribute('data-spy');
+    var s = document.getElementById(id);
+    if (s) sections.push({ id: id, el: s, link: a });
+  });
+  if (!sections.length) return;
+
+  function setActive(id) {
+    links.forEach(function (l) {
+      l.classList.toggle('active', l.getAttribute('data-spy') === id);
+    });
+  }
+
+  var io = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) setActive(e.target.id);
+      });
+    },
+    { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+  );
+  sections.forEach(function (x) { io.observe(x.el); });
+})();
+</script>
+</body>
+</html>
