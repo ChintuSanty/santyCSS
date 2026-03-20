@@ -52,7 +52,7 @@ const add = (...css) => lines.push(...css);
 // ─── CSS RESET + BASE ────────────────────────────────────────────────────────
 add(
 `/* ============================================================
-   SantyCSS v1.4.0  —  Plain-English Utility CSS Framework
+   SantyCSS v1.6.0  —  Plain-English Utility CSS Framework
    https://github.com/santybad/santy_css
    ============================================================ */
 
@@ -3208,6 +3208,72 @@ add(`
 .set-max-width-prose      { max-width: 72ch; }
 .set-max-width-narrow     { max-width: 45ch; }
 `);
+
+// ─── UTILITY GAPS v1.6 ───────────────────────────────────────────────────────
+add(`
+/* ── Variable Font Weights ── */
+.font-variable          { font-variation-settings: normal; }
+.font-condensed         { font-stretch: condensed;  font-variation-settings: 'wdth' 75; }
+.font-expanded          { font-stretch: expanded;   font-variation-settings: 'wdth' 125; }
+.font-italic-variable   { font-style: italic; font-variation-settings: 'ital' 1; }
+.set-font-weight-100 { font-weight: 100; font-variation-settings: 'wght' 100; }
+.set-font-weight-200 { font-weight: 200; font-variation-settings: 'wght' 200; }
+.set-font-weight-300 { font-weight: 300; font-variation-settings: 'wght' 300; }
+.set-font-weight-400 { font-weight: 400; font-variation-settings: 'wght' 400; }
+.set-font-weight-450 { font-weight: 450; font-variation-settings: 'wght' 450; }
+.set-font-weight-500 { font-weight: 500; font-variation-settings: 'wght' 500; }
+.set-font-weight-550 { font-weight: 550; font-variation-settings: 'wght' 550; }
+.set-font-weight-600 { font-weight: 600; font-variation-settings: 'wght' 600; }
+.set-font-weight-700 { font-weight: 700; font-variation-settings: 'wght' 700; }
+.set-font-weight-800 { font-weight: 800; font-variation-settings: 'wght' 800; }
+.set-font-weight-900 { font-weight: 900; font-variation-settings: 'wght' 900; }
+
+/* ── Negative Z-index (layer behind parent) ── */
+.z-minus-1  { z-index: -1; }
+.z-minus-2  { z-index: -2; }
+.z-minus-3  { z-index: -3; }
+.z-minus-5  { z-index: -5; }
+.z-minus-10 { z-index: -10; }
+
+/* ── Fractional Widths — fifths & sixths ── */
+.set-width-1-of-5 { width: 20%; }
+.set-width-2-of-5 { width: 40%; }
+.set-width-3-of-5 { width: 60%; }
+.set-width-4-of-5 { width: 80%; }
+.set-width-1-of-6 { width: 16.6667%; }
+.set-width-2-of-6 { width: 33.3333%; }
+.set-width-3-of-6 { width: 50%; }
+.set-width-4-of-6 { width: 66.6667%; }
+.set-width-5-of-6 { width: 83.3333%; }
+`);
+
+// Caret colors — full shade scale
+add(`\n/* ── Caret Colors (full shade scale) ── */`);
+Object.entries(palette).forEach(([name, shades]) => {
+  Object.entries(shades).forEach(([shade, hex]) => {
+    add(`.caret-${name}-${shade} { caret-color: ${hex}; }`);
+  });
+});
+
+// Color-mix tints & shades using color-mix()
+add(`\n/* ── Color-Mix Tints & Shades — background, text, border ── */`);
+const tintLevels  = [10, 20, 30, 40, 50, 60, 70];
+const shadeLevels = [10, 20, 30];
+Object.entries(palette).forEach(([name, shades]) => {
+  const base = shades[500];
+  tintLevels.forEach(pct => {
+    add(`.background-${name}-tint-${pct} { background-color: color-mix(in srgb, ${base} ${pct}%, #ffffff); }`);
+    add(`.color-${name}-tint-${pct}      { color: color-mix(in srgb, ${base} ${pct}%, #ffffff); }`);
+  });
+  shadeLevels.forEach(pct => {
+    const keep = 100 - pct * 10;
+    add(`.background-${name}-shade-${pct}0 { background-color: color-mix(in srgb, ${base} ${keep}%, #000000); }`);
+    add(`.color-${name}-shade-${pct}0      { color: color-mix(in srgb, ${base} ${keep}%, #000000); }`);
+  });
+  add(`.border-${name}-tint-20 { border-color: color-mix(in srgb, ${base} 20%, #ffffff); }`);
+  add(`.border-${name}-tint-40 { border-color: color-mix(in srgb, ${base} 40%, #ffffff); }`);
+  add(`.border-${name}-shade-10 { border-color: color-mix(in srgb, ${base} 90%, #000000); }`);
+});
 
 // Write all output files
 fs.writeFileSync('santy.css', fullCSS);
