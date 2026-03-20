@@ -14,6 +14,16 @@
     .nav-link { transition: color 0.2s; }
     .nav-link:hover { color: #3b82f6 !important; }
     .nav-link-active { color: #2563eb !important; }
+    .nav-resources { position: relative; }
+    .nav-resources-btn { background:none; border:none; cursor:pointer; font-size:14px; font-weight:600; color:#4b5563; display:flex; align-items:center; gap:5px; padding:4px 0; transition:color .15s; }
+    .nav-resources-btn:hover, .nav-resources-btn.open { color:#3b82f6; }
+    .nav-resources-btn svg { transition: transform .2s; }
+    .nav-resources-btn.open svg { transform: rotate(180deg); }
+    .nav-dropdown { display: none; position: absolute; top: calc(100% + 10px); right: 0; background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; box-shadow: 0 8px 30px rgba(0,0,0,.12); min-width: 180px; z-index: 999; padding: 6px; }
+    .nav-dropdown.open { display: block; animation: ddFade .15s ease; }
+    @keyframes ddFade { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+    .nav-dropdown a { display:block; padding:9px 14px; font-size:13px; font-weight:600; color:#374151; text-decoration:none; border-radius:9px; transition:background .12s; }
+    .nav-dropdown a:hover { background:#f1f5f9; color:#3b82f6; }
     /* ── Mobile ───────────────────────────────────── */
     .nav-hamburger { display: none; background: none; border: 1px solid #e5e7eb; border-radius: 8px; padding: 7px 9px; cursor: pointer; color: #374151; line-height: 1; }
     @media (max-width: 767px) {
@@ -42,14 +52,25 @@
       <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
       <svg id="ham-close" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:none"><path d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
-    <nav id="main-nav" class="make-flex align-center gap-24">
+    <nav id="main-nav" class="make-flex align-center gap-20">
       <a href="classes.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Classes</a>
       <a href="index.html#components" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Components</a>
       <a href="animations.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Animations</a>
-      <a href="index.html#ai-generator" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">AI Gen</a>
-      <a href="docs.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">npm Docs</a>
-      <a href="index.html#feedback" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Feedback</a>
-      <a href="demo.html" class="btn btn-primary btn-sm nav-link-active" style="background:#1d4ed8;">Live Demo →</a>
+      <a href="icons.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Icons</a>
+      <div class="nav-resources" id="navResources">
+        <button class="nav-resources-btn" id="navResBtn" onclick="toggleResources()" aria-expanded="false">
+          Resources
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="nav-dropdown" id="navDropdown">
+          <a href="index.html#ai-generator">✨ AI Generator</a>
+          <a href="webflow.html">🌊 Webflow snippets</a>
+          <a href="docs.html">📦 npm Docs</a>
+          <a href="docs.html#postcss">🔧 PostCSS Plugin</a>
+          <a href="index.html#feedback">💬 Feedback</a>
+        </div>
+      </div>
+      <a href="playground.html" class="make-button style-primary size-small">⚡ Playground →</a>
     </nav>
   </div>
 </header>
@@ -321,6 +342,20 @@ function toggleMobileNav() {
   hamIcon.style.display = open ? 'none' : 'block';
   hamClose.style.display = open ? 'block' : 'none';
 }
+function toggleResources() {
+  var btn = document.getElementById('navResBtn');
+  var dd  = document.getElementById('navDropdown');
+  var open = btn.classList.toggle('open');
+  dd.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', open);
+}
+document.addEventListener('click', function(e) {
+  var res = document.getElementById('navResources');
+  if (res && !res.contains(e.target)) {
+    document.getElementById('navResBtn').classList.remove('open');
+    document.getElementById('navDropdown').classList.remove('open');
+  }
+});
 document.querySelectorAll('#main-nav .nav-link, #main-nav .btn').forEach(function(el) {
   el.addEventListener('click', function() {
     document.getElementById('main-nav').classList.remove('nav-open');
