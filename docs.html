@@ -185,7 +185,7 @@
     <a href="index.html" class="make-flex align-center gap-10 text-no-decoration">
       <img src="assest/santy_css.png" alt="SantyCSS" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
       <span class="set-text-20 text-bold color-gray-900">Santy<span class="color-blue-600">CSS</span></span>
-      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v1.4.0</span>
+      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v1.5.0</span>
     </a>
     <button class="nav-hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
       <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -249,7 +249,7 @@
     <!-- Page title -->
     <div class="add-margin-bottom-48">
       <div class="make-flex align-center gap-12 add-margin-bottom-12">
-        <span class="chip chip-blue">v1.4.0</span>
+        <span class="chip chip-blue">v1.5.0</span>
         <span class="chip chip-green">MIT License</span>
         <a href="https://www.npmjs.com/package/santycss" target="_blank" class="chip chip-red" style="text-decoration:none;">npm ↗</a>
       </div>
@@ -421,7 +421,7 @@ santy.email      <span class="c-com">// → /path/to/dist/santy-email.css</span>
 <span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
 
 <span class="c-com">&lt;!-- Version-pinned (best practice for production) --&gt;</span>
-<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@1.4.0/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@1.5.0/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
 
 <span class="c-com">&lt;!-- Utilities only --&gt;</span>
 <span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-core.css"</span><span class="c-tag">&gt;</span>
@@ -673,6 +673,128 @@ santy.email      <span class="c-com">// → /path/to/dist/santy-email.css</span>
 <span class="c-tag">&lt;/div&gt;</span></pre>
       </div>
     </section>
+
+      <!-- v1.5 New Components -->
+      <h3 class="set-text-18 text-semibold color-gray-800 add-margin-bottom-12 add-margin-top-32">New in v1.5 — Advanced UI Patterns</h3>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-16">9 new component families for common app UI patterns: command palettes, kanban boards, timelines, dropzones, mega menus, split panes, ratings, and code blocks.</p>
+
+      <div class="table-wrap add-margin-bottom-20">
+        <table>
+          <thead><tr><th>Component</th><th>Root class</th><th>Key modifiers &amp; sub-classes</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Command Palette</strong></td>
+              <td><code class="chip">.cmd-palette</code></td>
+              <td><code class="chip">-backdrop</code> <code class="chip">-input</code> <code class="chip">-list</code> <code class="chip">-group</code> <code class="chip">-item</code> <code class="chip">-item.active</code> <code class="chip">-empty</code> <code class="chip">-footer</code> <code class="chip">-kbd</code></td>
+            </tr>
+            <tr>
+              <td><strong>Kanban Board</strong></td>
+              <td><code class="chip">.kanban</code></td>
+              <td><code class="chip">-col</code> <code class="chip">-col-header</code> <code class="chip">-col-title</code> <code class="chip">-col-count</code> <code class="chip">-card</code> <code class="chip">-card-label</code> <code class="chip">-card-title</code> <code class="chip">-card-meta</code> <code class="chip">-add-btn</code></td>
+            </tr>
+            <tr>
+              <td><strong>Timeline / Feed</strong></td>
+              <td><code class="chip">.timeline</code></td>
+              <td><code class="chip">-item</code> <code class="chip">-dot</code> <code class="chip">-dot-blue/green/red/yellow</code> <code class="chip">-body</code> <code class="chip">-title</code> <code class="chip">-desc</code> <code class="chip">-time</code> <code class="chip">-card</code> <code class="chip">-compact</code></td>
+            </tr>
+            <tr>
+              <td><strong>File Upload Dropzone</strong></td>
+              <td><code class="chip">.dropzone</code></td>
+              <td><code class="chip">-icon</code> <code class="chip">-title</code> <code class="chip">-desc</code> <code class="chip">-btn</code> <code class="chip">-types</code> <code class="chip">-sm</code> <code class="chip">.drag-over</code> · <code class="chip">.file-list</code> <code class="chip">.file-list-item</code> <code class="chip">.file-list-name</code> <code class="chip">.file-list-remove</code></td>
+            </tr>
+            <tr>
+              <td><strong>Mega Menu</strong></td>
+              <td><code class="chip">.mega-menu</code></td>
+              <td><code class="chip">-wrap</code> <code class="chip">-grid</code> <code class="chip">-col-title</code> <code class="chip">-item</code> <code class="chip">-item-icon</code> <code class="chip">-item-title</code> <code class="chip">-item-desc</code> <code class="chip">-footer</code> <code class="chip">.open</code></td>
+            </tr>
+            <tr>
+              <td><strong>Split Pane</strong></td>
+              <td><code class="chip">.split-pane</code></td>
+              <td><code class="chip">-panel</code> <code class="chip">-divider</code> <code class="chip">-vertical</code> <code class="chip">.dragging</code></td>
+            </tr>
+            <tr>
+              <td><strong>Rating / Stars</strong></td>
+              <td><code class="chip">.rating</code></td>
+              <td><code class="chip">-star</code> <code class="chip">-star.filled</code> <code class="chip">-sm</code> <code class="chip">-lg</code> <code class="chip">-readonly</code> <code class="chip">-value</code> <code class="chip">-count</code></td>
+            </tr>
+            <tr>
+              <td><strong>Code Block</strong></td>
+              <td><code class="chip">.code-block</code></td>
+              <td><code class="chip">-header</code> <code class="chip">-lang</code> <code class="chip">-dots</code> <code class="chip">-dot-red/yellow/green</code> <code class="chip">-copy</code> <code class="chip">-copy.copied</code> <code class="chip">-gutter</code> <code class="chip">-inner</code> <code class="chip">-line-numbers</code></td>
+            </tr>
+            <tr>
+              <td><strong>Syntax tokens</strong></td>
+              <td>—</td>
+              <td><code class="chip">.token-keyword</code> <code class="chip">.token-string</code> <code class="chip">.token-comment</code> <code class="chip">.token-number</code> <code class="chip">.token-fn</code> <code class="chip">.token-tag</code> <code class="chip">.token-attr</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4 class="set-text-14 text-semibold color-gray-700 add-margin-bottom-8">Usage examples</h4>
+      <div class="code-block add-margin-bottom-16"><pre><span class="c-com">&lt;!-- Command Palette --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cmd-palette-backdrop"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cmd-palette"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cmd-palette-input-wrap"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;input</span> <span class="c-attr">class</span>=<span class="c-str">"cmd-palette-input"</span> <span class="c-attr">placeholder</span>=<span class="c-str">"Search commands…"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"cmd-palette-kbd"</span><span class="c-tag">&gt;</span>esc<span class="c-tag">&lt;/span&gt;</span>
+    <span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cmd-palette-list"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cmd-palette-group"</span><span class="c-tag">&gt;</span>Recent<span class="c-tag">&lt;/div&gt;</span>
+      <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"cmd-palette-item active"</span><span class="c-tag">&gt;</span>
+        <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"cmd-palette-item-label"</span><span class="c-tag">&gt;</span>Open Settings<span class="c-tag">&lt;/span&gt;</span>
+        <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"cmd-palette-item-hint"</span><span class="c-tag">&gt;</span>⌘,<span class="c-tag">&lt;/span&gt;</span>
+      <span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre></div>
+
+      <div class="code-block add-margin-bottom-16"><pre><span class="c-com">&lt;!-- Timeline --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"timeline"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"timeline-item"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"timeline-dot timeline-dot-green"</span><span class="c-tag">&gt;</span>✓<span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"timeline-body"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"timeline-time"</span><span class="c-tag">&gt;</span>2 hours ago<span class="c-tag">&lt;/div&gt;</span>
+      <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"timeline-title"</span><span class="c-tag">&gt;</span>Deployed to production<span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-com">&lt;!-- File Dropzone --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"dropzone"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"dropzone-icon"</span><span class="c-tag">&gt;</span>📁<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"dropzone-title"</span><span class="c-tag">&gt;</span>Drop files here<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"dropzone-desc"</span><span class="c-tag">&gt;</span>or click to browse<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"dropzone-btn"</span><span class="c-tag">&gt;</span>Choose files<span class="c-tag">&lt;/button&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"dropzone-types"</span><span class="c-tag">&gt;</span>PNG, JPG, PDF up to 10MB<span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-com">&lt;!-- Rating --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"rating"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"rating-star filled"</span><span class="c-tag">&gt;</span>★<span class="c-tag">&lt;/span&gt;</span>
+  <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"rating-star filled"</span><span class="c-tag">&gt;</span>★<span class="c-tag">&lt;/span&gt;</span>
+  <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"rating-star filled"</span><span class="c-tag">&gt;</span>★<span class="c-tag">&lt;/span&gt;</span>
+  <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"rating-star"</span><span class="c-tag">&gt;</span>★<span class="c-tag">&lt;/span&gt;</span>
+  <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"rating-star"</span><span class="c-tag">&gt;</span>★<span class="c-tag">&lt;/span&gt;</span>
+  <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"rating-value"</span><span class="c-tag">&gt;</span>3.0<span class="c-tag">&lt;/span&gt;</span>
+  <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"rating-count"</span><span class="c-tag">&gt;</span>(128 reviews)<span class="c-tag">&lt;/span&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-com">&lt;!-- Code Block with syntax tokens --&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"code-block"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"code-block-header"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"code-block-dots"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"code-block-dot code-block-dot-red"</span><span class="c-tag">&gt;&lt;/span&gt;</span>
+      <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"code-block-dot code-block-dot-yellow"</span><span class="c-tag">&gt;&lt;/span&gt;</span>
+      <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"code-block-dot code-block-dot-green"</span><span class="c-tag">&gt;&lt;/span&gt;</span>
+    <span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"code-block-lang"</span><span class="c-tag">&gt;</span>javascript<span class="c-tag">&lt;/span&gt;</span>
+    <span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"code-block-copy"</span><span class="c-tag">&gt;</span>Copy<span class="c-tag">&lt;/button&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;pre&gt;</span><span class="c-tag">&lt;code&gt;</span><span class="token-keyword">const</span> <span class="token-fn">greet</span> = (<span class="token-attr">name</span>) =&gt; {
+  <span class="token-keyword">return</span> <span class="token-string">`Hello, ${name}!`</span>; <span class="token-comment">// greeting</span>
+};<span class="c-tag">&lt;/code&gt;&lt;/pre&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre></div>
 
     <!-- ═══════════════════════════════════════════════════════════════════
          MODULE: ANIMATIONS
