@@ -52,7 +52,7 @@ const add = (...css) => lines.push(...css);
 // ─── CSS RESET + BASE ────────────────────────────────────────────────────────
 add(
 `/* ============================================================
-   SantyCSS v1.7.0  —  Plain-English Utility CSS Framework
+   SantyCSS v1.8.0  —  Plain-English Utility CSS Framework
    https://github.com/santybad/santy_css
    ============================================================ */
 

@@ -20,6 +20,47 @@ Class names read like sentences. No build step. No configuration. Just link and 
 
 ---
 
+## What's New in v1.8
+
+### 🎨 SantyCSS Inspector — Figma Plugin
+
+Inspect any Figma layer and get the exact SantyCSS classes in one click.
+
+**Install (local development):**
+1. Clone this repo — the plugin lives in `figma-plugin-santycss/`
+2. Open **Figma Desktop** → Plugins → Development → **Import plugin from manifest**
+3. Select `figma-plugin-santycss/manifest.json`
+4. Select any frame/text layer → run **SantyCSS Inspector**
+
+**What it detects:**
+
+| Figma property | SantyCSS output |
+|---|---|
+| Auto-layout (horizontal) | `make-flex flex-row` |
+| Auto-layout (vertical) | `make-flex flex-column` |
+| Alignment | `justify-center`, `align-center`, `justify-between` |
+| Gap | `gap-16`, `gap-24` |
+| Padding | `add-padding-24`, `add-padding-x-16 add-padding-y-8` |
+| Width / Height | `set-width-320`, `set-width-full`, `set-height-fit` |
+| Corner radius | `round-corners-8`, `make-pill` |
+| Stroke | `add-border-1`, `border-color-blue-500` |
+| Fill / background | `background-blue-500` (nearest of 200 palette colors) |
+| Text color | `color-gray-900` |
+| Font size | `set-text-16` |
+| Font weight | `text-bold`, `text-semibold` |
+| Text align | `text-center`, `text-right` |
+| Drop shadow | `add-shadow-sm` / `add-shadow-lg` |
+| Opacity | `opacity-50` |
+| Clips content | `overflow-hidden` |
+
+**Plugin UI:**
+- Grouped classes (Layout / Spacing / Size / Typography / Color / Border / Effects)
+- Click any chip to copy that class
+- **Copy All** button — copies all classes as one string
+- Dark mode — follows Figma's theme automatically
+
+---
+
 ## What's New in v1.7
 
 ### ♿ Accessibility Utilities
