@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/santycss.svg?style=flat-square)](https://www.npmjs.com/package/santycss)
 [![npm downloads](https://img.shields.io/npm/dm/santycss.svg?style=flat-square)](https://www.npmjs.com/package/santycss)
 [![license](https://img.shields.io/npm/l/santycss.svg?style=flat-square)](https://github.com/ChintuSanty/santyCSS/blob/main/LICENSE)
-[![bundle size](https://img.shields.io/badge/full_bundle-701KB-blue?style=flat-square)](https://www.npmjs.com/package/santycss)
+[![bundle size](https://img.shields.io/badge/full_bundle-744KB-blue?style=flat-square)](https://www.npmjs.com/package/santycss)
 
 **Plain-English utility-first CSS framework.**
 Class names read like sentences. No build step. No configuration. Just link and use.
@@ -17,6 +17,62 @@ Class names read like sentences. No build step. No configuration. Just link and 
 ```
 
 > 🌐 **[santycss.santy.in](https://santycss.santy.in)** · 📖 **[Class Reference](https://santycss.santy.in/classes.html)** · 🎬 **[Animations](https://santycss.santy.in/animations.html)** · 📦 **[npm Docs](https://santycss.santy.in/docs.html)**
+
+---
+
+## What's New in v1.7
+
+### ♿ Accessibility Utilities
+
+| Class | What it does |
+|---|---|
+| `.skip-to-content` | Skip-nav link — visible on focus, hidden otherwise |
+| `.focus-trap` | Container for modal/drawer focus trapping |
+| `.aria-live-polite` / `.aria-live-assertive` | Visually hidden ARIA live regions |
+| `.screen-reader-only` | Visually hide but keep accessible |
+| `.focus-ring` / `.focus-ring-white` | Consistent focus outline utilities |
+| `.focus-visible-ring` | Focus ring only on keyboard navigation |
+| `.motion-safe-animate` | Disables animation when OS reduces motion |
+| `.high-contrast-border/bg/outline` | `forced-colors` media query support |
+
+### 🌐 Internationalisation (i18n)
+
+| Class | What it does |
+|---|---|
+| `.add-padding-block-{n}` / `.add-padding-inline-{n}` | Logical padding (direction-aware) |
+| `.add-margin-block-{n}` / `.add-margin-inline-{n}` | Logical margin |
+| `.pin-block-start-0` / `.pin-inline-start-0` | Logical positioning |
+| `.border-block-start` / `.border-inline-start` | Logical borders |
+| `.make-text-vertical` | `writing-mode: vertical-rl` — for CJK/Japanese |
+| `.make-text-vertical-up` | `writing-mode: vertical-lr` |
+| `.text-orientation-mixed` / `.text-orientation-upright` | Text orientation control |
+| `.text-direction-ltr` / `.text-direction-rtl` | Explicit `direction` control |
+
+### 📱 Mobile-First Components
+
+| Class | What it does |
+|---|---|
+| `.bottom-sheet` + `.open` | Slide-up panel from bottom (with safe-area support) |
+| `.bottom-sheet-handle` / `.bottom-sheet-body` / `.bottom-sheet-footer` | Bottom sheet parts |
+| `.bottom-sheet-overlay` + `.visible` | Semi-transparent backdrop |
+| `.swipe-carousel` + `.swipe-carousel-item` | Touch-friendly horizontal scroll carousel |
+| `.swipe-carousel-full` / `.peek` / `.multi` | Carousel layout variants |
+| `.swipe-carousel-dot` + `.active` | Progress dots |
+| `.pull-to-refresh` + `.pulling` / `.refreshing` | Pull-to-refresh indicator |
+| `.padding-safe-top/bottom/left/right/all` | `env(safe-area-inset-*)` padding |
+
+### 🗓 New Components
+
+| Class | What it does |
+|---|---|
+| `.command-palette-wrap` + `.open` | VS Code-style Ctrl+K command palette overlay |
+| `.command-palette-input` / `.command-palette-item` | Command palette parts |
+| `.date-picker` / `.date-picker-grid` / `.date-picker-day` | Full calendar date picker |
+| `.date-picker-day.today` / `.selected` / `.in-range` | Day state modifiers |
+
+### 🎨 Figma Plugin _(coming soon)_
+
+A **SantyCSS Figma Plugin** is in development — inspect Figma designs and get the exact SantyCSS classes that match. Inspired by the Tailwind CSS Figma plugin workflow.
 
 ---
 

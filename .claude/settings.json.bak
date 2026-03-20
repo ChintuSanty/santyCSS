@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm publish:*)",
+      "Bash(ls -la dist/*.css)",
+      "Read(//c/Users/SanthoshBadhri/repos/santy_css/{printf \"\"\"\"\"\"\"\"%s/t%s KB/n\"\"\"\"\"\"\"\", $9, int\\($5/**)",
+      "Bash(ls *.html)"
+    ]
+  }
+}

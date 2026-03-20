@@ -52,7 +52,7 @@ const add = (...css) => lines.push(...css);
 // ─── CSS RESET + BASE ────────────────────────────────────────────────────────
 add(
 `/* ============================================================
-   SantyCSS v1.6.0  —  Plain-English Utility CSS Framework
+   SantyCSS v1.7.0  —  Plain-English Utility CSS Framework
    https://github.com/santybad/santy_css
    ============================================================ */
 
@@ -3274,6 +3274,353 @@ Object.entries(palette).forEach(([name, shades]) => {
   add(`.border-${name}-tint-40 { border-color: color-mix(in srgb, ${base} 40%, #ffffff); }`);
   add(`.border-${name}-shade-10 { border-color: color-mix(in srgb, ${base} 90%, #000000); }`);
 });
+
+// ─── NEW FEATURES v1.7 ───────────────────────────────────────────────────────
+add(`
+/* ═══════════════════════════════════════════════════════════════════════════
+   v1.7 — ACCESSIBILITY UTILITIES
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Skip to content (keyboard / screen-reader nav) ── */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 8px;
+  z-index: 9999;
+  padding: 8px 16px;
+  background-color: #1e40af;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 0 0 6px 6px;
+  text-decoration: none;
+  transition: top 0.15s;
+}
+.skip-to-content:focus { top: 0; outline: 3px solid #fbbf24; outline-offset: 2px; }
+
+/* ── Focus ring utilities ── */
+.focus-ring          { outline: 2px solid #3b82f6; outline-offset: 2px; }
+.focus-ring-white    { outline: 2px solid #fff;    outline-offset: 2px; }
+.focus-ring-red      { outline: 2px solid #ef4444; outline-offset: 2px; }
+.focus-ring-none     { outline: none; }
+.focus-visible-ring:focus-visible { outline: 2px solid #3b82f6; outline-offset: 2px; }
+.focus-visible-ring:focus:not(:focus-visible) { outline: none; }
+
+/* ── Focus trap container ── */
+.focus-trap        { position: relative; }
+.focus-trap-active { overflow: hidden; }
+
+/* ── ARIA live regions (read by screen readers) ── */
+.aria-live-polite,
+.aria-live-assertive {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
+
+/* ── Screen-reader only ── */
+.screen-reader-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+.screen-reader-only:focus { position: static; width: auto; height: auto; clip: auto; white-space: normal; }
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .motion-safe-animate { animation: none !important; transition: none !important; }
+}
+
+/* ── High contrast support ── */
+@media (forced-colors: active) {
+  .high-contrast-border  { border: 2px solid ButtonText !important; }
+  .high-contrast-outline { outline: 2px solid Highlight !important; }
+  .high-contrast-bg      { background-color: ButtonFace !important; color: ButtonText !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   v1.7 — INTERNATIONALISATION (I18N) UTILITIES
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Logical properties (direction-aware layout) ── */
+.add-padding-block-4   { padding-block: 4px; }
+.add-padding-block-8   { padding-block: 8px; }
+.add-padding-block-12  { padding-block: 12px; }
+.add-padding-block-16  { padding-block: 16px; }
+.add-padding-block-20  { padding-block: 20px; }
+.add-padding-block-24  { padding-block: 24px; }
+.add-padding-block-32  { padding-block: 32px; }
+.add-padding-inline-4  { padding-inline: 4px; }
+.add-padding-inline-8  { padding-inline: 8px; }
+.add-padding-inline-12 { padding-inline: 12px; }
+.add-padding-inline-16 { padding-inline: 16px; }
+.add-padding-inline-20 { padding-inline: 20px; }
+.add-padding-inline-24 { padding-inline: 24px; }
+.add-padding-inline-32 { padding-inline: 32px; }
+.add-margin-block-4    { margin-block: 4px; }
+.add-margin-block-8    { margin-block: 8px; }
+.add-margin-block-16   { margin-block: 16px; }
+.add-margin-block-24   { margin-block: 24px; }
+.add-margin-inline-4   { margin-inline: 4px; }
+.add-margin-inline-8   { margin-inline: 8px; }
+.add-margin-inline-16  { margin-inline: 16px; }
+.add-margin-inline-24  { margin-inline: 24px; }
+.pin-block-start-0     { inset-block-start: 0; }
+.pin-block-end-0       { inset-block-end: 0; }
+.pin-inline-start-0    { inset-inline-start: 0; }
+.pin-inline-end-0      { inset-inline-end: 0; }
+.set-width-logical     { inline-size: 100%; }
+.set-height-logical    { block-size: 100%; }
+.border-block-start    { border-block-start: 1px solid #e5e7eb; }
+.border-block-end      { border-block-end: 1px solid #e5e7eb; }
+.border-inline-start   { border-inline-start: 1px solid #e5e7eb; }
+.border-inline-end     { border-inline-end: 1px solid #e5e7eb; }
+
+/* ── Writing modes (CJK / vertical text) ── */
+.make-text-vertical      { writing-mode: vertical-rl; text-orientation: mixed; }
+.make-text-vertical-up   { writing-mode: vertical-lr; text-orientation: mixed; }
+.make-text-horizontal    { writing-mode: horizontal-tb; }
+.text-orientation-mixed    { text-orientation: mixed; }
+.text-orientation-upright  { text-orientation: upright; }
+.text-orientation-sideways { text-orientation: sideways; }
+
+/* ── Text direction ── */
+.text-direction-ltr { direction: ltr; }
+.text-direction-rtl { direction: rtl; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   v1.7 — MOBILE-FIRST COMPONENTS
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Safe area insets (notch / home bar) ── */
+.padding-safe-top    { padding-top:    env(safe-area-inset-top, 0px); }
+.padding-safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+.padding-safe-left   { padding-left:   env(safe-area-inset-left, 0px); }
+.padding-safe-right  { padding-right:  env(safe-area-inset-right, 0px); }
+.padding-safe-all    { padding: env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px); }
+.margin-safe-bottom  { margin-bottom:  env(safe-area-inset-bottom, 0px); }
+.pin-bottom-safe     { bottom:         env(safe-area-inset-bottom, 0px); }
+
+/* ── Bottom sheet ── */
+.bottom-sheet {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background-color: #fff;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 24px rgba(0,0,0,.12);
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+  z-index: 500;
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+}
+.bottom-sheet.open          { transform: translateY(0); }
+.bottom-sheet-handle {
+  width: 36px; height: 4px;
+  background-color: #d1d5db;
+  border-radius: 9999px;
+  margin: 12px auto 8px;
+}
+.bottom-sheet-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 20px 12px;
+  border-bottom: 1px solid #f3f4f6;
+}
+.bottom-sheet-title  { font-size: 16px; font-weight: 600; color: #111827; }
+.bottom-sheet-body   { padding: 16px 20px; overflow-y: auto; max-height: 70vh; }
+.bottom-sheet-footer { padding: 12px 20px; border-top: 1px solid #f3f4f6; }
+.bottom-sheet-overlay {
+  position: fixed; inset: 0;
+  background-color: rgba(0,0,0,0);
+  z-index: 499;
+  pointer-events: none;
+  transition: background-color 0.3s;
+}
+.bottom-sheet-overlay.visible {
+  background-color: rgba(0,0,0,0.45);
+  pointer-events: auto;
+}
+
+/* ── Swipeable carousel ── */
+.swipe-carousel {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  gap: 12px;
+  padding-bottom: 4px;
+}
+.swipe-carousel::-webkit-scrollbar { display: none; }
+.swipe-carousel-item {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.swipe-carousel-full  .swipe-carousel-item { width: 100%; }
+.swipe-carousel-peek  .swipe-carousel-item { width: calc(100% - 32px); }
+.swipe-carousel-multi .swipe-carousel-item { width: calc(50% - 6px); }
+.swipe-carousel-dots  { display: flex; gap: 6px; justify-content: center; padding-top: 10px; }
+.swipe-carousel-dot   { width: 6px; height: 6px; border-radius: 50%; background-color: #d1d5db; transition: background-color 0.2s, width 0.2s; }
+.swipe-carousel-dot.active { background-color: #3b82f6; width: 18px; border-radius: 3px; }
+
+/* ── Pull-to-refresh indicator ── */
+.pull-to-refresh {
+  display: flex; align-items: center; justify-content: center;
+  height: 0; overflow: hidden;
+  transition: height 0.2s;
+  font-size: 13px; color: #6b7280; gap: 8px;
+}
+.pull-to-refresh.pulling,
+.pull-to-refresh.refreshing { height: 48px; }
+.pull-to-refresh-spinner {
+  width: 18px; height: 18px;
+  border: 2px solid #e5e7eb;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+}
+.pull-to-refresh.refreshing .pull-to-refresh-spinner { animation: santy-spin 0.7s linear infinite; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   v1.7 — COMMAND PALETTE
+═══════════════════════════════════════════════════════════════════════════ */
+.command-palette-wrap {
+  position: fixed; inset: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+  align-items: flex-start; justify-content: center;
+  padding-top: 80px;
+  z-index: 900;
+}
+.command-palette-wrap.open { display: flex; }
+.command-palette {
+  width: 100%; max-width: 560px;
+  background-color: #fff;
+  border-radius: 14px;
+  box-shadow: 0 24px 48px rgba(0,0,0,.22);
+  overflow: hidden;
+}
+.command-palette-input-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.command-palette-icon  { color: #9ca3af; flex-shrink: 0; }
+.command-palette-input {
+  flex: 1; border: none; outline: none;
+  font-size: 16px; color: #111827; background: transparent;
+}
+.command-palette-input::placeholder { color: #9ca3af; }
+.command-palette-kbd {
+  font-size: 11px; color: #6b7280;
+  background-color: #f3f4f6; border: 1px solid #d1d5db;
+  border-radius: 4px; padding: 2px 6px; font-family: inherit;
+}
+.command-palette-list  { max-height: 360px; overflow-y: auto; padding: 8px; }
+.command-palette-group-label {
+  font-size: 11px; font-weight: 600; color: #6b7280;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 8px 10px 4px;
+}
+.command-palette-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px; border-radius: 8px;
+  cursor: pointer; font-size: 14px; color: #111827;
+  transition: background-color 0.1s;
+}
+.command-palette-item:hover,
+.command-palette-item.selected { background-color: #eff6ff; color: #1d4ed8; }
+.command-palette-item-icon {
+  width: 28px; height: 28px; border-radius: 6px;
+  background-color: #f3f4f6;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.command-palette-item-label    { flex: 1; }
+.command-palette-item-shortcut { font-size: 12px; color: #9ca3af; }
+.command-palette-empty { text-align: center; padding: 32px 16px; color: #9ca3af; font-size: 14px; }
+.command-palette-footer {
+  display: flex; gap: 12px; align-items: center;
+  padding: 10px 16px; border-top: 1px solid #f3f4f6;
+  font-size: 12px; color: #9ca3af;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   v1.7 — DATE PICKER / CALENDAR
+═══════════════════════════════════════════════════════════════════════════ */
+.date-picker {
+  display: inline-block;
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.1);
+  padding: 16px;
+  user-select: none;
+  width: 280px;
+}
+.date-picker-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.date-picker-month-year { font-size: 15px; font-weight: 600; color: #111827; }
+.date-picker-nav {
+  width: 28px; height: 28px;
+  border: none; background: transparent;
+  border-radius: 6px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: #6b7280; font-size: 14px;
+  transition: background-color 0.15s;
+}
+.date-picker-nav:hover      { background-color: #f3f4f6; }
+.date-picker-weekdays {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 11px; font-weight: 600; color: #6b7280;
+  text-transform: uppercase; letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+.date-picker-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.date-picker-day {
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: #374151;
+  border-radius: 6px; cursor: pointer;
+  transition: background-color 0.12s, color 0.12s;
+}
+.date-picker-day:hover       { background-color: #eff6ff; color: #1d4ed8; }
+.date-picker-day.today       { font-weight: 700; color: #2563eb; }
+.date-picker-day.selected    { background-color: #2563eb; color: #fff; }
+.date-picker-day.selected:hover { background-color: #1d4ed8; }
+.date-picker-day.in-range    { background-color: #dbeafe; color: #1d4ed8; border-radius: 0; }
+.date-picker-day.range-start { border-radius: 6px 0 0 6px; background-color: #2563eb; color: #fff; }
+.date-picker-day.range-end   { border-radius: 0 6px 6px 0; background-color: #2563eb; color: #fff; }
+.date-picker-day.other-month { color: #d1d5db; }
+.date-picker-day.disabled    { color: #e5e7eb; cursor: not-allowed; pointer-events: none; }
+.date-picker-footer {
+  display: flex; gap: 8px; justify-content: flex-end;
+  margin-top: 12px; padding-top: 12px;
+  border-top: 1px solid #f3f4f6;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   v1.7 — CUSTOM PROPERTY SHORTHAND TOKENS
+═══════════════════════════════════════════════════════════════════════════ */
+.use-custom-spacing { gap: var(--sc-gap, 16px); padding: var(--sc-padding, 16px); }
+.use-custom-radius  { border-radius: var(--sc-radius, 8px); }
+.use-custom-color   { color: var(--sc-color, inherit); background-color: var(--sc-bg, transparent); }
+.use-custom-size    { width: var(--sc-width, auto); height: var(--sc-height, auto); }
+.use-custom-font    { font-size: var(--sc-font-size, 1rem); font-weight: var(--sc-font-weight, 400); }
+[data-story]         { display: block; padding: 24px; }
+[data-story-bg="white"] { background-color: #fff; }
+[data-story-bg="gray"]  { background-color: #f9fafb; }
+[data-story-bg="dark"]  { background-color: #111827; }
+`);
 
 // Write all output files
 fs.writeFileSync('santy.css', fullCSS);

@@ -185,7 +185,7 @@
     <a href="index.html" class="make-flex align-center gap-10 text-no-decoration">
       <img src="assest/santy_css.png" alt="SantyCSS" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
       <span class="set-text-20 text-bold color-gray-900">Santy<span class="color-blue-600">CSS</span></span>
-      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v1.6.0</span>
+      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v1.7.0</span>
     </a>
     <button class="nav-hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
       <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -224,6 +224,7 @@
       <a href="#module-core" class="sidebar-link"><span class="sidebar-dot" style="background:#3b82f6;"></span>santy-core.css — Utilities</a>
       <a href="#module-components" class="sidebar-link"><span class="sidebar-dot" style="background:#22c55e;"></span>santy-components.css</a>
       <a href="#module-animations" class="sidebar-link"><span class="sidebar-dot" style="background:#f59e0b;"></span>santy-animations.css</a>
+      <a href="#v17-features" class="sidebar-link"><span class="sidebar-dot" style="background:#8b5cf6;"></span>What's New in v1.7</a>
       <a href="#module-email" class="sidebar-link"><span class="sidebar-dot" style="background:#ec4899;"></span>santy-email.css</a>
     </div>
 
@@ -249,7 +250,7 @@
     <!-- Page title -->
     <div class="add-margin-bottom-48">
       <div class="make-flex align-center gap-12 add-margin-bottom-12">
-        <span class="chip chip-blue">v1.6.0</span>
+        <span class="chip chip-blue">v1.7.0</span>
         <span class="chip chip-green">MIT License</span>
         <a href="https://www.npmjs.com/package/santycss" target="_blank" class="chip chip-red" style="text-decoration:none;">npm ↗</a>
       </div>
@@ -297,11 +298,11 @@
       <div class="code-block add-margin-bottom-24">
 <pre><span class="c-com">santycss/</span>
 ├── <span class="c-key">dist/</span>
-│   ├── <span class="c-str">santy.css</span>            <span class="c-com">← Full bundle (723KB) — all utilities + components + animations</span>
-│   ├── <span class="c-str">santy.min.css</span>        <span class="c-com">← Minified full bundle (615KB)</span>
+│   ├── <span class="c-str">santy.css</span>            <span class="c-com">← Full bundle (718KB) — all utilities + components + animations</span>
+│   ├── <span class="c-str">santy.min.css</span>        <span class="c-com">← Minified full bundle (629KB)</span>
 │   ├── <span class="c-str">santy-core.css</span>       <span class="c-com">← Utilities only (598KB)</span>
-│   ├── <span class="c-str">santy-components.css</span> <span class="c-com">← Components only (52KB)</span>
-│   ├── <span class="c-str">santy-animations.css</span> <span class="c-com">← 120+ animations (60KB)</span>
+│   ├── <span class="c-str">santy-components.css</span> <span class="c-com">← Components only (68KB)</span>
+│   ├── <span class="c-str">santy-animations.css</span> <span class="c-com">← 120+ animations (53KB)</span>
 │   └── <span class="c-str">santy-email.css</span>      <span class="c-com">← Email template CSS (13KB)</span>
 ├── <span class="c-key">postcss/</span>
 │   └── <span class="c-str">index.js</span>             <span class="c-com">← PostCSS plugin (tree-shaking)</span>
@@ -421,7 +422,7 @@ santy.email      <span class="c-com">// → /path/to/dist/santy-email.css</span>
 <span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
 
 <span class="c-com">&lt;!-- Version-pinned (best practice for production) --&gt;</span>
-<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@1.6.0/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@1.7.0/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
 
 <span class="c-com">&lt;!-- Utilities only --&gt;</span>
 <span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-core.css"</span><span class="c-tag">&gt;</span>
@@ -450,7 +451,7 @@ santy.email      <span class="c-com">// → /path/to/dist/santy-email.css</span>
           <div class="make-flex align-center gap-10 add-margin-bottom-8">
             <h2 class="set-text-24 text-bold color-gray-900" style="margin:0;">santy.css</h2>
             <span class="chip chip-purple">Full Bundle</span>
-            <span class="chip chip-gray">723KB</span>
+            <span class="chip chip-gray">718KB</span>
           </div>
           <p class="set-text-15 color-gray-600 line-height-relaxed" style="margin:0;">The complete SantyCSS package — all utilities, components, and animations in a single file. The simplest way to get started.</p>
         </div>
@@ -855,6 +856,102 @@ santy.email      <span class="c-com">// → /path/to/dist/santy-email.css</span>
     </section>
 
     <!-- ═══════════════════════════════════════════════════════════════════
+         v1.7 NEW FEATURES
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="v17-features" class="doc-section">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">New in v1.7</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-24">Accessibility, internationalisation, mobile-first components, command palette, date picker, and Figma plugin in development.</p>
+
+      <!-- Accessibility -->
+      <h3 class="set-text-18 text-semibold color-gray-800 add-margin-bottom-12">Accessibility Utilities</h3>
+      <div class="table-wrap add-margin-bottom-24">
+        <table>
+          <thead><tr><th>Class</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><code class="chip">.skip-to-content</code></td><td>Hidden link visible on focus — jumps keyboard users to main content</td></tr>
+            <tr><td><code class="chip">.screen-reader-only</code></td><td>Visually hidden but accessible to screen readers</td></tr>
+            <tr><td><code class="chip">.focus-trap</code></td><td>Container for modal/drawer focus trapping</td></tr>
+            <tr><td><code class="chip">.aria-live-polite</code> / <code class="chip">.aria-live-assertive</code></td><td>Visually hidden ARIA live region containers</td></tr>
+            <tr><td><code class="chip">.focus-ring</code> / <code class="chip">.focus-ring-white</code></td><td>Consistent focus outline utilities</td></tr>
+            <tr><td><code class="chip">.focus-visible-ring</code></td><td>Focus outline only on keyboard navigation (not mouse)</td></tr>
+            <tr><td><code class="chip">.motion-safe-animate</code></td><td>Disables animation when OS <code>prefers-reduced-motion</code> is active</td></tr>
+            <tr><td><code class="chip">.high-contrast-border/bg/outline</code></td><td><code>forced-colors</code> media query support for Windows High Contrast</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- i18n -->
+      <h3 class="set-text-18 text-semibold color-gray-800 add-margin-bottom-12">Internationalisation (i18n) &amp; RTL</h3>
+      <div class="table-wrap add-margin-bottom-24">
+        <table>
+          <thead><tr><th>Class</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><code class="chip">.add-padding-block-{4–32}</code></td><td>Logical block padding — adapts to writing direction</td></tr>
+            <tr><td><code class="chip">.add-padding-inline-{4–32}</code></td><td>Logical inline padding</td></tr>
+            <tr><td><code class="chip">.add-margin-block-{n}</code> / <code class="chip">.add-margin-inline-{n}</code></td><td>Logical margins</td></tr>
+            <tr><td><code class="chip">.pin-block-start-0</code> / <code class="chip">.pin-inline-start-0</code></td><td>Logical positioning</td></tr>
+            <tr><td><code class="chip">.border-block-start</code> / <code class="chip">.border-inline-start</code></td><td>Logical borders</td></tr>
+            <tr><td><code class="chip">.make-text-vertical</code></td><td><code>writing-mode: vertical-rl</code> — CJK / Japanese vertical text</td></tr>
+            <tr><td><code class="chip">.make-text-vertical-up</code></td><td><code>writing-mode: vertical-lr</code> — upward vertical text</td></tr>
+            <tr><td><code class="chip">.text-orientation-mixed</code> / <code class="chip">.text-orientation-upright</code></td><td>Controls glyph orientation in vertical text</td></tr>
+            <tr><td><code class="chip">.text-direction-ltr</code> / <code class="chip">.text-direction-rtl</code></td><td>Explicit <code>direction</code> property</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile-first -->
+      <h3 class="set-text-18 text-semibold color-gray-800 add-margin-bottom-12">Mobile-First Components</h3>
+      <div class="table-wrap add-margin-bottom-16">
+        <table>
+          <thead><tr><th>Component</th><th>Root class</th><th>Key sub-classes</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Bottom Sheet</strong></td>
+              <td><code class="chip">.bottom-sheet</code></td>
+              <td><code class="chip">-handle</code> <code class="chip">-header</code> <code class="chip">-title</code> <code class="chip">-body</code> <code class="chip">-footer</code> <code class="chip">-overlay</code> <code class="chip">.open</code> <code class="chip">.visible</code></td>
+            </tr>
+            <tr>
+              <td><strong>Swipeable Carousel</strong></td>
+              <td><code class="chip">.swipe-carousel</code></td>
+              <td><code class="chip">-item</code> <code class="chip">-full</code> <code class="chip">-peek</code> <code class="chip">-multi</code> <code class="chip">-dots</code> <code class="chip">-dot</code> <code class="chip">.active</code></td>
+            </tr>
+            <tr>
+              <td><strong>Pull-to-Refresh</strong></td>
+              <td><code class="chip">.pull-to-refresh</code></td>
+              <td><code class="chip">-spinner</code> <code class="chip">.pulling</code> <code class="chip">.refreshing</code></td>
+            </tr>
+            <tr>
+              <td><strong>Safe Area Insets</strong></td>
+              <td>—</td>
+              <td><code class="chip">.padding-safe-top</code> <code class="chip">.padding-safe-bottom</code> <code class="chip">.padding-safe-left</code> <code class="chip">.padding-safe-right</code> <code class="chip">.padding-safe-all</code> <code class="chip">.margin-safe-bottom</code> <code class="chip">.pin-bottom-safe</code></td>
+            </tr>
+            <tr>
+              <td><strong>Command Palette</strong></td>
+              <td><code class="chip">.command-palette</code></td>
+              <td><code class="chip">-wrap</code> <code class="chip">-input-row</code> <code class="chip">-input</code> <code class="chip">-kbd</code> <code class="chip">-list</code> <code class="chip">-group-label</code> <code class="chip">-item</code> <code class="chip">-item-icon</code> <code class="chip">-item-label</code> <code class="chip">-item-shortcut</code> <code class="chip">-empty</code> <code class="chip">-footer</code> <code class="chip">.open</code></td>
+            </tr>
+            <tr>
+              <td><strong>Date Picker</strong></td>
+              <td><code class="chip">.date-picker</code></td>
+              <td><code class="chip">-header</code> <code class="chip">-month-year</code> <code class="chip">-nav</code> <code class="chip">-weekdays</code> <code class="chip">-grid</code> <code class="chip">-day</code> <code class="chip">-day.today</code> <code class="chip">-day.selected</code> <code class="chip">-day.in-range</code> <code class="chip">-day.range-start</code> <code class="chip">-day.range-end</code> <code class="chip">-day.other-month</code> <code class="chip">-day.disabled</code> <code class="chip">-footer</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Figma plugin -->
+      <div class="background-pink-50 round-corners-12 add-padding-20 add-margin-bottom-8 add-border-1 border-color-pink-200">
+        <div class="make-flex align-center gap-12">
+          <span style="font-size:24px;">🎨</span>
+          <div>
+            <div class="set-text-15 text-semibold color-gray-900 add-margin-bottom-4">Figma → SantyCSS Plugin <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:9999px;background:#fce7f3;color:#be185d;margin-left:6px;">IN DEVELOPMENT</span></div>
+            <p class="set-text-13 color-gray-600" style="margin:0;">Inspect a Figma frame and export the exact SantyCSS classes that match the design. No more translating design tokens by hand.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
          MODULE: EMAIL
     ═══════════════════════════════════════════════════════════════════ -->
     <section id="module-email" class="doc-section">
@@ -1206,7 +1303,7 @@ Use the <span class="c-tag">&lt;code</span> <span class="c-attr">class</span>=<s
             <h2 class="set-text-24 text-bold color-gray-900" style="margin:0;">PostCSS Plugin</h2>
             <span class="chip chip-red">Tree-shaking</span>
           </div>
-          <p class="set-text-15 color-gray-600 line-height-relaxed" style="margin:0;">Scan your source files and strip every class you don't use. Takes 723KB → as low as 5–20KB for typical projects.</p>
+          <p class="set-text-15 color-gray-600 line-height-relaxed" style="margin:0;">Scan your source files and strip every class you don't use. Takes 718KB → as low as 5–20KB for typical projects.</p>
         </div>
       </div>
       <div class="code-block add-margin-bottom-16">

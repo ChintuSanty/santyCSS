@@ -10,7 +10,15 @@
       "Bash(jq \".icons[] | select\\(.category == \"\"communication\"\"\\) | {name: .name, label: .label}\")",
       "Bash(node create-comm-icons.js)",
       "Bash(rm create-comm-icons.js)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(sed -i 's/v1\\\\.4\\\\.0/v1.5.0/g' animations.html classes.html demo.html docs.html icons.html index.html jit-demo.html playground.html)",
+      "Bash(sed -i 's/\"\"version\"\": \"\"1\\\\.4\\\\.0\"\"/\"\"version\"\": \"\"1.5.0\"\"/g' package.json)",
+      "Bash(sed -i 's/v1\\\\.5\\\\.0/v1.6.0/g' animations.html classes.html demo.html docs.html icons.html index.html jit-demo.html playground.html)",
+      "Bash(sed -i 's/\"\"version\"\": \"\"1\\\\.5\\\\.0\"\"/\"\"version\"\": \"\"1.6.0\"\"/g' package.json)",
+      "Bash(sed -i 's/santycss@1\\\\.5\\\\.0/santycss@1.6.0/g' docs.html index.html)",
+      "Bash(sed -i \"s/SantyCSS v1\\\\.4\\\\.0/SantyCSS v1.6.0/g\" build.js)",
+      "Bash(sed -i 's/>723KB</>718KB</g; s/723KB →/718KB →/g' docs.html)",
+      "Bash(sed -i 's/>723KB</>718KB</g; s/723KB →/718KB →/g' index.html)"
     ],
     "additionalDirectories": [
       "c:\\Users\\hello\\Downloads"
