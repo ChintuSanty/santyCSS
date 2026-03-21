@@ -3,8 +3,8 @@ class Timeline extends Widget_Base {
     public function get_type(): string     { return 'timeline-pro'; }
     public function get_title(): string    { return __('Timeline','santycss-builder'); }
     public function get_icon(): string     { return '📅'; }
-    public function get_category(): string { return 'pro'; }
-    public function get_tier(): string     { return 'pro'; }
+    public function get_category(): string { return 'content'; }
+    public function get_tier(): string     { return 'free'; }
     public function get_controls(): array {
         return [
             $this->repeater('events','Events',[$this->text('date','Date','2024'),$this->text('title','Title','Milestone'),$this->textarea('desc','Description','What happened here.'),$this->color('dot_color','Dot Color','#3b82f6'),$this->text('icon','Icon','✦')],[['date'=>'2022','title'=>'Founded','desc'=>'Company was founded.','dot_color'=>'#3b82f6','icon'=>'🚀'],['date'=>'2023','title'=>'First Product','desc'=>'Launched version 1.0.','dot_color'=>'#22c55e','icon'=>'🎉']]),

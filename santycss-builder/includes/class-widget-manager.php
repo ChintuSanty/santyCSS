@@ -35,7 +35,7 @@ class Widget_Manager {
                 'icon'     => $widget->get_icon(),
                 'category' => $widget->get_category(),
                 'tier'     => $widget->get_tier(),
-                'controls' => $widget->get_controls(),
+                'controls' => $widget->get_all_controls(),
                 'defaults' => $widget->get_defaults(),
             ];
         }

@@ -3,8 +3,8 @@ class Hotspot extends Widget_Base {
     public function get_type(): string     { return 'hotspot'; }
     public function get_title(): string    { return __('Hotspot Image','santycss-builder'); }
     public function get_icon(): string     { return '📍'; }
-    public function get_category(): string { return 'pro'; }
-    public function get_tier(): string     { return 'pro'; }
+    public function get_category(): string { return 'media'; }
+    public function get_tier(): string     { return 'free'; }
     public function get_controls(): array {
         return [
             $this->image('image','Background Image'),

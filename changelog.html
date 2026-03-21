@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SantyCSS Changelog — Version History &amp; Release Notes</title>
+  <meta name="description" content="SantyCSS version history and release notes. See what's new, what's changed, and what's been fixed in each release." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://santycss.santy.in/changelog.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="SantyCSS" />
+  <meta property="og:title"       content="SantyCSS Changelog — Version History" />
+  <meta property="og:description" content="Full version history and release notes for SantyCSS." />
+  <meta property="og:url"         content="https://santycss.santy.in/changelog.html" />
+  <meta property="og:image"       content="https://santycss.santy.in/assest/santy_css.png" />
+
+  <link rel="icon" type="image/png" href="assest/santy_css.png" />
+  <link rel="stylesheet" href="santy.css" />
+  <style>
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+
+    .nav-link { transition: color 0.2s; }
+    .nav-link:hover { color: #3b82f6; }
+    .nav-link-active { color: #2563eb !important; font-weight: 700 !important; }
+    .nav-resources { position: relative; }
+    .nav-resources-btn { background:none; border:none; cursor:pointer; font-size:14px; font-weight:600; color:#4b5563; display:flex; align-items:center; gap:5px; padding:4px 0; transition:color .15s; }
+    .nav-resources-btn:hover, .nav-resources-btn.open { color:#3b82f6; }
+    .nav-resources-btn svg { transition: transform .2s; }
+    .nav-resources-btn.open svg { transform: rotate(180deg); }
+    .nav-dropdown { display: none; position: absolute; top: calc(100% + 10px); right: 0; background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; box-shadow: 0 8px 30px rgba(0,0,0,.12); min-width: 180px; z-index: 999; padding: 6px; }
+    .nav-dropdown.open { display: block; animation: ddFade .15s ease; }
+    @keyframes ddFade { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+    .nav-dropdown a { display:block; padding:9px 14px; font-size:13px; font-weight:600; color:#374151; text-decoration:none; border-radius:9px; transition:background .12s; }
+    .nav-dropdown a:hover { background:#f1f5f9; color:#3b82f6; }
+
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 7px 9px;
+      cursor: pointer;
+      color: #374151;
+      line-height: 1;
+    }
+    @media (max-width: 767px) {
+      .nav-hamburger { display: flex; align-items: center; justify-content: center; }
+      #main-nav {
+        display: none;
+        position: fixed;
+        top: 61px; left: 0; right: 0; bottom: 0;
+        background: #fff;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+        gap: 4px;
+        z-index: 98;
+        border-top: 1px solid #e5e7eb;
+        overflow-y: auto;
+        box-shadow: 0 4px 24px rgba(0,0,0,.12);
+      }
+      #main-nav.nav-open { display: flex; }
+      #main-nav .nav-link {
+        display: block;
+        padding: 12px !important;
+        font-size: 16px !important;
+        border-radius: 8px;
+        color: #1f2937 !important;
+        border-bottom: 1px solid #f3f4f6;
+      }
+      .grid-cols-2, .grid-cols-3 { grid-template-columns: 1fr !important; }
+    }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #312e81 100%);
+    }
+    .chip {
+      display: inline-block;
+      background: #1e293b;
+      color: #7dd3fc;
+      border-radius: 6px;
+      padding: 2px 9px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: ui-monospace, monospace;
+      border: 1px solid #334155;
+    }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 8px;
+      bottom: 0;
+      width: 2px;
+      background: #e5e7eb;
+    }
+    .timeline-entry { position: relative; margin-bottom: 48px; }
+    .timeline-dot {
+      position: absolute;
+      left: -32px;
+      top: 6px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      border: 2px solid #fff;
+      box-shadow: 0 0 0 2px #e5e7eb;
+    }
+    .timeline-dot-latest { background: #2563eb; color: #fff; box-shadow: 0 0 0 2px #bfdbfe; }
+    .timeline-dot-stable { background: #16a34a; color: #fff; box-shadow: 0 0 0 2px #bbf7d0; }
+    .timeline-dot-old    { background: #94a3b8; color: #fff; }
+
+    .version-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: ui-monospace, monospace;
+    }
+    .version-latest { background: #dbeafe; color: #1d4ed8; }
+    .version-stable { background: #dcfce7; color: #15803d; }
+    .version-old    { background: #f1f5f9; color: #475569; }
+
+    .change-list { list-style: none; padding: 0; margin: 0; }
+    .change-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 6px 0;
+      font-size: 14px;
+      color: #374151;
+      border-bottom: 1px solid #f3f4f6;
+      line-height: 1.5;
+    }
+    .change-list li:last-child { border-bottom: none; }
+    .change-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .tag-new     { background: #dbeafe; color: #1d4ed8; }
+    .tag-fix     { background: #dcfce7; color: #15803d; }
+    .tag-improve { background: #fef9c3; color: #854d0e; }
+    .tag-break   { background: #fee2e2; color: #b91c1c; }
+  </style>
+</head>
+<body class="background-gray-50">
+
+<!-- ─── TOP NAV ─────────────────────────────────────────────────────────────── -->
+<header class="position-sticky pin-top-0 layer-50 background-white add-shadow-sm" style="border-bottom:1px solid #e5e7eb;">
+  <div class="container make-flex align-center justify-between add-padding-y-14">
+    <a href="index.html" class="make-flex align-center gap-10 text-no-decoration">
+      <img src="assest/santy_css.png" alt="SantyCSS" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
+      <span class="set-text-20 text-bold color-gray-900">Santy<span class="color-blue-600">CSS</span></span>
+      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v1.8.0</span>
+    </a>
+    <button class="nav-hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
+      <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg id="ham-close" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:none"><path d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <nav id="main-nav" class="make-flex align-center gap-20">
+      <a href="classes.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Classes</a>
+      <a href="components.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Components</a>
+      <a href="animations.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Animations</a>
+      <a href="icons.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Icons</a>
+      <div class="nav-resources" id="navResources">
+        <button class="nav-resources-btn" id="navResBtn" onclick="toggleResources()" aria-expanded="false">
+          Resources
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="nav-dropdown" id="navDropdown">
+          <a href="index.html#ai-generator">✨ AI Generator</a>
+          <a href="webflow.html">🌊 Webflow snippets</a>
+          <a href="docs.html">📦 npm Docs</a>
+          <a href="docs.html#postcss">🔧 PostCSS Plugin</a>
+          <a href="index.html#feedback">💬 Feedback</a>
+        </div>
+      </div>
+      <a href="https://github.com/ChintuSanty/santyCSS" target="_blank" rel="noopener" title="Star on GitHub" style="display:inline-flex;align-items:center;gap:5px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:8px;padding:5px 12px;color:#374151;font-size:13px;font-weight:600;text-decoration:none;transition:all .15s;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Star
+      </a>
+      <button id="dark-toggle" onclick="toggleDark()" title="Toggle dark mode" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;transition:all .15s;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">
+        <svg id="dark-icon-moon" width="16" height="16" fill="none" stroke="#374151" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg id="dark-icon-sun" width="16" height="16" fill="none" stroke="#374151" stroke-width="2" viewBox="0 0 24 24" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+      </button>
+      <a href="playground.html" class="make-button style-primary size-small">⚡ Playground →</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ─── HERO ─────────────────────────────────────────────────────────────────── -->
+<section class="hero-gradient add-padding-y-64 add-padding-x-16 text-center">
+  <div class="container">
+    <span class="badge background-blue-900 color-blue-300 add-margin-bottom-16" style="font-size:12px;letter-spacing:.05em;">CHANGELOG</span>
+    <h1 class="set-text-48 text-bold color-white add-margin-bottom-16" style="letter-spacing:-1.5px;line-height:1.1;">
+      Version History
+    </h1>
+    <p class="set-text-18 add-margin-bottom-0" style="color:rgba(255,255,255,0.7);max-width:520px;margin-left:auto;margin-right:auto;line-height:1.6;">
+      All notable changes to SantyCSS are documented here. Follows <a href="https://semver.org" target="_blank" rel="noopener" style="color:#7dd3fc;">Semantic Versioning</a>.
+    </p>
+  </div>
+</section>
+
+<!-- ─── CONTENT ───────────────────────────────────────────────────────────────── -->
+<div class="container add-padding-y-64" style="max-width:800px;">
+  <div class="timeline">
+
+    <!-- v1.8.0 -->
+    <div class="timeline-entry">
+      <div class="timeline-dot timeline-dot-latest">★</div>
+      <div class="background-white round-corners-16 add-padding-32 add-shadow-sm add-border-1 border-color-gray-100">
+        <div class="make-flex align-center gap-12 add-margin-bottom-4">
+          <h2 class="set-text-24 text-bold color-gray-900" style="margin:0;">v1.8.0</h2>
+          <span class="version-badge version-latest">Latest</span>
+        </div>
+        <p class="set-text-13 color-gray-400 add-margin-bottom-20">Released March 2025</p>
+
+        <p class="set-text-13 text-semibold color-gray-500 text-uppercase add-margin-bottom-10" style="letter-spacing:.06em;">Highlights</p>
+        <ul class="change-list add-margin-bottom-20">
+          <li><span class="change-tag tag-new">New</span>Full Figma plugin documentation — export Figma frames directly to SantyCSS classes</li>
+          <li><span class="change-tag tag-new">New</span>SantyCSS Inspector v1.0 — browser extension for inspecting and copying applied classes</li>
+          <li><span class="change-tag tag-new">New</span>20+ ready-made component classes: modal, drawer, accordion, stepper, tooltip, and more</li>
+          <li><span class="change-tag tag-new">New</span>Animation entrance classes — <code class="chip">data-scb-anim</code> attribute with 11 animation types</li>
+          <li><span class="change-tag tag-new">New</span>Dark mode via <code class="chip">.dark</code> class — all components adapt automatically</li>
+          <li><span class="change-tag tag-new">New</span>RTL / logical property support: <code class="chip">ps-*</code>, <code class="chip">pe-*</code>, <code class="chip">border-start-*</code></li>
+          <li><span class="change-tag tag-new">New</span>CSS design tokens — <code class="chip">--santy-primary</code>, <code class="chip">--santy-radius</code>, <code class="chip">--santy-font</code></li>
+          <li><span class="change-tag tag-improve">Improve</span>Bundle now includes separate <code class="chip">santy-components.css</code> and <code class="chip">santy-animations.css</code> for tree-shaking</li>
+          <li><span class="change-tag tag-improve">Improve</span>Minified build reduced to ~15 KB (down from ~22 KB)</li>
+          <li><span class="change-tag tag-fix">Fix</span>Progress bar transition not firing on first IntersectionObserver callback</li>
+          <li><span class="change-tag tag-fix">Fix</span>Accordion <code class="chip">maxHeight</code> not resetting on sibling close in nested accordions</li>
+        </ul>
+
+        <div class="make-flex align-center gap-12">
+          <a href="https://cdn.jsdelivr.net/npm/santycss@1.8.0/dist/santy.css" target="_blank" rel="noopener" class="make-button style-primary size-small">CDN Link</a>
+          <a href="https://github.com/ChintuSanty/santyCSS" target="_blank" rel="noopener" class="make-button style-outline size-small">View on GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- v1.6.0 -->
+    <div class="timeline-entry">
+      <div class="timeline-dot timeline-dot-stable">✓</div>
+      <div class="background-white round-corners-16 add-padding-32 add-shadow-sm add-border-1 border-color-gray-100">
+        <div class="make-flex align-center gap-12 add-margin-bottom-4">
+          <h2 class="set-text-24 text-bold color-gray-900" style="margin:0;">v1.6.0</h2>
+          <span class="version-badge version-stable">Stable</span>
+        </div>
+        <p class="set-text-13 color-gray-400 add-margin-bottom-20">Released January 2025</p>
+
+        <ul class="change-list add-margin-bottom-20">
+          <li><span class="change-tag tag-new">New</span>JIT runtime — <code class="chip">santy-jit.js</code> generates CSS on demand, no build step needed</li>
+          <li><span class="change-tag tag-new">New</span>PostCSS plugin for purging unused classes at build time</li>
+          <li><span class="change-tag tag-new">New</span>113+ SVG icons via CSS mask-image — colorize with any utility class</li>
+          <li><span class="change-tag tag-new">New</span>120+ animation classes (integrate animate.css naming conventions)</li>
+          <li><span class="change-tag tag-new">New</span>AI class generator — describe a UI element, get the classes</li>
+          <li><span class="change-tag tag-improve">Improve</span>Class reference page with searchable table of all 8,500+ classes</li>
+          <li><span class="change-tag tag-improve">Improve</span>Playground — live CSS editor with instant preview</li>
+          <li><span class="change-tag tag-fix">Fix</span>Carousel autoplay not pausing on hover in Firefox</li>
+          <li><span class="change-tag tag-fix">Fix</span>Toggle slider animation jank on iOS Safari</li>
+        </ul>
+
+        <div class="make-flex align-center gap-12">
+          <a href="https://cdn.jsdelivr.net/npm/santycss@1.6.0/dist/santy.css" target="_blank" rel="noopener" class="make-button style-ghost size-small">CDN Link</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- v1.4.0 -->
+    <div class="timeline-entry">
+      <div class="timeline-dot timeline-dot-old">4</div>
+      <div class="background-white round-corners-16 add-padding-32 add-shadow-sm add-border-1 border-color-gray-100">
+        <div class="make-flex align-center gap-12 add-margin-bottom-4">
+          <h2 class="set-text-24 text-bold color-gray-900" style="margin:0;">v1.4.0</h2>
+          <span class="version-badge version-old">Archive</span>
+        </div>
+        <p class="set-text-13 color-gray-400 add-margin-bottom-20">Released October 2024</p>
+
+        <ul class="change-list">
+          <li><span class="change-tag tag-new">New</span>Webflow-compatible class snippets and integration guide</li>
+          <li><span class="change-tag tag-new">New</span>npm package published — <code class="chip">npm install santycss</code></li>
+          <li><span class="change-tag tag-new">New</span>CDN distribution via jsDelivr</li>
+          <li><span class="change-tag tag-new">New</span>Hover utilities — <code class="chip">on-hover:*</code> prefix for any class</li>
+          <li><span class="change-tag tag-improve">Improve</span>Color palette expanded to 19 colors × 10 shades</li>
+          <li><span class="change-tag tag-fix">Fix</span>Mobile nav overflow causing horizontal scroll on narrow viewports</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- v1.2.0 -->
+    <div class="timeline-entry">
+      <div class="timeline-dot timeline-dot-old">2</div>
+      <div class="background-white round-corners-16 add-padding-32 add-shadow-sm add-border-1 border-color-gray-100">
+        <div class="make-flex align-center gap-12 add-margin-bottom-4">
+          <h2 class="set-text-24 text-bold color-gray-900" style="margin:0;">v1.2.0</h2>
+          <span class="version-badge version-old">Archive</span>
+        </div>
+        <p class="set-text-13 color-gray-400 add-margin-bottom-20">Released July 2024</p>
+
+        <ul class="change-list">
+          <li><span class="change-tag tag-new">New</span>Responsive visibility classes — <code class="chip">scb-hide-mobile</code>, <code class="chip">scb-hide-tablet</code>, <code class="chip">scb-hide-desktop</code></li>
+          <li><span class="change-tag tag-new">New</span>Grid system — <code class="chip">make-grid</code>, <code class="chip">grid-cols-2</code> through <code class="chip">grid-cols-6</code></li>
+          <li><span class="change-tag tag-new">New</span>Flexbox shortcuts — <code class="chip">make-flex</code>, <code class="chip">align-center</code>, <code class="chip">justify-between</code></li>
+          <li><span class="change-tag tag-improve">Improve</span>Spacing scale extended from 100 to 200px</li>
+          <li><span class="change-tag tag-fix">Fix</span>Border-radius utilities not applying in Safari 15</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- v1.0.0 -->
+    <div class="timeline-entry" style="margin-bottom:0;">
+      <div class="timeline-dot timeline-dot-old" style="font-size:10px;">1.0</div>
+      <div class="background-white round-corners-16 add-padding-32 add-shadow-sm add-border-1 border-color-gray-100">
+        <div class="make-flex align-center gap-12 add-margin-bottom-4">
+          <h2 class="set-text-24 text-bold color-gray-900" style="margin:0;">v1.0.0</h2>
+          <span class="version-badge version-old">Initial Release</span>
+        </div>
+        <p class="set-text-13 color-gray-400 add-margin-bottom-20">Released April 2024</p>
+
+        <ul class="change-list">
+          <li><span class="change-tag tag-new">New</span>Initial public release of SantyCSS</li>
+          <li><span class="change-tag tag-new">New</span>8,500+ utility classes with plain-English naming</li>
+          <li><span class="change-tag tag-new">New</span>Pre-generated pixel values 0–200px for spacing, sizing, and typography</li>
+          <li><span class="change-tag tag-new">New</span>Color palette: 19 colors × 10 shades</li>
+          <li><span class="change-tag tag-new">New</span>Zero config — single CSS file, drop-in and go</li>
+          <li><span class="change-tag tag-new">New</span>WordPress plugin (SantyCSS Builder) with 25+ drag-and-drop widgets</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Subscribe / feedback -->
+  <div class="background-blue-600 round-corners-20 add-padding-32 text-center add-margin-top-48">
+    <h3 class="set-text-24 text-bold color-white add-margin-bottom-8">Stay updated</h3>
+    <p class="set-text-15 color-white add-margin-bottom-24" style="opacity:.8;">Follow the GitHub repo to be notified of new releases.</p>
+    <div class="make-flex align-center justify-center gap-12 flex-wrap">
+      <a href="https://github.com/ChintuSanty/santyCSS" target="_blank" rel="noopener" class="make-button size-small" style="background:#fff;color:#2563eb;border:none;font-weight:700;">
+        Watch on GitHub
+      </a>
+      <a href="index.html#feedback" class="make-button style-ghost size-small" style="border-color:rgba(255,255,255,.4);color:#fff;">
+        Send Feedback
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────────────────── -->
+<footer class="background-gray-900 color-white add-padding-y-48 add-padding-x-16">
+  <div class="container">
+    <div class="make-grid grid-cols-4 gap-32 add-margin-bottom-40">
+      <div>
+        <div class="make-flex align-center gap-10 add-margin-bottom-16">
+          <img src="assest/santy_css.png" alt="SantyCSS" style="width:32px;height:32px;border-radius:8px;object-fit:cover;" />
+          <span class="set-text-18 text-bold">Santy<span style="color:#7dd3fc;">CSS</span></span>
+        </div>
+        <p class="set-text-13 add-margin-bottom-0" style="color:rgba(255,255,255,0.5);line-height:1.6;">CSS that reads like plain English. 8,500+ classes, no build step.</p>
+      </div>
+      <div>
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-12" style="letter-spacing:.06em;">Framework</p>
+        <div class="make-flex flex-column gap-8">
+          <a href="classes.html"    class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">Classes Reference</a>
+          <a href="components.html" class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">Components</a>
+          <a href="animations.html" class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">Animations</a>
+          <a href="icons.html"      class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">Icons</a>
+        </div>
+      </div>
+      <div>
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-12" style="letter-spacing:.06em;">Resources</p>
+        <div class="make-flex flex-column gap-8">
+          <a href="docs.html"       class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">npm Docs</a>
+          <a href="playground.html" class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">Playground</a>
+          <a href="webflow.html"    class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">Webflow Snippets</a>
+          <a href="changelog.html"  class="set-text-13 text-no-decoration" style="color:#7dd3fc;">Changelog</a>
+        </div>
+      </div>
+      <div>
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-12" style="letter-spacing:.06em;">Community</p>
+        <div class="make-flex flex-column gap-8">
+          <a href="https://github.com/ChintuSanty/santyCSS" target="_blank" rel="noopener" class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">GitHub</a>
+          <a href="https://www.npmjs.com/package/santycss"  target="_blank" rel="noopener" class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">npm</a>
+          <a href="index.html#feedback" class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">Feedback</a>
+        </div>
+      </div>
+    </div>
+    <div class="add-border-top-1" style="border-color:rgba(255,255,255,0.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <span class="set-text-13" style="color:rgba(255,255,255,0.4);">© 2025 SantyCSS. MIT Licensed.</span>
+      <span class="set-text-13" style="color:rgba(255,255,255,0.4);">Made with SantyCSS</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleMobileNav() {
+  var nav   = document.getElementById('main-nav');
+  var icon  = document.getElementById('ham-icon');
+  var close = document.getElementById('ham-close');
+  var open  = nav.classList.toggle('nav-open');
+  icon.style.display  = open ? 'none' : '';
+  close.style.display = open ? '' : 'none';
+}
+
+function toggleResources() {
+  var btn  = document.getElementById('navResBtn');
+  var dd   = document.getElementById('navDropdown');
+  var open = btn.classList.toggle('open');
+  dd.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', open);
+}
+document.addEventListener('click', function(e) {
+  var res = document.getElementById('navResources');
+  if (res && !res.contains(e.target)) {
+    document.getElementById('navResBtn').classList.remove('open');
+    document.getElementById('navDropdown').classList.remove('open');
+  }
+});
+
+function toggleDark() {
+  var isDark = document.documentElement.classList.toggle('dark');
+  document.getElementById('dark-icon-moon').style.display = isDark ? 'none' : '';
+  document.getElementById('dark-icon-sun').style.display  = isDark ? '' : 'none';
+  try { localStorage.setItem('scb-dark', isDark ? '1' : '0'); } catch(e){}
+}
+(function() {
+  try {
+    if (localStorage.getItem('scb-dark') === '1') {
+      document.documentElement.classList.add('dark');
+      document.addEventListener('DOMContentLoaded', function() {
+        var moon = document.getElementById('dark-icon-moon');
+        var sun  = document.getElementById('dark-icon-sun');
+        if (moon) moon.style.display = 'none';
+        if (sun)  sun.style.display  = '';
+      });
+    }
+  } catch(e){}
+})();
+</script>
+</body>
+</html>

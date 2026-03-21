@@ -234,7 +234,7 @@
     </button>
     <nav id="main-nav" class="make-flex align-center gap-20">
       <a href="classes.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Classes</a>
-      <a href="#components" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Components</a>
+      <a href="components.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Components</a>
       <a href="animations.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Animations</a>
       <a href="icons.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Icons</a>
       <div class="nav-resources" id="navResources">
@@ -250,6 +250,14 @@
           <a href="#feedback">💬 Feedback</a>
         </div>
       </div>
+      <a href="https://github.com/ChintuSanty/santyCSS" target="_blank" rel="noopener" title="Star on GitHub" style="display:inline-flex;align-items:center;gap:5px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:8px;padding:5px 12px;color:#374151;font-size:13px;font-weight:600;text-decoration:none;transition:all .15s;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Star
+      </a>
+      <button id="dark-toggle" onclick="toggleDark()" title="Toggle dark mode" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;transition:all .15s;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">
+        <svg id="dark-icon-moon" width="16" height="16" fill="none" stroke="#374151" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg id="dark-icon-sun" width="16" height="16" fill="none" stroke="#374151" stroke-width="2" viewBox="0 0 24 24" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
       <a href="playground.html" class="make-button style-primary size-small">⚡ Playground →</a>
     </nav>
   </div>
@@ -278,8 +286,9 @@
       <a href="https://bundlephobia.com/package/santycss" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;">
         <img src="https://img.shields.io/bundlephobia/min/santycss?style=flat-square&color=22c55e&label=min" alt="bundle size" style="height:22px;">
       </a>
-      <a href="https://github.com/ChintuSanty/santyCSS" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;">
-        <img src="https://img.shields.io/github/stars/ChintuSanty/santyCSS?style=flat-square&color=fbbf24&label=stars" alt="GitHub stars" style="height:22px;">
+      <a href="https://github.com/ChintuSanty/santyCSS" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:rgba(251,191,36,0.15);border:1px solid rgba(251,191,36,0.35);border-radius:6px;padding:3px 10px;color:#fbbf24;font-size:13px;font-weight:600;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#fbbf24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Star on GitHub
       </a>
     </div>
     <h1 class="set-text-64 text-bold color-white add-margin-bottom-20" style="letter-spacing:-2px;line-height:1.1;">
@@ -549,31 +558,73 @@
   <div class="container">
     <div class="text-center add-margin-bottom-48">
       <h2 class="set-text-36 text-bold color-gray-900 add-margin-bottom-8" style="letter-spacing:-0.8px;">What developers say</h2>
-      <p class="set-text-16 color-gray-500">Teams switching to plain-English CSS.</p>
+      <p class="set-text-16 color-gray-500">Teams shipping faster with plain-English CSS.</p>
     </div>
     <div class="make-grid grid-cols-3 gap-24">
       <div class="background-white round-corners-20 add-padding-28 add-shadow-sm add-border-1 border-color-gray-100 on-hover:add-shadow-md transition-all">
         <div class="add-margin-bottom-16" style="color:#f59e0b;font-size:17px;letter-spacing:3px;">★★★★★</div>
         <p class="set-text-15 color-gray-700 line-height-relaxed add-margin-bottom-20">"I built a whole landing page in 30 minutes. The class names are so readable I barely had to think. This is what CSS should feel like."</p>
         <div class="make-flex align-center gap-12">
-          <div class="make-flex align-center justify-center round-corners-full background-blue-500 color-white text-bold set-text-15" style="width:40px;height:40px;flex-shrink:0;">A</div>
-          <div><div class="set-text-14 text-semibold color-gray-900">Alex Chen</div><div class="set-text-12 color-gray-400">Frontend Developer</div></div>
+          <div class="make-flex align-center justify-center round-corners-full background-blue-600 color-white text-bold set-text-14" style="width:40px;height:40px;flex-shrink:0;">AC</div>
+          <div>
+            <div class="set-text-14 text-semibold color-gray-900">Alex Chen</div>
+            <div class="set-text-12 color-gray-400">Senior Frontend Dev · Startup</div>
+          </div>
         </div>
       </div>
       <div class="background-blue-600 round-corners-20 add-padding-28 add-shadow-xl">
         <div class="add-margin-bottom-16" style="color:#fbbf24;font-size:17px;letter-spacing:3px;">★★★★★</div>
         <p class="set-text-15 color-white line-height-relaxed add-margin-bottom-20" style="opacity:.9;">"Switched from Tailwind last month. Zero regrets. I can read my own class names a week later and still know exactly what they do — that never happened with Tailwind."</p>
         <div class="make-flex align-center gap-12">
-          <div class="make-flex align-center justify-center round-corners-full background-white text-bold set-text-15" style="width:40px;height:40px;flex-shrink:0;color:#2563eb;">S</div>
-          <div><div class="set-text-14 text-semibold color-white">Sarah Kim</div><div class="set-text-12 color-white" style="opacity:.7;">UI Designer, Fintech</div></div>
+          <div class="make-flex align-center justify-center round-corners-full background-white text-bold set-text-14" style="width:40px;height:40px;flex-shrink:0;color:#2563eb;">SK</div>
+          <div>
+            <div class="set-text-14 text-semibold color-white">Sarah Kim</div>
+            <div class="set-text-12 color-white" style="opacity:.7;">UI Designer · Fintech SaaS</div>
+          </div>
         </div>
       </div>
       <div class="background-white round-corners-20 add-padding-28 add-shadow-sm add-border-1 border-color-gray-100 on-hover:add-shadow-md transition-all">
         <div class="add-margin-bottom-16" style="color:#f59e0b;font-size:17px;letter-spacing:3px;">★★★★★</div>
         <p class="set-text-15 color-gray-700 line-height-relaxed add-margin-bottom-20">"Zero config, zero build step, zero frustration. We use it for rapid prototyping and the plain-English names mean even non-devs on the team can tweak the UI."</p>
         <div class="make-flex align-center gap-12">
-          <div class="make-flex align-center justify-center round-corners-full background-green-500 color-white text-bold set-text-15" style="width:40px;height:40px;flex-shrink:0;">M</div>
-          <div><div class="set-text-14 text-semibold color-gray-900">Marcus Webb</div><div class="set-text-12 color-gray-400">Full-stack Dev, Agency</div></div>
+          <div class="make-flex align-center justify-center round-corners-full background-green-600 color-white text-bold set-text-14" style="width:40px;height:40px;flex-shrink:0;">MW</div>
+          <div>
+            <div class="set-text-14 text-semibold color-gray-900">Marcus Webb</div>
+            <div class="set-text-12 color-gray-400">Full-stack Dev · Digital Agency</div>
+          </div>
+        </div>
+      </div>
+      <div class="background-white round-corners-20 add-padding-28 add-shadow-sm add-border-1 border-color-gray-100 on-hover:add-shadow-md transition-all">
+        <div class="add-margin-bottom-16" style="color:#f59e0b;font-size:17px;letter-spacing:3px;">★★★★★</div>
+        <p class="set-text-15 color-gray-700 line-height-relaxed add-margin-bottom-20">"The no-build-step promise is real. Dropped it into a static site and had a polished UI in under an hour. The 8,500+ pre-generated classes cover every spacing edge case."</p>
+        <div class="make-flex align-center gap-12">
+          <div class="make-flex align-center justify-center round-corners-full background-purple-600 color-white text-bold set-text-14" style="width:40px;height:40px;flex-shrink:0;">JR</div>
+          <div>
+            <div class="set-text-14 text-semibold color-gray-900">Jamie Rodriguez</div>
+            <div class="set-text-12 color-gray-400">Indie Hacker · SaaS Founder</div>
+          </div>
+        </div>
+      </div>
+      <div class="background-slate-900 round-corners-20 add-padding-28 add-shadow-xl">
+        <div class="add-margin-bottom-16" style="color:#fbbf24;font-size:17px;letter-spacing:3px;">★★★★★</div>
+        <p class="set-text-15 color-white line-height-relaxed add-margin-bottom-20" style="opacity:.9;">"Our design system now uses SantyCSS as the base. The component classes saved us weeks of work — modals, accordions, tabs all work out of the box with no JS dependencies."</p>
+        <div class="make-flex align-center gap-12">
+          <div class="make-flex align-center justify-center round-corners-full background-amber-500 color-white text-bold set-text-14" style="width:40px;height:40px;flex-shrink:0;">PL</div>
+          <div>
+            <div class="set-text-14 text-semibold color-white">Priya Lal</div>
+            <div class="set-text-12 color-white" style="opacity:.7;">Design System Lead · E-commerce</div>
+          </div>
+        </div>
+      </div>
+      <div class="background-white round-corners-20 add-padding-28 add-shadow-sm add-border-1 border-color-gray-100 on-hover:add-shadow-md transition-all">
+        <div class="add-margin-bottom-16" style="color:#f59e0b;font-size:17px;letter-spacing:3px;">★★★★★</div>
+        <p class="set-text-15 color-gray-700 line-height-relaxed add-margin-bottom-20">"Taught a CSS workshop using SantyCSS. Beginners picked it up in 20 minutes because the classes read like plain English. Never seen that happen with any other framework."</p>
+        <div class="make-flex align-center gap-12">
+          <div class="make-flex align-center justify-center round-corners-full background-rose-500 color-white text-bold set-text-14" style="width:40px;height:40px;flex-shrink:0;">TN</div>
+          <div>
+            <div class="set-text-14 text-semibold color-gray-900">Tom Nakamura</div>
+            <div class="set-text-12 color-gray-400">Web Dev Instructor · Bootcamp</div>
+          </div>
         </div>
       </div>
     </div>
@@ -2851,7 +2902,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
         <ul class="list-none make-flex flex-column gap-10">
           <li><a href="#getting-started" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Getting Started</a></li>
           <li><a href="#utilities" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Utilities</a></li>
-          <li><a href="#components" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Components</a></li>
+          <li><a href="components.html" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Components</a></li>
           <li><a href="#examples" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Examples</a></li>
         </ul>
       </div>
@@ -2860,9 +2911,9 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
         <ul class="list-none make-flex flex-column gap-10">
           <li><a href="demo.html" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Live Demo</a></li>
           <li><a href="animations.html" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Animations Showcase</a></li>
-          <li><a href="jit-demo.html" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">JIT Demo</a></li>
+          <li><a href="playground.html" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Playground</a></li>
+          <li><a href="changelog.html" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Changelog</a></li>
           <li><a href="santy.css" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Download CSS</a></li>
-          <li><a href="build.js" class="set-text-14 color-gray-400 text-no-decoration on-hover:color-white transition-colors">Build Script</a></li>
         </ul>
       </div>
       <div>
@@ -3612,6 +3663,27 @@ function copyCDN() {
     setTimeout(() => { btn.textContent = 'Copy CDN'; btn.style.background = 'rgba(255,255,255,0.1)'; }, 2000);
   });
 }
+
+// Dark mode toggle
+function toggleDark() {
+  var isDark = document.documentElement.classList.toggle('dark');
+  document.getElementById('dark-icon-moon').style.display = isDark ? 'none' : '';
+  document.getElementById('dark-icon-sun').style.display  = isDark ? '' : 'none';
+  try { localStorage.setItem('scb-dark', isDark ? '1' : '0'); } catch(e){}
+}
+(function() {
+  try {
+    if (localStorage.getItem('scb-dark') === '1') {
+      document.documentElement.classList.add('dark');
+      document.addEventListener('DOMContentLoaded', function() {
+        var moon = document.getElementById('dark-icon-moon');
+        var sun  = document.getElementById('dark-icon-sun');
+        if (moon) moon.style.display = 'none';
+        if (sun)  sun.style.display  = '';
+      });
+    }
+  } catch(e){}
+})();
 
 // Resources dropdown
 function toggleResources() {

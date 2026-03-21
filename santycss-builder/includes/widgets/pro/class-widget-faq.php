@@ -3,8 +3,8 @@ class Faq extends Widget_Base {
     public function get_type(): string     { return 'faq'; }
     public function get_title(): string    { return __('FAQ','santycss-builder'); }
     public function get_icon(): string     { return '❓'; }
-    public function get_category(): string { return 'pro'; }
-    public function get_tier(): string     { return 'pro'; }
+    public function get_category(): string { return 'interactive'; }
+    public function get_tier(): string     { return 'free'; }
     public function get_controls(): array {
         return [
             $this->repeater('items','FAQ Items',[$this->text('q','Question','What is SantyCSS?'),$this->wysiwyg('a','Answer','<p>A plain-English utility CSS framework.</p>'),],[['q'=>'How do I install?','a'=>'<p>Use npm or CDN.</p>'],['q'=>'Is it free?','a'=>'<p>Yes, completely open source.</p>']]),

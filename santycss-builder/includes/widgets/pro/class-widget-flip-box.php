@@ -3,8 +3,8 @@ class Flip_Box extends Widget_Base {
     public function get_type(): string     { return 'flip-box'; }
     public function get_title(): string    { return __('Flip Box','santycss-builder'); }
     public function get_icon(): string     { return '🔄'; }
-    public function get_category(): string { return 'pro'; }
-    public function get_tier(): string     { return 'pro'; }
+    public function get_category(): string { return 'interactive'; }
+    public function get_tier(): string     { return 'free'; }
     public function get_controls(): array {
         return [
             $this->heading_control('Front Side'),

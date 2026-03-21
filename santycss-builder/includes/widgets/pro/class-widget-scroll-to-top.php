@@ -3,8 +3,8 @@ class Scroll_To_Top extends Widget_Base {
     public function get_type(): string     { return 'scroll-to-top'; }
     public function get_title(): string    { return __('Scroll To Top','santycss-builder'); }
     public function get_icon(): string     { return '⬆'; }
-    public function get_category(): string { return 'pro'; }
-    public function get_tier(): string     { return 'pro'; }
+    public function get_category(): string { return 'interactive'; }
+    public function get_tier(): string     { return 'free'; }
     public function get_controls(): array {
         return [
             $this->select('style','Button Style',['circle'=>'Circle','rounded'=>'Rounded','square'=>'Square'],'circle'),

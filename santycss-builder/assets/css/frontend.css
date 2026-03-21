@@ -1,5 +1,104 @@
 /* SantyCSS Builder — frontend component styles */
 
+/* ── Entrance Animations ─────────────────────────────────────────────── */
+
+/* Initial hidden state — applied via JS before animation runs */
+.scb-anim-pending {
+  opacity: 0;
+}
+
+/* Fade In */
+@keyframes scb-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Fade In Up */
+@keyframes scb-fade-up {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Fade In Down */
+@keyframes scb-fade-down {
+  from { opacity: 0; transform: translateY(-40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Fade In Left */
+@keyframes scb-fade-left {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Fade In Right */
+@keyframes scb-fade-right {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Zoom In */
+@keyframes scb-zoom-in {
+  from { opacity: 0; transform: scale(0.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Zoom Out */
+@keyframes scb-zoom-out {
+  from { opacity: 0; transform: scale(1.3); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Bounce */
+@keyframes scb-bounce {
+  0%   { opacity: 0; transform: translateY(-30px); }
+  60%  { opacity: 1; transform: translateY(6px); }
+  80%  { transform: translateY(-4px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Flip X */
+@keyframes scb-flip-x {
+  from { opacity: 0; transform: perspective(600px) rotateX(-90deg); }
+  to   { opacity: 1; transform: perspective(600px) rotateX(0deg); }
+}
+
+/* Flip Y */
+@keyframes scb-flip-y {
+  from { opacity: 0; transform: perspective(600px) rotateY(-90deg); }
+  to   { opacity: 1; transform: perspective(600px) rotateY(0deg); }
+}
+
+/* Slide Up */
+@keyframes scb-slide-up {
+  from { opacity: 0; transform: translateY(60px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Animation utility — applied via JS */
+.scb-animated {
+  animation-fill-mode: both;
+}
+
+/* ── Responsive Visibility ───────────────────────────────────────────── */
+
+@media (min-width: 1025px) {
+  .scb-hide-desktop { display: none !important; }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .scb-hide-tablet  { display: none !important; }
+}
+
+@media (max-width: 767px) {
+  .scb-hide-mobile  { display: none !important; }
+}
+
+/* ── Widget wrapper ──────────────────────────────────────────────────── */
+.scb-widget {
+  position: relative;
+}
+
 /* ── Code Block ──────────────────────────────────────────────────────── */
 .code-block {
   border-radius: 12px;

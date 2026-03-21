@@ -3,8 +3,8 @@ class Price_Table extends Widget_Base {
     public function get_type(): string     { return 'price-table'; }
     public function get_title(): string    { return __('Price Table','santycss-builder'); }
     public function get_icon(): string     { return '💰'; }
-    public function get_category(): string { return 'pro'; }
-    public function get_tier(): string     { return 'pro'; }
+    public function get_category(): string { return 'content'; }
+    public function get_tier(): string     { return 'free'; }
     public function get_controls(): array {
         return [
             $this->repeater('plans','Plans',[

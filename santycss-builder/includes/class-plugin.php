@@ -62,50 +62,70 @@ final class Plugin {
 
     public function register_widgets() {
         $mgr = Widget_Manager::instance();
-        // Free widgets
+        // ── Layout widgets (shown first in panel) ──────────────────────────────
+        $mgr->register( new Widgets\Free\Inner_Section() );
+        $mgr->register( new Widgets\Free\Container() );
+        $mgr->register( new Widgets\Free\Menu_Anchor() );
+
+        // ── Basic widgets ──────────────────────────────────────────────────────
         $mgr->register( new Widgets\Free\Heading() );
+        $mgr->register( new Widgets\Pro\Animated_Headline() );
         $mgr->register( new Widgets\Free\Text_Editor() );
-        $mgr->register( new Widgets\Free\Image() );
         $mgr->register( new Widgets\Free\Button() );
-        $mgr->register( new Widgets\Free\Video() );
         $mgr->register( new Widgets\Free\Divider() );
         $mgr->register( new Widgets\Free\Spacer() );
         $mgr->register( new Widgets\Free\Icon() );
+        $mgr->register( new Widgets\Free\Icon_List() );
+        $mgr->register( new Widgets\Free\Star_Rating() );
+        $mgr->register( new Widgets\Free\Text_Path() );
+        $mgr->register( new Widgets\Free\Sidebar() );
+
+        // ── Media widgets ──────────────────────────────────────────────────────
+        $mgr->register( new Widgets\Free\Image() );
+        $mgr->register( new Widgets\Free\Video() );
         $mgr->register( new Widgets\Free\Image_Box() );
-        $mgr->register( new Widgets\Free\Icon_Box() );
-        $mgr->register( new Widgets\Free\Testimonial() );
+        $mgr->register( new Widgets\Free\Basic_Gallery() );
+        $mgr->register( new Widgets\Free\Image_Carousel() );
+        $mgr->register( new Widgets\Free\Google_Maps() );
+        $mgr->register( new Widgets\Free\Sound_Cloud() );
+        $mgr->register( new Widgets\Pro\Hotspot() );
+        $mgr->register( new Widgets\Pro\Portfolio_Gallery() );
+
+        // ── Social widgets ─────────────────────────────────────────────────────
+        $mgr->register( new Widgets\Free\Social_Icons() );
+        $mgr->register( new Widgets\Free\Link_In_Bio() );
+
+        // ── Interactive widgets ────────────────────────────────────────────────
         $mgr->register( new Widgets\Free\Tabs() );
         $mgr->register( new Widgets\Free\Accordion() );
         $mgr->register( new Widgets\Free\Toggle() );
-        $mgr->register( new Widgets\Free\Social_Icons() );
-        $mgr->register( new Widgets\Free\Progress_Bar() );
-        $mgr->register( new Widgets\Free\Countdown() );
         $mgr->register( new Widgets\Free\Alert() );
-        $mgr->register( new Widgets\Free\Image_Carousel() );
+        $mgr->register( new Widgets\Free\Countdown() );
+        $mgr->register( new Widgets\Pro\Hero_Slider() );
+        $mgr->register( new Widgets\Pro\Flip_Box() );
+        $mgr->register( new Widgets\Pro\Contact_Form() );
+        $mgr->register( new Widgets\Pro\Login_Form() );
+        $mgr->register( new Widgets\Pro\Faq() );
+        $mgr->register( new Widgets\Pro\Scroll_To_Top() );
+
+        // ── Content widgets ────────────────────────────────────────────────────
+        $mgr->register( new Widgets\Free\Icon_Box() );
+        $mgr->register( new Widgets\Free\Testimonial() );
         $mgr->register( new Widgets\Free\Counter() );
-        $mgr->register( new Widgets\Free\Google_Maps() );
+        $mgr->register( new Widgets\Free\Progress_Bar() );
+        $mgr->register( new Widgets\Free\Call_To_Action_Free() );
         $mgr->register( new Widgets\Free\Html() );
         $mgr->register( new Widgets\Free\Shortcode() );
         $mgr->register( new Widgets\Free\Posts_Grid() );
-        $mgr->register( new Widgets\Free\Star_Rating() );
-        $mgr->register( new Widgets\Free\Call_To_Action_Free() );
-        // Pro widgets
-        $mgr->register( new Widgets\Pro\Contact_Form() );
-        $mgr->register( new Widgets\Pro\Hero_Slider() );
-        $mgr->register( new Widgets\Pro\Flip_Box() );
         $mgr->register( new Widgets\Pro\Call_To_Action() );
-        $mgr->register( new Widgets\Pro\Portfolio_Gallery() );
-        $mgr->register( new Widgets\Pro\Login_Form() );
-        $mgr->register( new Widgets\Pro\Animated_Headline() );
         $mgr->register( new Widgets\Pro\Price_Table() );
         $mgr->register( new Widgets\Pro\Team_Member() );
-        $mgr->register( new Widgets\Pro\Faq() );
         $mgr->register( new Widgets\Pro\Timeline() );
         $mgr->register( new Widgets\Pro\Stat_Cards() );
-        $mgr->register( new Widgets\Pro\Woo_Products() );
-        $mgr->register( new Widgets\Pro\Hotspot() );
         $mgr->register( new Widgets\Pro\Code_Highlight() );
-        $mgr->register( new Widgets\Pro\Scroll_To_Top() );
+
+        // ── WooCommerce widgets ────────────────────────────────────────────────
+        $mgr->register( new Widgets\Pro\Woo_Products() );
     }
 
     public function add_menu() {

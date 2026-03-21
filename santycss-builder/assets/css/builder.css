@@ -232,6 +232,9 @@
 .scb-cols-1 { grid-template-columns: 1fr; }
 .scb-cols-2 { grid-template-columns: 1fr 1fr; }
 .scb-cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.scb-cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+.scb-cols-5 { grid-template-columns: repeat(5, 1fr); }
+.scb-cols-6 { grid-template-columns: repeat(6, 1fr); }
 
 .scb-col {
   background: #fff;
@@ -357,6 +360,37 @@
   font-size: 12px;
   text-align: center;
   padding: 32px 16px;
+}
+
+/* ── Control tabs ──────────────────────────────────────────────────────── */
+.scb-ctrl-tabs {
+  display: flex;
+  border-bottom: 2px solid #e2e8f0;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.scb-ctrl-tab {
+  flex: 1;
+  padding: 9px 4px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  transition: color .15s, border-color .15s;
+}
+
+.scb-ctrl-tab:hover { color: #1e293b; }
+
+.scb-ctrl-tab-active {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
 }
 
 .scb-ctrl-hdr {
@@ -518,3 +552,133 @@
 .scb-rep-del:hover { color: #dc2626; }
 .scb-rep-body { padding: 8px; display: flex; flex-direction: column; gap: 0; }
 .scb-rep-add { width: 100%; display: block; text-align: center; margin-top: 2px; }
+
+/* ── Layout chooser (empty canvas) ────────────────────────────────────── */
+.scb-layout-chooser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+.scb-lc-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+.scb-lc-sub {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0 0 28px;
+}
+.scb-lc-grid {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.scb-lc-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 14px;
+  background: #fff;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+  transition: border-color .15s, box-shadow .15s, transform .1s;
+  min-width: 88px;
+}
+.scb-lc-item:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px #bfdbfe;
+  transform: translateY(-2px);
+}
+.scb-lc-preview {
+  display: flex;
+  gap: 4px;
+  width: 72px;
+  height: 42px;
+}
+.scb-lc-col {
+  flex: 1;
+  background: #e2e8f0;
+  border-radius: 4px;
+  transition: background .15s;
+}
+.scb-lc-item:hover .scb-lc-col { background: #bfdbfe; }
+
+/* ── Inner Section ─────────────────────────────────────────────────────── */
+.scb-inner-sec {
+  border: 2px dashed #94a3b8;
+  border-radius: 8px;
+  background: #f8fafc;
+  overflow: hidden;
+  transition: border-color .12s;
+}
+.scb-inner-sec:hover,
+.scb-inner-sec.scb-wsel {
+  border-color: #3b82f6;
+}
+.scb-inner-sec-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  background: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+}
+.scb-inner-sec-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #64748b;
+}
+.scb-inner-cols {
+  display: grid;
+  gap: 1px;
+  background: #e2e8f0;
+  min-height: 48px;
+}
+.scb-inner-col {
+  background: #fafbfc;
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-height: 48px;
+}
+.scb-inner-col-lbl {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #94a3b8;
+  padding: 2px 0;
+}
+.scb-wcard-inner {
+  font-size: 11px;
+  padding: 5px 7px;
+}
+.scb-dz-sm {
+  padding: 5px 4px;
+  font-size: 9px;
+}
+
+/* ── Pro gate removed — kept for compatibility ─────────────────────────── */
+.scb-pro-gate {
+  padding: 12px;
+  background: #fef9c3;
+  border: 1px dashed #fbbf24;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #92400e;
+  text-align: center;
+}

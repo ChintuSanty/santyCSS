@@ -144,4 +144,34 @@
     setInterval(function () { show(current + 1); }, interval);
   });
 
+  /* ── Entrance Animations (IntersectionObserver) ───────────────────── */
+  var animEls = document.querySelectorAll('[data-scb-anim]');
+  if (animEls.length && 'IntersectionObserver' in window) {
+    var animObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        animObs.unobserve(entry.target);
+        var el   = entry.target;
+        var anim = el.dataset.scbAnim;
+        var dur  = parseInt(el.dataset.scbDur, 10) || 600;
+        var del  = parseInt(el.dataset.scbDel, 10) || 0;
+        el.classList.remove('scb-anim-pending');
+        el.style.animationName     = anim;
+        el.style.animationDuration = dur + 'ms';
+        el.style.animationDelay    = del + 'ms';
+        el.style.animationFillMode = 'both';
+        el.classList.add('scb-animated');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+    animEls.forEach(function (el) {
+      var del = parseInt(el.dataset.scbDel, 10) || 0;
+      /* only hide if not already visible from above fold */
+      if (el.getBoundingClientRect().top > 0) {
+        el.classList.add('scb-anim-pending');
+      }
+      animObs.observe(el);
+    });
+  }
+
 })();

@@ -4,7 +4,7 @@ class Woo_Products extends Widget_Base {
     public function get_title(): string    { return __('WooCommerce Products','santycss-builder'); }
     public function get_icon(): string     { return '🛍️'; }
     public function get_category(): string { return 'woocommerce'; }
-    public function get_tier(): string     { return 'pro'; }
+    public function get_tier(): string     { return 'free'; }
     public function get_controls(): array {
         return [
             $this->number('count','Number of Products',6,1,50),

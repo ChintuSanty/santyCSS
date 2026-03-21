@@ -1,4 +1,4 @@
-/* SantyCSS Builder — drag-and-drop page builder UI */
+/* SantyCSS Builder — drag-and-drop page builder UI v1.1 */
 (function () {
   'use strict';
 
@@ -9,13 +9,14 @@
     postId:     null,
     data:       { sections: [] },
     selectedId: null,
+    activeTab:  'content',   // 'content' | 'style' | 'advanced'
     dirty:      false,
   };
 
   /* drag state */
   let dragType     = null;   // widget type from panel
   let dragWidgetId = null;   // widget id for canvas reorder
-  let dragSrc      = null;   // { secId, colIdx, widgetIdx }
+  let dragSrc      = null;   // { secId, colIdx, widgetIdx, innerWidgetId, innerColIdx, innerWidgetIdx }
 
   /* ── Helpers ──────────────────────────────────────────────────────── */
   function uid() {
@@ -30,11 +31,19 @@
     return S.data.sections.find(s => s.id === id) || null;
   }
 
+  /** Searches outer columns and inner_columns of inner-section widgets */
   function findWidget(widgetId) {
     for (const sec of S.data.sections) {
       for (const col of sec.columns) {
-        const w = col.widgets.find(w => w.id === widgetId);
-        if (w) return w;
+        for (const w of col.widgets) {
+          if (w.id === widgetId) return w;
+          if (w.type === 'inner-section' && w.inner_columns) {
+            for (const icol of w.inner_columns) {
+              const iw = icol.widgets.find(iw => iw.id === widgetId);
+              if (iw) return iw;
+            }
+          }
+        }
       }
     }
     return null;
@@ -45,13 +54,12 @@
     const e = document.createElement(tag);
     if (props) {
       Object.entries(props).forEach(([k, v]) => {
-        if (k === 'className')   { e.className = v; }
-        else if (k === 'innerHTML') { e.innerHTML = v; }
-        else if (k.startsWith('on') && typeof v === 'function') {
+        if (k === 'className')      e.className = v;
+        else if (k === 'innerHTML') e.innerHTML = v;
+        else if (k.startsWith('on') && typeof v === 'function')
           e.addEventListener(k.slice(2).toLowerCase(), v);
-        } else {
+        else
           e.setAttribute(k, v);
-        }
       });
     }
     if (children !== undefined) {
@@ -96,7 +104,6 @@
       const btn = document.getElementById('scb-save-btn');
       if (btn) { btn.textContent = cfg.l10n?.saving || 'Saving…'; btn.disabled = true; }
 
-      /* sync hidden field in WP edit form */
       const hid = document.getElementById('scb-data');
       if (hid) hid.value = JSON.stringify(S.data);
 
@@ -134,7 +141,7 @@
 
       const actions = el('div', { id: 'scb-header-actions' });
       const saveBtn = el('button', { id: 'scb-save-btn', className: 'scb-btn scb-btn-primary', onclick: () => this.save() }, 'Save');
-      const exitBtn = el('button', { id: 'scb-exit-btn', className: 'scb-btn scb-btn-ghost', onclick: () => this.close() }, '✕ Exit');
+      const exitBtn = el('button', { id: 'scb-exit-btn', className: 'scb-btn scb-btn-ghost',   onclick: () => this.close() }, '✕ Exit');
       actions.append(saveBtn, exitBtn);
       header.append(title, actions);
 
@@ -144,8 +151,8 @@
       left.innerHTML = this._buildWidgetPanelHTML();
       this._initWidgetPanelEvents(left);
 
-      const canvas  = el('div', { id: 'scb-canvas' });
-      const inner   = el('div', { id: 'scb-canvas-inner' });
+      const canvas = el('div', { id: 'scb-canvas' });
+      const inner  = el('div', { id: 'scb-canvas-inner' });
       canvas.appendChild(inner);
 
       const right  = el('div', { id: 'scb-right' });
@@ -159,12 +166,12 @@
     /* ── Widget panel (left sidebar) ─────────────────────────────── */
     _buildWidgetPanelHTML() {
       const cats = {
+        layout:      'Layout',
         basic:       'Basic',
         media:       'Media',
         social:      'Social',
         interactive: 'Interactive',
         content:     'Content',
-        pro:         'Pro',
         woocommerce: 'WooCommerce',
       };
       const grouped = {};
@@ -181,10 +188,8 @@
         if (!items?.length) continue;
         html += `<div class="scb-cat" data-cat="${key}"><div class="scb-cat-label">${label}</div><div class="scb-cat-items">`;
         for (const w of items) {
-          const locked = w.tier === 'pro' && !cfg.isPro;
-          html += `<div class="scb-wi${locked ? ' scb-locked' : ''}" draggable="${!locked}" data-type="${w.type}" title="${w.title}">`;
+          html += `<div class="scb-wi" draggable="true" data-type="${w.type}" title="${w.title}">`;
           html += `<span class="scb-wi-icon">${w.icon}</span><span class="scb-wi-name">${w.title}</span>`;
-          if (locked) html += '<span class="scb-pro-tag">PRO</span>';
           html += '</div>';
         }
         html += '</div></div>';
@@ -196,17 +201,21 @@
       left.querySelector('#scb-wsearch')?.addEventListener('input', function () {
         const q = this.value.toLowerCase();
         left.querySelectorAll('.scb-wi').forEach(i => {
-          i.style.display = (i.title.toLowerCase().includes(q) || i.querySelector('.scb-wi-name').textContent.toLowerCase().includes(q)) ? '' : 'none';
+          i.style.display = (
+            i.title.toLowerCase().includes(q) ||
+            i.querySelector('.scb-wi-name').textContent.toLowerCase().includes(q)
+          ) ? '' : 'none';
         });
         left.querySelectorAll('.scb-cat').forEach(c => {
           c.style.display = [...c.querySelectorAll('.scb-wi')].some(i => i.style.display !== 'none') ? '' : 'none';
         });
       });
 
-      left.querySelectorAll('.scb-wi[draggable="true"]').forEach(item => {
+      left.querySelectorAll('.scb-wi').forEach(item => {
         item.addEventListener('dragstart', e => {
-          dragType = item.dataset.type;
+          dragType     = item.dataset.type;
           dragWidgetId = null;
+          dragSrc      = null;
           e.dataTransfer.effectAllowed = 'copy';
         });
         item.addEventListener('dragend', () => { dragType = null; });
@@ -219,6 +228,11 @@
       if (!inner) return;
       inner.innerHTML = '';
 
+      if (S.data.sections.length === 0) {
+        inner.appendChild(this._buildLayoutChooser());
+        return;
+      }
+
       S.data.sections.forEach((sec, si) => {
         inner.appendChild(this._buildSectionEl(sec, si));
       });
@@ -228,6 +242,36 @@
       const btn  = el('button', { className: 'scb-add-sec-btn', onclick: (e) => this._showSectionMenu(e, btn) }, '+ Add Section');
       wrap.appendChild(btn);
       inner.appendChild(wrap);
+    },
+
+    /* ── Layout chooser (empty state) ────────────────────────────── */
+    _buildLayoutChooser() {
+      const wrap = el('div', { className: 'scb-layout-chooser' });
+      wrap.innerHTML = `
+        <div class="scb-lc-title">Choose a layout to start</div>
+        <p class="scb-lc-sub">Select how many columns your first section should have</p>
+        <div class="scb-lc-grid">
+          <button class="scb-lc-item" data-cols="1">
+            <div class="scb-lc-preview"><div class="scb-lc-col"></div></div>
+            <span>1 Column</span>
+          </button>
+          <button class="scb-lc-item" data-cols="2">
+            <div class="scb-lc-preview"><div class="scb-lc-col"></div><div class="scb-lc-col"></div></div>
+            <span>2 Columns</span>
+          </button>
+          <button class="scb-lc-item" data-cols="3">
+            <div class="scb-lc-preview"><div class="scb-lc-col"></div><div class="scb-lc-col"></div><div class="scb-lc-col"></div></div>
+            <span>3 Columns</span>
+          </button>
+          <button class="scb-lc-item" data-cols="4">
+            <div class="scb-lc-preview"><div class="scb-lc-col"></div><div class="scb-lc-col"></div><div class="scb-lc-col"></div><div class="scb-lc-col"></div></div>
+            <span>4 Columns</span>
+          </button>
+        </div>`;
+      wrap.querySelectorAll('.scb-lc-item').forEach(btn => {
+        btn.addEventListener('click', () => this._addSection(parseInt(btn.dataset.cols)));
+      });
+      return wrap;
     },
 
     _buildSectionEl(sec, si) {
@@ -240,8 +284,8 @@
       const barR    = el('div',  { className: 'scb-sec-acts' });
 
       barR.append(
-        el('button', { className: 'scb-sbtn', title: 'Move up',    onclick: () => this._moveSection(sec.id, -1) }, '↑'),
-        el('button', { className: 'scb-sbtn', title: 'Move down',  onclick: () => this._moveSection(sec.id,  1) }, '↓'),
+        el('button', { className: 'scb-sbtn', title: 'Move up',     onclick: () => this._moveSection(sec.id, -1) }, '↑'),
+        el('button', { className: 'scb-sbtn', title: 'Move down',   onclick: () => this._moveSection(sec.id,  1) }, '↓'),
         el('button', { className: 'scb-sbtn scb-danger', title: 'Delete section', onclick: () => this._removeSection(sec.id) }, '✕'),
       );
       bar.append(barLeft, barR);
@@ -253,9 +297,9 @@
         const colEl = el('div', { className: 'scb-col' });
         col.widgets.forEach((w, wi) => colEl.appendChild(this._buildWidgetCard(w, sec.id, ci, wi)));
 
-        /* drop zone at bottom of column */
+        /* drop zone */
         const dz = el('div', { className: 'scb-dz' }, 'Drop widget here');
-        this._initDropZone(dz, sec.id, ci);
+        this._initDropZone(dz, { secId: sec.id, colIdx: ci });
         colEl.appendChild(dz);
         colsEl.appendChild(colEl);
       });
@@ -263,10 +307,15 @@
       return secEl;
     },
 
+    /* ── Widget card ──────────────────────────────────────────────── */
     _buildWidgetCard(w, secId, colIdx, widgetIdx) {
+      if (w.type === 'inner-section') {
+        return this._buildInnerSectionEl(w, secId, colIdx, widgetIdx);
+      }
+
       const def  = getWidgetDef(w.type);
       const card = el('div', {
-        className:       'scb-wcard' + (S.selectedId === w.id ? ' scb-wsel' : ''),
+        className:        'scb-wcard' + (S.selectedId === w.id ? ' scb-wsel' : ''),
         'data-widget-id': w.id,
         draggable:        'true',
         onclick:          (e) => { e.stopPropagation(); this._selectWidget(w.id); },
@@ -275,7 +324,7 @@
       card.addEventListener('dragstart', e => {
         dragWidgetId = w.id;
         dragType     = null;
-        dragSrc      = { secId, colIdx, widgetIdx };
+        dragSrc      = { secId, colIdx, widgetIdx, innerWidgetId: null, innerColIdx: null };
         e.dataTransfer.effectAllowed = 'move';
       });
 
@@ -294,26 +343,105 @@
       return card;
     },
 
-    _initDropZone(dz, secId, colIdx) {
+    /* ── Inner Section in canvas ──────────────────────────────────── */
+    _buildInnerSectionEl(w, secId, colIdx, widgetIdx) {
+      const def      = getWidgetDef(w.type);
+      const isSelect = S.selectedId === w.id;
+      const wrap     = el('div', {
+        className:        'scb-inner-sec' + (isSelect ? ' scb-wsel' : ''),
+        'data-widget-id': w.id,
+        onclick:          (e) => { e.stopPropagation(); this._selectWidget(w.id); },
+      });
+
+      /* inner section bar */
+      const bar  = el('div', { className: 'scb-inner-sec-bar' });
+      const lbl  = el('span', { className: 'scb-inner-sec-label' }, (def?.icon || '⬛') + ' Inner Section');
+      const acts = el('div', { className: 'scb-wcard-acts' });
+      acts.append(
+        el('button', { className: 'scb-wbtn', title: 'Move up',   onclick: (e) => { e.stopPropagation(); this._moveWidget(secId, colIdx, widgetIdx, -1); } }, '↑'),
+        el('button', { className: 'scb-wbtn', title: 'Move down', onclick: (e) => { e.stopPropagation(); this._moveWidget(secId, colIdx, widgetIdx,  1); } }, '↓'),
+        el('button', { className: 'scb-wbtn scb-danger', title: 'Delete', onclick: (e) => { e.stopPropagation(); this._removeWidget(w.id); } }, '✕'),
+      );
+      bar.append(lbl, acts);
+      wrap.appendChild(bar);
+
+      /* inner columns */
+      const iCols   = w.inner_columns || [];
+      const iColsEl = el('div', { className: `scb-inner-cols scb-cols-${iCols.length || 2}` });
+      iCols.forEach((icol, ici) => {
+        const iColEl = el('div', { className: 'scb-inner-col' });
+        const iLbl   = el('div', { className: 'scb-inner-col-lbl' }, `Column ${ici + 1}`);
+        iColEl.appendChild(iLbl);
+
+        icol.widgets.forEach((iw, iwi) => {
+          iColEl.appendChild(this._buildInnerWidgetCard(iw, secId, colIdx, widgetIdx, w.id, ici, iwi));
+        });
+
+        const dz = el('div', { className: 'scb-dz scb-dz-sm' }, 'Drop here');
+        this._initDropZone(dz, { secId, colIdx, innerWidgetId: w.id, innerColIdx: ici });
+        iColEl.appendChild(dz);
+        iColsEl.appendChild(iColEl);
+      });
+      wrap.appendChild(iColsEl);
+      return wrap;
+    },
+
+    _buildInnerWidgetCard(iw, secId, colIdx, widgetIdx, innerWidgetId, innerColIdx, innerWidgetIdx) {
+      const def  = getWidgetDef(iw.type);
+      const card = el('div', {
+        className:        'scb-wcard scb-wcard-inner' + (S.selectedId === iw.id ? ' scb-wsel' : ''),
+        'data-widget-id': iw.id,
+        draggable:        'true',
+        onclick:          (e) => { e.stopPropagation(); this._selectWidget(iw.id); },
+      });
+      card.addEventListener('dragstart', e => {
+        dragWidgetId = iw.id;
+        dragType     = null;
+        dragSrc      = { secId, colIdx, widgetIdx, innerWidgetId, innerColIdx, innerWidgetIdx };
+        e.dataTransfer.effectAllowed = 'move';
+      });
+
+      const acts = el('div', { className: 'scb-wcard-acts' });
+      acts.append(
+        el('button', { className: 'scb-wbtn', title: 'Move up',   onclick: (e) => { e.stopPropagation(); this._moveInnerWidget(innerWidgetId, innerColIdx, innerWidgetIdx, -1); } }, '↑'),
+        el('button', { className: 'scb-wbtn', title: 'Move down', onclick: (e) => { e.stopPropagation(); this._moveInnerWidget(innerWidgetId, innerColIdx, innerWidgetIdx,  1); } }, '↓'),
+        el('button', { className: 'scb-wbtn scb-danger', title: 'Delete', onclick: (e) => { e.stopPropagation(); this._removeWidget(iw.id); } }, '✕'),
+      );
+      card.append(
+        el('span', { className: 'scb-wcard-icon' }, def?.icon || '□'),
+        el('span', { className: 'scb-wcard-name' }, def?.title || iw.type),
+        acts,
+      );
+      return card;
+    },
+
+    /* ── Drop zones ───────────────────────────────────────────────── */
+    _initDropZone(dz, ctx) {
       dz.addEventListener('dragover',  e => { e.preventDefault(); dz.classList.add('scb-dz-on'); });
       dz.addEventListener('dragleave', ()  => dz.classList.remove('scb-dz-on'));
       dz.addEventListener('drop', e => {
         e.preventDefault();
         dz.classList.remove('scb-dz-on');
         if (dragType) {
-          this._addWidget(dragType, secId, colIdx);
+          this._addWidget(dragType, ctx);
         } else if (dragWidgetId && dragSrc) {
-          this._moveWidgetTo(dragWidgetId, dragSrc, secId, colIdx);
+          this._moveWidgetTo(dragWidgetId, dragSrc, ctx);
         }
         dragType = null; dragWidgetId = null; dragSrc = null;
       });
     },
 
+    /* ── Section menu ─────────────────────────────────────────────── */
     _showSectionMenu(e, btn) {
       e.stopPropagation();
       document.querySelector('.scb-sec-menu')?.remove();
       const menu = el('div', { className: 'scb-sec-menu' });
-      [[1,'⬜ 1 Column'],[2,'⬜⬜ 2 Columns'],[3,'⬜⬜⬜ 3 Columns']].forEach(([cols, label]) => {
+      [
+        [1, '⬜ 1 Column'],
+        [2, '⬜⬜ 2 Columns'],
+        [3, '⬜⬜⬜ 3 Columns'],
+        [4, '⬜⬜⬜⬜ 4 Columns'],
+      ].forEach(([cols, label]) => {
         menu.appendChild(el('div', { className: 'scb-sec-menu-item', onclick: () => { this._addSection(cols); menu.remove(); } }, label));
       });
       btn.parentNode.style.position = 'relative';
@@ -324,7 +452,8 @@
     /* ── Controls panel (right sidebar) ──────────────────────────── */
     _selectWidget(widgetId) {
       S.selectedId = widgetId;
-      document.querySelectorAll('.scb-wcard').forEach(c => c.classList.remove('scb-wsel'));
+      S.activeTab  = 'content';
+      document.querySelectorAll('.scb-wcard, .scb-inner-sec').forEach(c => c.classList.remove('scb-wsel'));
       document.querySelector(`[data-widget-id="${widgetId}"]`)?.classList.add('scb-wsel');
       this._renderControls();
     },
@@ -345,20 +474,71 @@
       }
 
       right.innerHTML = '';
+
+      /* Header */
       const hdr = el('div', { className: 'scb-ctrl-hdr' });
       hdr.innerHTML = `<span class="scb-ctrl-hdr-icon">${def.icon}</span><span>${def.title}</span>`;
       right.appendChild(hdr);
 
+      /* ── Tab bar ── */
+      const tabs = [
+        { id: 'content',  label: 'Content' },
+        { id: 'style',    label: 'Style' },
+        { id: 'advanced', label: 'Advanced' },
+      ];
+      const tabBar = el('div', { className: 'scb-ctrl-tabs' });
+      tabs.forEach(t => {
+        const btn = el('button', {
+          className: 'scb-ctrl-tab' + (S.activeTab === t.id ? ' scb-ctrl-tab-active' : ''),
+          onclick: () => {
+            S.activeTab = t.id;
+            this._renderControls();
+          },
+        }, t.label);
+        tabBar.appendChild(btn);
+      });
+      right.appendChild(tabBar);
+
+      /* ── Controls for active tab ── */
       const body = el('div', { className: 'scb-ctrl-body' });
-      def.controls.forEach(ctrl => {
+      const activeControls = (def.controls || []).filter(ctrl => {
+        const ctrlTab = ctrl.tab || 'content';
+        return ctrlTab === S.activeTab;
+      });
+
+      activeControls.forEach(ctrl => {
         const val  = w.settings[ctrl.key] !== undefined ? w.settings[ctrl.key] : ctrl.default;
         const wrap = this._buildControl(ctrl, val, key => newVal => this._updateSetting(w.id, key, newVal));
         if (wrap) body.appendChild(wrap);
       });
+
+      /* Inner Section: apply column count button (content tab only) */
+      if (w.type === 'inner-section' && S.activeTab === 'content') {
+        const applyBtn = el('button', {
+          className: 'scb-btn scb-btn-sm',
+          style: 'margin-top:10px;width:100%;',
+          onclick: () => {
+            const cnt     = parseInt(w.settings.columns_count || 2);
+            const current = w.inner_columns || [];
+            while (current.length < cnt) current.push({ id: uid(), widgets: [] });
+            if (current.length > cnt) current.splice(cnt);
+            w.inner_columns = current;
+            S.dirty = true;
+            this.renderCanvas();
+            this._selectWidget(w.id);
+          },
+        }, 'Apply Column Count');
+        body.appendChild(applyBtn);
+      }
+
+      if (activeControls.length === 0) {
+        body.appendChild(el('div', { className: 'scb-no-sel' }, 'No settings in this tab.'));
+      }
+
       right.appendChild(body);
     },
 
-    /* builds one control row; onChange factory = (key) => (value) => void */
+    /* builds one control row */
     _buildControl(ctrl, val, onChangeFn) {
       if (ctrl.type === 'divider') return el('hr', { className: 'scb-divider' });
       if (ctrl.type === 'heading') return el('div', { className: 'scb-ctrl-grp-hdr' }, ctrl.label);
@@ -366,10 +546,10 @@
       const onChange = onChangeFn(ctrl.key);
 
       if (ctrl.type === 'toggle') {
-        const row   = el('div', { className: 'scb-tog-row' });
-        const lbl   = el('span', { className: 'scb-lbl' }, ctrl.label);
-        const sw    = el('label', { className: 'scb-tog' });
-        const inp   = el('input', { type: 'checkbox' });
+        const row = el('div', { className: 'scb-tog-row' });
+        const lbl = el('span', { className: 'scb-lbl' }, ctrl.label);
+        const sw  = el('label', { className: 'scb-tog' });
+        const inp = el('input', { type: 'checkbox' });
         if (val) inp.checked = true;
         inp.addEventListener('change', () => onChange(inp.checked));
         sw.append(inp, el('span', { className: 'scb-tog-track' }));
@@ -378,15 +558,12 @@
       }
 
       const wrap = el('div', { className: 'scb-ctrl-row' });
-      if (ctrl.type !== 'toggle') {
-        wrap.appendChild(el('label', { className: 'scb-lbl' }, ctrl.label));
-      }
+      wrap.appendChild(el('label', { className: 'scb-lbl' }, ctrl.label));
       const inp = this._buildInput(ctrl, val, onChange);
       if (inp) wrap.appendChild(inp);
       return wrap;
     },
 
-    /* returns only the input element (or composite wrapper) for a control */
     _buildInput(ctrl, val, onChange) {
       switch (ctrl.type) {
 
@@ -479,9 +656,9 @@
         }
 
         case 'repeater': {
-          const items  = Array.isArray(val) ? val.map(i => Object.assign({}, i))
-                                            : (ctrl.default || []).map(i => Object.assign({}, i));
-          const w      = el('div', { className: 'scb-rep' });
+          const items = Array.isArray(val) ? val.map(i => Object.assign({}, i))
+                                           : (ctrl.default || []).map(i => Object.assign({}, i));
+          const w     = el('div', { className: 'scb-rep' });
 
           const renderItems = () => {
             w.innerHTML = '';
@@ -533,8 +710,16 @@
 
     /* ── Data mutations ───────────────────────────────────────────── */
     _addSection(cols) {
-      const widths = { 1: ['1-of-1'], 2: ['1-of-2','1-of-2'], 3: ['1-of-3','1-of-3','1-of-3'] };
-      const columns = (widths[cols] || widths[1]).map(width => ({
+      const n = Math.min(Math.max(cols, 1), 6);
+      const widths = {
+        1: ['1-of-1'],
+        2: ['1-of-2','1-of-2'],
+        3: ['1-of-3','1-of-3','1-of-3'],
+        4: ['1-of-4','1-of-4','1-of-4','1-of-4'],
+        5: ['1-of-5','1-of-5','1-of-5','1-of-5','1-of-5'],
+        6: ['1-of-6','1-of-6','1-of-6','1-of-6','1-of-6','1-of-6'],
+      };
+      const columns = (widths[n] || widths[1]).map(width => ({
         id: uid(), width, settings: {}, widgets: [],
       }));
       S.data.sections.push({ id: uid(), settings: { padding_y: '60', padding_x: '20' }, columns });
@@ -560,12 +745,27 @@
       this.renderCanvas();
     },
 
-    _addWidget(type, secId, colIdx) {
-      const sec = findSection(secId);
+    _addWidget(type, ctx) {
+      const sec = findSection(ctx.secId);
       const def = getWidgetDef(type);
       if (!sec || !def) return;
+
       const w = { id: uid(), type, settings: Object.assign({}, def.defaults) };
-      sec.columns[colIdx].widgets.push(w);
+
+      /* inner-section needs inner_columns bootstrapped */
+      if (type === 'inner-section') {
+        const cnt = parseInt(w.settings.columns_count || 2);
+        w.inner_columns = Array.from({ length: cnt }, () => ({ id: uid(), widgets: [] }));
+      }
+
+      if (ctx.innerWidgetId != null) {
+        const outerW = findWidget(ctx.innerWidgetId);
+        if (!outerW || !outerW.inner_columns) return;
+        outerW.inner_columns[ctx.innerColIdx]?.widgets.push(w);
+      } else {
+        sec.columns[ctx.colIdx].widgets.push(w);
+      }
+
       S.dirty = true;
       this.renderCanvas();
       this._selectWidget(w.id);
@@ -576,6 +776,14 @@
         for (const col of sec.columns) {
           const i = col.widgets.findIndex(w => w.id === widgetId);
           if (i !== -1) { col.widgets.splice(i, 1); break; }
+          for (const w of col.widgets) {
+            if (w.type === 'inner-section' && w.inner_columns) {
+              for (const icol of w.inner_columns) {
+                const ii = icol.widgets.findIndex(iw => iw.id === widgetId);
+                if (ii !== -1) { icol.widgets.splice(ii, 1); break; }
+              }
+            }
+          }
         }
       }
       if (S.selectedId === widgetId) { S.selectedId = null; this._renderControls(); }
@@ -584,10 +792,10 @@
     },
 
     _moveWidget(secId, colIdx, widgetIdx, dir) {
-      const sec = findSection(secId);
+      const sec     = findSection(secId);
       if (!sec) return;
       const widgets = sec.columns[colIdx].widgets;
-      const nxt = widgetIdx + dir;
+      const nxt     = widgetIdx + dir;
       if (nxt < 0 || nxt >= widgets.length) return;
       const [w] = widgets.splice(widgetIdx, 1);
       widgets.splice(nxt, 0, w);
@@ -595,13 +803,47 @@
       this.renderCanvas();
     },
 
-    _moveWidgetTo(widgetId, src, destSecId, destColIdx) {
-      const srcSec = findSection(src.secId);
-      if (!srcSec) return;
-      const [w] = srcSec.columns[src.colIdx].widgets.splice(src.widgetIdx, 1);
-      const dst = findSection(destSecId);
-      if (!dst) return;
-      dst.columns[destColIdx].widgets.push(w);
+    _moveInnerWidget(innerWidgetId, innerColIdx, innerWidgetIdx, dir) {
+      const iw = findWidget(innerWidgetId);
+      if (!iw || !iw.inner_columns) return;
+      const widgets = iw.inner_columns[innerColIdx]?.widgets;
+      if (!widgets) return;
+      const nxt = innerWidgetIdx + dir;
+      if (nxt < 0 || nxt >= widgets.length) return;
+      const [w] = widgets.splice(innerWidgetIdx, 1);
+      widgets.splice(nxt, 0, w);
+      S.dirty = true;
+      this.renderCanvas();
+    },
+
+    _moveWidgetTo(widgetId, src, dst) {
+      let moved = null;
+
+      /* remove from source */
+      if (src.innerWidgetId != null) {
+        const srcIW = findWidget(src.innerWidgetId);
+        if (srcIW?.inner_columns) {
+          const col = srcIW.inner_columns[src.innerColIdx];
+          const ii  = col?.widgets.findIndex(w => w.id === widgetId);
+          if (ii !== -1) [moved] = col.widgets.splice(ii, 1);
+        }
+      } else {
+        const srcSec = findSection(src.secId);
+        const col    = srcSec?.columns[src.colIdx];
+        const i      = col?.widgets.findIndex(w => w.id === widgetId);
+        if (i !== -1) [moved] = col.widgets.splice(i, 1);
+      }
+      if (!moved) return;
+
+      /* add to destination */
+      if (dst.innerWidgetId != null) {
+        const dstIW = findWidget(dst.innerWidgetId);
+        dstIW?.inner_columns?.[dst.innerColIdx]?.widgets.push(moved);
+      } else {
+        const dstSec = findSection(dst.secId);
+        dstSec?.columns[dst.colIdx]?.widgets.push(moved);
+      }
+
       S.dirty = true;
       this.renderCanvas();
     },

@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SantyCSS Components — Ready-Made UI Components | No Build Step</title>
+  <meta name="description" content="20+ ready-made SantyCSS components: buttons, modals, tabs, accordion, cards, forms, badges, alerts, tooltips, and more. Live previews with copy-paste code snippets." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://santycss.santy.in/components.html" />
+  <link rel="sitemap" type="application/xml" href="https://santycss.santy.in/sitemap.xml" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="SantyCSS" />
+  <meta property="og:title"       content="SantyCSS Components — Ready-Made UI Components" />
+  <meta property="og:description" content="20+ ready-made components with live previews and copy-paste code. Buttons, modals, tabs, accordion, cards, forms, and more." />
+  <meta property="og:url"         content="https://santycss.santy.in/components.html" />
+  <meta property="og:image"       content="https://santycss.santy.in/assest/santy_css.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="SantyCSS Components — Ready-Made UI Components" />
+  <meta name="twitter:description" content="20+ ready-made components with live previews and copy-paste code." />
+  <meta name="twitter:image"       content="https://santycss.santy.in/assest/santy_css.png" />
+
+  <link rel="icon" type="image/png" href="assest/santy_css.png" />
+  <link rel="stylesheet" href="santy.css" />
+  <style>
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    pre  { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+    .nav-link { transition: color 0.2s; }
+    .nav-link:hover { color: #3b82f6; }
+    .nav-link-active { color: #2563eb !important; font-weight: 700 !important; }
+    .nav-resources { position: relative; }
+    .nav-resources-btn { background:none; border:none; cursor:pointer; font-size:14px; font-weight:600; color:#4b5563; display:flex; align-items:center; gap:5px; padding:4px 0; transition:color .15s; }
+    .nav-resources-btn:hover, .nav-resources-btn.open { color:#3b82f6; }
+    .nav-resources-btn svg { transition: transform .2s; }
+    .nav-resources-btn.open svg { transform: rotate(180deg); }
+    .nav-dropdown { display: none; position: absolute; top: calc(100% + 10px); right: 0; background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; box-shadow: 0 8px 30px rgba(0,0,0,.12); min-width: 180px; z-index: 999; padding: 6px; }
+    .nav-dropdown.open { display: block; animation: ddFade .15s ease; }
+    @keyframes ddFade { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+    .nav-dropdown a { display:block; padding:9px 14px; font-size:13px; font-weight:600; color:#374151; text-decoration:none; border-radius:9px; transition:background .12s; }
+    .nav-dropdown a:hover { background:#f1f5f9; color:#3b82f6; }
+
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 7px 9px;
+      cursor: pointer;
+      color: #374151;
+      line-height: 1;
+    }
+    @media (max-width: 767px) {
+      .nav-hamburger { display: flex; align-items: center; justify-content: center; }
+      #main-nav {
+        display: none;
+        position: fixed;
+        top: 61px; left: 0; right: 0; bottom: 0;
+        background: #fff;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+        gap: 4px;
+        z-index: 98;
+        border-top: 1px solid #e5e7eb;
+        overflow-y: auto;
+        box-shadow: 0 4px 24px rgba(0,0,0,.12);
+      }
+      #main-nav.nav-open { display: flex; }
+      #main-nav .nav-link {
+        display: block;
+        padding: 12px !important;
+        font-size: 16px !important;
+        border-radius: 8px;
+        color: #1f2937 !important;
+        border-bottom: 1px solid #f3f4f6;
+      }
+      #main-nav .nav-link:hover { background: #f9fafb; }
+      #main-nav .btn { margin-top: 8px; text-align: center; padding: 12px; font-size: 15px; }
+      .grid-cols-2, .grid-cols-3, .grid-cols-4 { grid-template-columns: 1fr !important; }
+      [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+    }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #312e81 100%);
+    }
+    .chip {
+      display: inline-block;
+      background: #1e293b;
+      color: #7dd3fc;
+      border-radius: 6px;
+      padding: 2px 9px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: ui-monospace, monospace;
+      border: 1px solid #334155;
+    }
+    .code-block {
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 10px;
+      padding: 20px 24px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.7;
+      font-family: ui-monospace, monospace;
+      max-width: 100%;
+      position: relative;
+    }
+    .code-block .c-tag  { color: #f472b6; }
+    .code-block .c-attr { color: #a5b4fc; }
+    .code-block .c-str  { color: #fcd34d; }
+    .code-block .c-com  { color: #64748b; font-style: italic; }
+    .section { scroll-margin-top: 72px; }
+
+    /* Copy button on code blocks */
+    .copy-code-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      color: #94a3b8;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      cursor: pointer;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      transition: all .15s;
+    }
+    .copy-code-btn:hover { background: rgba(255,255,255,0.15); color: #e2e8f0; }
+
+    /* Category sidebar */
+    .sidebar-link {
+      display: block;
+      padding: 6px 12px;
+      border-radius: 7px;
+      font-size: 13px;
+      color: #475569;
+      text-decoration: none;
+      transition: all 0.15s;
+      font-weight: 500;
+    }
+    .sidebar-link:hover { background: #f1f5f9; color: #1e293b; }
+    .sidebar-link.active { background: #eff6ff; color: #2563eb; font-weight: 700; }
+
+    /* Toast */
+    #comp-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 10px 22px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      z-index: 9999;
+      box-shadow: 0 8px 24px rgba(0,0,0,.3);
+      transition: all .25s ease;
+      opacity: 0;
+      white-space: nowrap;
+    }
+    #comp-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body class="background-gray-50">
+
+<!-- ─── TOP NAV ─────────────────────────────────────────────────────────────── -->
+<header class="position-sticky pin-top-0 layer-50 background-white add-shadow-sm" style="border-bottom:1px solid #e5e7eb;">
+  <div class="container make-flex align-center justify-between add-padding-y-14">
+    <a href="index.html" class="make-flex align-center gap-10 text-no-decoration">
+      <img src="assest/santy_css.png" alt="SantyCSS" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
+      <span class="set-text-20 text-bold color-gray-900">Santy<span class="color-blue-600">CSS</span></span>
+      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v1.8.0</span>
+    </a>
+    <button class="nav-hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
+      <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg id="ham-close" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:none"><path d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <nav id="main-nav" class="make-flex align-center gap-20">
+      <a href="classes.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Classes</a>
+      <a href="components.html" class="nav-link nav-link-active text-no-decoration set-text-14 text-semibold">Components</a>
+      <a href="animations.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Animations</a>
+      <a href="icons.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Icons</a>
+      <div class="nav-resources" id="navResources">
+        <button class="nav-resources-btn" id="navResBtn" onclick="toggleResources()" aria-expanded="false">
+          Resources
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="nav-dropdown" id="navDropdown">
+          <a href="index.html#ai-generator">✨ AI Generator</a>
+          <a href="webflow.html">🌊 Webflow snippets</a>
+          <a href="docs.html">📦 npm Docs</a>
+          <a href="docs.html#postcss">🔧 PostCSS Plugin</a>
+          <a href="index.html#feedback">💬 Feedback</a>
+        </div>
+      </div>
+      <a href="playground.html" class="make-button style-primary size-small">⚡ Playground →</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ─── HERO ─────────────────────────────────────────────────────────────────── -->
+<section class="hero-gradient add-padding-y-64 add-padding-x-16 text-center">
+  <div class="container">
+    <span class="badge background-blue-900 color-blue-300 add-margin-bottom-16" style="font-size:12px;letter-spacing:.05em;">COMPONENTS</span>
+    <h1 class="set-text-48 text-bold color-white add-margin-bottom-16" style="letter-spacing:-1.5px;line-height:1.1;">
+      Ready-Made UI Components
+    </h1>
+    <p class="set-text-18 add-margin-bottom-32" style="color:rgba(255,255,255,0.7);max-width:560px;margin-left:auto;margin-right:auto;line-height:1.6;">
+      20+ high-level component classes built on SantyCSS utilities. Live previews, copy-paste code, no build step.
+    </p>
+    <div class="make-flex align-center justify-center gap-12 flex-wrap">
+      <a href="#buttons" class="make-button style-primary size-small">Browse Components</a>
+      <a href="classes.html" class="make-button style-outline size-small" style="color:#fff;border-color:rgba(255,255,255,0.35);">View All Classes</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MAIN LAYOUT ─────────────────────────────────────────────────────────── -->
+<div class="container add-padding-y-48" style="display:grid;grid-template-columns:220px 1fr;gap:40px;align-items:start;">
+
+  <!-- Sidebar -->
+  <aside style="position:sticky;top:84px;">
+    <p class="set-text-11 text-semibold color-gray-400 text-uppercase" style="letter-spacing:.08em;margin-bottom:10px;">Components</p>
+    <a href="#buttons"     class="sidebar-link">Buttons</a>
+    <a href="#modal"       class="sidebar-link">Modal / Dialog</a>
+    <a href="#dropdown"    class="sidebar-link">Dropdown</a>
+    <a href="#tabs"        class="sidebar-link">Tabs</a>
+    <a href="#accordion"   class="sidebar-link">Accordion</a>
+    <a href="#toast"       class="sidebar-link">Toast / Notification</a>
+    <a href="#progress"    class="sidebar-link">Progress &amp; Skeleton</a>
+    <a href="#badges"      class="sidebar-link">Badges &amp; Chips</a>
+    <a href="#drawer"      class="sidebar-link">Sidebar / Drawer</a>
+    <a href="#table"       class="sidebar-link">Table</a>
+    <a href="#pagination"  class="sidebar-link">Pagination &amp; Breadcrumb</a>
+    <a href="#toggle"      class="sidebar-link">Toggle &amp; Range</a>
+    <a href="#stepper"     class="sidebar-link">Stepper</a>
+    <a href="#cards"       class="sidebar-link">Card</a>
+    <a href="#forms"       class="sidebar-link">Form Inputs</a>
+    <a href="#avatar"      class="sidebar-link">Avatar &amp; Spinner</a>
+    <a href="#alerts"      class="sidebar-link">Alerts</a>
+    <a href="#navbar"      class="sidebar-link">Navbar</a>
+    <a href="#tooltip"     class="sidebar-link">Tooltip</a>
+  </aside>
+
+  <!-- Content -->
+  <main>
+
+    <!-- ── Buttons ──────────────────────────────────────────────────────── -->
+    <section id="buttons" class="section add-margin-bottom-48">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">Buttons</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-20">Style variants, sizes, and states. Combine <code class="chip">.make-button</code> with a style and size class.</p>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm add-margin-bottom-16">
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-16" style="letter-spacing:.06em;">Live Preview</p>
+        <div class="make-flex flex-wrap gap-8 add-margin-bottom-16">
+          <button class="make-button style-primary">Primary</button>
+          <button class="make-button style-success">Success</button>
+          <button class="make-button style-danger">Danger</button>
+          <button class="make-button style-warning">Warning</button>
+          <button class="make-button style-outline">Outline</button>
+          <button class="make-button style-ghost">Ghost</button>
+        </div>
+        <div class="make-flex flex-wrap gap-8">
+          <button class="make-button style-primary size-small">Small</button>
+          <button class="make-button style-primary">Default</button>
+          <button class="make-button style-primary size-large">Large</button>
+          <button class="make-button style-primary size-xl">XL</button>
+        </div>
+      </div>
+      <div class="code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <code><span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"make-button style-primary"</span><span class="c-tag">&gt;</span>Primary<span class="c-tag">&lt;/button&gt;</span>
+<span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"make-button style-success size-small"</span><span class="c-tag">&gt;</span>Small Success<span class="c-tag">&lt;/button&gt;</span>
+<span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"make-button style-outline size-large"</span><span class="c-tag">&gt;</span>Large Outline<span class="c-tag">&lt;/button&gt;</span>
+
+<span class="c-com">/* Styles: style-primary | style-success | style-danger | style-warning | style-outline | style-ghost */</span>
+<span class="c-com">/* Sizes:  size-small | (default) | size-large | size-xl */</span></code>
+      </div>
+    </section>
+
+    <!-- ── Modal ──────────────────────────────────────────────────────────── -->
+    <section id="modal" class="section add-margin-bottom-48">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">Modal / Dialog</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-20">Pure CSS modal using the <code class="chip">:target</code> pseudo-class. No JavaScript required.</p>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm add-margin-bottom-16">
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-16" style="letter-spacing:.06em;">Live Preview</p>
+        <a href="#demo-modal" class="make-button style-primary size-small">Open Modal</a>
+        <div id="demo-modal" class="modal-overlay">
+          <div class="modal-box" style="max-width:380px;">
+            <div class="modal-header">
+              <h4 class="modal-title">Confirm Action</h4>
+              <a href="#" class="modal-close"></a>
+            </div>
+            <div class="modal-body">Are you sure you want to delete this item? This action cannot be undone.</div>
+            <div class="modal-footer">
+              <a href="#" class="make-button style-ghost size-small">Cancel</a>
+              <button class="make-button style-danger size-small">Delete</button>
+            </div>
+          </div>
+        </div>
+        <p class="set-text-12 color-gray-500 add-margin-top-12">Trigger with <code class="chip">&lt;a href="#modal-id"&gt;</code></p>
+      </div>
+      <div class="code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <code><span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#my-modal"</span> <span class="c-attr">class</span>=<span class="c-str">"make-button style-primary"</span><span class="c-tag">&gt;</span>Open Modal<span class="c-tag">&lt;/a&gt;</span>
+
+<span class="c-tag">&lt;div</span> <span class="c-attr">id</span>=<span class="c-str">"my-modal"</span> <span class="c-attr">class</span>=<span class="c-str">"modal-overlay"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"modal-box"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"modal-header"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;h4</span> <span class="c-attr">class</span>=<span class="c-str">"modal-title"</span><span class="c-tag">&gt;</span>Title<span class="c-tag">&lt;/h4&gt;</span>
+      <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"modal-close"</span><span class="c-tag">&gt;&lt;/a&gt;</span>
+    <span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"modal-body"</span><span class="c-tag">&gt;</span>Content here.<span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"modal-footer"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"make-button style-ghost"</span><span class="c-tag">&gt;</span>Cancel<span class="c-tag">&lt;/a&gt;</span>
+    <span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></code>
+      </div>
+    </section>
+
+    <!-- ── Dropdown ─────────────────────────────────────────────────────── -->
+    <section id="dropdown" class="section add-margin-bottom-48">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">Dropdown Menu</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-20">Toggle-based dropdown with headers, items, and dividers.</p>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm add-margin-bottom-16">
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-16" style="letter-spacing:.06em;">Live Preview</p>
+        <div class="dropdown">
+          <button class="make-button style-primary size-small dropdown-toggle" onclick="this.closest('.dropdown').classList.toggle('open')">Options ▾</button>
+          <div class="dropdown-menu">
+            <div class="dropdown-header">Actions</div>
+            <a href="#" class="dropdown-item">Edit</a>
+            <a href="#" class="dropdown-item">Duplicate</a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item danger">Delete</a>
+          </div>
+        </div>
+      </div>
+      <div class="code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <code><span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"dropdown"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"make-button style-primary dropdown-toggle"</span>
+          <span class="c-attr">onclick</span>=<span class="c-str">"this.closest('.dropdown').classList.toggle('open')"</span><span class="c-tag">&gt;</span>
+    Options
+  <span class="c-tag">&lt;/button&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"dropdown-menu"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"dropdown-header"</span><span class="c-tag">&gt;</span>Actions<span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"dropdown-item"</span><span class="c-tag">&gt;</span>Edit<span class="c-tag">&lt;/a&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"dropdown-divider"</span><span class="c-tag">&gt;&lt;/div&gt;</span>
+    <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"dropdown-item danger"</span><span class="c-tag">&gt;</span>Delete<span class="c-tag">&lt;/a&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></code>
+      </div>
+    </section>
+
+    <!-- ── Tabs ──────────────────────────────────────────────────────────── -->
+    <section id="tabs" class="section add-margin-bottom-48">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">Tabs</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-20">Tabbed navigation with active states and tab panel switching.</p>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm add-margin-bottom-16">
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-16" style="letter-spacing:.06em;">Live Preview</p>
+        <div class="tabs add-margin-bottom-12">
+          <button class="tabs-item active" onclick="switchTab(this,'ctab1')">Overview</button>
+          <button class="tabs-item" onclick="switchTab(this,'ctab2')">Details</button>
+          <button class="tabs-item" onclick="switchTab(this,'ctab3')">Settings</button>
+        </div>
+        <div id="ctab1" class="tab-panel active set-text-13 color-gray-600">Overview content here.</div>
+        <div id="ctab2" class="tab-panel set-text-13 color-gray-600">Details content here.</div>
+        <div id="ctab3" class="tab-panel set-text-13 color-gray-600">Settings content here.</div>
+      </div>
+      <div class="code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <code><span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"tabs"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"tabs-item active"</span> <span class="c-attr">onclick</span>=<span class="c-str">"switchTab(this,'tab1')"</span><span class="c-tag">&gt;</span>Tab 1<span class="c-tag">&lt;/button&gt;</span>
+  <span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"tabs-item"</span> <span class="c-attr">onclick</span>=<span class="c-str">"switchTab(this,'tab2')"</span><span class="c-tag">&gt;</span>Tab 2<span class="c-tag">&lt;/button&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">id</span>=<span class="c-str">"tab1"</span> <span class="c-attr">class</span>=<span class="c-str">"tab-panel active"</span><span class="c-tag">&gt;</span>Panel 1<span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">id</span>=<span class="c-str">"tab2"</span> <span class="c-attr">class</span>=<span class="c-str">"tab-panel"</span><span class="c-tag">&gt;</span>Panel 2<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-tag">&lt;script&gt;</span>
+function switchTab(btn, id) {
+  btn.closest('.tabs').querySelectorAll('.tabs-item').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+<span class="c-tag">&lt;/script&gt;</span></code>
+      </div>
+    </section>
+
+    <!-- ── Accordion ─────────────────────────────────────────────────────── -->
+    <section id="accordion" class="section add-margin-bottom-48">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">Accordion</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-20">Expandable sections that collapse siblings when one is opened.</p>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm add-margin-bottom-16">
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-16" style="letter-spacing:.06em;">Live Preview</p>
+        <div class="accordion">
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" onclick="toggleAccordion(this)">
+              What is SantyCSS?
+              <svg class="accordion-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="accordion-body">A plain-English utility-first CSS framework with 8,500+ classes.</div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" onclick="toggleAccordion(this)">
+              No build step needed?
+              <svg class="accordion-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="accordion-body">Yes — just drop in a single CSS file via CDN and you're ready to build.</div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-header" aria-expanded="false" onclick="toggleAccordion(this)">
+              How do I customize colors?
+              <svg class="accordion-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="accordion-body">Override CSS custom properties like <code class="chip">--santy-primary</code> on <code class="chip">:root</code> to brand the whole framework.</div>
+          </div>
+        </div>
+      </div>
+      <div class="code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <code><span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"accordion"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"accordion-item"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"accordion-header"</span> <span class="c-attr">onclick</span>=<span class="c-str">"toggleAccordion(this)"</span><span class="c-tag">&gt;</span>
+      Question
+    <span class="c-tag">&lt;/button&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"accordion-body"</span><span class="c-tag">&gt;</span>Answer content.<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></code>
+      </div>
+    </section>
+
+    <!-- ── Toast ─────────────────────────────────────────────────────────── -->
+    <section id="toast" class="section add-margin-bottom-48">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">Toast / Notification</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-20">Inline notifications with success, error, warning, and info variants.</p>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm add-margin-bottom-16">
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-16" style="letter-spacing:.06em;">Live Preview</p>
+        <div class="notification notification-success add-margin-bottom-8">
+          <div><div class="notification-title">Saved!</div><div class="notification-desc">Your changes were saved successfully.</div></div>
+        </div>
+        <div class="notification notification-error add-margin-bottom-8">
+          <div><div class="notification-title">Error</div><div class="notification-desc">Failed to connect to server.</div></div>
+        </div>
+        <div class="notification notification-warning add-margin-bottom-8">
+          <div><div class="notification-title">Warning</div><div class="notification-desc">Your session is about to expire.</div></div>
+        </div>
+        <div class="notification notification-info">
+          <div><div class="notification-title">Info</div><div class="notification-desc">A new version is available.</div></div>
+        </div>
+      </div>
+      <div class="code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <code><span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"notification notification-success"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"notification-title"</span><span class="c-tag">&gt;</span>Saved!<span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"notification-desc"</span><span class="c-tag">&gt;</span>Your changes were saved.<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-com">/* Variants: notification-success | notification-error | notification-warning | notification-info */</span></code>
+      </div>
+    </section>
+
+    <!-- ── Progress & Skeleton ───────────────────────────────────────────── -->
+    <section id="progress" class="section add-margin-bottom-48">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">Progress &amp; Skeleton</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-20">Progress bars and animated loading skeleton placeholders.</p>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm add-margin-bottom-16">
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-16" style="letter-spacing:.06em;">Live Preview</p>
+        <p class="set-text-12 color-gray-500 add-margin-bottom-6">65% complete</p>
+        <div class="progress add-margin-bottom-8"><div class="progress-bar" style="width:65%"></div></div>
+        <p class="set-text-12 color-gray-500 add-margin-bottom-6">35% — custom color</p>
+        <div class="progress add-margin-bottom-20"><div class="progress-bar" style="width:35%;background:#22c55e;"></div></div>
+        <p class="set-text-12 color-gray-500 add-margin-bottom-8">Skeleton loader</p>
+        <div class="skeleton set-height-16 round-corners-4 add-margin-bottom-8"></div>
+        <div class="skeleton set-height-16 round-corners-4 add-margin-bottom-8" style="width:80%"></div>
+        <div class="skeleton set-height-16 round-corners-4" style="width:60%"></div>
+      </div>
+      <div class="code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <code><span class="c-com">/* Progress bar */</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"progress"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"progress-bar"</span> <span class="c-attr">style</span>=<span class="c-str">"width:65%"</span><span class="c-tag">&gt;&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-com">/* Skeleton */</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"skeleton set-height-16 round-corners-4"</span><span class="c-tag">&gt;&lt;/div&gt;</span></code>
+      </div>
+    </section>
+
+    <!-- ── Badges & Chips ────────────────────────────────────────────────── -->
+    <section id="badges" class="section add-margin-bottom-48">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">Badges &amp; Chips</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-20">Compact status indicators and interactive filter chips.</p>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm add-margin-bottom-16">
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-12" style="letter-spacing:.06em;">Badges</p>
+        <div class="make-flex flex-wrap gap-8 add-margin-bottom-20">
+          <span class="badge background-blue-100 color-blue-700">New</span>
+          <span class="badge background-green-100 color-green-700">Active</span>
+          <span class="badge background-red-100 color-red-700">Error</span>
+          <span class="badge background-yellow-100 color-yellow-700">Pending</span>
+          <span class="badge background-purple-600 color-white">Beta</span>
+          <span class="badge background-gray-100 color-gray-600">Draft</span>
+        </div>
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-12" style="letter-spacing:.06em;">Chips</p>
+        <div class="make-flex flex-wrap gap-8">
+          <span class="chip chip-blue">Design</span>
+          <span class="chip chip-green">Done</span>
+          <span class="chip chip-red">Urgent</span>
+          <span class="chip chip-purple">Review</span>
+        </div>
+      </div>
+      <div class="code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <code><span class="c-com">/* Badge — pair .badge with background/color utilities */</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"badge background-blue-100 color-blue-700"</span><span class="c-tag">&gt;</span>New<span class="c-tag">&lt;/span&gt;</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"badge background-green-100 color-green-700"</span><span class="c-tag">&gt;</span>Active<span class="c-tag">&lt;/span&gt;</span>
+
+<span class="c-com">/* Chip — colored variant classes */</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"chip chip-blue"</span><span class="c-tag">&gt;</span>Design<span class="c-tag">&lt;/span&gt;</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"chip chip-green"</span><span class="c-tag">&gt;</span>Done<span class="c-tag">&lt;/span&gt;</span></code>
+      </div>
+    </section>
+
+    <!-- ── Drawer ─────────────────────────────────────────────────────────── -->
+    <section id="drawer" class="section add-margin-bottom-48">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">Sidebar / Drawer</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-20">Slide-in side panel, CSS-only via <code class="chip">:target</code>.</p>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm add-margin-bottom-16">
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-16" style="letter-spacing:.06em;">Live Preview</p>
+        <a href="#demo-drawer" class="make-button style-primary size-small">Open Drawer</a>
+        <div id="demo-drawer" class="drawer-overlay">
+          <div class="drawer-panel">
+            <div class="drawer-header">
+              <span class="set-text-16 text-semibold">Sidebar</span>
+              <a href="#" class="btn-close"></a>
+            </div>
+            <div class="drawer-body">
+              <p class="set-text-14 color-gray-600">Sidebar content goes here.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <code><span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#my-drawer"</span> <span class="c-attr">class</span>=<span class="c-str">"make-button style-primary"</span><span class="c-tag">&gt;</span>Open<span class="c-tag">&lt;/a&gt;</span>
+
+<span class="c-tag">&lt;div</span> <span class="c-attr">id</span>=<span class="c-str">"my-drawer"</span> <span class="c-attr">class</span>=<span class="c-str">"drawer-overlay"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"drawer-panel"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"drawer-header"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;span&gt;</span>Sidebar<span class="c-tag">&lt;/span&gt;</span>
+      <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"btn-close"</span><span class="c-tag">&gt;&lt;/a&gt;</span>
+    <span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"drawer-body"</span><span class="c-tag">&gt;</span>Content<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></code>
+      </div>
+    </section>
+
+    <!-- ── Table ──────────────────────────────────────────────────────────── -->
+    <section id="table" class="section add-margin-bottom-48">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">Table</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-20">Responsive data tables with hover, striped, and bordered variants.</p>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm add-margin-bottom-16">
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-16" style="letter-spacing:.06em;">Live Preview</p>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead><tr><th>Name</th><th>Role</th><th>Status</th><th>Joined</th></tr></thead>
+            <tbody>
+              <tr><td>Alice Johnson</td><td>Admin</td><td><span class="badge background-green-100 color-green-700">Active</span></td><td>Jan 2024</td></tr>
+              <tr><td>Bob Martinez</td><td>Editor</td><td><span class="badge background-yellow-100 color-yellow-700">Pending</span></td><td>Mar 2024</td></tr>
+              <tr><td>Carol White</td><td>Viewer</td><td><span class="badge background-red-100 color-red-700">Inactive</span></td><td>Jun 2023</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <code><span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"table-responsive"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;table</span> <span class="c-attr">class</span>=<span class="c-str">"table table-hover"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;thead&gt;&lt;tr&gt;&lt;th&gt;</span>Name<span class="c-tag">&lt;/th&gt;&lt;th&gt;</span>Status<span class="c-tag">&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;</span>
+    <span class="c-tag">&lt;tbody&gt;</span>
+      <span class="c-tag">&lt;tr&gt;&lt;td&gt;</span>Alice<span class="c-tag">&lt;/td&gt;&lt;td&gt;</span>Active<span class="c-tag">&lt;/td&gt;&lt;/tr&gt;</span>
+    <span class="c-tag">&lt;/tbody&gt;</span>
+  <span class="c-tag">&lt;/table&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-com">/* Variants: table | table-hover | table-striped | table-bordered */</span></code>
+      </div>
+    </section>
+
+    <!-- ── Pagination & Breadcrumb ──────────────────────────────────────── -->
+    <section id="pagination" class="section add-margin-bottom-48">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">Pagination &amp; Breadcrumb</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-20">Page navigation and hierarchical breadcrumb trail.</p>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm add-margin-bottom-16">
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-12" style="letter-spacing:.06em;">Pagination</p>
+        <ul class="pagination add-margin-bottom-24">
+          <li class="page-item disabled"><a class="page-link" href="#">«</a></li>
+          <li class="page-item active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">»</a></li>
+        </ul>
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-12" style="letter-spacing:.06em;">Breadcrumb</p>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Docs</a></li>
+          <li class="breadcrumb-item active">Components</li>
+        </ol>
+      </div>
+      <div class="code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <code><span class="c-tag">&lt;ul</span> <span class="c-attr">class</span>=<span class="c-str">"pagination"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;li</span> <span class="c-attr">class</span>=<span class="c-str">"page-item disabled"</span><span class="c-tag">&gt;&lt;a</span> <span class="c-attr">class</span>=<span class="c-str">"page-link"</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span><span class="c-tag">&gt;</span>«<span class="c-tag">&lt;/a&gt;&lt;/li&gt;</span>
+  <span class="c-tag">&lt;li</span> <span class="c-attr">class</span>=<span class="c-str">"page-item active"</span><span class="c-tag">&gt;&lt;a</span> <span class="c-attr">class</span>=<span class="c-str">"page-link"</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span><span class="c-tag">&gt;</span>1<span class="c-tag">&lt;/a&gt;&lt;/li&gt;</span>
+  <span class="c-tag">&lt;li</span> <span class="c-attr">class</span>=<span class="c-str">"page-item"</span><span class="c-tag">&gt;&lt;a</span> <span class="c-attr">class</span>=<span class="c-str">"page-link"</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span><span class="c-tag">&gt;</span>2<span class="c-tag">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="c-tag">&lt;/ul&gt;</span>
+
+<span class="c-tag">&lt;ol</span> <span class="c-attr">class</span>=<span class="c-str">"breadcrumb"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;li</span> <span class="c-attr">class</span>=<span class="c-str">"breadcrumb-item"</span><span class="c-tag">&gt;&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span><span class="c-tag">&gt;</span>Home<span class="c-tag">&lt;/a&gt;&lt;/li&gt;</span>
+  <span class="c-tag">&lt;li</span> <span class="c-attr">class</span>=<span class="c-str">"breadcrumb-item active"</span><span class="c-tag">&gt;</span>Current<span class="c-tag">&lt;/li&gt;</span>
+<span class="c-tag">&lt;/ol&gt;</span></code>
+      </div>
+    </section>
+
+    <!-- ── Toggle & Range ───────────────────────────────────────────────── -->
+    <section id="toggle" class="section add-margin-bottom-48">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">Toggle &amp; Range</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-20">Custom toggle switches and range sliders.</p>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm add-margin-bottom-16">
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-16" style="letter-spacing:.06em;">Live Preview</p>
+        <div class="make-flex align-center gap-16 add-margin-bottom-20">
+          <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+          <label class="toggle toggle-green"><input type="checkbox"><span class="toggle-slider"></span></label>
+          <label class="toggle toggle-purple"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+          <span class="set-text-13 color-gray-500">toggle / toggle-green / toggle-purple</span>
+        </div>
+        <input class="range" type="range" value="60" />
+      </div>
+      <div class="code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <code><span class="c-tag">&lt;label</span> <span class="c-attr">class</span>=<span class="c-str">"toggle"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;input</span> <span class="c-attr">type</span>=<span class="c-str">"checkbox"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"toggle-slider"</span><span class="c-tag">&gt;&lt;/span&gt;</span>
+<span class="c-tag">&lt;/label&gt;</span>
+
+<span class="c-tag">&lt;input</span> <span class="c-attr">class</span>=<span class="c-str">"range"</span> <span class="c-attr">type</span>=<span class="c-str">"range"</span> <span class="c-attr">value</span>=<span class="c-str">"60"</span> <span class="c-tag">/&gt;</span></code>
+      </div>
+    </section>
+
+    <!-- ── Stepper ────────────────────────────────────────────────────────── -->
+    <section id="stepper" class="section add-margin-bottom-48">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">Stepper</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-20">Multi-step progress indicator for wizards and onboarding flows.</p>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm add-margin-bottom-16">
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-16" style="letter-spacing:.06em;">Live Preview</p>
+        <ul class="steps">
+          <li class="step done"><div class="step-dot">✓</div><span class="step-label">Account</span></li>
+          <li class="step active"><div class="step-dot">2</div><span class="step-label">Profile</span></li>
+          <li class="step"><div class="step-dot">3</div><span class="step-label">Payment</span></li>
+          <li class="step"><div class="step-dot">4</div><span class="step-label">Done</span></li>
+        </ul>
+      </div>
+      <div class="code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <code><span class="c-tag">&lt;ul</span> <span class="c-attr">class</span>=<span class="c-str">"steps"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;li</span> <span class="c-attr">class</span>=<span class="c-str">"step done"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"step-dot"</span><span class="c-tag">&gt;</span>✓<span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"step-label"</span><span class="c-tag">&gt;</span>Step 1<span class="c-tag">&lt;/span&gt;</span>
+  <span class="c-tag">&lt;/li&gt;</span>
+  <span class="c-tag">&lt;li</span> <span class="c-attr">class</span>=<span class="c-str">"step active"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"step-dot"</span><span class="c-tag">&gt;</span>2<span class="c-tag">&lt;/div&gt;</span>
+    <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"step-label"</span><span class="c-tag">&gt;</span>Step 2<span class="c-tag">&lt;/span&gt;</span>
+  <span class="c-tag">&lt;/li&gt;</span>
+  <span class="c-tag">&lt;li</span> <span class="c-attr">class</span>=<span class="c-str">"step"</span><span class="c-tag">&gt;</span><span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"step-dot"</span><span class="c-tag">&gt;</span>3<span class="c-tag">&lt;/div&gt;</span><span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"step-label"</span><span class="c-tag">&gt;</span>Step 3<span class="c-tag">&lt;/span&gt;&lt;/li&gt;</span>
+<span class="c-tag">&lt;/ul&gt;</span></code>
+      </div>
+    </section>
+
+    <!-- ── Card ──────────────────────────────────────────────────────────── -->
+    <section id="cards" class="section add-margin-bottom-48">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">Card</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-20">Structured content containers with header, body, and footer sections.</p>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm add-margin-bottom-16">
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-16" style="letter-spacing:.06em;">Live Preview</p>
+        <div class="make-grid grid-cols-2 gap-16">
+          <div class="card" style="box-shadow:none;border:1px solid #e5e7eb;">
+            <div class="card-header make-flex align-center justify-between">
+              <span class="set-text-14 text-semibold color-gray-800">Card Title</span>
+              <span class="badge background-green-100 color-green-700">Active</span>
+            </div>
+            <div class="card-body set-text-13 color-gray-500">Card body content with a white background, border radius, and shadow.</div>
+            <div class="card-footer make-flex justify-end gap-8">
+              <button class="make-button style-ghost size-small">Cancel</button>
+              <button class="make-button style-primary size-small">Save</button>
+            </div>
+          </div>
+          <div class="card background-blue-600 color-white" style="border:none;">
+            <div class="card-header">
+              <span class="set-text-14 text-semibold">Dark Card</span>
+            </div>
+            <div class="card-body set-text-13" style="opacity:.85;">Works with any background utility class.</div>
+            <div class="card-footer">
+              <button class="make-button style-ghost size-small" style="border-color:rgba(255,255,255,0.4);color:#fff;">Learn more</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <code><span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"card"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"card-header"</span><span class="c-tag">&gt;</span>Title<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"card-body"</span><span class="c-tag">&gt;</span>Content<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"card-footer"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"make-button style-primary"</span><span class="c-tag">&gt;</span>Save<span class="c-tag">&lt;/button&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></code>
+      </div>
+    </section>
+
+    <!-- ── Form Inputs ───────────────────────────────────────────────────── -->
+    <section id="forms" class="section add-margin-bottom-48">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">Form Inputs</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-20">Input, select, textarea, and input group components.</p>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm add-margin-bottom-16">
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-16" style="letter-spacing:.06em;">Live Preview</p>
+        <div class="make-flex flex-column gap-12" style="max-width:400px;">
+          <input class="input" type="text" placeholder="Default input" />
+          <select class="select"><option>Select option</option><option>Option 1</option><option>Option 2</option></select>
+          <textarea class="textarea" rows="3" placeholder="Textarea..."></textarea>
+          <div class="input-group">
+            <span class="input-addon">https://</span>
+            <input class="input" type="text" placeholder="yoursite.com" />
+          </div>
+        </div>
+      </div>
+      <div class="code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <code><span class="c-tag">&lt;input</span> <span class="c-attr">class</span>=<span class="c-str">"input"</span> <span class="c-attr">type</span>=<span class="c-str">"text"</span> <span class="c-attr">placeholder</span>=<span class="c-str">"Enter value"</span> <span class="c-tag">/&gt;</span>
+<span class="c-tag">&lt;select</span> <span class="c-attr">class</span>=<span class="c-str">"select"</span><span class="c-tag">&gt;&lt;option&gt;</span>Choose...<span class="c-tag">&lt;/option&gt;&lt;/select&gt;</span>
+<span class="c-tag">&lt;textarea</span> <span class="c-attr">class</span>=<span class="c-str">"textarea"</span> <span class="c-attr">rows</span>=<span class="c-str">"4"</span><span class="c-tag">&gt;&lt;/textarea&gt;</span>
+
+<span class="c-com">/* Input group with prefix */</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"input-group"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"input-addon"</span><span class="c-tag">&gt;</span>https://<span class="c-tag">&lt;/span&gt;</span>
+  <span class="c-tag">&lt;input</span> <span class="c-attr">class</span>=<span class="c-str">"input"</span> <span class="c-attr">type</span>=<span class="c-str">"text"</span> <span class="c-attr">placeholder</span>=<span class="c-str">"domain.com"</span> <span class="c-tag">/&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></code>
+      </div>
+    </section>
+
+    <!-- ── Avatar & Spinner ─────────────────────────────────────────────── -->
+    <section id="avatar" class="section add-margin-bottom-48">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">Avatar &amp; Spinner</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-20">User avatars and loading spinners in multiple sizes.</p>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm add-margin-bottom-16">
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-12" style="letter-spacing:.06em;">Avatars</p>
+        <div class="make-flex align-center gap-12 add-margin-bottom-24">
+          <div class="avatar avatar-sm background-blue-600 color-white set-text-12 text-semibold">JS</div>
+          <div class="avatar avatar-md background-green-600 color-white set-text-14 text-semibold">AB</div>
+          <div class="avatar avatar-lg background-purple-600 color-white set-text-18 text-semibold">CD</div>
+          <div class="avatar avatar-xl background-rose-500 color-white set-text-20 text-semibold">EF</div>
+        </div>
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-12" style="letter-spacing:.06em;">Spinners</p>
+        <div class="make-flex align-center gap-16">
+          <div class="spinner spinner-sm"></div>
+          <div class="spinner spinner-md"></div>
+          <div class="spinner spinner-lg"></div>
+          <div class="spinner spinner-xl"></div>
+        </div>
+      </div>
+      <div class="code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <code><span class="c-com">/* Avatar — pair .avatar size with background/color utilities */</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"avatar avatar-md background-blue-600 color-white"</span><span class="c-tag">&gt;</span>AB<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-com">/* Sizes: avatar-sm | avatar-md | avatar-lg | avatar-xl */</span>
+
+<span class="c-com">/* Spinner */</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"spinner spinner-md"</span><span class="c-tag">&gt;&lt;/div&gt;</span>
+<span class="c-com">/* Sizes: spinner-sm | spinner-md | spinner-lg | spinner-xl */</span></code>
+      </div>
+    </section>
+
+    <!-- ── Alerts ─────────────────────────────────────────────────────────── -->
+    <section id="alerts" class="section add-margin-bottom-48">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">Alerts</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-20">Contextual alert messages for feedback and status updates.</p>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm add-margin-bottom-16">
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-16" style="letter-spacing:.06em;">Live Preview</p>
+        <div class="alert alert-info add-margin-bottom-8"><strong>Info:</strong> Informational message here.</div>
+        <div class="alert alert-success add-margin-bottom-8"><strong>Success:</strong> Changes saved successfully.</div>
+        <div class="alert alert-warning add-margin-bottom-8"><strong>Warning:</strong> Please review before continuing.</div>
+        <div class="alert alert-danger"><strong>Error:</strong> Something failed. Please try again.</div>
+      </div>
+      <div class="code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <code><span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"alert alert-info"</span><span class="c-tag">&gt;</span>Informational message.<span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"alert alert-success"</span><span class="c-tag">&gt;</span>Success message.<span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"alert alert-warning"</span><span class="c-tag">&gt;</span>Warning message.<span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"alert alert-danger"</span><span class="c-tag">&gt;</span>Error message.<span class="c-tag">&lt;/div&gt;</span></code>
+      </div>
+    </section>
+
+    <!-- ── Navbar ─────────────────────────────────────────────────────────── -->
+    <section id="navbar" class="section add-margin-bottom-48">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">Navbar / Header</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-20">Light and dark navigation bar variants.</p>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm add-margin-bottom-16">
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-16" style="letter-spacing:.06em;">Live Preview</p>
+        <div class="navbar round-corners-8 add-border-1 border-color-gray-200 add-margin-bottom-12" style="padding:8px 12px;">
+          <a href="#" class="navbar-brand set-text-14">SantyCSS</a>
+          <div class="navbar-menu">
+            <a href="#" class="navbar-item active set-text-12">Home</a>
+            <a href="#" class="navbar-item set-text-12">Docs</a>
+            <a href="#" class="navbar-item set-text-12">Blog</a>
+          </div>
+        </div>
+        <div class="navbar navbar-dark round-corners-8" style="padding:8px 12px;">
+          <a href="#" class="navbar-brand set-text-14">Dark Mode</a>
+          <div class="navbar-menu">
+            <a href="#" class="navbar-item set-text-12">Home</a>
+            <a href="#" class="navbar-item active set-text-12">Docs</a>
+          </div>
+        </div>
+      </div>
+      <div class="code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <code><span class="c-tag">&lt;nav</span> <span class="c-attr">class</span>=<span class="c-str">"navbar"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"navbar-brand"</span><span class="c-tag">&gt;</span>Logo<span class="c-tag">&lt;/a&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class</span>=<span class="c-str">"navbar-menu"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"navbar-item active"</span><span class="c-tag">&gt;</span>Home<span class="c-tag">&lt;/a&gt;</span>
+    <span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-str">"#"</span> <span class="c-attr">class</span>=<span class="c-str">"navbar-item"</span><span class="c-tag">&gt;</span>Docs<span class="c-tag">&lt;/a&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/nav&gt;</span>
+
+<span class="c-com">/* Add .navbar-dark for dark variant */</span></code>
+      </div>
+    </section>
+
+    <!-- ── Tooltip ────────────────────────────────────────────────────────── -->
+    <section id="tooltip" class="section add-margin-bottom-48">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">Tooltip</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-20">CSS-only tooltips in four directions. No JavaScript required.</p>
+
+      <div class="background-white round-corners-16 add-padding-28 add-shadow-sm add-margin-bottom-16">
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-20" style="letter-spacing:.06em;">Live Preview</p>
+        <div class="make-flex flex-wrap gap-16 align-center">
+          <span class="tooltip tooltip-top">
+            <button class="make-button style-primary size-small">Top</button>
+            <span class="tooltip-content">Tooltip on top</span>
+          </span>
+          <span class="tooltip tooltip-bottom">
+            <button class="make-button style-success size-small">Bottom</button>
+            <span class="tooltip-content">Tooltip on bottom</span>
+          </span>
+          <span class="tooltip tooltip-right">
+            <button class="make-button style-warning size-small">Right</button>
+            <span class="tooltip-content">Tooltip on right</span>
+          </span>
+          <span class="tooltip tooltip-left">
+            <button class="make-button style-danger size-small">Left</button>
+            <span class="tooltip-content">Tooltip on left</span>
+          </span>
+        </div>
+      </div>
+      <div class="code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <code><span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"tooltip tooltip-top"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;button</span> <span class="c-attr">class</span>=<span class="c-str">"make-button style-primary"</span><span class="c-tag">&gt;</span>Hover me<span class="c-tag">&lt;/button&gt;</span>
+  <span class="c-tag">&lt;span</span> <span class="c-attr">class</span>=<span class="c-str">"tooltip-content"</span><span class="c-tag">&gt;</span>Tooltip text<span class="c-tag">&lt;/span&gt;</span>
+<span class="c-tag">&lt;/span&gt;</span>
+
+<span class="c-com">/* Directions: tooltip-top | tooltip-bottom | tooltip-left | tooltip-right */</span></code>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────────────────── -->
+<footer class="background-gray-900 color-white add-padding-y-48 add-padding-x-16">
+  <div class="container">
+    <div class="make-grid grid-cols-4 gap-32 add-margin-bottom-40">
+      <div>
+        <div class="make-flex align-center gap-10 add-margin-bottom-16">
+          <img src="assest/santy_css.png" alt="SantyCSS" style="width:32px;height:32px;border-radius:8px;object-fit:cover;" />
+          <span class="set-text-18 text-bold">Santy<span style="color:#7dd3fc;">CSS</span></span>
+        </div>
+        <p class="set-text-13 add-margin-bottom-0" style="color:rgba(255,255,255,0.5);line-height:1.6;">CSS that reads like plain English. 8,500+ classes, no build step.</p>
+      </div>
+      <div>
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-12" style="letter-spacing:.06em;">Framework</p>
+        <div class="make-flex flex-column gap-8">
+          <a href="classes.html"    class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">Classes Reference</a>
+          <a href="components.html" class="set-text-13 text-no-decoration" style="color:#7dd3fc;">Components</a>
+          <a href="animations.html" class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">Animations</a>
+          <a href="icons.html"      class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">Icons</a>
+        </div>
+      </div>
+      <div>
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-12" style="letter-spacing:.06em;">Resources</p>
+        <div class="make-flex flex-column gap-8">
+          <a href="docs.html"       class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">npm Docs</a>
+          <a href="playground.html" class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">Playground</a>
+          <a href="webflow.html"    class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">Webflow Snippets</a>
+          <a href="changelog.html"  class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">Changelog</a>
+        </div>
+      </div>
+      <div>
+        <p class="set-text-12 text-semibold color-gray-400 text-uppercase add-margin-bottom-12" style="letter-spacing:.06em;">Community</p>
+        <div class="make-flex flex-column gap-8">
+          <a href="https://github.com/ChintuSanty/santyCSS" target="_blank" rel="noopener" class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">GitHub</a>
+          <a href="https://www.npmjs.com/package/santycss"  target="_blank" rel="noopener" class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">npm</a>
+          <a href="index.html#feedback" class="set-text-13 text-no-decoration" style="color:rgba(255,255,255,0.65);">Feedback</a>
+        </div>
+      </div>
+    </div>
+    <div class="add-border-top-1" style="border-color:rgba(255,255,255,0.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <span class="set-text-13" style="color:rgba(255,255,255,0.4);">© 2025 SantyCSS. MIT Licensed.</span>
+      <span class="set-text-13" style="color:rgba(255,255,255,0.4);">Made with SantyCSS</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ─── TOAST ─────────────────────────────────────────────────────────────── -->
+<div id="comp-toast"></div>
+
+<script>
+function toggleMobileNav() {
+  var nav   = document.getElementById('main-nav');
+  var icon  = document.getElementById('ham-icon');
+  var close = document.getElementById('ham-close');
+  var open  = nav.classList.toggle('nav-open');
+  icon.style.display  = open ? 'none' : '';
+  close.style.display = open ? '' : 'none';
+}
+
+function toggleResources() {
+  var btn  = document.getElementById('navResBtn');
+  var dd   = document.getElementById('navDropdown');
+  var open = btn.classList.toggle('open');
+  dd.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', open);
+}
+document.addEventListener('click', function(e) {
+  var res = document.getElementById('navResources');
+  if (res && !res.contains(e.target)) {
+    document.getElementById('navResBtn').classList.remove('open');
+    document.getElementById('navDropdown').classList.remove('open');
+  }
+});
+
+function switchTab(btn, id) {
+  btn.closest('.tabs').querySelectorAll('.tabs-item').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+  btn.classList.add('active');
+  var panel = document.getElementById(id);
+  if (panel) panel.classList.add('active');
+}
+
+function toggleAccordion(btn) {
+  var item    = btn.closest('.accordion-item');
+  var body    = item.querySelector('.accordion-body');
+  var isOpen  = item.classList.contains('open');
+  item.closest('.accordion').querySelectorAll('.accordion-item.open').forEach(function(s) {
+    s.classList.remove('open');
+    var b = s.querySelector('.accordion-body');
+    if (b) b.style.maxHeight = '';
+  });
+  if (!isOpen) {
+    item.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+  }
+}
+
+function showToast(msg) {
+  var t = document.getElementById('comp-toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._tid);
+  t._tid = setTimeout(function() { t.classList.remove('show'); }, 2000);
+}
+
+function copyCode(btn) {
+  var block = btn.closest('.code-block');
+  var code  = block.querySelector('code');
+  var text  = code ? code.innerText : '';
+  navigator.clipboard.writeText(text).then(function() {
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+  });
+}
+
+/* Highlight active sidebar link on scroll */
+(function() {
+  var links = document.querySelectorAll('.sidebar-link');
+  var sections = [];
+  links.forEach(function(l) {
+    var id = l.getAttribute('href').slice(1);
+    var el = document.getElementById(id);
+    if (el) sections.push({ id: id, el: el, link: l });
+  });
+  function onScroll() {
+    var scrollY = window.scrollY + 100;
+    var active = sections[0];
+    sections.forEach(function(s) {
+      if (s.el.offsetTop <= scrollY) active = s;
+    });
+    links.forEach(function(l) { l.classList.remove('active'); });
+    if (active) active.link.classList.add('active');
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>
