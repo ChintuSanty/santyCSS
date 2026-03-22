@@ -187,11 +187,12 @@
       <div class="tpl-filter" id="tplFilter">
         <button class="tpl-filter-btn active" data-filter="all">All</button>
         <button class="tpl-filter-btn" data-filter="portfolio">Portfolio / CV</button>
+        <button class="tpl-filter-btn" data-filter="resume">Resume</button>
         <button class="tpl-filter-btn" data-filter="landing">Landing Page</button>
         <button class="tpl-filter-btn" data-filter="dashboard">Dashboard</button>
         <button class="tpl-filter-btn" data-filter="blog">Blog</button>
       </div>
-      <span style="font-size:13px;color:#94a3b8;" id="tplCount">4 templates</span>
+      <span style="font-size:13px;color:#94a3b8;" id="tplCount">5 templates</span>
     </div>
 
     <!-- Grid -->
@@ -270,7 +271,65 @@
         </div>
       </div>
 
-      <!-- ── Template 2: Landing Page (coming soon) ── -->
+      <!-- ── Template 2: Resume / CV (Green two-panel) ── -->
+      <div class="tpl-card" data-category="resume">
+        <div class="tpl-thumb">
+          <div class="tpl-thumb-inner" style="background:linear-gradient(135deg,#1abc9c 0%,#2ecc71 100%);display:flex;height:100%;align-items:center;justify-content:center;padding:12px;gap:8px;">
+            <!-- Mini left panel -->
+            <div style="width:32%;background:rgba(255,255,255,.92);border-radius:8px;height:100%;display:flex;flex-direction:column;align-items:center;padding:10px 6px;gap:5px;">
+              <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#1abc9c,#2ecc71);border:2px solid #fff;"></div>
+              <div style="width:48px;height:4px;border-radius:2px;background:#1a1a2e;"></div>
+              <div style="width:36px;height:3px;border-radius:2px;background:#d1d5db;"></div>
+              <div style="margin-top:4px;display:flex;flex-direction:column;gap:3px;width:100%;">
+                <div style="height:2px;border-radius:1px;background:#2ecc71;"></div>
+                <div style="height:2px;border-radius:1px;background:#e5e7eb;"></div>
+                <div style="height:2px;border-radius:1px;background:#e5e7eb;"></div>
+                <div style="height:2px;border-radius:1px;background:#e5e7eb;"></div>
+              </div>
+            </div>
+            <!-- Mini right panel -->
+            <div style="flex:1;background:rgba(255,255,255,.92);border-radius:8px;height:100%;padding:10px 8px;display:flex;flex-direction:column;gap:5px;">
+              <div style="height:5px;width:60%;border-radius:3px;background:#1a1a2e;"></div>
+              <div style="height:3px;width:40%;border-radius:2px;background:#d1d5db;"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:2px;">
+                <div style="height:12px;border-radius:3px;background:#f3f4f6;border:1px solid #e5e7eb;"></div>
+                <div style="height:12px;border-radius:3px;background:#f3f4f6;border:1px solid #e5e7eb;"></div>
+              </div>
+              <!-- Skill bars -->
+              <div style="display:flex;flex-direction:column;gap:3px;margin-top:2px;">
+                <div style="height:3px;background:#2ecc71;border-radius:2px;width:90%;"></div>
+                <div style="height:3px;background:#2ecc71;border-radius:2px;width:75%;"></div>
+                <div style="height:3px;background:#2ecc71;border-radius:2px;width:60%;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="tpl-thumb-overlay">
+            <a href="template-resume-cv.html" target="_blank" class="tpl-thumb-btn tpl-thumb-btn-preview">Preview</a>
+            <button class="tpl-thumb-btn tpl-thumb-btn-copy" onclick="copyTemplate('template-resume-cv.html', this)">Copy Code</button>
+          </div>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-card-tags">
+            <span class="tpl-tag tpl-tag-gold">Resume / CV</span>
+            <span class="tpl-tag">Green theme</span>
+            <span class="tpl-tag">Two-panel</span>
+          </div>
+          <h3 class="tpl-card-name">Resume CV — Green Gradient</h3>
+          <p class="tpl-card-desc">Two-panel floating card on a teal-to-green gradient. Left profile panel with role rotator &amp; social links. Right panel with About, Resume timelines, skill rings, Works filter grid, and Contact form.</p>
+          <div class="tpl-card-actions">
+            <a href="template-resume-cv.html" target="_blank" class="tpl-btn-preview">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Preview
+            </a>
+            <button class="tpl-btn-copy" onclick="copyTemplate('template-resume-cv.html', this)" id="copy-btn-resume-cv">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              Copy Code
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Template 3: Landing Page (coming soon) ── -->
       <div class="tpl-card tpl-card-soon" data-category="landing" style="position:relative;">
         <div class="tpl-thumb">
           <div class="tpl-thumb-inner" style="background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 100%);display:flex;height:100%;flex-direction:column;padding:16px;gap:8px;">

@@ -11,7 +11,10 @@
       "Bash(node purge.js --input=. --out=santy.min.css --verbose)",
       "Bash(node purge.js --input=. --out=santy.min.css)",
       "Bash(gzip -k -9 santy.min.css -c)",
-      "Read(//c/Users/SanthoshBadhri/repos/santy_css/{printf \"\"\"\"Gzip: %.1f KB/n\"\"\"\", $1/**)"
+      "Read(//c/Users/SanthoshBadhri/repos/santy_css/{printf \"\"\"\"Gzip: %.1f KB/n\"\"\"\", $1/**)",
+      "WebFetch(domain:ryancv.bslthemes.com)",
+      "WebFetch(domain:santy.in)",
+      "WebFetch(domain:www.linkedin.com)"
     ]
   }
 }

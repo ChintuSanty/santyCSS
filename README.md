@@ -26,7 +26,11 @@ Class names read like sentences. No build step. No configuration. Just link and 
 
 Inspect any Figma layer and get the exact SantyCSS classes in one click.
 
-**Install (local development):**
+**Download / Install:**
+
+> 🌐 **[Download from santycss.santy.in/docs.html](https://santycss.santy.in/docs.html#figma-plugin)** — full setup guide and one-click download
+
+**Local development install:**
 1. Clone this repo — the plugin lives in `figma-plugin-santycss/`
 2. Open **Figma Desktop** → Plugins → Development → **Import plugin from manifest**
 3. Select `figma-plugin-santycss/manifest.json`
@@ -111,9 +115,9 @@ Inspect any Figma layer and get the exact SantyCSS classes in one click.
 | `.date-picker` / `.date-picker-grid` / `.date-picker-day` | Full calendar date picker |
 | `.date-picker-day.today` / `.selected` / `.in-range` | Day state modifiers |
 
-### 🎨 Figma Plugin _(coming soon)_
+### 🎨 Figma Plugin
 
-A **SantyCSS Figma Plugin** is in development — inspect Figma designs and get the exact SantyCSS classes that match. Inspired by the Tailwind CSS Figma plugin workflow.
+The **SantyCSS Figma Plugin** is live — inspect Figma designs and get the exact SantyCSS classes that match. See [What's New in v1.8](#-santycss-inspector--figma-plugin) above for full details and the download link.
 
 ---
 
@@ -545,6 +549,7 @@ The file `santycss.context.md` (in the GitHub repo) is a ready-made system promp
 - 🎮 Live Demo: [santycss.santy.in/demo.html](https://santycss.santy.in/demo.html)
 - 📦 npm Docs: [santycss.santy.in/docs.html](https://santycss.santy.in/docs.html)
 - 🐛 Issues: [github.com/ChintuSanty/santyCSS/issues](https://github.com/ChintuSanty/santyCSS/issues)
+- 💬 Discussions: [GitHub Discussions](https://github.com/orgs/community/discussions/190269)
 
 ---
 
