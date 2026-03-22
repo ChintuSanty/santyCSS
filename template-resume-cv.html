@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Santhosh Prabakar — Designer &amp; Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+      background: linear-gradient(135deg, #1abc9c 0%, #16a085 40%, #2ecc71 100%);
+      min-height: 100vh;
+    }
+
+    /* ── Diamonds background ── */
+    .bg-diamonds { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+    .diamond {
+      position: absolute;
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,0.12);
+      transform: rotate(45deg);
+      border-radius: 4px;
+    }
+
+    /* ══ MOBILE-FIRST BASE STYLES ══════════════════════════════════════════ */
+
+    /* ── Card wrapper ── */
+    .cv-wrapper {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 20px 14px 32px;
+    }
+
+    /* ── Card ── */
+    .cv-card {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 480px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.22), 0 8px 24px rgba(0,0,0,0.12);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ── Left vertical nav strip — hidden on mobile ── */
+    .cv-nav-strip { display: none; }
+
+    .cv-nav-util {
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #6b7280;
+      transition: background .15s, color .15s;
+      position: relative;
+      background: none; border: none;
+    }
+    .cv-nav-util:hover { background: #f1f5f9; color: #111; }
+    .cv-nav-divider { width: 28px; height: 1px; background: #e5e7eb; margin: 4px 0; }
+    .cv-nav-item {
+      width: 44px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 8px 6px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background .15s;
+      border: none;
+      background: none;
+    }
+    .cv-nav-item:hover { background: #f0fdf4; }
+    .cv-nav-item.active { background: #f0fdf4; }
+    .cv-nav-item.active svg { color: #2ecc71; }
+    .cv-nav-item.active .cv-nav-label { color: #2ecc71; font-weight: 700; }
+    .cv-nav-item svg { color: #9ca3af; width: 16px; height: 16px; transition: color .15s; }
+    .cv-nav-label { font-size: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: #9ca3af; line-height: 1; }
+    .cart-badge {
+      position: absolute; top: 2px; right: 2px;
+      width: 12px; height: 12px;
+      background: #2ecc71;
+      border-radius: 50%;
+      font-size: 7px;
+      font-weight: 700;
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── Left panel — mobile first ── */
+    .cv-left {
+      width: 100%;
+      min-width: 0;
+      border-bottom: 1px solid #f3f4f6;
+      border-right: none;
+      display: flex;
+      flex-direction: column;
+      border-radius: 16px 16px 0 0;
+      overflow: hidden;
+    }
+
+    /* ── Profile photo area ── */
+    .cv-photo-wrap {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+    }
+    .cv-photo-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cv-photo-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(160deg, #1abc9c 0%, #2ecc71 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cv-photo-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: -10%; right: -10%;
+      height: 60px;
+      background: #fff;
+      transform: rotate(-4deg);
+      transform-origin: left bottom;
+    }
+
+    /* ── Profile info ── */
+    .cv-profile-body {
+      flex: 1;
+      padding: 16px 24px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .cv-name { font-size: 22px; font-weight: 800; color: #111; text-align: center; line-height: 1.2; }
+    .cv-role-wrap { min-height: 22px; margin: 6px 0 0; text-align: center; }
+    .cv-role { font-size: 13px; font-weight: 500; color: #6b7280; }
+
+    /* ── Social row ── */
+    .cv-socials { display: flex; gap: 10px; margin-top: 14px; align-items: center; }
+    .cv-social-link {
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 8px;
+      color: #9ca3af;
+      text-decoration: none;
+      transition: color .15s, background .15s;
+    }
+    .cv-social-link:hover { color: #2ecc71; background: #f0fdf4; }
+
+    /* ── Mobile nav — visible by default (mobile-first) ── */
+    .mobile-nav {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      padding: 10px 16px 12px;
+      border-top: 1px solid #f3f4f6;
+      margin-top: 14px;
+    }
+    .mobile-nav::-webkit-scrollbar { display: none; }
+    .mobile-nav button {
+      white-space: nowrap;
+      flex-shrink: 0;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      border: 1.5px solid #e5e7eb;
+      background: none;
+      color: #6b7280;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all .15s;
+    }
+    .mobile-nav button.active { background: #2ecc71; color: #fff; border-color: #2ecc71; }
+
+    /* ── Bottom buttons ── */
+    .cv-bottom-btns { display: flex; margin-top: auto; }
+    .cv-btn-bottom {
+      flex: 1;
+      padding: 16px 8px;
+      background: #1a1a2e;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background .15s;
+      text-decoration: none;
+    }
+    .cv-btn-bottom:hover { background: #2ecc71; color: #fff; }
+    .cv-btn-bottom + .cv-btn-bottom { border-left: 1px solid rgba(255,255,255,0.12); }
+
+    /* ── Right panel ── */
+    .cv-right {
+      flex: 1;
+      overflow-y: auto;
+      padding: 28px 22px 32px;
+      border-radius: 0 0 16px 16px;
+    }
+    .cv-right::-webkit-scrollbar { width: 4px; }
+    .cv-right::-webkit-scrollbar-track { background: #f9fafb; }
+    .cv-right::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+
+    /* ── Sections ── */
+    .cv-section { display: none; }
+    .cv-section.active { display: block; }
+
+    /* ── Section heading ── */
+    .cv-heading { font-size: 22px; font-weight: 800; color: #111; margin-bottom: 24px; }
+    .cv-heading .hl { color: #2ecc71; }
+
+    /* ── About bio text ── */
+    .about-bio p { text-align: justify; line-height: 1.85; color: #4b5563; font-size: 14px; }
+    .about-bio p + p { margin-top: 12px; }
+
+    /* ── Info table ── */
+    .info-badge {
+      display: inline-block;
+      background: #2ecc71;
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .info-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 0;
+      border-bottom: 1px solid #f3f4f6;
+      gap: 12px;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-val { font-size: 13px; color: #374151; text-align: right; }
+
+    /* ── Service cards ── */
+    .svc-icon {
+      width: 52px; height: 52px;
+      background: #2ecc71;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    /* ── Pricing cards ── */
+    .pricing-card {
+      border: 1.5px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 24px;
+      text-align: center;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .pricing-card:hover { border-color: #2ecc71; box-shadow: 0 4px 20px rgba(46,204,113,.12); }
+    .pricing-card.featured { border-color: #2ecc71; background: #f0fdf4; }
+
+    /* ── Timeline ── */
+    .tl-dot { width: 10px; height: 10px; background: #2ecc71; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+    .tl-line { width: 2px; background: #e5e7eb; flex-grow: 1; margin: 4px auto; }
+    .tl-date { display: inline-block; border: 1px solid #d1d5db; border-radius: 4px; padding: 1px 7px; font-size: 11px; color: #6b7280; }
+
+    /* ── Progress bars ── */
+    .skill-track { height: 4px; background: #f3f4f6; border-radius: 999px; overflow: hidden; }
+    .skill-fill { height: 100%; background: #2ecc71; border-radius: 999px; }
+
+    /* ── Language dots ── */
+    .lang-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .lang-dot.filled { background: #2ecc71; }
+    .lang-dot.empty  { background: #e5e7eb; }
+
+    /* ── Works grid ── */
+    .work-card { border-radius: 10px; overflow: hidden; border: 1px solid #f3f4f6; }
+    .work-thumb { position: relative; height: 140px; overflow: hidden; }
+    .work-thumb-inner { width: 100%; height: 100%; transition: transform .4s ease; }
+    .work-card:hover .work-thumb-inner { transform: scale(1.05); }
+    .work-overlay {
+      position: absolute; inset: 0;
+      background: rgba(26,26,46,0);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: background .3s;
+      flex-direction: column;
+    }
+    .work-card:hover .work-overlay { background: rgba(26,26,46,0.72); }
+    .work-overlay-content { opacity: 0; transition: opacity .3s; text-align: center; }
+    .work-card:hover .work-overlay-content { opacity: 1; }
+
+    /* ── Filter tabs ── */
+    .filter-tab {
+      padding: 6px 16px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      color: #9ca3af;
+      border-bottom: 2px solid transparent;
+      transition: all .15s;
+      font-family: inherit;
+    }
+    .filter-tab:hover { color: #374151; }
+    .filter-tab.active { color: #2ecc71; border-bottom-color: #2ecc71; }
+
+    /* ── Contact form ── */
+    .cv-input {
+      width: 100%;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #111;
+      font-family: inherit;
+      outline: none;
+      transition: border-color .2s;
+      background: #fff;
+    }
+    .cv-input:focus { border-color: #2ecc71; }
+    .cv-input::placeholder { color: #9ca3af; }
+
+    /* ══ DESKTOP OVERRIDES (min-width: 769px) ════════════════════════════ */
+    @media (min-width: 769px) {
+
+      /* Wrapper: lock to viewport height — no page scroll */
+      .cv-wrapper {
+        height: 100vh;
+        min-height: 0;
+        overflow: hidden;
+        align-items: center;
+        padding: 40px 60px 40px 110px; /* extra left for nav strip */
+      }
+
+      /* Card: row layout, fixed height for internal scroll */
+      .cv-card {
+        flex-direction: row;
+        max-width: 1100px;
+        height: calc(100vh - 80px);
+        overflow: visible; /* allow nav strip to protrude */
+      }
+
+      /* Nav strip: visible on desktop, fully left of card with gap */
+      .cv-nav-strip {
+        display: flex;
+        position: absolute;
+        left: -74px;          /* 52px wide + 22px gap from card */
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 20;
+        background: #fff;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.14);
+        border-radius: 12px;
+        padding: 12px 8px;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        width: 52px;
+      }
+
+      /* Hamburger icon in nav strip: hidden on desktop */
+      .cv-hamburger { display: none !important; }
+
+      /* Mobile nav: hidden on desktop */
+      .mobile-nav { display: none !important; }
+
+      /* Left panel: fixed width, full card height, internal scroll */
+      .cv-left {
+        width: 330px;
+        min-width: 330px;
+        border-right: 1px solid #f3f4f6;
+        border-bottom: none;
+        border-radius: 16px 0 0 16px;
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      .cv-photo-wrap { height: 260px; }
+
+      .cv-profile-body { padding: 18px 28px 0; }
+
+      /* Right panel: fill remaining width, internal scroll */
+      .cv-right {
+        height: 100%;
+        overflow-y: auto;
+        padding: 36px 40px 40px;
+        border-radius: 0 16px 16px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Background diamonds ─────────────────────────────────────────────── -->
+<div class="bg-diamonds" aria-hidden="true">
+  <div class="diamond" style="top:8%;left:5%;width:50px;height:50px;"></div>
+  <div class="diamond" style="top:15%;left:22%;width:25px;height:25px;opacity:.07;"></div>
+  <div class="diamond" style="top:35%;left:8%;width:60px;height:60px;opacity:.08;"></div>
+  <div class="diamond" style="top:60%;left:3%;width:30px;height:30px;opacity:.06;"></div>
+  <div class="diamond" style="top:80%;left:15%;width:45px;height:45px;opacity:.09;"></div>
+  <div class="diamond" style="top:5%;right:10%;width:55px;height:55px;opacity:.07;"></div>
+  <div class="diamond" style="top:25%;right:5%;width:35px;height:35px;opacity:.09;"></div>
+  <div class="diamond" style="top:50%;right:8%;width:65px;height:65px;opacity:.06;"></div>
+  <div class="diamond" style="top:70%;right:4%;width:28px;height:28px;opacity:.08;"></div>
+  <div class="diamond" style="top:90%;right:18%;width:40px;height:40px;opacity:.07;"></div>
+  <div class="diamond" style="top:45%;left:42%;width:20px;height:20px;opacity:.05;"></div>
+  <div class="diamond" style="top:75%;left:55%;width:32px;height:32px;opacity:.05;"></div>
+</div>
+
+<!-- ─── Main wrapper ─────────────────────────────────────────────────────── -->
+<div class="cv-wrapper">
+  <div class="cv-card">
+
+    <!-- ══ LEFT VERTICAL NAV STRIP ══════════════════════════════════════════ -->
+    <nav class="cv-nav-strip" id="cvNavStrip">
+      <!-- Utility icons -->
+      <button class="cv-nav-util cv-hamburger" title="Menu" onclick="toggleMobileMenu()">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <button class="cv-nav-util" title="Dark mode" id="cvDarkBtn" onclick="toggleDark()">
+        <svg id="cvMoonIcon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg id="cvSunIcon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+      </button>
+      <button class="cv-nav-util" title="Products" style="position:relative;" onclick="showSection('products')">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-badge">2</span>
+      </button>
+
+      <div class="cv-nav-divider"></div>
+
+      <!-- Section nav -->
+      <button class="cv-nav-item active" data-section="about" onclick="showSection('about')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span class="cv-nav-label">About</span>
+      </button>
+      <button class="cv-nav-item" data-section="resume" onclick="showSection('resume')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <span class="cv-nav-label">Resume</span>
+      </button>
+      <button class="cv-nav-item" data-section="works" onclick="showSection('works')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span class="cv-nav-label">Works</span>
+      </button>
+      <button class="cv-nav-item" data-section="blog" onclick="showSection('blog')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <span class="cv-nav-label">Blog</span>
+      </button>
+      <button class="cv-nav-item" data-section="contact" onclick="showSection('contact')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span class="cv-nav-label">Contact</span>
+      </button>
+      <button class="cv-nav-item" data-section="products" onclick="showSection('products')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cv-nav-label">Products</span>
+      </button>
+    </nav>
+
+    <!-- ══ LEFT PANEL ════════════════════════════════════════════════════════ -->
+    <div class="cv-left">
+
+      <!-- Profile photo -->
+      <div class="cv-photo-wrap">
+        <div class="cv-photo-placeholder">
+          <svg width="96" height="96" fill="none" viewBox="0 0 24 24" stroke="rgba(255,255,255,.7)" stroke-width="1.2">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Profile body -->
+      <div class="cv-profile-body">
+        <h1 class="cv-name">Santhosh Prabakar</h1>
+        <div class="cv-role-wrap">
+          <span class="cv-role" id="cvRole">UI/UX Designer</span>
+        </div>
+
+        <!-- Social icons -->
+        <div class="cv-socials">
+          <a href="https://santy.in" target="_blank" rel="noopener" class="cv-social-link" title="Website">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </a>
+          <a href="https://instagram.com/santystudio" target="_blank" rel="noopener" class="cv-social-link" title="Instagram">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://github.com/ChintuSanty" target="_blank" rel="noopener" class="cv-social-link" title="GitHub">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.603-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836a9.59 9.59 0 012.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/santhosh-prabakar/" target="_blank" rel="noopener" class="cv-social-link" title="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://www.npmjs.com/package/santycss" target="_blank" rel="noopener" class="cv-social-link" title="Download CV">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </a>
+        </div>
+
+        <!-- Mobile nav -->
+        <div class="mobile-nav" id="mobileNav">
+          <button class="active" data-section="about" onclick="showSection('about')">About</button>
+          <button data-section="resume" onclick="showSection('resume')">Resume</button>
+          <button data-section="works" onclick="showSection('works')">Works</button>
+          <button data-section="blog" onclick="showSection('blog')">Blog</button>
+          <button data-section="contact" onclick="showSection('contact')">Contact</button>
+          <button data-section="products" onclick="showSection('products')">Products</button>
+        </div>
+      </div>
+
+      <!-- Spacer -->
+      <div style="flex:1;"></div>
+
+      <!-- Bottom CTA buttons -->
+      <div class="cv-bottom-btns">
+        <a href="#" class="cv-btn-bottom" download>
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download CV
+        </a>
+        <button class="cv-btn-bottom" onclick="showSection('contact')">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Contact Me
+        </button>
+      </div>
+    </div><!-- /cv-left -->
+
+    <!-- ══ RIGHT PANEL ═══════════════════════════════════════════════════════ -->
+    <div class="cv-right" id="cvRight">
+
+      <!-- ══════════════════════════════════════════════════════════
+           ABOUT
+      ══════════════════════════════════════════════════════════ -->
+      <section class="cv-section active" id="sec-about">
+        <h2 class="cv-heading"><span class="hl">A</span>bout Me</h2>
+
+        <!-- Two-column intro -->
+        <div class="make-grid gap-24 add-margin-bottom-32" style="grid-template-columns:1fr 1fr;">
+          <!-- Left: bio -->
+          <div class="about-bio">
+            <p>
+              I'm a <strong style="color:#111;">designer and developer</strong> who builds tools that make the web simpler. Creator of <strong style="color:#2ecc71;">SantyCSS</strong> — a plain-English utility CSS framework with 8,500+ classes, used by developers worldwide.
+            </p>
+            <p>
+              I bridge the gap between design and code — from pixel-perfect Figma mockups to production-ready CSS. I enjoy building things that are both beautiful and fast.
+            </p>
+          </div>
+          <!-- Right: info table -->
+          <div>
+            <div class="info-row">
+              <span class="info-badge">Birthday</span>
+              <span class="info-val">April 15, 1998</span>
+            </div>
+            <div class="info-row">
+              <span class="info-badge">Location</span>
+              <span class="info-val">Chennai, India</span>
+            </div>
+            <div class="info-row">
+              <span class="info-badge">Email</span>
+              <span class="info-val" style="font-size:12px;">hello@santy.in</span>
+            </div>
+            <div class="info-row">
+              <span class="info-badge">Phone</span>
+              <span class="info-val">+91 63020 29873</span>
+            </div>
+            <div class="info-row">
+              <span class="info-badge">Freelance</span>
+              <span class="info-val" style="color:#2ecc71;font-weight:700;">Available</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Services -->
+        <h3 style="font-size:16px;font-weight:700;color:#111;margin-bottom:16px;margin-top:36px;">What I Do</h3>
+        <div class="make-grid gap-20 add-margin-bottom-32" style="grid-template-columns:1fr 1fr;">
+          <div class="make-flex gap-14 align-start">
+            <div class="svc-icon">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>
+            </div>
+            <div>
+              <p style="font-size:14px;font-weight:700;color:#111;margin-bottom:4px;">UI/UX Design</p>
+              <p style="font-size:12px;color:#6b7280;line-height:1.6;">Figma designs, prototypes, design systems, and handoff-ready assets.</p>
+            </div>
+          </div>
+          <div class="make-flex gap-14 align-start">
+            <div class="svc-icon">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <div>
+              <p style="font-size:14px;font-weight:700;color:#111;margin-bottom:4px;">Frontend Development</p>
+              <p style="font-size:12px;color:#6b7280;line-height:1.6;">HTML, CSS, JavaScript — pixel-perfect, performant, and accessible.</p>
+            </div>
+          </div>
+          <div class="make-flex gap-14 align-start">
+            <div class="svc-icon">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <div>
+              <p style="font-size:14px;font-weight:700;color:#111;margin-bottom:4px;">CSS Frameworks</p>
+              <p style="font-size:12px;color:#6b7280;line-height:1.6;">Creator of SantyCSS — 8,500+ utility classes, animations, components.</p>
+            </div>
+          </div>
+          <div class="make-flex gap-14 align-start">
+            <div class="svc-icon">
+              <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </div>
+            <div>
+              <p style="font-size:14px;font-weight:700;color:#111;margin-bottom:4px;">Figma Plugins</p>
+              <p style="font-size:12px;color:#6b7280;line-height:1.6;">Built SantyCSS Inspector — converts Figma layers to CSS classes instantly.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pricing -->
+        <h3 style="font-size:16px;font-weight:700;color:#111;margin-bottom:16px;margin-top:36px;">Freelance Pricing</h3>
+        <div class="make-grid gap-16 add-margin-bottom-32" style="grid-template-columns:1fr 1fr;">
+          <div class="pricing-card">
+            <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;margin-bottom:8px;">Standard</p>
+            <p style="font-size:36px;font-weight:800;color:#111;line-height:1;">$45 <span style="font-size:14px;color:#9ca3af;font-weight:400;">/ hr</span></p>
+            <div style="margin:16px 0;">
+              <p style="font-size:13px;color:#4b5563;padding:7px 0;border-bottom:1px solid #f3f4f6;">UI/UX Design</p>
+              <p style="font-size:13px;color:#4b5563;padding:7px 0;border-bottom:1px solid #f3f4f6;">Responsive HTML/CSS</p>
+              <p style="font-size:13px;color:#4b5563;padding:7px 0;border-bottom:1px solid #f3f4f6;">Figma to Code</p>
+              <p style="font-size:13px;color:#9ca3af;padding:7px 0;">No plugin dev</p>
+            </div>
+            <button onclick="showSection('contact')" style="background:none;border:none;cursor:pointer;font-size:12px;font-weight:700;color:#2ecc71;letter-spacing:.08em;display:flex;align-items:center;gap:4px;margin:0 auto;font-family:inherit;">
+              HIRE ME →
+            </button>
+          </div>
+          <div class="pricing-card featured">
+            <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#2ecc71;margin-bottom:8px;">Pro ⭐</p>
+            <p style="font-size:36px;font-weight:800;color:#111;line-height:1;">$75 <span style="font-size:14px;color:#9ca3af;font-weight:400;">/ hr</span></p>
+            <div style="margin:16px 0;">
+              <p style="font-size:13px;color:#4b5563;padding:7px 0;border-bottom:1px solid #d1fae5;">Everything in Standard</p>
+              <p style="font-size:13px;color:#4b5563;padding:7px 0;border-bottom:1px solid #d1fae5;">Figma Plugin Dev</p>
+              <p style="font-size:13px;color:#4b5563;padding:7px 0;border-bottom:1px solid #d1fae5;">CSS Framework Build</p>
+              <p style="font-size:13px;color:#4b5563;padding:7px 0;">Priority delivery</p>
+            </div>
+            <button onclick="showSection('contact')" style="background:none;border:none;cursor:pointer;font-size:12px;font-weight:700;color:#2ecc71;letter-spacing:.08em;display:flex;align-items:center;gap:4px;margin:0 auto;font-family:inherit;">
+              HIRE ME →
+            </button>
+          </div>
+        </div>
+
+        <!-- Fun facts -->
+        <h3 style="font-size:16px;font-weight:700;color:#111;margin-bottom:16px;margin-top:36px;">Fun Facts</h3>
+        <div class="make-grid gap-16" style="grid-template-columns:repeat(4,1fr);">
+          <div style="text-align:center;">
+            <div style="width:40px;height:40px;background:#f0fdf4;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">
+              <svg width="18" height="18" fill="none" stroke="#2ecc71" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <p style="font-size:24px;font-weight:800;color:#111;line-height:1;">8.5K+</p>
+            <p style="font-size:11px;color:#9ca3af;margin-top:2px;">CSS Classes</p>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:40px;height:40px;background:#f0fdf4;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">
+              <svg width="18" height="18" fill="none" stroke="#2ecc71" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <p style="font-size:24px;font-weight:800;color:#111;line-height:1;">1K+</p>
+            <p style="font-size:11px;color:#9ca3af;margin-top:2px;">Developers</p>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:40px;height:40px;background:#f0fdf4;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">
+              <svg width="18" height="18" fill="none" stroke="#2ecc71" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p style="font-size:24px;font-weight:800;color:#111;line-height:1;">6+</p>
+            <p style="font-size:11px;color:#9ca3af;margin-top:2px;">npm Packages</p>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:40px;height:40px;background:#f0fdf4;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;">
+              <svg width="18" height="18" fill="none" stroke="#2ecc71" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <p style="font-size:24px;font-weight:800;color:#111;line-height:1;">5+</p>
+            <p style="font-size:11px;color:#9ca3af;margin-top:2px;">Years Building</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           RESUME
+      ══════════════════════════════════════════════════════════ -->
+      <section class="cv-section" id="sec-resume">
+        <h2 class="cv-heading"><span class="hl">R</span>esume</h2>
+
+        <!-- Experience + Education -->
+        <div class="make-grid gap-32 add-margin-bottom-32" style="grid-template-columns:1fr 1fr;">
+
+          <!-- Experience -->
+          <div>
+            <h3 style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;margin-bottom:20px;display:flex;align-items:center;gap:8px;">
+              <svg width="14" height="14" fill="none" stroke="#2ecc71" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+              Experience
+            </h3>
+
+            <!-- Entry 1 -->
+            <div class="make-flex gap-12 add-margin-bottom-24">
+              <div style="display:flex;flex-direction:column;align-items:center;">
+                <div class="tl-dot"></div>
+                <div class="tl-line"></div>
+              </div>
+              <div style="flex:1;padding-bottom:8px;">
+                <div class="make-flex align-center justify-between add-margin-bottom-4">
+                  <span class="tl-date">2022 — Present</span>
+                  <div style="width:28px;height:28px;background:#f0fdf4;border-radius:6px;display:flex;align-items:center;justify-content:center;">
+                    <svg width="14" height="14" fill="none" stroke="#2ecc71" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  </div>
+                </div>
+                <p style="font-size:14px;font-weight:700;color:#111;margin-bottom:2px;">Creator &amp; Maintainer</p>
+                <p style="font-size:12px;color:#2ecc71;font-weight:600;margin-bottom:6px;">SantyCSS — Open Source</p>
+                <p style="font-size:12px;color:#6b7280;line-height:1.7;">Built and maintain SantyCSS — a utility-first CSS framework with 8,500+ plain-English classes, npm package, VS Code extension, and Figma plugin.</p>
+              </div>
+            </div>
+
+            <!-- Entry 2 -->
+            <div class="make-flex gap-12 add-margin-bottom-24">
+              <div style="display:flex;flex-direction:column;align-items:center;">
+                <div class="tl-dot"></div>
+                <div class="tl-line"></div>
+              </div>
+              <div style="flex:1;padding-bottom:8px;">
+                <div class="make-flex align-center justify-between add-margin-bottom-4">
+                  <span class="tl-date">2020 — Present</span>
+                  <div style="width:28px;height:28px;background:#f0fdf4;border-radius:6px;display:flex;align-items:center;justify-content:center;">
+                    <svg width="14" height="14" fill="none" stroke="#2ecc71" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                  </div>
+                </div>
+                <p style="font-size:14px;font-weight:700;color:#111;margin-bottom:2px;">Freelance Designer &amp; Developer</p>
+                <p style="font-size:12px;color:#2ecc71;font-weight:600;margin-bottom:6px;">Self-employed · Remote</p>
+                <p style="font-size:12px;color:#6b7280;line-height:1.7;">UI/UX design, frontend development, and Figma-to-code for clients across India and globally. Specialising in design systems and CSS tooling.</p>
+              </div>
+            </div>
+
+            <!-- Entry 3 -->
+            <div class="make-flex gap-12">
+              <div style="display:flex;flex-direction:column;align-items:center;">
+                <div class="tl-dot" style="background:#d1d5db;"></div>
+              </div>
+              <div style="flex:1;">
+                <div class="make-flex align-center justify-between add-margin-bottom-4">
+                  <span class="tl-date">2018 — 2020</span>
+                </div>
+                <p style="font-size:14px;font-weight:700;color:#111;margin-bottom:2px;">Junior UI Developer</p>
+                <p style="font-size:12px;color:#6b7280;font-weight:600;margin-bottom:6px;">Startup · Chennai</p>
+                <p style="font-size:12px;color:#6b7280;line-height:1.7;">Built responsive web interfaces, maintained design systems, and contributed to product visual identity.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Education -->
+          <div>
+            <h3 style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;margin-bottom:20px;display:flex;align-items:center;gap:8px;">
+              <svg width="14" height="14" fill="none" stroke="#2ecc71" stroke-width="2" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2.21 2.686 4 6 4s6-1.79 6-4v-5"/></svg>
+              Education
+            </h3>
+
+            <div class="make-flex gap-12 add-margin-bottom-24">
+              <div style="display:flex;flex-direction:column;align-items:center;">
+                <div class="tl-dot"></div>
+                <div class="tl-line"></div>
+              </div>
+              <div style="flex:1;padding-bottom:8px;">
+                <div class="make-flex align-center justify-between add-margin-bottom-4">
+                  <span class="tl-date">2016 — 2020</span>
+                </div>
+                <p style="font-size:14px;font-weight:700;color:#111;margin-bottom:2px;">B.E. Computer Science</p>
+                <p style="font-size:12px;color:#2ecc71;font-weight:600;margin-bottom:6px;">Anna University · Chennai</p>
+                <p style="font-size:12px;color:#6b7280;line-height:1.7;">Graduated with distinction. Focused on web technologies, human-computer interaction, and software systems.</p>
+              </div>
+            </div>
+
+            <div class="make-flex gap-12 add-margin-bottom-24">
+              <div style="display:flex;flex-direction:column;align-items:center;">
+                <div class="tl-dot"></div>
+                <div class="tl-line"></div>
+              </div>
+              <div style="flex:1;padding-bottom:8px;">
+                <div class="make-flex align-center justify-between add-margin-bottom-4">
+                  <span class="tl-date">2021</span>
+                </div>
+                <p style="font-size:14px;font-weight:700;color:#111;margin-bottom:2px;">AWS Cloud Practitioner</p>
+                <p style="font-size:12px;color:#2ecc71;font-weight:600;margin-bottom:6px;">Amazon Web Services</p>
+                <p style="font-size:12px;color:#6b7280;line-height:1.7;">Certified Cloud Practitioner — cloud fundamentals, AWS core services, billing, and security.</p>
+              </div>
+            </div>
+
+            <div class="make-flex gap-12">
+              <div style="display:flex;flex-direction:column;align-items:center;">
+                <div class="tl-dot" style="background:#d1d5db;"></div>
+              </div>
+              <div style="flex:1;">
+                <div class="make-flex align-center justify-between add-margin-bottom-4">
+                  <span class="tl-date">2023</span>
+                </div>
+                <p style="font-size:14px;font-weight:700;color:#111;margin-bottom:2px;">Google UX Design Certificate</p>
+                <p style="font-size:12px;color:#6b7280;font-weight:600;margin-bottom:6px;">Google · Coursera</p>
+                <p style="font-size:12px;color:#6b7280;line-height:1.7;">UX research, wireframing, prototyping, and usability testing methodologies.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skills grid 2x2 -->
+        <h3 style="font-size:16px;font-weight:700;color:#111;margin-bottom:20px;">Skills</h3>
+        <div class="make-grid gap-24" style="grid-template-columns:1fr 1fr;">
+
+          <!-- Design skills: progress bars -->
+          <div>
+            <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;margin-bottom:14px;">Design</p>
+            <div style="margin-bottom:12px;">
+              <div class="make-flex justify-between add-margin-bottom-4"><span style="font-size:13px;color:#374151;">Figma</span><span style="font-size:12px;color:#9ca3af;">95%</span></div>
+              <div class="skill-track"><div class="skill-fill" style="width:95%;"></div></div>
+            </div>
+            <div style="margin-bottom:12px;">
+              <div class="make-flex justify-between add-margin-bottom-4"><span style="font-size:13px;color:#374151;">UI/UX Design</span><span style="font-size:12px;color:#9ca3af;">90%</span></div>
+              <div class="skill-track"><div class="skill-fill" style="width:90%;"></div></div>
+            </div>
+            <div style="margin-bottom:12px;">
+              <div class="make-flex justify-between add-margin-bottom-4"><span style="font-size:13px;color:#374151;">Design Systems</span><span style="font-size:12px;color:#9ca3af;">85%</span></div>
+              <div class="skill-track"><div class="skill-fill" style="width:85%;"></div></div>
+            </div>
+            <div>
+              <div class="make-flex justify-between add-margin-bottom-4"><span style="font-size:13px;color:#374151;">Prototyping</span><span style="font-size:12px;color:#9ca3af;">80%</span></div>
+              <div class="skill-track"><div class="skill-fill" style="width:80%;"></div></div>
+            </div>
+          </div>
+
+          <!-- Languages: dot indicators -->
+          <div>
+            <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;margin-bottom:14px;">Languages</p>
+            <div id="langDots"></div>
+          </div>
+
+          <!-- Coding: SVG ring charts -->
+          <div>
+            <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;margin-bottom:14px;">Coding</p>
+            <div class="make-flex gap-20 justify-center">
+              <!-- CSS/HTML -->
+              <div style="text-align:center;">
+                <svg width="64" height="64" viewBox="0 0 64 64">
+                  <circle cx="32" cy="32" r="26" fill="none" stroke="#f3f4f6" stroke-width="5"/>
+                  <circle cx="32" cy="32" r="26" fill="none" stroke="#2ecc71" stroke-width="5"
+                    stroke-dasharray="163.4" stroke-dashoffset="16.3"
+                    stroke-linecap="round" transform="rotate(-90 32 32)"/>
+                  <text x="32" y="37" text-anchor="middle" font-size="12" font-weight="700" fill="#111">90%</text>
+                </svg>
+                <p style="font-size:11px;color:#6b7280;margin-top:4px;">CSS / HTML</p>
+              </div>
+              <!-- JavaScript -->
+              <div style="text-align:center;">
+                <svg width="64" height="64" viewBox="0 0 64 64">
+                  <circle cx="32" cy="32" r="26" fill="none" stroke="#f3f4f6" stroke-width="5"/>
+                  <circle cx="32" cy="32" r="26" fill="none" stroke="#2ecc71" stroke-width="5"
+                    stroke-dasharray="163.4" stroke-dashoffset="40.85"
+                    stroke-linecap="round" transform="rotate(-90 32 32)"/>
+                  <text x="32" y="37" text-anchor="middle" font-size="12" font-weight="700" fill="#111">75%</text>
+                </svg>
+                <p style="font-size:11px;color:#6b7280;margin-top:4px;">JavaScript</p>
+              </div>
+              <!-- Node/npm -->
+              <div style="text-align:center;">
+                <svg width="64" height="64" viewBox="0 0 64 64">
+                  <circle cx="32" cy="32" r="26" fill="none" stroke="#f3f4f6" stroke-width="5"/>
+                  <circle cx="32" cy="32" r="26" fill="none" stroke="#2ecc71" stroke-width="5"
+                    stroke-dasharray="163.4" stroke-dashoffset="65.36"
+                    stroke-linecap="round" transform="rotate(-90 32 32)"/>
+                  <text x="32" y="37" text-anchor="middle" font-size="12" font-weight="700" fill="#111">60%</text>
+                </svg>
+                <p style="font-size:11px;color:#6b7280;margin-top:4px;">Node / npm</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Knowledge: checklist -->
+          <div>
+            <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;margin-bottom:14px;">Knowledge</p>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div class="make-flex gap-8 align-center">
+                <svg width="14" height="14" fill="none" stroke="#2ecc71" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                <span style="font-size:13px;color:#4b5563;">Accessibility (WCAG 2.1)</span>
+              </div>
+              <div class="make-flex gap-8 align-center">
+                <svg width="14" height="14" fill="none" stroke="#2ecc71" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                <span style="font-size:13px;color:#4b5563;">Responsive / Mobile-first</span>
+              </div>
+              <div class="make-flex gap-8 align-center">
+                <svg width="14" height="14" fill="none" stroke="#2ecc71" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                <span style="font-size:13px;color:#4b5563;">CSS Architecture (BEM/Utility)</span>
+              </div>
+              <div class="make-flex gap-8 align-center">
+                <svg width="14" height="14" fill="none" stroke="#2ecc71" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                <span style="font-size:13px;color:#4b5563;">npm Package Publishing</span>
+              </div>
+              <div class="make-flex gap-8 align-center">
+                <svg width="14" height="14" fill="none" stroke="#2ecc71" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                <span style="font-size:13px;color:#4b5563;">AWS Cloud Practitioner</span>
+              </div>
+              <div class="make-flex gap-8 align-center">
+                <svg width="14" height="14" fill="none" stroke="#2ecc71" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                <span style="font-size:13px;color:#4b5563;">Git / GitHub workflow</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           WORKS
+      ══════════════════════════════════════════════════════════ -->
+      <section class="cv-section" id="sec-works">
+        <h2 class="cv-heading"><span class="hl">W</span>orks</h2>
+
+        <!-- Filter tabs -->
+        <div class="make-flex gap-4 add-margin-bottom-24" style="border-bottom:1px solid #f3f4f6;padding-bottom:4px;">
+          <button class="filter-tab active" data-work-filter="all" onclick="filterWorks('all',this)">All</button>
+          <button class="filter-tab" data-work-filter="css" onclick="filterWorks('css',this)">CSS</button>
+          <button class="filter-tab" data-work-filter="tools" onclick="filterWorks('tools',this)">Tools</button>
+          <button class="filter-tab" data-work-filter="design" onclick="filterWorks('design',this)">Design</button>
+        </div>
+
+        <!-- Portfolio grid -->
+        <div class="make-grid gap-16" style="grid-template-columns:1fr 1fr;" id="worksGrid">
+
+          <div class="work-card" data-work-cat="css">
+            <div class="work-thumb">
+              <div class="work-thumb-inner" style="background:linear-gradient(135deg,#1abc9c,#2ecc71);display:flex;align-items:center;justify-content:center;">
+                <span style="font-size:32px;font-weight:800;color:rgba(255,255,255,.9);letter-spacing:-1px;">S<span style="opacity:.6;">CSS</span></span>
+              </div>
+              <div class="work-overlay">
+                <div class="work-overlay-content">
+                  <svg width="28" height="28" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24" style="margin:0 auto 6px;display:block;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <p style="font-size:12px;font-weight:700;color:#fff;">View Project</p>
+                </div>
+              </div>
+            </div>
+            <div style="padding:14px 16px;">
+              <p style="font-size:14px;font-weight:700;color:#111;margin-bottom:3px;">SantyCSS Framework</p>
+              <p style="font-size:11px;color:#9ca3af;">CSS Framework · Open Source</p>
+            </div>
+          </div>
+
+          <div class="work-card" data-work-cat="tools">
+            <div class="work-thumb">
+              <div class="work-thumb-inner" style="background:linear-gradient(135deg,#1a1a2e,#16213e);display:flex;align-items:center;justify-content:center;">
+                <svg width="40" height="40" fill="none" stroke="rgba(247,191,4,.9)" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+              </div>
+              <div class="work-overlay">
+                <div class="work-overlay-content">
+                  <svg width="28" height="28" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24" style="margin:0 auto 6px;display:block;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <p style="font-size:12px;font-weight:700;color:#fff;">View Project</p>
+                </div>
+              </div>
+            </div>
+            <div style="padding:14px 16px;">
+              <p style="font-size:14px;font-weight:700;color:#111;margin-bottom:3px;">SantyCSS Inspector</p>
+              <p style="font-size:11px;color:#9ca3af;">Figma Plugin · Dev Tool</p>
+            </div>
+          </div>
+
+          <div class="work-card" data-work-cat="tools">
+            <div class="work-thumb">
+              <div class="work-thumb-inner" style="background:linear-gradient(135deg,#0f172a,#312e81);display:flex;align-items:center;justify-content:center;">
+                <svg width="40" height="40" fill="none" stroke="#a5b4fc" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <div class="work-overlay">
+                <div class="work-overlay-content">
+                  <svg width="28" height="28" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24" style="margin:0 auto 6px;display:block;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <p style="font-size:12px;font-weight:700;color:#fff;">View Project</p>
+                </div>
+              </div>
+            </div>
+            <div style="padding:14px 16px;">
+              <p style="font-size:14px;font-weight:700;color:#111;margin-bottom:3px;">VS Code IntelliSense</p>
+              <p style="font-size:11px;color:#9ca3af;">VS Code Extension · Tool</p>
+            </div>
+          </div>
+
+          <div class="work-card" data-work-cat="design">
+            <div class="work-thumb">
+              <div class="work-thumb-inner" style="background:linear-gradient(135deg,#f59e0b,#f97316);display:flex;align-items:center;justify-content:center;">
+                <svg width="40" height="40" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              </div>
+              <div class="work-overlay">
+                <div class="work-overlay-content">
+                  <svg width="28" height="28" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24" style="margin:0 auto 6px;display:block;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <p style="font-size:12px;font-weight:700;color:#fff;">View Project</p>
+                </div>
+              </div>
+            </div>
+            <div style="padding:14px 16px;">
+              <p style="font-size:14px;font-weight:700;color:#111;margin-bottom:3px;">santystudio</p>
+              <p style="font-size:11px;color:#9ca3af;">Design · Instagram</p>
+            </div>
+          </div>
+
+          <div class="work-card" data-work-cat="css">
+            <div class="work-thumb">
+              <div class="work-thumb-inner" style="background:linear-gradient(135deg,#ec4899,#8b5cf6);display:flex;align-items:center;justify-content:center;">
+                <svg width="40" height="40" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+              </div>
+              <div class="work-overlay">
+                <div class="work-overlay-content">
+                  <svg width="28" height="28" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24" style="margin:0 auto 6px;display:block;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <p style="font-size:12px;font-weight:700;color:#fff;">View on GitHub</p>
+                </div>
+              </div>
+            </div>
+            <div style="padding:14px 16px;">
+              <p style="font-size:14px;font-weight:700;color:#111;margin-bottom:3px;">Open Source Contributions</p>
+              <p style="font-size:11px;color:#9ca3af;">CSS · JavaScript · Tools</p>
+            </div>
+          </div>
+
+          <div class="work-card" data-work-cat="design">
+            <div class="work-thumb">
+              <div class="work-thumb-inner" style="background:linear-gradient(135deg,#0ea5e9,#38bdf8);display:flex;align-items:center;justify-content:center;">
+                <svg width="40" height="40" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg>
+              </div>
+              <div class="work-overlay">
+                <div class="work-overlay-content">
+                  <svg width="28" height="28" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24" style="margin:0 auto 6px;display:block;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <p style="font-size:12px;font-weight:700;color:#fff;">View Project</p>
+                </div>
+              </div>
+            </div>
+            <div style="padding:14px 16px;">
+              <p style="font-size:14px;font-weight:700;color:#111;margin-bottom:3px;">Animation Library</p>
+              <p style="font-size:11px;color:#9ca3af;">CSS · 120+ Animations</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           BLOG
+      ══════════════════════════════════════════════════════════ -->
+      <section class="cv-section" id="sec-blog">
+        <h2 class="cv-heading"><span class="hl">B</span>log</h2>
+        <div class="make-flex flex-column gap-20">
+
+          <div style="border-bottom:1px solid #f3f4f6;padding-bottom:20px;">
+            <p style="font-size:11px;color:#2ecc71;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">CSS · March 2025</p>
+            <h3 style="font-size:15px;font-weight:700;color:#111;margin-bottom:6px;line-height:1.4;">Why I Built a CSS Framework with 8,500+ Plain-English Classes</h3>
+            <p style="font-size:13px;color:#6b7280;line-height:1.7;margin-bottom:10px;">The story behind SantyCSS — why Tailwind's class names frustrated me and how I designed a naming system that reads like English sentences.</p>
+            <a href="https://github.com/ChintuSanty/santyCSS" target="_blank" rel="noopener" style="font-size:12px;font-weight:700;color:#2ecc71;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">Read on GitHub →</a>
+          </div>
+
+          <div style="border-bottom:1px solid #f3f4f6;padding-bottom:20px;">
+            <p style="font-size:11px;color:#2ecc71;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Figma · Jan 2025</p>
+            <h3 style="font-size:15px;font-weight:700;color:#111;margin-bottom:6px;line-height:1.4;">Building a Figma Plugin That Converts Designs to CSS Classes</h3>
+            <p style="font-size:13px;color:#6b7280;line-height:1.7;margin-bottom:10px;">How the SantyCSS Inspector plugin works under the hood — reading Figma's node tree, mapping properties to class names, and building the UI.</p>
+            <a href="https://santycss.santy.in/docs.html#figma-plugin" target="_blank" rel="noopener" style="font-size:12px;font-weight:700;color:#2ecc71;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">Read Docs →</a>
+          </div>
+
+          <div>
+            <p style="font-size:11px;color:#2ecc71;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Design · Oct 2024</p>
+            <h3 style="font-size:15px;font-weight:700;color:#111;margin-bottom:6px;line-height:1.4;">Design Systems in 2024: What Actually Works</h3>
+            <p style="font-size:13px;color:#6b7280;line-height:1.7;margin-bottom:10px;">Practical lessons from building design tokens, component libraries, and handoff workflows — without over-engineering from day one.</p>
+            <a href="https://www.linkedin.com/in/santhosh-prabakar/" target="_blank" rel="noopener" style="font-size:12px;font-weight:700;color:#2ecc71;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">Connect on LinkedIn →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           CONTACT
+      ══════════════════════════════════════════════════════════ -->
+      <section class="cv-section" id="sec-contact">
+        <h2 class="cv-heading"><span class="hl">C</span>ontact</h2>
+
+        <!-- Map embed -->
+        <div style="border-radius:10px;overflow:hidden;margin-bottom:24px;border:1px solid #f3f4f6;">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d497698.4!2d80.27840!3d13.08268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a526f010536386b%3A0x2cf294f1078b5e0a!2sChennai%2C%20Tamil%20Nadu%2C%20India!5e0!3m2!1sen!2sin!4v1699990000000"
+            width="100%" height="200" style="border:0;display:block;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" title="Chennai, India">
+          </iframe>
+        </div>
+
+        <!-- Info badges row -->
+        <div class="make-flex flex-wrap gap-10 add-margin-bottom-24">
+          <div class="make-flex align-center gap-8" style="background:#f9fafb;border:1px solid #f3f4f6;border-radius:8px;padding:8px 14px;">
+            <span class="info-badge">Address</span>
+            <span style="font-size:13px;color:#374151;">Chennai, Tamil Nadu, India</span>
+          </div>
+          <div class="make-flex align-center gap-8" style="background:#f9fafb;border:1px solid #f3f4f6;border-radius:8px;padding:8px 14px;">
+            <span class="info-badge">Email</span>
+            <span style="font-size:13px;color:#374151;">hello@santy.in</span>
+          </div>
+          <div class="make-flex align-center gap-8" style="background:#f9fafb;border:1px solid #f3f4f6;border-radius:8px;padding:8px 14px;">
+            <span class="info-badge">Phone</span>
+            <span style="font-size:13px;color:#374151;">+91 63020 29873</span>
+          </div>
+          <div class="make-flex align-center gap-8" style="background:#f9fafb;border:1px solid #f3f4f6;border-radius:8px;padding:8px 14px;">
+            <span class="info-badge">Freelance</span>
+            <span style="font-size:13px;color:#2ecc71;font-weight:700;">Available</span>
+          </div>
+        </div>
+
+        <!-- Contact form -->
+        <form onsubmit="submitContactForm(event)">
+          <div class="make-grid gap-14 add-margin-bottom-14" style="grid-template-columns:1fr 1fr;">
+            <div>
+              <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:6px;">Your Name</label>
+              <input type="text" class="cv-input" placeholder="Jane Smith" required />
+            </div>
+            <div>
+              <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:6px;">Email Address</label>
+              <input type="email" class="cv-input" placeholder="jane@example.com" required />
+            </div>
+          </div>
+          <div class="add-margin-bottom-14">
+            <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:6px;">Subject</label>
+            <input type="text" class="cv-input" placeholder="Project inquiry / Freelance / Just saying hi" required />
+          </div>
+          <div class="add-margin-bottom-20">
+            <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:6px;">Message</label>
+            <textarea class="cv-input" rows="4" placeholder="Tell me about your project..." required style="resize:vertical;"></textarea>
+          </div>
+          <button type="submit" style="background:#2ecc71;color:#fff;border:none;padding:12px 32px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;display:inline-flex;align-items:center;gap:8px;" onmouseover="this.style.background='#27ae60'" onmouseout="this.style.background='#2ecc71'">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Send Message
+          </button>
+          <span id="contactSuccess" style="display:none;margin-left:16px;font-size:13px;color:#2ecc71;font-weight:600;">✓ Message sent!</span>
+        </form>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           PRODUCTS
+      ══════════════════════════════════════════════════════════ -->
+      <section class="cv-section" id="sec-products">
+        <h2 class="cv-heading"><span class="hl">P</span>roducts</h2>
+        <div class="make-flex flex-column gap-16">
+
+          <div style="border:1.5px solid #e5e7eb;border-radius:12px;padding:20px 24px;display:flex;align-items:flex-start;gap:16px;transition:border-color .2s;" onmouseover="this.style.borderColor='#2ecc71'" onmouseout="this.style.borderColor='#e5e7eb'">
+            <div style="width:48px;height:48px;background:linear-gradient(135deg,#1abc9c,#2ecc71);border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+              <svg width="22" height="22" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <div style="flex:1;">
+              <div class="make-flex align-center justify-between add-margin-bottom-4">
+                <h3 style="font-size:15px;font-weight:700;color:#111;">SantyCSS Framework</h3>
+                <span style="font-size:11px;background:#f0fdf4;color:#2ecc71;border:1px solid #bbf7d0;padding:2px 10px;border-radius:20px;font-weight:700;">v1.8.0 Live</span>
+              </div>
+              <p style="font-size:13px;color:#6b7280;line-height:1.7;margin-bottom:10px;">Plain-English utility CSS framework — 8,500+ classes, 120+ animations, 113+ icons, dark mode, Figma plugin, VS Code extension, PostCSS plugin, and JIT runtime.</p>
+              <a href="https://santycss.santy.in" target="_blank" rel="noopener" style="font-size:12px;font-weight:700;color:#2ecc71;text-decoration:none;margin-right:16px;">santycss.santy.in →</a>
+              <a href="https://github.com/ChintuSanty/santyCSS" target="_blank" rel="noopener" style="font-size:12px;font-weight:600;color:#6b7280;text-decoration:none;">GitHub ↗</a>
+            </div>
+          </div>
+
+          <div style="border:1.5px solid #e5e7eb;border-radius:12px;padding:20px 24px;display:flex;align-items:flex-start;gap:16px;transition:border-color .2s;" onmouseover="this.style.borderColor='#2ecc71'" onmouseout="this.style.borderColor='#e5e7eb'">
+            <div style="width:48px;height:48px;background:linear-gradient(135deg,#8b5cf6,#6366f1);border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+              <svg width="22" height="22" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            </div>
+            <div style="flex:1;">
+              <div class="make-flex align-center justify-between add-margin-bottom-4">
+                <h3 style="font-size:15px;font-weight:700;color:#111;">SantyCSS Inspector</h3>
+                <span style="font-size:11px;background:#ede9fe;color:#7c3aed;border:1px solid #c4b5fd;padding:2px 10px;border-radius:20px;font-weight:700;">Figma Plugin</span>
+              </div>
+              <p style="font-size:13px;color:#6b7280;line-height:1.7;margin-bottom:10px;">Inspect any Figma layer and get the matching SantyCSS classes in one click. Grouped by category with copy-to-clipboard and dark mode support.</p>
+              <a href="https://santycss.santy.in/docs.html#figma-plugin" target="_blank" rel="noopener" style="font-size:12px;font-weight:700;color:#7c3aed;text-decoration:none;">View Docs →</a>
+            </div>
+          </div>
+
+          <div style="border:1.5px solid #e5e7eb;border-radius:12px;padding:20px 24px;display:flex;align-items:flex-start;gap:16px;transition:border-color .2s;" onmouseover="this.style.borderColor='#2ecc71'" onmouseout="this.style.borderColor='#e5e7eb'">
+            <div style="width:48px;height:48px;background:linear-gradient(135deg,#0f172a,#1e293b);border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+              <svg width="22" height="22" fill="none" stroke="#7dd3fc" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div style="flex:1;">
+              <div class="make-flex align-center justify-between add-margin-bottom-4">
+                <h3 style="font-size:15px;font-weight:700;color:#111;">SantyCSS IntelliSense</h3>
+                <span style="font-size:11px;background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;padding:2px 10px;border-radius:20px;font-weight:700;">VS Code</span>
+              </div>
+              <p style="font-size:13px;color:#6b7280;line-height:1.7;margin-bottom:10px;">Autocomplete + hover docs for all 8,500+ SantyCSS classes in VS Code. Works in HTML, JSX, TSX, Vue, Svelte, PHP, and more.</p>
+              <a href="https://marketplace.visualstudio.com/items?itemName=santycss.santycss-intellisense" target="_blank" rel="noopener" style="font-size:12px;font-weight:700;color:#2563eb;text-decoration:none;">VS Code Marketplace →</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div><!-- /cv-right -->
+  </div><!-- /cv-card -->
+</div><!-- /cv-wrapper -->
+
+<!-- ─── JS ───────────────────────────────────────────────────────────────── -->
+<script>
+// ── Section navigation ────────────────────────────────────────────────────
+function showSection(id) {
+  // Hide all sections
+  document.querySelectorAll('.cv-section').forEach(function(s) {
+    s.classList.remove('active');
+  });
+  // Show target
+  var target = document.getElementById('sec-' + id);
+  if (target) {
+    target.classList.add('active');
+    // Scroll right panel to top
+    var panel = document.getElementById('cvRight');
+    if (panel) panel.scrollTop = 0;
+  }
+  // Update desktop nav
+  document.querySelectorAll('.cv-nav-item').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.section === id);
+  });
+  // Update mobile nav
+  document.querySelectorAll('.mobile-nav button').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.section === id);
+  });
+}
+
+// ── Role text rotator ─────────────────────────────────────────────────────
+var roles = ['UI/UX Designer', 'Frontend Developer', 'Creative Freelancer'];
+var roleIdx = 0;
+var roleEl = document.getElementById('cvRole');
+function rotateRole() {
+  roleEl.style.opacity = '0';
+  roleEl.style.transition = 'opacity .35s ease';
+  setTimeout(function() {
+    roleIdx = (roleIdx + 1) % roles.length;
+    roleEl.textContent = roles[roleIdx];
+    roleEl.style.opacity = '1';
+  }, 380);
+}
+setInterval(rotateRole, 2500);
+
+// ── Language dots ─────────────────────────────────────────────────────────
+var langs = [
+  { name: 'English',    filled: 10 },
+  { name: 'Tamil',      filled: 10 },
+  { name: 'Hindi',      filled: 7  },
+  { name: 'JavaScript', filled: 8  }
+];
+var dotsContainer = document.getElementById('langDots');
+langs.forEach(function(lang) {
+  var row = document.createElement('div');
+  row.style.cssText = 'display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;';
+  var label = document.createElement('span');
+  label.style.cssText = 'font-size:13px;color:#374151;min-width:72px;';
+  label.textContent = lang.name;
+  var dots = document.createElement('div');
+  dots.style.cssText = 'display:flex;gap:4px;';
+  for (var i = 0; i < 10; i++) {
+    var d = document.createElement('span');
+    d.className = 'lang-dot ' + (i < lang.filled ? 'filled' : 'empty');
+    dots.appendChild(d);
+  }
+  row.appendChild(label);
+  row.appendChild(dots);
+  dotsContainer.appendChild(row);
+});
+
+// ── Works filter ──────────────────────────────────────────────────────────
+function filterWorks(cat, btn) {
+  // Update tab styles
+  document.querySelectorAll('[data-work-filter]').forEach(function(b) {
+    b.classList.toggle('active', b === btn);
+  });
+  // Show/hide cards
+  document.querySelectorAll('#worksGrid .work-card').forEach(function(card) {
+    var show = cat === 'all' || card.dataset.workCat === cat;
+    card.style.display = show ? '' : 'none';
+    if (show) {
+      card.style.animation = 'fadeIn .3s ease';
+    }
+  });
+}
+// Inject fade keyframe
+var styleEl = document.createElement('style');
+styleEl.textContent = '@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}';
+document.head.appendChild(styleEl);
+
+// ── Dark mode ─────────────────────────────────────────────────────────────
+function toggleDark() {
+  var isDark = document.documentElement.classList.toggle('dark-cv');
+  document.getElementById('cvMoonIcon').style.display = isDark ? 'none' : '';
+  document.getElementById('cvSunIcon').style.display = isDark ? '' : 'none';
+  // Apply dark overrides
+  var card = document.querySelector('.cv-card');
+  var left = document.querySelector('.cv-left');
+  var right = document.querySelector('.cv-right');
+  if (isDark) {
+    document.body.style.background = 'linear-gradient(135deg,#0f4c3a 0%,#0d3d2e 40%,#0e4d24 100%)';
+    card.style.background = '#1a1a2e';
+    left.style.borderRightColor = '#2d2d4e';
+    right.style.background = '#1a1a2e';
+    document.querySelectorAll('.cv-name,.tpl-card-name').forEach(function(e){e.style.color='#f1f5f9';});
+  } else {
+    document.body.style.background = '';
+    card.style.background = '#fff';
+    left.style.borderRightColor = '';
+    right.style.background = '#fff';
+    document.querySelectorAll('.cv-name').forEach(function(e){e.style.color='';});
+  }
+}
+
+// ── Mobile menu ────────────────────────────────────────────────────────────
+function toggleMobileMenu() {
+  var nav = document.getElementById('mobileNav');
+  nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+}
+
+// ── Contact form ──────────────────────────────────────────────────────────
+function submitContactForm(e) {
+  e.preventDefault();
+  var btn = e.target.querySelector('button[type="submit"]');
+  var success = document.getElementById('contactSuccess');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  setTimeout(function() {
+    btn.textContent = 'Send Message';
+    btn.disabled = false;
+    success.style.display = 'inline';
+    e.target.reset();
+    setTimeout(function() { success.style.display = 'none'; }, 3000);
+  }, 800);
+}
+</script>
+</body>
+</html>
