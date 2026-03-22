@@ -2582,6 +2582,23 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
     </div>
 
     <div style="max-width:760px;margin:0 auto;">
+
+      <!-- API Key config bar -->
+      <div id="ai-key-bar" style="display:flex;align-items:center;justify-content:space-between;background:rgba(99,102,241,.12);border:1px solid rgba(99,102,241,.25);border-radius:12px;padding:10px 16px;margin-bottom:12px;gap:12px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span id="ai-key-status-dot" style="width:8px;height:8px;border-radius:50%;background:#475569;flex-shrink:0;"></span>
+          <span id="ai-key-status-text" style="font-size:13px;color:#94a3b8;font-weight:500;">No API key — using smart rule engine</span>
+        </div>
+        <div style="display:flex;align-items:center;gap-8px;gap:8px;">
+          <div id="ai-key-input-wrap" style="display:none;align-items:center;gap:6px;">
+            <input id="ai-key-input" type="password" placeholder="sk-ant-..." style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:5px 10px;font-size:12px;color:#f1f5f9;outline:none;width:220px;font-family:ui-monospace,monospace;" />
+            <button onclick="aiSaveKey()" style="background:#6366f1;color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer;">Save</button>
+            <button onclick="aiClearKey()" style="background:rgba(239,68,68,.2);color:#f87171;border:1px solid rgba(239,68,68,.3);border-radius:6px;padding:5px 10px;font-size:12px;cursor:pointer;">Clear</button>
+          </div>
+          <button onclick="aiToggleKeyInput()" style="background:rgba(99,102,241,.2);color:#818cf8;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer;" id="ai-key-toggle-btn">Connect Claude API</button>
+        </div>
+      </div>
+
       <!-- Input area -->
       <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:8px;margin-bottom:16px;">
         <textarea id="ai-prompt" rows="3" placeholder="e.g. a card with a blue left border, shadow, and hover scale effect..."
@@ -2593,7 +2610,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
             <button onclick="aiSetExample('large bold heading with purple gradient text and fade in animation')" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;">gradient heading</button>
             <button onclick="aiSetExample('green success button large rounded with hover shadow')" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;">success button</button>
           </div>
-          <button onclick="generateAIClasses()" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;border-radius:10px;padding:10px 24px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;">Generate ✨</button>
+          <button onclick="generateAIClasses()" id="ai-gen-btn" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;border-radius:10px;padding:10px 24px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;transition:opacity .15s;">Generate ✨</button>
         </div>
       </div>
 
@@ -2601,7 +2618,10 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
       <div id="ai-output" style="display:none;">
         <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:24px;margin-bottom:16px;">
           <div class="make-flex justify-between align-center add-margin-bottom-12">
-            <span style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#6366f1;">Generated classes</span>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#6366f1;">Generated classes</span>
+              <span id="ai-source-badge" style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:9999px;background:rgba(99,102,241,.2);color:#818cf8;display:none;">via Claude AI</span>
+            </div>
             <button onclick="aiCopyClasses()" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3);border-radius:6px;padding:4px 12px;font-size:12px;cursor:pointer;" id="ai-copy-btn">Copy</button>
           </div>
           <code id="ai-classes" style="display:block;font-family:ui-monospace,monospace;font-size:14px;color:#a78bfa;line-height:1.8;word-break:break-all;"></code>
@@ -2613,7 +2633,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
         </div>
       </div>
 
-      <p class="set-text-13 text-center add-margin-top-20" style="color:#475569;">100% client-side · no API key · works offline</p>
+      <p class="set-text-13 text-center add-margin-top-20" style="color:#475569;" id="ai-footer-note">Smart rule engine · add your Anthropic API key to use Claude AI</p>
     </div>
   </div>
 </section>
@@ -3437,9 +3457,106 @@ function aiShade(p, base) {
   return base;
 }
 
-function generateAIClasses() {
+/* ── AI key management ──────────────────────────── */
+function aiToggleKeyInput() {
+  var wrap = document.getElementById('ai-key-input-wrap');
+  var isVisible = wrap.style.display === 'flex';
+  wrap.style.display = isVisible ? 'none' : 'flex';
+  document.getElementById('ai-key-toggle-btn').textContent = isVisible ? 'Connect Claude API' : 'Hide';
+}
+
+function aiSaveKey() {
+  var key = (document.getElementById('ai-key-input').value || '').trim();
+  if (!key) return;
+  localStorage.setItem('santycss_ai_key', key);
+  document.getElementById('ai-key-input').value = '';
+  document.getElementById('ai-key-input-wrap').style.display = 'none';
+  document.getElementById('ai-key-toggle-btn').textContent = 'Connect Claude API';
+  aiUpdateKeyStatus(true);
+}
+
+function aiClearKey() {
+  localStorage.removeItem('santycss_ai_key');
+  document.getElementById('ai-key-input').value = '';
+  document.getElementById('ai-key-input-wrap').style.display = 'none';
+  document.getElementById('ai-key-toggle-btn').textContent = 'Connect Claude API';
+  aiUpdateKeyStatus(false);
+}
+
+function aiUpdateKeyStatus(hasKey) {
+  var dot  = document.getElementById('ai-key-status-dot');
+  var text = document.getElementById('ai-key-status-text');
+  var badge = document.getElementById('ai-source-badge');
+  if (hasKey) {
+    dot.style.background  = '#22c55e';
+    text.textContent      = 'Claude API connected';
+    text.style.color      = '#86efac';
+    if (badge) { badge.style.display = 'inline'; }
+  } else {
+    dot.style.background  = '#475569';
+    text.textContent      = 'No API key — using smart rule engine';
+    text.style.color      = '#94a3b8';
+    if (badge) { badge.style.display = 'none'; }
+  }
+}
+
+async function generateAIClasses() {
   var raw = (document.getElementById('ai-prompt').value || '').trim();
   if (!raw) return;
+
+  var apiKey = localStorage.getItem('santycss_ai_key');
+  if (apiKey) {
+    var btn = document.getElementById('ai-gen-btn');
+    btn.textContent = 'Generating…';
+    btn.disabled = true;
+    try {
+      var sysPrompt = 'You are a SantyCSS class generator. Output ONLY a single space-separated list of valid SantyCSS utility classes — no explanation, no markdown, no punctuation. Use classes like: make-button style-primary size-large shape-pill make-card style-bordered make-flex align-center justify-between add-padding-20 add-shadow-md background-blue-500 color-white round-corners-10 text-bold transition-all on-hover:scale-105 animate-fade-in overflow-hidden cursor-pointer dark:background-gray-900 etc. Output nothing else.';
+      var res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'x-api-key': apiKey,
+          'anthropic-version': '2023-06-01',
+          'content-type': 'application/json',
+          'anthropic-dangerous-allow-browser': 'true'
+        },
+        body: JSON.stringify({
+          model: 'claude-haiku-4-5-20251001',
+          max_tokens: 300,
+          system: sysPrompt,
+          messages: [{ role: 'user', content: raw }]
+        })
+      });
+      if (!res.ok) throw new Error('API ' + res.status);
+      var data = await res.json();
+      var out = (data.content && data.content[0] && data.content[0].text || '').trim();
+      if (out) {
+        document.getElementById('ai-classes').textContent = out;
+        document.getElementById('ai-explain').textContent = '';
+        var preview = document.getElementById('ai-preview');
+        preview.innerHTML = '';
+        var el = document.createElement('div');
+        var safeClasses = out.split(/\s+/).filter(function(c){ return /^[a-z0-9:_\-\/]+$/i.test(c); });
+        el.className = safeClasses.join(' ');
+        if (!el.className.includes('add-padding')) el.style.cssText += 'padding:14px 24px;';
+        if (!el.className.includes('set-height') && !el.className.includes('make-grid') && !el.className.includes('make-flex')) el.style.minHeight = '52px';
+        el.style.minWidth = '120px';
+        el.textContent = el.className.includes('make-button') ? 'Button' : el.className.includes('make-card') ? '' : 'Preview';
+        if (el.className.includes('make-card')) {
+          el.innerHTML = '<div class="card-body" style="padding:16px"><strong>Card Title</strong><p style="margin:6px 0 0;font-size:13px;opacity:.7;">Card body content.</p></div>';
+        }
+        preview.appendChild(el);
+        document.getElementById('ai-output').style.display = 'block';
+        return;
+      }
+    } catch(e) {
+      console.warn('Claude API error, falling back to rule engine:', e);
+    } finally {
+      btn.textContent = 'Generate ✨';
+      btn.disabled = false;
+    }
+  }
+
+  /* ── Rule engine fallback ─────────────────────── */
   var p = raw.toLowerCase();
 
   var classes = [], explain = [];
@@ -3700,12 +3817,13 @@ document.addEventListener('click', function(e) {
   }
 });
 
-// Enter key triggers generate
+// Enter key triggers generate + restore API key status
 document.addEventListener('DOMContentLoaded', function() {
   var ta = document.getElementById('ai-prompt');
   if (ta) ta.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); generateAIClasses(); }
   });
+  try { aiUpdateKeyStatus(!!localStorage.getItem('santycss_ai_key')); } catch(e){}
 });
 
 function sendFeedbackToWhatsApp() {

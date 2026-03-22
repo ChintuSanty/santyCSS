@@ -253,6 +253,7 @@
       <a href="#module-components" class="sidebar-link"><span class="sidebar-dot" style="background:#22c55e;"></span>santy-components.css</a>
       <a href="#module-animations" class="sidebar-link"><span class="sidebar-dot" style="background:#f59e0b;"></span>santy-animations.css</a>
       <a href="#v17-features" class="sidebar-link"><span class="sidebar-dot" style="background:#8b5cf6;"></span>What's New in v1.7</a>
+      <a href="#v18-features" class="sidebar-link"><span class="sidebar-dot" style="background:#6366f1;"></span>What's New in v1.8</a>
       <a href="#figma-plugin" class="sidebar-link"><span class="sidebar-dot" style="background:#ec4899;"></span>🎨 Figma Plugin</a>
       <a href="#module-email" class="sidebar-link"><span class="sidebar-dot" style="background:#ec4899;"></span>santy-email.css</a>
     </div>
@@ -978,6 +979,81 @@ santy.email      <span class="c-com">// → /path/to/dist/santy-email.css</span>
             <p class="set-text-13 color-gray-600" style="margin:0;">Inspect a Figma frame and export the exact SantyCSS classes that match the design. No more translating design tokens by hand.</p>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         v1.8 NEW FEATURES
+    ═══════════════════════════════════════════════════════════════════ -->
+    <section id="v18-features" class="doc-section">
+      <h2 class="set-text-24 text-bold color-gray-900 add-margin-bottom-8">What's New in v1.8</h2>
+      <p class="set-text-14 color-gray-500 add-margin-bottom-24">Figma plugin launch, full Inspector docs, AI class generator, SantyCSS Builder WordPress plugin, expanded component library, and a live changelog.</p>
+
+      <!-- Figma Inspector -->
+      <h3 class="set-text-18 text-semibold color-gray-800 add-margin-bottom-12">SantyCSS Inspector (Figma Plugin)</h3>
+      <div class="background-pink-50 round-corners-12 add-padding-20 add-margin-bottom-20 add-border-1 border-color-pink-200">
+        <div class="make-flex align-center gap-12 add-margin-bottom-8">
+          <span style="font-size:22px;">🎨</span>
+          <strong class="set-text-15 color-gray-800">v1.0 — full release</strong>
+          <span class="chip" style="background:#fce7f3;color:#be185d;border-color:#fbcfe8;">New</span>
+        </div>
+        <p class="set-text-13 color-gray-600" style="margin:0;">Select any Figma layer and instantly get the matching SantyCSS utility classes — colors, typography, spacing, shadows, borders, and border-radius — all mapped in one click.</p>
+      </div>
+
+      <!-- AI Generator -->
+      <h3 class="set-text-18 text-semibold color-gray-800 add-margin-bottom-12">AI Class Generator</h3>
+      <div class="background-indigo-50 round-corners-12 add-padding-20 add-margin-bottom-20 add-border-1 border-color-indigo-200">
+        <div class="make-flex align-center gap-12 add-margin-bottom-8">
+          <span style="font-size:22px;">✨</span>
+          <strong class="set-text-15 color-gray-800">Claude API integration</strong>
+          <span class="chip" style="background:#eef2ff;color:#4338ca;border-color:#c7d2fe;">New</span>
+        </div>
+        <p class="set-text-13 color-gray-600 add-margin-bottom-8" style="margin-bottom:8px;">Describe a UI element in plain English and get SantyCSS classes instantly. Provide your Anthropic API key to use Claude AI, or the built-in smart rule engine runs offline for free.</p>
+        <ul class="set-text-13 color-gray-600" style="padding-left:18px;margin:0;line-height:1.8;">
+          <li>Prompt-to-classes via Claude Haiku (optional API key)</li>
+          <li>Smart rule engine fallback — works 100% offline</li>
+          <li>Live preview + one-click copy</li>
+          <li>API key stored securely in localStorage (never sent to our servers)</li>
+        </ul>
+      </div>
+
+      <!-- Builder plugin -->
+      <h3 class="set-text-18 text-semibold color-gray-800 add-margin-bottom-12">SantyCSS Builder (WordPress Plugin)</h3>
+      <div class="background-blue-50 round-corners-12 add-padding-20 add-margin-bottom-20 add-border-1 border-color-blue-200">
+        <div class="make-flex align-center gap-12 add-margin-bottom-8">
+          <span style="font-size:22px;">🔌</span>
+          <strong class="set-text-15 color-gray-800">v1.0.0 — initial release</strong>
+          <span class="chip" style="background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe;">New</span>
+        </div>
+        <p class="set-text-13 color-gray-600 add-margin-bottom-8">Drag-and-drop visual builder inside WordPress. Add SantyCSS utility classes to any block via a side panel — no code needed.</p>
+        <ul class="set-text-13 color-gray-600" style="padding-left:18px;margin:0;line-height:1.8;">
+          <li>Visual block editor with live preview</li>
+          <li>Class autocomplete panel — all SantyCSS utilities</li>
+          <li>Dark mode support baked in</li>
+          <li>Zero dependencies — pure PHP + Vanilla JS</li>
+        </ul>
+      </div>
+
+      <!-- Components -->
+      <h3 class="set-text-18 text-semibold color-gray-800 add-margin-bottom-12">Expanded Component Library</h3>
+      <div class="background-green-50 round-corners-12 add-padding-20 add-margin-bottom-20 add-border-1 border-color-green-200">
+        <div class="make-flex align-center gap-12 add-margin-bottom-8">
+          <span style="font-size:22px;">🧩</span>
+          <strong class="set-text-15 color-gray-800">19 ready-to-use components</strong>
+          <span class="chip" style="background:#f0fdf4;color:#15803d;border-color:#bbf7d0;">Improved</span>
+        </div>
+        <p class="set-text-13 color-gray-600">New standalone <code class="chip">components.html</code> page with live previews and copy-paste code for buttons, cards, badges, alerts, modals, navbars, hero sections, pricing tables, testimonials, and more.</p>
+      </div>
+
+      <!-- Changelog -->
+      <h3 class="set-text-18 text-semibold color-gray-800 add-margin-bottom-12">Live Changelog</h3>
+      <div class="background-gray-50 round-corners-12 add-padding-20 add-margin-bottom-8 add-border-1 border-color-gray-200">
+        <div class="make-flex align-center gap-12 add-margin-bottom-8">
+          <span style="font-size:22px;">📋</span>
+          <strong class="set-text-15 color-gray-800">Full version history</strong>
+          <span class="chip">New</span>
+        </div>
+        <p class="set-text-13 color-gray-600">New <code class="chip">changelog.html</code> page tracks every release from v1.0.0 → v1.8.0 with New / Fix / Improve tags and a timeline layout.</p>
       </div>
     </section>
 
