@@ -52,7 +52,7 @@ const add = (...css) => lines.push(...css);
 // ─── CSS RESET + BASE ────────────────────────────────────────────────────────
 add(
 `/* ============================================================
-   SantyCSS v1.8.0  —  Plain-English Utility CSS Framework
+   SantyCSS v1.9.0  —  Plain-English Utility CSS Framework
    https://github.com/santybad/santy_css
    ============================================================ */
 
@@ -3620,6 +3620,44 @@ add(`
 [data-story-bg="white"] { background-color: #fff; }
 [data-story-bg="gray"]  { background-color: #f9fafb; }
 [data-story-bg="dark"]  { background-color: #111827; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   v1.9 — SCROLL, SCROLLBAR, GLASS & NEW ANIMATIONS
+═══════════════════════════════════════════════════════════════════════════ */
+.scroll-smooth { scroll-behavior: smooth; }
+.scroll-auto   { scroll-behavior: auto; }
+.scrollbar-thin::-webkit-scrollbar { width:4px; height:4px; }
+.scrollbar-thin::-webkit-scrollbar-track { background:transparent; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background:#d1d5db; border-radius:4px; }
+.scrollbar-thin { scrollbar-width:thin; scrollbar-color:#d1d5db transparent; }
+.scrollbar-dark::-webkit-scrollbar { width:4px; height:4px; }
+.scrollbar-dark::-webkit-scrollbar-track { background:#09090b; }
+.scrollbar-dark::-webkit-scrollbar-thumb { background:#3f3f46; border-radius:4px; }
+.scrollbar-dark { scrollbar-width:thin; scrollbar-color:#3f3f46 #09090b; }
+.scrollbar-hidden { -ms-overflow-style:none; scrollbar-width:none; }
+.scrollbar-hidden::-webkit-scrollbar { display:none; }
+.glass       { background:rgba(255,255,255,0.1); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,0.15); }
+.glass-dark  { background:rgba(9,9,11,0.85); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,0.08); }
+.glass-light { background:rgba(255,255,255,0.7); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,0.5); }
+.gradient-radial        { background:radial-gradient(circle, var(--grad-from,#6366f1) 0%, var(--grad-to,transparent) 70%); }
+.gradient-radial-top    { background:radial-gradient(ellipse at top, var(--grad-from,#6366f1) 0%, var(--grad-to,transparent) 70%); }
+.gradient-radial-bottom { background:radial-gradient(ellipse at bottom, var(--grad-from,#6366f1) 0%, var(--grad-to,transparent) 70%); }
+.gradient-radial-tl     { background:radial-gradient(ellipse at top left, var(--grad-from,#6366f1) 0%, var(--grad-to,transparent) 70%); }
+.gradient-radial-tr     { background:radial-gradient(ellipse at top right, var(--grad-from,#6366f1) 0%, var(--grad-to,transparent) 70%); }
+.gradient-radial-bl     { background:radial-gradient(ellipse at bottom left, var(--grad-from,#6366f1) 0%, var(--grad-to,transparent) 70%); }
+.gradient-radial-br     { background:radial-gradient(ellipse at bottom right, var(--grad-from,#6366f1) 0%, var(--grad-to,transparent) 70%); }
+@keyframes santy-spin-ccw  { from{transform:rotate(0deg)} to{transform:rotate(-360deg)} }
+.animate-spin-slow      { animation:santy-spin     3s   linear infinite; }
+.animate-spin-fast      { animation:santy-spin     0.4s linear infinite; }
+.animate-spin-cw        { animation:santy-spin     1s   linear infinite; }
+.animate-spin-ccw       { animation:santy-spin-ccw 1s   linear infinite; }
+.animate-spin-slow-cw   { animation:santy-spin     3s   linear infinite; }
+.animate-spin-slow-ccw  { animation:santy-spin-ccw 3s   linear infinite; }
+.animate-spin-xslow-cw  { animation:santy-spin     8s   linear infinite; }
+.animate-spin-xslow-ccw { animation:santy-spin-ccw 8s   linear infinite; }
+@keyframes santy-pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.45;transform:scale(.75)} }
+.animate-pulse-dot { animation:santy-pulse-dot 2s ease-in-out infinite; }
+.skill-bar-animated { transition:width 1.2s cubic-bezier(.4,0,.2,1); }
 `);
 
 // Write all output files

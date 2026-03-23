@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth scrollbar-dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,31 +11,19 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css" />
 
   <style>
-    /* Only custom CSS that SantyCSS cannot do: animations, pseudo-elements, scrollbar */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
     body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
 
     :root { --accent: #8b5cf6; --accent2: #7c3aed; --glow: rgba(139,92,246,0.15); }
 
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: #09090b; }
-    ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 4px; }
-
-    /* ── Animated green dot ── */
-    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
-    .hero-dot { animation: pulse-dot 2s infinite; }
-
-    /* ── Spinning rings ── */
-    @keyframes spin-cw  { to { transform: rotate(360deg); } }
-    @keyframes spin-ccw { to { transform: rotate(-360deg); } }
+    /* ── Spinning rings (inset values are template-specific; keyframes from SantyCSS) ── */
     .ring { position:absolute; border-radius:50%; border:1.5px dashed rgba(139,92,246,.22); pointer-events:none; }
-    .ring-1 { inset:-32px; animation: spin-cw 18s linear infinite; }
-    .ring-2 { inset:-60px; border-color:rgba(139,92,246,.13); animation: spin-ccw 26s linear infinite; }
-    .ring-3 { inset:-90px; border-color:rgba(139,92,246,.07); animation: spin-cw 34s linear infinite; }
+    .ring-1 { inset:-32px; animation: santy-spin     18s linear infinite; }
+    .ring-2 { inset:-60px; border-color:rgba(139,92,246,.13); animation: santy-spin-ccw 26s linear infinite; }
+    .ring-3 { inset:-90px; border-color:rgba(139,92,246,.07); animation: santy-spin     34s linear infinite; }
     .ring::after { content:''; position:absolute; top:12px; left:50%; margin-left:-5px; width:10px; height:10px; background:var(--accent); border-radius:50%; box-shadow:0 0 14px var(--accent); }
 
-    /* ── Gradient backgrounds (not in SantyCSS utility) ── */
+    /* ── Gradient backgrounds ── */
     .bg-page { background:#09090b; }
     .bg-surface { background:#111113; }
     .bg-card { background:#1c1c21; }
@@ -44,17 +32,11 @@
     .bg-cta { background:linear-gradient(135deg,#1e1b4b 0%,#2d1b69 55%,#1a0a2e 100%); }
     .bg-cta-glow { background:radial-gradient(ellipse 60% 80% at 50% 0%, rgba(139,92,246,.2) 0%, transparent 65%); }
 
-    /* ── Nav glassmorphism ── */
-    .nav-glass { background:rgba(9,9,11,.85); backdrop-filter:blur(14px); }
-
     /* ── Top border accent on card hover ── */
     .svc-card-top::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--accent),transparent); opacity:0; transition:opacity .2s; }
     .svc-card-top:hover::before { opacity:1; }
 
-    /* ── Skill bar transition ── */
-    .skill-fill { transition: width 1.2s cubic-bezier(.4,0,.2,1); }
-
-    /* ── Work card overlay transition ── */
+    /* ── Work card overlay/image transitions ── */
     .work-overlay { transition: background .3s; }
     .work-card-wrap:hover .work-overlay { background:rgba(9,9,11,.75) !important; }
     .overlay-btn { opacity:0; transform:translateY(8px); transition:opacity .3s, transform .3s; }
@@ -81,7 +63,7 @@
 <body class="bg-page color-white" style="line-height:1.6;">
 
 <!-- ═══ NAV ═══════════════════════════════════════════════════════════════════ -->
-<header class="nav-glass position-sticky pin-top-0 z-50" style="border-bottom:1px solid #27272a;">
+<header class="glass-dark position-sticky pin-top-0 z-50" style="border-bottom:1px solid #27272a;">
   <div class="container make-flex align-center justify-between add-padding-y-18">
 
     <a href="#" class="set-text-22 text-bold color-white text-no-decoration" style="letter-spacing:-0.5px;">
@@ -120,7 +102,7 @@
 
       <!-- Available badge -->
       <div class="make-flex align-center gap-8 add-margin-bottom-24 add-padding-y-6 add-padding-x-16 round-corners-48 make-inline" style="background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.3);">
-        <span class="hero-dot" style="width:7px;height:7px;background:#22c55e;border-radius:50%;display:inline-block;"></span>
+        <span class="animate-pulse-dot" style="width:7px;height:7px;background:#22c55e;border-radius:50%;display:inline-block;"></span>
         <span class="set-text-12 text-bold text-uppercase color-violet-300" style="letter-spacing:.08em;">Available for work</span>
       </div>
 
@@ -263,28 +245,28 @@
         <div class="make-flex align-center gap-12">
           <span class="set-text-13 text-semibold color-white" style="min-width:110px;">UI/UX Design</span>
           <div class="set-width-full round-corners-48" style="height:5px;background:#27272a;overflow:hidden;flex:1;">
-            <div class="skill-fill round-corners-48" style="width:92%;height:100%;background:linear-gradient(90deg,var(--accent),#c4b5fd);"></div>
+            <div class="skill-bar-animated round-corners-48" style="width:92%;height:100%;background:linear-gradient(90deg,var(--accent),#c4b5fd);"></div>
           </div>
           <span class="set-text-12 color-zinc-400" style="min-width:34px;text-align:right;">92%</span>
         </div>
         <div class="make-flex align-center gap-12">
           <span class="set-text-13 text-semibold color-white" style="min-width:110px;">Frontend Dev</span>
           <div class="set-width-full round-corners-48" style="height:5px;background:#27272a;overflow:hidden;flex:1;">
-            <div class="skill-fill round-corners-48" style="width:85%;height:100%;background:linear-gradient(90deg,var(--accent),#c4b5fd);"></div>
+            <div class="skill-bar-animated round-corners-48" style="width:85%;height:100%;background:linear-gradient(90deg,var(--accent),#c4b5fd);"></div>
           </div>
           <span class="set-text-12 color-zinc-400" style="min-width:34px;text-align:right;">85%</span>
         </div>
         <div class="make-flex align-center gap-12">
           <span class="set-text-13 text-semibold color-white" style="min-width:110px;">Figma</span>
           <div class="set-width-full round-corners-48" style="height:5px;background:#27272a;overflow:hidden;flex:1;">
-            <div class="skill-fill round-corners-48" style="width:95%;height:100%;background:linear-gradient(90deg,var(--accent),#c4b5fd);"></div>
+            <div class="skill-bar-animated round-corners-48" style="width:95%;height:100%;background:linear-gradient(90deg,var(--accent),#c4b5fd);"></div>
           </div>
           <span class="set-text-12 color-zinc-400" style="min-width:34px;text-align:right;">95%</span>
         </div>
         <div class="make-flex align-center gap-12">
           <span class="set-text-13 text-semibold color-white" style="min-width:110px;">React / Next.js</span>
           <div class="set-width-full round-corners-48" style="height:5px;background:#27272a;overflow:hidden;flex:1;">
-            <div class="skill-fill round-corners-48" style="width:80%;height:100%;background:linear-gradient(90deg,var(--accent),#c4b5fd);"></div>
+            <div class="skill-bar-animated round-corners-48" style="width:80%;height:100%;background:linear-gradient(90deg,var(--accent),#c4b5fd);"></div>
           </div>
           <span class="set-text-12 color-zinc-400" style="min-width:34px;text-align:right;">80%</span>
         </div>
@@ -830,7 +812,7 @@ function trySkills() {
   if (!sec) return;
   if (sec.getBoundingClientRect().top < window.innerHeight * 0.9) {
     skillsDone = true;
-    document.querySelectorAll('.skill-fill').forEach(function (bar) {
+    document.querySelectorAll('.skill-bar-animated').forEach(function (bar) {
       var w = bar.style.width;
       bar.style.width = '0';
       setTimeout(function () { bar.style.width = w; }, 100);

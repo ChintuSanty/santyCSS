@@ -812,35 +812,6 @@
 @keyframes santy-badge-pop        { 0% { transform: scale(0); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
 @keyframes santy-checkmark        { to { stroke-dashoffset: 0; } }
 
-/* ── Typed Cursor (v1.9) ── */
-@keyframes santy-blink-cursor {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
-}
-.typed-cursor {
-  display: inline-block;
-  width: 2px;
-  height: .85em;
-  background: currentColor;
-  margin-left: 2px;
-  vertical-align: text-bottom;
-  border-radius: 1px;
-  animation: santy-blink-cursor .75s step-end infinite;
-}
-
-/* ── Skill-bar entrance (v1.9) ── */
-@keyframes santy-skill-grow {
-  from { width: 0 !important; }
-}
-.skill-bar.animate .skill-fill { animation: santy-skill-grow 1.2s cubic-bezier(.4,0,.2,1) forwards; }
-
-/* ── Fade-up (v1.9) ── */
-@keyframes santy-fade-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-up { animation: santy-fade-up .6s ease forwards; }
-
 /* ── Scroll-reveal observer snippet (embed in your HTML) ── */
 /* <script>
   new IntersectionObserver((entries) => {
