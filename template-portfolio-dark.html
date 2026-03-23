@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alex Morgan — Designer & Developer</title>
+  <meta name="description" content="Personal portfolio of Alex Morgan — UI/UX Designer & Frontend Developer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css" />
+
+  <style>
+    /* Only custom CSS that SantyCSS cannot do: animations, pseudo-elements, scrollbar */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
+
+    :root { --accent: #8b5cf6; --accent2: #7c3aed; --glow: rgba(139,92,246,0.15); }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #09090b; }
+    ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 4px; }
+
+    /* ── Animated green dot ── */
+    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+    .hero-dot { animation: pulse-dot 2s infinite; }
+
+    /* ── Spinning rings ── */
+    @keyframes spin-cw  { to { transform: rotate(360deg); } }
+    @keyframes spin-ccw { to { transform: rotate(-360deg); } }
+    .ring { position:absolute; border-radius:50%; border:1.5px dashed rgba(139,92,246,.22); pointer-events:none; }
+    .ring-1 { inset:-32px; animation: spin-cw 18s linear infinite; }
+    .ring-2 { inset:-60px; border-color:rgba(139,92,246,.13); animation: spin-ccw 26s linear infinite; }
+    .ring-3 { inset:-90px; border-color:rgba(139,92,246,.07); animation: spin-cw 34s linear infinite; }
+    .ring::after { content:''; position:absolute; top:12px; left:50%; margin-left:-5px; width:10px; height:10px; background:var(--accent); border-radius:50%; box-shadow:0 0 14px var(--accent); }
+
+    /* ── Gradient backgrounds (not in SantyCSS utility) ── */
+    .bg-page { background:#09090b; }
+    .bg-surface { background:#111113; }
+    .bg-card { background:#1c1c21; }
+    .bg-hero-glow { background:radial-gradient(ellipse 60% 50% at 75% 40%, rgba(139,92,246,.13) 0%, transparent 70%); }
+    .bg-hero-photo { background:linear-gradient(160deg,#1e1b4b 0%,#2d1b69 55%,#1c1c2e 100%); }
+    .bg-cta { background:linear-gradient(135deg,#1e1b4b 0%,#2d1b69 55%,#1a0a2e 100%); }
+    .bg-cta-glow { background:radial-gradient(ellipse 60% 80% at 50% 0%, rgba(139,92,246,.2) 0%, transparent 65%); }
+
+    /* ── Nav glassmorphism ── */
+    .nav-glass { background:rgba(9,9,11,.85); backdrop-filter:blur(14px); }
+
+    /* ── Top border accent on card hover ── */
+    .svc-card-top::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--accent),transparent); opacity:0; transition:opacity .2s; }
+    .svc-card-top:hover::before { opacity:1; }
+
+    /* ── Skill bar transition ── */
+    .skill-fill { transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+
+    /* ── Work card overlay transition ── */
+    .work-overlay { transition: background .3s; }
+    .work-card-wrap:hover .work-overlay { background:rgba(9,9,11,.75) !important; }
+    .overlay-btn { opacity:0; transform:translateY(8px); transition:opacity .3s, transform .3s; }
+    .work-card-wrap:hover .overlay-btn { opacity:1; transform:translateY(0); }
+    .work-img-inner { transition: transform .4s ease; }
+    .work-card-wrap:hover .work-img-inner { transform:scale(1.04); }
+    .work-arrow-icon { transition: color .2s, transform .2s; }
+    .work-card-wrap:hover .work-arrow-icon { color:var(--accent); transform:translateX(4px); }
+
+    /* ── Mobile nav open state ── */
+    @media (max-width: 768px) {
+      #pfNavLinks { display:none; flex-direction:column; gap:0; position:absolute; top:64px; left:0; right:0; background:#09090b; border-bottom:1px solid #27272a; padding:8px 24px; z-index:99; }
+      #pfNavLinks.open { display:flex; }
+      #pfNavLinks a { padding:12px 0; border-bottom:1px solid #27272a; color:#a1a1aa; text-decoration:none; font-size:14px; font-weight:500; }
+      #pfNavLinks li:last-child a { border-bottom:none; }
+      #pfHamCta { display:none; }
+    }
+    @media (min-width: 769px) {
+      #pfHam { display:none; }
+    }
+  </style>
+</head>
+
+<body class="bg-page color-white" style="line-height:1.6;">
+
+<!-- ═══ NAV ═══════════════════════════════════════════════════════════════════ -->
+<header class="nav-glass position-sticky pin-top-0 z-50" style="border-bottom:1px solid #27272a;">
+  <div class="container make-flex align-center justify-between add-padding-y-18">
+
+    <a href="#" class="set-text-22 text-bold color-white text-no-decoration" style="letter-spacing:-0.5px;">
+      Alex<span style="color:var(--accent);">.</span>
+    </a>
+
+    <button id="pfHam" class="make-flex align-center justify-center" style="background:none;border:none;color:#fff;cursor:pointer;padding:4px;">
+      <svg id="pf-ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg id="pf-ham-close" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:none"><path d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+
+    <ul id="pfNavLinks" class="make-flex align-center gap-36" style="list-style:none;">
+      <li><a href="#about"        class="color-zinc-400 text-no-decoration set-text-14 text-semibold on-hover:color-white transition-colors">About</a></li>
+      <li><a href="#services"     class="color-zinc-400 text-no-decoration set-text-14 text-semibold on-hover:color-white transition-colors">Services</a></li>
+      <li><a href="#work"         class="color-zinc-400 text-no-decoration set-text-14 text-semibold on-hover:color-white transition-colors">Work</a></li>
+      <li><a href="#testimonials" class="color-zinc-400 text-no-decoration set-text-14 text-semibold on-hover:color-white transition-colors">Testimonials</a></li>
+      <li><a href="#contact"      class="color-zinc-400 text-no-decoration set-text-14 text-semibold on-hover:color-white transition-colors">Contact</a></li>
+    </ul>
+
+    <a id="pfHamCta" href="#contact" class="make-flex align-center gap-6 text-no-decoration set-text-14 text-bold add-padding-y-10 add-padding-x-22 round-corners-8 color-white transition-all on-hover:scale-105" style="background:var(--accent);">
+      Hire Me
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+
+  </div>
+</header>
+
+<!-- ═══ HERO ══════════════════════════════════════════════════════════════════ -->
+<section class="position-relative overflow-hidden" style="min-height:calc(100vh - 65px);">
+  <div class="bg-hero-glow position-absolute pin-top-0" style="inset:0;pointer-events:none;"></div>
+
+  <div class="container make-flex align-center add-padding-y-80" style="min-height:inherit;gap:64px;flex-wrap:wrap;">
+
+    <!-- Left text -->
+    <div style="flex:1;min-width:300px;">
+
+      <!-- Available badge -->
+      <div class="make-flex align-center gap-8 add-margin-bottom-24 add-padding-y-6 add-padding-x-16 round-corners-48 make-inline" style="background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.3);">
+        <span class="hero-dot" style="width:7px;height:7px;background:#22c55e;border-radius:50%;display:inline-block;"></span>
+        <span class="set-text-12 text-bold text-uppercase color-violet-300" style="letter-spacing:.08em;">Available for work</span>
+      </div>
+
+      <h1 class="text-bold color-white add-margin-bottom-20" style="font-size:clamp(42px,5.5vw,72px);line-height:1.05;letter-spacing:-2.5px;">
+        I Design &amp;<br>
+        Build <span style="color:var(--accent);">Digital</span><br>
+        <span style="-webkit-text-stroke:2px var(--accent);color:transparent;">Experiences</span>
+      </h1>
+
+      <p class="set-text-17 color-zinc-400 add-margin-bottom-36" style="line-height:1.75;max-width:480px;">
+        UI/UX Designer &amp; Frontend Developer crafting clean, purposeful
+        digital products that users love and businesses trust.
+      </p>
+
+      <!-- Buttons -->
+      <div class="make-flex align-center gap-14 add-margin-bottom-40 flex-wrap">
+        <a href="#work" class="make-flex align-center gap-8 text-no-decoration set-text-15 text-bold add-padding-y-14 add-padding-x-28 round-corners-10 color-white transition-all on-hover:scale-105" style="background:var(--accent);">
+          View My Work
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#contact" class="make-flex align-center gap-8 text-no-decoration set-text-15 text-bold add-padding-y-14 add-padding-x-28 round-corners-10 color-white transition-all on-hover:scale-105" style="border:1.5px solid #3f3f46;">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          Let's Talk
+        </a>
+      </div>
+
+      <!-- Social icons -->
+      <div class="make-flex align-center gap-10">
+        <a href="#" title="GitHub" class="make-flex align-center justify-center round-corners-10 color-zinc-400 text-no-decoration transition-all on-hover:scale-110" style="width:40px;height:40px;border:1.5px solid #3f3f46;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </a>
+        <a href="#" title="LinkedIn" class="make-flex align-center justify-center round-corners-10 color-zinc-400 text-no-decoration transition-all on-hover:scale-110" style="width:40px;height:40px;border:1.5px solid #3f3f46;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="#" title="Dribbble" class="make-flex align-center justify-center round-corners-10 color-zinc-400 text-no-decoration transition-all on-hover:scale-110" style="width:40px;height:40px;border:1.5px solid #3f3f46;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+        </a>
+        <a href="#" title="Twitter" class="make-flex align-center justify-center round-corners-10 color-zinc-400 text-no-decoration transition-all on-hover:scale-110" style="width:40px;height:40px;border:1.5px solid #3f3f46;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: Photo -->
+    <div class="make-flex justify-center align-center position-relative" style="flex:0 0 auto;">
+      <div class="position-relative" style="width:360px;height:360px;">
+        <div class="ring ring-1"></div>
+        <div class="ring ring-2"></div>
+        <div class="ring ring-3"></div>
+        <div class="position-absolute round-corners-48 overflow-hidden make-flex align-center justify-center" style="inset:0;background:linear-gradient(160deg,#1e1b4b 0%,#2d1b69 55%,#1c1c2e 100%);">
+          <div class="make-flex flex-column align-center gap-10">
+            <div class="text-bold color-white" style="font-size:80px;color:rgba(139,92,246,.4);letter-spacing:-4px;line-height:1;">AM</div>
+            <div class="set-text-13 color-violet-400 text-semibold">Your Photo Here</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Available badge -->
+      <div class="position-absolute make-flex align-center gap-8 add-padding-y-10 add-padding-x-16 round-corners-12 set-text-12 text-semibold add-shadow-lg" style="top:20px;left:-20px;background:#1c1c21;border:1.5px solid rgba(34,197,94,.3);color:#86efac;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Open to Projects
+      </div>
+
+      <!-- Exp badge -->
+      <div class="position-absolute make-flex align-center gap-12 add-padding-y-14 add-padding-x-18 round-corners-14 add-shadow-xl" style="bottom:16px;right:-16px;background:#1c1c21;border:1.5px solid #27272a;">
+        <div>
+          <div class="text-bold" style="font-size:28px;color:var(--accent);line-height:1;">5+</div>
+          <div class="set-text-12 color-zinc-400" style="line-height:1.4;">Years of<br>Experience</div>
+        </div>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.5" style="color:var(--accent);stroke:currentColor;"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ STATS BAR ═══════════════════════════════════════════════════════════ -->
+<div class="bg-card" style="border-top:1px solid #27272a;border-bottom:1px solid #27272a;">
+  <div class="container add-padding-y-32">
+    <div class="make-flex justify-between align-center flex-wrap gap-24" id="statsRow">
+      <div class="text-center" style="flex:1;min-width:120px;">
+        <div class="text-bold color-white" style="font-size:42px;letter-spacing:-1.5px;line-height:1;color:var(--accent);" data-count="5">5+</div>
+        <div class="set-text-13 color-zinc-400 add-margin-top-6 text-semibold">Years Experience</div>
+      </div>
+      <div class="text-center" style="flex:1;min-width:120px;border-left:1px solid #27272a;">
+        <div class="text-bold" style="font-size:42px;letter-spacing:-1.5px;line-height:1;color:var(--accent);" data-count="120">120+</div>
+        <div class="set-text-13 color-zinc-400 add-margin-top-6 text-semibold">Projects Completed</div>
+      </div>
+      <div class="text-center" style="flex:1;min-width:120px;border-left:1px solid #27272a;">
+        <div class="text-bold" style="font-size:42px;letter-spacing:-1.5px;line-height:1;color:var(--accent);" data-count="50">50+</div>
+        <div class="set-text-13 color-zinc-400 add-margin-top-6 text-semibold">Happy Clients</div>
+      </div>
+      <div class="text-center" style="flex:1;min-width:120px;border-left:1px solid #27272a;">
+        <div class="text-bold" style="font-size:42px;letter-spacing:-1.5px;line-height:1;color:var(--accent);">100%</div>
+        <div class="set-text-13 color-zinc-400 add-margin-top-6 text-semibold">Client Satisfaction</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ABOUT ════════════════════════════════════════════════════════════════ -->
+<section class="add-padding-y-96" id="about">
+  <div class="container make-flex align-center gap-80 flex-wrap">
+
+    <!-- Photo left -->
+    <div class="position-relative" style="flex:1;min-width:280px;">
+      <div class="round-corners-20 overflow-hidden make-flex align-center justify-center" style="aspect-ratio:4/5;background:linear-gradient(160deg,#1e1b4b 0%,#2d1b69 55%,#1c1c2e 100%);">
+        <div class="text-bold" style="font-size:96px;color:rgba(139,92,246,.3);letter-spacing:-4px;">AM</div>
+      </div>
+      <!-- corner accent -->
+      <div class="position-absolute round-corners-14" style="top:-14px;left:-14px;width:52px;height:52px;background:rgba(139,92,246,.12);border:2px solid rgba(139,92,246,.28);"></div>
+      <!-- project badge -->
+      <div class="position-absolute make-flex flex-column align-center justify-center text-center round-corners-14 add-shadow-xl add-padding-y-14 add-padding-x-18" style="bottom:-20px;right:-20px;background:var(--accent);">
+        <div class="text-bold color-white" style="font-size:30px;line-height:1;">120+</div>
+        <div class="set-text-11 color-white text-semibold add-margin-top-2" style="opacity:.85;">Projects Done</div>
+      </div>
+    </div>
+
+    <!-- Content right -->
+    <div style="flex:1;min-width:300px;">
+      <div class="make-flex align-center gap-8 set-text-12 text-bold text-uppercase add-margin-bottom-12" style="color:var(--accent);letter-spacing:.1em;">
+        <span style="width:24px;height:2px;background:var(--accent);border-radius:2px;display:inline-block;"></span>
+        Who I Am
+      </div>
+      <h2 class="text-bold color-white add-margin-bottom-20" style="font-size:clamp(26px,3vw,44px);letter-spacing:-1.5px;line-height:1.15;">
+        Turning Ideas Into<br><span style="color:var(--accent);">Pixel-Perfect</span> Products
+      </h2>
+      <p class="set-text-16 color-zinc-400 add-margin-bottom-16" style="line-height:1.75;">
+        I'm Alex Morgan, a UI/UX Designer &amp; Frontend Developer based in San Francisco.
+        I specialize in building fast, accessible, and visually striking digital experiences —
+        from concept to code.
+      </p>
+      <p class="set-text-16 color-zinc-400 add-margin-bottom-28" style="line-height:1.75;">
+        With 5+ years of experience working with startups and established brands, I bring
+        a unique blend of design thinking and engineering craft to every project.
+      </p>
+
+      <!-- Skill bars -->
+      <div class="make-flex flex-column gap-14 add-margin-bottom-24">
+        <div class="make-flex align-center gap-12">
+          <span class="set-text-13 text-semibold color-white" style="min-width:110px;">UI/UX Design</span>
+          <div class="set-width-full round-corners-48" style="height:5px;background:#27272a;overflow:hidden;flex:1;">
+            <div class="skill-fill round-corners-48" style="width:92%;height:100%;background:linear-gradient(90deg,var(--accent),#c4b5fd);"></div>
+          </div>
+          <span class="set-text-12 color-zinc-400" style="min-width:34px;text-align:right;">92%</span>
+        </div>
+        <div class="make-flex align-center gap-12">
+          <span class="set-text-13 text-semibold color-white" style="min-width:110px;">Frontend Dev</span>
+          <div class="set-width-full round-corners-48" style="height:5px;background:#27272a;overflow:hidden;flex:1;">
+            <div class="skill-fill round-corners-48" style="width:85%;height:100%;background:linear-gradient(90deg,var(--accent),#c4b5fd);"></div>
+          </div>
+          <span class="set-text-12 color-zinc-400" style="min-width:34px;text-align:right;">85%</span>
+        </div>
+        <div class="make-flex align-center gap-12">
+          <span class="set-text-13 text-semibold color-white" style="min-width:110px;">Figma</span>
+          <div class="set-width-full round-corners-48" style="height:5px;background:#27272a;overflow:hidden;flex:1;">
+            <div class="skill-fill round-corners-48" style="width:95%;height:100%;background:linear-gradient(90deg,var(--accent),#c4b5fd);"></div>
+          </div>
+          <span class="set-text-12 color-zinc-400" style="min-width:34px;text-align:right;">95%</span>
+        </div>
+        <div class="make-flex align-center gap-12">
+          <span class="set-text-13 text-semibold color-white" style="min-width:110px;">React / Next.js</span>
+          <div class="set-width-full round-corners-48" style="height:5px;background:#27272a;overflow:hidden;flex:1;">
+            <div class="skill-fill round-corners-48" style="width:80%;height:100%;background:linear-gradient(90deg,var(--accent),#c4b5fd);"></div>
+          </div>
+          <span class="set-text-12 color-zinc-400" style="min-width:34px;text-align:right;">80%</span>
+        </div>
+      </div>
+
+      <!-- Tech tags -->
+      <div class="make-flex flex-wrap gap-8 add-margin-bottom-32">
+        <span class="add-padding-y-5 add-padding-x-14 round-corners-48 set-text-12 text-semibold color-zinc-400" style="background:#1c1c21;border:1px solid #27272a;">Figma</span>
+        <span class="add-padding-y-5 add-padding-x-14 round-corners-48 set-text-12 text-semibold color-zinc-400" style="background:#1c1c21;border:1px solid #27272a;">React</span>
+        <span class="add-padding-y-5 add-padding-x-14 round-corners-48 set-text-12 text-semibold color-zinc-400" style="background:#1c1c21;border:1px solid #27272a;">TypeScript</span>
+        <span class="add-padding-y-5 add-padding-x-14 round-corners-48 set-text-12 text-semibold color-zinc-400" style="background:#1c1c21;border:1px solid #27272a;">SantyCSS</span>
+        <span class="add-padding-y-5 add-padding-x-14 round-corners-48 set-text-12 text-semibold color-zinc-400" style="background:#1c1c21;border:1px solid #27272a;">Node.js</span>
+        <span class="add-padding-y-5 add-padding-x-14 round-corners-48 set-text-12 text-semibold color-zinc-400" style="background:#1c1c21;border:1px solid #27272a;">Framer</span>
+      </div>
+
+      <div class="make-flex gap-14 flex-wrap">
+        <a href="#" class="make-flex align-center gap-8 text-no-decoration set-text-15 text-bold add-padding-y-13 add-padding-x-24 round-corners-10 color-white transition-all on-hover:scale-105" style="background:var(--accent);">Download CV</a>
+        <a href="#contact" class="make-flex align-center gap-8 text-no-decoration set-text-15 text-bold add-padding-y-13 add-padding-x-24 round-corners-10 color-white transition-all on-hover:scale-105" style="border:1.5px solid #3f3f46;">Get In Touch</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ SERVICES ═════════════════════════════════════════════════════════════ -->
+<section class="bg-surface add-padding-y-96" id="services" style="border-top:1px solid #27272a;border-bottom:1px solid #27272a;">
+  <div class="container">
+    <div class="text-center add-margin-bottom-56" style="max-width:600px;margin-left:auto;margin-right:auto;">
+      <div class="make-flex align-center justify-center gap-8 set-text-12 text-bold text-uppercase add-margin-bottom-12" style="color:var(--accent);letter-spacing:.1em;">
+        <span style="width:24px;height:2px;background:var(--accent);border-radius:2px;display:inline-block;"></span>
+        What I Do
+        <span style="width:24px;height:2px;background:var(--accent);border-radius:2px;display:inline-block;"></span>
+      </div>
+      <h2 class="text-bold color-white add-margin-bottom-16" style="font-size:clamp(26px,3vw,44px);letter-spacing:-1.5px;line-height:1.15;">My <span style="color:var(--accent);">Core Services</span></h2>
+      <p class="set-text-16 color-zinc-400" style="line-height:1.75;">From pixel-perfect interfaces to performant code, I deliver end-to-end solutions that elevate your product.</p>
+    </div>
+
+    <div class="make-grid gap-24" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));">
+
+      <div class="svc-card-top bg-card round-corners-20 add-padding-y-36 add-padding-x-32 position-relative overflow-hidden transition-all on-hover:scale-102 add-border-1 on-hover:add-shadow-xl" style="border-color:#27272a;">
+        <span class="text-bold position-absolute" style="top:20px;right:20px;font-size:48px;color:rgba(139,92,246,.06);line-height:1;">01</span>
+        <div class="make-flex align-center justify-center round-corners-14 add-margin-bottom-20" style="width:56px;height:56px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);color:var(--accent);">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3 class="set-text-19 text-bold color-white add-margin-bottom-10">UI/UX Design</h3>
+        <p class="set-text-14 color-zinc-400 add-margin-bottom-20" style="line-height:1.7;">Crafting intuitive interfaces backed by deep user research, wireframing, and high-fidelity prototypes that delight users.</p>
+        <div class="make-flex flex-wrap gap-6">
+          <span class="set-text-11 text-bold add-padding-y-3 add-padding-x-10 round-corners-6" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;">Figma</span>
+          <span class="set-text-11 text-bold add-padding-y-3 add-padding-x-10 round-corners-6" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;">Prototyping</span>
+          <span class="set-text-11 text-bold add-padding-y-3 add-padding-x-10 round-corners-6" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;">User Research</span>
+        </div>
+      </div>
+
+      <div class="svc-card-top bg-card round-corners-20 add-padding-y-36 add-padding-x-32 position-relative overflow-hidden transition-all on-hover:scale-102 add-border-1 on-hover:add-shadow-xl" style="border-color:#27272a;">
+        <span class="text-bold position-absolute" style="top:20px;right:20px;font-size:48px;color:rgba(139,92,246,.06);line-height:1;">02</span>
+        <div class="make-flex align-center justify-center round-corners-14 add-margin-bottom-20" style="width:56px;height:56px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);color:var(--accent);">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3 class="set-text-19 text-bold color-white add-margin-bottom-10">Frontend Development</h3>
+        <p class="set-text-14 color-zinc-400 add-margin-bottom-20" style="line-height:1.7;">Building fast, accessible, responsive web applications using modern frameworks with clean, maintainable code.</p>
+        <div class="make-flex flex-wrap gap-6">
+          <span class="set-text-11 text-bold add-padding-y-3 add-padding-x-10 round-corners-6" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;">React</span>
+          <span class="set-text-11 text-bold add-padding-y-3 add-padding-x-10 round-corners-6" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;">Next.js</span>
+          <span class="set-text-11 text-bold add-padding-y-3 add-padding-x-10 round-corners-6" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;">TypeScript</span>
+        </div>
+      </div>
+
+      <div class="svc-card-top bg-card round-corners-20 add-padding-y-36 add-padding-x-32 position-relative overflow-hidden transition-all on-hover:scale-102 add-border-1 on-hover:add-shadow-xl" style="border-color:#27272a;">
+        <span class="text-bold position-absolute" style="top:20px;right:20px;font-size:48px;color:rgba(139,92,246,.06);line-height:1;">03</span>
+        <div class="make-flex align-center justify-center round-corners-14 add-margin-bottom-20" style="width:56px;height:56px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);color:var(--accent);">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 class="set-text-19 text-bold color-white add-margin-bottom-10">Brand Identity</h3>
+        <p class="set-text-14 color-zinc-400 add-margin-bottom-20" style="line-height:1.7;">Developing comprehensive visual brand systems — from logo marks and typography to design tokens that scale.</p>
+        <div class="make-flex flex-wrap gap-6">
+          <span class="set-text-11 text-bold add-padding-y-3 add-padding-x-10 round-corners-6" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;">Logo Design</span>
+          <span class="set-text-11 text-bold add-padding-y-3 add-padding-x-10 round-corners-6" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;">Design System</span>
+        </div>
+      </div>
+
+      <div class="svc-card-top bg-card round-corners-20 add-padding-y-36 add-padding-x-32 position-relative overflow-hidden transition-all on-hover:scale-102 add-border-1 on-hover:add-shadow-xl" style="border-color:#27272a;">
+        <span class="text-bold position-absolute" style="top:20px;right:20px;font-size:48px;color:rgba(139,92,246,.06);line-height:1;">04</span>
+        <div class="make-flex align-center justify-center round-corners-14 add-margin-bottom-20" style="width:56px;height:56px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);color:var(--accent);">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h3 class="set-text-19 text-bold color-white add-margin-bottom-10">Web Animation</h3>
+        <p class="set-text-14 color-zinc-400 add-margin-bottom-20" style="line-height:1.7;">Adding life to interfaces with purposeful micro-interactions, scroll animations, and transitions that delight.</p>
+        <div class="make-flex flex-wrap gap-6">
+          <span class="set-text-11 text-bold add-padding-y-3 add-padding-x-10 round-corners-6" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;">Framer Motion</span>
+          <span class="set-text-11 text-bold add-padding-y-3 add-padding-x-10 round-corners-6" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;">GSAP</span>
+        </div>
+      </div>
+
+      <div class="svc-card-top bg-card round-corners-20 add-padding-y-36 add-padding-x-32 position-relative overflow-hidden transition-all on-hover:scale-102 add-border-1 on-hover:add-shadow-xl" style="border-color:#27272a;">
+        <span class="text-bold position-absolute" style="top:20px;right:20px;font-size:48px;color:rgba(139,92,246,.06);line-height:1;">05</span>
+        <div class="make-flex align-center justify-center round-corners-14 add-margin-bottom-20" style="width:56px;height:56px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);color:var(--accent);">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h3 class="set-text-19 text-bold color-white add-margin-bottom-10">Performance & SEO</h3>
+        <p class="set-text-14 color-zinc-400 add-margin-bottom-20" style="line-height:1.7;">Optimising Core Web Vitals, accessibility scores, and search visibility to ensure your product ranks and loads fast.</p>
+        <div class="make-flex flex-wrap gap-6">
+          <span class="set-text-11 text-bold add-padding-y-3 add-padding-x-10 round-corners-6" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;">Core Web Vitals</span>
+          <span class="set-text-11 text-bold add-padding-y-3 add-padding-x-10 round-corners-6" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;">a11y</span>
+          <span class="set-text-11 text-bold add-padding-y-3 add-padding-x-10 round-corners-6" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;">SEO</span>
+        </div>
+      </div>
+
+      <div class="svc-card-top bg-card round-corners-20 add-padding-y-36 add-padding-x-32 position-relative overflow-hidden transition-all on-hover:scale-102 add-border-1 on-hover:add-shadow-xl" style="border-color:#27272a;">
+        <span class="text-bold position-absolute" style="top:20px;right:20px;font-size:48px;color:rgba(139,92,246,.06);line-height:1;">06</span>
+        <div class="make-flex align-center justify-center round-corners-14 add-margin-bottom-20" style="width:56px;height:56px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);color:var(--accent);">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72M19.13 6.5c-3.72 4.35-8.94 5.66-16.88 5.85M21.67 12c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+        </div>
+        <h3 class="set-text-19 text-bold color-white add-margin-bottom-10">Design Systems</h3>
+        <p class="set-text-14 color-zinc-400 add-margin-bottom-20" style="line-height:1.7;">Building scalable component libraries and design tokens that bridge the gap between design and engineering teams.</p>
+        <div class="make-flex flex-wrap gap-6">
+          <span class="set-text-11 text-bold add-padding-y-3 add-padding-x-10 round-corners-6" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;">Storybook</span>
+          <span class="set-text-11 text-bold add-padding-y-3 add-padding-x-10 round-corners-6" style="background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:#c4b5fd;">Tokens</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WORK ══════════════════════════════════════════════════════════════════ -->
+<section class="add-padding-y-96" id="work">
+  <div class="container">
+
+    <div class="make-flex align-end justify-between flex-wrap gap-16 add-margin-bottom-32">
+      <div>
+        <div class="make-flex align-center gap-8 set-text-12 text-bold text-uppercase add-margin-bottom-12" style="color:var(--accent);letter-spacing:.1em;">
+          <span style="width:24px;height:2px;background:var(--accent);border-radius:2px;display:inline-block;"></span>
+          Portfolio
+        </div>
+        <h2 class="text-bold color-white" style="font-size:clamp(26px,3vw,44px);letter-spacing:-1.5px;line-height:1.15;">Featured <span style="color:var(--accent);">Work</span></h2>
+      </div>
+      <a href="#" class="make-flex align-center gap-6 text-no-decoration set-text-13 text-bold add-padding-y-10 add-padding-x-20 round-corners-10 color-zinc-300 transition-all on-hover:scale-105" style="border:1.5px solid #3f3f46;">
+        View All →
+      </a>
+    </div>
+
+    <div class="make-flex flex-wrap gap-8 add-margin-bottom-32">
+      <button class="work-filter-btn active add-padding-y-8 add-padding-x-20 round-corners-48 set-text-13 text-semibold cursor-pointer transition-all" data-filter="all" onclick="filterWork(this,'all')" style="border:1.5px solid var(--accent);background:var(--accent);color:#fff;font-family:inherit;">All</button>
+      <button class="work-filter-btn add-padding-y-8 add-padding-x-20 round-corners-48 set-text-13 text-semibold cursor-pointer transition-all" data-filter="design" onclick="filterWork(this,'design')" style="border:1.5px solid #3f3f46;background:none;color:#a1a1aa;font-family:inherit;">Design</button>
+      <button class="work-filter-btn add-padding-y-8 add-padding-x-20 round-corners-48 set-text-13 text-semibold cursor-pointer transition-all" data-filter="development" onclick="filterWork(this,'development')" style="border:1.5px solid #3f3f46;background:none;color:#a1a1aa;font-family:inherit;">Development</button>
+      <button class="work-filter-btn add-padding-y-8 add-padding-x-20 round-corners-48 set-text-13 text-semibold cursor-pointer transition-all" data-filter="branding" onclick="filterWork(this,'branding')" style="border:1.5px solid #3f3f46;background:none;color:#a1a1aa;font-family:inherit;">Branding</button>
+    </div>
+
+    <div class="make-grid gap-24" id="workGrid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));">
+
+      <div class="work-card-wrap bg-card round-corners-16 overflow-hidden add-border-1 transition-all on-hover:add-shadow-xl" style="border-color:#27272a;" data-wcat="design">
+        <div class="position-relative overflow-hidden" style="height:220px;">
+          <div class="work-img-inner make-flex align-center justify-center" style="width:100%;height:100%;background:linear-gradient(135deg,#1e1b4b 0%,#312e81 55%,#1a1a2e 100%);">
+            <svg width="64" height="64" fill="none" stroke="rgba(139,92,246,.4)" stroke-width="1.2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          </div>
+          <div class="work-overlay position-absolute make-flex align-center justify-center gap-10" style="inset:0;background:rgba(9,9,11,0);">
+            <a href="#" class="overlay-btn text-no-decoration set-text-12 text-bold add-padding-y-9 add-padding-x-18 round-corners-8 color-white" style="background:var(--accent);">Preview</a>
+            <a href="#" class="overlay-btn text-no-decoration set-text-12 text-bold add-padding-y-9 add-padding-x-18 round-corners-8 color-white" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(8px);">GitHub</a>
+          </div>
+        </div>
+        <div class="add-padding-y-20 add-padding-x-24">
+          <div class="set-text-11 text-bold text-uppercase add-margin-bottom-6" style="color:var(--accent);letter-spacing:.08em;">UI/UX Design</div>
+          <div class="set-text-17 text-bold color-white add-margin-bottom-6">FinTech Dashboard Redesign</div>
+          <div class="set-text-13 color-zinc-400 add-margin-bottom-14" style="line-height:1.6;">Complete redesign of a financial analytics platform, improving task completion rate by 40%.</div>
+          <div class="make-flex align-center justify-between add-padding-top-14" style="border-top:1px solid #27272a;">
+            <div class="make-flex gap-6">
+              <div style="width:8px;height:8px;border-radius:50%;background:#8b5cf6;"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:#3b82f6;"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:#06b6d4;"></div>
+            </div>
+            <svg class="work-arrow-icon color-zinc-400" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card-wrap bg-card round-corners-16 overflow-hidden add-border-1 transition-all on-hover:add-shadow-xl" style="border-color:#27272a;" data-wcat="development">
+        <div class="position-relative overflow-hidden" style="height:220px;">
+          <div class="work-img-inner make-flex align-center justify-center" style="width:100%;height:100%;background:linear-gradient(135deg,#0f2027 0%,#203a43 55%,#2c5364 100%);">
+            <svg width="64" height="64" fill="none" stroke="rgba(34,197,94,.4)" stroke-width="1.2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="work-overlay position-absolute make-flex align-center justify-center gap-10" style="inset:0;background:rgba(9,9,11,0);">
+            <a href="#" class="overlay-btn text-no-decoration set-text-12 text-bold add-padding-y-9 add-padding-x-18 round-corners-8 color-white" style="background:var(--accent);">Preview</a>
+            <a href="#" class="overlay-btn text-no-decoration set-text-12 text-bold add-padding-y-9 add-padding-x-18 round-corners-8 color-white" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(8px);">GitHub</a>
+          </div>
+        </div>
+        <div class="add-padding-y-20 add-padding-x-24">
+          <div class="set-text-11 text-bold text-uppercase add-margin-bottom-6" style="color:var(--accent);letter-spacing:.08em;">Development</div>
+          <div class="set-text-17 text-bold color-white add-margin-bottom-6">E-Commerce Platform</div>
+          <div class="set-text-13 color-zinc-400 add-margin-bottom-14" style="line-height:1.6;">Full-stack Next.js storefront with Stripe payments and real-time inventory management.</div>
+          <div class="make-flex align-center justify-between add-padding-top-14" style="border-top:1px solid #27272a;">
+            <div class="make-flex gap-6">
+              <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:#7c3aed;"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:#f59e0b;"></div>
+            </div>
+            <svg class="work-arrow-icon color-zinc-400" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card-wrap bg-card round-corners-16 overflow-hidden add-border-1 transition-all on-hover:add-shadow-xl" style="border-color:#27272a;" data-wcat="branding">
+        <div class="position-relative overflow-hidden" style="height:220px;">
+          <div class="work-img-inner make-flex align-center justify-center" style="width:100%;height:100%;background:linear-gradient(135deg,#2d1b69 0%,#8b2fc9 55%,#1e1b4b 100%);">
+            <svg width="64" height="64" fill="none" stroke="rgba(192,132,252,.4)" stroke-width="1.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72M19.13 6.5c-3.72 4.35-8.94 5.66-16.88 5.85M21.67 12c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+          </div>
+          <div class="work-overlay position-absolute make-flex align-center justify-center gap-10" style="inset:0;background:rgba(9,9,11,0);">
+            <a href="#" class="overlay-btn text-no-decoration set-text-12 text-bold add-padding-y-9 add-padding-x-18 round-corners-8 color-white" style="background:var(--accent);">Preview</a>
+            <a href="#" class="overlay-btn text-no-decoration set-text-12 text-bold add-padding-y-9 add-padding-x-18 round-corners-8 color-white" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(8px);">Case Study</a>
+          </div>
+        </div>
+        <div class="add-padding-y-20 add-padding-x-24">
+          <div class="set-text-11 text-bold text-uppercase add-margin-bottom-6" style="color:var(--accent);letter-spacing:.08em;">Branding</div>
+          <div class="set-text-17 text-bold color-white add-margin-bottom-6">SaaS Brand Identity System</div>
+          <div class="set-text-13 color-zinc-400 add-margin-bottom-14" style="line-height:1.6;">End-to-end brand identity — logo, design tokens, illustration style, and full documentation.</div>
+          <div class="make-flex align-center justify-between add-padding-top-14" style="border-top:1px solid #27272a;">
+            <div class="make-flex gap-6">
+              <div style="width:8px;height:8px;border-radius:50%;background:#8b5cf6;"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:#ec4899;"></div>
+            </div>
+            <svg class="work-arrow-icon color-zinc-400" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card-wrap bg-card round-corners-16 overflow-hidden add-border-1 transition-all on-hover:add-shadow-xl" style="border-color:#27272a;" data-wcat="design">
+        <div class="position-relative overflow-hidden" style="height:220px;">
+          <div class="work-img-inner make-flex align-center justify-center" style="width:100%;height:100%;background:linear-gradient(135deg,#0c4a6e 0%,#075985 55%,#0369a1 100%);">
+            <svg width="64" height="64" fill="none" stroke="rgba(56,189,248,.4)" stroke-width="1.2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="work-overlay position-absolute make-flex align-center justify-center gap-10" style="inset:0;background:rgba(9,9,11,0);">
+            <a href="#" class="overlay-btn text-no-decoration set-text-12 text-bold add-padding-y-9 add-padding-x-18 round-corners-8 color-white" style="background:var(--accent);">Preview</a>
+            <a href="#" class="overlay-btn text-no-decoration set-text-12 text-bold add-padding-y-9 add-padding-x-18 round-corners-8 color-white" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(8px);">GitHub</a>
+          </div>
+        </div>
+        <div class="add-padding-y-20 add-padding-x-24">
+          <div class="set-text-11 text-bold text-uppercase add-margin-bottom-6" style="color:var(--accent);letter-spacing:.08em;">UI/UX Design</div>
+          <div class="set-text-17 text-bold color-white add-margin-bottom-6">Mobile Banking App UI</div>
+          <div class="set-text-13 color-zinc-400 add-margin-bottom-14" style="line-height:1.6;">Clean, accessible mobile banking experience for iOS and Android with personalised spending insights.</div>
+          <div class="make-flex align-center justify-between add-padding-top-14" style="border-top:1px solid #27272a;">
+            <div class="make-flex gap-6">
+              <div style="width:8px;height:8px;border-radius:50%;background:#8b5cf6;"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:#f97316;"></div>
+            </div>
+            <svg class="work-arrow-icon color-zinc-400" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ══════════════════════════════════════════════════════════ -->
+<section class="bg-surface add-padding-y-96" id="testimonials" style="border-top:1px solid #27272a;border-bottom:1px solid #27272a;">
+  <div class="container">
+    <div class="text-center add-margin-bottom-56" style="max-width:600px;margin-left:auto;margin-right:auto;">
+      <div class="make-flex align-center justify-center gap-8 set-text-12 text-bold text-uppercase add-margin-bottom-12" style="color:var(--accent);letter-spacing:.1em;">
+        <span style="width:24px;height:2px;background:var(--accent);border-radius:2px;display:inline-block;"></span>
+        Kind Words
+        <span style="width:24px;height:2px;background:var(--accent);border-radius:2px;display:inline-block;"></span>
+      </div>
+      <h2 class="text-bold color-white add-margin-bottom-16" style="font-size:clamp(26px,3vw,44px);letter-spacing:-1.5px;">What Clients <span style="color:var(--accent);">Say</span></h2>
+      <p class="set-text-16 color-zinc-400" style="line-height:1.75;">Real feedback from real collaborations — building trust one project at a time.</p>
+    </div>
+
+    <div class="make-grid gap-24" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));">
+
+      <div class="bg-card round-corners-20 add-padding-32 add-border-1 transition-all on-hover:add-shadow-lg" style="border-color:#27272a;">
+        <div class="make-flex gap-3 add-margin-bottom-18">
+          <span style="color:#f59e0b;font-size:15px;">★★★★★</span>
+        </div>
+        <p class="set-text-15 color-zinc-300 add-margin-bottom-24" style="line-height:1.75;font-style:italic;">
+          <span style="color:var(--accent);font-size:22px;font-style:normal;">"</span>Alex completely transformed our product's user experience. The redesign increased our onboarding completion rate by 60% and our NPS went from 32 to 71 in 3 months.
+        </p>
+        <div class="make-flex align-center gap-12">
+          <div class="make-flex align-center justify-center round-corners-48 text-bold color-white set-text-14" style="width:42px;height:42px;background:linear-gradient(135deg,#6366f1,#8b5cf6);flex-shrink:0;">SK</div>
+          <div>
+            <div class="set-text-14 text-bold color-white">Sarah Kim</div>
+            <div class="set-text-12 color-zinc-400 add-margin-top-2">CPO at Nexus Labs</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-card round-corners-20 add-padding-32 add-border-1 transition-all on-hover:add-shadow-lg" style="border-color:#27272a;">
+        <div class="make-flex gap-3 add-margin-bottom-18">
+          <span style="color:#f59e0b;font-size:15px;">★★★★★</span>
+        </div>
+        <p class="set-text-15 color-zinc-300 add-margin-bottom-24" style="line-height:1.75;font-style:italic;">
+          <span style="color:var(--accent);font-size:22px;font-style:normal;">"</span>Exceptional technical skills paired with a strong design eye. Alex delivered our full-stack platform 2 weeks ahead of schedule with outstanding code quality.
+        </p>
+        <div class="make-flex align-center gap-12">
+          <div class="make-flex align-center justify-center round-corners-48 text-bold color-white set-text-14" style="width:42px;height:42px;background:linear-gradient(135deg,#0ea5e9,#22c55e);flex-shrink:0;">MR</div>
+          <div>
+            <div class="set-text-14 text-bold color-white">Marcus Reynolds</div>
+            <div class="set-text-12 color-zinc-400 add-margin-top-2">CTO at FlowStack</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-card round-corners-20 add-padding-32 add-border-1 transition-all on-hover:add-shadow-lg" style="border-color:#27272a;">
+        <div class="make-flex gap-3 add-margin-bottom-18">
+          <span style="color:#f59e0b;font-size:15px;">★★★★★</span>
+        </div>
+        <p class="set-text-15 color-zinc-300 add-margin-bottom-24" style="line-height:1.75;font-style:italic;">
+          <span style="color:var(--accent);font-size:22px;font-style:normal;">"</span>Our brand identity went from generic to iconic. Alex's strategic thinking about visual communication changed how our customers perceive and engage with our brand.
+        </p>
+        <div class="make-flex align-center gap-12">
+          <div class="make-flex align-center justify-center round-corners-48 text-bold color-white set-text-14" style="width:42px;height:42px;background:linear-gradient(135deg,#f59e0b,#ef4444);flex-shrink:0;">PJ</div>
+          <div>
+            <div class="set-text-14 text-bold color-white">Priya Joshi</div>
+            <div class="set-text-12 color-zinc-400 add-margin-top-2">Founder, Bloom Studio</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA BANNER ════════════════════════════════════════════════════════════ -->
+<section class="add-padding-y-96">
+  <div class="container">
+    <div class="bg-cta round-corners-24 add-padding-y-64 add-padding-x-48 text-center position-relative overflow-hidden" style="border:1px solid rgba(139,92,246,.25);">
+      <div class="bg-cta-glow position-absolute" style="inset:0;pointer-events:none;"></div>
+      <div class="make-flex align-center justify-center gap-8 set-text-12 text-bold text-uppercase add-margin-bottom-16" style="color:var(--accent);letter-spacing:.1em;">
+        <span style="width:24px;height:2px;background:var(--accent);border-radius:2px;display:inline-block;"></span>
+        Ready to start?
+        <span style="width:24px;height:2px;background:var(--accent);border-radius:2px;display:inline-block;"></span>
+      </div>
+      <h2 class="text-bold color-white add-margin-bottom-16" style="font-size:clamp(26px,4vw,52px);letter-spacing:-2px;line-height:1.1;">
+        Let's Build Something <span style="color:var(--accent);">Amazing</span> Together
+      </h2>
+      <p class="set-text-16 color-zinc-400 add-margin-bottom-36">Open for freelance projects, full-time roles, and creative collaborations.</p>
+      <div class="make-flex justify-center gap-14 flex-wrap">
+        <a href="#contact" class="make-flex align-center gap-8 text-no-decoration set-text-16 text-bold add-padding-y-15 add-padding-x-32 round-corners-10 color-white transition-all on-hover:scale-105" style="background:var(--accent);">
+          Start a Project
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#" class="make-flex align-center gap-8 text-no-decoration set-text-16 text-bold add-padding-y-15 add-padding-x-32 round-corners-10 color-white transition-all on-hover:scale-105" style="border:1.5px solid rgba(255,255,255,.2);">Download CV</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══════════════════════════════════════════════════════════════ -->
+<section class="bg-surface add-padding-y-96" id="contact" style="border-top:1px solid #27272a;">
+  <div class="container">
+    <div class="text-center add-margin-bottom-56" style="max-width:560px;margin-left:auto;margin-right:auto;">
+      <div class="make-flex align-center justify-center gap-8 set-text-12 text-bold text-uppercase add-margin-bottom-12" style="color:var(--accent);letter-spacing:.1em;">
+        <span style="width:24px;height:2px;background:var(--accent);border-radius:2px;display:inline-block;"></span>
+        Get In Touch
+        <span style="width:24px;height:2px;background:var(--accent);border-radius:2px;display:inline-block;"></span>
+      </div>
+      <h2 class="text-bold color-white add-margin-bottom-16" style="font-size:clamp(26px,3vw,44px);letter-spacing:-1.5px;">Have a <span style="color:var(--accent);">Project</span> in Mind?</h2>
+      <p class="set-text-16 color-zinc-400" style="line-height:1.75;">I'm currently taking on select projects. Drop me a message and I'll get back to you within 24 hours.</p>
+    </div>
+
+    <div class="make-flex gap-64 flex-wrap align-start">
+
+      <!-- Info -->
+      <div style="flex:1;min-width:260px;">
+        <div class="make-flex align-start gap-16 add-padding-20 bg-card round-corners-14 add-margin-bottom-16 add-border-1 transition-all on-hover:add-shadow-md" style="border-color:#27272a;">
+          <div class="make-flex align-center justify-center round-corners-11 flex-shrink-0" style="width:44px;height:44px;background:rgba(139,92,246,.12);color:var(--accent);">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="set-text-11 color-zinc-500 text-bold text-uppercase add-margin-bottom-3" style="letter-spacing:.06em;">Email</div>
+            <div class="set-text-14 text-semibold color-white">hello@alexmorgan.design</div>
+          </div>
+        </div>
+        <div class="make-flex align-start gap-16 add-padding-20 bg-card round-corners-14 add-margin-bottom-16 add-border-1 transition-all on-hover:add-shadow-md" style="border-color:#27272a;">
+          <div class="make-flex align-center justify-center round-corners-11 flex-shrink-0" style="width:44px;height:44px;background:rgba(139,92,246,.12);color:var(--accent);">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="set-text-11 color-zinc-500 text-bold text-uppercase add-margin-bottom-3" style="letter-spacing:.06em;">Location</div>
+            <div class="set-text-14 text-semibold color-white">San Francisco, CA — Remote Worldwide</div>
+          </div>
+        </div>
+        <div class="make-flex align-start gap-16 add-padding-20 bg-card round-corners-14 add-margin-bottom-24 add-border-1 transition-all on-hover:add-shadow-md" style="border-color:#27272a;">
+          <div class="make-flex align-center justify-center round-corners-11 flex-shrink-0" style="width:44px;height:44px;background:rgba(139,92,246,.12);color:var(--accent);">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <div class="set-text-11 color-zinc-500 text-bold text-uppercase add-margin-bottom-3" style="letter-spacing:.06em;">Response Time</div>
+            <div class="set-text-14 text-semibold color-white">Within 24 hours</div>
+          </div>
+        </div>
+        <div class="make-flex gap-10">
+          <a href="#" class="make-flex align-center justify-center round-corners-8 color-zinc-400 text-no-decoration transition-all on-hover:scale-110" style="width:38px;height:38px;border:1px solid #3f3f46;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          </a>
+          <a href="#" class="make-flex align-center justify-center round-corners-8 color-zinc-400 text-no-decoration transition-all on-hover:scale-110" style="width:38px;height:38px;border:1px solid #3f3f46;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="#" class="make-flex align-center justify-center round-corners-8 color-zinc-400 text-no-decoration transition-all on-hover:scale-110" style="width:38px;height:38px;border:1px solid #3f3f46;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form style="flex:1.2;min-width:300px;" onsubmit="handleSubmit(event)">
+        <div class="make-grid gap-14 add-margin-bottom-14" style="grid-template-columns:1fr 1fr;">
+          <input type="text" placeholder="Your Name" required class="set-width-full add-padding-y-13 add-padding-x-16 round-corners-10 set-text-14 color-white" style="background:#1c1c21;border:1.5px solid #3f3f46;outline:none;font-family:inherit;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='#3f3f46'" />
+          <input type="email" placeholder="Email Address" required class="set-width-full add-padding-y-13 add-padding-x-16 round-corners-10 set-text-14 color-white" style="background:#1c1c21;border:1.5px solid #3f3f46;outline:none;font-family:inherit;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='#3f3f46'" />
+        </div>
+        <input type="text" placeholder="Subject" required class="set-width-full add-padding-y-13 add-padding-x-16 round-corners-10 set-text-14 color-white add-margin-bottom-14" style="background:#1c1c21;border:1.5px solid #3f3f46;outline:none;font-family:inherit;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='#3f3f46'" />
+
+        <!-- Budget options -->
+        <div class="make-grid gap-10 add-margin-bottom-14" style="grid-template-columns:1fr 1fr;">
+          <label class="make-flex align-center gap-8 add-padding-y-12 add-padding-x-16 bg-card round-corners-10 cursor-pointer set-text-13 color-zinc-400 add-border-1" style="border-color:#3f3f46;" id="bo1">
+            <input type="radio" name="budget" style="accent-color:var(--accent);" onchange="selectBudget(1)"> Under $5k
+          </label>
+          <label class="make-flex align-center gap-8 add-padding-y-12 add-padding-x-16 bg-card round-corners-10 cursor-pointer set-text-13 color-zinc-400 add-border-1" style="border-color:#3f3f46;" id="bo2">
+            <input type="radio" name="budget" style="accent-color:var(--accent);" onchange="selectBudget(2)"> $5k – $15k
+          </label>
+          <label class="make-flex align-center gap-8 add-padding-y-12 add-padding-x-16 bg-card round-corners-10 cursor-pointer set-text-13 color-zinc-400 add-border-1" style="border-color:#3f3f46;" id="bo3">
+            <input type="radio" name="budget" style="accent-color:var(--accent);" onchange="selectBudget(3)"> $15k – $30k
+          </label>
+          <label class="make-flex align-center gap-8 add-padding-y-12 add-padding-x-16 bg-card round-corners-10 cursor-pointer set-text-13 color-zinc-400 add-border-1" style="border-color:#3f3f46;" id="bo4">
+            <input type="radio" name="budget" style="accent-color:var(--accent);" onchange="selectBudget(4)"> $30k+
+          </label>
+        </div>
+
+        <textarea placeholder="Tell me about your project..." rows="5" class="set-width-full add-padding-y-13 add-padding-x-16 round-corners-10 set-text-14 color-white add-margin-bottom-20" style="background:#1c1c21;border:1.5px solid #3f3f46;outline:none;font-family:inherit;resize:vertical;" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='#3f3f46'"></textarea>
+
+        <button type="submit" id="submitBtn" class="make-flex align-center justify-center gap-8 set-width-full add-padding-y-16 round-corners-10 set-text-15 text-bold color-white cursor-pointer transition-all on-hover:scale-102" style="background:var(--accent);border:none;font-family:inherit;">
+          Send Message
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════════════════════ -->
+<footer class="bg-card" style="border-top:1px solid #27272a;">
+  <div class="container add-padding-y-40">
+    <div class="make-flex align-center justify-between flex-wrap gap-20 add-margin-bottom-24">
+      <a href="#" class="set-text-20 text-bold color-white text-no-decoration" style="letter-spacing:-0.5px;">
+        Alex<span style="color:var(--accent);">.</span>
+      </a>
+      <div class="make-flex flex-wrap gap-28">
+        <a href="#about"        class="color-zinc-400 text-no-decoration set-text-13 transition-colors on-hover:color-white">About</a>
+        <a href="#services"     class="color-zinc-400 text-no-decoration set-text-13 transition-colors on-hover:color-white">Services</a>
+        <a href="#work"         class="color-zinc-400 text-no-decoration set-text-13 transition-colors on-hover:color-white">Work</a>
+        <a href="#testimonials" class="color-zinc-400 text-no-decoration set-text-13 transition-colors on-hover:color-white">Reviews</a>
+        <a href="#contact"      class="color-zinc-400 text-no-decoration set-text-13 transition-colors on-hover:color-white">Contact</a>
+      </div>
+      <div class="make-flex gap-10">
+        <a href="#" class="make-flex align-center justify-center round-corners-8 color-zinc-400 text-no-decoration transition-all on-hover:scale-110" style="width:36px;height:36px;border:1px solid #3f3f46;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </a>
+        <a href="#" class="make-flex align-center justify-center round-corners-8 color-zinc-400 text-no-decoration transition-all on-hover:scale-110" style="width:36px;height:36px;border:1px solid #3f3f46;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="#" class="make-flex align-center justify-center round-corners-8 color-zinc-400 text-no-decoration transition-all on-hover:scale-110" style="width:36px;height:36px;border:1px solid #3f3f46;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+        </a>
+        <a href="#" class="make-flex align-center justify-center round-corners-8 color-zinc-400 text-no-decoration transition-all on-hover:scale-110" style="width:36px;height:36px;border:1px solid #3f3f46;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="add-padding-top-20 text-center" style="border-top:1px solid #27272a;">
+      <p class="set-text-12 color-zinc-600">
+        © 2025 Alex Morgan · Built with
+        <a href="https://santycss.santy.in" target="_blank" rel="noopener" class="text-no-decoration" style="color:var(--accent);">SantyCSS</a>
+        · All rights reserved
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── Mobile Nav ── */
+document.getElementById('pfHam').addEventListener('click', function () {
+  var links = document.getElementById('pfNavLinks');
+  var open = links.classList.toggle('open');
+  document.getElementById('pf-ham-icon').style.display  = open ? 'none' : '';
+  document.getElementById('pf-ham-close').style.display = open ? '' : 'none';
+});
+
+/* ── Highlight active nav on scroll ── */
+var navAs = document.querySelectorAll('#pfNavLinks a');
+window.addEventListener('scroll', function () {
+  var y = window.scrollY + 120;
+  document.querySelectorAll('section[id]').forEach(function (sec) {
+    if (y >= sec.offsetTop && y < sec.offsetTop + sec.offsetHeight) {
+      navAs.forEach(function (a) { a.style.color = a.getAttribute('href') === '#' + sec.id ? '#fff' : ''; });
+    }
+  });
+}, { passive: true });
+
+/* ── Work filter ── */
+function filterWork(btn, cat) {
+  document.querySelectorAll('.work-filter-btn').forEach(function (b) {
+    b.style.background = 'none';
+    b.style.borderColor = '#3f3f46';
+    b.style.color = '#a1a1aa';
+  });
+  btn.style.background = 'var(--accent)';
+  btn.style.borderColor = 'var(--accent)';
+  btn.style.color = '#fff';
+  document.querySelectorAll('.work-card-wrap').forEach(function (c) {
+    c.style.display = cat === 'all' || c.dataset.wcat === cat ? '' : 'none';
+  });
+}
+
+/* ── Budget option select ── */
+function selectBudget(n) {
+  for (var i = 1; i <= 4; i++) {
+    var el = document.getElementById('bo' + i);
+    el.style.borderColor = i === n ? 'var(--accent)' : '#3f3f46';
+    el.style.color = i === n ? '#fff' : '#a1a1aa';
+  }
+}
+
+/* ── Contact form submit ── */
+function handleSubmit(e) {
+  e.preventDefault();
+  var btn = document.getElementById('submitBtn');
+  btn.textContent = '✓ Message Sent!';
+  btn.style.background = '#22c55e';
+  setTimeout(function () {
+    btn.innerHTML = 'Send Message <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:inline;vertical-align:middle;margin-left:6px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
+    btn.style.background = 'var(--accent)';
+    e.target.reset();
+    for (var i = 1; i <= 4; i++) {
+      document.getElementById('bo' + i).style.borderColor = '#3f3f46';
+      document.getElementById('bo' + i).style.color = '#a1a1aa';
+    }
+  }, 3000);
+}
+
+/* ── Skill bars animate on scroll ── */
+var skillsDone = false;
+function trySkills() {
+  if (skillsDone) return;
+  var sec = document.getElementById('about');
+  if (!sec) return;
+  if (sec.getBoundingClientRect().top < window.innerHeight * 0.9) {
+    skillsDone = true;
+    document.querySelectorAll('.skill-fill').forEach(function (bar) {
+      var w = bar.style.width;
+      bar.style.width = '0';
+      setTimeout(function () { bar.style.width = w; }, 100);
+    });
+  }
+}
+window.addEventListener('scroll', trySkills, { passive: true });
+trySkills();
+
+/* ── Stat counter animation ── */
+var statsDone = false;
+window.addEventListener('scroll', function () {
+  if (statsDone) return;
+  var row = document.getElementById('statsRow');
+  if (!row) return;
+  if (row.getBoundingClientRect().top < window.innerHeight) {
+    statsDone = true;
+    document.querySelectorAll('#statsRow [data-count]').forEach(function (el) {
+      var target = parseInt(el.dataset.count);
+      var start = performance.now();
+      function step(now) {
+        var p = Math.min((now - start) / 1600, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.floor(eased * target) + '+';
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = target + '+';
+      }
+      requestAnimationFrame(step);
+    });
+  }
+}, { passive: true });
+</script>
+</body>
+</html>
