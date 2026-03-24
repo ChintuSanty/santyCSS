@@ -13319,3 +13319,1715 @@
 
 /* ── Bar Chart Wrapper ── */
 .bar-chart-wrapper { background: var(--color-card, #1e293b); border-radius: 12px; padding: 16px; overflow: hidden; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   1. CONTAINER QUERIES
+═══════════════════════════════════════════════════════════════════════════ */
+.container-type-inline { container-type: inline-size; }
+.container-type-size   { container-type: size; }
+.container-type-normal { container-type: normal; }
+.container-name-card   { container-name: card; }
+.container-name-layout { container-name: layout; }
+@container (min-width: 320px) { .on-container-xs\:make-flex { display: flex; } .on-container-xs\:make-block { display: block; } .on-container-xs\:grid-cols-1 { grid-template-columns: repeat(1,1fr); } }
+@container (min-width: 480px) { .on-container-sm\:make-flex { display: flex; } .on-container-sm\:make-grid { display: grid; } .on-container-sm\:grid-cols-2 { grid-template-columns: repeat(2,1fr); } .on-container-sm\:grid-cols-3 { grid-template-columns: repeat(3,1fr); } .on-container-sm\:set-text-16 { font-size: 16px; } .on-container-sm\:set-text-18 { font-size: 18px; } }
+@container (min-width: 640px) { .on-container-md\:make-flex { display: flex; } .on-container-md\:make-grid { display: grid; } .on-container-md\:grid-cols-2 { grid-template-columns: repeat(2,1fr); } .on-container-md\:grid-cols-3 { grid-template-columns: repeat(3,1fr); } .on-container-md\:grid-cols-4 { grid-template-columns: repeat(4,1fr); } .on-container-md\:set-text-18 { font-size: 18px; } .on-container-md\:set-text-20 { font-size: 20px; } }
+@container (min-width: 768px) { .on-container-lg\:make-flex { display: flex; } .on-container-lg\:make-grid { display: grid; } .on-container-lg\:grid-cols-3 { grid-template-columns: repeat(3,1fr); } .on-container-lg\:grid-cols-4 { grid-template-columns: repeat(4,1fr); } .on-container-lg\:set-text-20 { font-size: 20px; } .on-container-lg\:set-text-24 { font-size: 24px; } .on-container-lg\:make-hidden { display: none; } }
+@container (min-width: 1024px) { .on-container-xl\:grid-cols-4 { grid-template-columns: repeat(4,1fr); } .on-container-xl\:grid-cols-6 { grid-template-columns: repeat(6,1fr); } .on-container-xl\:set-text-24 { font-size: 24px; } }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   2. SCROLL UTILITIES
+═══════════════════════════════════════════════════════════════════════════ */
+.scroll-smooth   { scroll-behavior: smooth; }
+.scroll-auto     { scroll-behavior: auto; }
+.scroll-snap-x   { scroll-snap-type: x mandatory; overflow-x: scroll; }
+.scroll-snap-y   { scroll-snap-type: y mandatory; overflow-y: scroll; }
+.scroll-snap-x-proximity { scroll-snap-type: x proximity; overflow-x: scroll; }
+.scroll-snap-y-proximity { scroll-snap-type: y proximity; overflow-y: scroll; }
+.scroll-snap-start  { scroll-snap-align: start; }
+.scroll-snap-center { scroll-snap-align: center; }
+.scroll-snap-end    { scroll-snap-align: end; }
+.scroll-snap-none   { scroll-snap-align: none; }
+.scroll-snap-stop   { scroll-snap-stop: always; }
+.overscroll-auto    { overscroll-behavior: auto; }
+.overscroll-contain { overscroll-behavior: contain; }
+.overscroll-none    { overscroll-behavior: none; }
+.overscroll-x-contain { overscroll-behavior-x: contain; }
+.overscroll-y-contain { overscroll-behavior-y: contain; }
+.scroll-padding-top-0  { scroll-padding-top: 0; }
+.scroll-padding-top-16 { scroll-padding-top: 16px; }
+.scroll-padding-top-48 { scroll-padding-top: 48px; }
+.scroll-padding-top-64 { scroll-padding-top: 64px; }
+.scroll-padding-top-80 { scroll-padding-top: 80px; }
+.scroll-padding-top-96 { scroll-padding-top: 96px; }
+.scroll-margin-top-16  { scroll-margin-top: 16px; }
+.scroll-margin-top-64  { scroll-margin-top: 64px; }
+.scroll-margin-top-80  { scroll-margin-top: 80px; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   3. ASPECT RATIO (expanded)
+═══════════════════════════════════════════════════════════════════════════ */
+.aspect-square    { aspect-ratio: 1 / 1; }
+.aspect-video     { aspect-ratio: 16 / 9; }
+.aspect-portrait  { aspect-ratio: 3 / 4; }
+.aspect-cinema    { aspect-ratio: 21 / 9; }
+.aspect-4-3       { aspect-ratio: 4 / 3; }
+.aspect-3-2       { aspect-ratio: 3 / 2; }
+.aspect-2-1       { aspect-ratio: 2 / 1; }
+.aspect-1-2       { aspect-ratio: 1 / 2; }
+.aspect-golden    { aspect-ratio: 1.618 / 1; }
+.aspect-auto      { aspect-ratio: auto; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   4. LOGICAL PROPERTIES (RTL/LTR)
+═══════════════════════════════════════════════════════════════════════════ */
+.text-start { text-align: start; }
+.text-end   { text-align: end; }
+.add-margin-inline-auto   { margin-inline: auto; }
+.add-margin-inline-0      { margin-inline: 0; }
+.add-margin-block-auto    { margin-block: auto; }
+.add-padding-inline-8     { padding-inline: 8px; }
+.add-padding-inline-16    { padding-inline: 16px; }
+.add-padding-inline-24    { padding-inline: 24px; }
+.add-padding-inline-32    { padding-inline: 32px; }
+.add-padding-inline-48    { padding-inline: 48px; }
+.add-padding-block-8      { padding-block: 8px; }
+.add-padding-block-16     { padding-block: 16px; }
+.add-padding-block-24     { padding-block: 24px; }
+.add-padding-block-32     { padding-block: 32px; }
+.add-padding-block-48     { padding-block: 48px; }
+.add-border-inline-1      { border-inline: 1px solid; }
+.add-border-inline-2      { border-inline: 2px solid; }
+.add-border-block-1       { border-block: 1px solid; }
+.add-border-block-2       { border-block: 2px solid; }
+.border-start-1           { border-inline-start: 1px solid; }
+.border-start-2           { border-inline-start: 2px solid; }
+.border-start-4           { border-inline-start: 4px solid; }
+.border-end-1             { border-inline-end: 1px solid; }
+.border-end-2             { border-inline-end: 2px solid; }
+.inset-inline-0           { inset-inline: 0; }
+.inset-block-0            { inset-block: 0; }
+.ps-0 { padding-inline-start: 0; }
+.ps-8 { padding-inline-start: 8px; }
+.ps-16 { padding-inline-start: 16px; }
+.ps-24 { padding-inline-start: 24px; }
+.pe-0 { padding-inline-end: 0; }
+.pe-8 { padding-inline-end: 8px; }
+.pe-16 { padding-inline-end: 16px; }
+.pe-24 { padding-inline-end: 24px; }
+.ms-auto { margin-inline-start: auto; }
+.me-auto { margin-inline-end: auto; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   5. GRADIENT UTILITIES (expanded)
+═══════════════════════════════════════════════════════════════════════════ */
+.gradient-radial-from-center { background: radial-gradient(circle at center, var(--grad-from, #3b82f6), var(--grad-to, #1e1b4b)); }
+.gradient-radial-from-top    { background: radial-gradient(circle at top, var(--grad-from, #3b82f6), var(--grad-to, #1e1b4b)); }
+.gradient-conic              { background: conic-gradient(from 0deg, var(--grad-from, #3b82f6), var(--grad-via, #8b5cf6), var(--grad-to, #ec4899), var(--grad-from, #3b82f6)); }
+.gradient-conic-from-top     { background: conic-gradient(from 180deg at 50% 0%, var(--grad-from, #3b82f6), var(--grad-to, #8b5cf6)); }
+.text-gradient { -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+.text-gradient-blue-to-purple  { background-image: linear-gradient(135deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+.text-gradient-purple-to-pink  { background-image: linear-gradient(135deg, #8b5cf6, #ec4899); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+.text-gradient-orange-to-red   { background-image: linear-gradient(135deg, #f97316, #ef4444); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+.text-gradient-green-to-cyan   { background-image: linear-gradient(135deg, #22c55e, #06b6d4); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+.text-gradient-blue-to-green   { background-image: linear-gradient(135deg, #3b82f6, #22c55e); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+.text-gradient-yellow-to-orange { background-image: linear-gradient(135deg, #eab308, #f97316); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; }
+.border-gradient-blue-to-purple { border: 2px solid transparent; background-clip: padding-box; position: relative; }
+.border-gradient-blue-to-purple::before { content: ''; position: absolute; inset: -2px; border-radius: inherit; background: linear-gradient(135deg, #3b82f6, #8b5cf6); z-index: -1; }
+.border-gradient-orange-to-pink { border: 2px solid transparent; background-clip: padding-box; position: relative; }
+.border-gradient-orange-to-pink::before { content: ''; position: absolute; inset: -2px; border-radius: inherit; background: linear-gradient(135deg, #f97316, #ec4899); z-index: -1; }
+.gradient-via-purple-400 { --grad-via: #a78bfa; }
+.gradient-via-pink-400   { --grad-via: #f472b6; }
+.gradient-via-cyan-400   { --grad-via: #22d3ee; }
+.gradient-via-yellow-400 { --grad-via: #facc15; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   6. CLIP PATH UTILITIES
+═══════════════════════════════════════════════════════════════════════════ */
+.clip-circle       { clip-path: circle(50%); }
+.clip-ellipse      { clip-path: ellipse(60% 40% at 50% 50%); }
+.clip-triangle-up  { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+.clip-triangle-down { clip-path: polygon(0% 0%, 100% 0%, 50% 100%); }
+.clip-diamond      { clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
+.clip-hexagon      { clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); }
+.clip-pentagon     { clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%); }
+.clip-star         { clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+.clip-chevron-right { clip-path: polygon(0% 0%, 80% 0%, 100% 50%, 80% 100%, 0% 100%, 20% 50%); }
+.clip-arrow-right  { clip-path: polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%); }
+.clip-none         { clip-path: none; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   7. CSS GRID ADVANCED
+═══════════════════════════════════════════════════════════════════════════ */
+.grid-auto-fit-min-120 { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+.grid-auto-fit-min-150 { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.grid-auto-fit-min-200 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.grid-auto-fit-min-240 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.grid-auto-fit-min-280 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.grid-auto-fit-min-320 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+.grid-auto-fill-min-120 { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+.grid-auto-fill-min-150 { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.grid-auto-fill-min-200 { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.grid-auto-fill-min-240 { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.grid-auto-fill-min-280 { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.grid-auto-fill-min-320 { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); }
+.grid-area-header  { grid-area: header; }
+.grid-area-nav     { grid-area: nav; }
+.grid-area-sidebar { grid-area: sidebar; }
+.grid-area-main    { grid-area: main; }
+.grid-area-footer  { grid-area: footer; }
+.grid-area-aside   { grid-area: aside; }
+.grid-template-layout-holy-grail {
+  display: grid;
+  grid-template-areas: "header header header" "nav main aside" "footer footer footer";
+  grid-template-columns: 200px 1fr 200px;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+.grid-template-layout-sidebar-left {
+  display: grid;
+  grid-template-areas: "sidebar main";
+  grid-template-columns: 260px 1fr;
+  gap: 0;
+}
+.grid-template-layout-sidebar-right {
+  display: grid;
+  grid-template-areas: "main sidebar";
+  grid-template-columns: 1fr 260px;
+  gap: 0;
+}
+.masonry-cols-2 { columns: 2; column-gap: 16px; }
+.masonry-cols-3 { columns: 3; column-gap: 16px; }
+.masonry-cols-4 { columns: 4; column-gap: 16px; }
+.masonry-item   { break-inside: avoid; margin-bottom: 16px; }
+.grid-dense     { grid-auto-flow: dense; }
+.grid-row-dense { grid-auto-flow: row dense; }
+.grid-col-dense { grid-auto-flow: column dense; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   8. ADVANCED TYPOGRAPHY
+═══════════════════════════════════════════════════════════════════════════ */
+.text-balance  { text-wrap: balance; }
+.text-pretty   { text-wrap: pretty; }
+.text-nowrap   { white-space: nowrap; }
+.text-wrap     { white-space: normal; }
+.text-clamp-1  { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.text-clamp-2  { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.text-clamp-3  { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.text-clamp-4  { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.text-clamp-5  { display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+.text-indent-8  { text-indent: 8px; }
+.text-indent-16 { text-indent: 16px; }
+.text-indent-32 { text-indent: 32px; }
+.hanging-punctuation { hanging-punctuation: first last; }
+.drop-cap::first-letter { float: left; font-size: 3.5em; line-height: 0.85; font-weight: 700; margin-right: 8px; margin-top: 4px; }
+.first-letter-large::first-letter { font-size: 2em; font-weight: 700; }
+.first-letter-color-blue::first-letter { color: #3b82f6; }
+.text-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.text-break-all  { word-break: break-all; }
+.text-break-word { overflow-wrap: break-word; word-break: break-word; }
+.text-hyphen     { hyphens: auto; }
+.font-tabular-nums { font-variant-numeric: tabular-nums; }
+.font-ordinal      { font-variant-numeric: ordinal; }
+.font-slashed-zero { font-variant-numeric: slashed-zero; }
+.font-feature-liga { font-feature-settings: "liga" 1; }
+.font-smoothing    { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   9. FLUID TYPOGRAPHY
+═══════════════════════════════════════════════════════════════════════════ */
+.text-fluid-xs   { font-size: clamp(11px, 1.5vw, 13px); }
+.text-fluid-sm   { font-size: clamp(13px, 2vw, 16px); }
+.text-fluid-md   { font-size: clamp(16px, 2.5vw, 20px); }
+.text-fluid-lg   { font-size: clamp(20px, 3.5vw, 28px); }
+.text-fluid-xl   { font-size: clamp(28px, 5vw, 40px); }
+.text-fluid-2xl  { font-size: clamp(36px, 6vw, 56px); }
+.text-fluid-hero { font-size: clamp(36px, 8vw, 80px); }
+.text-fluid-display { font-size: clamp(48px, 10vw, 120px); }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   10. CURSOR UTILITIES (expanded)
+═══════════════════════════════════════════════════════════════════════════ */
+.cursor-default     { cursor: default; }
+.cursor-pointer     { cursor: pointer; }
+.cursor-text        { cursor: text; }
+.cursor-grab        { cursor: grab; }
+.cursor-grabbing    { cursor: grabbing; }
+.cursor-crosshair   { cursor: crosshair; }
+.cursor-zoom-in     { cursor: zoom-in; }
+.cursor-zoom-out    { cursor: zoom-out; }
+.cursor-not-allowed { cursor: not-allowed; }
+.cursor-wait        { cursor: wait; }
+.cursor-progress    { cursor: progress; }
+.cursor-cell        { cursor: cell; }
+.cursor-copy        { cursor: copy; }
+.cursor-move        { cursor: move; }
+.cursor-none        { cursor: none; }
+.cursor-help        { cursor: help; }
+.cursor-context-menu { cursor: context-menu; }
+.cursor-alias       { cursor: alias; }
+.cursor-resize-ns   { cursor: ns-resize; }
+.cursor-resize-ew   { cursor: ew-resize; }
+.cursor-resize-n    { cursor: n-resize; }
+.cursor-resize-s    { cursor: s-resize; }
+.cursor-resize-e    { cursor: e-resize; }
+.cursor-resize-w    { cursor: w-resize; }
+.cursor-resize-ne   { cursor: ne-resize; }
+.cursor-resize-nw   { cursor: nw-resize; }
+.cursor-resize-se   { cursor: se-resize; }
+.cursor-resize-sw   { cursor: sw-resize; }
+.cursor-col-resize  { cursor: col-resize; }
+.cursor-row-resize  { cursor: row-resize; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   11. POINTER & TOUCH UTILITIES (expanded)
+═══════════════════════════════════════════════════════════════════════════ */
+.touch-none          { touch-action: none; }
+.touch-auto          { touch-action: auto; }
+.touch-pan-x         { touch-action: pan-x; }
+.touch-pan-y         { touch-action: pan-y; }
+.touch-pan-left      { touch-action: pan-left; }
+.touch-pan-right     { touch-action: pan-right; }
+.touch-pan-up        { touch-action: pan-up; }
+.touch-pan-down      { touch-action: pan-down; }
+.touch-manipulation  { touch-action: manipulation; }
+.touch-pinch-zoom    { touch-action: pinch-zoom; }
+.pointer-events-none { pointer-events: none; }
+.pointer-events-auto { pointer-events: auto; }
+.pointer-events-all  { pointer-events: all; }
+.user-select-none    { user-select: none; -webkit-user-select: none; }
+.user-select-all     { user-select: all; -webkit-user-select: all; }
+.user-select-text    { user-select: text; -webkit-user-select: text; }
+.user-select-auto    { user-select: auto; -webkit-user-select: auto; }
+.will-change-transform  { will-change: transform; }
+.will-change-opacity    { will-change: opacity; }
+.will-change-scroll     { will-change: scroll-position; }
+.will-change-auto       { will-change: auto; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   12. CSS SUBGRID
+═══════════════════════════════════════════════════════════════════════════ */
+.grid-cols-subgrid   { grid-template-columns: subgrid; }
+.grid-rows-subgrid   { grid-template-rows: subgrid; }
+.span-col-subgrid-2  { grid-column: span 2; grid-template-columns: subgrid; }
+.span-col-subgrid-3  { grid-column: span 3; grid-template-columns: subgrid; }
+.span-col-subgrid-4  { grid-column: span 4; grid-template-columns: subgrid; }
+.span-row-subgrid-2  { grid-row: span 2; grid-template-rows: subgrid; }
+.span-row-subgrid-3  { grid-row: span 3; grid-template-rows: subgrid; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   13. VIEW TRANSITIONS
+═══════════════════════════════════════════════════════════════════════════ */
+.view-transition-none   { view-transition-name: none; }
+.view-transition-hero   { view-transition-name: hero; }
+.view-transition-header { view-transition-name: header; }
+.view-transition-image  { view-transition-name: image; }
+.view-transition-card   { view-transition-name: card; }
+@keyframes santy-vt-fade-in  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes santy-vt-fade-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes santy-vt-slide-in  { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes santy-vt-slide-out { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-24px); opacity: 0; } }
+@keyframes santy-vt-scale-in  { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes santy-vt-scale-out { from { transform: scale(1); opacity: 1; } to { transform: scale(1.08); opacity: 0; } }
+::view-transition-old(root) { animation: santy-vt-fade-out 0.25s ease; }
+::view-transition-new(root) { animation: santy-vt-fade-in  0.25s ease; }
+.view-transition-fade  ::view-transition-old(root) { animation: santy-vt-fade-out 0.3s ease; }
+.view-transition-fade  ::view-transition-new(root) { animation: santy-vt-fade-in  0.3s ease; }
+.view-transition-slide ::view-transition-old(root) { animation: santy-vt-slide-out 0.35s ease; }
+.view-transition-slide ::view-transition-new(root) { animation: santy-vt-slide-in  0.35s ease; }
+.view-transition-scale ::view-transition-old(root) { animation: santy-vt-scale-out 0.3s ease; }
+.view-transition-scale ::view-transition-new(root) { animation: santy-vt-scale-in  0.3s ease; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   14. @LAYER UTILITIES
+═══════════════════════════════════════════════════════════════════════════ */
+@layer santy-base, santy-utilities, santy-components, santy-overrides;
+@layer santy-base      { .layer-base      { all: revert; } }
+@layer santy-utilities { .layer-utilities { } }
+@layer santy-components { .layer-components { } }
+@layer santy-overrides  { .layer-overrides  { } }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   15. SIZE UTILITIES (width + height combined)
+═══════════════════════════════════════════════════════════════════════════ */
+.set-size-4   { width: 4px;   height: 4px; }
+.set-size-8   { width: 8px;   height: 8px; }
+.set-size-12  { width: 12px;  height: 12px; }
+.set-size-16  { width: 16px;  height: 16px; }
+.set-size-20  { width: 20px;  height: 20px; }
+.set-size-24  { width: 24px;  height: 24px; }
+.set-size-28  { width: 28px;  height: 28px; }
+.set-size-32  { width: 32px;  height: 32px; }
+.set-size-36  { width: 36px;  height: 36px; }
+.set-size-40  { width: 40px;  height: 40px; }
+.set-size-44  { width: 44px;  height: 44px; }
+.set-size-48  { width: 48px;  height: 48px; }
+.set-size-56  { width: 56px;  height: 56px; }
+.set-size-64  { width: 64px;  height: 64px; }
+.set-size-72  { width: 72px;  height: 72px; }
+.set-size-80  { width: 80px;  height: 80px; }
+.set-size-96  { width: 96px;  height: 96px; }
+.set-size-120 { width: 120px; height: 120px; }
+.set-size-160 { width: 160px; height: 160px; }
+.set-size-200 { width: 200px; height: 200px; }
+.set-size-full   { width: 100%;  height: 100%; }
+.set-size-screen { width: 100vw; height: 100vh; }
+.set-size-fit    { width: fit-content; height: fit-content; }
+.set-size-min    { width: min-content; height: min-content; }
+.set-size-max    { width: max-content; height: max-content; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   16. DYNAMIC VIEWPORT UNITS
+═══════════════════════════════════════════════════════════════════════════ */
+.set-height-dvh      { height: 100dvh; }
+.set-height-svh      { height: 100svh; }
+.set-height-lvh      { height: 100lvh; }
+.set-min-height-dvh  { min-height: 100dvh; }
+.set-min-height-svh  { min-height: 100svh; }
+.set-min-height-lvh  { min-height: 100lvh; }
+.set-max-height-dvh  { max-height: 100dvh; }
+.set-width-dvw       { width: 100dvw; }
+.set-width-svw       { width: 100svw; }
+.set-width-lvw       { width: 100lvw; }
+.h-dvh { height: 100dvh; }
+.h-svh { height: 100svh; }
+.h-50dvh { height: 50dvh; }
+.h-75dvh { height: 75dvh; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   17. COLOR MIX & OPACITY MODIFIERS
+═══════════════════════════════════════════════════════════════════════════ */
+.background-blue-500\/10  { background-color: rgba(59,130,246,.10); }
+.background-blue-500\/20  { background-color: rgba(59,130,246,.20); }
+.background-blue-500\/30  { background-color: rgba(59,130,246,.30); }
+.background-blue-500\/50  { background-color: rgba(59,130,246,.50); }
+.background-blue-500\/75  { background-color: rgba(59,130,246,.75); }
+.background-red-500\/10   { background-color: rgba(239,68,68,.10); }
+.background-red-500\/20   { background-color: rgba(239,68,68,.20); }
+.background-red-500\/30   { background-color: rgba(239,68,68,.30); }
+.background-red-500\/50   { background-color: rgba(239,68,68,.50); }
+.background-green-500\/10 { background-color: rgba(34,197,94,.10); }
+.background-green-500\/20 { background-color: rgba(34,197,94,.20); }
+.background-green-500\/30 { background-color: rgba(34,197,94,.30); }
+.background-green-500\/50 { background-color: rgba(34,197,94,.50); }
+.background-purple-500\/10 { background-color: rgba(168,85,247,.10); }
+.background-purple-500\/20 { background-color: rgba(168,85,247,.20); }
+.background-purple-500\/30 { background-color: rgba(168,85,247,.30); }
+.background-purple-500\/50 { background-color: rgba(168,85,247,.50); }
+.background-yellow-500\/10 { background-color: rgba(234,179,8,.10); }
+.background-yellow-500\/20 { background-color: rgba(234,179,8,.20); }
+.background-yellow-500\/50 { background-color: rgba(234,179,8,.50); }
+.background-white\/10  { background-color: rgba(255,255,255,.10); }
+.background-white\/20  { background-color: rgba(255,255,255,.20); }
+.background-white\/30  { background-color: rgba(255,255,255,.30); }
+.background-white\/50  { background-color: rgba(255,255,255,.50); }
+.background-white\/75  { background-color: rgba(255,255,255,.75); }
+.background-black\/10  { background-color: rgba(0,0,0,.10); }
+.background-black\/20  { background-color: rgba(0,0,0,.20); }
+.background-black\/30  { background-color: rgba(0,0,0,.30); }
+.background-black\/50  { background-color: rgba(0,0,0,.50); }
+.background-black\/75  { background-color: rgba(0,0,0,.75); }
+.color-blue-500\/75   { color: rgba(59,130,246,.75); }
+.color-red-600\/75    { color: rgba(220,38,38,.75); }
+.color-gray-900\/75   { color: rgba(17,24,39,.75); }
+.background-mix-blue-red-50    { background-color: color-mix(in srgb, #3b82f6 50%, #ef4444); }
+.background-mix-blue-green-50  { background-color: color-mix(in srgb, #3b82f6 50%, #22c55e); }
+.background-mix-purple-pink-50 { background-color: color-mix(in srgb, #8b5cf6 50%, #ec4899); }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   18. ISOLATION & SEMANTIC Z-INDEX
+═══════════════════════════════════════════════════════════════════════════ */
+.isolate       { isolation: isolate; }
+.isolation-auto { isolation: auto; }
+.z-base        { z-index: 0; }
+.z-raised      { z-index: 10; }
+.z-dropdown    { z-index: 100; }
+.z-sticky      { z-index: 200; }
+.z-overlay     { z-index: 300; }
+.z-modal       { z-index: 400; }
+.z-popover     { z-index: 500; }
+.z-tooltip     { z-index: 600; }
+.z-toast       { z-index: 700; }
+.z-top         { z-index: 9999; }
+.z-negative    { z-index: -1; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   19. PRINT UTILITIES (expanded)
+═══════════════════════════════════════════════════════════════════════════ */
+@media print {
+  .print-hidden              { display: none !important; }
+  .print-only                { display: block !important; }
+  .print-only-flex           { display: flex !important; }
+  .print-full-width          { width: 100% !important; max-width: 100% !important; }
+  .print-no-shadow           { box-shadow: none !important; }
+  .print-no-border           { border: none !important; }
+  .print-black-white         { filter: grayscale(100%); }
+  .print-break-before        { break-before: page; }
+  .print-break-after         { break-after: page; }
+  .print-break-inside-avoid  { break-inside: avoid; }
+  .print-break-inside-auto   { break-inside: auto; }
+  .print-text-black          { color: #000 !important; }
+  .print-background-white    { background: #fff !important; }
+  .print-show-links a::after { content: " (" attr(href) ")"; font-size: 11px; color: #666; }
+}
+.print-hidden { }
+.print-only   { }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   20. MATH & CALCULATION UTILITIES
+═══════════════════════════════════════════════════════════════════════════ */
+.set-width-calc-100-minus-16  { width: calc(100% - 16px); }
+.set-width-calc-100-minus-24  { width: calc(100% - 24px); }
+.set-width-calc-100-minus-32  { width: calc(100% - 32px); }
+.set-width-calc-100-minus-48  { width: calc(100% - 48px); }
+.set-width-calc-100-minus-64  { width: calc(100% - 64px); }
+.set-width-calc-100-minus-80  { width: calc(100% - 80px); }
+.set-width-calc-100-minus-256 { width: calc(100% - 256px); }
+.set-width-calc-100-minus-320 { width: calc(100% - 320px); }
+.set-width-half               { width: calc(50% - 8px); }
+.set-width-third              { width: calc(33.333% - 11px); }
+.set-width-quarter            { width: calc(25% - 12px); }
+.set-height-calc-screen-minus-48  { height: calc(100vh - 48px); }
+.set-height-calc-screen-minus-64  { height: calc(100vh - 64px); }
+.set-height-calc-screen-minus-80  { height: calc(100vh - 80px); }
+.set-height-calc-screen-minus-96  { height: calc(100vh - 96px); }
+.set-height-calc-dvh-minus-64  { height: calc(100dvh - 64px); }
+.set-height-calc-dvh-minus-80  { height: calc(100dvh - 80px); }
+.set-min-height-calc-screen-minus-80 { min-height: calc(100vh - 80px); }
+.set-max-width-readable   { max-width: 65ch; }
+.set-max-width-prose      { max-width: 72ch; }
+.set-max-width-narrow     { max-width: 45ch; }
+
+
+/* ── Variable Font Weights ── */
+.font-variable          { font-variation-settings: normal; }
+.font-condensed         { font-stretch: condensed;  font-variation-settings: 'wdth' 75; }
+.font-expanded          { font-stretch: expanded;   font-variation-settings: 'wdth' 125; }
+.font-italic-variable   { font-style: italic; font-variation-settings: 'ital' 1; }
+.set-font-weight-100 { font-weight: 100; font-variation-settings: 'wght' 100; }
+.set-font-weight-200 { font-weight: 200; font-variation-settings: 'wght' 200; }
+.set-font-weight-300 { font-weight: 300; font-variation-settings: 'wght' 300; }
+.set-font-weight-400 { font-weight: 400; font-variation-settings: 'wght' 400; }
+.set-font-weight-450 { font-weight: 450; font-variation-settings: 'wght' 450; }
+.set-font-weight-500 { font-weight: 500; font-variation-settings: 'wght' 500; }
+.set-font-weight-550 { font-weight: 550; font-variation-settings: 'wght' 550; }
+.set-font-weight-600 { font-weight: 600; font-variation-settings: 'wght' 600; }
+.set-font-weight-700 { font-weight: 700; font-variation-settings: 'wght' 700; }
+.set-font-weight-800 { font-weight: 800; font-variation-settings: 'wght' 800; }
+.set-font-weight-900 { font-weight: 900; font-variation-settings: 'wght' 900; }
+
+/* ── Negative Z-index (layer behind parent) ── */
+.z-minus-1  { z-index: -1; }
+.z-minus-2  { z-index: -2; }
+.z-minus-3  { z-index: -3; }
+.z-minus-5  { z-index: -5; }
+.z-minus-10 { z-index: -10; }
+
+/* ── Fractional Widths — fifths & sixths ── */
+.set-width-1-of-5 { width: 20%; }
+.set-width-2-of-5 { width: 40%; }
+.set-width-3-of-5 { width: 60%; }
+.set-width-4-of-5 { width: 80%; }
+.set-width-1-of-6 { width: 16.6667%; }
+.set-width-2-of-6 { width: 33.3333%; }
+.set-width-3-of-6 { width: 50%; }
+.set-width-4-of-6 { width: 66.6667%; }
+.set-width-5-of-6 { width: 83.3333%; }
+
+
+/* ── Caret Colors (full shade scale) ── */
+.caret-red-50 { caret-color: #fef2f2; }
+.caret-red-100 { caret-color: #fee2e2; }
+.caret-red-200 { caret-color: #fecaca; }
+.caret-red-300 { caret-color: #fca5a5; }
+.caret-red-400 { caret-color: #f87171; }
+.caret-red-500 { caret-color: #ef4444; }
+.caret-red-600 { caret-color: #dc2626; }
+.caret-red-700 { caret-color: #b91c1c; }
+.caret-red-800 { caret-color: #991b1b; }
+.caret-red-900 { caret-color: #7f1d1d; }
+.caret-orange-50 { caret-color: #fff7ed; }
+.caret-orange-100 { caret-color: #ffedd5; }
+.caret-orange-200 { caret-color: #fed7aa; }
+.caret-orange-300 { caret-color: #fdba74; }
+.caret-orange-400 { caret-color: #fb923c; }
+.caret-orange-500 { caret-color: #f97316; }
+.caret-orange-600 { caret-color: #ea580c; }
+.caret-orange-700 { caret-color: #c2410c; }
+.caret-orange-800 { caret-color: #9a3412; }
+.caret-orange-900 { caret-color: #7c2d12; }
+.caret-amber-50 { caret-color: #fffbeb; }
+.caret-amber-100 { caret-color: #fef3c7; }
+.caret-amber-200 { caret-color: #fde68a; }
+.caret-amber-300 { caret-color: #fcd34d; }
+.caret-amber-400 { caret-color: #fbbf24; }
+.caret-amber-500 { caret-color: #f59e0b; }
+.caret-amber-600 { caret-color: #d97706; }
+.caret-amber-700 { caret-color: #b45309; }
+.caret-amber-800 { caret-color: #92400e; }
+.caret-amber-900 { caret-color: #78350f; }
+.caret-yellow-50 { caret-color: #fefce8; }
+.caret-yellow-100 { caret-color: #fef9c3; }
+.caret-yellow-200 { caret-color: #fef08a; }
+.caret-yellow-300 { caret-color: #fde047; }
+.caret-yellow-400 { caret-color: #facc15; }
+.caret-yellow-500 { caret-color: #eab308; }
+.caret-yellow-600 { caret-color: #ca8a04; }
+.caret-yellow-700 { caret-color: #a16207; }
+.caret-yellow-800 { caret-color: #854d0e; }
+.caret-yellow-900 { caret-color: #713f12; }
+.caret-lime-50 { caret-color: #f7fee7; }
+.caret-lime-100 { caret-color: #ecfccb; }
+.caret-lime-200 { caret-color: #d9f99d; }
+.caret-lime-300 { caret-color: #bef264; }
+.caret-lime-400 { caret-color: #a3e635; }
+.caret-lime-500 { caret-color: #84cc16; }
+.caret-lime-600 { caret-color: #65a30d; }
+.caret-lime-700 { caret-color: #4d7c0f; }
+.caret-lime-800 { caret-color: #3f6212; }
+.caret-lime-900 { caret-color: #365314; }
+.caret-green-50 { caret-color: #f0fdf4; }
+.caret-green-100 { caret-color: #dcfce7; }
+.caret-green-200 { caret-color: #bbf7d0; }
+.caret-green-300 { caret-color: #86efac; }
+.caret-green-400 { caret-color: #4ade80; }
+.caret-green-500 { caret-color: #22c55e; }
+.caret-green-600 { caret-color: #16a34a; }
+.caret-green-700 { caret-color: #15803d; }
+.caret-green-800 { caret-color: #166534; }
+.caret-green-900 { caret-color: #14532d; }
+.caret-teal-50 { caret-color: #f0fdfa; }
+.caret-teal-100 { caret-color: #ccfbf1; }
+.caret-teal-200 { caret-color: #99f6e4; }
+.caret-teal-300 { caret-color: #5eead4; }
+.caret-teal-400 { caret-color: #2dd4bf; }
+.caret-teal-500 { caret-color: #14b8a6; }
+.caret-teal-600 { caret-color: #0d9488; }
+.caret-teal-700 { caret-color: #0f766e; }
+.caret-teal-800 { caret-color: #115e59; }
+.caret-teal-900 { caret-color: #134e4a; }
+.caret-cyan-50 { caret-color: #ecfeff; }
+.caret-cyan-100 { caret-color: #cffafe; }
+.caret-cyan-200 { caret-color: #a5f3fc; }
+.caret-cyan-300 { caret-color: #67e8f9; }
+.caret-cyan-400 { caret-color: #22d3ee; }
+.caret-cyan-500 { caret-color: #06b6d4; }
+.caret-cyan-600 { caret-color: #0891b2; }
+.caret-cyan-700 { caret-color: #0e7490; }
+.caret-cyan-800 { caret-color: #155e75; }
+.caret-cyan-900 { caret-color: #164e63; }
+.caret-blue-50 { caret-color: #eff6ff; }
+.caret-blue-100 { caret-color: #dbeafe; }
+.caret-blue-200 { caret-color: #bfdbfe; }
+.caret-blue-300 { caret-color: #93c5fd; }
+.caret-blue-400 { caret-color: #60a5fa; }
+.caret-blue-500 { caret-color: #3b82f6; }
+.caret-blue-600 { caret-color: #2563eb; }
+.caret-blue-700 { caret-color: #1d4ed8; }
+.caret-blue-800 { caret-color: #1e40af; }
+.caret-blue-900 { caret-color: #1e3a8a; }
+.caret-indigo-50 { caret-color: #eef2ff; }
+.caret-indigo-100 { caret-color: #e0e7ff; }
+.caret-indigo-200 { caret-color: #c7d2fe; }
+.caret-indigo-300 { caret-color: #a5b4fc; }
+.caret-indigo-400 { caret-color: #818cf8; }
+.caret-indigo-500 { caret-color: #6366f1; }
+.caret-indigo-600 { caret-color: #4f46e5; }
+.caret-indigo-700 { caret-color: #4338ca; }
+.caret-indigo-800 { caret-color: #3730a3; }
+.caret-indigo-900 { caret-color: #312e81; }
+.caret-violet-50 { caret-color: #f5f3ff; }
+.caret-violet-100 { caret-color: #ede9fe; }
+.caret-violet-200 { caret-color: #ddd6fe; }
+.caret-violet-300 { caret-color: #c4b5fd; }
+.caret-violet-400 { caret-color: #a78bfa; }
+.caret-violet-500 { caret-color: #8b5cf6; }
+.caret-violet-600 { caret-color: #7c3aed; }
+.caret-violet-700 { caret-color: #6d28d9; }
+.caret-violet-800 { caret-color: #5b21b6; }
+.caret-violet-900 { caret-color: #4c1d95; }
+.caret-purple-50 { caret-color: #faf5ff; }
+.caret-purple-100 { caret-color: #f3e8ff; }
+.caret-purple-200 { caret-color: #e9d5ff; }
+.caret-purple-300 { caret-color: #d8b4fe; }
+.caret-purple-400 { caret-color: #c084fc; }
+.caret-purple-500 { caret-color: #a855f7; }
+.caret-purple-600 { caret-color: #9333ea; }
+.caret-purple-700 { caret-color: #7e22ce; }
+.caret-purple-800 { caret-color: #6b21a8; }
+.caret-purple-900 { caret-color: #581c87; }
+.caret-pink-50 { caret-color: #fdf2f8; }
+.caret-pink-100 { caret-color: #fce7f3; }
+.caret-pink-200 { caret-color: #fbcfe8; }
+.caret-pink-300 { caret-color: #f9a8d4; }
+.caret-pink-400 { caret-color: #f472b6; }
+.caret-pink-500 { caret-color: #ec4899; }
+.caret-pink-600 { caret-color: #db2777; }
+.caret-pink-700 { caret-color: #be185d; }
+.caret-pink-800 { caret-color: #9d174d; }
+.caret-pink-900 { caret-color: #831843; }
+.caret-rose-50 { caret-color: #fff1f2; }
+.caret-rose-100 { caret-color: #ffe4e6; }
+.caret-rose-200 { caret-color: #fecdd3; }
+.caret-rose-300 { caret-color: #fda4af; }
+.caret-rose-400 { caret-color: #fb7185; }
+.caret-rose-500 { caret-color: #f43f5e; }
+.caret-rose-600 { caret-color: #e11d48; }
+.caret-rose-700 { caret-color: #be123c; }
+.caret-rose-800 { caret-color: #9f1239; }
+.caret-rose-900 { caret-color: #881337; }
+.caret-slate-50 { caret-color: #f8fafc; }
+.caret-slate-100 { caret-color: #f1f5f9; }
+.caret-slate-200 { caret-color: #e2e8f0; }
+.caret-slate-300 { caret-color: #cbd5e1; }
+.caret-slate-400 { caret-color: #94a3b8; }
+.caret-slate-500 { caret-color: #64748b; }
+.caret-slate-600 { caret-color: #475569; }
+.caret-slate-700 { caret-color: #334155; }
+.caret-slate-800 { caret-color: #1e293b; }
+.caret-slate-900 { caret-color: #0f172a; }
+.caret-gray-50 { caret-color: #f9fafb; }
+.caret-gray-100 { caret-color: #f3f4f6; }
+.caret-gray-200 { caret-color: #e5e7eb; }
+.caret-gray-300 { caret-color: #d1d5db; }
+.caret-gray-400 { caret-color: #9ca3af; }
+.caret-gray-500 { caret-color: #6b7280; }
+.caret-gray-600 { caret-color: #4b5563; }
+.caret-gray-700 { caret-color: #374151; }
+.caret-gray-800 { caret-color: #1f2937; }
+.caret-gray-900 { caret-color: #111827; }
+.caret-zinc-50 { caret-color: #fafafa; }
+.caret-zinc-100 { caret-color: #f4f4f5; }
+.caret-zinc-200 { caret-color: #e4e4e7; }
+.caret-zinc-300 { caret-color: #d4d4d8; }
+.caret-zinc-400 { caret-color: #a1a1aa; }
+.caret-zinc-500 { caret-color: #71717a; }
+.caret-zinc-600 { caret-color: #52525b; }
+.caret-zinc-700 { caret-color: #3f3f46; }
+.caret-zinc-800 { caret-color: #27272a; }
+.caret-zinc-900 { caret-color: #18181b; }
+.caret-stone-50 { caret-color: #fafaf9; }
+.caret-stone-100 { caret-color: #f5f5f4; }
+.caret-stone-200 { caret-color: #e7e5e4; }
+.caret-stone-300 { caret-color: #d6d3d1; }
+.caret-stone-400 { caret-color: #a8a29e; }
+.caret-stone-500 { caret-color: #78716c; }
+.caret-stone-600 { caret-color: #57534e; }
+.caret-stone-700 { caret-color: #44403c; }
+.caret-stone-800 { caret-color: #292524; }
+.caret-stone-900 { caret-color: #1c1917; }
+
+/* ── Color-Mix Tints & Shades — background, text, border ── */
+.background-red-tint-10 { background-color: color-mix(in srgb, #ef4444 10%, #ffffff); }
+.color-red-tint-10      { color: color-mix(in srgb, #ef4444 10%, #ffffff); }
+.background-red-tint-20 { background-color: color-mix(in srgb, #ef4444 20%, #ffffff); }
+.color-red-tint-20      { color: color-mix(in srgb, #ef4444 20%, #ffffff); }
+.background-red-tint-30 { background-color: color-mix(in srgb, #ef4444 30%, #ffffff); }
+.color-red-tint-30      { color: color-mix(in srgb, #ef4444 30%, #ffffff); }
+.background-red-tint-40 { background-color: color-mix(in srgb, #ef4444 40%, #ffffff); }
+.color-red-tint-40      { color: color-mix(in srgb, #ef4444 40%, #ffffff); }
+.background-red-tint-50 { background-color: color-mix(in srgb, #ef4444 50%, #ffffff); }
+.color-red-tint-50      { color: color-mix(in srgb, #ef4444 50%, #ffffff); }
+.background-red-tint-60 { background-color: color-mix(in srgb, #ef4444 60%, #ffffff); }
+.color-red-tint-60      { color: color-mix(in srgb, #ef4444 60%, #ffffff); }
+.background-red-tint-70 { background-color: color-mix(in srgb, #ef4444 70%, #ffffff); }
+.color-red-tint-70      { color: color-mix(in srgb, #ef4444 70%, #ffffff); }
+.background-red-shade-100 { background-color: color-mix(in srgb, #ef4444 0%, #000000); }
+.color-red-shade-100      { color: color-mix(in srgb, #ef4444 0%, #000000); }
+.background-red-shade-200 { background-color: color-mix(in srgb, #ef4444 -100%, #000000); }
+.color-red-shade-200      { color: color-mix(in srgb, #ef4444 -100%, #000000); }
+.background-red-shade-300 { background-color: color-mix(in srgb, #ef4444 -200%, #000000); }
+.color-red-shade-300      { color: color-mix(in srgb, #ef4444 -200%, #000000); }
+.border-red-tint-20 { border-color: color-mix(in srgb, #ef4444 20%, #ffffff); }
+.border-red-tint-40 { border-color: color-mix(in srgb, #ef4444 40%, #ffffff); }
+.border-red-shade-10 { border-color: color-mix(in srgb, #ef4444 90%, #000000); }
+.background-orange-tint-10 { background-color: color-mix(in srgb, #f97316 10%, #ffffff); }
+.color-orange-tint-10      { color: color-mix(in srgb, #f97316 10%, #ffffff); }
+.background-orange-tint-20 { background-color: color-mix(in srgb, #f97316 20%, #ffffff); }
+.color-orange-tint-20      { color: color-mix(in srgb, #f97316 20%, #ffffff); }
+.background-orange-tint-30 { background-color: color-mix(in srgb, #f97316 30%, #ffffff); }
+.color-orange-tint-30      { color: color-mix(in srgb, #f97316 30%, #ffffff); }
+.background-orange-tint-40 { background-color: color-mix(in srgb, #f97316 40%, #ffffff); }
+.color-orange-tint-40      { color: color-mix(in srgb, #f97316 40%, #ffffff); }
+.background-orange-tint-50 { background-color: color-mix(in srgb, #f97316 50%, #ffffff); }
+.color-orange-tint-50      { color: color-mix(in srgb, #f97316 50%, #ffffff); }
+.background-orange-tint-60 { background-color: color-mix(in srgb, #f97316 60%, #ffffff); }
+.color-orange-tint-60      { color: color-mix(in srgb, #f97316 60%, #ffffff); }
+.background-orange-tint-70 { background-color: color-mix(in srgb, #f97316 70%, #ffffff); }
+.color-orange-tint-70      { color: color-mix(in srgb, #f97316 70%, #ffffff); }
+.background-orange-shade-100 { background-color: color-mix(in srgb, #f97316 0%, #000000); }
+.color-orange-shade-100      { color: color-mix(in srgb, #f97316 0%, #000000); }
+.background-orange-shade-200 { background-color: color-mix(in srgb, #f97316 -100%, #000000); }
+.color-orange-shade-200      { color: color-mix(in srgb, #f97316 -100%, #000000); }
+.background-orange-shade-300 { background-color: color-mix(in srgb, #f97316 -200%, #000000); }
+.color-orange-shade-300      { color: color-mix(in srgb, #f97316 -200%, #000000); }
+.border-orange-tint-20 { border-color: color-mix(in srgb, #f97316 20%, #ffffff); }
+.border-orange-tint-40 { border-color: color-mix(in srgb, #f97316 40%, #ffffff); }
+.border-orange-shade-10 { border-color: color-mix(in srgb, #f97316 90%, #000000); }
+.background-amber-tint-10 { background-color: color-mix(in srgb, #f59e0b 10%, #ffffff); }
+.color-amber-tint-10      { color: color-mix(in srgb, #f59e0b 10%, #ffffff); }
+.background-amber-tint-20 { background-color: color-mix(in srgb, #f59e0b 20%, #ffffff); }
+.color-amber-tint-20      { color: color-mix(in srgb, #f59e0b 20%, #ffffff); }
+.background-amber-tint-30 { background-color: color-mix(in srgb, #f59e0b 30%, #ffffff); }
+.color-amber-tint-30      { color: color-mix(in srgb, #f59e0b 30%, #ffffff); }
+.background-amber-tint-40 { background-color: color-mix(in srgb, #f59e0b 40%, #ffffff); }
+.color-amber-tint-40      { color: color-mix(in srgb, #f59e0b 40%, #ffffff); }
+.background-amber-tint-50 { background-color: color-mix(in srgb, #f59e0b 50%, #ffffff); }
+.color-amber-tint-50      { color: color-mix(in srgb, #f59e0b 50%, #ffffff); }
+.background-amber-tint-60 { background-color: color-mix(in srgb, #f59e0b 60%, #ffffff); }
+.color-amber-tint-60      { color: color-mix(in srgb, #f59e0b 60%, #ffffff); }
+.background-amber-tint-70 { background-color: color-mix(in srgb, #f59e0b 70%, #ffffff); }
+.color-amber-tint-70      { color: color-mix(in srgb, #f59e0b 70%, #ffffff); }
+.background-amber-shade-100 { background-color: color-mix(in srgb, #f59e0b 0%, #000000); }
+.color-amber-shade-100      { color: color-mix(in srgb, #f59e0b 0%, #000000); }
+.background-amber-shade-200 { background-color: color-mix(in srgb, #f59e0b -100%, #000000); }
+.color-amber-shade-200      { color: color-mix(in srgb, #f59e0b -100%, #000000); }
+.background-amber-shade-300 { background-color: color-mix(in srgb, #f59e0b -200%, #000000); }
+.color-amber-shade-300      { color: color-mix(in srgb, #f59e0b -200%, #000000); }
+.border-amber-tint-20 { border-color: color-mix(in srgb, #f59e0b 20%, #ffffff); }
+.border-amber-tint-40 { border-color: color-mix(in srgb, #f59e0b 40%, #ffffff); }
+.border-amber-shade-10 { border-color: color-mix(in srgb, #f59e0b 90%, #000000); }
+.background-yellow-tint-10 { background-color: color-mix(in srgb, #eab308 10%, #ffffff); }
+.color-yellow-tint-10      { color: color-mix(in srgb, #eab308 10%, #ffffff); }
+.background-yellow-tint-20 { background-color: color-mix(in srgb, #eab308 20%, #ffffff); }
+.color-yellow-tint-20      { color: color-mix(in srgb, #eab308 20%, #ffffff); }
+.background-yellow-tint-30 { background-color: color-mix(in srgb, #eab308 30%, #ffffff); }
+.color-yellow-tint-30      { color: color-mix(in srgb, #eab308 30%, #ffffff); }
+.background-yellow-tint-40 { background-color: color-mix(in srgb, #eab308 40%, #ffffff); }
+.color-yellow-tint-40      { color: color-mix(in srgb, #eab308 40%, #ffffff); }
+.background-yellow-tint-50 { background-color: color-mix(in srgb, #eab308 50%, #ffffff); }
+.color-yellow-tint-50      { color: color-mix(in srgb, #eab308 50%, #ffffff); }
+.background-yellow-tint-60 { background-color: color-mix(in srgb, #eab308 60%, #ffffff); }
+.color-yellow-tint-60      { color: color-mix(in srgb, #eab308 60%, #ffffff); }
+.background-yellow-tint-70 { background-color: color-mix(in srgb, #eab308 70%, #ffffff); }
+.color-yellow-tint-70      { color: color-mix(in srgb, #eab308 70%, #ffffff); }
+.background-yellow-shade-100 { background-color: color-mix(in srgb, #eab308 0%, #000000); }
+.color-yellow-shade-100      { color: color-mix(in srgb, #eab308 0%, #000000); }
+.background-yellow-shade-200 { background-color: color-mix(in srgb, #eab308 -100%, #000000); }
+.color-yellow-shade-200      { color: color-mix(in srgb, #eab308 -100%, #000000); }
+.background-yellow-shade-300 { background-color: color-mix(in srgb, #eab308 -200%, #000000); }
+.color-yellow-shade-300      { color: color-mix(in srgb, #eab308 -200%, #000000); }
+.border-yellow-tint-20 { border-color: color-mix(in srgb, #eab308 20%, #ffffff); }
+.border-yellow-tint-40 { border-color: color-mix(in srgb, #eab308 40%, #ffffff); }
+.border-yellow-shade-10 { border-color: color-mix(in srgb, #eab308 90%, #000000); }
+.background-lime-tint-10 { background-color: color-mix(in srgb, #84cc16 10%, #ffffff); }
+.color-lime-tint-10      { color: color-mix(in srgb, #84cc16 10%, #ffffff); }
+.background-lime-tint-20 { background-color: color-mix(in srgb, #84cc16 20%, #ffffff); }
+.color-lime-tint-20      { color: color-mix(in srgb, #84cc16 20%, #ffffff); }
+.background-lime-tint-30 { background-color: color-mix(in srgb, #84cc16 30%, #ffffff); }
+.color-lime-tint-30      { color: color-mix(in srgb, #84cc16 30%, #ffffff); }
+.background-lime-tint-40 { background-color: color-mix(in srgb, #84cc16 40%, #ffffff); }
+.color-lime-tint-40      { color: color-mix(in srgb, #84cc16 40%, #ffffff); }
+.background-lime-tint-50 { background-color: color-mix(in srgb, #84cc16 50%, #ffffff); }
+.color-lime-tint-50      { color: color-mix(in srgb, #84cc16 50%, #ffffff); }
+.background-lime-tint-60 { background-color: color-mix(in srgb, #84cc16 60%, #ffffff); }
+.color-lime-tint-60      { color: color-mix(in srgb, #84cc16 60%, #ffffff); }
+.background-lime-tint-70 { background-color: color-mix(in srgb, #84cc16 70%, #ffffff); }
+.color-lime-tint-70      { color: color-mix(in srgb, #84cc16 70%, #ffffff); }
+.background-lime-shade-100 { background-color: color-mix(in srgb, #84cc16 0%, #000000); }
+.color-lime-shade-100      { color: color-mix(in srgb, #84cc16 0%, #000000); }
+.background-lime-shade-200 { background-color: color-mix(in srgb, #84cc16 -100%, #000000); }
+.color-lime-shade-200      { color: color-mix(in srgb, #84cc16 -100%, #000000); }
+.background-lime-shade-300 { background-color: color-mix(in srgb, #84cc16 -200%, #000000); }
+.color-lime-shade-300      { color: color-mix(in srgb, #84cc16 -200%, #000000); }
+.border-lime-tint-20 { border-color: color-mix(in srgb, #84cc16 20%, #ffffff); }
+.border-lime-tint-40 { border-color: color-mix(in srgb, #84cc16 40%, #ffffff); }
+.border-lime-shade-10 { border-color: color-mix(in srgb, #84cc16 90%, #000000); }
+.background-green-tint-10 { background-color: color-mix(in srgb, #22c55e 10%, #ffffff); }
+.color-green-tint-10      { color: color-mix(in srgb, #22c55e 10%, #ffffff); }
+.background-green-tint-20 { background-color: color-mix(in srgb, #22c55e 20%, #ffffff); }
+.color-green-tint-20      { color: color-mix(in srgb, #22c55e 20%, #ffffff); }
+.background-green-tint-30 { background-color: color-mix(in srgb, #22c55e 30%, #ffffff); }
+.color-green-tint-30      { color: color-mix(in srgb, #22c55e 30%, #ffffff); }
+.background-green-tint-40 { background-color: color-mix(in srgb, #22c55e 40%, #ffffff); }
+.color-green-tint-40      { color: color-mix(in srgb, #22c55e 40%, #ffffff); }
+.background-green-tint-50 { background-color: color-mix(in srgb, #22c55e 50%, #ffffff); }
+.color-green-tint-50      { color: color-mix(in srgb, #22c55e 50%, #ffffff); }
+.background-green-tint-60 { background-color: color-mix(in srgb, #22c55e 60%, #ffffff); }
+.color-green-tint-60      { color: color-mix(in srgb, #22c55e 60%, #ffffff); }
+.background-green-tint-70 { background-color: color-mix(in srgb, #22c55e 70%, #ffffff); }
+.color-green-tint-70      { color: color-mix(in srgb, #22c55e 70%, #ffffff); }
+.background-green-shade-100 { background-color: color-mix(in srgb, #22c55e 0%, #000000); }
+.color-green-shade-100      { color: color-mix(in srgb, #22c55e 0%, #000000); }
+.background-green-shade-200 { background-color: color-mix(in srgb, #22c55e -100%, #000000); }
+.color-green-shade-200      { color: color-mix(in srgb, #22c55e -100%, #000000); }
+.background-green-shade-300 { background-color: color-mix(in srgb, #22c55e -200%, #000000); }
+.color-green-shade-300      { color: color-mix(in srgb, #22c55e -200%, #000000); }
+.border-green-tint-20 { border-color: color-mix(in srgb, #22c55e 20%, #ffffff); }
+.border-green-tint-40 { border-color: color-mix(in srgb, #22c55e 40%, #ffffff); }
+.border-green-shade-10 { border-color: color-mix(in srgb, #22c55e 90%, #000000); }
+.background-teal-tint-10 { background-color: color-mix(in srgb, #14b8a6 10%, #ffffff); }
+.color-teal-tint-10      { color: color-mix(in srgb, #14b8a6 10%, #ffffff); }
+.background-teal-tint-20 { background-color: color-mix(in srgb, #14b8a6 20%, #ffffff); }
+.color-teal-tint-20      { color: color-mix(in srgb, #14b8a6 20%, #ffffff); }
+.background-teal-tint-30 { background-color: color-mix(in srgb, #14b8a6 30%, #ffffff); }
+.color-teal-tint-30      { color: color-mix(in srgb, #14b8a6 30%, #ffffff); }
+.background-teal-tint-40 { background-color: color-mix(in srgb, #14b8a6 40%, #ffffff); }
+.color-teal-tint-40      { color: color-mix(in srgb, #14b8a6 40%, #ffffff); }
+.background-teal-tint-50 { background-color: color-mix(in srgb, #14b8a6 50%, #ffffff); }
+.color-teal-tint-50      { color: color-mix(in srgb, #14b8a6 50%, #ffffff); }
+.background-teal-tint-60 { background-color: color-mix(in srgb, #14b8a6 60%, #ffffff); }
+.color-teal-tint-60      { color: color-mix(in srgb, #14b8a6 60%, #ffffff); }
+.background-teal-tint-70 { background-color: color-mix(in srgb, #14b8a6 70%, #ffffff); }
+.color-teal-tint-70      { color: color-mix(in srgb, #14b8a6 70%, #ffffff); }
+.background-teal-shade-100 { background-color: color-mix(in srgb, #14b8a6 0%, #000000); }
+.color-teal-shade-100      { color: color-mix(in srgb, #14b8a6 0%, #000000); }
+.background-teal-shade-200 { background-color: color-mix(in srgb, #14b8a6 -100%, #000000); }
+.color-teal-shade-200      { color: color-mix(in srgb, #14b8a6 -100%, #000000); }
+.background-teal-shade-300 { background-color: color-mix(in srgb, #14b8a6 -200%, #000000); }
+.color-teal-shade-300      { color: color-mix(in srgb, #14b8a6 -200%, #000000); }
+.border-teal-tint-20 { border-color: color-mix(in srgb, #14b8a6 20%, #ffffff); }
+.border-teal-tint-40 { border-color: color-mix(in srgb, #14b8a6 40%, #ffffff); }
+.border-teal-shade-10 { border-color: color-mix(in srgb, #14b8a6 90%, #000000); }
+.background-cyan-tint-10 { background-color: color-mix(in srgb, #06b6d4 10%, #ffffff); }
+.color-cyan-tint-10      { color: color-mix(in srgb, #06b6d4 10%, #ffffff); }
+.background-cyan-tint-20 { background-color: color-mix(in srgb, #06b6d4 20%, #ffffff); }
+.color-cyan-tint-20      { color: color-mix(in srgb, #06b6d4 20%, #ffffff); }
+.background-cyan-tint-30 { background-color: color-mix(in srgb, #06b6d4 30%, #ffffff); }
+.color-cyan-tint-30      { color: color-mix(in srgb, #06b6d4 30%, #ffffff); }
+.background-cyan-tint-40 { background-color: color-mix(in srgb, #06b6d4 40%, #ffffff); }
+.color-cyan-tint-40      { color: color-mix(in srgb, #06b6d4 40%, #ffffff); }
+.background-cyan-tint-50 { background-color: color-mix(in srgb, #06b6d4 50%, #ffffff); }
+.color-cyan-tint-50      { color: color-mix(in srgb, #06b6d4 50%, #ffffff); }
+.background-cyan-tint-60 { background-color: color-mix(in srgb, #06b6d4 60%, #ffffff); }
+.color-cyan-tint-60      { color: color-mix(in srgb, #06b6d4 60%, #ffffff); }
+.background-cyan-tint-70 { background-color: color-mix(in srgb, #06b6d4 70%, #ffffff); }
+.color-cyan-tint-70      { color: color-mix(in srgb, #06b6d4 70%, #ffffff); }
+.background-cyan-shade-100 { background-color: color-mix(in srgb, #06b6d4 0%, #000000); }
+.color-cyan-shade-100      { color: color-mix(in srgb, #06b6d4 0%, #000000); }
+.background-cyan-shade-200 { background-color: color-mix(in srgb, #06b6d4 -100%, #000000); }
+.color-cyan-shade-200      { color: color-mix(in srgb, #06b6d4 -100%, #000000); }
+.background-cyan-shade-300 { background-color: color-mix(in srgb, #06b6d4 -200%, #000000); }
+.color-cyan-shade-300      { color: color-mix(in srgb, #06b6d4 -200%, #000000); }
+.border-cyan-tint-20 { border-color: color-mix(in srgb, #06b6d4 20%, #ffffff); }
+.border-cyan-tint-40 { border-color: color-mix(in srgb, #06b6d4 40%, #ffffff); }
+.border-cyan-shade-10 { border-color: color-mix(in srgb, #06b6d4 90%, #000000); }
+.background-blue-tint-10 { background-color: color-mix(in srgb, #3b82f6 10%, #ffffff); }
+.color-blue-tint-10      { color: color-mix(in srgb, #3b82f6 10%, #ffffff); }
+.background-blue-tint-20 { background-color: color-mix(in srgb, #3b82f6 20%, #ffffff); }
+.color-blue-tint-20      { color: color-mix(in srgb, #3b82f6 20%, #ffffff); }
+.background-blue-tint-30 { background-color: color-mix(in srgb, #3b82f6 30%, #ffffff); }
+.color-blue-tint-30      { color: color-mix(in srgb, #3b82f6 30%, #ffffff); }
+.background-blue-tint-40 { background-color: color-mix(in srgb, #3b82f6 40%, #ffffff); }
+.color-blue-tint-40      { color: color-mix(in srgb, #3b82f6 40%, #ffffff); }
+.background-blue-tint-50 { background-color: color-mix(in srgb, #3b82f6 50%, #ffffff); }
+.color-blue-tint-50      { color: color-mix(in srgb, #3b82f6 50%, #ffffff); }
+.background-blue-tint-60 { background-color: color-mix(in srgb, #3b82f6 60%, #ffffff); }
+.color-blue-tint-60      { color: color-mix(in srgb, #3b82f6 60%, #ffffff); }
+.background-blue-tint-70 { background-color: color-mix(in srgb, #3b82f6 70%, #ffffff); }
+.color-blue-tint-70      { color: color-mix(in srgb, #3b82f6 70%, #ffffff); }
+.background-blue-shade-100 { background-color: color-mix(in srgb, #3b82f6 0%, #000000); }
+.color-blue-shade-100      { color: color-mix(in srgb, #3b82f6 0%, #000000); }
+.background-blue-shade-200 { background-color: color-mix(in srgb, #3b82f6 -100%, #000000); }
+.color-blue-shade-200      { color: color-mix(in srgb, #3b82f6 -100%, #000000); }
+.background-blue-shade-300 { background-color: color-mix(in srgb, #3b82f6 -200%, #000000); }
+.color-blue-shade-300      { color: color-mix(in srgb, #3b82f6 -200%, #000000); }
+.border-blue-tint-20 { border-color: color-mix(in srgb, #3b82f6 20%, #ffffff); }
+.border-blue-tint-40 { border-color: color-mix(in srgb, #3b82f6 40%, #ffffff); }
+.border-blue-shade-10 { border-color: color-mix(in srgb, #3b82f6 90%, #000000); }
+.background-indigo-tint-10 { background-color: color-mix(in srgb, #6366f1 10%, #ffffff); }
+.color-indigo-tint-10      { color: color-mix(in srgb, #6366f1 10%, #ffffff); }
+.background-indigo-tint-20 { background-color: color-mix(in srgb, #6366f1 20%, #ffffff); }
+.color-indigo-tint-20      { color: color-mix(in srgb, #6366f1 20%, #ffffff); }
+.background-indigo-tint-30 { background-color: color-mix(in srgb, #6366f1 30%, #ffffff); }
+.color-indigo-tint-30      { color: color-mix(in srgb, #6366f1 30%, #ffffff); }
+.background-indigo-tint-40 { background-color: color-mix(in srgb, #6366f1 40%, #ffffff); }
+.color-indigo-tint-40      { color: color-mix(in srgb, #6366f1 40%, #ffffff); }
+.background-indigo-tint-50 { background-color: color-mix(in srgb, #6366f1 50%, #ffffff); }
+.color-indigo-tint-50      { color: color-mix(in srgb, #6366f1 50%, #ffffff); }
+.background-indigo-tint-60 { background-color: color-mix(in srgb, #6366f1 60%, #ffffff); }
+.color-indigo-tint-60      { color: color-mix(in srgb, #6366f1 60%, #ffffff); }
+.background-indigo-tint-70 { background-color: color-mix(in srgb, #6366f1 70%, #ffffff); }
+.color-indigo-tint-70      { color: color-mix(in srgb, #6366f1 70%, #ffffff); }
+.background-indigo-shade-100 { background-color: color-mix(in srgb, #6366f1 0%, #000000); }
+.color-indigo-shade-100      { color: color-mix(in srgb, #6366f1 0%, #000000); }
+.background-indigo-shade-200 { background-color: color-mix(in srgb, #6366f1 -100%, #000000); }
+.color-indigo-shade-200      { color: color-mix(in srgb, #6366f1 -100%, #000000); }
+.background-indigo-shade-300 { background-color: color-mix(in srgb, #6366f1 -200%, #000000); }
+.color-indigo-shade-300      { color: color-mix(in srgb, #6366f1 -200%, #000000); }
+.border-indigo-tint-20 { border-color: color-mix(in srgb, #6366f1 20%, #ffffff); }
+.border-indigo-tint-40 { border-color: color-mix(in srgb, #6366f1 40%, #ffffff); }
+.border-indigo-shade-10 { border-color: color-mix(in srgb, #6366f1 90%, #000000); }
+.background-violet-tint-10 { background-color: color-mix(in srgb, #8b5cf6 10%, #ffffff); }
+.color-violet-tint-10      { color: color-mix(in srgb, #8b5cf6 10%, #ffffff); }
+.background-violet-tint-20 { background-color: color-mix(in srgb, #8b5cf6 20%, #ffffff); }
+.color-violet-tint-20      { color: color-mix(in srgb, #8b5cf6 20%, #ffffff); }
+.background-violet-tint-30 { background-color: color-mix(in srgb, #8b5cf6 30%, #ffffff); }
+.color-violet-tint-30      { color: color-mix(in srgb, #8b5cf6 30%, #ffffff); }
+.background-violet-tint-40 { background-color: color-mix(in srgb, #8b5cf6 40%, #ffffff); }
+.color-violet-tint-40      { color: color-mix(in srgb, #8b5cf6 40%, #ffffff); }
+.background-violet-tint-50 { background-color: color-mix(in srgb, #8b5cf6 50%, #ffffff); }
+.color-violet-tint-50      { color: color-mix(in srgb, #8b5cf6 50%, #ffffff); }
+.background-violet-tint-60 { background-color: color-mix(in srgb, #8b5cf6 60%, #ffffff); }
+.color-violet-tint-60      { color: color-mix(in srgb, #8b5cf6 60%, #ffffff); }
+.background-violet-tint-70 { background-color: color-mix(in srgb, #8b5cf6 70%, #ffffff); }
+.color-violet-tint-70      { color: color-mix(in srgb, #8b5cf6 70%, #ffffff); }
+.background-violet-shade-100 { background-color: color-mix(in srgb, #8b5cf6 0%, #000000); }
+.color-violet-shade-100      { color: color-mix(in srgb, #8b5cf6 0%, #000000); }
+.background-violet-shade-200 { background-color: color-mix(in srgb, #8b5cf6 -100%, #000000); }
+.color-violet-shade-200      { color: color-mix(in srgb, #8b5cf6 -100%, #000000); }
+.background-violet-shade-300 { background-color: color-mix(in srgb, #8b5cf6 -200%, #000000); }
+.color-violet-shade-300      { color: color-mix(in srgb, #8b5cf6 -200%, #000000); }
+.border-violet-tint-20 { border-color: color-mix(in srgb, #8b5cf6 20%, #ffffff); }
+.border-violet-tint-40 { border-color: color-mix(in srgb, #8b5cf6 40%, #ffffff); }
+.border-violet-shade-10 { border-color: color-mix(in srgb, #8b5cf6 90%, #000000); }
+.background-purple-tint-10 { background-color: color-mix(in srgb, #a855f7 10%, #ffffff); }
+.color-purple-tint-10      { color: color-mix(in srgb, #a855f7 10%, #ffffff); }
+.background-purple-tint-20 { background-color: color-mix(in srgb, #a855f7 20%, #ffffff); }
+.color-purple-tint-20      { color: color-mix(in srgb, #a855f7 20%, #ffffff); }
+.background-purple-tint-30 { background-color: color-mix(in srgb, #a855f7 30%, #ffffff); }
+.color-purple-tint-30      { color: color-mix(in srgb, #a855f7 30%, #ffffff); }
+.background-purple-tint-40 { background-color: color-mix(in srgb, #a855f7 40%, #ffffff); }
+.color-purple-tint-40      { color: color-mix(in srgb, #a855f7 40%, #ffffff); }
+.background-purple-tint-50 { background-color: color-mix(in srgb, #a855f7 50%, #ffffff); }
+.color-purple-tint-50      { color: color-mix(in srgb, #a855f7 50%, #ffffff); }
+.background-purple-tint-60 { background-color: color-mix(in srgb, #a855f7 60%, #ffffff); }
+.color-purple-tint-60      { color: color-mix(in srgb, #a855f7 60%, #ffffff); }
+.background-purple-tint-70 { background-color: color-mix(in srgb, #a855f7 70%, #ffffff); }
+.color-purple-tint-70      { color: color-mix(in srgb, #a855f7 70%, #ffffff); }
+.background-purple-shade-100 { background-color: color-mix(in srgb, #a855f7 0%, #000000); }
+.color-purple-shade-100      { color: color-mix(in srgb, #a855f7 0%, #000000); }
+.background-purple-shade-200 { background-color: color-mix(in srgb, #a855f7 -100%, #000000); }
+.color-purple-shade-200      { color: color-mix(in srgb, #a855f7 -100%, #000000); }
+.background-purple-shade-300 { background-color: color-mix(in srgb, #a855f7 -200%, #000000); }
+.color-purple-shade-300      { color: color-mix(in srgb, #a855f7 -200%, #000000); }
+.border-purple-tint-20 { border-color: color-mix(in srgb, #a855f7 20%, #ffffff); }
+.border-purple-tint-40 { border-color: color-mix(in srgb, #a855f7 40%, #ffffff); }
+.border-purple-shade-10 { border-color: color-mix(in srgb, #a855f7 90%, #000000); }
+.background-pink-tint-10 { background-color: color-mix(in srgb, #ec4899 10%, #ffffff); }
+.color-pink-tint-10      { color: color-mix(in srgb, #ec4899 10%, #ffffff); }
+.background-pink-tint-20 { background-color: color-mix(in srgb, #ec4899 20%, #ffffff); }
+.color-pink-tint-20      { color: color-mix(in srgb, #ec4899 20%, #ffffff); }
+.background-pink-tint-30 { background-color: color-mix(in srgb, #ec4899 30%, #ffffff); }
+.color-pink-tint-30      { color: color-mix(in srgb, #ec4899 30%, #ffffff); }
+.background-pink-tint-40 { background-color: color-mix(in srgb, #ec4899 40%, #ffffff); }
+.color-pink-tint-40      { color: color-mix(in srgb, #ec4899 40%, #ffffff); }
+.background-pink-tint-50 { background-color: color-mix(in srgb, #ec4899 50%, #ffffff); }
+.color-pink-tint-50      { color: color-mix(in srgb, #ec4899 50%, #ffffff); }
+.background-pink-tint-60 { background-color: color-mix(in srgb, #ec4899 60%, #ffffff); }
+.color-pink-tint-60      { color: color-mix(in srgb, #ec4899 60%, #ffffff); }
+.background-pink-tint-70 { background-color: color-mix(in srgb, #ec4899 70%, #ffffff); }
+.color-pink-tint-70      { color: color-mix(in srgb, #ec4899 70%, #ffffff); }
+.background-pink-shade-100 { background-color: color-mix(in srgb, #ec4899 0%, #000000); }
+.color-pink-shade-100      { color: color-mix(in srgb, #ec4899 0%, #000000); }
+.background-pink-shade-200 { background-color: color-mix(in srgb, #ec4899 -100%, #000000); }
+.color-pink-shade-200      { color: color-mix(in srgb, #ec4899 -100%, #000000); }
+.background-pink-shade-300 { background-color: color-mix(in srgb, #ec4899 -200%, #000000); }
+.color-pink-shade-300      { color: color-mix(in srgb, #ec4899 -200%, #000000); }
+.border-pink-tint-20 { border-color: color-mix(in srgb, #ec4899 20%, #ffffff); }
+.border-pink-tint-40 { border-color: color-mix(in srgb, #ec4899 40%, #ffffff); }
+.border-pink-shade-10 { border-color: color-mix(in srgb, #ec4899 90%, #000000); }
+.background-rose-tint-10 { background-color: color-mix(in srgb, #f43f5e 10%, #ffffff); }
+.color-rose-tint-10      { color: color-mix(in srgb, #f43f5e 10%, #ffffff); }
+.background-rose-tint-20 { background-color: color-mix(in srgb, #f43f5e 20%, #ffffff); }
+.color-rose-tint-20      { color: color-mix(in srgb, #f43f5e 20%, #ffffff); }
+.background-rose-tint-30 { background-color: color-mix(in srgb, #f43f5e 30%, #ffffff); }
+.color-rose-tint-30      { color: color-mix(in srgb, #f43f5e 30%, #ffffff); }
+.background-rose-tint-40 { background-color: color-mix(in srgb, #f43f5e 40%, #ffffff); }
+.color-rose-tint-40      { color: color-mix(in srgb, #f43f5e 40%, #ffffff); }
+.background-rose-tint-50 { background-color: color-mix(in srgb, #f43f5e 50%, #ffffff); }
+.color-rose-tint-50      { color: color-mix(in srgb, #f43f5e 50%, #ffffff); }
+.background-rose-tint-60 { background-color: color-mix(in srgb, #f43f5e 60%, #ffffff); }
+.color-rose-tint-60      { color: color-mix(in srgb, #f43f5e 60%, #ffffff); }
+.background-rose-tint-70 { background-color: color-mix(in srgb, #f43f5e 70%, #ffffff); }
+.color-rose-tint-70      { color: color-mix(in srgb, #f43f5e 70%, #ffffff); }
+.background-rose-shade-100 { background-color: color-mix(in srgb, #f43f5e 0%, #000000); }
+.color-rose-shade-100      { color: color-mix(in srgb, #f43f5e 0%, #000000); }
+.background-rose-shade-200 { background-color: color-mix(in srgb, #f43f5e -100%, #000000); }
+.color-rose-shade-200      { color: color-mix(in srgb, #f43f5e -100%, #000000); }
+.background-rose-shade-300 { background-color: color-mix(in srgb, #f43f5e -200%, #000000); }
+.color-rose-shade-300      { color: color-mix(in srgb, #f43f5e -200%, #000000); }
+.border-rose-tint-20 { border-color: color-mix(in srgb, #f43f5e 20%, #ffffff); }
+.border-rose-tint-40 { border-color: color-mix(in srgb, #f43f5e 40%, #ffffff); }
+.border-rose-shade-10 { border-color: color-mix(in srgb, #f43f5e 90%, #000000); }
+.background-slate-tint-10 { background-color: color-mix(in srgb, #64748b 10%, #ffffff); }
+.color-slate-tint-10      { color: color-mix(in srgb, #64748b 10%, #ffffff); }
+.background-slate-tint-20 { background-color: color-mix(in srgb, #64748b 20%, #ffffff); }
+.color-slate-tint-20      { color: color-mix(in srgb, #64748b 20%, #ffffff); }
+.background-slate-tint-30 { background-color: color-mix(in srgb, #64748b 30%, #ffffff); }
+.color-slate-tint-30      { color: color-mix(in srgb, #64748b 30%, #ffffff); }
+.background-slate-tint-40 { background-color: color-mix(in srgb, #64748b 40%, #ffffff); }
+.color-slate-tint-40      { color: color-mix(in srgb, #64748b 40%, #ffffff); }
+.background-slate-tint-50 { background-color: color-mix(in srgb, #64748b 50%, #ffffff); }
+.color-slate-tint-50      { color: color-mix(in srgb, #64748b 50%, #ffffff); }
+.background-slate-tint-60 { background-color: color-mix(in srgb, #64748b 60%, #ffffff); }
+.color-slate-tint-60      { color: color-mix(in srgb, #64748b 60%, #ffffff); }
+.background-slate-tint-70 { background-color: color-mix(in srgb, #64748b 70%, #ffffff); }
+.color-slate-tint-70      { color: color-mix(in srgb, #64748b 70%, #ffffff); }
+.background-slate-shade-100 { background-color: color-mix(in srgb, #64748b 0%, #000000); }
+.color-slate-shade-100      { color: color-mix(in srgb, #64748b 0%, #000000); }
+.background-slate-shade-200 { background-color: color-mix(in srgb, #64748b -100%, #000000); }
+.color-slate-shade-200      { color: color-mix(in srgb, #64748b -100%, #000000); }
+.background-slate-shade-300 { background-color: color-mix(in srgb, #64748b -200%, #000000); }
+.color-slate-shade-300      { color: color-mix(in srgb, #64748b -200%, #000000); }
+.border-slate-tint-20 { border-color: color-mix(in srgb, #64748b 20%, #ffffff); }
+.border-slate-tint-40 { border-color: color-mix(in srgb, #64748b 40%, #ffffff); }
+.border-slate-shade-10 { border-color: color-mix(in srgb, #64748b 90%, #000000); }
+.background-gray-tint-10 { background-color: color-mix(in srgb, #6b7280 10%, #ffffff); }
+.color-gray-tint-10      { color: color-mix(in srgb, #6b7280 10%, #ffffff); }
+.background-gray-tint-20 { background-color: color-mix(in srgb, #6b7280 20%, #ffffff); }
+.color-gray-tint-20      { color: color-mix(in srgb, #6b7280 20%, #ffffff); }
+.background-gray-tint-30 { background-color: color-mix(in srgb, #6b7280 30%, #ffffff); }
+.color-gray-tint-30      { color: color-mix(in srgb, #6b7280 30%, #ffffff); }
+.background-gray-tint-40 { background-color: color-mix(in srgb, #6b7280 40%, #ffffff); }
+.color-gray-tint-40      { color: color-mix(in srgb, #6b7280 40%, #ffffff); }
+.background-gray-tint-50 { background-color: color-mix(in srgb, #6b7280 50%, #ffffff); }
+.color-gray-tint-50      { color: color-mix(in srgb, #6b7280 50%, #ffffff); }
+.background-gray-tint-60 { background-color: color-mix(in srgb, #6b7280 60%, #ffffff); }
+.color-gray-tint-60      { color: color-mix(in srgb, #6b7280 60%, #ffffff); }
+.background-gray-tint-70 { background-color: color-mix(in srgb, #6b7280 70%, #ffffff); }
+.color-gray-tint-70      { color: color-mix(in srgb, #6b7280 70%, #ffffff); }
+.background-gray-shade-100 { background-color: color-mix(in srgb, #6b7280 0%, #000000); }
+.color-gray-shade-100      { color: color-mix(in srgb, #6b7280 0%, #000000); }
+.background-gray-shade-200 { background-color: color-mix(in srgb, #6b7280 -100%, #000000); }
+.color-gray-shade-200      { color: color-mix(in srgb, #6b7280 -100%, #000000); }
+.background-gray-shade-300 { background-color: color-mix(in srgb, #6b7280 -200%, #000000); }
+.color-gray-shade-300      { color: color-mix(in srgb, #6b7280 -200%, #000000); }
+.border-gray-tint-20 { border-color: color-mix(in srgb, #6b7280 20%, #ffffff); }
+.border-gray-tint-40 { border-color: color-mix(in srgb, #6b7280 40%, #ffffff); }
+.border-gray-shade-10 { border-color: color-mix(in srgb, #6b7280 90%, #000000); }
+.background-zinc-tint-10 { background-color: color-mix(in srgb, #71717a 10%, #ffffff); }
+.color-zinc-tint-10      { color: color-mix(in srgb, #71717a 10%, #ffffff); }
+.background-zinc-tint-20 { background-color: color-mix(in srgb, #71717a 20%, #ffffff); }
+.color-zinc-tint-20      { color: color-mix(in srgb, #71717a 20%, #ffffff); }
+.background-zinc-tint-30 { background-color: color-mix(in srgb, #71717a 30%, #ffffff); }
+.color-zinc-tint-30      { color: color-mix(in srgb, #71717a 30%, #ffffff); }
+.background-zinc-tint-40 { background-color: color-mix(in srgb, #71717a 40%, #ffffff); }
+.color-zinc-tint-40      { color: color-mix(in srgb, #71717a 40%, #ffffff); }
+.background-zinc-tint-50 { background-color: color-mix(in srgb, #71717a 50%, #ffffff); }
+.color-zinc-tint-50      { color: color-mix(in srgb, #71717a 50%, #ffffff); }
+.background-zinc-tint-60 { background-color: color-mix(in srgb, #71717a 60%, #ffffff); }
+.color-zinc-tint-60      { color: color-mix(in srgb, #71717a 60%, #ffffff); }
+.background-zinc-tint-70 { background-color: color-mix(in srgb, #71717a 70%, #ffffff); }
+.color-zinc-tint-70      { color: color-mix(in srgb, #71717a 70%, #ffffff); }
+.background-zinc-shade-100 { background-color: color-mix(in srgb, #71717a 0%, #000000); }
+.color-zinc-shade-100      { color: color-mix(in srgb, #71717a 0%, #000000); }
+.background-zinc-shade-200 { background-color: color-mix(in srgb, #71717a -100%, #000000); }
+.color-zinc-shade-200      { color: color-mix(in srgb, #71717a -100%, #000000); }
+.background-zinc-shade-300 { background-color: color-mix(in srgb, #71717a -200%, #000000); }
+.color-zinc-shade-300      { color: color-mix(in srgb, #71717a -200%, #000000); }
+.border-zinc-tint-20 { border-color: color-mix(in srgb, #71717a 20%, #ffffff); }
+.border-zinc-tint-40 { border-color: color-mix(in srgb, #71717a 40%, #ffffff); }
+.border-zinc-shade-10 { border-color: color-mix(in srgb, #71717a 90%, #000000); }
+.background-stone-tint-10 { background-color: color-mix(in srgb, #78716c 10%, #ffffff); }
+.color-stone-tint-10      { color: color-mix(in srgb, #78716c 10%, #ffffff); }
+.background-stone-tint-20 { background-color: color-mix(in srgb, #78716c 20%, #ffffff); }
+.color-stone-tint-20      { color: color-mix(in srgb, #78716c 20%, #ffffff); }
+.background-stone-tint-30 { background-color: color-mix(in srgb, #78716c 30%, #ffffff); }
+.color-stone-tint-30      { color: color-mix(in srgb, #78716c 30%, #ffffff); }
+.background-stone-tint-40 { background-color: color-mix(in srgb, #78716c 40%, #ffffff); }
+.color-stone-tint-40      { color: color-mix(in srgb, #78716c 40%, #ffffff); }
+.background-stone-tint-50 { background-color: color-mix(in srgb, #78716c 50%, #ffffff); }
+.color-stone-tint-50      { color: color-mix(in srgb, #78716c 50%, #ffffff); }
+.background-stone-tint-60 { background-color: color-mix(in srgb, #78716c 60%, #ffffff); }
+.color-stone-tint-60      { color: color-mix(in srgb, #78716c 60%, #ffffff); }
+.background-stone-tint-70 { background-color: color-mix(in srgb, #78716c 70%, #ffffff); }
+.color-stone-tint-70      { color: color-mix(in srgb, #78716c 70%, #ffffff); }
+.background-stone-shade-100 { background-color: color-mix(in srgb, #78716c 0%, #000000); }
+.color-stone-shade-100      { color: color-mix(in srgb, #78716c 0%, #000000); }
+.background-stone-shade-200 { background-color: color-mix(in srgb, #78716c -100%, #000000); }
+.color-stone-shade-200      { color: color-mix(in srgb, #78716c -100%, #000000); }
+.background-stone-shade-300 { background-color: color-mix(in srgb, #78716c -200%, #000000); }
+.color-stone-shade-300      { color: color-mix(in srgb, #78716c -200%, #000000); }
+.border-stone-tint-20 { border-color: color-mix(in srgb, #78716c 20%, #ffffff); }
+.border-stone-tint-40 { border-color: color-mix(in srgb, #78716c 40%, #ffffff); }
+.border-stone-shade-10 { border-color: color-mix(in srgb, #78716c 90%, #000000); }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   v1.7 — ACCESSIBILITY UTILITIES
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Skip to content (keyboard / screen-reader nav) ── */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 8px;
+  z-index: 9999;
+  padding: 8px 16px;
+  background-color: #1e40af;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 0 0 6px 6px;
+  text-decoration: none;
+  transition: top 0.15s;
+}
+.skip-to-content:focus { top: 0; outline: 3px solid #fbbf24; outline-offset: 2px; }
+
+/* ── Focus ring utilities ── */
+.focus-ring          { outline: 2px solid #3b82f6; outline-offset: 2px; }
+.focus-ring-white    { outline: 2px solid #fff;    outline-offset: 2px; }
+.focus-ring-red      { outline: 2px solid #ef4444; outline-offset: 2px; }
+.focus-ring-none     { outline: none; }
+.focus-visible-ring:focus-visible { outline: 2px solid #3b82f6; outline-offset: 2px; }
+.focus-visible-ring:focus:not(:focus-visible) { outline: none; }
+
+/* ── Focus trap container ── */
+.focus-trap        { position: relative; }
+.focus-trap-active { overflow: hidden; }
+
+/* ── ARIA live regions (read by screen readers) ── */
+.aria-live-polite,
+.aria-live-assertive {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
+
+/* ── Screen-reader only ── */
+.screen-reader-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+.screen-reader-only:focus { position: static; width: auto; height: auto; clip: auto; white-space: normal; }
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .motion-safe-animate { animation: none !important; transition: none !important; }
+}
+
+/* ── High contrast support ── */
+@media (forced-colors: active) {
+  .high-contrast-border  { border: 2px solid ButtonText !important; }
+  .high-contrast-outline { outline: 2px solid Highlight !important; }
+  .high-contrast-bg      { background-color: ButtonFace !important; color: ButtonText !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   v1.7 — INTERNATIONALISATION (I18N) UTILITIES
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Logical properties (direction-aware layout) ── */
+.add-padding-block-4   { padding-block: 4px; }
+.add-padding-block-8   { padding-block: 8px; }
+.add-padding-block-12  { padding-block: 12px; }
+.add-padding-block-16  { padding-block: 16px; }
+.add-padding-block-20  { padding-block: 20px; }
+.add-padding-block-24  { padding-block: 24px; }
+.add-padding-block-32  { padding-block: 32px; }
+.add-padding-inline-4  { padding-inline: 4px; }
+.add-padding-inline-8  { padding-inline: 8px; }
+.add-padding-inline-12 { padding-inline: 12px; }
+.add-padding-inline-16 { padding-inline: 16px; }
+.add-padding-inline-20 { padding-inline: 20px; }
+.add-padding-inline-24 { padding-inline: 24px; }
+.add-padding-inline-32 { padding-inline: 32px; }
+.add-margin-block-4    { margin-block: 4px; }
+.add-margin-block-8    { margin-block: 8px; }
+.add-margin-block-16   { margin-block: 16px; }
+.add-margin-block-24   { margin-block: 24px; }
+.add-margin-inline-4   { margin-inline: 4px; }
+.add-margin-inline-8   { margin-inline: 8px; }
+.add-margin-inline-16  { margin-inline: 16px; }
+.add-margin-inline-24  { margin-inline: 24px; }
+.pin-block-start-0     { inset-block-start: 0; }
+.pin-block-end-0       { inset-block-end: 0; }
+.pin-inline-start-0    { inset-inline-start: 0; }
+.pin-inline-end-0      { inset-inline-end: 0; }
+.set-width-logical     { inline-size: 100%; }
+.set-height-logical    { block-size: 100%; }
+.border-block-start    { border-block-start: 1px solid #e5e7eb; }
+.border-block-end      { border-block-end: 1px solid #e5e7eb; }
+.border-inline-start   { border-inline-start: 1px solid #e5e7eb; }
+.border-inline-end     { border-inline-end: 1px solid #e5e7eb; }
+
+/* ── Writing modes (CJK / vertical text) ── */
+.make-text-vertical      { writing-mode: vertical-rl; text-orientation: mixed; }
+.make-text-vertical-up   { writing-mode: vertical-lr; text-orientation: mixed; }
+.make-text-horizontal    { writing-mode: horizontal-tb; }
+.text-orientation-mixed    { text-orientation: mixed; }
+.text-orientation-upright  { text-orientation: upright; }
+.text-orientation-sideways { text-orientation: sideways; }
+
+/* ── Text direction ── */
+.text-direction-ltr { direction: ltr; }
+.text-direction-rtl { direction: rtl; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   v1.7 — MOBILE-FIRST COMPONENTS
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Safe area insets (notch / home bar) ── */
+.padding-safe-top    { padding-top:    env(safe-area-inset-top, 0px); }
+.padding-safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+.padding-safe-left   { padding-left:   env(safe-area-inset-left, 0px); }
+.padding-safe-right  { padding-right:  env(safe-area-inset-right, 0px); }
+.padding-safe-all    { padding: env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px); }
+.margin-safe-bottom  { margin-bottom:  env(safe-area-inset-bottom, 0px); }
+.pin-bottom-safe     { bottom:         env(safe-area-inset-bottom, 0px); }
+
+/* ── Bottom sheet ── */
+.bottom-sheet {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background-color: #fff;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 24px rgba(0,0,0,.12);
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+  z-index: 500;
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+}
+.bottom-sheet.open          { transform: translateY(0); }
+.bottom-sheet-handle {
+  width: 36px; height: 4px;
+  background-color: #d1d5db;
+  border-radius: 9999px;
+  margin: 12px auto 8px;
+}
+.bottom-sheet-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 20px 12px;
+  border-bottom: 1px solid #f3f4f6;
+}
+.bottom-sheet-title  { font-size: 16px; font-weight: 600; color: #111827; }
+.bottom-sheet-body   { padding: 16px 20px; overflow-y: auto; max-height: 70vh; }
+.bottom-sheet-footer { padding: 12px 20px; border-top: 1px solid #f3f4f6; }
+.bottom-sheet-overlay {
+  position: fixed; inset: 0;
+  background-color: rgba(0,0,0,0);
+  z-index: 499;
+  pointer-events: none;
+  transition: background-color 0.3s;
+}
+.bottom-sheet-overlay.visible {
+  background-color: rgba(0,0,0,0.45);
+  pointer-events: auto;
+}
+
+/* ── Swipeable carousel ── */
+.swipe-carousel {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  gap: 12px;
+  padding-bottom: 4px;
+}
+.swipe-carousel::-webkit-scrollbar { display: none; }
+.swipe-carousel-item {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.swipe-carousel-full  .swipe-carousel-item { width: 100%; }
+.swipe-carousel-peek  .swipe-carousel-item { width: calc(100% - 32px); }
+.swipe-carousel-multi .swipe-carousel-item { width: calc(50% - 6px); }
+.swipe-carousel-dots  { display: flex; gap: 6px; justify-content: center; padding-top: 10px; }
+.swipe-carousel-dot   { width: 6px; height: 6px; border-radius: 50%; background-color: #d1d5db; transition: background-color 0.2s, width 0.2s; }
+.swipe-carousel-dot.active { background-color: #3b82f6; width: 18px; border-radius: 3px; }
+
+/* ── Pull-to-refresh indicator ── */
+.pull-to-refresh {
+  display: flex; align-items: center; justify-content: center;
+  height: 0; overflow: hidden;
+  transition: height 0.2s;
+  font-size: 13px; color: #6b7280; gap: 8px;
+}
+.pull-to-refresh.pulling,
+.pull-to-refresh.refreshing { height: 48px; }
+.pull-to-refresh-spinner {
+  width: 18px; height: 18px;
+  border: 2px solid #e5e7eb;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+}
+.pull-to-refresh.refreshing .pull-to-refresh-spinner { animation: santy-spin 0.7s linear infinite; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   v1.7 — COMMAND PALETTE
+═══════════════════════════════════════════════════════════════════════════ */
+.command-palette-wrap {
+  position: fixed; inset: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+  align-items: flex-start; justify-content: center;
+  padding-top: 80px;
+  z-index: 900;
+}
+.command-palette-wrap.open { display: flex; }
+.command-palette {
+  width: 100%; max-width: 560px;
+  background-color: #fff;
+  border-radius: 14px;
+  box-shadow: 0 24px 48px rgba(0,0,0,.22);
+  overflow: hidden;
+}
+.command-palette-input-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.command-palette-icon  { color: #9ca3af; flex-shrink: 0; }
+.command-palette-input {
+  flex: 1; border: none; outline: none;
+  font-size: 16px; color: #111827; background: transparent;
+}
+.command-palette-input::placeholder { color: #9ca3af; }
+.command-palette-kbd {
+  font-size: 11px; color: #6b7280;
+  background-color: #f3f4f6; border: 1px solid #d1d5db;
+  border-radius: 4px; padding: 2px 6px; font-family: inherit;
+}
+.command-palette-list  { max-height: 360px; overflow-y: auto; padding: 8px; }
+.command-palette-group-label {
+  font-size: 11px; font-weight: 600; color: #6b7280;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 8px 10px 4px;
+}
+.command-palette-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px; border-radius: 8px;
+  cursor: pointer; font-size: 14px; color: #111827;
+  transition: background-color 0.1s;
+}
+.command-palette-item:hover,
+.command-palette-item.selected { background-color: #eff6ff; color: #1d4ed8; }
+.command-palette-item-icon {
+  width: 28px; height: 28px; border-radius: 6px;
+  background-color: #f3f4f6;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.command-palette-item-label    { flex: 1; }
+.command-palette-item-shortcut { font-size: 12px; color: #9ca3af; }
+.command-palette-empty { text-align: center; padding: 32px 16px; color: #9ca3af; font-size: 14px; }
+.command-palette-footer {
+  display: flex; gap: 12px; align-items: center;
+  padding: 10px 16px; border-top: 1px solid #f3f4f6;
+  font-size: 12px; color: #9ca3af;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   v1.7 — DATE PICKER / CALENDAR
+═══════════════════════════════════════════════════════════════════════════ */
+.date-picker {
+  display: inline-block;
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.1);
+  padding: 16px;
+  user-select: none;
+  width: 280px;
+}
+.date-picker-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.date-picker-month-year { font-size: 15px; font-weight: 600; color: #111827; }
+.date-picker-nav {
+  width: 28px; height: 28px;
+  border: none; background: transparent;
+  border-radius: 6px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: #6b7280; font-size: 14px;
+  transition: background-color 0.15s;
+}
+.date-picker-nav:hover      { background-color: #f3f4f6; }
+.date-picker-weekdays {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 11px; font-weight: 600; color: #6b7280;
+  text-transform: uppercase; letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+.date-picker-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.date-picker-day {
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: #374151;
+  border-radius: 6px; cursor: pointer;
+  transition: background-color 0.12s, color 0.12s;
+}
+.date-picker-day:hover       { background-color: #eff6ff; color: #1d4ed8; }
+.date-picker-day.today       { font-weight: 700; color: #2563eb; }
+.date-picker-day.selected    { background-color: #2563eb; color: #fff; }
+.date-picker-day.selected:hover { background-color: #1d4ed8; }
+.date-picker-day.in-range    { background-color: #dbeafe; color: #1d4ed8; border-radius: 0; }
+.date-picker-day.range-start { border-radius: 6px 0 0 6px; background-color: #2563eb; color: #fff; }
+.date-picker-day.range-end   { border-radius: 0 6px 6px 0; background-color: #2563eb; color: #fff; }
+.date-picker-day.other-month { color: #d1d5db; }
+.date-picker-day.disabled    { color: #e5e7eb; cursor: not-allowed; pointer-events: none; }
+.date-picker-footer {
+  display: flex; gap: 8px; justify-content: flex-end;
+  margin-top: 12px; padding-top: 12px;
+  border-top: 1px solid #f3f4f6;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   v1.7 — CUSTOM PROPERTY SHORTHAND TOKENS
+═══════════════════════════════════════════════════════════════════════════ */
+.use-custom-spacing { gap: var(--sc-gap, 16px); padding: var(--sc-padding, 16px); }
+.use-custom-radius  { border-radius: var(--sc-radius, 8px); }
+.use-custom-color   { color: var(--sc-color, inherit); background-color: var(--sc-bg, transparent); }
+.use-custom-size    { width: var(--sc-width, auto); height: var(--sc-height, auto); }
+.use-custom-font    { font-size: var(--sc-font-size, 1rem); font-weight: var(--sc-font-weight, 400); }
+[data-story]         { display: block; padding: 24px; }
+[data-story-bg="white"] { background-color: #fff; }
+[data-story-bg="gray"]  { background-color: #f9fafb; }
+[data-story-bg="dark"]  { background-color: #111827; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   v1.9 — SCROLL, SCROLLBAR, GLASS & NEW ANIMATIONS
+═══════════════════════════════════════════════════════════════════════════ */
+.scroll-smooth { scroll-behavior: smooth; }
+.scroll-auto   { scroll-behavior: auto; }
+.scrollbar-thin::-webkit-scrollbar { width:4px; height:4px; }
+.scrollbar-thin::-webkit-scrollbar-track { background:transparent; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background:#d1d5db; border-radius:4px; }
+.scrollbar-thin { scrollbar-width:thin; scrollbar-color:#d1d5db transparent; }
+.scrollbar-dark::-webkit-scrollbar { width:4px; height:4px; }
+.scrollbar-dark::-webkit-scrollbar-track { background:#09090b; }
+.scrollbar-dark::-webkit-scrollbar-thumb { background:#3f3f46; border-radius:4px; }
+.scrollbar-dark { scrollbar-width:thin; scrollbar-color:#3f3f46 #09090b; }
+.scrollbar-hidden { -ms-overflow-style:none; scrollbar-width:none; }
+.scrollbar-hidden::-webkit-scrollbar { display:none; }
+.glass       { background:rgba(255,255,255,0.1); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,0.15); }
+.glass-dark  { background:rgba(9,9,11,0.85); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,0.08); }
+.glass-light { background:rgba(255,255,255,0.7); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,0.5); }
+.gradient-radial        { background:radial-gradient(circle, var(--grad-from,#6366f1) 0%, var(--grad-to,transparent) 70%); }
+.gradient-radial-top    { background:radial-gradient(ellipse at top, var(--grad-from,#6366f1) 0%, var(--grad-to,transparent) 70%); }
+.gradient-radial-bottom { background:radial-gradient(ellipse at bottom, var(--grad-from,#6366f1) 0%, var(--grad-to,transparent) 70%); }
+.gradient-radial-tl     { background:radial-gradient(ellipse at top left, var(--grad-from,#6366f1) 0%, var(--grad-to,transparent) 70%); }
+.gradient-radial-tr     { background:radial-gradient(ellipse at top right, var(--grad-from,#6366f1) 0%, var(--grad-to,transparent) 70%); }
+.gradient-radial-bl     { background:radial-gradient(ellipse at bottom left, var(--grad-from,#6366f1) 0%, var(--grad-to,transparent) 70%); }
+.gradient-radial-br     { background:radial-gradient(ellipse at bottom right, var(--grad-from,#6366f1) 0%, var(--grad-to,transparent) 70%); }
+@keyframes santy-spin-ccw  { from{transform:rotate(0deg)} to{transform:rotate(-360deg)} }
+.animate-spin-slow      { animation:santy-spin     3s   linear infinite; }
+.animate-spin-fast      { animation:santy-spin     0.4s linear infinite; }
+.animate-spin-cw        { animation:santy-spin     1s   linear infinite; }
+.animate-spin-ccw       { animation:santy-spin-ccw 1s   linear infinite; }
+.animate-spin-slow-cw   { animation:santy-spin     3s   linear infinite; }
+.animate-spin-slow-ccw  { animation:santy-spin-ccw 3s   linear infinite; }
+.animate-spin-xslow-cw  { animation:santy-spin     8s   linear infinite; }
+.animate-spin-xslow-ccw { animation:santy-spin-ccw 8s   linear infinite; }
+@keyframes santy-pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.45;transform:scale(.75)} }
+.animate-pulse-dot { animation:santy-pulse-dot 2s ease-in-out infinite; }
+.skill-bar-animated { transition:width 1.2s cubic-bezier(.4,0,.2,1); }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   🦇 CREATURE ANIMATIONS v2.0 — Premium Free
+   10 hand-crafted creature animations: bat, butterfly, firefly, spider, fish,
+   jellyfish, bird-flock, bee, snake, dragon.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* 1 ── Bat flying ──────────────────────────────────────────────────────────── */
+@keyframes santy-bat-fly {
+  0%   { transform: translate(-28px,  0px)  rotate(-6deg); }
+  15%  { transform: translate(-14px, -16px) rotate(4deg);  }
+  30%  { transform: translate(0px,    4px)  rotate(-8deg); }
+  45%  { transform: translate(14px,  -14px) rotate(5deg);  }
+  60%  { transform: translate(26px,   2px)  rotate(-6deg); }
+  75%  { transform: translate(14px,  -10px) rotate(4deg);  }
+  90%  { transform: translate(0px,    6px)  rotate(-5deg); }
+  100% { transform: translate(-28px,  0px)  rotate(-6deg); }
+}
+@keyframes santy-bat-wing-l {
+  0%, 100% { transform: rotate(-15deg) scaleY(1);    }
+  50%       { transform: rotate(50deg)  scaleY(0.35); }
+}
+@keyframes santy-bat-wing-r {
+  0%, 100% { transform: rotate(15deg)  scaleY(1);    }
+  50%       { transform: rotate(-50deg) scaleY(0.35); }
+}
+/* Legacy single-class wing shorthand */
+@keyframes santy-bat-wings {
+  0%, 100% { transform: scaleY(1); }
+  50%       { transform: scaleY(0.2) rotate(6deg); }
+}
+.animate-bat-fly   { animation: santy-bat-fly   1.6s ease-in-out infinite; }
+.animate-bat-wings { animation: santy-bat-wings 0.22s ease-in-out infinite; }
+
+/* CSS bat component — use with <div class="bat-creature animate-bat-fly"> */
+.bat-creature {
+  position: relative; display: inline-block;
+  width: 64px; height: 28px; color: #6d28d9;
+  perspective: 120px;
+}
+.bat-creature .bat-wing-l,
+.bat-creature .bat-wing-r {
+  position: absolute; top: 0;
+  width: 28px; height: 100%;
+  background: currentColor;
+}
+.bat-creature .bat-wing-l {
+  left: 0;
+  border-radius: 80% 0 40% 40%;
+  transform-origin: right center;
+  animation: santy-bat-wing-l 0.28s ease-in-out infinite;
+}
+.bat-creature .bat-wing-r {
+  right: 0;
+  border-radius: 0 80% 40% 40%;
+  transform-origin: left center;
+  animation: santy-bat-wing-r 0.28s ease-in-out infinite;
+}
+.bat-creature .bat-body {
+  position: absolute; z-index: 2;
+  width: 16px; height: 14px;
+  background: currentColor;
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -40%);
+}
+.bat-creature .bat-ear-l,
+.bat-creature .bat-ear-r {
+  position: absolute; top: 2px; z-index: 3;
+  width: 0; height: 0; border-style: solid;
+}
+.bat-creature .bat-ear-l {
+  left: 22px;
+  border-width: 0 5px 8px 0;
+  border-color: transparent currentColor transparent transparent;
+}
+.bat-creature .bat-ear-r {
+  right: 22px;
+  border-width: 0 0 8px 5px;
+  border-color: transparent transparent transparent currentColor;
+}
+
+/* 2 ── Butterfly wing flap ──────────────────────────────────────────────────── */
+@keyframes santy-butterfly-wings {
+  0%, 100% { transform: scaleX(1)    translateY(0); }
+  30%       { transform: scaleX(0.15) translateY(-6px); }
+  60%       { transform: scaleX(1)    translateY(-12px); }
+  80%       { transform: scaleX(0.15) translateY(-6px); }
+}
+@keyframes santy-butterfly-drift {
+  0%, 100% { transform: translate(0, 0) rotate(-3deg); }
+  25%       { transform: translate(8px, -16px) rotate(3deg); }
+  50%       { transform: translate(16px, -8px) rotate(-2deg); }
+  75%       { transform: translate(8px, -20px) rotate(4deg); }
+}
+.animate-butterfly       { animation: santy-butterfly-wings 0.5s ease-in-out infinite; }
+.animate-butterfly-drift { animation: santy-butterfly-drift 3s ease-in-out infinite; }
+
+/* 3 ── Firefly glow + float ─────────────────────────────────────────────────── */
+@keyframes santy-firefly-float {
+  0%   { transform: translate(0, 0);        opacity: 0.2; }
+  15%  { transform: translate(12px, -18px); opacity: 1; }
+  35%  { transform: translate(-8px, -30px); opacity: 0.5; }
+  55%  { transform: translate(18px, -22px); opacity: 1; }
+  75%  { transform: translate(-4px, -40px); opacity: 0.3; }
+  100% { transform: translate(6px,  -8px);  opacity: 0.2; }
+}
+@keyframes santy-firefly-glow {
+  0%, 100% { box-shadow: 0 0 3px 2px #fef08a, 0 0 6px 3px #fde047; opacity: 0.4; }
+  50%       { box-shadow: 0 0 10px 5px #fef08a, 0 0 20px 8px #fde047; opacity: 1; }
+}
+.animate-firefly       { animation: santy-firefly-float 3.5s ease-in-out infinite; }
+.animate-firefly-glow  { animation: santy-firefly-glow  1.4s ease-in-out infinite; border-radius: 50%; }
+
+/* 4 ── Spider descending on thread ──────────────────────────────────────────── */
+@keyframes santy-spider-drop {
+  0%   { transform: translateY(-36px); opacity: 0; }
+  15%  { opacity: 1; }
+  45%  { transform: translateY(6px);   opacity: 1; }
+  60%  { transform: translateY(-4px);  }
+  70%  { transform: translateY(2px);   }
+  80%  { transform: translateY(-36px); opacity: 1; }
+  100% { transform: translateY(-36px); opacity: 0; }
+}
+@keyframes santy-spider-swing {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  50%       { transform: translateY(0) rotate(8deg); }
+}
+.animate-spider-drop  { animation: santy-spider-drop 3.2s ease-in-out infinite; }
+.animate-spider-swing { animation: santy-spider-swing 1.2s ease-in-out infinite; }
+
+/* 5 ── Fish swimming (tail wave) ────────────────────────────────────────────── */
+@keyframes santy-fish-swim {
+  0%   { transform: translateX(-24px) skewX(0deg)  scaleX(1); }
+  18%  { transform: translateX(-10px) skewX(10deg) scaleX(1); }
+  36%  { transform: translateX(4px)   skewX(-10deg) scaleX(1); }
+  54%  { transform: translateX(16px)  skewX(10deg) scaleX(1); }
+  72%  { transform: translateX(26px)  skewX(-10deg) scaleX(1); }
+  90%  { transform: translateX(26px)  skewX(0deg)  scaleX(-1); }
+  100% { transform: translateX(-24px) skewX(0deg)  scaleX(-1); }
+}
+.animate-fish-swim { animation: santy-fish-swim 2.4s ease-in-out infinite; }
+
+/* 6 ── Jellyfish pulsing ────────────────────────────────────────────────────── */
+@keyframes santy-jellyfish-pulse {
+  0%, 100% { transform: scaleY(1)    scaleX(1)    translateY(0);    opacity: 0.9; }
+  25%       { transform: scaleY(0.72) scaleX(1.15) translateY(10px); opacity: 1;   }
+  50%       { transform: scaleY(1.1)  scaleX(0.92) translateY(-14px); opacity: 0.7; }
+  75%       { transform: scaleY(0.85) scaleX(1.08) translateY(6px);  opacity: 0.95; }
+}
+@keyframes santy-jellyfish-tendrils {
+  0%, 100% { transform: skewX(0deg)  scaleY(1);   }
+  33%       { transform: skewX(8deg)  scaleY(1.1); }
+  66%       { transform: skewX(-8deg) scaleY(0.9); }
+}
+.animate-jellyfish          { animation: santy-jellyfish-pulse    2.2s ease-in-out infinite; }
+.animate-jellyfish-tendrils { animation: santy-jellyfish-tendrils 1.1s ease-in-out infinite; }
+
+/* 7 ── Bird flock formation ─────────────────────────────────────────────────── */
+@keyframes santy-bird-flock {
+  0%   { transform: translate(-28px, 0)    rotate(-8deg); }
+  25%  { transform: translate(-8px,  -20px) rotate(4deg); }
+  50%  { transform: translate(12px,  0)    rotate(-5deg); }
+  75%  { transform: translate(28px,  -16px) rotate(6deg); }
+  100% { transform: translate(-28px, 0)    rotate(-8deg); }
+}
+.animate-bird-flock   { animation: santy-bird-flock 3s   ease-in-out          infinite; }
+.animate-bird-flock-2 { animation: santy-bird-flock 3s   ease-in-out 0.35s    infinite; }
+.animate-bird-flock-3 { animation: santy-bird-flock 3s   ease-in-out 0.7s     infinite; }
+
+/* 8 ── Bee hovering + buzzing ───────────────────────────────────────────────── */
+@keyframes santy-bee-hover {
+  0%, 100% { transform: translateY(0)    rotate(-4deg); }
+  20%       { transform: translateY(-9px) rotate(3deg);  }
+  40%       { transform: translateY(-3px) rotate(-3deg); }
+  60%       { transform: translateY(-11px) rotate(4deg); }
+  80%       { transform: translateY(-5px) rotate(-2deg); }
+}
+@keyframes santy-bee-buzz {
+  0%, 100% { transform: translateX(0)    rotate(-3deg); }
+  25%       { transform: translateX(-2px) rotate(2deg);  }
+  75%       { transform: translateX(2px)  rotate(-2deg); }
+}
+.animate-bee-hover { animation: santy-bee-hover 1s   ease-in-out infinite; }
+.animate-bee-buzz  { animation: santy-bee-buzz  0.08s linear      infinite; }
+
+/* 9 ── Snake slithering path ────────────────────────────────────────────────── */
+@keyframes santy-snake-slither {
+  0%   { transform: translateX(-20px) rotate(0deg)   skewX(0deg);  }
+  12%  { transform: translateX(-10px) rotate(12deg)  skewX(8deg);  }
+  25%  { transform: translateX(0px)   rotate(-12deg) skewX(-8deg); }
+  37%  { transform: translateX(10px)  rotate(12deg)  skewX(8deg);  }
+  50%  { transform: translateX(20px)  rotate(-12deg) skewX(-8deg); }
+  62%  { transform: translateX(10px)  rotate(12deg)  skewX(8deg);  }
+  75%  { transform: translateX(0px)   rotate(-12deg) skewX(-8deg); }
+  87%  { transform: translateX(-10px) rotate(12deg)  skewX(8deg);  }
+  100% { transform: translateX(-20px) rotate(0deg)   skewX(0deg);  }
+}
+.animate-snake-slither { animation: santy-snake-slither 2s linear infinite; }
+
+/* 10 ── Dragon breathing fire ───────────────────────────────────────────────── */
+@keyframes santy-dragon-fire {
+  0%   { transform: scaleX(0)   scaleY(0.4); opacity: 0;   filter: hue-rotate(0deg); }
+  15%  { transform: scaleX(0.6) scaleY(1.3); opacity: 1;   filter: hue-rotate(20deg); }
+  40%  { transform: scaleX(1)   scaleY(0.9); opacity: 0.9; filter: hue-rotate(-10deg); }
+  70%  { transform: scaleX(1.4) scaleY(1.1); opacity: 0.7; filter: hue-rotate(30deg); }
+  100% { transform: scaleX(2)   scaleY(0.3); opacity: 0;   filter: hue-rotate(0deg); }
+}
+@keyframes santy-fire-flicker {
+  0%, 100% { transform: scaleY(1)    skewX(0deg);  opacity: 1;   }
+  20%       { transform: scaleY(1.25) skewX(-6deg); opacity: 0.9; }
+  40%       { transform: scaleY(0.8)  skewX(6deg);  opacity: 0.8; }
+  60%       { transform: scaleY(1.15) skewX(-4deg); opacity: 0.95; }
+  80%       { transform: scaleY(0.9)  skewX(5deg);  opacity: 0.85; }
+}
+.animate-dragon-fire  { animation: santy-dragon-fire  1.6s ease-out     infinite; transform-origin: left center; }
+.animate-fire-flicker { animation: santy-fire-flicker 0.14s ease-in-out infinite; }

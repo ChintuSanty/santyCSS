@@ -2516,22 +2516,7 @@ add(`
 .bar-chart-wrapper { background: var(--color-card, #1e293b); border-radius: 12px; padding: 16px; overflow: hidden; }
 `);
 
-// ─── WRITE FILES (full + split) ───────────────────────────────────────────────
-const fullCSS = lines.join('\n');
-
-// Split at component marker for santy-core.css (utilities only, no components)
-const COMP_MARKER = '/* ═══ SANTY COMPONENTS ═══ */';
-const compSplit = fullCSS.indexOf(COMP_MARKER);
-const coreCSS = compSplit > -1 ? fullCSS.slice(0, compSplit).trim() : fullCSS;
-
-// Split animations out for santy-animations.css
-const ANIM_MARKER = '/* ═══════════════════════════════════════════════════════════════════════\n   SANTY ANIMATIONS';
-const animSplit = coreCSS.indexOf(ANIM_MARKER);
-const utilCSS = animSplit > -1 ? coreCSS.slice(0, animSplit).trim() : coreCSS;
-
-// animations live in coreCSS (before the component marker)
-const animCSS  = animSplit > -1 ? coreCSS.slice(animSplit) : '';
-const compCSS  = compSplit > -1 ? fullCSS.slice(compSplit) : '';
+// (fullCSS is computed after ALL add() calls — see bottom of file)
 
 // ─── EMAIL CSS MODULE ────────────────────────────────────────────────────────
 const EMAIL_CSS = `
@@ -3876,6 +3861,23 @@ add(`
 .animate-dragon-fire  { animation: santy-dragon-fire  1.6s ease-out     infinite; transform-origin: left center; }
 .animate-fire-flicker { animation: santy-fire-flicker 0.14s ease-in-out infinite; }
 `);
+
+// ─── WRITE FILES (full + split) ───────────────────────────────────────────────
+const fullCSS = lines.join('\n');
+
+// Split at component marker for santy-core.css (utilities only, no components)
+const COMP_MARKER = '/* ═══ SANTY COMPONENTS ═══ */';
+const compSplit = fullCSS.indexOf(COMP_MARKER);
+const coreCSS = compSplit > -1 ? fullCSS.slice(0, compSplit).trim() : fullCSS;
+
+// Split animations out for santy-animations.css
+const ANIM_MARKER = '/* ═══════════════════════════════════════════════════════════════════════\n   SANTY ANIMATIONS';
+const animSplit = coreCSS.indexOf(ANIM_MARKER);
+const utilCSS = animSplit > -1 ? coreCSS.slice(0, animSplit).trim() : coreCSS;
+
+// animations live in coreCSS (before the component marker)
+const animCSS  = animSplit > -1 ? coreCSS.slice(animSplit) : '';
+const compCSS  = compSplit > -1 ? fullCSS.slice(compSplit) : '';
 
 // Write all output files
 fs.writeFileSync('santy.css', fullCSS);
