@@ -105,6 +105,18 @@
     .replay-btn { margin-top: 8px; padding: 3px 10px; font-size: 10px; border: 1px solid var(--border); border-radius: 4px; background: transparent; color: var(--muted); cursor: pointer; transition: all .15s; }
     .replay-btn:hover { border-color: var(--accent); color: var(--accent); }
 
+    /* ── CSS bat component (creature preview) ── */
+    .bat-preview { position:relative; display:inline-block; width:60px; height:26px; color:#a855f7; }
+    .bat-preview .bp-wing-l,
+    .bat-preview .bp-wing-r { position:absolute; top:0; width:27px; height:100%; background:currentColor; }
+    .bat-preview .bp-wing-l { left:0; border-radius:80% 0 40% 40%; transform-origin:right center; animation:santy-bat-wing-l 0.28s ease-in-out infinite; animation-play-state:inherit; }
+    .bat-preview .bp-wing-r { right:0; border-radius:0 80% 40% 40%; transform-origin:left center; animation:santy-bat-wing-r 0.28s ease-in-out infinite; animation-play-state:inherit; }
+    .bat-preview .bp-body   { position:absolute; z-index:2; width:14px; height:12px; background:currentColor; border-radius:50%; top:50%; left:50%; transform:translate(-50%,-38%); }
+    .bat-preview .bp-ear-l,
+    .bat-preview .bp-ear-r  { position:absolute; top:2px; z-index:3; width:0; height:0; border-style:solid; }
+    .bat-preview .bp-ear-l  { left:20px; border-width:0 4px 7px 0; border-color:transparent currentColor transparent transparent; }
+    .bat-preview .bp-ear-r  { right:20px; border-width:0 0 7px 4px; border-color:transparent transparent transparent currentColor; }
+
     /* Helper tables */
     .helper-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
     .helper-row { display: flex; justify-content: space-between; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; font-size: 13px; }
@@ -960,44 +972,58 @@ function renderGrid(id, items) {
 Object.keys(ANIMATIONS).forEach(id => renderGrid(id, ANIMATIONS[id]));
 
 // ── Creature Animations grid ──────────────────────────────────────────────────
+// preview: 'bat' = CSS bat shape, 'emoji' = emoji char
 const CREATURES = [
-  { cls: 'animate-bat-fly',            emoji: '🦇', label: 'Bat fly',            dur: 3600 },
-  { cls: 'animate-bat-wings',          emoji: '🦇', label: 'Bat wings',          dur: 1500 },
-  { cls: 'animate-butterfly',          emoji: '🦋', label: 'Butterfly flap',     dur: 2000 },
-  { cls: 'animate-butterfly-drift',    emoji: '🦋', label: 'Butterfly drift',    dur: 3500 },
-  { cls: 'animate-firefly',            emoji: '🌟', label: 'Firefly float',      dur: 4000 },
-  { cls: 'animate-firefly-glow',       emoji: '✨', label: 'Firefly glow',       dur: 3000 },
-  { cls: 'animate-spider-drop',        emoji: '🕷️', label: 'Spider drop',        dur: 3500 },
-  { cls: 'animate-spider-swing',       emoji: '🕷️', label: 'Spider swing',       dur: 2500 },
-  { cls: 'animate-fish-swim',          emoji: '🐟', label: 'Fish swim',          dur: 3000 },
-  { cls: 'animate-jellyfish',          emoji: '🪼', label: 'Jellyfish pulse',    dur: 3000 },
-  { cls: 'animate-jellyfish-tendrils', emoji: '🎐', label: 'Jellyfish tendrils', dur: 2500 },
-  { cls: 'animate-bird-flock',         emoji: '🐦', label: 'Bird flock',         dur: 3500 },
-  { cls: 'animate-bee-hover',          emoji: '🐝', label: 'Bee hover',          dur: 2500 },
-  { cls: 'animate-bee-buzz',           emoji: '🐝', label: 'Bee buzz',           dur: 1000 },
-  { cls: 'animate-snake-slither',      emoji: '🐍', label: 'Snake slither',      dur: 3000 },
-  { cls: 'animate-dragon-fire',        emoji: '🔥', label: 'Dragon fire',        dur: 2000 },
-  { cls: 'animate-fire-flicker',       emoji: '🔥', label: 'Fire flicker',       dur: 1500 },
+  { cls: 'animate-bat-fly',            preview: 'bat',  label: 'Bat fly',            dur: 3200 },
+  { cls: 'animate-bat-wings',          preview: 'bat',  label: 'Bat wings only',     dur: 1800 },
+  { cls: 'animate-butterfly',          preview: '🦋',   label: 'Butterfly flap',     dur: 2000 },
+  { cls: 'animate-butterfly-drift',    preview: '🦋',   label: 'Butterfly drift',    dur: 3500 },
+  { cls: 'animate-firefly',            preview: '✨',   label: 'Firefly float',      dur: 4000 },
+  { cls: 'animate-firefly-glow',       preview: '✨',   label: 'Firefly glow',       dur: 3000 },
+  { cls: 'animate-spider-drop',        preview: '🕷️',  label: 'Spider drop',        dur: 3500 },
+  { cls: 'animate-spider-swing',       preview: '🕷️',  label: 'Spider swing',       dur: 2500 },
+  { cls: 'animate-fish-swim',          preview: '🐟',   label: 'Fish swim',          dur: 3000 },
+  { cls: 'animate-jellyfish',          preview: '🪼',   label: 'Jellyfish pulse',    dur: 3000 },
+  { cls: 'animate-jellyfish-tendrils', preview: '🎐',   label: 'Jellyfish tendrils', dur: 2500 },
+  { cls: 'animate-bird-flock',         preview: '🐦',   label: 'Bird flock',         dur: 3500 },
+  { cls: 'animate-bee-hover',          preview: '🐝',   label: 'Bee hover',          dur: 2500 },
+  { cls: 'animate-bee-buzz',           preview: '🐝',   label: 'Bee buzz',           dur: 1000 },
+  { cls: 'animate-snake-slither',      preview: '🐍',   label: 'Snake slither',      dur: 3000 },
+  { cls: 'animate-dragon-fire',        preview: '🔥',   label: 'Dragon fire',        dur: 2000 },
+  { cls: 'animate-fire-flicker',       preview: '🔥',   label: 'Fire flicker',       dur: 1500 },
 ];
 
-function playCreature(btn, cls, emoji, dur) {
+function makeBatHTML() {
+  return '<div class="bat-preview" style="animation-play-state:paused;">' +
+         '<div class="bp-wing-l"></div>' +
+         '<div class="bp-body"></div>' +
+         '<div class="bp-ear-l"></div>' +
+         '<div class="bp-ear-r"></div>' +
+         '<div class="bp-wing-r"></div>' +
+         '</div>';
+}
+
+function playCreature(btn, cls, dur) {
   const card = btn.closest('.anim-card');
   const box  = card.querySelector('.anim-box');
   if (card.classList.contains('playing')) return;
 
-  // Remove class, reflow, re-add with animation running
-  box.style.animationPlayState = '';
+  // For bat: apply fly/wings class to container; wings animate via CSS children
   box.classList.remove(cls);
   void box.offsetWidth;
   box.classList.add(cls);
+  // Resume all animations inside the box
   box.style.animationPlayState = 'running';
+  box.querySelectorAll('*').forEach(el => el.style.animationPlayState = 'running');
 
   card.classList.add('playing');
   btn.textContent = '⏸ Playing';
 
   clearTimeout(card._crTimer);
   card._crTimer = setTimeout(() => {
+    box.classList.remove(cls);
     box.style.animationPlayState = 'paused';
+    box.querySelectorAll('*').forEach(el => el.style.animationPlayState = 'paused');
     card.classList.remove('playing');
     btn.textContent = '▶ Play';
   }, dur);
@@ -1006,16 +1032,19 @@ function playCreature(btn, cls, emoji, dur) {
 (function buildCreatureGrid() {
   const grid = document.getElementById('creature-grid');
   if (!grid) return;
-  CREATURES.forEach(({ cls, emoji, label, dur }) => {
+  CREATURES.forEach(({ cls, preview, label, dur }) => {
+    const isBat   = preview === 'bat';
+    const inner   = isBat
+      ? makeBatHTML()
+      : `<span style="font-size:28px;line-height:1;">${preview}</span>`;
     const card = document.createElement('div');
     card.className = 'anim-card';
     card.innerHTML = `
-      <div class="anim-box" style="font-size:30px;display:flex;align-items:center;justify-content:center;animation-play-state:paused;">${emoji}</div>
+      <div class="anim-box" style="display:flex;align-items:center;justify-content:center;overflow:hidden;animation-play-state:paused;background:${isBat ? '#1e1b4b' : ''};">${inner}</div>
       <div class="anim-name">${cls}</div>
       <div class="anim-label">${label}</div>
-      <button class="replay-btn" onclick="playCreature(this,'${cls}','${emoji}',${dur})">▶ Play</button>
+      <button class="replay-btn" onclick="playCreature(this,'${cls}',${dur})">▶ Play</button>
     `;
-    // Click card body (not button) copies class name
     card.addEventListener('click', function(e) {
       if (e.target.tagName === 'BUTTON') return;
       navigator.clipboard.writeText(cls).then(() => {

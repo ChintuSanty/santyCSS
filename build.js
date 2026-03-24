@@ -3667,19 +3667,78 @@ add(`
 
 /* 1 ── Bat flying ──────────────────────────────────────────────────────────── */
 @keyframes santy-bat-fly {
-  0%   { transform: translateX(-20px) translateY(0)    scaleX(-1); }
-  20%  { transform: translateX(-5px)  translateY(-14px) scaleX(-1); }
-  40%  { transform: translateX(10px)  translateY(4px)  scaleX(-1); }
-  60%  { transform: translateX(22px)  translateY(-12px) scaleX(-1); }
-  80%  { transform: translateX(32px)  translateY(2px)  scaleX(-1); }
-  100% { transform: translateX(20px)  translateY(0)    scaleX(-1); }
+  0%   { transform: translate(-28px,  0px)  rotate(-6deg); }
+  15%  { transform: translate(-14px, -16px) rotate(4deg);  }
+  30%  { transform: translate(0px,    4px)  rotate(-8deg); }
+  45%  { transform: translate(14px,  -14px) rotate(5deg);  }
+  60%  { transform: translate(26px,   2px)  rotate(-6deg); }
+  75%  { transform: translate(14px,  -10px) rotate(4deg);  }
+  90%  { transform: translate(0px,    6px)  rotate(-5deg); }
+  100% { transform: translate(-28px,  0px)  rotate(-6deg); }
 }
+@keyframes santy-bat-wing-l {
+  0%, 100% { transform: rotate(-15deg) scaleY(1);    }
+  50%       { transform: rotate(50deg)  scaleY(0.35); }
+}
+@keyframes santy-bat-wing-r {
+  0%, 100% { transform: rotate(15deg)  scaleY(1);    }
+  50%       { transform: rotate(-50deg) scaleY(0.35); }
+}
+/* Legacy single-class wing shorthand */
 @keyframes santy-bat-wings {
-  0%, 100% { transform: scaleY(1)    rotate(0deg); }
-  50%       { transform: scaleY(-0.5) rotate(8deg); }
+  0%, 100% { transform: scaleY(1); }
+  50%       { transform: scaleY(0.2) rotate(6deg); }
 }
-.animate-bat-fly   { animation: santy-bat-fly 1.8s ease-in-out infinite; }
-.animate-bat-wings { animation: santy-bat-wings 0.18s ease-in-out infinite; }
+.animate-bat-fly   { animation: santy-bat-fly   1.6s ease-in-out infinite; }
+.animate-bat-wings { animation: santy-bat-wings 0.22s ease-in-out infinite; }
+
+/* CSS bat component — use with <div class="bat-creature animate-bat-fly"> */
+.bat-creature {
+  position: relative; display: inline-block;
+  width: 64px; height: 28px; color: #6d28d9;
+  perspective: 120px;
+}
+.bat-creature .bat-wing-l,
+.bat-creature .bat-wing-r {
+  position: absolute; top: 0;
+  width: 28px; height: 100%;
+  background: currentColor;
+}
+.bat-creature .bat-wing-l {
+  left: 0;
+  border-radius: 80% 0 40% 40%;
+  transform-origin: right center;
+  animation: santy-bat-wing-l 0.28s ease-in-out infinite;
+}
+.bat-creature .bat-wing-r {
+  right: 0;
+  border-radius: 0 80% 40% 40%;
+  transform-origin: left center;
+  animation: santy-bat-wing-r 0.28s ease-in-out infinite;
+}
+.bat-creature .bat-body {
+  position: absolute; z-index: 2;
+  width: 16px; height: 14px;
+  background: currentColor;
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -40%);
+}
+.bat-creature .bat-ear-l,
+.bat-creature .bat-ear-r {
+  position: absolute; top: 2px; z-index: 3;
+  width: 0; height: 0; border-style: solid;
+}
+.bat-creature .bat-ear-l {
+  left: 22px;
+  border-width: 0 5px 8px 0;
+  border-color: transparent currentColor transparent transparent;
+}
+.bat-creature .bat-ear-r {
+  right: 22px;
+  border-width: 0 0 8px 5px;
+  border-color: transparent transparent transparent currentColor;
+}
 
 /* 2 ── Butterfly wing flap ──────────────────────────────────────────────────── */
 @keyframes santy-butterfly-wings {
