@@ -3658,6 +3658,164 @@ add(`
 @keyframes santy-pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.45;transform:scale(.75)} }
 .animate-pulse-dot { animation:santy-pulse-dot 2s ease-in-out infinite; }
 .skill-bar-animated { transition:width 1.2s cubic-bezier(.4,0,.2,1); }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   🦇 CREATURE ANIMATIONS v2.0 — Premium Free
+   10 hand-crafted creature animations: bat, butterfly, firefly, spider, fish,
+   jellyfish, bird-flock, bee, snake, dragon.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* 1 ── Bat flying ──────────────────────────────────────────────────────────── */
+@keyframes santy-bat-fly {
+  0%   { transform: translateX(-20px) translateY(0)    scaleX(-1); }
+  20%  { transform: translateX(-5px)  translateY(-14px) scaleX(-1); }
+  40%  { transform: translateX(10px)  translateY(4px)  scaleX(-1); }
+  60%  { transform: translateX(22px)  translateY(-12px) scaleX(-1); }
+  80%  { transform: translateX(32px)  translateY(2px)  scaleX(-1); }
+  100% { transform: translateX(20px)  translateY(0)    scaleX(-1); }
+}
+@keyframes santy-bat-wings {
+  0%, 100% { transform: scaleY(1)    rotate(0deg); }
+  50%       { transform: scaleY(-0.5) rotate(8deg); }
+}
+.animate-bat-fly   { animation: santy-bat-fly 1.8s ease-in-out infinite; }
+.animate-bat-wings { animation: santy-bat-wings 0.18s ease-in-out infinite; }
+
+/* 2 ── Butterfly wing flap ──────────────────────────────────────────────────── */
+@keyframes santy-butterfly-wings {
+  0%, 100% { transform: scaleX(1)    translateY(0); }
+  30%       { transform: scaleX(0.15) translateY(-6px); }
+  60%       { transform: scaleX(1)    translateY(-12px); }
+  80%       { transform: scaleX(0.15) translateY(-6px); }
+}
+@keyframes santy-butterfly-drift {
+  0%, 100% { transform: translate(0, 0) rotate(-3deg); }
+  25%       { transform: translate(8px, -16px) rotate(3deg); }
+  50%       { transform: translate(16px, -8px) rotate(-2deg); }
+  75%       { transform: translate(8px, -20px) rotate(4deg); }
+}
+.animate-butterfly       { animation: santy-butterfly-wings 0.5s ease-in-out infinite; }
+.animate-butterfly-drift { animation: santy-butterfly-drift 3s ease-in-out infinite; }
+
+/* 3 ── Firefly glow + float ─────────────────────────────────────────────────── */
+@keyframes santy-firefly-float {
+  0%   { transform: translate(0, 0);        opacity: 0.2; }
+  15%  { transform: translate(12px, -18px); opacity: 1; }
+  35%  { transform: translate(-8px, -30px); opacity: 0.5; }
+  55%  { transform: translate(18px, -22px); opacity: 1; }
+  75%  { transform: translate(-4px, -40px); opacity: 0.3; }
+  100% { transform: translate(6px,  -8px);  opacity: 0.2; }
+}
+@keyframes santy-firefly-glow {
+  0%, 100% { box-shadow: 0 0 3px 2px #fef08a, 0 0 6px 3px #fde047; opacity: 0.4; }
+  50%       { box-shadow: 0 0 10px 5px #fef08a, 0 0 20px 8px #fde047; opacity: 1; }
+}
+.animate-firefly       { animation: santy-firefly-float 3.5s ease-in-out infinite; }
+.animate-firefly-glow  { animation: santy-firefly-glow  1.4s ease-in-out infinite; border-radius: 50%; }
+
+/* 4 ── Spider descending on thread ──────────────────────────────────────────── */
+@keyframes santy-spider-drop {
+  0%   { transform: translateY(-36px); opacity: 0; }
+  15%  { opacity: 1; }
+  45%  { transform: translateY(6px);   opacity: 1; }
+  60%  { transform: translateY(-4px);  }
+  70%  { transform: translateY(2px);   }
+  80%  { transform: translateY(-36px); opacity: 1; }
+  100% { transform: translateY(-36px); opacity: 0; }
+}
+@keyframes santy-spider-swing {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  50%       { transform: translateY(0) rotate(8deg); }
+}
+.animate-spider-drop  { animation: santy-spider-drop 3.2s ease-in-out infinite; }
+.animate-spider-swing { animation: santy-spider-swing 1.2s ease-in-out infinite; }
+
+/* 5 ── Fish swimming (tail wave) ────────────────────────────────────────────── */
+@keyframes santy-fish-swim {
+  0%   { transform: translateX(-24px) skewX(0deg)  scaleX(1); }
+  18%  { transform: translateX(-10px) skewX(10deg) scaleX(1); }
+  36%  { transform: translateX(4px)   skewX(-10deg) scaleX(1); }
+  54%  { transform: translateX(16px)  skewX(10deg) scaleX(1); }
+  72%  { transform: translateX(26px)  skewX(-10deg) scaleX(1); }
+  90%  { transform: translateX(26px)  skewX(0deg)  scaleX(-1); }
+  100% { transform: translateX(-24px) skewX(0deg)  scaleX(-1); }
+}
+.animate-fish-swim { animation: santy-fish-swim 2.4s ease-in-out infinite; }
+
+/* 6 ── Jellyfish pulsing ────────────────────────────────────────────────────── */
+@keyframes santy-jellyfish-pulse {
+  0%, 100% { transform: scaleY(1)    scaleX(1)    translateY(0);    opacity: 0.9; }
+  25%       { transform: scaleY(0.72) scaleX(1.15) translateY(10px); opacity: 1;   }
+  50%       { transform: scaleY(1.1)  scaleX(0.92) translateY(-14px); opacity: 0.7; }
+  75%       { transform: scaleY(0.85) scaleX(1.08) translateY(6px);  opacity: 0.95; }
+}
+@keyframes santy-jellyfish-tendrils {
+  0%, 100% { transform: skewX(0deg)  scaleY(1);   }
+  33%       { transform: skewX(8deg)  scaleY(1.1); }
+  66%       { transform: skewX(-8deg) scaleY(0.9); }
+}
+.animate-jellyfish          { animation: santy-jellyfish-pulse    2.2s ease-in-out infinite; }
+.animate-jellyfish-tendrils { animation: santy-jellyfish-tendrils 1.1s ease-in-out infinite; }
+
+/* 7 ── Bird flock formation ─────────────────────────────────────────────────── */
+@keyframes santy-bird-flock {
+  0%   { transform: translate(-28px, 0)    rotate(-8deg); }
+  25%  { transform: translate(-8px,  -20px) rotate(4deg); }
+  50%  { transform: translate(12px,  0)    rotate(-5deg); }
+  75%  { transform: translate(28px,  -16px) rotate(6deg); }
+  100% { transform: translate(-28px, 0)    rotate(-8deg); }
+}
+.animate-bird-flock   { animation: santy-bird-flock 3s   ease-in-out          infinite; }
+.animate-bird-flock-2 { animation: santy-bird-flock 3s   ease-in-out 0.35s    infinite; }
+.animate-bird-flock-3 { animation: santy-bird-flock 3s   ease-in-out 0.7s     infinite; }
+
+/* 8 ── Bee hovering + buzzing ───────────────────────────────────────────────── */
+@keyframes santy-bee-hover {
+  0%, 100% { transform: translateY(0)    rotate(-4deg); }
+  20%       { transform: translateY(-9px) rotate(3deg);  }
+  40%       { transform: translateY(-3px) rotate(-3deg); }
+  60%       { transform: translateY(-11px) rotate(4deg); }
+  80%       { transform: translateY(-5px) rotate(-2deg); }
+}
+@keyframes santy-bee-buzz {
+  0%, 100% { transform: translateX(0)    rotate(-3deg); }
+  25%       { transform: translateX(-2px) rotate(2deg);  }
+  75%       { transform: translateX(2px)  rotate(-2deg); }
+}
+.animate-bee-hover { animation: santy-bee-hover 1s   ease-in-out infinite; }
+.animate-bee-buzz  { animation: santy-bee-buzz  0.08s linear      infinite; }
+
+/* 9 ── Snake slithering path ────────────────────────────────────────────────── */
+@keyframes santy-snake-slither {
+  0%   { transform: translateX(-20px) rotate(0deg)   skewX(0deg);  }
+  12%  { transform: translateX(-10px) rotate(12deg)  skewX(8deg);  }
+  25%  { transform: translateX(0px)   rotate(-12deg) skewX(-8deg); }
+  37%  { transform: translateX(10px)  rotate(12deg)  skewX(8deg);  }
+  50%  { transform: translateX(20px)  rotate(-12deg) skewX(-8deg); }
+  62%  { transform: translateX(10px)  rotate(12deg)  skewX(8deg);  }
+  75%  { transform: translateX(0px)   rotate(-12deg) skewX(-8deg); }
+  87%  { transform: translateX(-10px) rotate(12deg)  skewX(8deg);  }
+  100% { transform: translateX(-20px) rotate(0deg)   skewX(0deg);  }
+}
+.animate-snake-slither { animation: santy-snake-slither 2s linear infinite; }
+
+/* 10 ── Dragon breathing fire ───────────────────────────────────────────────── */
+@keyframes santy-dragon-fire {
+  0%   { transform: scaleX(0)   scaleY(0.4); opacity: 0;   filter: hue-rotate(0deg); }
+  15%  { transform: scaleX(0.6) scaleY(1.3); opacity: 1;   filter: hue-rotate(20deg); }
+  40%  { transform: scaleX(1)   scaleY(0.9); opacity: 0.9; filter: hue-rotate(-10deg); }
+  70%  { transform: scaleX(1.4) scaleY(1.1); opacity: 0.7; filter: hue-rotate(30deg); }
+  100% { transform: scaleX(2)   scaleY(0.3); opacity: 0;   filter: hue-rotate(0deg); }
+}
+@keyframes santy-fire-flicker {
+  0%, 100% { transform: scaleY(1)    skewX(0deg);  opacity: 1;   }
+  20%       { transform: scaleY(1.25) skewX(-6deg); opacity: 0.9; }
+  40%       { transform: scaleY(0.8)  skewX(6deg);  opacity: 0.8; }
+  60%       { transform: scaleY(1.15) skewX(-4deg); opacity: 0.95; }
+  80%       { transform: scaleY(0.9)  skewX(5deg);  opacity: 0.85; }
+}
+.animate-dragon-fire  { animation: santy-dragon-fire  1.6s ease-out     infinite; transform-origin: left center; }
+.animate-fire-flicker { animation: santy-fire-flicker 0.14s ease-in-out infinite; }
 `);
 
 // Write all output files

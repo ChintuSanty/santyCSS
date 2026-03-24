@@ -155,7 +155,7 @@
     <a href="index.html" class="make-flex align-center gap-10 text-no-decoration">
       <img src="assest/santy_css.png" alt="SantyCSS" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
       <span class="set-text-20 text-bold color-gray-900">Santy<span class="color-blue-600">CSS</span></span>
-      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v1.9.0</span>
+      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v2.0.0</span>
     </a>
     <button class="nav-hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
       <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -256,6 +256,9 @@
       <a href="#three-d">🎪 3D Animations</a>
       <a href="#exit-page">💥 Exit & Page</a>
       <a href="#ui-feedback">🔔 UI Feedback</a>
+      <hr style="border:none;border-top:1px solid #e5e7eb;margin:12px 0;">
+      <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#a855f7;padding:4px 0;display:block;">⭐ v2.0 Premium Free</span>
+      <a href="#creature-animations" style="color:#a855f7;font-weight:700;">🦇 Creature Animations</a>
     </aside>
 
     <!-- Main content -->
@@ -711,6 +714,21 @@
         </div>
       </section>
 
+      <!-- ── CREATURE ANIMATIONS ── -->
+      <section class="section" id="creature-animations">
+        <div class="section-header">
+          <div class="section-icon" style="background:rgba(139,92,246,.15);color:#a855f7;">🦇</div>
+          <h2 class="section-title">Creature Animations</h2>
+          <span style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:9999px;letter-spacing:.06em;margin-left:12px;">⭐ PREMIUM FREE</span>
+        </div>
+        <p style="font-size:13px;color:var(--muted);margin:0 0 16px;line-height:1.6;">10 hand-crafted creature animations — bat, butterfly, firefly, spider, fish, jellyfish, bird flock, bee, snake & dragon. Premium quality, completely free. Click <strong>▶ Play</strong> to preview each animation.</p>
+        <div class="anim-grid" id="creature-grid"></div>
+        <div style="background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(168,85,247,.1));border:1px solid rgba(168,85,247,.3);border-radius:12px;padding:20px 24px;margin-top:20px;">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#a855f7;margin-bottom:10px;">⭐ Premium Free — v2.0 Exclusive</div>
+          <code style="display:block;font-family:ui-monospace,monospace;font-size:12px;color:#c4b5fd;line-height:1.8;">&lt;span class="animate-bat-fly"&gt;🦇&lt;/span&gt;<br>&lt;span class="animate-butterfly animate-butterfly-drift"&gt;🦋&lt;/span&gt;<br>&lt;span class="animate-firefly animate-firefly-glow"&gt;✨&lt;/span&gt;<br>&lt;span class="animate-bee-hover"&gt;🐝&lt;/span&gt;</code>
+        </div>
+      </section>
+
     </main>
   </div>
 </div>
@@ -940,6 +958,76 @@ function renderGrid(id, items) {
 }
 
 Object.keys(ANIMATIONS).forEach(id => renderGrid(id, ANIMATIONS[id]));
+
+// ── Creature Animations grid ──────────────────────────────────────────────────
+const CREATURES = [
+  { cls: 'animate-bat-fly',            emoji: '🦇', label: 'Bat fly',            dur: 3600 },
+  { cls: 'animate-bat-wings',          emoji: '🦇', label: 'Bat wings',          dur: 1500 },
+  { cls: 'animate-butterfly',          emoji: '🦋', label: 'Butterfly flap',     dur: 2000 },
+  { cls: 'animate-butterfly-drift',    emoji: '🦋', label: 'Butterfly drift',    dur: 3500 },
+  { cls: 'animate-firefly',            emoji: '🌟', label: 'Firefly float',      dur: 4000 },
+  { cls: 'animate-firefly-glow',       emoji: '✨', label: 'Firefly glow',       dur: 3000 },
+  { cls: 'animate-spider-drop',        emoji: '🕷️', label: 'Spider drop',        dur: 3500 },
+  { cls: 'animate-spider-swing',       emoji: '🕷️', label: 'Spider swing',       dur: 2500 },
+  { cls: 'animate-fish-swim',          emoji: '🐟', label: 'Fish swim',          dur: 3000 },
+  { cls: 'animate-jellyfish',          emoji: '🪼', label: 'Jellyfish pulse',    dur: 3000 },
+  { cls: 'animate-jellyfish-tendrils', emoji: '🎐', label: 'Jellyfish tendrils', dur: 2500 },
+  { cls: 'animate-bird-flock',         emoji: '🐦', label: 'Bird flock',         dur: 3500 },
+  { cls: 'animate-bee-hover',          emoji: '🐝', label: 'Bee hover',          dur: 2500 },
+  { cls: 'animate-bee-buzz',           emoji: '🐝', label: 'Bee buzz',           dur: 1000 },
+  { cls: 'animate-snake-slither',      emoji: '🐍', label: 'Snake slither',      dur: 3000 },
+  { cls: 'animate-dragon-fire',        emoji: '🔥', label: 'Dragon fire',        dur: 2000 },
+  { cls: 'animate-fire-flicker',       emoji: '🔥', label: 'Fire flicker',       dur: 1500 },
+];
+
+function playCreature(btn, cls, emoji, dur) {
+  const card = btn.closest('.anim-card');
+  const box  = card.querySelector('.anim-box');
+  if (card.classList.contains('playing')) return;
+
+  // Remove class, reflow, re-add with animation running
+  box.style.animationPlayState = '';
+  box.classList.remove(cls);
+  void box.offsetWidth;
+  box.classList.add(cls);
+  box.style.animationPlayState = 'running';
+
+  card.classList.add('playing');
+  btn.textContent = '⏸ Playing';
+
+  clearTimeout(card._crTimer);
+  card._crTimer = setTimeout(() => {
+    box.style.animationPlayState = 'paused';
+    card.classList.remove('playing');
+    btn.textContent = '▶ Play';
+  }, dur);
+}
+
+(function buildCreatureGrid() {
+  const grid = document.getElementById('creature-grid');
+  if (!grid) return;
+  CREATURES.forEach(({ cls, emoji, label, dur }) => {
+    const card = document.createElement('div');
+    card.className = 'anim-card';
+    card.innerHTML = `
+      <div class="anim-box" style="font-size:30px;display:flex;align-items:center;justify-content:center;animation-play-state:paused;">${emoji}</div>
+      <div class="anim-name">${cls}</div>
+      <div class="anim-label">${label}</div>
+      <button class="replay-btn" onclick="playCreature(this,'${cls}','${emoji}',${dur})">▶ Play</button>
+    `;
+    // Click card body (not button) copies class name
+    card.addEventListener('click', function(e) {
+      if (e.target.tagName === 'BUTTON') return;
+      navigator.clipboard.writeText(cls).then(() => {
+        const toast = document.getElementById('copy-toast');
+        toast.textContent = 'Copied: ' + cls;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 1800);
+      });
+    });
+    grid.appendChild(card);
+  });
+})();
 </script>
 <script>
 function toggleMobileNav() {

@@ -20,6 +20,56 @@ Class names read like sentences. No build step. No configuration. Just link and 
 
 ---
 
+## What's New in v2.0
+
+### 🦇 Creature Animations — Premium Free
+
+10 hand-crafted creature animations included free in v2.0. No extra import, no paywall — just add the class.
+
+| Class | Creature | Description |
+|---|---|---|
+| `animate-bat-fly` | 🦇 Bat | Flies across screen with arcing path |
+| `animate-bat-wings` | 🦇 Bat wings | Wing flap loop (combine with `animate-bat-fly`) |
+| `animate-butterfly` | 🦋 Butterfly | Wing flap using scaleX |
+| `animate-butterfly-drift` | 🦋 Butterfly drift | Drifts through the air while flapping |
+| `animate-firefly` | 🌟 Firefly | Erratic glowing float |
+| `animate-firefly-glow` | ✨ Firefly glow | Pulsing yellow glow effect |
+| `animate-spider-drop` | 🕷️ Spider | Descends on thread and ascends |
+| `animate-spider-swing` | 🕷️ Spider swing | Pendulum swing on thread |
+| `animate-fish-swim` | 🐟 Fish | Swims with tail-wave body motion |
+| `animate-jellyfish` | 🎐 Jellyfish | Pulsing bell contraction + float |
+| `animate-jellyfish-tendrils` | 🎐 Tendrils | Trailing tendril sway |
+| `animate-bird-flock` | 🐦 Bird | Soaring arc with rotation |
+| `animate-bird-flock-2` / `animate-bird-flock-3` | 🐦🐦 Flock | Staggered offsets for formation effect |
+| `animate-bee-hover` | 🐝 Bee | Hovering with natural drift |
+| `animate-bee-buzz` | 🐝 Buzz | Rapid wing-buzz shake |
+| `animate-snake-slither` | 🐍 Snake | Sinusoidal slithering path |
+| `animate-dragon-fire` | 🔥 Dragon fire | Fire burst expanding and fading |
+| `animate-fire-flicker` | 🔥 Flicker | Rapid flame flicker |
+
+```html
+<!-- Bat flying across -->
+<span class="animate-bat-fly animate-bat-wings">🦇</span>
+
+<!-- Butterfly flapping and drifting -->
+<span class="animate-butterfly animate-butterfly-drift">🦋</span>
+
+<!-- Firefly with glow -->
+<span class="animate-firefly animate-firefly-glow">✨</span>
+
+<!-- Bird flock formation (3 birds) -->
+<span class="animate-bird-flock">🐦</span>
+<span class="animate-bird-flock-2">🐦</span>
+<span class="animate-bird-flock-3">🐦</span>
+
+<!-- Dragon fire breath -->
+<span class="animate-dragon-fire animate-fire-flicker">🔥</span>
+```
+
+> 🎬 **[See all creature animations live →](https://santycss.santy.in/animations.html#creature-animations)**
+
+---
+
 ## What's New in v1.8
 
 ### 🎨 SantyCSS Inspector — Figma Plugin
