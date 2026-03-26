@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/santycss.svg?style=flat-square)](https://www.npmjs.com/package/santycss)
 [![npm downloads](https://img.shields.io/npm/dm/santycss.svg?style=flat-square)](https://www.npmjs.com/package/santycss)
 [![license](https://img.shields.io/npm/l/santycss.svg?style=flat-square)](https://github.com/ChintuSanty/santyCSS/blob/main/LICENSE)
-[![bundle size](https://img.shields.io/badge/full_bundle-776KB-blue?style=flat-square)](https://www.npmjs.com/package/santycss)
+[![bundle size](https://img.shields.io/badge/core-310KB-blue?style=flat-square)](https://www.npmjs.com/package/santycss)
 
 **Plain-English utility-first CSS framework.**
 Class names read like sentences. No build step. No configuration. Just link and use.
@@ -431,18 +431,35 @@ Use SantyCSS on **[Webflow](https://webflow.com/)** without a build step: add th
 npm install santycss
 ```
 
-**CDN (fastest — zero install):**
+**CDN — drop in and go (recommended for beginners):**
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.css">
+<!-- Base utilities + components, no extended variants/animations -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy-start.css">
+```
+
+**CDN — full responsive coverage:**
+```html
+<!-- Core utilities (slimmed) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy-core.css">
+<!-- xl:, xxl:, on-wide:, peer-*, group-*, print:, motion-*, RTL -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy-variants.css">
+```
+
+**CDN — PostCSS/Vite purge workflow (teams):**
+```html
+<!-- Full bundle — purge down to ~15KB with PostCSS/Vite -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css">
 ```
 
 **Import in JS/TS (React, Vue, Next, Nuxt, Vite):**
 ```js
-import 'santycss/css';             // full bundle
-import 'santycss/css/core';        // utilities only
-import 'santycss/css/components';  // component shortcuts
-import 'santycss/css/animations';  // animations only
-import 'santycss/css/email';       // email-safe CSS
+import 'santycss/css/start';      // drop-in: base utilities + components
+import 'santycss/css/core';       // utilities only (slimmed, no extended variants)
+import 'santycss/css/variants';   // xl:, peer-*, group-*, print:, motion-*, RTL
+import 'santycss/css';            // full bundle
+import 'santycss/css/components'; // component shortcuts
+import 'santycss/css/animations'; // animations only
+import 'santycss/css/email';      // email-safe CSS
 ```
 
 **PostCSS:**
@@ -607,11 +624,13 @@ For new projects, the **Component Variant System** (`make-button style-*`) is re
 
 | File | Size | Contents |
 |---|---|---|
-| `dist/santy.css` | 723KB | Everything — utilities + components + animations |
-| `dist/santy.min.css` | 615KB | Minified full bundle |
-| `dist/santy-core.css` | 598KB | Utilities only (no components) |
-| `dist/santy-components.css` | 52KB | Component shortcuts only |
-| `dist/santy-animations.css` | 60KB | 120+ animations only |
+| `dist/santy-start.css` | 527KB | **CDN drop-in** — base utilities + components, no extended variants/animations |
+| `dist/santy-core.css` | 310KB | Utilities only — base + on-mobile/tablet/desktop/md + hover/focus |
+| `dist/santy-variants.css` | 287KB | Extended — xl:, xxl:, on-wide:, peer-*, group-*, print:, motion-*, RTL |
+| `dist/santy-components.css` | 217KB | Component shortcuts only |
+| `dist/santy-animations.css` | 53KB | 120+ animations only |
+| `dist/santy.css` | 868KB | Everything — full unminified bundle |
+| `dist/santy.min.css` | 758KB | Minified full bundle (purge with PostCSS/Vite → ~15KB) |
 | `dist/santy-email.css` | 13KB | Email-safe CSS for HTML email |
 
 ---

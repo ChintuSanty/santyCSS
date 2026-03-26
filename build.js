@@ -52,7 +52,7 @@ const add = (...css) => lines.push(...css);
 // ─── CSS RESET + BASE ────────────────────────────────────────────────────────
 add(
 `/* ============================================================
-   SantyCSS v2.0.0  —  Plain-English Utility CSS Framework
+   SantyCSS v2.1.0  —  Plain-English Utility CSS Framework
    https://github.com/santybad/santy_css
    ============================================================ */
 
@@ -954,13 +954,16 @@ add(`\n/* ═══════════════════════�
    Usage: class="on-mobile:make-hidden md:make-flex lg:grid-cols-3"
    ═══════════════════════════════════════════════════════════════ */`);
 
+const startBreakpoints = new Set(['on-mobile', 'on-tablet', 'on-desktop', 'md']);
 Object.entries(breakpoints).forEach(([prefix, mq]) => {
+  const isStart = startBreakpoints.has(prefix);
+  if (!isStart) add(`\n/* ═══ VARIANTS_BLOCK_START ═══ */`);
   add(`\n@media ${mq} {`);
   responsiveClasses.forEach(([cls, props]) => {
-    const escapedCls = cls.replace(/:/g, '\\:');
     add(`  .${prefix}\\:${cls} { ${props.split(';').map(p=>p.trim()+';').join(' ')} }`);
   });
   add(`}`);
+  if (!isStart) add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
 });
 
 // ─── DARK MODE ────────────────────────────────────────────────────────────────
@@ -1052,28 +1055,29 @@ stateClasses.push(['transition-normal','transition:var(--santy-transition-normal
   stateClasses.push([`add-border-${v}`, `border:${v}px solid`]);
 });
 
+const startStateVariants = new Set(['on-hover', 'on-focus']);
 stateVariants.forEach(([prefix, pseudo]) => {
+  const isStart = startStateVariants.has(prefix);
+  if (!isStart) add(`\n/* ═══ VARIANTS_BLOCK_START ═══ */`);
   add(`\n/* ${prefix} */`);
   stateClasses.forEach(([cls, prop]) => {
     add(`.${prefix}\\:${cls}${pseudo} { ${prop}; }`);
   });
+  if (!isStart) add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
 });
 
 // Group hover
-add(`\n/* ── Group Hover ── */
-/* Add class="group" to parent, then use group-hover: on children */`);
+add(`\n/* ═══ VARIANTS_BLOCK_START ═══ */`);
+add(`\n/* ── Group Hover ── */\n/* Add class="group" to parent, then use group-hover: on children */`);
 stateClasses.forEach(([cls, prop]) => {
   add(`.group:hover .group-hover\\:${cls} { ${prop}; }`);
 });
+add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
 
 // ─── PRINT ────────────────────────────────────────────────────────────────────
-add(`\n/* ── Print Utilities ── */
-@media print {
-  .print\\:hidden { display: none; }
-  .print\\:block  { display: block; }
-  .print\\:no-shadow { box-shadow: none !important; }
-}
-`);
+add(`\n/* ═══ VARIANTS_BLOCK_START ═══ */`);
+add(`\n/* ── Print Utilities ── */\n@media print {\n  .print\\:hidden { display: none; }\n  .print\\:block  { display: block; }\n  .print\\:no-shadow { box-shadow: none !important; }\n}\n`);
+add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
 
 // ─── MISSING UTILITIES ────────────────────────────────────────────────────────
 add(`
@@ -1244,6 +1248,10 @@ add(`
   background-clip: text;
 }
 
+`);
+
+add(`\n/* ═══ VARIANTS_BLOCK_START ═══ */`);
+add(`
 /* ── RTL / Logical Properties ── */
 .ps-0  { padding-inline-start: 0; }
 .ps-4  { padding-inline-start: 4px; }
@@ -1274,8 +1282,10 @@ add(`
 .start-auto { inset-inline-start: auto; }
 .end-auto   { inset-inline-end: auto; }
 `);
+add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
 
 // ─── PEER VARIANTS ───────────────────────────────────────────────────────────
+add(`\n/* ═══ VARIANTS_BLOCK_START ═══ */`);
 // peer: mark an input as peer, then target siblings with peer-*:
 add(`\n/* ── Peer Variants ── */
 /* Usage: add class="peer" to input, then class="peer-checked:make-block" to sibling */`);
@@ -1311,8 +1321,10 @@ add(`\n/* ── Motion Variants ── */
   * { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
 `);
+add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
 
 // ─── EXTRA STATE VARIANTS ────────────────────────────────────────────────────
+add(`\n/* ═══ VARIANTS_BLOCK_START ═══ */`);
 add(`\n/* ── Extra State Variants ── */`);
 const extraStateVariants = [
   ['on-visited',  ':visited'],
@@ -1349,6 +1361,7 @@ extraStateVariants.forEach(([prefix, pseudo]) => {
     add(`.${prefix}\\:${cls}${pseudo} { ${prop}; }`);
   });
 });
+add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
 
 // ─── EXTENDED ANIMATIONS (animate.css compatible) ────────────────────────────
 add(ANIMATION_CSS);
@@ -4023,9 +4036,59 @@ const utilCSS = animSplit > -1 ? coreCSS.slice(0, animSplit).trim() : coreCSS;
 const animCSS  = animSplit > -1 ? coreCSS.slice(animSplit) : '';
 const compCSS  = compSplit > -1 ? fullCSS.slice(compSplit) : '';
 
+// ─── Extract variant blocks to build slimmed core and start CSS ───
+const VSTART = '/* ═══ VARIANTS_BLOCK_START ═══ */';
+const VEND   = '/* ═══ VARIANTS_BLOCK_END ═══ */';
+
+function stripVariantBlocks(css) {
+  let out = '';
+  let pos = 0;
+  while (true) {
+    const vs = css.indexOf(VSTART, pos);
+    if (vs === -1) { out += css.slice(pos); break; }
+    out += css.slice(pos, vs);
+    const ve = css.indexOf(VEND, vs);
+    if (ve === -1) break;
+    pos = ve + VEND.length;
+  }
+  return out;
+}
+
+function extractVariantBlocks(css) {
+  const blocks = [];
+  let pos = 0;
+  while (true) {
+    const vs = css.indexOf(VSTART, pos);
+    if (vs === -1) break;
+    const ve = css.indexOf(VEND, vs);
+    if (ve === -1) break;
+    blocks.push(css.slice(vs + VSTART.length, ve).trim());
+    pos = ve + VEND.length;
+  }
+  return blocks.join('\n\n');
+}
+
+// santy-core.css (slimmed — no xl/xxl/on-wide/peer/group/print/motion/RTL)
+const slimmedCoreCSS = stripVariantBlocks(utilCSS);
+
+// santy-variants.css — all the stripped variant blocks
+const variantsCSS = `/* SantyCSS Extended Variants — xl, xxl, on-wide, peer, group, print, motion, RTL
+   Import this in addition to santy-core.css for advanced responsive/variant coverage.
+   https://santycss.santy.in */\n\n` + extractVariantBlocks(utilCSS);
+
+// santy-start.css — slimmed utilities + components (no animations, no extended variants)
+// This is the recommended CDN drop-in for beginners (~60-100KB)
+const startCSS = `/* SantyCSS Start — Drop-in CDN build
+   Includes: base utilities, on-mobile/on-tablet/on-desktop/md responsive,
+   on-hover/on-focus states, dark mode, and all components. No animations.
+   For full responsive coverage: santy-core.css + santy-variants.css
+   https://santycss.santy.in */\n\n` + slimmedCoreCSS + '\n\n' + compCSS;
+
 // Write all output files
 fs.writeFileSync('santy.css', fullCSS);
-fs.writeFileSync('santy-core.css', utilCSS);
+fs.writeFileSync('santy-core.css', slimmedCoreCSS);
+fs.writeFileSync('santy-variants.css', variantsCSS);
+fs.writeFileSync('santy-start.css', startCSS);
 fs.writeFileSync('santy-components.css', compCSS);
 fs.writeFileSync('santy-animations.css', animCSS);
 fs.writeFileSync('santy-email.css', EMAIL_CSS.trim());
@@ -4034,7 +4097,9 @@ fs.writeFileSync('santy-email.css', EMAIL_CSS.trim());
 const distDir = path.join(__dirname, 'dist');
 if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true });
 fs.writeFileSync(path.join(distDir, 'santy.css'), fullCSS);
-fs.writeFileSync(path.join(distDir, 'santy-core.css'), utilCSS);
+fs.writeFileSync(path.join(distDir, 'santy-core.css'), slimmedCoreCSS);
+fs.writeFileSync(path.join(distDir, 'santy-variants.css'), variantsCSS);
+fs.writeFileSync(path.join(distDir, 'santy-start.css'), startCSS);
 fs.writeFileSync(path.join(distDir, 'santy-components.css'), compCSS);
 fs.writeFileSync(path.join(distDir, 'santy-animations.css'), animCSS);
 fs.writeFileSync(path.join(distDir, 'santy-email.css'), EMAIL_CSS.trim());
@@ -4054,9 +4119,11 @@ fs.writeFileSync('santy.min.css', minCSS);
 fs.writeFileSync(path.join(distDir, 'santy.min.css'), minCSS);
 
 const kb = n => (n / 1024).toFixed(1) + 'KB';
+console.log(`✅ santy-start.css    — ${kb(startCSS.length)} (CDN drop-in: base + components, no extended variants/animations)`);
+console.log(`✅ santy-core.css     — ${kb(slimmedCoreCSS.length)} (utilities only, no extended variants)`);
+console.log(`✅ santy-variants.css — ${kb(variantsCSS.length)} (xl, xxl, on-wide, peer, group, print, motion, RTL)`);
 console.log(`✅ santy.css          — ${kb(fullCSS.length)} (${fullCSS.split('\n').length.toLocaleString()} lines)`);
 console.log(`✅ santy.min.css      — ${kb(minCSS.length)} (minified)`);
-console.log(`✅ santy-core.css     — ${kb(utilCSS.length)} (utilities only)`);
 console.log(`✅ santy-components.css — ${kb(compCSS.length)} (components only)`);
 console.log(`✅ santy-animations.css — ${kb(animCSS.length)} (animations only)`);
 console.log(`✅ santy-email.css    — ${kb(EMAIL_CSS.length)} (email templates)`);

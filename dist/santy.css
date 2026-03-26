@@ -1,5 +1,5 @@
 /* ============================================================
-   SantyCSS v2.0.0  —  Plain-English Utility CSS Framework
+   SantyCSS v2.1.0  —  Plain-English Utility CSS Framework
    https://github.com/santybad/santy_css
    ============================================================ */
 
@@ -5281,6 +5281,8 @@
   .on-desktop\:set-height-64 { height:64px; }
 }
 
+/* ═══ VARIANTS_BLOCK_START ═══ */
+
 @media (min-width: 1280px) {
   .on-wide\:make-block { display:block; }
   .on-wide\:make-inline { display:inline; }
@@ -5430,6 +5432,9 @@
   .on-wide\:set-width-64 { width:64px; }
   .on-wide\:set-height-64 { height:64px; }
 }
+/* ═══ VARIANTS_BLOCK_END ═══ */
+
+/* ═══ VARIANTS_BLOCK_START ═══ */
 
 @media (min-width: 1536px) {
   .on-ultra\:make-block { display:block; }
@@ -5580,6 +5585,9 @@
   .on-ultra\:set-width-64 { width:64px; }
   .on-ultra\:set-height-64 { height:64px; }
 }
+/* ═══ VARIANTS_BLOCK_END ═══ */
+
+/* ═══ VARIANTS_BLOCK_START ═══ */
 
 @media (min-width: 640px) {
   .sm\:make-block { display:block; }
@@ -5730,6 +5738,7 @@
   .sm\:set-width-64 { width:64px; }
   .sm\:set-height-64 { height:64px; }
 }
+/* ═══ VARIANTS_BLOCK_END ═══ */
 
 @media (min-width: 768px) {
   .md\:make-block { display:block; }
@@ -5881,6 +5890,8 @@
   .md\:set-height-64 { height:64px; }
 }
 
+/* ═══ VARIANTS_BLOCK_START ═══ */
+
 @media (min-width: 1024px) {
   .lg\:make-block { display:block; }
   .lg\:make-inline { display:inline; }
@@ -6030,6 +6041,9 @@
   .lg\:set-width-64 { width:64px; }
   .lg\:set-height-64 { height:64px; }
 }
+/* ═══ VARIANTS_BLOCK_END ═══ */
+
+/* ═══ VARIANTS_BLOCK_START ═══ */
 
 @media (min-width: 1280px) {
   .xl\:make-block { display:block; }
@@ -6180,6 +6194,9 @@
   .xl\:set-width-64 { width:64px; }
   .xl\:set-height-64 { height:64px; }
 }
+/* ═══ VARIANTS_BLOCK_END ═══ */
+
+/* ═══ VARIANTS_BLOCK_START ═══ */
 
 @media (min-width: 1536px) {
   .xxl\:make-block { display:block; }
@@ -6330,6 +6347,7 @@
   .xxl\:set-width-64 { width:64px; }
   .xxl\:set-height-64 { height:64px; }
 }
+/* ═══ VARIANTS_BLOCK_END ═══ */
 
 /* ═══════════════════════════════════════════════════════════════
    DARK MODE VARIANTS
@@ -7489,6 +7507,8 @@
 .on-focus\:add-border-2:focus { border:2px solid; }
 .on-focus\:add-border-4:focus { border:4px solid; }
 
+/* ═══ VARIANTS_BLOCK_START ═══ */
+
 /* on-active */
 .on-active\:background-red-300:active { background-color:#fca5a5; }
 .on-active\:color-red-300:active { color:#fca5a5; }
@@ -7789,6 +7809,9 @@
 .on-active\:add-border-1:active { border:1px solid; }
 .on-active\:add-border-2:active { border:2px solid; }
 .on-active\:add-border-4:active { border:4px solid; }
+/* ═══ VARIANTS_BLOCK_END ═══ */
+
+/* ═══ VARIANTS_BLOCK_START ═══ */
 
 /* on-disabled */
 .on-disabled\:background-red-300:disabled { background-color:#fca5a5; }
@@ -8090,6 +8113,9 @@
 .on-disabled\:add-border-1:disabled { border:1px solid; }
 .on-disabled\:add-border-2:disabled { border:2px solid; }
 .on-disabled\:add-border-4:disabled { border:4px solid; }
+/* ═══ VARIANTS_BLOCK_END ═══ */
+
+/* ═══ VARIANTS_BLOCK_START ═══ */
 
 /* on-checked */
 .on-checked\:background-red-300:checked { background-color:#fca5a5; }
@@ -8391,6 +8417,9 @@
 .on-checked\:add-border-1:checked { border:1px solid; }
 .on-checked\:add-border-2:checked { border:2px solid; }
 .on-checked\:add-border-4:checked { border:4px solid; }
+/* ═══ VARIANTS_BLOCK_END ═══ */
+
+/* ═══ VARIANTS_BLOCK_START ═══ */
 
 /* on-first */
 .on-first\:background-red-300:first-child { background-color:#fca5a5; }
@@ -8692,6 +8721,9 @@
 .on-first\:add-border-1:first-child { border:1px solid; }
 .on-first\:add-border-2:first-child { border:2px solid; }
 .on-first\:add-border-4:first-child { border:4px solid; }
+/* ═══ VARIANTS_BLOCK_END ═══ */
+
+/* ═══ VARIANTS_BLOCK_START ═══ */
 
 /* on-last */
 .on-last\:background-red-300:last-child { background-color:#fca5a5; }
@@ -8993,6 +9025,9 @@
 .on-last\:add-border-1:last-child { border:1px solid; }
 .on-last\:add-border-2:last-child { border:2px solid; }
 .on-last\:add-border-4:last-child { border:4px solid; }
+/* ═══ VARIANTS_BLOCK_END ═══ */
+
+/* ═══ VARIANTS_BLOCK_START ═══ */
 
 /* on-odd */
 .on-odd\:background-red-300:nth-child(odd) { background-color:#fca5a5; }
@@ -9294,6 +9329,9 @@
 .on-odd\:add-border-1:nth-child(odd) { border:1px solid; }
 .on-odd\:add-border-2:nth-child(odd) { border:2px solid; }
 .on-odd\:add-border-4:nth-child(odd) { border:4px solid; }
+/* ═══ VARIANTS_BLOCK_END ═══ */
+
+/* ═══ VARIANTS_BLOCK_START ═══ */
 
 /* on-even */
 .on-even\:background-red-300:nth-child(even) { background-color:#fca5a5; }
@@ -9595,6 +9633,9 @@
 .on-even\:add-border-1:nth-child(even) { border:1px solid; }
 .on-even\:add-border-2:nth-child(even) { border:2px solid; }
 .on-even\:add-border-4:nth-child(even) { border:4px solid; }
+/* ═══ VARIANTS_BLOCK_END ═══ */
+
+/* ═══ VARIANTS_BLOCK_START ═══ */
 
 /* on-placeholder */
 .on-placeholder\:background-red-300::placeholder { background-color:#fca5a5; }
@@ -9896,6 +9937,9 @@
 .on-placeholder\:add-border-1::placeholder { border:1px solid; }
 .on-placeholder\:add-border-2::placeholder { border:2px solid; }
 .on-placeholder\:add-border-4::placeholder { border:4px solid; }
+/* ═══ VARIANTS_BLOCK_END ═══ */
+
+/* ═══ VARIANTS_BLOCK_START ═══ */
 
 /* on-focus-within */
 .on-focus-within\:background-red-300:focus-within { background-color:#fca5a5; }
@@ -10197,6 +10241,9 @@
 .on-focus-within\:add-border-1:focus-within { border:1px solid; }
 .on-focus-within\:add-border-2:focus-within { border:2px solid; }
 .on-focus-within\:add-border-4:focus-within { border:4px solid; }
+/* ═══ VARIANTS_BLOCK_END ═══ */
+
+/* ═══ VARIANTS_BLOCK_START ═══ */
 
 /* on-focus-visible */
 .on-focus-visible\:background-red-300:focus-visible { background-color:#fca5a5; }
@@ -10498,6 +10545,9 @@
 .on-focus-visible\:add-border-1:focus-visible { border:1px solid; }
 .on-focus-visible\:add-border-2:focus-visible { border:2px solid; }
 .on-focus-visible\:add-border-4:focus-visible { border:4px solid; }
+/* ═══ VARIANTS_BLOCK_END ═══ */
+
+/* ═══ VARIANTS_BLOCK_START ═══ */
 
 /* ── Group Hover ── */
 /* Add class="group" to parent, then use group-hover: on children */
@@ -10800,6 +10850,9 @@
 .group:hover .group-hover\:add-border-1 { border:1px solid; }
 .group:hover .group-hover\:add-border-2 { border:2px solid; }
 .group:hover .group-hover\:add-border-4 { border:4px solid; }
+/* ═══ VARIANTS_BLOCK_END ═══ */
+
+/* ═══ VARIANTS_BLOCK_START ═══ */
 
 /* ── Print Utilities ── */
 @media print {
@@ -10808,6 +10861,7 @@
   .print\:no-shadow { box-shadow: none !important; }
 }
 
+/* ═══ VARIANTS_BLOCK_END ═══ */
 
 /* ── Backdrop Filter ── */
 .backdrop-blur-none { backdrop-filter: blur(0); -webkit-backdrop-filter: blur(0); }
@@ -10976,6 +11030,10 @@
   background-clip: text;
 }
 
+
+
+/* ═══ VARIANTS_BLOCK_START ═══ */
+
 /* ── RTL / Logical Properties ── */
 .ps-0  { padding-inline-start: 0; }
 .ps-4  { padding-inline-start: 4px; }
@@ -11006,6 +11064,9 @@
 .start-auto { inset-inline-start: auto; }
 .end-auto   { inset-inline-end: auto; }
 
+/* ═══ VARIANTS_BLOCK_END ═══ */
+
+/* ═══ VARIANTS_BLOCK_START ═══ */
 
 /* ── Peer Variants ── */
 /* Usage: add class="peer" to input, then class="peer-checked:make-block" to sibling */
@@ -11072,6 +11133,9 @@
   * { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
 
+/* ═══ VARIANTS_BLOCK_END ═══ */
+
+/* ═══ VARIANTS_BLOCK_START ═══ */
 
 /* ── Extra State Variants ── */
 
@@ -11334,6 +11398,7 @@
 .on-read-write\:ring-green:read-write { box-shadow:0 0 0 3px rgba(34,197,94,.4); }
 .on-read-write\:make-block:read-write { display:block; }
 .on-read-write\:make-hidden:read-write { display:none; }
+/* ═══ VARIANTS_BLOCK_END ═══ */
 
 /* ═══════════════════════════════════════════════════════════════════════
    SANTY ANIMATIONS — animate.css compatible · Plain-English naming

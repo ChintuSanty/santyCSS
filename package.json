@@ -1,13 +1,15 @@
 {
   "name": "santycss",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Plain-English utility-first CSS framework — no build step, just classes",
   "main": "index.js",
   "style": "dist/santy.css",
   "exports": {
     ".": "./index.js",
     "./css": "./dist/santy.css",
+    "./css/start": "./dist/santy-start.css",
     "./css/core": "./dist/santy-core.css",
+    "./css/variants": "./dist/santy-variants.css",
     "./css/components": "./dist/santy-components.css",
     "./css/animations": "./dist/santy-animations.css",
     "./css/email": "./dist/santy-email.css",

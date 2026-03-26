@@ -329,7 +329,7 @@
     <!-- CDN one-liner -->
     <div class="add-margin-top-28 make-flex justify-center">
       <div id="cdn-snippet" style="display:inline-flex;align-items:center;gap:0;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.15);border-radius:12px;overflow:hidden;max-width:620px;width:100%;">
-        <span style="padding:11px 18px;font-family:ui-monospace,monospace;font-size:12.5px;color:#93c5fd;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.css"&gt;</span>
+        <span style="padding:11px 18px;font-family:ui-monospace,monospace;font-size:12.5px;color:#93c5fd;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy-start.css"&gt;</span>
         <button onclick="copyCDN()" id="cdn-copy-btn" style="background:rgba(255,255,255,0.1);border:none;border-left:1px solid rgba(255,255,255,0.15);color:#fff;padding:11px 20px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">Copy CDN</button>
       </div>
     </div>
@@ -686,23 +686,19 @@ const santy = require('santycss');
         </div>
         <p class="set-text-14 color-gray-500 add-margin-bottom-12">Drop one line into any HTML file — no download, no npm, works instantly anywhere.</p>
         <div class="code-block add-margin-bottom-12">
-<pre><span class="c-com">&lt;!-- jsDelivr (recommended, global CDN) --&gt;</span>
+<pre><span class="c-com">&lt;!-- drop in and go — base utilities + components, no extended variants --&gt;</span>
 <span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span>
-      <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
+      <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-start.css"</span><span class="c-tag">&gt;</span>
 
-<span class="c-com">&lt;!-- Version-pinned (best for production) --&gt;</span>
-<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span>
-      <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@1.6.0/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
-
-<span class="c-com">&lt;!-- unpkg --&gt;</span>
-<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span>
-      <span class="c-attr">href</span>=<span class="c-str">"https://unpkg.com/santycss/dist/santy.css"</span><span class="c-tag">&gt;</span>
-
-<span class="c-com">&lt;!-- Load only components via CDN --&gt;</span>
+<span class="c-com">&lt;!-- full responsive coverage (core + xl/xxl/on-wide/peer/group/print/motion/RTL) --&gt;</span>
 <span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span>
       <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-core.css"</span><span class="c-tag">&gt;</span>
 <span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span>
-      <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-components.css"</span><span class="c-tag">&gt;</span></pre>
+      <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-variants.css"</span><span class="c-tag">&gt;</span>
+
+<span class="c-com">&lt;!-- PostCSS/Vite purge workflow (teams) --&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span>
+      <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css"</span><span class="c-tag">&gt;</span></pre>
         </div>
         <div class="make-flex gap-10 flex-wrap">
           <a href="https://www.jsdelivr.com/package/npm/santycss" target="_blank" rel="noopener" class="chip chip-purple">jsDelivr ↗</a>
@@ -741,9 +737,9 @@ const santy = require('santycss');
 <span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"santy-animations.css"</span><span class="c-tag">&gt;</span></pre>
         </div>
         <div class="make-flex gap-12 add-margin-top-12 flex-wrap">
-          <span class="chip chip-blue">santy-core.css — 598KB</span>
-          <span class="chip chip-green">santy-components.css — 52KB</span>
-          <span class="chip chip-purple">santy-animations.css — 60KB</span>
+          <span class="chip chip-blue">santy-core.css — 310KB</span>
+          <span class="chip chip-green">santy-components.css — 217KB</span>
+          <span class="chip chip-purple">santy-animations.css — 53KB</span>
         </div>
       </div>
 
@@ -3122,7 +3118,7 @@ const FULL = [
   { feature:'Modular CSS split files',        s:'✅',  tw:'❌', bs:'❌', mui:'✅', bu:'❌', fo:'❌' },
   { feature:'Centering shortcut (1 class)',   s:'✅',  tw:'❌', bs:'❌', mui:'❌', bu:'❌', fo:'❌' },
   { feature:'JS-free (pure CSS)',             s:'✅',  tw:'✅', bs:'❌', mui:'❌', bu:'✅', fo:'⚠️' },
-  { feature:'File size (unminified)',         s:'723KB',tw:'N/A (JIT)',bs:'232KB',mui:'JS bundle',bu:'205KB',fo:'212KB' },
+  { feature:'File size (unminified)',         s:'310KB (core)',tw:'N/A (JIT)',bs:'232KB',mui:'JS bundle',bu:'205KB',fo:'212KB' },
   { feature:'Purged production size',        s:'~5KB', tw:'~3KB',bs:'~20KB',mui:'~80KB',bu:'~15KB',fo:'~20KB' },
 ];
 
@@ -3748,7 +3744,7 @@ function vsNotify() {
 
 // Copy CDN link
 function copyCDN() {
-  const cdn = 'https://cdn.jsdelivr.net/npm/santycss/dist/santy.css';
+  const cdn = 'https://cdn.jsdelivr.net/npm/santycss/dist/santy-start.css';
   navigator.clipboard.writeText(`<link rel="stylesheet" href="${cdn}">`).then(() => {
     const btn = document.getElementById('cdn-copy-btn');
     btn.textContent = '✓ Copied!';
