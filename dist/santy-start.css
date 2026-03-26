@@ -5,7 +5,7 @@
    https://santycss.santy.in */
 
 /* ============================================================
-   SantyCSS v2.2.0  —  Plain-English Utility CSS Framework
+   SantyCSS v2.3.0  —  Plain-English Utility CSS Framework
    https://github.com/santybad/santy_css
    ============================================================ */
 
@@ -6803,6 +6803,33 @@
 
 
 
+
+
+
+/* ═══════════════════════════════════════════════════════════════
+   CONTAINER QUERIES
+   Part 1: make-container* — define a container
+   Part 2: on-container-{size}: — anonymous queries
+   Part 3: on-{name}-{size}:   — named container queries
+   Part 4: on-container-{n}:   — pixel-exact queries
+   Part 5: on-container-below-{size}: — max-width queries
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Part 1 — Container definitions (make- prefix, no queries needed) ── */
+.make-container       { container-type: inline-size; }
+.make-container-size  { container-type: size; }
+.make-container-block { container-type: block-size; }
+
+.make-container-named-card { container: card / inline-size; }
+.make-container-named-sidebar { container: sidebar / inline-size; }
+.make-container-named-panel { container: panel / inline-size; }
+.make-container-named-header { container: header / inline-size; }
+.make-container-named-main { container: main / inline-size; }
+.make-container-named-footer { container: footer / inline-size; }
+.make-container-named-nav { container: nav / inline-size; }
+.make-container-named-hero { container: hero / inline-size; }
+.make-container-named-section { container: section / inline-size; }
+.make-container-named-widget { container: widget / inline-size; }
 
 
 

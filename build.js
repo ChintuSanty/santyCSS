@@ -52,7 +52,7 @@ const add = (...css) => lines.push(...css);
 // ─── CSS RESET + BASE ────────────────────────────────────────────────────────
 add(
 `/* ============================================================
-   SantyCSS v2.2.0  —  Plain-English Utility CSS Framework
+   SantyCSS v2.3.0  —  Plain-English Utility CSS Framework
    https://github.com/santybad/santy_css
    ============================================================ */
 
@@ -1361,6 +1361,121 @@ extraStateVariants.forEach(([prefix, pseudo]) => {
     add(`.${prefix}\\:${cls}${pseudo} { ${prop}; }`);
   });
 });
+add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
+
+// ─── CONTAINER QUERIES ───────────────────────────────────────────────────────
+add(`\n/* ═══════════════════════════════════════════════════════════════
+   CONTAINER QUERIES
+   Part 1: make-container* — define a container
+   Part 2: on-container-{size}: — anonymous queries
+   Part 3: on-{name}-{size}:   — named container queries
+   Part 4: on-container-{n}:   — pixel-exact queries
+   Part 5: on-container-below-{size}: — max-width queries
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Part 1 — Container definitions (make- prefix, no queries needed) ── */
+.make-container       { container-type: inline-size; }
+.make-container-size  { container-type: size; }
+.make-container-block { container-type: block-size; }
+`);
+
+// Named container definitions — make-container-named-{name}
+const namedContainers = ['card','sidebar','panel','header','main','footer','nav','hero','section','widget'];
+namedContainers.forEach(name => {
+  add(`.make-container-named-${name} { container: ${name} / inline-size; }`);
+});
+
+// ── Parts 2–5 live in VARIANTS_BLOCK (→ santy-variants.css) ──────────────────
+add(`\n/* ═══ VARIANTS_BLOCK_START ═══ */`);
+
+// Classes to generate inside each @container rule
+const cqClasses = [
+  // Display
+  ['make-block','display:block'],['make-inline-block','display:inline-block'],
+  ['make-flex','display:flex'],['make-grid','display:grid'],['make-hidden','display:none'],
+  // Flex
+  ['flex-row','flex-direction:row'],['flex-column','flex-direction:column'],
+  ['flex-wrap','flex-wrap:wrap'],['flex-nowrap','flex-wrap:nowrap'],
+  ['align-center','align-items:center'],['align-start','align-items:flex-start'],
+  ['align-end','align-items:flex-end'],['align-stretch','align-items:stretch'],
+  ['justify-center','justify-content:center'],['justify-between','justify-content:space-between'],
+  ['justify-start','justify-content:flex-start'],['justify-end','justify-content:flex-end'],
+  // Text align
+  ['text-left','text-align:left'],['text-center','text-align:center'],['text-right','text-align:right'],
+  // Width
+  ['set-width-full','width:100%'],['set-width-auto','width:auto'],
+];
+// Grid cols
+gridCols.forEach(n => cqClasses.push([`grid-cols-${n}`,`grid-template-columns:repeat(${n},minmax(0,1fr))`]));
+// Font sizes
+[12,14,16,18,20,24,28,32,36,40,48].forEach(v => cqClasses.push([`set-text-${v}`,`font-size:${v}px`]));
+// Spacing (padding, margin, gap — selective values)
+[0,4,8,12,16,20,24,32,40,48,64].forEach(v => {
+  cqClasses.push([`add-padding-${v}`,`padding:${v}px`]);
+  cqClasses.push([`add-padding-x-${v}`,`padding-left:${v}px;padding-right:${v}px`]);
+  cqClasses.push([`add-padding-y-${v}`,`padding-top:${v}px;padding-bottom:${v}px`]);
+  cqClasses.push([`add-margin-${v}`,`margin:${v}px`]);
+  cqClasses.push([`gap-${v}`,`gap:${v}px`]);
+});
+
+function writeCQ(prefix, containerSelector, minWidth) {
+  const rule = containerSelector
+    ? `@container ${containerSelector} (min-width: ${minWidth}px)`
+    : `@container (min-width: ${minWidth}px)`;
+  add(`\n${rule} {`);
+  cqClasses.forEach(([cls, props]) => {
+    const val = props.split(';').map(p => p.trim()).filter(Boolean).map(p => p + ';').join(' ');
+    add(`  .${prefix}\\:${cls} { ${val} }`);
+  });
+  add(`}`);
+}
+
+// ── Part 2 — Anonymous container queries: on-container-{size}: ───────────────
+add('\n/* ── on-container-{size}: — anonymous container queries ── */');
+const cqBreakpoints = { 'xs':200, 'sm':320, 'md':480, 'lg':640, 'xl':800, '2xl':1024 };
+Object.entries(cqBreakpoints).forEach(([size, px]) => {
+  writeCQ(`on-container-${size}`, '', px);
+});
+
+// ── Part 3 — Named container queries: on-{name}-{size}: ──────────────────────
+add('\n/* ── on-{name}-{size}: — named container queries ── */');
+namedContainers.forEach(name => {
+  Object.entries(cqBreakpoints).forEach(([size, px]) => {
+    writeCQ(`on-${name}-${size}`, name, px);
+  });
+});
+
+// ── Part 4 — Pixel-exact: on-container-{n}: ──────────────────────────────────
+add('\n/* ── on-container-{n}: — pixel-exact container queries ── */');
+const cqPixelWidths = [200, 280, 320, 400, 480, 560, 640, 720, 800];
+// Only generate the most structural classes for pixel-exact (keep size down)
+const cqPixelClasses = [
+  ['make-flex','display:flex'],['make-grid','display:grid'],['make-hidden','display:none'],['make-block','display:block'],
+  ['flex-row','flex-direction:row'],['flex-column','flex-direction:column'],
+  ['flex-wrap','flex-wrap:wrap'],
+  ['align-center','align-items:center'],['justify-between','justify-content:space-between'],['justify-center','justify-content:center'],
+  ['text-left','text-align:left'],['text-center','text-align:center'],
+];
+gridCols.forEach(n => cqPixelClasses.push([`grid-cols-${n}`,`grid-template-columns:repeat(${n},minmax(0,1fr))`]));
+cqPixelWidths.forEach(px => {
+  add(`\n@container (min-width: ${px}px) {`);
+  cqPixelClasses.forEach(([cls, props]) => {
+    add(`  .on-container-${px}\\:${cls} { ${props}; }`);
+  });
+  add(`}`);
+});
+
+// ── Part 5 — Max-width (below) variants ──────────────────────────────────────
+add('\n/* ── on-container-below-{size}: — max-width container queries ── */');
+[['sm',319],['md',479],['lg',639],['xl',799]].forEach(([size, px]) => {
+  add(`\n@container (max-width: ${px}px) {`);
+  cqClasses.forEach(([cls, props]) => {
+    const val = props.split(';').map(p => p.trim()).filter(Boolean).map(p => p + ';').join(' ');
+    add(`  .on-container-below-${size}\\:${cls} { ${val} }`);
+  });
+  add(`}`);
+});
+
 add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
 
 // ─── EXTENDED ANIMATIONS (animate.css compatible) ────────────────────────────
