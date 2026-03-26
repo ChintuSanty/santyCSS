@@ -162,6 +162,21 @@
     .code-block::-webkit-scrollbar-track { background: #1e293b; border-radius: 3px; }
     .code-block::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
 
+    /* Dark mode for hero */
+    .dark-mode #site-nav { background:#1e293b !important; border-color:#334155 !important; }
+    .dark-mode #site-nav a, .dark-mode #site-nav span { color:#e2e8f0 !important; }
+    .dark-mode #site-nav a[href="/playground.html"] { background:#1e3a5f !important; color:#93c5fd !important; }
+    .dark-mode section { background:#0f172a !important; }
+    .dark-mode #hero-editor { background:#1e293b !important; border-color:#334155 !important; }
+    .dark-mode #hero-editor [style*="background:#f9fafb"],
+    .dark-mode #hero-editor [style*="background: #f9fafb"] { background:#1e293b !important; }
+    .dark-mode #hero-editor [style*="background:#fff"],
+    .dark-mode #hero-editor [style*="background: #fff"] { background:#1e293b !important; }
+    .dark-mode #hero-textarea { background:#0f172a !important; color:#e2e8f0 !important; }
+    .dark-mode h1, .dark-mode h3 { color:#f1f5f9 !important; }
+    .dark-mode p, .dark-mode span { color:#94a3b8 !important; }
+    .dark-mode code { background:#334155 !important; color:#e2e8f0 !important; }
+
     /* ── Mobile Hamburger ─────────────────────────────────────── */
     .nav-hamburger {
       display: none;
@@ -220,118 +235,164 @@
 </head>
 <body class="background-gray-50">
 
-<!-- ─── TOP NAV ─────────────────────────────────────────────────────────────── -->
-<header class="position-sticky pin-top-0 layer-50 background-white add-shadow-sm" style="border-bottom:1px solid #e5e7eb;">
-  <div class="container make-flex align-center justify-between add-padding-y-14">
-    <a href="#" class="make-flex align-center gap-10 text-no-decoration">
-      <img src="assest/santy_css.png" alt="SantyCSS" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
-      <span class="set-text-20 text-bold color-gray-900">Santy<span class="color-blue-600">CSS</span></span>
-      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v2.0.0</span>
-    </a>
-    <button class="nav-hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
-      <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-      <svg id="ham-close" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:none"><path d="M6 18L18 6M6 6l12 12"/></svg>
-    </button>
-    <nav id="main-nav" class="make-flex align-center gap-20">
-      <a href="classes.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Classes</a>
-      <a href="components.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Components</a>
-      <a href="animations.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Animations</a>
-      <a href="icons.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Icons</a>
-      <a href="templates.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Templates</a>
-      <div class="nav-resources" id="navResources">
-        <button class="nav-resources-btn" id="navResBtn" onclick="toggleResources()" aria-expanded="false">
-          Resources
-          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="nav-dropdown" id="navDropdown">
-          <a href="#ai-generator">✨ AI Generator</a>
-          <a href="webflow.html">🌊 Webflow snippets</a>
-          <a href="docs.html">📦 npm Docs</a>
-          <a href="docs.html#postcss">🔧 PostCSS Plugin</a>
-          <a href="changelog.html">📋 Changelog</a>
-          <a href="#feedback">💬 Feedback</a>
+<!-- ═══════════════════════════════════════════════════
+     NEW HERO SECTION — playground-first
+     ═══════════════════════════════════════════════════ -->
+
+<!-- NAV -->
+<nav id="site-nav" style="
+  position:sticky;top:0;z-index:100;
+  background:#fff;
+  border-bottom:1px solid #e5e7eb;
+  padding:0 24px;
+  height:60px;
+  display:flex;align-items:center;gap:0;
+">
+  <!-- Logo -->
+  <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;">
+    <span style="width:28px;height:28px;background:#2563eb;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;">S</span>
+    <span style="font-weight:700;font-size:15px;color:#111827;">SantyCSS</span>
+    <span style="font-size:11px;color:#6b7280;background:#f3f4f6;padding:2px 7px;border-radius:9999px;margin-left:2px;">v2.1</span>
+  </a>
+  <!-- Nav links -->
+  <div style="display:flex;align-items:center;gap:4px;margin-left:28px;flex:1;">
+    <a href="/playground.html" style="padding:6px 12px;border-radius:7px;font-size:13.5px;font-weight:500;color:#2563eb;background:#eff6ff;text-decoration:none;">Playground</a>
+    <a href="/classes.html" style="padding:6px 12px;border-radius:7px;font-size:13.5px;font-weight:500;color:#374151;text-decoration:none;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='transparent'">Classes</a>
+    <a href="/docs.html" style="padding:6px 12px;border-radius:7px;font-size:13.5px;font-weight:500;color:#374151;text-decoration:none;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='transparent'">Docs</a>
+    <a href="#components" style="padding:6px 12px;border-radius:7px;font-size:13.5px;font-weight:500;color:#374151;text-decoration:none;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='transparent'">Components</a>
+    <a href="/animations.html" style="padding:6px 12px;border-radius:7px;font-size:13.5px;font-weight:500;color:#374151;text-decoration:none;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='transparent'">Animations</a>
+  </div>
+  <!-- Right side -->
+  <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
+    <button id="dark-toggle" onclick="toggleDark()" title="Toggle dark mode" style="width:34px;height:34px;border-radius:8px;border:1px solid #e5e7eb;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:#374151;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='transparent'">🌙</button>
+    <a href="#install" style="padding:7px 16px;background:#2563eb;color:#fff;border-radius:8px;font-size:13.5px;font-weight:600;text-decoration:none;transition:background .15s;" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#2563eb'">Get started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section style="padding:48px 24px 32px;text-align:center;background:#fff;">
+  <!-- Eyebrow pill -->
+  <div style="display:inline-flex;align-items:center;gap:6px;background:#dbeafe;color:#1e40af;padding:4px 14px;border-radius:9999px;font-size:12.5px;font-weight:600;margin-bottom:20px;">
+    <span>8,500+ classes</span>
+    <span style="color:#93c5fd;">·</span>
+    <span>no build step</span>
+  </div>
+  <!-- H1 -->
+  <h1 style="font-size:clamp(28px,5vw,48px);font-weight:800;color:#111827;line-height:1.15;margin:0 0 14px;letter-spacing:-0.5px;">
+    CSS that reads like <span style="color:#185FA5;">plain English</span>
+  </h1>
+  <!-- Subtitle -->
+  <p style="font-size:16px;color:#6b7280;margin:0 auto 32px;max-width:460px;line-height:1.6;">
+    Write <code style="background:#f3f4f6;padding:1px 6px;border-radius:4px;font-size:14px;color:#374151;">add-padding-24</code> instead of <code style="background:#f3f4f6;padding:1px 6px;border-radius:4px;font-size:14px;color:#374151;">p-6</code>.
+    Try it below — no install needed.
+  </p>
+
+  <!-- ── INLINE EDITOR SHELL ── -->
+  <div id="hero-editor" style="
+    max-width:900px;margin:0 auto;
+    border:1px solid #e5e7eb;border-radius:14px;
+    background:#fff;overflow:hidden;
+    box-shadow:0 4px 24px rgba(0,0,0,0.07);
+    text-align:left;
+  ">
+    <!-- TOP BAR -->
+    <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid #e5e7eb;background:#f9fafb;flex-wrap:wrap;row-gap:6px;">
+      <!-- Tab switcher -->
+      <div style="display:flex;gap:2px;background:#e5e7eb;border-radius:7px;padding:2px;flex-shrink:0;">
+        <button id="tab-html" onclick="switchEditorTab('html')" style="padding:4px 12px;border-radius:5px;border:none;font-size:12px;font-weight:600;cursor:pointer;background:#fff;color:#111827;box-shadow:0 1px 3px rgba(0,0,0,0.08);">HTML</button>
+        <button id="tab-css" onclick="switchEditorTab('css')" style="padding:4px 12px;border-radius:5px;border:none;font-size:12px;font-weight:600;cursor:pointer;background:transparent;color:#6b7280;">CSS output</button>
+      </div>
+      <!-- Preset pills (scrollable) -->
+      <div style="display:flex;gap:6px;overflow-x:auto;flex:1;scrollbar-width:none;min-width:0;padding:0 2px;" id="preset-row">
+        <button class="preset-btn" data-preset="card" onclick="loadPreset('card',this)" style="padding:4px 12px;border-radius:9999px;border:1px solid #2563eb;background:#eff6ff;color:#2563eb;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;">Card</button>
+        <button class="preset-btn" data-preset="hero" onclick="loadPreset('hero',this)" style="padding:4px 12px;border-radius:9999px;border:1px solid #e5e7eb;background:#fff;color:#374151;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;flex-shrink:0;">Hero</button>
+        <button class="preset-btn" data-preset="pricing" onclick="loadPreset('pricing',this)" style="padding:4px 12px;border-radius:9999px;border:1px solid #e5e7eb;background:#fff;color:#374151;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;flex-shrink:0;">Pricing</button>
+        <button class="preset-btn" data-preset="dashboard" onclick="loadPreset('dashboard',this)" style="padding:4px 12px;border-radius:9999px;border:1px solid #e5e7eb;background:#fff;color:#374151;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;flex-shrink:0;">Dashboard</button>
+        <button class="preset-btn" data-preset="form" onclick="loadPreset('form',this)" style="padding:4px 12px;border-radius:9999px;border:1px solid #e5e7eb;background:#fff;color:#374151;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;flex-shrink:0;">Form</button>
+      </div>
+      <!-- Viewport toggles -->
+      <div style="display:flex;gap:2px;flex-shrink:0;">
+        <button id="vp-desktop" onclick="setViewport('desktop')" title="Desktop" style="width:30px;height:30px;border-radius:6px;border:1px solid #e5e7eb;background:#fff;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='#fff'">🖥</button>
+        <button id="vp-mobile" onclick="setViewport('mobile')" title="Mobile (375px)" style="width:30px;height:30px;border-radius:6px;border:1px solid #e5e7eb;background:transparent;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='transparent'">📱</button>
+      </div>
+    </div>
+
+    <!-- EDITOR / PREVIEW SPLIT -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;min-height:280px;">
+
+      <!-- LEFT: HTML editor -->
+      <div style="display:flex;flex-direction:column;border-right:1px solid #e5e7eb;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 14px;border-bottom:1px solid #f3f4f6;">
+          <span style="font-size:11.5px;font-weight:600;color:#6b7280;letter-spacing:.5px;text-transform:uppercase;">HTML editor</span>
+          <button onclick="copyEditor()" id="copy-editor-btn" style="font-size:11.5px;padding:3px 10px;border-radius:6px;border:1px solid #e5e7eb;background:#fff;color:#374151;cursor:pointer;font-weight:500;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#fff'">Copy</button>
+        </div>
+        <div id="html-editor-wrap" style="flex:1;position:relative;">
+          <textarea id="hero-textarea" oninput="scheduleRender()" style="
+            width:100%;height:100%;min-height:248px;
+            padding:14px;
+            font-family:'SF Mono','Fira Code',monospace;
+            font-size:11.5px;line-height:1.7;
+            background:#fafafa;border:none;outline:none;resize:none;
+            color:#374151;box-sizing:border-box;
+          "></textarea>
+        </div>
+        <div id="css-output-wrap" style="flex:1;display:none;position:relative;overflow:auto;max-height:280px;">
+          <pre id="css-output-pre" style="margin:0;padding:14px;font-family:'SF Mono','Fira Code',monospace;font-size:11px;line-height:1.7;color:#374151;background:#fafafa;"></pre>
         </div>
       </div>
-      <a href="https://github.com/ChintuSanty/santyCSS" target="_blank" rel="noopener" title="Star on GitHub" style="display:inline-flex;align-items:center;gap:5px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:8px;padding:5px 12px;color:#374151;font-size:13px;font-weight:600;text-decoration:none;transition:all .15s;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        Star
-      </a>
-      <button id="dark-toggle" onclick="toggleDark()" title="Toggle dark mode" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;transition:all .15s;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">
-        <svg id="dark-icon-moon" width="16" height="16" fill="none" stroke="#374151" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-        <svg id="dark-icon-sun" width="16" height="16" fill="none" stroke="#374151" stroke-width="2" viewBox="0 0 24 24" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-      </button>
-      <a href="playground.html" class="make-button style-primary size-small">⚡ Playground →</a>
-    </nav>
-  </div>
-</header>
 
-<!-- ─── HERO ──────────────────────────────────────────────────────────────────── -->
-<section class="hero-gradient add-padding-y-96 add-padding-x-16">
-  <div class="container text-center">
-    <!-- India's first badge -->
-    <div class="make-flex justify-center add-margin-bottom-16">
-      <span style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(255,153,51,.18),rgba(19,136,8,.18));border:1px solid rgba(255,153,51,.4);border-radius:9999px;padding:6px 18px;font-size:13px;font-weight:700;color:#fff;">
-        🇮🇳 India's First Utility-First CSS Framework
-      </span>
-    </div>
-
-    <div class="make-flex justify-center flex-wrap gap-8 add-margin-bottom-20">
-      <span class="badge" style="background:rgba(255,255,255,0.1);color:#7dd3fc;font-size:13px;border:1px solid rgba(255,255,255,0.2);">
-        ✦ 8,500+ Classes · 120+ Animations · No Build Step
-      </span>
-      <a href="https://www.npmjs.com/package/santycss" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;">
-        <img src="https://img.shields.io/npm/v/santycss?style=flat-square&color=cb3837&label=npm" alt="npm version" style="height:22px;">
-      </a>
-      <a href="https://www.npmjs.com/package/santycss" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;">
-        <img src="https://img.shields.io/npm/dm/santycss?style=flat-square&color=3b82f6&label=downloads%2Fmo" alt="npm downloads" style="height:22px;">
-      </a>
-      <a href="https://bundlephobia.com/package/santycss" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;">
-        <img src="https://img.shields.io/bundlephobia/min/santycss?style=flat-square&color=22c55e&label=min" alt="bundle size" style="height:22px;">
-      </a>
-      <a href="https://github.com/ChintuSanty/santyCSS" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:rgba(251,191,36,0.15);border:1px solid rgba(251,191,36,0.35);border-radius:6px;padding:3px 10px;color:#fbbf24;font-size:13px;font-weight:600;text-decoration:none;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="#fbbf24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        Star on GitHub
-      </a>
-    </div>
-    <h1 class="set-text-64 text-bold color-white add-margin-bottom-20" style="letter-spacing:-2px;line-height:1.1;">
-      CSS that reads like<br><span style="color:#7dd3fc;">plain English</span>
-    </h1>
-    <p class="set-text-20 add-margin-bottom-40" style="color:rgba(255,255,255,0.7);max-width:600px;margin-left:auto;margin-right:auto;line-height:1.6;">
-      SantyCSS is a utility-first framework where class names describe what they do — in words you already know.
-      No cryptic abbreviations, no lookup tables.
-    </p>
-
-    <!-- Class tag showcase -->
-    <div class="add-margin-bottom-48" style="max-width:700px;margin-left:auto;margin-right:auto;">
-      <span class="class-tag">add-padding-24</span>
-      <span class="class-tag">add-border-left-4</span>
-      <span class="class-tag">make-flex</span>
-      <span class="class-tag">align-center</span>
-      <span class="class-tag">justify-between</span>
-      <span class="class-tag">round-corners-12</span>
-      <span class="class-tag">set-text-18</span>
-      <span class="class-tag">text-semibold</span>
-      <span class="class-tag">add-shadow-md</span>
-      <span class="class-tag">opacity-80</span>
-      <span class="class-tag">on-hover:scale-105</span>
-      <span class="class-tag">transition-normal</span>
-      <span class="class-tag">background-blue-500</span>
-      <span class="class-tag">color-white</span>
-      <span class="class-tag">grid-cols-3</span>
-      <span class="class-tag">gap-16</span>
-    </div>
-
-    <div class="make-flex justify-center gap-16 flex-wrap hero-cta-group">
-      <a href="#getting-started" class="make-button style-primary size-large">Get Started</a>
-      <a href="playground.html" class="make-button style-ghost size-large" style="color:#fff;border-color:rgba(255,255,255,0.4);">⚡ Playground</a>
-      <a href="#utilities" class="make-button style-ghost size-large" style="color:#fff;border-color:rgba(255,255,255,0.4);">Browse Utilities</a>
-    </div>
-    <!-- CDN one-liner -->
-    <div class="add-margin-top-28 make-flex justify-center">
-      <div id="cdn-snippet" style="display:inline-flex;align-items:center;gap:0;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.15);border-radius:12px;overflow:hidden;max-width:620px;width:100%;">
-        <span style="padding:11px 18px;font-family:ui-monospace,monospace;font-size:12.5px;color:#93c5fd;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy-start.css"&gt;</span>
-        <button onclick="copyCDN()" id="cdn-copy-btn" style="background:rgba(255,255,255,0.1);border:none;border-left:1px solid rgba(255,255,255,0.15);color:#fff;padding:11px 20px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;transition:background .15s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">Copy CDN</button>
+      <!-- RIGHT: Live preview -->
+      <div style="display:flex;flex-direction:column;background:#f9fafb;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 14px;border-bottom:1px solid #f3f4f6;background:#fff;">
+          <span style="font-size:11.5px;font-weight:600;color:#6b7280;letter-spacing:.5px;text-transform:uppercase;">Live preview</span>
+          <span style="font-size:11px;background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:9999px;font-weight:600;">auto-updates</span>
+        </div>
+        <div id="preview-wrap" style="flex:1;display:flex;align-items:center;justify-content:center;padding:16px;overflow:hidden;">
+          <iframe id="hero-preview" sandbox="allow-scripts allow-same-origin" style="
+            width:100%;height:248px;
+            border:none;border-radius:8px;
+            background:#fff;
+            transition:width .3s ease;
+          "></iframe>
+        </div>
       </div>
+    </div>
+
+    <!-- FOOTER BAR -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 14px;border-top:1px solid #e5e7eb;background:#f9fafb;flex-wrap:wrap;gap:8px;">
+      <span id="class-count" style="font-size:12px;color:#6b7280;font-weight:500;">0 classes used</span>
+      <div style="display:flex;gap:6px;">
+        <button onclick="formatHTML()" style="font-size:12px;padding:4px 12px;border-radius:7px;border:1px solid #e5e7eb;background:#fff;color:#374151;cursor:pointer;font-weight:500;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#fff'">Format</button>
+        <button onclick="shareSnippet()" style="font-size:12px;padding:4px 12px;border-radius:7px;border:1px solid #e5e7eb;background:#fff;color:#374151;cursor:pointer;font-weight:500;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='#fff'">Share</button>
+        <button onclick="window.location='/playground.html'" style="font-size:12px;padding:4px 14px;border-radius:7px;border:1px solid #2563eb;background:#eff6ff;color:#2563eb;cursor:pointer;font-weight:600;" onmouseover="this.style.background='#dbeafe'" onmouseout="this.style.background='#eff6ff'">Open full playground →</button>
+      </div>
+    </div>
+  </div><!-- /hero-editor -->
+
+  <!-- CDN STRIP -->
+  <div style="max-width:900px;margin:14px auto 0;display:flex;align-items:center;gap:12px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:10px 16px;flex-wrap:wrap;gap:8px;">
+    <code id="cdn-code" style="flex:1;font-family:'SF Mono','Fira Code',monospace;font-size:12px;color:#374151;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css"&gt;</code>
+    <button onclick="copyCDNStrip()" id="cdn-strip-btn" style="flex-shrink:0;padding:5px 14px;border-radius:7px;border:1px solid #e5e7eb;background:#fff;font-size:12px;font-weight:600;color:#374151;cursor:pointer;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='#fff'">Copy CDN</button>
+  </div>
+</section>
+
+<!-- THREE FEATURE CARDS -->
+<section style="padding:32px 24px 0;background:#fff;">
+  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+    <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:20px 22px;">
+      <div style="width:36px;height:36px;background:#dbeafe;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;margin-bottom:12px;">&lt;/&gt;</div>
+      <h3 style="font-size:15px;font-weight:700;color:#111827;margin:0 0 6px;">No build step</h3>
+      <p style="font-size:13.5px;color:#6b7280;margin:0;line-height:1.55;">One CDN link. All 8,500+ classes ready instantly.</p>
+    </div>
+    <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:20px 22px;">
+      <div style="width:36px;height:36px;background:#dcfce7;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;margin-bottom:12px;">✏️</div>
+      <h3 style="font-size:15px;font-weight:700;color:#111827;margin:0 0 6px;">Plain English names</h3>
+      <p style="font-size:13.5px;color:#6b7280;margin:0;line-height:1.55;"><code style="background:#e5e7eb;padding:1px 5px;border-radius:3px;font-size:12px;">add-padding-24</code> not <code style="background:#e5e7eb;padding:1px 5px;border-radius:3px;font-size:12px;">p-6</code>. Read it, remember it.</p>
+    </div>
+    <div style="background:#f9fafb;border:1px solid #e5e7eb;border-radius:12px;padding:20px 22px;">
+      <div style="width:36px;height:36px;background:#fef3c7;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;margin-bottom:12px;">🖥</div>
+      <h3 style="font-size:15px;font-weight:700;color:#111827;margin:0 0 6px;">VS Code extension</h3>
+      <p style="font-size:13.5px;color:#6b7280;margin:0;line-height:1.55;">Autocomplete + hover docs for every class.</p>
     </div>
   </div>
 </section>
@@ -2587,7 +2648,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
           <span id="ai-key-status-dot" style="width:8px;height:8px;border-radius:50%;background:#475569;flex-shrink:0;"></span>
           <span id="ai-key-status-text" style="font-size:13px;color:#94a3b8;font-weight:500;">No API key — using smart rule engine</span>
         </div>
-        <div style="display:flex;align-items:center;gap-8px;gap:8px;">
+        <div style="display:flex;align-items:center;gap:8px;">
           <div id="ai-key-input-wrap" style="display:none;align-items:center;gap:6px;">
             <input id="ai-key-input" type="password" placeholder="sk-ant-..." style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:5px 10px;font-size:12px;color:#f1f5f9;outline:none;width:220px;font-family:ui-monospace,monospace;" />
             <button onclick="aiSaveKey()" style="background:#6366f1;color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer;">Save</button>
@@ -3798,6 +3859,272 @@ document.addEventListener('DOMContentLoaded', function() {
   try { aiUpdateKeyStatus(!!localStorage.getItem('santycss_ai_key')); } catch(e){}
 });
 
+</script>
+
+<script>
+// ── Hero playground ────────────────────────────────────────────────────────
+const PRESETS = {
+  card: `<div class="card add-padding-24 add-border-left-4
+            border-color-blue-500 on-hover:add-shadow-lg
+            transition-normal">
+  <span class="badge background-blue-100 color-blue-700">New</span>
+  <h3 class="set-text-18 text-semibold color-gray-900 add-margin-top-8">
+    SantyCSS v2.0
+  </h3>
+  <p class="set-text-14 color-gray-500 add-margin-top-4">
+    Plain-English CSS
+  </p>
+  <button class="btn btn-primary add-margin-top-16">Get started</button>
+</div>`,
+
+  hero: `<div class="add-padding-48 text-center">
+  <h1 class="set-text-40 text-bold color-gray-900">Hello, world</h1>
+  <p class="set-text-18 color-gray-500 add-margin-top-12">
+    Built with SantyCSS
+  </p>
+  <button class="btn btn-primary add-margin-top-24 add-padding-x-32">
+    Get started
+  </button>
+</div>`,
+
+  pricing: `<div class="make-flex gap-16">
+  <div class="card add-padding-24 set-width-1-of-2">
+    <p class="set-text-14 text-semibold color-gray-500">Starter</p>
+    <p class="set-text-32 text-bold color-gray-900 add-margin-top-4">Free</p>
+    <button class="btn btn-outline add-margin-top-16 set-width-full">Get started</button>
+  </div>
+  <div class="card add-padding-24 set-width-1-of-2 add-border-2 border-color-blue-500">
+    <p class="set-text-14 text-semibold color-blue-600">Pro</p>
+    <p class="set-text-32 text-bold color-gray-900 add-margin-top-4">$9<span class="set-text-16 color-gray-400">/mo</span></p>
+    <button class="btn btn-primary add-margin-top-16 set-width-full">Start free trial</button>
+  </div>
+</div>`,
+
+  dashboard: `<div class="make-grid grid-cols-2 gap-12">
+  <div class="card add-padding-16">
+    <p class="set-text-12 color-gray-500 text-uppercase">Revenue</p>
+    <p class="set-text-28 text-bold color-gray-900 add-margin-top-4">$84,250</p>
+    <p class="set-text-12 color-green-600 add-margin-top-4">+12.5% vs last month</p>
+  </div>
+  <div class="card add-padding-16">
+    <p class="set-text-12 color-gray-500 text-uppercase">Users</p>
+    <p class="set-text-28 text-bold color-gray-900 add-margin-top-4">24,891</p>
+    <p class="set-text-12 color-green-600 add-margin-top-4">+8.2% vs last month</p>
+  </div>
+  <div class="card add-padding-16">
+    <p class="set-text-12 color-gray-500 text-uppercase">Orders</p>
+    <p class="set-text-28 text-bold color-gray-900 add-margin-top-4">1,429</p>
+    <p class="set-text-12 color-red-500 add-margin-top-4">-3.1% vs last month</p>
+  </div>
+  <div class="card add-padding-16">
+    <p class="set-text-12 color-gray-500 text-uppercase">Conversion</p>
+    <p class="set-text-28 text-bold color-gray-900 add-margin-top-4">5.74%</p>
+    <p class="set-text-12 color-green-600 add-margin-top-4">+1.4% vs last month</p>
+  </div>
+</div>`,
+
+  form: `<div class="card add-padding-24 set-width-full">
+  <h3 class="set-text-18 text-semibold color-gray-900 add-margin-bottom-16">Sign up</h3>
+  <div class="make-flex flex-column gap-12">
+    <input class="input" type="text" placeholder="Full name">
+    <input class="input" type="email" placeholder="Email address">
+    <button class="btn btn-primary">Create account</button>
+  </div>
+  <p class="set-text-12 color-gray-400 add-margin-top-12 text-center">No credit card required</p>
+</div>`
+};
+
+let renderTimer = null;
+let currentViewport = 'desktop';
+let currentTab = 'html';
+
+function renderIframe() {
+  const ta = document.getElementById('hero-textarea');
+  if (!ta) return;
+  const html = ta.value;
+  const iframe = document.getElementById('hero-preview');
+  if (!iframe) return;
+  const srcdoc = `<!DOCTYPE html><html><head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css">
+<style>body{margin:0;padding:16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;}</style>
+</head><body>${html}</body></html>`;
+  iframe.srcdoc = srcdoc;
+  updateClassCount(html);
+  if (currentTab === 'css') showCSSOutput(html);
+}
+
+function scheduleRender() {
+  clearTimeout(renderTimer);
+  renderTimer = setTimeout(renderIframe, 300);
+}
+
+function updateClassCount(html) {
+  const matches = html.match(/class="([^"]*)"/g) || [];
+  const classes = new Set();
+  matches.forEach(m => {
+    m.replace(/class="([^"]*)"/, (_, c) => {
+      c.trim().split(/\s+/).forEach(cls => cls && classes.add(cls));
+    });
+  });
+  const el = document.getElementById('class-count');
+  if (el) el.textContent = classes.size + ' class' + (classes.size !== 1 ? 'es' : '') + ' used';
+}
+
+function loadPreset(name, btn) {
+  const ta = document.getElementById('hero-textarea');
+  if (!ta) return;
+  ta.value = PRESETS[name] || '';
+  renderIframe();
+  // Update active preset button
+  document.querySelectorAll('.preset-btn').forEach(b => {
+    b.style.background = '#fff';
+    b.style.borderColor = '#e5e7eb';
+    b.style.color = '#374151';
+    b.style.fontWeight = '500';
+  });
+  if (btn) {
+    btn.style.background = '#eff6ff';
+    btn.style.borderColor = '#2563eb';
+    btn.style.color = '#2563eb';
+    btn.style.fontWeight = '600';
+  }
+}
+
+function setViewport(mode) {
+  currentViewport = mode;
+  const iframe = document.getElementById('hero-preview');
+  const wrap = document.getElementById('preview-wrap');
+  const dBtn = document.getElementById('vp-desktop');
+  const mBtn = document.getElementById('vp-mobile');
+  if (mode === 'mobile') {
+    iframe.style.width = '375px';
+    iframe.style.maxWidth = '375px';
+    wrap.style.background = '#e5e7eb';
+    if (dBtn) { dBtn.style.background = 'transparent'; dBtn.style.borderColor = '#e5e7eb'; }
+    if (mBtn) { mBtn.style.background = '#eff6ff'; mBtn.style.borderColor = '#2563eb'; }
+  } else {
+    iframe.style.width = '100%';
+    iframe.style.maxWidth = '';
+    wrap.style.background = '';
+    if (mBtn) { mBtn.style.background = 'transparent'; mBtn.style.borderColor = '#e5e7eb'; }
+    if (dBtn) { dBtn.style.background = '#fff'; dBtn.style.borderColor = '#e5e7eb'; }
+  }
+}
+
+function switchEditorTab(tab) {
+  currentTab = tab;
+  const htmlWrap = document.getElementById('html-editor-wrap');
+  const cssWrap = document.getElementById('css-output-wrap');
+  const tabHtml = document.getElementById('tab-html');
+  const tabCss = document.getElementById('tab-css');
+  if (tab === 'css') {
+    htmlWrap.style.display = 'none';
+    cssWrap.style.display = 'block';
+    showCSSOutput(document.getElementById('hero-textarea').value);
+    tabCss.style.background = '#fff';
+    tabCss.style.color = '#111827';
+    tabCss.style.boxShadow = '0 1px 3px rgba(0,0,0,0.08)';
+    tabHtml.style.background = 'transparent';
+    tabHtml.style.color = '#6b7280';
+    tabHtml.style.boxShadow = 'none';
+  } else {
+    htmlWrap.style.display = 'block';
+    cssWrap.style.display = 'none';
+    tabHtml.style.background = '#fff';
+    tabHtml.style.color = '#111827';
+    tabHtml.style.boxShadow = '0 1px 3px rgba(0,0,0,0.08)';
+    tabCss.style.background = 'transparent';
+    tabCss.style.color = '#6b7280';
+    tabCss.style.boxShadow = 'none';
+  }
+}
+
+function showCSSOutput(html) {
+  const pre = document.getElementById('css-output-pre');
+  if (!pre) return;
+  const classes = new Set();
+  (html.match(/class="([^"]*)"/g) || []).forEach(m => {
+    m.replace(/class="([^"]*)"/, (_, c) => {
+      c.trim().split(/\s+/).forEach(cls => cls && classes.add(cls));
+    });
+  });
+  pre.textContent = '/* Classes used in this snippet */\n' + [...classes].map(c => '.' + c + ' { ... }').join('\n');
+}
+
+function copyEditor() {
+  const ta = document.getElementById('hero-textarea');
+  if (!ta) return;
+  navigator.clipboard.writeText(ta.value).then(() => {
+    const btn = document.getElementById('copy-editor-btn');
+    if (btn) { btn.textContent = 'Copied!'; btn.style.color = '#16a34a'; setTimeout(() => { btn.textContent = 'Copy'; btn.style.color = '#374151'; }, 1500); }
+  });
+}
+
+function copyCDNStrip() {
+  const text = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css">';
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('cdn-strip-btn');
+    if (btn) { btn.textContent = 'Copied!'; btn.style.color = '#16a34a'; setTimeout(() => { btn.textContent = 'Copy CDN'; btn.style.color = '#374151'; }, 1500); }
+  });
+}
+
+function formatHTML() {
+  const ta = document.getElementById('hero-textarea');
+  if (!ta) return;
+  // Simple indent formatting
+  let html = ta.value;
+  let indent = 0;
+  const lines = html.replace(/>\s*</g, '>\n<').split('\n');
+  const formatted = lines.map(line => {
+    line = line.trim();
+    if (!line) return '';
+    if (line.match(/^<\//) && indent > 0) indent--;
+    const result = '  '.repeat(indent) + line;
+    if (line.match(/^<[^/!]/) && !line.match(/\/>$/) && !line.match(/<\/.*>$/) && !line.match(/^<(br|hr|img|input|link|meta|area|base|col|embed|param|source|track|wbr)/i)) indent++;
+    return result;
+  });
+  ta.value = formatted.filter(l => l !== '').join('\n');
+  scheduleRender();
+}
+
+function shareSnippet() {
+  const ta = document.getElementById('hero-textarea');
+  if (!ta) return;
+  const encoded = btoa(unescape(encodeURIComponent(ta.value)));
+  const url = window.location.origin + '/playground.html?code=' + encoded;
+  navigator.clipboard.writeText(url).then(() => alert('Share link copied to clipboard!'));
+}
+
+// Dark mode
+function toggleDark() {
+  document.documentElement.classList.toggle('dark-mode');
+  const btn = document.getElementById('dark-toggle');
+  const isDark = document.documentElement.classList.contains('dark-mode');
+  if (btn) btn.textContent = isDark ? '☀️' : '🌙';
+  localStorage.setItem('santy-dark', isDark ? '1' : '0');
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', function() {
+  // Check saved dark mode
+  if (localStorage.getItem('santy-dark') === '1') {
+    document.documentElement.classList.add('dark-mode');
+    const btn = document.getElementById('dark-toggle');
+    if (btn) btn.textContent = '☀️';
+  }
+  // Load default preset
+  const ta = document.getElementById('hero-textarea');
+  if (ta) {
+    ta.value = PRESETS.card;
+    renderIframe();
+  }
+  // Check for stored dark mode preference
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('santy-dark')) {
+    document.documentElement.classList.add('dark-mode');
+    const btn = document.getElementById('dark-toggle');
+    if (btn) btn.textContent = '☀️';
+  }
+});
 </script>
 </body>
 </html>
