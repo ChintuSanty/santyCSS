@@ -27,12 +27,12 @@
 
     /* ─── Navbar ─── */
     .nav {
-      height: 54px;
+      height: 60px;
       background: #0a0f1e;
       display: flex;
       align-items: center;
-      padding: 0 18px;
-      gap: 14px;
+      padding: 0 24px;
+      gap: 16px;
       flex-shrink: 0;
       border-bottom: 1px solid #1e293b;
     }
@@ -124,12 +124,12 @@
     }
 
     .editor-toolbar {
-      height: 50px;
+      height: 56px;
       background: var(--ed-hdr);
       display: flex;
       align-items: center;
-      padding: 0 12px;
-      gap: 6px;
+      padding: 0 16px;
+      gap: 8px;
       flex-shrink: 0;
       border-bottom: 1px solid var(--ed-border);
       border-right: 1px solid var(--ed-border);
@@ -140,12 +140,12 @@
       color: #e6edf3;
       border: 1px solid var(--ed-border);
       border-radius: 7px;
-      padding: 4px 9px;
-      font-size: 12px;
+      padding: 5px 10px;
+      font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
       outline: none;
-      max-width: 160px;
+      max-width: 170px;
     }
     .e-select:hover { border-color: #8b949e; }
 
@@ -154,8 +154,8 @@
       color: #8b949e;
       border: 1px solid var(--ed-border);
       border-radius: 7px;
-      padding: 4px 11px;
-      font-size: 12px;
+      padding: 5px 13px;
+      font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
       display: flex;
@@ -277,13 +277,13 @@
       background: #e8edf5;
     }
     .preview-toolbar {
-      height: 50px;
+      height: 56px;
       background: #fff;
       border-bottom: 1px solid #e2e8f0;
       display: flex;
       align-items: center;
-      padding: 0 14px;
-      gap: 8px;
+      padding: 0 18px;
+      gap: 10px;
       flex-shrink: 0;
     }
     .preview-label {
@@ -298,8 +298,8 @@
       background: none;
       border: 1px solid #e2e8f0;
       border-radius: 7px;
-      padding: 4px 10px;
-      font-size: 12px;
+      padding: 5px 12px;
+      font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
       color: #94a3b8;
@@ -316,8 +316,8 @@
       color: #475569;
       border: 1px solid #e2e8f0;
       border-radius: 7px;
-      padding: 4px 11px;
-      font-size: 12px;
+      padding: 5px 13px;
+      font-size: 12.5px;
       font-weight: 600;
       cursor: pointer;
       display: flex;
@@ -385,20 +385,32 @@
       background: #fff;
       border-top: 2px solid #e2e8f0;
       flex-shrink: 0;
-      height: 210px;
+      height: 180px;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
       transition: height .2s;
     }
-    .picker.closed { height: 42px; }
+    .picker.closed { height: 46px; overflow: hidden; }
     .picker-header {
-      height: 42px;
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid #f1f5f9;
+      flex-shrink: 0;
+    }
+    .picker-header-top {
+      height: 46px;
       display: flex;
       align-items: center;
       padding: 0 14px;
-      gap: 6px;
-      border-bottom: 1px solid #f1f5f9;
-      flex-shrink: 0;
+      gap: 8px;
+    }
+    .picker-header-tabs {
+      display: flex;
+      align-items: center;
+      padding: 0 10px 6px;
+      gap: 3px;
+      border-top: 1px solid #f1f5f9;
     }
     .picker-title { font-size: 11px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: .07em; flex-shrink: 0; }
     .picker-tabs { display: flex; gap: 2px; flex: 1; overflow-x: auto; scrollbar-width: none; }
@@ -407,7 +419,7 @@
       background: none;
       border: none;
       border-radius: 7px;
-      padding: 4px 12px;
+      padding: 5px 13px;
       font-size: 12px;
       font-weight: 700;
       color: #94a3b8;
@@ -423,19 +435,19 @@
     .picker-body {
       flex: 1;
       overflow-y: auto;
-      padding: 10px 14px;
+      padding: 12px 16px;
       display: flex;
       flex-wrap: wrap;
-      gap: 5px;
+      gap: 6px;
       align-content: flex-start;
     }
     .chip {
       background: #f8fafc;
       color: #475569;
       border: 1px solid #e2e8f0;
-      border-radius: 6px;
-      padding: 3px 9px;
-      font-size: 11.5px;
+      border-radius: 7px;
+      padding: 4px 11px;
+      font-size: 12px;
       font-family: ui-monospace, monospace;
       font-weight: 700;
       cursor: pointer;
@@ -452,6 +464,92 @@
     .chip[data-cat="fx"]:hover      { background: #f5f3ff; color: #6d28d9; border-color: #8b5cf6; }
     .chip[data-cat="comp"]:hover    { background: #fff1f2; color: #be123c; border-color: #ef4444; }
     .chip[data-cat="anim"]:hover    { background: #f0fdfa; color: #0f766e; border-color: #14b8a6; }
+
+    /* ─── Autocomplete popup ─── */
+    .autocomplete {
+      position: fixed;
+      background: #1c2333;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      overflow: hidden;
+      z-index: 9999;
+      min-width: 260px;
+      max-height: 200px;
+      overflow-y: auto;
+      box-shadow: 0 12px 32px rgba(0,0,0,.6);
+      display: none;
+    }
+    .autocomplete::-webkit-scrollbar { width: 4px; }
+    .autocomplete::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
+    .ac-item {
+      padding: 7px 12px;
+      font-size: 12.5px;
+      font-family: ui-monospace, monospace;
+      color: #c9d1d9;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border-bottom: 1px solid #21262d;
+    }
+    .ac-item:last-child { border-bottom: none; }
+    .ac-item.active, .ac-item:hover { background: #21262d; color: #e6edf3; }
+    .ac-item .ac-match { color: #60a5fa; font-weight: 700; }
+    .ac-item .ac-cat {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .05em; color: #484f58; flex-shrink: 0;
+    }
+    .ac-item.active .ac-cat { color: #6e7681; }
+
+    /* ─── Picker search ─── */
+    .picker-search {
+      flex: 1;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 7px;
+      padding: 6px 12px;
+      font-size: 12.5px;
+      font-family: inherit;
+      color: #334155;
+      outline: none;
+      transition: border-color .15s;
+    }
+    .picker-search:focus { border-color: #3b82f6; background: #fff; box-shadow: 0 0 0 3px #3b82f618; }
+    .picker-search::placeholder { font-family: inherit; color: #94a3b8; }
+    .chip-cat-label {
+      width: 100%;
+      font-size: 10px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .07em; color: #94a3b8;
+      padding: 6px 2px 2px;
+    }
+
+    /* ─── Inspector bar ─── */
+    .inspector-bar {
+      background: #0d1117;
+      border-top: 1px solid #1e2d3d;
+      padding: 6px 14px;
+      font-size: 11.5px;
+      font-family: ui-monospace, monospace;
+      color: #58a6ff;
+      min-height: 28px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+    .inspector-bar::-webkit-scrollbar { display: none; }
+    .inspector-bar .ins-label { color: #484f58; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; flex-shrink: 0; }
+    .inspector-chip {
+      background: #1c2333; border: 1px solid #30363d; border-radius: 4px;
+      padding: 1px 7px; cursor: pointer; transition: all .1s; color: #58a6ff;
+    }
+    .inspector-chip:hover { background: #21262d; border-color: #58a6ff; }
+    .inspector-chip.santy { color: #a78bfa; border-color: #4c3189; }
+    .inspector-chip.santy:hover { background: #2d1f5e; border-color: #7c3aed; }
 
     /* ─── Toast ─── */
     .toast {
@@ -612,24 +710,36 @@
             sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
         </div>
       </div>
+
+      <!-- ── Inspector bar ── -->
+      <div class="inspector-bar" id="inspectorBar">
+        <span class="ins-label">Inspector</span>
+        <span style="color:#30363d;">Click an element in the preview to inspect its classes</span>
+      </div>
     </div>
+
   </div><!-- /split -->
 
   <!-- ── Class Picker ── -->
   <div class="picker" id="picker">
     <div class="picker-header">
-      <span class="picker-title">Class Picker</span>
-      <div class="picker-tabs">
-        <button class="ptab active" onclick="showTab('layout',this)">Layout</button>
-        <button class="ptab" onclick="showTab('spacing',this)">Spacing</button>
-        <button class="ptab" onclick="showTab('type',this)">Typography</button>
-        <button class="ptab" onclick="showTab('color',this)">Colors</button>
-        <button class="ptab" onclick="showTab('border',this)">Borders</button>
-        <button class="ptab" onclick="showTab('fx',this)">Effects</button>
-        <button class="ptab" onclick="showTab('comp',this)">Components</button>
-        <button class="ptab" onclick="showTab('anim',this)">Animations</button>
+      <div class="picker-header-top">
+        <span class="picker-title">Class Picker</span>
+        <input class="picker-search" id="pickerSearch" placeholder="🔍 Search classes…" oninput="searchPicker(this.value)" title="Search all SantyCSS classes">
+        <button class="picker-toggle" id="pickerToggle" onclick="togglePicker()">▼</button>
       </div>
-      <button class="picker-toggle" id="pickerToggle" onclick="togglePicker()">▼</button>
+      <div class="picker-header-tabs">
+        <div class="picker-tabs">
+          <button class="ptab active" onclick="showTab('layout',this)">Layout</button>
+          <button class="ptab" onclick="showTab('spacing',this)">Spacing</button>
+          <button class="ptab" onclick="showTab('type',this)">Typography</button>
+          <button class="ptab" onclick="showTab('color',this)">Colors</button>
+          <button class="ptab" onclick="showTab('border',this)">Borders</button>
+          <button class="ptab" onclick="showTab('fx',this)">Effects</button>
+          <button class="ptab" onclick="showTab('comp',this)">Components</button>
+          <button class="ptab" onclick="showTab('anim',this)">Animations</button>
+        </div>
+      </div>
     </div>
     <div class="picker-body" id="pickerBody"></div>
   </div>
@@ -638,6 +748,9 @@
 
 <!-- Toast -->
 <div class="toast" id="toast"></div>
+
+<!-- Autocomplete dropdown -->
+<div class="autocomplete" id="autocomplete"></div>
 
 <script>
 // ─── Class data ───────────────────────────────────────────────────────────────
@@ -1109,6 +1222,12 @@ const AI_MAP = [
   [/white|light|clean/,          'background-white color-gray-900 add-shadow-sm'],
 ];
 
+// ─── Flat class list (for autocomplete + search) ─────────────────────────────
+const ALL_CLASSES = [];
+Object.entries(CATS).forEach(([cat, classes]) =>
+  classes.forEach(cls => ALL_CLASSES.push({ cls, cat }))
+);
+
 // ─── Core refs ────────────────────────────────────────────────────────────────
 const editor    = document.getElementById('codeEditor');
 const frame     = document.getElementById('previewFrame');
@@ -1137,6 +1256,10 @@ function updatePreview() {
 <script>
   function ping(){window.parent.postMessage({t:'h',v:document.documentElement.scrollHeight},'*');}
   new ResizeObserver(ping).observe(document.body); ping();
+  document.addEventListener('click', function(e) {
+    var el = e.target;
+    window.parent.postMessage({t:'inspect', tag: el.tagName.toLowerCase(), classes: Array.from(el.classList)}, '*');
+  });
 <\/script></body></html>`;
 }
 
@@ -1151,6 +1274,7 @@ editor.addEventListener('input', () => {
   clearTimeout(debounce);
   debounce = setTimeout(updatePreview, 180);
   updateGutter();
+  triggerAutocomplete();
 });
 
 // ─── Line numbers ─────────────────────────────────────────────────────────────
@@ -1160,8 +1284,14 @@ function updateGutter() {
 }
 editor.addEventListener('scroll', () => { gutter.scrollTop = editor.scrollTop; });
 
-// ─── Tab key ─────────────────────────────────────────────────────────────────
+// ─── Tab key + autocomplete keyboard nav ────────────────────────────────────
 editor.addEventListener('keydown', e => {
+  if (acVisible) {
+    if (e.key === 'ArrowDown') { e.preventDefault(); acIdx = (acIdx + 1) % acItems.length; updateACActive(); return; }
+    if (e.key === 'ArrowUp')   { e.preventDefault(); acIdx = (acIdx - 1 + acItems.length) % acItems.length; updateACActive(); return; }
+    if (e.key === 'Enter' || e.key === 'Tab') { e.preventDefault(); selectAC(acIdx); return; }
+    if (e.key === 'Escape') { hideAutocomplete(); return; }
+  }
   if (e.key === 'Tab') {
     e.preventDefault();
     const s = editor.selectionStart, val = editor.value;
@@ -1233,6 +1363,8 @@ let pickerOpen = true;
 let activeTab = 'layout';
 
 function showTab(tab, btn) {
+  document.getElementById('pickerSearch').value = '';
+  searchPicker('');
   activeTab = tab;
   document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
@@ -1335,6 +1467,139 @@ document.addEventListener('mousemove', e => {
 });
 document.addEventListener('mouseup', () => {
   if (dragging) { dragging=false; resizer.classList.remove('dragging'); document.body.style.cursor=''; document.body.style.userSelect=''; }
+});
+
+// ─── Autocomplete ─────────────────────────────────────────────────────────────
+const acEl = document.getElementById('autocomplete');
+let acIdx = 0, acItems = [], acVisible = false;
+
+function escRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+function getPartialClass() {
+  // Return the partial class name being typed if cursor is inside class="..."
+  const val = editor.value, pos = editor.selectionStart;
+  const before = val.slice(0, pos);
+  const m = before.match(/class="[^"]*?(\S*)$/);
+  return m ? m[1] : null;
+}
+
+function triggerAutocomplete() {
+  const partial = getPartialClass();
+  if (!partial || partial.length < 2) { hideAutocomplete(); return; }
+  const q = partial.toLowerCase();
+  const matches = ALL_CLASSES
+    .filter(({ cls }) => cls.toLowerCase().includes(q))
+    .sort((a, b) => {
+      // Prefer prefix matches
+      const aStarts = a.cls.toLowerCase().startsWith(q) ? 0 : 1;
+      const bStarts = b.cls.toLowerCase().startsWith(q) ? 0 : 1;
+      return aStarts - bStarts;
+    })
+    .slice(0, 10);
+
+  if (!matches.length) { hideAutocomplete(); return; }
+  acItems = matches;
+  acIdx   = 0;
+
+  // Compute approximate screen position from line number
+  const textBefore = editor.value.slice(0, editor.selectionStart);
+  const lineNum    = textBefore.split('\n').length;
+  const lineH      = parseFloat(getComputedStyle(editor).lineHeight) || 22;
+  const edRect     = editor.getBoundingClientRect();
+  const topRaw     = edRect.top + (lineNum * lineH) - editor.scrollTop + lineH;
+  const top        = Math.min(topRaw, window.innerHeight - 220);
+  const left       = edRect.left + 52; // skip gutter
+
+  acEl.innerHTML = matches.map(({ cls, cat }, i) => {
+    const hi = cls.replace(new RegExp('(' + escRe(q) + ')', 'gi'), '<span class="ac-match">$1</span>');
+    return `<div class="ac-item${i === 0 ? ' active' : ''}" onmousedown="event.preventDefault();selectAC(${i})">${hi}<span class="ac-cat">${cat}</span></div>`;
+  }).join('');
+  acEl.style.cssText = `display:block;left:${left}px;top:${top}px;`;
+  acVisible = true;
+}
+
+function hideAutocomplete() {
+  acEl.style.display = 'none';
+  acVisible = false;
+  acItems   = [];
+  acIdx     = 0;
+}
+
+function updateACActive() {
+  acEl.querySelectorAll('.ac-item').forEach((el, i) => el.classList.toggle('active', i === acIdx));
+}
+
+function selectAC(idx) {
+  if (!acItems[idx]) return;
+  const cls     = acItems[idx].cls;
+  const val     = editor.value;
+  const pos     = editor.selectionStart;
+  const partial = getPartialClass();
+  if (partial === null) return;
+  const newPos  = pos - partial.length;
+  editor.value  = val.slice(0, newPos) + cls + val.slice(pos);
+  editor.selectionStart = editor.selectionEnd = newPos + cls.length;
+  editor.focus();
+  editor.dispatchEvent(new Event('input'));
+  hideAutocomplete();
+  toast(`Added: ${cls}`);
+}
+
+// Close autocomplete when clicking outside the editor
+document.addEventListener('mousedown', e => {
+  if (e.target !== editor && !acEl.contains(e.target)) hideAutocomplete();
+});
+editor.addEventListener('blur', () => setTimeout(hideAutocomplete, 150));
+
+// ─── Picker search ────────────────────────────────────────────────────────────
+function searchPicker(q) {
+  q = q.trim().toLowerCase();
+  if (!q) { renderChips(activeTab); return; }
+
+  const body = document.getElementById('pickerBody');
+  const results = [];
+  Object.entries(CATS).forEach(([cat, classes]) => {
+    const hit = classes.filter(c => c.toLowerCase().includes(q));
+    if (hit.length) results.push({ cat, hit });
+  });
+
+  if (!results.length) {
+    body.innerHTML = '<div style="padding:14px;color:#94a3b8;font-size:13px;">No classes match "<b>' + q + '</b>"</div>';
+    return;
+  }
+
+  const re = new RegExp('(' + escRe(q) + ')', 'gi');
+  body.innerHTML = results.map(({ cat, hit }) =>
+    `<span class="chip-cat-label">${cat}</span>` +
+    hit.map(cls => {
+      const hi = cls.replace(re, '<mark style="background:transparent;color:#3b82f6;font-weight:900;">$1</mark>');
+      return `<span class="chip" data-cat="${cat}" onclick="chipClick('${cls}')" title="${cls}">${hi}</span>`;
+    }).join('')
+  ).join('');
+}
+
+
+// ─── Inspector: relay click events from iframe ────────────────────────────────
+window.addEventListener('message', e => {
+  if (!e.data) return;
+  if (e.data.t === 'h') {
+    frame.style.height = Math.max(e.data.v, 300) + 'px';
+    return;
+  }
+  if (e.data.t === 'inspect') {
+    const bar   = document.getElementById('inspectorBar');
+    const tag   = e.data.tag || 'div';
+    const classes = (e.data.classes || []).filter(Boolean);
+    if (!classes.length) {
+      bar.innerHTML = `<span class="ins-label">Inspector</span><span style="color:#30363d;">&lt;${tag}&gt; — no classes</span>`;
+      return;
+    }
+    const chips = classes.map(c => {
+      const isSanty = ALL_CLASSES.some(({ cls }) => cls === c);
+      return `<span class="inspector-chip${isSanty ? ' santy' : ''}" onclick="navigator.clipboard.writeText('${c}').then(()=>toast('📋 ${c}'))" title="Copy class">${c}</span>`;
+    });
+    bar.innerHTML = `<span class="ins-label">&lt;${tag}&gt;</span>${chips.join('')}`;
+  }
 });
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
