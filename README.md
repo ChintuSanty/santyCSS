@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/santycss.svg?style=flat-square)](https://www.npmjs.com/package/santycss)
 [![npm downloads](https://img.shields.io/npm/dm/santycss.svg?style=flat-square)](https://www.npmjs.com/package/santycss)
 [![license](https://img.shields.io/npm/l/santycss.svg?style=flat-square)](https://github.com/ChintuSanty/santyCSS/blob/main/LICENSE)
-[![bundle size](https://img.shields.io/badge/full_bundle-744KB-blue?style=flat-square)](https://www.npmjs.com/package/santycss)
+[![bundle size](https://img.shields.io/badge/full_bundle-776KB-blue?style=flat-square)](https://www.npmjs.com/package/santycss)
 
 **Plain-English utility-first CSS framework.**
 Class names read like sentences. No build step. No configuration. Just link and use.
@@ -67,6 +67,60 @@ Class names read like sentences. No build step. No configuration. Just link and 
 ```
 
 > 🎬 **[See all creature animations live →](https://santycss.santy.in/animations.html#creature-animations)**
+
+---
+
+## What's New in v1.9
+
+### 🌊 Scroll & Scrollbar Utilities
+
+| Class | Description |
+|---|---|
+| `scroll-smooth` | `scroll-behavior: smooth` |
+| `scroll-auto` | `scroll-behavior: auto` |
+| `scrollbar-thin` | Narrow scrollbar (webkit + standard) |
+| `scrollbar-dark` | Dark-themed scrollbar |
+| `scrollbar-hidden` | Hide scrollbar, keep scroll functionality |
+
+### 🪟 Glass Morphism
+
+| Class | Description |
+|---|---|
+| `glass` | Frosted glass effect (blur + semi-transparent white) |
+| `glass-dark` | Dark frosted glass |
+| `glass-light` | Light frosted glass |
+
+### 🌈 Radial Gradients
+
+```html
+<div class="gradient-radial-blue-purple">...</div>
+<div class="gradient-radial-pink-orange">...</div>
+```
+
+All `gradient-radial-*` utilities use CSS `radial-gradient()` matching the existing linear gradient palette.
+
+### 🎬 New Animation Utilities
+
+| Class | Description |
+|---|---|
+| `animate-spin-slow` | Slow clockwise rotation |
+| `animate-spin-fast` | Fast clockwise rotation |
+| `animate-spin-cw` | Explicit clockwise spin |
+| `animate-spin-ccw` | Counter-clockwise spin |
+| `animate-spin-xslow` | Very slow rotation |
+| `animate-pulse-dot` | Pulsing dot indicator |
+| `skill-bar-animated` | Animated skill/progress bar fill |
+
+```html
+<!-- Pulsing status indicator -->
+<span class="animate-pulse-dot background-green-500"></span>
+
+<!-- Animated skill bar -->
+<div class="skill-bar-animated" style="--skill-width: 80%"></div>
+
+<!-- Counter-clockwise spinner -->
+<div class="animate-spin-ccw">↺</div>
+```
 
 ---
 
