@@ -52,7 +52,7 @@ const add = (...css) => lines.push(...css);
 // ─── CSS RESET + BASE ────────────────────────────────────────────────────────
 add(
 `/* ============================================================
-   SantyCSS v2.1.0  —  Plain-English Utility CSS Framework
+   SantyCSS v2.2.0  —  Plain-English Utility CSS Framework
    https://github.com/santybad/santy_css
    ============================================================ */
 
@@ -1365,6 +1365,134 @@ add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
 
 // ─── EXTENDED ANIMATIONS (animate.css compatible) ────────────────────────────
 add(ANIMATION_CSS);
+
+// ─── SCROLL ANIMATIONS ───────────────────────────────────────────────────────
+add(`
+/* ═════════════════════════════════════════════════════════════════════════
+   SCROLL ANIMATIONS
+   Family 1: when-visible:  — one-shot viewport-entry (+ santy-scroll.js)
+   Family 2: on-scroll:     — scroll-progress (animation-timeline: scroll())
+   Family 3: scroll-{prop}  — scroll-linked property utilities
+   Stagger:  stagger-children / stagger-{n}
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* ── Keyframes for when-visible: ── */
+@keyframes wv-fade-in { from{opacity:0} to{opacity:1} }
+@keyframes wv-slide-up { from{transform:translateY(24px);opacity:0} to{transform:translateY(0);opacity:1} }
+@keyframes wv-slide-in-left { from{transform:translateX(-32px);opacity:0} to{transform:translateX(0);opacity:1} }
+@keyframes wv-slide-in-right { from{transform:translateX(32px);opacity:0} to{transform:translateX(0);opacity:1} }
+@keyframes wv-slide-in-bottom { from{transform:translateY(32px);opacity:0} to{transform:translateY(0);opacity:1} }
+@keyframes wv-zoom-in { from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+@keyframes wv-zoom-in-up { from{transform:scale(0.8) translateY(20px);opacity:0} to{transform:scale(1) translateY(0);opacity:1} }
+@keyframes wv-zoom-bounce { from{transform:scale(0.7);opacity:0} to{transform:scale(1);opacity:1} }
+@keyframes wv-bounce-in-bottom {
+  0%  {transform:translateY(40px);opacity:0}
+  60% {transform:translateY(-8px);opacity:1}
+  80% {transform:translateY(4px)}
+  100%{transform:translateY(0)}
+}
+@keyframes wv-flip-in {
+  from{transform:perspective(600px) rotateX(-80deg);opacity:0}
+  to  {transform:perspective(600px) rotateX(0);opacity:1}
+}
+`);
+
+// ── when-visible: — fire once when element enters viewport ──────────────────
+add('\n/* ── when-visible: — viewport-entry animations ── */');
+add('/* Requires santy-scroll.js observer. Classes activate via .is-visible. */');
+const whenVisibleClasses = [
+  ['animate-fade-in',              'wv-fade-in',          '0.6s', 'ease-out'],
+  ['animate-slide-up',             'wv-slide-up',         '0.5s', 'ease-out'],
+  ['animate-slide-in-from-left',   'wv-slide-in-left',    '0.5s', 'ease-out'],
+  ['animate-slide-in-from-right',  'wv-slide-in-right',   '0.5s', 'ease-out'],
+  ['animate-slide-in-from-bottom', 'wv-slide-in-bottom',  '0.5s', 'ease-out'],
+  ['animate-zoom-in',              'wv-zoom-in',          '0.5s', 'ease-out'],
+  ['animate-zoom-in-up',           'wv-zoom-in-up',       '0.5s', 'ease-out'],
+  ['animate-zoom-bounce',          'wv-zoom-bounce',      '0.5s', 'cubic-bezier(0.34,1.56,0.64,1)'],
+  ['animate-bounce-in-from-bottom','wv-bounce-in-bottom', '0.7s', 'ease-out'],
+  ['animate-flip-in',              'wv-flip-in',          '0.6s', 'ease-out'],
+  ['animate-bounce',               'santy-bounce',        '1s',   'ease'],
+  ['animate-pulse',                'santy-pulse',         '2s',   'cubic-bezier(0.4,0,0.6,1)'],
+];
+whenVisibleClasses.forEach(([cls, keyframe, dur, ease]) => {
+  add(`.when-visible\\:${cls} { animation:none; animation-fill-mode:both; }`);
+  add(`.when-visible\\:${cls}.is-visible { animation-name:${keyframe}; animation-duration:${dur}; animation-timing-function:${ease}; }`);
+});
+
+// ── enter-at-{n} — observer threshold modifiers ─────────────────────────────
+add('\n/* ── enter-at-{n} — how much of element must be visible before triggering ── */');
+[[15,0.15],[25,0.25],[50,0.50],[75,0.75]].forEach(([n,v]) => {
+  add(`.enter-at-${n} { --santy-enter-threshold:${v}; }`);
+});
+add('.enter-repeat { --santy-enter-repeat:1; }');
+
+// ── on-scroll: — scroll-progress via animation-timeline: scroll() ────────────
+add(`
+/* ── on-scroll: — animations linked to scroll position ── */
+@keyframes os-width-full        { from{width:0%}       to{width:100%} }
+@keyframes os-rotate-180        { from{transform:rotate(0)}       to{transform:rotate(180deg)} }
+@keyframes os-rotate-360        { from{transform:rotate(0)}       to{transform:rotate(360deg)} }
+@keyframes os-fade-in           { from{opacity:0}      to{opacity:1} }
+@keyframes os-fade-out          { from{opacity:1}      to{opacity:0} }
+@keyframes os-scale-up          { from{transform:scale(0.8)}      to{transform:scale(1)} }
+@keyframes os-slide-down        { from{transform:translateY(-20px);opacity:0} to{transform:translateY(0);opacity:1} }
+@keyframes os-translate-y-half  { from{transform:translateY(0)}   to{transform:translateY(-50%)} }
+`);
+[
+  ['animate-width-full', 'os-width-full'],
+  ['rotate-180',         'os-rotate-180'],
+  ['rotate-360',         'os-rotate-360'],
+  ['fade-in',            'os-fade-in'],
+  ['fade-out',           'os-fade-out'],
+  ['scale-up',           'os-scale-up'],
+  ['slide-down',         'os-slide-down'],
+  ['translate-y-half',   'os-translate-y-half'],
+].forEach(([cls, kf]) => {
+  add(`.on-scroll\\:${cls} { animation:${kf} linear; animation-timeline:scroll(); animation-fill-mode:both; }`);
+});
+
+// ── scroll-{prop} — property utilities tied to page scroll ──────────────────
+add(`
+/* ── scroll-{prop} — scroll-linked CSS property utilities ── */
+@keyframes scroll-grow-width    { from{width:0}            to{width:100%} }
+@keyframes scroll-opacity-out   { from{opacity:1}          to{opacity:0} }
+@keyframes scroll-scale-down    { from{transform:scale(1)} to{transform:scale(0.8)} }
+@keyframes scroll-parallax-slow { from{transform:translateY(0)} to{transform:translateY(-30%)} }
+@keyframes scroll-parallax-fast { from{transform:translateY(0)} to{transform:translateY(-60%)} }
+
+.scroll-width         { animation:scroll-grow-width    linear both; animation-timeline:scroll(root); }
+.scroll-opacity-out   { animation:scroll-opacity-out   linear both; animation-timeline:scroll(root); }
+.scroll-scale-down    { animation:scroll-scale-down    linear both; animation-timeline:scroll(root); }
+.scroll-parallax-slow { animation:scroll-parallax-slow linear both; animation-timeline:scroll(nearest); }
+.scroll-parallax-fast { animation:scroll-parallax-fast linear both; animation-timeline:scroll(nearest); }
+`);
+
+// ── stagger-children ─────────────────────────────────────────────────────────
+add('\n/* ── stagger-children — auto-delay nth-child for list animations ── */');
+const STAGGER_MAX = 12;
+for (let i = 1; i <= STAGGER_MAX; i++) {
+  add(`.stagger-children > *:nth-child(${i}) { animation-delay:${(i-1)*100}ms; }`);
+}
+[50, 150, 200, 300].forEach(ms => {
+  add(`\n/* stagger-${ms} */`);
+  for (let i = 1; i <= STAGGER_MAX; i++) {
+    add(`.stagger-${ms} > *:nth-child(${i}) { animation-delay:${(i-1)*ms}ms; }`);
+  }
+});
+
+// ── Accessibility ─────────────────────────────────────────────────────────────
+add(`
+/* ── Scroll animations — prefers-reduced-motion ── */
+@media (prefers-reduced-motion: reduce) {
+  [class*="when-visible:"],
+  [class*="on-scroll:"],
+  .scroll-width, .scroll-opacity-out, .scroll-scale-down,
+  .scroll-parallax-slow, .scroll-parallax-fast {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+`);
 
 // ─── COMPONENT SHORTCUTS ───────────────────────────────────────────────────────
 add(`\n/* ═══ SANTY COMPONENTS ═══ */
@@ -4084,6 +4212,54 @@ const startCSS = `/* SantyCSS Start — Drop-in CDN build
    For full responsive coverage: santy-core.css + santy-variants.css
    https://santycss.santy.in */\n\n` + slimmedCoreCSS + '\n\n' + compCSS;
 
+// ─── santy-scroll.js ──────────────────────────────────────────────────────────
+const SCROLL_JS = `/*! santy-scroll.js — SantyCSS Scroll Observer v2.1
+ * Activates when-visible: viewport-entry animations via IntersectionObserver.
+ *
+ * CDN: <script src="https://cdn.jsdelivr.net/npm/santycss/dist/santy-scroll.js"></script>
+ *
+ * Modifiers read from element classes:
+ *   enter-at-{15|25|50|75}  — threshold (default: 0.15)
+ *   enter-repeat            — re-trigger on every viewport entry
+ */
+(function () {
+  'use strict';
+
+  function getThreshold(el) {
+    if (el.classList.contains('enter-at-75')) return 0.75;
+    if (el.classList.contains('enter-at-50')) return 0.50;
+    if (el.classList.contains('enter-at-25')) return 0.25;
+    return 0.15;
+  }
+
+  function makeObserver(threshold, repeat) {
+    return new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          if (!repeat) this.unobserve(entry.target);
+        } else if (repeat) {
+          entry.target.classList.remove('is-visible');
+        }
+      }.bind(this));
+    }, { threshold: threshold });
+  }
+
+  function init() {
+    document.querySelectorAll('[class*="when-visible:"]').forEach(function (el) {
+      var obs = makeObserver(getThreshold(el), el.classList.contains('enter-repeat'));
+      obs.observe(el);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+}());
+`;
+
 // Write all output files
 fs.writeFileSync('santy.css', fullCSS);
 fs.writeFileSync('santy-core.css', slimmedCoreCSS);
@@ -4092,6 +4268,7 @@ fs.writeFileSync('santy-start.css', startCSS);
 fs.writeFileSync('santy-components.css', compCSS);
 fs.writeFileSync('santy-animations.css', animCSS);
 fs.writeFileSync('santy-email.css', EMAIL_CSS.trim());
+fs.writeFileSync('santy-scroll.js', SCROLL_JS);
 
 // Mirror to dist/ for NPM package
 const distDir = path.join(__dirname, 'dist');
@@ -4103,6 +4280,7 @@ fs.writeFileSync(path.join(distDir, 'santy-start.css'), startCSS);
 fs.writeFileSync(path.join(distDir, 'santy-components.css'), compCSS);
 fs.writeFileSync(path.join(distDir, 'santy-animations.css'), animCSS);
 fs.writeFileSync(path.join(distDir, 'santy-email.css'), EMAIL_CSS.trim());
+fs.writeFileSync(path.join(distDir, 'santy-scroll.js'), SCROLL_JS);
 
 // Generate minified version
 const minCSS = fullCSS
@@ -4127,4 +4305,5 @@ console.log(`✅ santy.min.css      — ${kb(minCSS.length)} (minified)`);
 console.log(`✅ santy-components.css — ${kb(compCSS.length)} (components only)`);
 console.log(`✅ santy-animations.css — ${kb(animCSS.length)} (animations only)`);
 console.log(`✅ santy-email.css    — ${kb(EMAIL_CSS.length)} (email templates)`);
+console.log(`✅ santy-scroll.js    — ${kb(SCROLL_JS.length)} (IntersectionObserver for when-visible:)`);
 console.log(`✅ dist/              — mirrored for NPM package`);

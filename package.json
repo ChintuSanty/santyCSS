@@ -1,6 +1,6 @@
 {
   "name": "santycss",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Plain-English utility-first CSS framework — no build step, just classes",
   "main": "index.js",
   "style": "dist/santy.css",
@@ -17,7 +17,8 @@
     "./postcss": "./postcss/index.js",
     "./jit": "./santy-jit.js",
     "./vite": "./vite-plugin-santycss.js",
-    "./purge": "./lib/purge-core.js"
+    "./purge": "./lib/purge-core.js",
+    "./scroll": "./dist/santy-scroll.js"
   },
   "files": [
     "dist/",

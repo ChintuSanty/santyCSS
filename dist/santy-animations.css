@@ -827,3 +827,181 @@
     });
   }, { threshold: 0.15 }).observe(...document.querySelectorAll('[class*="animate-on-scroll"],[class*="scroll-reveal"]'));
 </script> */
+
+
+/* ═════════════════════════════════════════════════════════════════════════
+   SCROLL ANIMATIONS
+   Family 1: when-visible:  — one-shot viewport-entry (+ santy-scroll.js)
+   Family 2: on-scroll:     — scroll-progress (animation-timeline: scroll())
+   Family 3: scroll-{prop}  — scroll-linked property utilities
+   Stagger:  stagger-children / stagger-{n}
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* ── Keyframes for when-visible: ── */
+@keyframes wv-fade-in { from{opacity:0} to{opacity:1} }
+@keyframes wv-slide-up { from{transform:translateY(24px);opacity:0} to{transform:translateY(0);opacity:1} }
+@keyframes wv-slide-in-left { from{transform:translateX(-32px);opacity:0} to{transform:translateX(0);opacity:1} }
+@keyframes wv-slide-in-right { from{transform:translateX(32px);opacity:0} to{transform:translateX(0);opacity:1} }
+@keyframes wv-slide-in-bottom { from{transform:translateY(32px);opacity:0} to{transform:translateY(0);opacity:1} }
+@keyframes wv-zoom-in { from{transform:scale(0.85);opacity:0} to{transform:scale(1);opacity:1} }
+@keyframes wv-zoom-in-up { from{transform:scale(0.8) translateY(20px);opacity:0} to{transform:scale(1) translateY(0);opacity:1} }
+@keyframes wv-zoom-bounce { from{transform:scale(0.7);opacity:0} to{transform:scale(1);opacity:1} }
+@keyframes wv-bounce-in-bottom {
+  0%  {transform:translateY(40px);opacity:0}
+  60% {transform:translateY(-8px);opacity:1}
+  80% {transform:translateY(4px)}
+  100%{transform:translateY(0)}
+}
+@keyframes wv-flip-in {
+  from{transform:perspective(600px) rotateX(-80deg);opacity:0}
+  to  {transform:perspective(600px) rotateX(0);opacity:1}
+}
+
+
+/* ── when-visible: — viewport-entry animations ── */
+/* Requires santy-scroll.js observer. Classes activate via .is-visible. */
+.when-visible\:animate-fade-in { animation:none; animation-fill-mode:both; }
+.when-visible\:animate-fade-in.is-visible { animation-name:wv-fade-in; animation-duration:0.6s; animation-timing-function:ease-out; }
+.when-visible\:animate-slide-up { animation:none; animation-fill-mode:both; }
+.when-visible\:animate-slide-up.is-visible { animation-name:wv-slide-up; animation-duration:0.5s; animation-timing-function:ease-out; }
+.when-visible\:animate-slide-in-from-left { animation:none; animation-fill-mode:both; }
+.when-visible\:animate-slide-in-from-left.is-visible { animation-name:wv-slide-in-left; animation-duration:0.5s; animation-timing-function:ease-out; }
+.when-visible\:animate-slide-in-from-right { animation:none; animation-fill-mode:both; }
+.when-visible\:animate-slide-in-from-right.is-visible { animation-name:wv-slide-in-right; animation-duration:0.5s; animation-timing-function:ease-out; }
+.when-visible\:animate-slide-in-from-bottom { animation:none; animation-fill-mode:both; }
+.when-visible\:animate-slide-in-from-bottom.is-visible { animation-name:wv-slide-in-bottom; animation-duration:0.5s; animation-timing-function:ease-out; }
+.when-visible\:animate-zoom-in { animation:none; animation-fill-mode:both; }
+.when-visible\:animate-zoom-in.is-visible { animation-name:wv-zoom-in; animation-duration:0.5s; animation-timing-function:ease-out; }
+.when-visible\:animate-zoom-in-up { animation:none; animation-fill-mode:both; }
+.when-visible\:animate-zoom-in-up.is-visible { animation-name:wv-zoom-in-up; animation-duration:0.5s; animation-timing-function:ease-out; }
+.when-visible\:animate-zoom-bounce { animation:none; animation-fill-mode:both; }
+.when-visible\:animate-zoom-bounce.is-visible { animation-name:wv-zoom-bounce; animation-duration:0.5s; animation-timing-function:cubic-bezier(0.34,1.56,0.64,1); }
+.when-visible\:animate-bounce-in-from-bottom { animation:none; animation-fill-mode:both; }
+.when-visible\:animate-bounce-in-from-bottom.is-visible { animation-name:wv-bounce-in-bottom; animation-duration:0.7s; animation-timing-function:ease-out; }
+.when-visible\:animate-flip-in { animation:none; animation-fill-mode:both; }
+.when-visible\:animate-flip-in.is-visible { animation-name:wv-flip-in; animation-duration:0.6s; animation-timing-function:ease-out; }
+.when-visible\:animate-bounce { animation:none; animation-fill-mode:both; }
+.when-visible\:animate-bounce.is-visible { animation-name:santy-bounce; animation-duration:1s; animation-timing-function:ease; }
+.when-visible\:animate-pulse { animation:none; animation-fill-mode:both; }
+.when-visible\:animate-pulse.is-visible { animation-name:santy-pulse; animation-duration:2s; animation-timing-function:cubic-bezier(0.4,0,0.6,1); }
+
+/* ── enter-at-{n} — how much of element must be visible before triggering ── */
+.enter-at-15 { --santy-enter-threshold:0.15; }
+.enter-at-25 { --santy-enter-threshold:0.25; }
+.enter-at-50 { --santy-enter-threshold:0.5; }
+.enter-at-75 { --santy-enter-threshold:0.75; }
+.enter-repeat { --santy-enter-repeat:1; }
+
+/* ── on-scroll: — animations linked to scroll position ── */
+@keyframes os-width-full        { from{width:0%}       to{width:100%} }
+@keyframes os-rotate-180        { from{transform:rotate(0)}       to{transform:rotate(180deg)} }
+@keyframes os-rotate-360        { from{transform:rotate(0)}       to{transform:rotate(360deg)} }
+@keyframes os-fade-in           { from{opacity:0}      to{opacity:1} }
+@keyframes os-fade-out          { from{opacity:1}      to{opacity:0} }
+@keyframes os-scale-up          { from{transform:scale(0.8)}      to{transform:scale(1)} }
+@keyframes os-slide-down        { from{transform:translateY(-20px);opacity:0} to{transform:translateY(0);opacity:1} }
+@keyframes os-translate-y-half  { from{transform:translateY(0)}   to{transform:translateY(-50%)} }
+
+.on-scroll\:animate-width-full { animation:os-width-full linear; animation-timeline:scroll(); animation-fill-mode:both; }
+.on-scroll\:rotate-180 { animation:os-rotate-180 linear; animation-timeline:scroll(); animation-fill-mode:both; }
+.on-scroll\:rotate-360 { animation:os-rotate-360 linear; animation-timeline:scroll(); animation-fill-mode:both; }
+.on-scroll\:fade-in { animation:os-fade-in linear; animation-timeline:scroll(); animation-fill-mode:both; }
+.on-scroll\:fade-out { animation:os-fade-out linear; animation-timeline:scroll(); animation-fill-mode:both; }
+.on-scroll\:scale-up { animation:os-scale-up linear; animation-timeline:scroll(); animation-fill-mode:both; }
+.on-scroll\:slide-down { animation:os-slide-down linear; animation-timeline:scroll(); animation-fill-mode:both; }
+.on-scroll\:translate-y-half { animation:os-translate-y-half linear; animation-timeline:scroll(); animation-fill-mode:both; }
+
+/* ── scroll-{prop} — scroll-linked CSS property utilities ── */
+@keyframes scroll-grow-width    { from{width:0}            to{width:100%} }
+@keyframes scroll-opacity-out   { from{opacity:1}          to{opacity:0} }
+@keyframes scroll-scale-down    { from{transform:scale(1)} to{transform:scale(0.8)} }
+@keyframes scroll-parallax-slow { from{transform:translateY(0)} to{transform:translateY(-30%)} }
+@keyframes scroll-parallax-fast { from{transform:translateY(0)} to{transform:translateY(-60%)} }
+
+.scroll-width         { animation:scroll-grow-width    linear both; animation-timeline:scroll(root); }
+.scroll-opacity-out   { animation:scroll-opacity-out   linear both; animation-timeline:scroll(root); }
+.scroll-scale-down    { animation:scroll-scale-down    linear both; animation-timeline:scroll(root); }
+.scroll-parallax-slow { animation:scroll-parallax-slow linear both; animation-timeline:scroll(nearest); }
+.scroll-parallax-fast { animation:scroll-parallax-fast linear both; animation-timeline:scroll(nearest); }
+
+
+/* ── stagger-children — auto-delay nth-child for list animations ── */
+.stagger-children > *:nth-child(1) { animation-delay:0ms; }
+.stagger-children > *:nth-child(2) { animation-delay:100ms; }
+.stagger-children > *:nth-child(3) { animation-delay:200ms; }
+.stagger-children > *:nth-child(4) { animation-delay:300ms; }
+.stagger-children > *:nth-child(5) { animation-delay:400ms; }
+.stagger-children > *:nth-child(6) { animation-delay:500ms; }
+.stagger-children > *:nth-child(7) { animation-delay:600ms; }
+.stagger-children > *:nth-child(8) { animation-delay:700ms; }
+.stagger-children > *:nth-child(9) { animation-delay:800ms; }
+.stagger-children > *:nth-child(10) { animation-delay:900ms; }
+.stagger-children > *:nth-child(11) { animation-delay:1000ms; }
+.stagger-children > *:nth-child(12) { animation-delay:1100ms; }
+
+/* stagger-50 */
+.stagger-50 > *:nth-child(1) { animation-delay:0ms; }
+.stagger-50 > *:nth-child(2) { animation-delay:50ms; }
+.stagger-50 > *:nth-child(3) { animation-delay:100ms; }
+.stagger-50 > *:nth-child(4) { animation-delay:150ms; }
+.stagger-50 > *:nth-child(5) { animation-delay:200ms; }
+.stagger-50 > *:nth-child(6) { animation-delay:250ms; }
+.stagger-50 > *:nth-child(7) { animation-delay:300ms; }
+.stagger-50 > *:nth-child(8) { animation-delay:350ms; }
+.stagger-50 > *:nth-child(9) { animation-delay:400ms; }
+.stagger-50 > *:nth-child(10) { animation-delay:450ms; }
+.stagger-50 > *:nth-child(11) { animation-delay:500ms; }
+.stagger-50 > *:nth-child(12) { animation-delay:550ms; }
+
+/* stagger-150 */
+.stagger-150 > *:nth-child(1) { animation-delay:0ms; }
+.stagger-150 > *:nth-child(2) { animation-delay:150ms; }
+.stagger-150 > *:nth-child(3) { animation-delay:300ms; }
+.stagger-150 > *:nth-child(4) { animation-delay:450ms; }
+.stagger-150 > *:nth-child(5) { animation-delay:600ms; }
+.stagger-150 > *:nth-child(6) { animation-delay:750ms; }
+.stagger-150 > *:nth-child(7) { animation-delay:900ms; }
+.stagger-150 > *:nth-child(8) { animation-delay:1050ms; }
+.stagger-150 > *:nth-child(9) { animation-delay:1200ms; }
+.stagger-150 > *:nth-child(10) { animation-delay:1350ms; }
+.stagger-150 > *:nth-child(11) { animation-delay:1500ms; }
+.stagger-150 > *:nth-child(12) { animation-delay:1650ms; }
+
+/* stagger-200 */
+.stagger-200 > *:nth-child(1) { animation-delay:0ms; }
+.stagger-200 > *:nth-child(2) { animation-delay:200ms; }
+.stagger-200 > *:nth-child(3) { animation-delay:400ms; }
+.stagger-200 > *:nth-child(4) { animation-delay:600ms; }
+.stagger-200 > *:nth-child(5) { animation-delay:800ms; }
+.stagger-200 > *:nth-child(6) { animation-delay:1000ms; }
+.stagger-200 > *:nth-child(7) { animation-delay:1200ms; }
+.stagger-200 > *:nth-child(8) { animation-delay:1400ms; }
+.stagger-200 > *:nth-child(9) { animation-delay:1600ms; }
+.stagger-200 > *:nth-child(10) { animation-delay:1800ms; }
+.stagger-200 > *:nth-child(11) { animation-delay:2000ms; }
+.stagger-200 > *:nth-child(12) { animation-delay:2200ms; }
+
+/* stagger-300 */
+.stagger-300 > *:nth-child(1) { animation-delay:0ms; }
+.stagger-300 > *:nth-child(2) { animation-delay:300ms; }
+.stagger-300 > *:nth-child(3) { animation-delay:600ms; }
+.stagger-300 > *:nth-child(4) { animation-delay:900ms; }
+.stagger-300 > *:nth-child(5) { animation-delay:1200ms; }
+.stagger-300 > *:nth-child(6) { animation-delay:1500ms; }
+.stagger-300 > *:nth-child(7) { animation-delay:1800ms; }
+.stagger-300 > *:nth-child(8) { animation-delay:2100ms; }
+.stagger-300 > *:nth-child(9) { animation-delay:2400ms; }
+.stagger-300 > *:nth-child(10) { animation-delay:2700ms; }
+.stagger-300 > *:nth-child(11) { animation-delay:3000ms; }
+.stagger-300 > *:nth-child(12) { animation-delay:3300ms; }
+
+/* ── Scroll animations — prefers-reduced-motion ── */
+@media (prefers-reduced-motion: reduce) {
+  [class*="when-visible:"],
+  [class*="on-scroll:"],
+  .scroll-width, .scroll-opacity-out, .scroll-scale-down,
+  .scroll-parallax-slow, .scroll-parallax-fast {
+    animation: none !important;
+    transition: none !important;
+  }
+}
