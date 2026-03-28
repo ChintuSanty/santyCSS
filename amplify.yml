@@ -9,6 +9,7 @@ frontend:
         - npm run build
         - mkdir -p site
         - cp -r *.html *.css *.js assest site/
+        - cp sitemap.xml robots.txt site/
         - cp -r dist site/dist
   artifacts:
     baseDirectory: site
