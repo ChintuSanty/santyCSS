@@ -1,6 +1,6 @@
 {
   "name": "santycss",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "Plain-English utility-first CSS framework — no build step, just classes",
   "main": "index.js",
   "style": "dist/santy.css",
@@ -18,6 +18,7 @@
     "./jit": "./santy-jit.js",
     "./vite": "./vite-plugin-santycss.js",
     "./purge": "./lib/purge-core.js",
+    "./migrate": "./migrate.js",
     "./scroll": "./dist/santy-scroll.js"
   },
   "files": [
@@ -28,17 +29,22 @@
     "santy-jit.js",
     "vite-plugin-santycss.js",
     "purge.js",
+    "migrate.js",
     "README.md"
   ],
   "bin": {
-    "santycss": "./purge.js"
+    "santycss": "./purge.js",
+    "santycss-migrate": "./migrate.js"
   },
   "keywords": [
     "css",
     "framework",
     "utility-css",
     "tailwind-alternative",
+    "tailwind-migration",
     "plain-english",
+    "ai-friendly",
+    "dark-mode",
     "no-build",
     "santycss",
     "postcss",
