@@ -5,8 +5,9 @@
 [![license](https://img.shields.io/npm/l/santycss.svg?style=flat-square)](https://github.com/ChintuSanty/santyCSS/blob/main/LICENSE)
 [![bundle size](https://img.shields.io/badge/core-310KB-blue?style=flat-square)](https://www.npmjs.com/package/santycss)
 
-**Plain-English utility-first CSS framework.**
-Class names read like sentences. No build step. No configuration. Just link and use.
+🇮🇳 **India's first utility-first CSS framework.**
+**Plain-English class names. No build step. No configuration. Just link and use.**
+Class names read like sentences — `add-padding-24` instead of `p-6`. AI tools understand them instantly, no lookup table needed.
 
 ```html
 <div class="make-flex align-center gap-16 background-blue-500 round-corners-12 add-padding-24">
@@ -17,6 +18,106 @@ Class names read like sentences. No build step. No configuration. Just link and 
 ```
 
 > 🌐 **[santycss.santy.in](https://santycss.santy.in)** · 📖 **[Class Reference](https://santycss.santy.in/classes.html)** · 🌊 **[Webflow](https://santycss.santy.in/webflow.html)** · 🎬 **[Animations](https://santycss.santy.in/animations.html)** · 📦 **[npm Docs](https://santycss.santy.in/docs.html)**
+
+---
+
+## What's New in v2.4.0
+
+### ⚡ Migrate from Tailwind in One Command
+
+Already using Tailwind CSS? Switch your entire project — HTML, JSX, TSX, Vue, Svelte — without rewriting a single file:
+
+```bash
+npx santycss migrate --input=src/
+```
+
+**Options:**
+```bash
+npx santycss migrate --input=src/     # convert all files in src/
+npx santycss migrate --file=index.html # single file
+npx santycss migrate --dry-run        # preview only, no writes
+npx santycss migrate --dry-run --report  # also list unmapped classes
+```
+
+**What gets converted:**
+
+| Tailwind | SantyCSS |
+|---|---|
+| `flex items-center gap-4` | `make-flex align-center gap-16` |
+| `p-6 mt-4 mb-8` | `add-padding-24 add-margin-top-16 add-margin-bottom-32` |
+| `text-lg font-semibold` | `set-text-18 text-semibold` |
+| `bg-blue-500 text-white rounded-lg shadow-md` | `background-blue-500 color-white make-rounded-lg add-shadow-md` |
+| `hidden md:block` | `make-hidden tablet:make-block` |
+| `grid grid-cols-3 gap-6` | `make-grid grid-cols-3 gap-24` |
+
+Covers 150+ Tailwind class names across flex/grid, spacing, typography, colors, borders, shadows, overflow, position, z-index, transitions, and more.
+
+---
+
+### 🌙 Dark Mode Semantic Token System
+
+New CSS-variable token layer — add `data-theme="dark"` to any element and every utility class adapts automatically. No duplicate classes, no `dark:` prefixes for common patterns:
+
+```html
+<!-- Dark theme -->
+<html data-theme="dark">
+
+<!-- Follow OS preference -->
+<html class="theme-auto">
+
+<!-- Semantic utility classes — adapt in both themes -->
+<div class="bg-surface text-base">
+  <p class="text-muted">Subtitle</p>
+  <span class="text-accent">Highlight</span>
+  <hr class="border-base">
+</div>
+```
+
+**New semantic token classes:**
+
+| Class | Light | Dark |
+|---|---|---|
+| `bg-base` | `#ffffff` | `#0f172a` |
+| `bg-subtle` | `#f9fafb` | `#1e293b` |
+| `bg-surface` | `#ffffff` | `#1e293b` |
+| `bg-elevated` | `#ffffff` | `#334155` |
+| `text-base` | `#111827` | `#f1f5f9` |
+| `text-muted` | `#6b7280` | `#94a3b8` |
+| `text-subtle` | `#9ca3af` | `#64748b` |
+| `text-accent` | `#3b82f6` | `#60a5fa` |
+| `bg-accent` | `#3b82f6` | `#60a5fa` |
+| `bg-accent-light` | `rgba(59,130,246,.12)` | `rgba(96,165,250,.15)` |
+| `border-base` | `#e5e7eb` | `#334155` |
+| `border-strong` | `#d1d5db` | `#475569` |
+
+**Override tokens in your own CSS:**
+```css
+:root {
+  --santy-accent: #7c3aed;        /* brand purple */
+  --santy-accent-light: rgba(124,58,237,.12);
+}
+[data-theme="dark"] {
+  --santy-accent: #a78bfa;
+}
+```
+
+---
+
+### 🤖 AI-First — Why SantyCSS is Better for AI
+
+SantyCSS class names **are** the documentation. `add-bg-blue make-rounded` tells an LLM exactly what it's doing. `bg-blue-500 rounded-lg` requires a lookup table.
+
+```
+Tailwind:   bg-blue-500 rounded-lg shadow-md p-6 text-white font-semibold
+SantyCSS:   background-blue-500 make-rounded-lg add-shadow-md add-padding-24 color-white text-semibold
+```
+
+The SantyCSS version is self-documenting — any developer (or AI) reading it knows exactly what CSS is applied. No docs needed.
+
+**Use the context file** — paste `santycss.context.md` into Claude, GPT-4, or Cursor's system prompt:
+```
+Paste santycss.context.md → AI writes SantyCSS instead of Tailwind, every time
+```
 
 ---
 
@@ -672,7 +773,7 @@ The file `santycss.context.md` (in the GitHub repo) is a ready-made system promp
 - 🎮 Live Demo: [santycss.santy.in/demo.html](https://santycss.santy.in/demo.html)
 - 📦 npm Docs: [santycss.santy.in/docs.html](https://santycss.santy.in/docs.html)
 - 🐛 Issues: [github.com/ChintuSanty/santyCSS/issues](https://github.com/ChintuSanty/santyCSS/issues)
-- 💬 Discussions: [GitHub Discussions](https://github.com/orgs/community/discussions/190269)
+- 💬 Discussions: [GitHub Discussions](https://github.com/ChintuSanty/santyCSS/discussions/1)
 
 ---
 
