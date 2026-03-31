@@ -341,6 +341,42 @@ Install: search **SantyCSS IntelliSense** in the Extensions panel.
 
 ---
 
+## What's New in v2.4.3
+
+### 🎯 300 Essential UI Icons (+100 new)
+
+100 more icons added — ban/block, charts, baskets, battery, books, bookmarks, boxes, borders and more.
+
+```html
+<span class="icon icon-ban-fill icon-size-xl" style="color:#ef4444;"></span>
+<span class="icon icon-bar-chart-fill icon-size-2x" style="color:#3b82f6;"></span>
+<span class="icon icon-bookmark-heart-fill icon-size-xl" style="color:#ec4899;"></span>
+<span class="icon icon-box-arrow-up-right icon-size-lg"></span>
+<span class="icon icon-battery-full icon-size-xl" style="color:#22c55e;"></span>
+```
+
+**New icons (100):**
+
+| Group | Icons |
+|---|---|
+| Block / Medical | `ban` `ban-fill` `bandaid` `bandaid-fill` |
+| Finance | `bank` `bank2` `bar-chart` `bar-chart-fill` `bar-chart-line` `bar-chart-line-fill` `bar-chart-steps` |
+| Shopping | `basket` `basket-fill` `basket2` `basket2-fill` `basket3` `basket3-fill` |
+| Device | `battery` `battery-charging` `battery-full` `battery-half` `battery-low` |
+| Science / Social | `beaker` `beaker-fill` `behance` `bing` `bluesky` `bluetooth` |
+| Notifications | `bell` `bell-fill` `bell-slash` `bell-slash-fill` |
+| Design | `bezier` `bezier2` `binoculars` `binoculars-fill` `bounding-box` `bounding-box-circles` |
+| Transport | `bicycle` |
+| Text | `blockquote-left` `blockquote-right` `body-text` |
+| Books | `book` `book-fill` `book-half` `bookmarks` `bookmarks-fill` `bookshelf` |
+| Bookmarks | `bookmark` `bookmark-check` `bookmark-check-fill` `bookmark-dash` `bookmark-dash-fill` `bookmark-fill` `bookmark-heart` `bookmark-heart-fill` `bookmark-plus` `bookmark-plus-fill` `bookmark-star` `bookmark-star-fill` `bookmark-x` `bookmark-x-fill` |
+| Media | `boombox` `boombox-fill` |
+| Framework | `bootstrap` `bootstrap-fill` `bootstrap-reboot` |
+| Border | `border` `border-all` `border-bottom` `border-center` `border-inner` `border-left` `border-middle` `border-outer` `border-right` `border-style` `border-top` `border-width` |
+| Boxes | `box` `box-arrow-down` `box-arrow-down-left` `box-arrow-down-right` `box-arrow-in-down` `box-arrow-in-down-left` `box-arrow-in-down-right` `box-arrow-in-left` `box-arrow-in-right` `box-arrow-in-up` `box-arrow-in-up-left` `box-arrow-in-up-right` `box-arrow-left` `box-arrow-right` `box-arrow-up` `box-arrow-up-left` `box-arrow-up-right` `box-fill` `box-seam` `box-seam-fill` `box2` |
+
+---
+
 ## What's New in v2.4.2
 
 ### 🎯 200 Essential UI Icons (+100 new)
