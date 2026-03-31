@@ -334,7 +334,7 @@
     <a href="index.html" class="make-flex align-center gap-10 text-no-decoration">
       <img src="assest/santy_css.png" alt="SantyCSS" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
       <span class="set-text-20 text-bold color-gray-900">Santy<span class="color-blue-600">CSS</span></span>
-      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v2.4.0</span>
+      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v2.4.1</span>
     </a>
 
     <button class="nav-hamburger" id="hamburger-btn" aria-label="Toggle menu">
@@ -378,7 +378,7 @@
 <!-- ─── HERO ────────────────────────────────────────────────────────────────── -->
 <section class="hero-gradient add-padding-y-80 add-padding-x-24">
   <div style="max-width:860px;margin:0 auto;text-align:center;">
-    <span class="chip add-margin-bottom-20" style="display:inline-block;">🎨 Icons v2.4.0</span>
+    <span class="chip add-margin-bottom-20" style="display:inline-block;">🎨 Icons v2.4.1</span>
     <h1 class="set-text-56 text-bold add-margin-bottom-16" style="color:#f8fafc;letter-spacing:-2px;line-height:1.1;">
       SantyCSS Icons
     </h1>
@@ -459,13 +459,14 @@
     <!-- Filter + Search bar -->
     <div class="make-flex align-center justify-between add-margin-bottom-24" style="flex-wrap:wrap;gap:16px;">
       <div class="make-flex gap-8" style="flex-wrap:wrap;" id="cat-pills">
-        <button class="cat-pill active" data-cat="all">All (113)</button>
+        <button class="cat-pill active" data-cat="all">All (213)</button>
         <button class="cat-pill" data-cat="social">Social (15)</button>
         <button class="cat-pill" data-cat="dev">Dev Tools (13)</button>
         <button class="cat-pill" data-cat="platform">Platforms (5)</button>
         <button class="cat-pill" data-cat="payment">Payment (2)</button>
         <button class="cat-pill" data-cat="business">Business (35)</button>
         <button class="cat-pill" data-cat="communication">Communication (43)</button>
+        <button class="cat-pill" data-cat="essential">Essential UI (100)</button>
       </div>
       <input class="search-input" type="search" id="icon-search" placeholder="Search icons…" />
     </div>
@@ -518,6 +519,14 @@
         Communication
       </h2>
       <div class="icon-grid" id="grid-communication"></div>
+    </div>
+
+    <!-- ── ESSENTIAL UI ── -->
+    <div class="add-margin-bottom-32" id="section-essential">
+      <h2 class="set-text-16 text-semibold color-gray-700 add-margin-bottom-16" style="text-transform:uppercase;letter-spacing:.08em;">
+        Essential UI
+      </h2>
+      <div class="icon-grid" id="grid-essential"></div>
     </div>
 
     <!-- No results -->
@@ -832,7 +841,7 @@ GitHub</div>
 <!-- ─── FOOTER ────────────────────────────────────────────────────────────────── -->
 <footer class="add-padding-y-32 add-padding-x-24 background-gray-900">
   <div style="max-width:1200px;margin:0 auto;" class="make-flex align-center justify-between" style="flex-wrap:wrap;gap:16px;">
-    <span class="color-gray-400 set-text-14">© 2025 SantyCSS — Icons v2.4.0</span>
+    <span class="color-gray-400 set-text-14">© 2025 SantyCSS — Icons v2.4.1</span>
     <div class="make-flex gap-20">
       <a href="index.html"    class="color-gray-400 text-no-decoration set-text-14 nav-link">Home</a>
       <a href="classes.html"  class="color-gray-400 text-no-decoration set-text-14 nav-link">Classes</a>
@@ -1011,6 +1020,68 @@ GitHub</div>
   const gridCommunication = document.getElementById('grid-communication');
   COMMUNICATION_ICONS.forEach(function(icon) { gridCommunication.appendChild(makeCard(icon, 'icon')); });
 
+  const ESSENTIAL_ICONS = [
+    {name:'0-circle',label:'0 Circle'},{name:'0-circle-fill',label:'0 Circle Fill'},
+    {name:'0-square',label:'0 Square'},{name:'0-square-fill',label:'0 Square Fill'},
+    {name:'1-circle',label:'1 Circle'},{name:'1-circle-fill',label:'1 Circle Fill'},
+    {name:'1-square',label:'1 Square'},{name:'1-square-fill',label:'1 Square Fill'},
+    {name:'123',label:'123'},
+    {name:'2-circle',label:'2 Circle'},{name:'2-circle-fill',label:'2 Circle Fill'},
+    {name:'2-square',label:'2 Square'},{name:'2-square-fill',label:'2 Square Fill'},
+    {name:'3-circle',label:'3 Circle'},{name:'3-circle-fill',label:'3 Circle Fill'},
+    {name:'3-square',label:'3 Square'},{name:'3-square-fill',label:'3 Square Fill'},
+    {name:'4-circle',label:'4 Circle'},{name:'4-circle-fill',label:'4 Circle Fill'},
+    {name:'4-square',label:'4 Square'},{name:'4-square-fill',label:'4 Square Fill'},
+    {name:'5-circle',label:'5 Circle'},{name:'5-circle-fill',label:'5 Circle Fill'},
+    {name:'5-square',label:'5 Square'},{name:'5-square-fill',label:'5 Square Fill'},
+    {name:'6-circle',label:'6 Circle'},{name:'6-circle-fill',label:'6 Circle Fill'},
+    {name:'6-square',label:'6 Square'},{name:'6-square-fill',label:'6 Square Fill'},
+    {name:'7-circle',label:'7 Circle'},{name:'7-circle-fill',label:'7 Circle Fill'},
+    {name:'7-square',label:'7 Square'},{name:'7-square-fill',label:'7 Square Fill'},
+    {name:'8-circle',label:'8 Circle'},{name:'8-circle-fill',label:'8 Circle Fill'},
+    {name:'8-square',label:'8 Square'},{name:'8-square-fill',label:'8 Square Fill'},
+    {name:'9-circle',label:'9 Circle'},{name:'9-circle-fill',label:'9 Circle Fill'},
+    {name:'9-square',label:'9 Square'},{name:'9-square-fill',label:'9 Square Fill'},
+    {name:'activity',label:'Activity'},
+    {name:'airplane',label:'Airplane'},{name:'airplane-engines',label:'Airplane Engines'},
+    {name:'airplane-engines-fill',label:'Airplane Engines Fill'},{name:'airplane-fill',label:'Airplane Fill'},
+    {name:'alarm',label:'Alarm'},{name:'alarm-fill',label:'Alarm Fill'},
+    {name:'alexa',label:'Alexa'},
+    {name:'align-bottom',label:'Align Bottom'},{name:'align-center',label:'Align Center'},
+    {name:'align-end',label:'Align End'},{name:'align-middle',label:'Align Middle'},
+    {name:'align-start',label:'Align Start'},{name:'align-top',label:'Align Top'},
+    {name:'alipay',label:'Alipay'},
+    {name:'alphabet',label:'Alphabet'},{name:'alphabet-uppercase',label:'Alphabet Uppercase'},
+    {name:'alt',label:'Alt'},
+    {name:'amazon',label:'Amazon'},{name:'amd',label:'AMD'},
+    {name:'android',label:'Android'},{name:'android2',label:'Android 2'},
+    {name:'anthropic',label:'Anthropic'},
+    {name:'app',label:'App'},{name:'app-indicator',label:'App Indicator'},
+    {name:'apple',label:'Apple'},{name:'apple-music',label:'Apple Music'},
+    {name:'archive',label:'Archive'},{name:'archive-fill',label:'Archive Fill'},
+    {name:'arrow-90deg-down',label:'Arrow 90° Down'},{name:'arrow-90deg-left',label:'Arrow 90° Left'},
+    {name:'arrow-90deg-right',label:'Arrow 90° Right'},{name:'arrow-90deg-up',label:'Arrow 90° Up'},
+    {name:'arrow-bar-down',label:'Arrow Bar Down'},{name:'arrow-bar-left',label:'Arrow Bar Left'},
+    {name:'arrow-bar-right',label:'Arrow Bar Right'},{name:'arrow-bar-up',label:'Arrow Bar Up'},
+    {name:'arrow-clockwise',label:'Arrow Clockwise'},{name:'arrow-counterclockwise',label:'Arrow Counterclockwise'},
+    {name:'arrow-down',label:'Arrow Down'},{name:'arrow-down-circle',label:'Arrow Down Circle'},
+    {name:'arrow-down-circle-fill',label:'Arrow Down Circle Fill'},
+    {name:'arrow-down-left',label:'Arrow Down Left'},{name:'arrow-down-left-circle',label:'Arrow Down Left Circle'},
+    {name:'arrow-down-left-circle-fill',label:'Arrow Down Left Circle Fill'},
+    {name:'arrow-down-left-square',label:'Arrow Down Left Square'},
+    {name:'arrow-down-left-square-fill',label:'Arrow Down Left Square Fill'},
+    {name:'arrow-down-right',label:'Arrow Down Right'},{name:'arrow-down-right-circle',label:'Arrow Down Right Circle'},
+    {name:'arrow-down-right-circle-fill',label:'Arrow Down Right Circle Fill'},
+    {name:'arrow-down-right-square',label:'Arrow Down Right Square'},
+    {name:'arrow-down-right-square-fill',label:'Arrow Down Right Square Fill'},
+    {name:'arrow-down-short',label:'Arrow Down Short'},{name:'arrow-down-square',label:'Arrow Down Square'},
+    {name:'arrow-down-square-fill',label:'Arrow Down Square Fill'},{name:'arrow-down-up',label:'Arrow Down Up'},
+    {name:'arrow-left',label:'Arrow Left'},{name:'arrow-left-circle',label:'Arrow Left Circle'},
+    {name:'arrow-left-circle-fill',label:'Arrow Left Circle Fill'}
+  ];
+  const gridEssential = document.getElementById('grid-essential');
+  ESSENTIAL_ICONS.forEach(function(icon) { gridEssential.appendChild(makeCard(icon, 'icon')); });
+
   /* ── Category filter ── */
   const pills = document.querySelectorAll('.cat-pill');
   pills.forEach(pill => {
@@ -1018,7 +1089,7 @@ GitHub</div>
       pills.forEach(p => p.classList.remove('active'));
       pill.classList.add('active');
       const cat = pill.dataset.cat;
-      ['social','dev','platform','payment','business','communication'].forEach(function(c) {
+      ['social','dev','platform','payment','business','communication','essential'].forEach(function(c) {
         const sec = document.getElementById('section-' + c);
         if (cat === 'all' || cat === c) {
           sec.style.display = '';

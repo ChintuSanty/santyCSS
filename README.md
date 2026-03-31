@@ -341,6 +341,45 @@ Install: search **SantyCSS IntelliSense** in the Extensions panel.
 
 ---
 
+## What's New in v2.4.1
+
+### 🎯 100 Essential UI Icons
+
+New category — **Essential UI** — adds 100 carefully selected icons to `santy-icons.css`. Use them with the same `.icon` system.
+
+```html
+<link rel="stylesheet" href="santy-icons.css">
+
+<!-- Number badges -->
+<span class="icon icon-0-circle"></span>
+<span class="icon icon-5-circle-fill icon-size-lg" style="color:#3b82f6;"></span>
+
+<!-- Arrows -->
+<span class="icon icon-arrow-down"></span>
+<span class="icon icon-arrow-clockwise icon-size-xl" style="color:#22c55e;"></span>
+
+<!-- UI chrome -->
+<span class="icon icon-activity"></span>
+<span class="icon icon-alarm icon-size-2x" style="color:#ef4444;"></span>
+<span class="icon icon-archive-fill"></span>
+```
+
+**Full icon list (100):**
+
+| Group | Icons |
+|---|---|
+| Numbers | `0-circle` `0-circle-fill` `0-square` `0-square-fill` `1-circle` `1-circle-fill` `1-square` `1-square-fill` `123` `2-circle` `2-circle-fill` `2-square` `2-square-fill` `3-circle` `3-circle-fill` `3-square` `3-square-fill` `4-circle` `4-circle-fill` `4-square` `4-square-fill` `5-circle` `5-circle-fill` `5-square` `5-square-fill` `6-circle` `6-circle-fill` `6-square` `6-square-fill` `7-circle` `7-circle-fill` `7-square` `7-square-fill` `8-circle` `8-circle-fill` `8-square` `8-square-fill` `9-circle` `9-circle-fill` `9-square` `9-square-fill` |
+| Activity & Travel | `activity` `airplane` `airplane-engines` `airplane-engines-fill` `airplane-fill` `alarm` `alarm-fill` |
+| Brands | `alexa` `alipay` `amazon` `amd` `android` `android2` `anthropic` `apple` `apple-music` `app` `app-indicator` |
+| Alignment | `align-bottom` `align-center` `align-end` `align-middle` `align-start` `align-top` |
+| Text | `alphabet` `alphabet-uppercase` `alt` |
+| Files | `archive` `archive-fill` |
+| Arrows | `arrow-90deg-down` `arrow-90deg-left` `arrow-90deg-right` `arrow-90deg-up` `arrow-bar-down` `arrow-bar-left` `arrow-bar-right` `arrow-bar-up` `arrow-clockwise` `arrow-counterclockwise` `arrow-down` `arrow-down-circle` `arrow-down-circle-fill` `arrow-down-left` `arrow-down-left-circle` `arrow-down-left-circle-fill` `arrow-down-left-square` `arrow-down-left-square-fill` `arrow-down-right` `arrow-down-right-circle` `arrow-down-right-circle-fill` `arrow-down-right-square` `arrow-down-right-square-fill` `arrow-down-short` `arrow-down-square` `arrow-down-square-fill` `arrow-down-up` `arrow-left` `arrow-left-circle` `arrow-left-circle-fill` |
+
+> 🎨 **[Icon Browser](https://santycss.santy.in/icons.html)** — filter by "Essential UI" to browse all 100
+
+---
+
 ## What's New in v1.3
 
 ### 🎨 70+ SVG Icons (new: Business & Finance)
