@@ -341,6 +341,33 @@ Install: search **SantyCSS IntelliSense** in the Extensions panel.
 
 ---
 
+## What's New in v2.4.2
+
+### 🎯 200 Essential UI Icons (+100 new)
+
+Another 100 icons added to the **Essential UI** category — arrows (all directions, variants), aspect ratio, badges, bags, balloons, backpacks and more.
+
+```html
+<span class="icon icon-arrow-repeat icon-size-xl" style="color:#3b82f6;"></span>
+<span class="icon icon-arrows-fullscreen icon-size-lg"></span>
+<span class="icon icon-bag-heart-fill icon-size-2x" style="color:#ef4444;"></span>
+<span class="icon icon-award-fill icon-size-2x" style="color:#f59e0b;"></span>
+<span class="icon icon-balloon-heart icon-size-xl" style="color:#ec4899;"></span>
+```
+
+**New icons (100):**
+
+| Group | Icons |
+|---|---|
+| Arrows (more) | `arrow-left-right` `arrow-left-short` `arrow-left-square` `arrow-left-square-fill` `arrow-repeat` `arrow-return-left` `arrow-return-right` `arrow-right` `arrow-right-circle` `arrow-right-circle-fill` `arrow-right-short` `arrow-right-square` `arrow-right-square-fill` `arrow-through-heart` `arrow-through-heart-fill` `arrow-up` `arrow-up-circle` `arrow-up-circle-fill` `arrow-up-left` `arrow-up-left-circle` `arrow-up-left-circle-fill` `arrow-up-left-square` `arrow-up-left-square-fill` `arrow-up-right` `arrow-up-right-circle` `arrow-up-right-circle-fill` `arrow-up-right-square` `arrow-up-right-square-fill` `arrow-up-short` `arrow-up-square` `arrow-up-square-fill` |
+| Arrows (set) | `arrows` `arrows-angle-contract` `arrows-angle-expand` `arrows-collapse` `arrows-collapse-vertical` `arrows-expand` `arrows-expand-vertical` `arrows-fullscreen` `arrows-move` `arrows-vertical` |
+| UI | `aspect-ratio` `aspect-ratio-fill` `asterisk` `at` `award` `award-fill` `back` `backspace` `backspace-fill` `backspace-reverse` `backspace-reverse-fill` |
+| Bags & Packs | `backpack` `backpack-fill` `backpack2` `backpack2-fill` `backpack3` `backpack3-fill` `backpack4` `backpack4-fill` `bag` `bag-check` `bag-check-fill` `bag-dash` `bag-dash-fill` `bag-fill` `bag-heart` `bag-heart-fill` `bag-plus` `bag-plus-fill` `bag-x` `bag-x-fill` |
+| Badges | `badge-3d` `badge-3d-fill` `badge-4k` `badge-4k-fill` `badge-8k` `badge-8k-fill` `badge-ad` `badge-ad-fill` `badge-ar` `badge-ar-fill` `badge-cc` `badge-cc-fill` `badge-hd` `badge-hd-fill` `badge-sd` `badge-sd-fill` `badge-tm` `badge-tm-fill` `badge-vo` `badge-vo-fill` `badge-vr` `badge-vr-fill` `badge-wc` `badge-wc-fill` |
+| Fun | `balloon` `balloon-fill` `balloon-heart` `balloon-heart-fill` |
+
+---
+
 ## What's New in v2.4.1
 
 ### 🎯 100 Essential UI Icons
