@@ -341,6 +341,40 @@ Install: search **SantyCSS IntelliSense** in the Extensions panel.
 
 ---
 
+## What's New in v2.4.4
+
+### 🎯 400 Essential UI Icons (+100 new)
+
+100 more icons — boxes, buildings, browsers, calendars, brightness controls and more.
+
+```html
+<span class="icon icon-building-fill icon-size-2x" style="color:#6366f1;"></span>
+<span class="icon icon-calendar-heart-fill icon-size-xl" style="color:#ec4899;"></span>
+<span class="icon icon-briefcase-fill icon-size-xl" style="color:#3b82f6;"></span>
+<span class="icon icon-brightness-high-fill icon-size-xl" style="color:#f59e0b;"></span>
+<span class="icon icon-bug-fill icon-size-xl" style="color:#ef4444;"></span>
+```
+
+**New icons (100):**
+
+| Group | Icons |
+|---|---|
+| Boxes | `box2-fill` `box2-heart` `box2-heart-fill` `boxes` |
+| Dev | `braces` `braces-asterisk` `bricks` `bug` `bug-fill` |
+| Work | `briefcase` `briefcase-fill` `bullseye` |
+| Display | `brightness-alt-high` `brightness-alt-high-fill` `brightness-alt-low` `brightness-alt-low-fill` `brightness-high` `brightness-high-fill` `brightness-low` `brightness-low-fill` `brilliance` |
+| Media | `broadcast` `broadcast-pin` |
+| Browsers | `browser-chrome` `browser-edge` `browser-firefox` `browser-safari` |
+| Design | `brush` `brush-fill` `bucket` `bucket-fill` |
+| Buildings | `building` `building-add` `building-check` `building-dash` `building-down` `building-exclamation` `building-fill` `building-fill-add` `building-fill-check` `building-fill-dash` `building-fill-down` `building-fill-exclamation` `building-fill-gear` `building-fill-lock` `building-fill-slash` `building-fill-up` `building-fill-x` `building-gear` `building-lock` `building-slash` `building-up` `building-x` `buildings` `buildings-fill` |
+| Transport | `bus-front` `bus-front-fill` |
+| Legal | `c-circle` `c-circle-fill` `c-square` `c-square-fill` |
+| Food | `cake` `cake-fill` `cake2` `cake2-fill` |
+| Tools | `calculator` `calculator-fill` |
+| Calendars | `calendar` `calendar-check` `calendar-check-fill` `calendar-date` `calendar-date-fill` `calendar-day` `calendar-day-fill` `calendar-event` `calendar-event-fill` `calendar-fill` `calendar-heart` `calendar-heart-fill` `calendar-minus` `calendar-minus-fill` `calendar-month` `calendar-month-fill` `calendar-plus` `calendar-plus-fill` `calendar-range` `calendar-range-fill` `calendar-week` `calendar-week-fill` `calendar-x` `calendar-x-fill` `calendar2` `calendar2-check` `calendar2-check-fill` `calendar2-date` `calendar2-date-fill` `calendar2-day` `calendar2-day-fill` `calendar2-event` `calendar2-event-fill` |
+
+---
+
 ## What's New in v2.4.3
 
 ### 🎯 300 Essential UI Icons (+100 new)
