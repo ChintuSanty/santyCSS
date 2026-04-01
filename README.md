@@ -341,6 +341,25 @@ Install: search **SantyCSS IntelliSense** in the Extensions panel.
 
 ---
 
+## What's New in v2.4.5
+
+### 🎨 1000 Essential UI Icons + Scrollable Grid + Sub-filters
+
+600 new icons added — calendars (all variants), camera & media, chat & messaging, cloud & weather, clipboard, checks & chevrons, database & devices, emoji, envelopes, files & documents, and more.
+
+The icon browser now features:
+- **Scrollable Essential UI grid** — browse 1000 icons in a fixed-height scrollable area
+- **Sub-filters** — filter by category: Numbers, Arrows, Calendar, Camera, Chat, Cloud, Database, Emoji, Files, Shapes, Shopping
+
+```html
+<span class="icon icon-chat-left-text-fill icon-size-xl" style="color:#6366f1;"></span>
+<span class="icon icon-cloud-lightning-rain-fill icon-size-xl" style="color:#0ea5e9;"></span>
+<span class="icon icon-file-earmark-pdf-fill icon-size-xl" style="color:#ef4444;"></span>
+<span class="icon icon-emoji-laughing-fill icon-size-xl" style="color:#f59e0b;"></span>
+```
+
+---
+
 ## What's New in v2.4.4
 
 ### 🎯 400 Essential UI Icons (+100 new)

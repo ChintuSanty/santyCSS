@@ -1,6 +1,6 @@
 {
   "name": "santycss",
-  "version": "2.4.4",
+  "version": "2.4.5",
   "description": "Plain-English utility-first CSS framework — no build step, just classes",
   "main": "index.js",
   "style": "dist/santy.css",
