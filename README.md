@@ -375,6 +375,25 @@ The icon browser now features:
 <span class="icon icon-emoji-laughing-fill icon-size-xl" style="color:#f59e0b;"></span>
 ```
 
+**New icons (600):**
+
+| Group | Icons |
+|---|---|
+| Calendar variants | `calendar2-fill` `calendar2-heart` `calendar2-minus` `calendar2-month` `calendar2-plus` `calendar2-range` `calendar2-week` `calendar2-x` `calendar3` `calendar3-event` `calendar3-fill` `calendar3-range` `calendar3-week` `calendar4` `calendar4-event` `calendar4-range` `calendar4-week` (+ fill variants) |
+| Camera & Media | `camera` `camera-fill` `camera-reels` `camera-video` `camera-video-off` `camera2` `cassette` `cast` |
+| Cart & Shopping | `cart` `cart-check` `cart-dash` `cart-fill` `cart-plus` `cart-x` `cart2` `cart3` `cart4` |
+| Chat & Messaging | `chat` `chat-dots` `chat-fill` `chat-heart` `chat-left` `chat-left-dots` `chat-left-fill` `chat-left-heart` `chat-left-quote` `chat-left-text` `chat-quote` `chat-right` `chat-right-dots` `chat-right-fill` `chat-right-heart` `chat-right-quote` `chat-right-text` `chat-square` `chat-square-dots` `chat-square-fill` `chat-square-heart` `chat-square-quote` `chat-square-text` `chat-text` (+ fill variants) |
+| Check & Shapes | `check` `check-all` `check-circle` `check-lg` `check-square` `check2` `check2-all` `check2-circle` `check2-square` |
+| Chevrons | `chevron-bar-contract` `chevron-bar-down` `chevron-bar-expand` `chevron-bar-left` `chevron-bar-right` `chevron-bar-up` `chevron-compact-down` `chevron-compact-left` `chevron-compact-right` `chevron-compact-up` `chevron-contract` `chevron-double-down` `chevron-double-left` `chevron-double-right` `chevron-double-up` `chevron-down` `chevron-expand` `chevron-left` `chevron-right` `chevron-up` |
+| Clipboard | `clipboard` `clipboard-check` `clipboard-data` `clipboard-fill` `clipboard-heart` `clipboard-minus` `clipboard-plus` `clipboard-pulse` `clipboard-x` `clipboard2` (+ all clipboard2 variants, + fill variants) |
+| Clock | `clock` `clock-fill` `clock-history` |
+| Cloud & Weather | `cloud` `cloud-arrow-down` `cloud-arrow-up` `cloud-check` `cloud-download` `cloud-drizzle` `cloud-fill` `cloud-fog` `cloud-fog2` `cloud-hail` `cloud-haze` `cloud-haze2` `cloud-lightning` `cloud-lightning-rain` `cloud-minus` `cloud-moon` `cloud-plus` `cloud-rain` `cloud-rain-heavy` `cloud-slash` `cloud-sleet` `cloud-snow` `cloud-sun` `cloud-upload` `clouds` `cloudy` (+ fill variants) |
+| Currency | `currency-bitcoin` `currency-dollar` `currency-euro` `currency-exchange` `currency-pound` `currency-rupee` `currency-yen` |
+| Database & Device | `database` `database-add` `database-check` `database-dash` `database-down` `database-exclamation` `database-fill` (+ all database-fill-* variants) `device-hdd` `device-ssd` |
+| Emoji | `emoji-angry` `emoji-astonished` `emoji-dizzy` `emoji-expressionless` `emoji-frown` `emoji-grimace` `emoji-grin` `emoji-heart-eyes` `emoji-kiss` `emoji-laughing` `emoji-neutral` `emoji-smile` `emoji-smile-upside-down` `emoji-sunglasses` `emoji-surprise` `emoji-tear` `emoji-wink` (+ fill variants) |
+| Envelope | `envelope` `envelope-arrow-down` `envelope-arrow-up` `envelope-at` `envelope-check` `envelope-dash` `envelope-exclamation` `envelope-fill` `envelope-heart` `envelope-open` `envelope-open-heart` `envelope-paper` `envelope-paper-heart` `envelope-plus` `envelope-slash` `envelope-x` (+ fill variants) |
+| File docs | `file` `file-arrow-down` `file-arrow-up` `file-bar-graph` `file-binary` `file-break` `file-check` `file-code` `file-diff` `file-earmark` (+ all earmark variants) `file-easel` `file-excel` `file-fill` `file-font` `file-image` `file-lock` `file-lock2` `file-medical` `file-minus` `file-music` `file-pdf` `file-person` `file-play` `file-plus` `file-post` `file-ppt` `file-richtext` (+ fill variants) |
+
 ---
 
 ## What's New in v2.4.4
