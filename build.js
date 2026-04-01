@@ -8,10 +8,9 @@ const path = require('path');
 const { ANIMATION_CSS } = require('./lib/animations');
 
 // ─── VALUE RANGES ───────────────────────────────────────────────────────────
-const spacing = [];
-for (let i = 0; i <= 50; i++) spacing.push(i);
-for (let i = 52; i <= 200; i += 4) spacing.push(i);
-[220, 240, 256, 280, 320, 360, 384, 400, 448, 512, 640, 768, 1024].forEach(v => { if (!spacing.includes(v)) spacing.push(v); });
+// T-shirt spacing scale — 32 values covering all real-world design needs.
+// Migration: add-padding-7 → add-padding-8, add-padding-9 → add-padding-10, etc.
+const spacing = [0,1,2,3,4,5,6,8,10,12,14,16,18,20,24,28,32,40,48,56,64,80,96,128,160,192,256,320,384,512,640,768,1024];
 
 const fontSizes = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 24, 26, 28, 30, 32, 36, 40, 44, 48, 52, 56, 60, 64, 72, 80, 96, 120, 144];
 const radii = [...new Set([0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 40, 48, 56, 64, 72, 96, 128])];
@@ -954,7 +953,9 @@ add(`\n/* ═══════════════════════�
    Usage: class="on-mobile:make-hidden md:make-flex lg:grid-cols-3"
    ═══════════════════════════════════════════════════════════════ */`);
 
-const startBreakpoints = new Set(['on-mobile', 'on-tablet', 'on-desktop', 'md']);
+// All responsive breakpoints live in santy-variants.css only.
+// santy-core.css and santy-start.css ship zero breakpoint variants by design.
+const startBreakpoints = new Set([]);
 Object.entries(breakpoints).forEach(([prefix, mq]) => {
   const isStart = startBreakpoints.has(prefix);
   if (!isStart) add(`\n/* ═══ VARIANTS_BLOCK_START ═══ */`);
@@ -3496,7 +3497,8 @@ Object.entries(palette).forEach(([name, shades]) => {
   });
 });
 
-// Color-mix tints & shades using color-mix()
+// Color-mix tints & shades — advanced feature, lives in santy-variants.css
+add(`\n/* ═══ VARIANTS_BLOCK_START ═══ */`);
 add(`\n/* ── Color-Mix Tints & Shades — background, text, border ── */`);
 const tintLevels  = [10, 20, 30, 40, 50, 60, 70];
 const shadeLevels = [10, 20, 30];
@@ -3515,6 +3517,7 @@ Object.entries(palette).forEach(([name, shades]) => {
   add(`.border-${name}-tint-40 { border-color: color-mix(in srgb, ${base} 40%, #ffffff); }`);
   add(`.border-${name}-shade-10 { border-color: color-mix(in srgb, ${base} 90%, #000000); }`);
 });
+add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
 
 // ─── NEW FEATURES v1.7 ───────────────────────────────────────────────────────
 add(`

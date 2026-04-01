@@ -1849,6 +1849,8 @@
 .caret-stone-800 { caret-color: #292524; }
 .caret-stone-900 { caret-color: #1c1917; }
 
+/* ═══ VARIANTS_BLOCK_START ═══ */
+
 /* ── Color-Mix Tints & Shades — background, text, border ── */
 .background-red-tint-10 { background-color: color-mix(in srgb, #ef4444 10%, #ffffff); }
 .color-red-tint-10      { color: color-mix(in srgb, #ef4444 10%, #ffffff); }
@@ -2264,6 +2266,7 @@
 .border-stone-tint-20 { border-color: color-mix(in srgb, #78716c 20%, #ffffff); }
 .border-stone-tint-40 { border-color: color-mix(in srgb, #78716c 40%, #ffffff); }
 .border-stone-shade-10 { border-color: color-mix(in srgb, #78716c 90%, #000000); }
+/* ═══ VARIANTS_BLOCK_END ═══ */
 
 /* ═══════════════════════════════════════════════════════════════════════════
    v1.7 — ACCESSIBILITY UTILITIES
