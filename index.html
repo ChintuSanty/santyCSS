@@ -245,7 +245,7 @@
     <a href="index.html" class="make-flex align-center gap-10 text-no-decoration">
       <img src="assest/santy_css.png" alt="SantyCSS" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
       <span class="set-text-20 text-bold color-gray-900">Santy<span class="color-blue-600">CSS</span></span>
-      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v2.4.7</span>
+      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v2.4.8</span>
     </a>
     <button class="nav-hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
       <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -337,6 +337,8 @@
         <button class="preset-btn" data-preset="pricing" onclick="loadPreset('pricing',this)" style="padding:4px 12px;border-radius:9999px;border:1px solid #e5e7eb;background:#fff;color:#374151;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;flex-shrink:0;">Pricing</button>
         <button class="preset-btn" data-preset="dashboard" onclick="loadPreset('dashboard',this)" style="padding:4px 12px;border-radius:9999px;border:1px solid #e5e7eb;background:#fff;color:#374151;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;flex-shrink:0;">Dashboard</button>
         <button class="preset-btn" data-preset="form" onclick="loadPreset('form',this)" style="padding:4px 12px;border-radius:9999px;border:1px solid #e5e7eb;background:#fff;color:#374151;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;flex-shrink:0;">Form</button>
+        <button class="preset-btn" data-preset="navbar" onclick="loadPreset('navbar',this)" style="padding:4px 12px;border-radius:9999px;border:1px solid #e5e7eb;background:#fff;color:#374151;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;flex-shrink:0;">Navbar</button>
+        <button class="preset-btn" data-preset="table" onclick="loadPreset('table',this)" style="padding:4px 12px;border-radius:9999px;border:1px solid #e5e7eb;background:#fff;color:#374151;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;flex-shrink:0;">Table</button>
       </div>
       <!-- Viewport toggles -->
       <div style="display:flex;gap:2px;flex-shrink:0;">
@@ -373,7 +375,10 @@
       <div style="display:flex;flex-direction:column;background:#f9fafb;">
         <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 14px;border-bottom:1px solid #f3f4f6;background:#fff;">
           <span style="font-size:11.5px;font-weight:600;color:#6b7280;letter-spacing:.5px;text-transform:uppercase;">Live preview</span>
-          <span style="font-size:11px;background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:9999px;font-weight:600;">auto-updates</span>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <button id="preview-dark-btn" onclick="togglePreviewDark()" title="Toggle dark mode preview" style="font-size:11px;padding:2px 9px;border-radius:9999px;border:1px solid #e5e7eb;background:#fff;color:#374151;cursor:pointer;font-weight:600;display:flex;align-items:center;gap:4px;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background=previewDark?'#1e293b':'#fff'">🌙 Dark</button>
+            <span style="font-size:11px;background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:9999px;font-weight:600;">auto-updates</span>
+          </div>
         </div>
         <div id="preview-wrap" style="flex:1;display:flex;align-items:center;justify-content:center;padding:16px;overflow:hidden;">
           <iframe id="hero-preview" sandbox="allow-scripts allow-same-origin" style="
@@ -398,9 +403,19 @@
   </div><!-- /hero-editor -->
 
   <!-- CDN STRIP -->
-  <div style="max-width:900px;margin:14px auto 0;display:flex;align-items:center;gap:12px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:10px 16px;flex-wrap:wrap;gap:8px;">
+  <div style="max-width:900px;margin:14px auto 0;display:flex;align-items:center;gap:8px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:10px 16px;flex-wrap:wrap;">
     <code id="cdn-code" style="flex:1;font-family:'SF Mono','Fira Code',monospace;font-size:12px;color:#374151;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css"&gt;</code>
+    <a href="https://www.npmjs.com/package/santycss" target="_blank" rel="noopener" style="flex-shrink:0;text-decoration:none;"><img src="https://img.shields.io/npm/dw/santycss.svg?style=flat-square&label=weekly+downloads&color=2563eb" alt="npm weekly downloads" style="height:20px;vertical-align:middle;border-radius:4px;"></a>
     <button onclick="copyCDNStrip()" id="cdn-strip-btn" style="flex-shrink:0;padding:5px 14px;border-radius:7px;border:1px solid #e5e7eb;background:#fff;font-size:12px;font-weight:600;color:#374151;cursor:pointer;" onmouseover="this.style.background='#f3f4f6'" onmouseout="this.style.background='#fff'">Copy CDN</button>
+  </div>
+</section>
+
+<!-- ─── WHAT'S NEW BANNER ─────────────────────────────────────────────────── -->
+<section style="background:#f0f9ff;border-top:1px solid #bae6fd;border-bottom:1px solid #bae6fd;padding:12px 24px;">
+  <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <span style="background:#2563eb;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:9999px;white-space:nowrap;">NEW v2.4.8</span>
+    <span style="font-size:13.5px;color:#0c4a6e;font-weight:500;flex:1;min-width:200px;">Class search widget · Dark mode playground · Dismissible banner · Navbar &amp; Table presets · npm download badge · What's new section</span>
+    <a href="#changelog-248" style="font-size:12px;font-weight:600;color:#2563eb;text-decoration:none;white-space:nowrap;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">See all changes →</a>
   </div>
 </section>
 
@@ -425,8 +440,26 @@
   </div>
 </section>
 
+<!-- ─── CLASS SEARCH WIDGET ──────────────────────────────────────────────────── -->
+<section style="padding:32px 24px;background:#fff;border-top:1px solid #f1f5f9;">
+  <div style="max-width:700px;margin:0 auto;text-align:center;">
+    <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;margin:0 0 10px;">8,500+ Plain-English Classes — Try One</p>
+    <div style="position:relative;display:flex;align-items:center;gap:0;background:#f9fafb;border:2px solid #e5e7eb;border-radius:12px;overflow:hidden;transition:border-color .2s;" id="class-search-wrap">
+      <span style="padding:0 12px;font-size:18px;flex-shrink:0;">🔍</span>
+      <input id="class-search-input" type="text" placeholder='Type a class name… e.g. "add-padding-24" or "make-flex"'
+        style="flex:1;padding:14px 8px;border:none;outline:none;background:transparent;font-size:14px;color:#111827;font-family:ui-monospace,'SF Mono',monospace;"
+        oninput="searchClass(this.value)"
+        onfocus="document.getElementById('class-search-wrap').style.borderColor='#3b82f6'"
+        onblur="document.getElementById('class-search-wrap').style.borderColor='#e5e7eb'">
+      <button onclick="document.getElementById('class-search-input').value='';searchClass('');" style="padding:0 14px;background:none;border:none;cursor:pointer;color:#94a3b8;font-size:16px;flex-shrink:0;" title="Clear">✕</button>
+    </div>
+    <div id="class-search-result" style="margin-top:12px;min-height:48px;"></div>
+  </div>
+</section>
+
 <!-- ─── VS CODE EXTENSION BANNER ────────────────────────────────────────────── -->
-<section style="background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 100%);border-bottom:1px solid #1e293b;">
+<section id="vscode-banner-section" style="background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 100%);border-bottom:1px solid #1e293b;position:relative;">
+  <button onclick="dismissVSCodeBanner()" title="Dismiss" style="position:absolute;top:12px;right:16px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#94a3b8;font-size:14px;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:1;line-height:1;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">✕</button>
   <div class="container add-padding-y-40">
     <div class="make-flex align-center justify-between gap-32" style="flex-wrap:wrap;">
 
@@ -763,7 +796,7 @@ const santy = require('santycss');
           <a href="https://www.npmjs.com/package/santycss" target="_blank" rel="noopener" class="chip" style="background:#cb3837;color:#fff;text-decoration:none;">npm ↗</a>
           <a href="https://github.com/ChintuSanty/santyCSS" target="_blank" rel="noopener" class="chip chip-blue">GitHub ↗</a>
           <span class="chip chip-green">MIT License</span>
-          <span class="chip">v2.4.7</span>
+          <span class="chip">v2.4.8</span>
         </div>
       </div>
 
@@ -1309,7 +1342,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
 <section id="migrate" class="section add-padding-y-80" style="background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);">
   <div class="container">
     <div class="text-center add-margin-bottom-48">
-      <span style="display:inline-block;background:rgba(34,197,94,.15);color:#86efac;border:1px solid rgba(34,197,94,.3);border-radius:9999px;padding:4px 14px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px;">New in v2.4.7</span>
+      <span style="display:inline-block;background:rgba(34,197,94,.15);color:#86efac;border:1px solid rgba(34,197,94,.3);border-radius:9999px;padding:4px 14px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px;">New in v2.4.8</span>
       <h2 class="set-text-40 text-bold color-white add-margin-bottom-12" style="letter-spacing:-1px;">Switch from Tailwind in seconds</h2>
       <p class="set-text-18 add-margin-bottom-0" style="color:#94a3b8;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.6;">One command converts your entire project — HTML, JSX, TSX, Vue, Svelte — no manual rewriting.</p>
     </div>
@@ -2085,7 +2118,7 @@ node purge.js --input=./src --safelist=safelist.json</pre></div>
 
       <!-- Dark Mode -->
       <div>
-        <h3 class="set-text-22 text-semibold color-gray-800 add-margin-bottom-8">Dark Mode &amp; Theming <span class="badge background-green-100 color-green-700" style="font-size:11px;vertical-align:middle;">v2.4.7</span></h3>
+        <h3 class="set-text-22 text-semibold color-gray-800 add-margin-bottom-8">Dark Mode &amp; Theming <span class="badge background-green-100 color-green-700" style="font-size:11px;vertical-align:middle;">v2.4.8</span></h3>
         <p class="set-text-15 color-gray-500 add-margin-bottom-20 line-height-relaxed">Semantic token system — add <code class="chip">data-theme="dark"</code> to any element. Use <code class="chip">.theme-auto</code> to follow the OS preference. Utility classes like <code class="chip">bg-surface</code> and <code class="chip">text-muted</code> adapt automatically.</p>
         <div class="code-block add-margin-bottom-16">
 <pre><span class="c-com">&lt;!-- Dark theme --&gt;</span>
@@ -3985,7 +4018,7 @@ const PRESETS = {
             transition-normal">
   <span class="badge background-blue-100 color-blue-700">New</span>
   <h3 class="set-text-18 text-semibold color-gray-900 add-margin-top-8">
-    SantyCSS v2.4.7
+    SantyCSS v2.4.8
   </h3>
   <p class="set-text-14 color-gray-500 add-margin-top-4">
     Plain-English CSS
@@ -4047,12 +4080,69 @@ const PRESETS = {
     <button class="btn btn-primary">Create account</button>
   </div>
   <p class="set-text-12 color-gray-400 add-margin-top-12 text-center">No credit card required</p>
+</div>`,
+
+  navbar: `<nav class="background-white add-shadow-sm add-padding-x-20 add-padding-y-14" style="border-bottom:1px solid #e5e7eb;">
+  <div class="make-flex align-center justify-between">
+    <div class="make-flex align-center gap-8">
+      <div style="width:28px;height:28px;border-radius:7px;background:#2563eb;"></div>
+      <span class="set-text-16 text-bold color-gray-900">BrandName</span>
+    </div>
+    <div class="make-flex align-center gap-20">
+      <a href="#" class="set-text-14 color-gray-500 text-no-decoration on-hover:color-blue-600">Home</a>
+      <a href="#" class="set-text-14 color-gray-500 text-no-decoration on-hover:color-blue-600">Docs</a>
+      <a href="#" class="set-text-14 color-gray-500 text-no-decoration on-hover:color-blue-600">Pricing</a>
+      <button class="btn btn-primary" style="font-size:13px;padding:6px 16px;">Get started</button>
+    </div>
+  </div>
+</nav>`,
+
+  table: `<div class="background-white round-corners-12 add-shadow-sm" style="overflow:hidden;border:1px solid #e5e7eb;">
+  <table style="width:100%;border-collapse:collapse;font-size:13px;">
+    <thead>
+      <tr style="background:#f9fafb;border-bottom:1px solid #e5e7eb;">
+        <th class="add-padding-12 text-left set-text-12 text-semibold color-gray-500 text-uppercase">Name</th>
+        <th class="add-padding-12 text-left set-text-12 text-semibold color-gray-500 text-uppercase">Role</th>
+        <th class="add-padding-12 text-left set-text-12 text-semibold color-gray-500 text-uppercase">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #f3f4f6;">
+        <td class="add-padding-12 color-gray-900 text-semibold">Priya Sharma</td>
+        <td class="add-padding-12 color-gray-500">Designer</td>
+        <td class="add-padding-12"><span class="badge background-green-100 color-green-700">Active</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid #f3f4f6;">
+        <td class="add-padding-12 color-gray-900 text-semibold">Arjun Mehta</td>
+        <td class="add-padding-12 color-gray-500">Engineer</td>
+        <td class="add-padding-12"><span class="badge background-blue-100 color-blue-700">On leave</span></td>
+      </tr>
+      <tr>
+        <td class="add-padding-12 color-gray-900 text-semibold">Sara Khan</td>
+        <td class="add-padding-12 color-gray-500">Manager</td>
+        <td class="add-padding-12"><span class="badge background-yellow-100 color-yellow-700">Pending</span></td>
+      </tr>
+    </tbody>
+  </table>
 </div>`
 };
 
 let renderTimer = null;
 let currentViewport = 'desktop';
 let currentTab = 'html';
+let previewDark = false;
+
+function togglePreviewDark() {
+  previewDark = !previewDark;
+  const btn = document.getElementById('preview-dark-btn');
+  if (btn) {
+    btn.style.background = previewDark ? '#1e293b' : '#fff';
+    btn.style.color = previewDark ? '#f1f5f9' : '#374151';
+    btn.style.borderColor = previewDark ? '#334155' : '#e5e7eb';
+    btn.textContent = previewDark ? '☀️ Light' : '🌙 Dark';
+  }
+  renderIframe();
+}
 
 function renderIframe() {
   const ta = document.getElementById('hero-textarea');
@@ -4060,11 +4150,16 @@ function renderIframe() {
   const html = ta.value;
   const iframe = document.getElementById('hero-preview');
   if (!iframe) return;
-  const srcdoc = `<!DOCTYPE html><html><head>
+  const darkStyles = previewDark
+    ? 'body{background:#0f172a;color:#f1f5f9;} .card{background:#1e293b!important;border-color:#334155!important;} .input{background:#1e293b!important;color:#f1f5f9!important;border-color:#334155!important;}'
+    : '';
+  const srcdoc = `<!DOCTYPE html><html${previewDark?' data-theme="dark"':''}><head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css">
-<style>body{margin:0;padding:16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;}</style>
+<style>body{margin:0;padding:16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:${previewDark?'#0f172a':'#fff'};color:${previewDark?'#f1f5f9':'inherit'};}${darkStyles}</style>
 </head><body>${html}</body></html>`;
   iframe.srcdoc = srcdoc;
+  const wrap = document.getElementById('preview-wrap');
+  if (wrap) wrap.style.background = previewDark ? '#0f172a' : '';
   updateClassCount(html);
   if (currentTab === 'css') showCSSOutput(html);
 }
@@ -4174,6 +4269,101 @@ function copyEditor() {
     const btn = document.getElementById('copy-editor-btn');
     if (btn) { btn.textContent = 'Copied!'; btn.style.color = '#16a34a'; setTimeout(() => { btn.textContent = 'Copy'; btn.style.color = '#374151'; }, 1500); }
   });
+}
+
+/* ── VS Code banner dismiss ── */
+function dismissVSCodeBanner() {
+  const sec = document.getElementById('vscode-banner-section');
+  if (sec) { sec.style.maxHeight = sec.offsetHeight + 'px'; sec.style.overflow = 'hidden'; sec.style.transition = 'max-height .35s ease, opacity .35s ease'; requestAnimationFrame(() => { sec.style.maxHeight = '0'; sec.style.opacity = '0'; setTimeout(() => sec.style.display = 'none', 380); }); }
+  try { sessionStorage.setItem('vscodeBannerDismissed','1'); } catch(e){}
+}
+(function(){ try { if(sessionStorage.getItem('vscodeBannerDismissed')) { var s = document.getElementById('vscode-banner-section'); if(s) s.style.display='none'; } } catch(e){} })();
+
+/* ── Class search ── */
+const CLASS_DICT = [
+  ['add-padding-{n}','Adds padding of {n}px to all sides. E.g. add-padding-16 → padding:16px'],
+  ['add-padding-x-{n}','Adds horizontal padding (left & right). E.g. add-padding-x-24'],
+  ['add-padding-y-{n}','Adds vertical padding (top & bottom). E.g. add-padding-y-32'],
+  ['add-padding-top-{n}','Adds top padding. E.g. add-padding-top-8'],
+  ['add-padding-bottom-{n}','Adds bottom padding. E.g. add-padding-bottom-8'],
+  ['add-margin-{n}','Adds margin of {n}px on all sides'],
+  ['add-margin-x-{n}','Adds horizontal margin (left & right)'],
+  ['add-margin-y-{n}','Adds vertical margin (top & bottom)'],
+  ['add-margin-top-{n}','Adds top margin. E.g. add-margin-top-16'],
+  ['add-margin-bottom-{n}','Adds bottom margin. E.g. add-margin-bottom-24'],
+  ['make-flex','Sets display:flex — enables flexbox layout'],
+  ['make-grid','Sets display:grid — enables grid layout'],
+  ['align-center','Aligns flex/grid items to center (align-items:center)'],
+  ['align-start','Aligns flex/grid items to start'],
+  ['align-end','Aligns flex/grid items to end'],
+  ['justify-center','Justifies flex/grid content to center'],
+  ['justify-between','Distributes items with space between (justify-content:space-between)'],
+  ['justify-end','Justifies flex content to end'],
+  ['flex-column','Sets flex-direction:column — stacks items vertically'],
+  ['flex-wrap','Allows flex items to wrap onto multiple lines'],
+  ['gap-{n}','Sets gap between flex/grid items. E.g. gap-16 → gap:16px'],
+  ['set-text-{n}','Sets font-size to {n}px. E.g. set-text-16 → font-size:16px'],
+  ['text-bold','Sets font-weight:700 (bold)'],
+  ['text-semibold','Sets font-weight:600'],
+  ['text-center','Centers text (text-align:center)'],
+  ['text-left','Left-aligns text'],
+  ['text-right','Right-aligns text'],
+  ['text-uppercase','Transforms text to UPPERCASE'],
+  ['text-no-decoration','Removes text underline/decoration'],
+  ['color-gray-{n}','Sets text color to gray shade {n}. E.g. color-gray-700'],
+  ['color-blue-{n}','Sets text color to blue shade {n}. E.g. color-blue-600'],
+  ['color-red-{n}','Sets text color to red shade {n}'],
+  ['color-green-{n}','Sets text color to green shade {n}'],
+  ['background-white','Sets background-color:white'],
+  ['background-blue-{n}','Sets background to blue shade. E.g. background-blue-500'],
+  ['background-gray-{n}','Sets background to gray shade. E.g. background-gray-100'],
+  ['round-corners-{n}','Sets border-radius to {n}px. E.g. round-corners-12 → border-radius:12px'],
+  ['add-shadow-sm','Adds a small box-shadow'],
+  ['add-shadow-md','Adds a medium box-shadow'],
+  ['add-shadow-lg','Adds a large box-shadow'],
+  ['add-border-{n}','Adds border of {n}px width. E.g. add-border-1'],
+  ['add-border-left-{n}','Adds left border of {n}px. E.g. add-border-left-4'],
+  ['border-color-blue-{n}','Sets border color to blue shade'],
+  ['set-width-full','Sets width:100%'],
+  ['set-width-{n}-of-{d}','Sets fractional width. E.g. set-width-1-of-2 → width:50%'],
+  ['set-height-full','Sets height:100%'],
+  ['position-sticky','Sets position:sticky'],
+  ['position-relative','Sets position:relative'],
+  ['position-absolute','Sets position:absolute'],
+  ['pin-top-{n}','Sets top:{n}px on positioned element'],
+  ['layer-{n}','Sets z-index:{n}. E.g. layer-50 → z-index:50'],
+  ['on-hover:add-shadow-lg','Applies add-shadow-lg on hover'],
+  ['on-hover:color-blue-600','Changes text color to blue-600 on hover'],
+  ['transition-normal','Adds CSS transition for smooth animations'],
+  ['card','SantyCSS card component — white bg, rounded corners, subtle shadow'],
+  ['btn','SantyCSS base button class'],
+  ['btn-primary','Primary button — blue background, white text'],
+  ['btn-outline','Outline button — transparent bg with border'],
+  ['badge','Small inline label/tag — use with background/color classes'],
+  ['input','Styled form input — border, padding, border-radius'],
+  ['grid-cols-{n}','Sets grid-template-columns to {n} equal columns. E.g. grid-cols-3'],
+  ['line-height-relaxed','Sets line-height:1.625 for comfortable reading'],
+  ['overflow-hidden','Sets overflow:hidden'],
+  ['text-ellipsis','Truncates text with ... (text-overflow:ellipsis)'],
+  ['add-border-radius-full','Sets border-radius:9999px — pill shape'],
+];
+
+function searchClass(q) {
+  const out = document.getElementById('class-search-result');
+  if (!out) return;
+  q = q.trim().toLowerCase();
+  if (!q) { out.innerHTML = ''; return; }
+  const matches = CLASS_DICT.filter(([cls]) => cls.toLowerCase().includes(q) || cls.replace(/-\{[^}]+\}/g,'').includes(q));
+  if (!matches.length) {
+    out.innerHTML = '<p style="font-size:13px;color:#9ca3af;margin:0;">No match found — try <a href="classes.html" style="color:#3b82f6;">the full class reference</a> for all 8,500+ classes.</p>';
+    return;
+  }
+  out.innerHTML = matches.slice(0,4).map(([cls,desc]) =>
+    `<div style="display:flex;align-items:flex-start;gap:12px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:10px 14px;text-align:left;margin-bottom:6px;">
+      <code style="font-family:ui-monospace,'SF Mono',monospace;font-size:12px;color:#2563eb;background:#eff6ff;padding:2px 8px;border-radius:5px;white-space:nowrap;flex-shrink:0;">.${cls}</code>
+      <span style="font-size:13px;color:#374151;line-height:1.5;">${desc}</span>
+    </div>`
+  ).join('') + (matches.length > 4 ? `<p style="font-size:12px;color:#9ca3af;margin:4px 0 0;text-align:center;">+${matches.length-4} more — <a href="classes.html" style="color:#3b82f6;">view all</a></p>` : '');
 }
 
 function copyCDNStrip() {

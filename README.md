@@ -21,6 +21,21 @@ Class names read like sentences — `add-padding-24` instead of `p-6`. AI tools 
 
 ---
 
+## What's New in v2.4.8
+
+### 🚀 Homepage UX Improvements
+
+Six homepage enhancements for better discoverability and developer experience:
+
+1. **Class search widget** — Live search with descriptions for 8,500+ classes. Type any class name and see what it does instantly.
+2. **"What's new" announcement banner** — Highlighted strip below the hero showing the latest release highlights.
+3. **npm weekly downloads badge** — Social proof badge next to the CDN snippet.
+4. **Dark mode playground toggle** — 🌙 Dark / ☀️ Light button in the live preview to demo dark mode variants.
+5. **Dismissible VS Code banner** — ✕ button to close the extension promo banner (persists per session).
+6. **Navbar & Table presets** — Two new playground tabs showing a Navbar and a data Table built with SantyCSS.
+
+---
+
 ## What's New in v2.4.7
 
 ### 🎨 2078 Essential UI Icons (+78 new — final batch)
