@@ -341,6 +341,37 @@ Install: search **SantyCSS IntelliSense** in the Extensions panel.
 
 ---
 
+## What's New in v2.4.7
+
+### 🎨 2078 Essential UI Icons (+78 new — final batch)
+
+78 final icons completing the Essential UI library — USB drives, volume controls, wallet, webcam, wifi, windows, wrench, x/close variants, and zoom.
+
+```html
+<span class="icon icon-volume-up-fill icon-size-xl" style="color:#3b82f6;"></span>
+<span class="icon icon-wifi icon-size-xl" style="color:#10b981;"></span>
+<span class="icon icon-wrench-adjustable-circle-fill icon-size-xl" style="color:#6366f1;"></span>
+<span class="icon icon-zoom-in icon-size-xl" style="color:#f59e0b;"></span>
+```
+
+**New icons (78):**
+
+| Group | Icons |
+|---|---|
+| USB | `usb-drive` `usb-drive-fill` `usb-fill` `usb-micro` `usb-micro-fill` `usb-mini` `usb-mini-fill` `usb-plug` `usb-plug-fill` `usb-symbol` |
+| Misc | `valentine` `valentine2` `vector-pen` `view-list` `view-stacked` `vignette` `vimeo` `vinyl` `vinyl-fill` `virus` `virus2` `voicemail` `vr` |
+| Volume | `volume-down` `volume-down-fill` `volume-mute` `volume-mute-fill` `volume-off` `volume-off-fill` `volume-up` `volume-up-fill` |
+| Wallet & Watch | `wallet` `wallet-fill` `wallet2` `watch` `water` |
+| Camera & Comms | `webcam` `webcam-fill` `wechat` `whatsapp` |
+| Wifi | `wifi` `wifi-1` `wifi-2` `wifi-off` |
+| Misc | `wikipedia` `wind` `windows` `wordpress` `xbox` `yelp` `yin-yang` `youtube` |
+| Window | `window` `window-dash` `window-desktop` `window-dock` `window-fullscreen` `window-plus` `window-sidebar` `window-split` `window-stack` `window-x` |
+| Wrench | `wrench` `wrench-adjustable` `wrench-adjustable-circle` `wrench-adjustable-circle-fill` |
+| Close / X | `x` `x-circle` `x-circle-fill` `x-diamond` `x-diamond-fill` `x-lg` `x-octagon` `x-octagon-fill` `x-square` `x-square-fill` |
+| Zoom | `zoom-in` `zoom-out` |
+
+---
+
 ## What's New in v2.4.6
 
 ### 🎨 2000 Essential UI Icons (1000 new in this release)
