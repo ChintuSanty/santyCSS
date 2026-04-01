@@ -21,6 +21,228 @@ Class names read like sentences — `add-padding-24` instead of `p-6`. AI tools 
 
 ---
 
+## What's New in v2.4.7
+
+### 🎨 2078 Essential UI Icons (+78 new — final batch)
+
+78 final icons completing the Essential UI library — USB drives, volume controls, wallet, webcam, wifi, windows, wrench, x/close variants, and zoom.
+
+```html
+<span class="icon icon-volume-up-fill icon-size-xl" style="color:#3b82f6;"></span>
+<span class="icon icon-wifi icon-size-xl" style="color:#10b981;"></span>
+<span class="icon icon-wrench-adjustable-circle-fill icon-size-xl" style="color:#6366f1;"></span>
+<span class="icon icon-zoom-in icon-size-xl" style="color:#f59e0b;"></span>
+```
+
+**New icons (78):**
+
+| Group | Icons |
+|---|---|
+| USB | `usb-drive` `usb-drive-fill` `usb-fill` `usb-micro` `usb-micro-fill` `usb-mini` `usb-mini-fill` `usb-plug` `usb-plug-fill` `usb-symbol` |
+| Misc | `valentine` `valentine2` `vector-pen` `view-list` `view-stacked` `vignette` `vimeo` `vinyl` `vinyl-fill` `virus` `virus2` `voicemail` `vr` |
+| Volume | `volume-down` `volume-down-fill` `volume-mute` `volume-mute-fill` `volume-off` `volume-off-fill` `volume-up` `volume-up-fill` |
+| Wallet & Watch | `wallet` `wallet-fill` `wallet2` `watch` `water` |
+| Camera & Comms | `webcam` `webcam-fill` `wechat` `whatsapp` |
+| Wifi | `wifi` `wifi-1` `wifi-2` `wifi-off` |
+| Misc | `wikipedia` `wind` `windows` `wordpress` `xbox` `yelp` `yin-yang` `youtube` |
+| Window | `window` `window-dash` `window-desktop` `window-dock` `window-fullscreen` `window-plus` `window-sidebar` `window-split` `window-stack` `window-x` |
+| Wrench | `wrench` `wrench-adjustable` `wrench-adjustable-circle` `wrench-adjustable-circle-fill` |
+| Close / X | `x` `x-circle` `x-circle-fill` `x-diamond` `x-diamond-fill` `x-lg` `x-octagon` `x-octagon-fill` `x-square` `x-square-fill` |
+| Zoom | `zoom-in` `zoom-out` |
+
+---
+
+## What's New in v2.4.6
+
+### 🎨 2000 Essential UI Icons (1000 new in this release)
+
+1000 new icons covering file types, folders, filters, gears, globes, hearts, houses, journals, media controls, people, phones, shields, signs, terminals, trash, and much more.
+
+```html
+<span class="icon icon-heart-pulse-fill icon-size-xl" style="color:#ef4444;"></span>
+<span class="icon icon-person-fill-check icon-size-xl" style="color:#10b981;"></span>
+<span class="icon icon-shield-fill-check icon-size-xl" style="color:#3b82f6;"></span>
+<span class="icon icon-rocket-takeoff-fill icon-size-xl" style="color:#8b5cf6;"></span>
+```
+
+**New icons include:** file-ruled, file-slides, file-spreadsheet, file-text, file-word, file-x, file-zip, files, files-alt, filetype-aac, filetype-ai, filetype-bmp, filetype-cs, filetype-css, filetype-csv, filetype-doc, filetype-docx, filetype-exe, filetype-gif, filetype-heic, filetype-html, filetype-java, filetype-jpg, filetype-js, filetype-json, filetype-jsx, filetype-key, filetype-m4p, filetype-md, filetype-mdx, filetype-mov, filetype-mp3, filetype-mp4, filetype-otf, filetype-pdf, filetype-php, filetype-png, filetype-ppt, filetype-pptx, filetype-psd, filetype-py, filetype-raw, filetype-rb, filetype-sass, filetype-scss, filetype-sh, filetype-sql, filetype-svg, filetype-tiff, filetype-tsx, filetype-ttf, filetype-txt, filetype-wav, filetype-woff, filetype-xls, filetype-xlsx, filetype-xml, filetype-yml, film, filter, fingerprint, fire, flag, flask, flask-florence, floppy, floppy2, flower1, flower2, flower3, folder, folder-check, folder-fill, folder-minus, folder-plus, folder-symlink, folder-x, folder2, folder2-open, fonts, fork-knife, forward, fuel-pump, fullscreen, funnel, gear, gear-fill, gear-wide, gear-wide-connected, gem, gender-ambiguous, gender-female, gender-male, gender-neuter, gender-trans, geo, geo-alt, gift, git, github, gitlab, globe, globe-americas, globe-asia-australia, globe-central-south-asia, globe-europe-africa, globe2, google, google-play, gpu-card, graph-down, graph-up, grid, grip-horizontal, grip-vertical, h-circle, h-square, hammer, hand-index, hand-index-thumb, hand-thumbs-down, hand-thumbs-up, handbag, hash, hdd, hdd-network, hdd-rack, hdd-stack, hdmi, headphones, headset, headset-vr, heart, heart-arrow, heart-pulse, heartbreak, hearts, heptagon, hexagon, highlighter, highlights, hospital, hourglass, house (all variants), houses, hr, hurricane, hypnotize, image, images, inbox, inboxes, incognito, indent, infinity, info, input-cursor, instagram, javascript, journal (all variants), joystick, justify, kanban, key, keyboard, ladder, lamp, laptop, layer-backward, layer-forward, layers, layout-sidebar, layout-split, layout-text-sidebar, layout-text-window, layout-three-columns, layout-wtf, leaf, life-preserver, lightbulb, lightning, link, linkedin, list (all variants), lock, luggage, lungs, magic, magnet, mailbox, map, markdown, mask, mastodon, megaphone, memory, menu-app, menu-button, mic, microsoft, microsoft-teams, modem, moon, mortarboard, motherboard, mouse (all variants), music-note, newspaper, nintendo-switch, node-minus, node-plus, nut, nvidia, nvme, octagon, openai, palette, paperclip, pass, passport, patch-check, patch-exclamation, patch-minus, patch-plus, patch-question, pause, paypal, pc, pci-card, peace, pen, pencil, pentagon, people, person (all 50+ variants), phone, pie-chart, piggy-bank, pin, pip, play, plug, plus, postage, postcard, power, printer, projector, puzzle, qr-code, question, quote, r-circle, radar, radioactive, rainbow, receipt, reception (0-4), record, recycle, reddit, repeat, reply, rewind, robot, rocket, router, rss, rulers, safe, save, scissors, search, send (all variants), server, share, shield (all variants), sign (all road signs), sim, skip-backward, skip-end, skip-forward, skip-start, skype, slack, slash, sliders, smartwatch, snapchat, snow, sort-alpha, sort-down, sort-numeric, sort-up, soundwave, speaker, speedometer, spotify, square, star, stickies, sticky, stop, stopwatch, strava, stripe, suit (club/diamond/heart/spade), suitcase, sun, sunrise, sunset, table, tablet, tag, taxi-front, telegram, telephone (all variants), terminal, text-center, text-indent, textarea, thermometer, threads, three-dots, thunderbolt, ticket, tiktok, toggle, tools, tornado, train-freight-front, train-front, train-lightrail-front, translate, transparency, trash (all variants), tree, trello, triangle, trophy, truck, tv, twitch, twitter, twitter-x, type (all heading variants), typescript, ubuntu, ui-checks, ui-radios, umbrella, union, unity, universal-access, unlock, upc, upload, usb, usb-c, and 50+ more fill variants.
+
+---
+
+## What's New in v2.4.5
+
+### 🎨 1000 Essential UI Icons + Scrollable Grid + Sub-filters
+
+600 new icons added — calendars (all variants), camera & media, chat & messaging, cloud & weather, clipboard, checks & chevrons, database & devices, emoji, envelopes, files & documents, and more.
+
+The icon browser now features:
+- **Scrollable Essential UI grid** — browse 1000 icons in a fixed-height scrollable area
+- **Sub-filters** — filter by category: Numbers, Arrows, Calendar, Camera, Chat, Cloud, Database, Emoji, Files, Shapes, Shopping
+
+```html
+<span class="icon icon-chat-left-text-fill icon-size-xl" style="color:#6366f1;"></span>
+<span class="icon icon-cloud-lightning-rain-fill icon-size-xl" style="color:#0ea5e9;"></span>
+<span class="icon icon-file-earmark-pdf-fill icon-size-xl" style="color:#ef4444;"></span>
+<span class="icon icon-emoji-laughing-fill icon-size-xl" style="color:#f59e0b;"></span>
+```
+
+**New icons (600):**
+
+| Group | Icons |
+|---|---|
+| Calendar variants | `calendar2-fill` `calendar2-heart` `calendar2-minus` `calendar2-month` `calendar2-plus` `calendar2-range` `calendar2-week` `calendar2-x` `calendar3` `calendar3-event` `calendar3-fill` `calendar3-range` `calendar3-week` `calendar4` `calendar4-event` `calendar4-range` `calendar4-week` (+ fill variants) |
+| Camera & Media | `camera` `camera-fill` `camera-reels` `camera-video` `camera-video-off` `camera2` `cassette` `cast` |
+| Cart & Shopping | `cart` `cart-check` `cart-dash` `cart-fill` `cart-plus` `cart-x` `cart2` `cart3` `cart4` |
+| Chat & Messaging | `chat` `chat-dots` `chat-fill` `chat-heart` `chat-left` `chat-left-dots` `chat-left-fill` `chat-left-heart` `chat-left-quote` `chat-left-text` `chat-quote` `chat-right` `chat-right-dots` `chat-right-fill` `chat-right-heart` `chat-right-quote` `chat-right-text` `chat-square` `chat-square-dots` `chat-square-fill` `chat-square-heart` `chat-square-quote` `chat-square-text` `chat-text` (+ fill variants) |
+| Check & Shapes | `check` `check-all` `check-circle` `check-lg` `check-square` `check2` `check2-all` `check2-circle` `check2-square` |
+| Chevrons | `chevron-bar-contract` `chevron-bar-down` `chevron-bar-expand` `chevron-bar-left` `chevron-bar-right` `chevron-bar-up` `chevron-compact-down` `chevron-compact-left` `chevron-compact-right` `chevron-compact-up` `chevron-contract` `chevron-double-down` `chevron-double-left` `chevron-double-right` `chevron-double-up` `chevron-down` `chevron-expand` `chevron-left` `chevron-right` `chevron-up` |
+| Clipboard | `clipboard` `clipboard-check` `clipboard-data` `clipboard-fill` `clipboard-heart` `clipboard-minus` `clipboard-plus` `clipboard-pulse` `clipboard-x` `clipboard2` (+ all clipboard2 variants, + fill variants) |
+| Clock | `clock` `clock-fill` `clock-history` |
+| Cloud & Weather | `cloud` `cloud-arrow-down` `cloud-arrow-up` `cloud-check` `cloud-download` `cloud-drizzle` `cloud-fill` `cloud-fog` `cloud-fog2` `cloud-hail` `cloud-haze` `cloud-haze2` `cloud-lightning` `cloud-lightning-rain` `cloud-minus` `cloud-moon` `cloud-plus` `cloud-rain` `cloud-rain-heavy` `cloud-slash` `cloud-sleet` `cloud-snow` `cloud-sun` `cloud-upload` `clouds` `cloudy` (+ fill variants) |
+| Currency | `currency-bitcoin` `currency-dollar` `currency-euro` `currency-exchange` `currency-pound` `currency-rupee` `currency-yen` |
+| Database & Device | `database` `database-add` `database-check` `database-dash` `database-down` `database-exclamation` `database-fill` (+ all database-fill-* variants) `device-hdd` `device-ssd` |
+| Emoji | `emoji-angry` `emoji-astonished` `emoji-dizzy` `emoji-expressionless` `emoji-frown` `emoji-grimace` `emoji-grin` `emoji-heart-eyes` `emoji-kiss` `emoji-laughing` `emoji-neutral` `emoji-smile` `emoji-smile-upside-down` `emoji-sunglasses` `emoji-surprise` `emoji-tear` `emoji-wink` (+ fill variants) |
+| Envelope | `envelope` `envelope-arrow-down` `envelope-arrow-up` `envelope-at` `envelope-check` `envelope-dash` `envelope-exclamation` `envelope-fill` `envelope-heart` `envelope-open` `envelope-open-heart` `envelope-paper` `envelope-paper-heart` `envelope-plus` `envelope-slash` `envelope-x` (+ fill variants) |
+| File docs | `file` `file-arrow-down` `file-arrow-up` `file-bar-graph` `file-binary` `file-break` `file-check` `file-code` `file-diff` `file-earmark` (+ all earmark variants) `file-easel` `file-excel` `file-fill` `file-font` `file-image` `file-lock` `file-lock2` `file-medical` `file-minus` `file-music` `file-pdf` `file-person` `file-play` `file-plus` `file-post` `file-ppt` `file-richtext` (+ fill variants) |
+
+---
+
+## What's New in v2.4.4
+
+### 🎯 400 Essential UI Icons (+100 new)
+
+100 more icons — boxes, buildings, browsers, calendars, brightness controls and more.
+
+```html
+<span class="icon icon-building-fill icon-size-2x" style="color:#6366f1;"></span>
+<span class="icon icon-calendar-heart-fill icon-size-xl" style="color:#ec4899;"></span>
+<span class="icon icon-briefcase-fill icon-size-xl" style="color:#3b82f6;"></span>
+<span class="icon icon-brightness-high-fill icon-size-xl" style="color:#f59e0b;"></span>
+<span class="icon icon-bug-fill icon-size-xl" style="color:#ef4444;"></span>
+```
+
+**New icons (100):**
+
+| Group | Icons |
+|---|---|
+| Boxes | `box2-fill` `box2-heart` `box2-heart-fill` `boxes` |
+| Dev | `braces` `braces-asterisk` `bricks` `bug` `bug-fill` |
+| Work | `briefcase` `briefcase-fill` `bullseye` |
+| Display | `brightness-alt-high` `brightness-alt-high-fill` `brightness-alt-low` `brightness-alt-low-fill` `brightness-high` `brightness-high-fill` `brightness-low` `brightness-low-fill` `brilliance` |
+| Media | `broadcast` `broadcast-pin` |
+| Browsers | `browser-chrome` `browser-edge` `browser-firefox` `browser-safari` |
+| Design | `brush` `brush-fill` `bucket` `bucket-fill` |
+| Buildings | `building` `building-add` `building-check` `building-dash` `building-down` `building-exclamation` `building-fill` `building-fill-add` `building-fill-check` `building-fill-dash` `building-fill-down` `building-fill-exclamation` `building-fill-gear` `building-fill-lock` `building-fill-slash` `building-fill-up` `building-fill-x` `building-gear` `building-lock` `building-slash` `building-up` `building-x` `buildings` `buildings-fill` |
+| Transport | `bus-front` `bus-front-fill` |
+| Legal | `c-circle` `c-circle-fill` `c-square` `c-square-fill` |
+| Food | `cake` `cake-fill` `cake2` `cake2-fill` |
+| Tools | `calculator` `calculator-fill` |
+| Calendars | `calendar` `calendar-check` `calendar-check-fill` `calendar-date` `calendar-date-fill` `calendar-day` `calendar-day-fill` `calendar-event` `calendar-event-fill` `calendar-fill` `calendar-heart` `calendar-heart-fill` `calendar-minus` `calendar-minus-fill` `calendar-month` `calendar-month-fill` `calendar-plus` `calendar-plus-fill` `calendar-range` `calendar-range-fill` `calendar-week` `calendar-week-fill` `calendar-x` `calendar-x-fill` `calendar2` `calendar2-check` `calendar2-check-fill` `calendar2-date` `calendar2-date-fill` `calendar2-day` `calendar2-day-fill` `calendar2-event` `calendar2-event-fill` |
+
+---
+
+## What's New in v2.4.3
+
+### 🎯 300 Essential UI Icons (+100 new)
+
+100 more icons added — ban/block, charts, baskets, battery, books, bookmarks, boxes, borders and more.
+
+```html
+<span class="icon icon-ban-fill icon-size-xl" style="color:#ef4444;"></span>
+<span class="icon icon-bar-chart-fill icon-size-2x" style="color:#3b82f6;"></span>
+<span class="icon icon-bookmark-heart-fill icon-size-xl" style="color:#ec4899;"></span>
+<span class="icon icon-box-arrow-up-right icon-size-lg"></span>
+<span class="icon icon-battery-full icon-size-xl" style="color:#22c55e;"></span>
+```
+
+**New icons (100):**
+
+| Group | Icons |
+|---|---|
+| Block / Medical | `ban` `ban-fill` `bandaid` `bandaid-fill` |
+| Finance | `bank` `bank2` `bar-chart` `bar-chart-fill` `bar-chart-line` `bar-chart-line-fill` `bar-chart-steps` |
+| Shopping | `basket` `basket-fill` `basket2` `basket2-fill` `basket3` `basket3-fill` |
+| Device | `battery` `battery-charging` `battery-full` `battery-half` `battery-low` |
+| Science / Social | `beaker` `beaker-fill` `behance` `bing` `bluesky` `bluetooth` |
+| Notifications | `bell` `bell-fill` `bell-slash` `bell-slash-fill` |
+| Design | `bezier` `bezier2` `binoculars` `binoculars-fill` `bounding-box` `bounding-box-circles` |
+| Transport | `bicycle` |
+| Text | `blockquote-left` `blockquote-right` `body-text` |
+| Books | `book` `book-fill` `book-half` `bookmarks` `bookmarks-fill` `bookshelf` |
+| Bookmarks | `bookmark` `bookmark-check` `bookmark-check-fill` `bookmark-dash` `bookmark-dash-fill` `bookmark-fill` `bookmark-heart` `bookmark-heart-fill` `bookmark-plus` `bookmark-plus-fill` `bookmark-star` `bookmark-star-fill` `bookmark-x` `bookmark-x-fill` |
+| Media | `boombox` `boombox-fill` |
+| Framework | `bootstrap` `bootstrap-fill` `bootstrap-reboot` |
+| Border | `border` `border-all` `border-bottom` `border-center` `border-inner` `border-left` `border-middle` `border-outer` `border-right` `border-style` `border-top` `border-width` |
+| Boxes | `box` `box-arrow-down` `box-arrow-down-left` `box-arrow-down-right` `box-arrow-in-down` `box-arrow-in-down-left` `box-arrow-in-down-right` `box-arrow-in-left` `box-arrow-in-right` `box-arrow-in-up` `box-arrow-in-up-left` `box-arrow-in-up-right` `box-arrow-left` `box-arrow-right` `box-arrow-up` `box-arrow-up-left` `box-arrow-up-right` `box-fill` `box-seam` `box-seam-fill` `box2` |
+
+---
+
+## What's New in v2.4.2
+
+### 🎯 200 Essential UI Icons (+100 new)
+
+Another 100 icons added to the **Essential UI** category — arrows (all directions, variants), aspect ratio, badges, bags, balloons, backpacks and more.
+
+```html
+<span class="icon icon-arrow-repeat icon-size-xl" style="color:#3b82f6;"></span>
+<span class="icon icon-arrows-fullscreen icon-size-lg"></span>
+<span class="icon icon-bag-heart-fill icon-size-2x" style="color:#ef4444;"></span>
+<span class="icon icon-award-fill icon-size-2x" style="color:#f59e0b;"></span>
+<span class="icon icon-balloon-heart icon-size-xl" style="color:#ec4899;"></span>
+```
+
+**New icons (100):**
+
+| Group | Icons |
+|---|---|
+| Arrows (more) | `arrow-left-right` `arrow-left-short` `arrow-left-square` `arrow-left-square-fill` `arrow-repeat` `arrow-return-left` `arrow-return-right` `arrow-right` `arrow-right-circle` `arrow-right-circle-fill` `arrow-right-short` `arrow-right-square` `arrow-right-square-fill` `arrow-through-heart` `arrow-through-heart-fill` `arrow-up` `arrow-up-circle` `arrow-up-circle-fill` `arrow-up-left` `arrow-up-left-circle` `arrow-up-left-circle-fill` `arrow-up-left-square` `arrow-up-left-square-fill` `arrow-up-right` `arrow-up-right-circle` `arrow-up-right-circle-fill` `arrow-up-right-square` `arrow-up-right-square-fill` `arrow-up-short` `arrow-up-square` `arrow-up-square-fill` |
+| Arrows (set) | `arrows` `arrows-angle-contract` `arrows-angle-expand` `arrows-collapse` `arrows-collapse-vertical` `arrows-expand` `arrows-expand-vertical` `arrows-fullscreen` `arrows-move` `arrows-vertical` |
+| UI | `aspect-ratio` `aspect-ratio-fill` `asterisk` `at` `award` `award-fill` `back` `backspace` `backspace-fill` `backspace-reverse` `backspace-reverse-fill` |
+| Bags & Packs | `backpack` `backpack-fill` `backpack2` `backpack2-fill` `backpack3` `backpack3-fill` `backpack4` `backpack4-fill` `bag` `bag-check` `bag-check-fill` `bag-dash` `bag-dash-fill` `bag-fill` `bag-heart` `bag-heart-fill` `bag-plus` `bag-plus-fill` `bag-x` `bag-x-fill` |
+| Badges | `badge-3d` `badge-3d-fill` `badge-4k` `badge-4k-fill` `badge-8k` `badge-8k-fill` `badge-ad` `badge-ad-fill` `badge-ar` `badge-ar-fill` `badge-cc` `badge-cc-fill` `badge-hd` `badge-hd-fill` `badge-sd` `badge-sd-fill` `badge-tm` `badge-tm-fill` `badge-vo` `badge-vo-fill` `badge-vr` `badge-vr-fill` `badge-wc` `badge-wc-fill` |
+| Fun | `balloon` `balloon-fill` `balloon-heart` `balloon-heart-fill` |
+
+---
+
+## What's New in v2.4.1
+
+### 🎯 100 Essential UI Icons
+
+New category — **Essential UI** — adds 100 carefully selected icons to `santy-icons.css`. Use them with the same `.icon` system.
+
+```html
+<link rel="stylesheet" href="santy-icons.css">
+
+<!-- Number badges -->
+<span class="icon icon-0-circle"></span>
+<span class="icon icon-5-circle-fill icon-size-lg" style="color:#3b82f6;"></span>
+
+<!-- Arrows -->
+<span class="icon icon-arrow-down"></span>
+<span class="icon icon-arrow-clockwise icon-size-xl" style="color:#22c55e;"></span>
+
+<!-- UI chrome -->
+<span class="icon icon-activity"></span>
+<span class="icon icon-alarm icon-size-2x" style="color:#ef4444;"></span>
+<span class="icon icon-archive-fill"></span>
+```
+
+**Full icon list (100):**
+
+| Group | Icons |
+|---|---|
+| Numbers | `0-circle` `0-circle-fill` `0-square` `0-square-fill` `1-circle` `1-circle-fill` `1-square` `1-square-fill` `123` `2-circle` `2-circle-fill` `2-square` `2-square-fill` `3-circle` `3-circle-fill` `3-square` `3-square-fill` `4-circle` `4-circle-fill` `4-square` `4-square-fill` `5-circle` `5-circle-fill` `5-square` `5-square-fill` `6-circle` `6-circle-fill` `6-square` `6-square-fill` `7-circle` `7-circle-fill` `7-square` `7-square-fill` `8-circle` `8-circle-fill` `8-square` `8-square-fill` `9-circle` `9-circle-fill` `9-square` `9-square-fill` |
+| Activity & Travel | `activity` `airplane` `airplane-engines` `airplane-engines-fill` `airplane-fill` `alarm` `alarm-fill` |
+| Brands | `alexa` `alipay` `amazon` `amd` `android` `android2` `anthropic` `apple` `apple-music` `app` `app-indicator` |
+| Alignment | `align-bottom` `align-center` `align-end` `align-middle` `align-start` `align-top` |
+| Text | `alphabet` `alphabet-uppercase` `alt` |
+| Files | `archive` `archive-fill` |
+| Arrows | `arrow-90deg-down` `arrow-90deg-left` `arrow-90deg-right` `arrow-90deg-up` `arrow-bar-down` `arrow-bar-left` `arrow-bar-right` `arrow-bar-up` `arrow-clockwise` `arrow-counterclockwise` `arrow-down` `arrow-down-circle` `arrow-down-circle-fill` `arrow-down-left` `arrow-down-left-circle` `arrow-down-left-circle-fill` `arrow-down-left-square` `arrow-down-left-square-fill` `arrow-down-right` `arrow-down-right-circle` `arrow-down-right-circle-fill` `arrow-down-right-square` `arrow-down-right-square-fill` `arrow-down-short` `arrow-down-square` `arrow-down-square-fill` `arrow-down-up` `arrow-left` `arrow-left-circle` `arrow-left-circle-fill` |
+
+> 🎨 **[Icon Browser](https://santycss.santy.in/icons.html)** — filter by "Essential UI" to browse all 100
+
+---
+
 ## What's New in v2.4.0
 
 ### ⚡ Migrate from Tailwind in One Command
@@ -338,228 +560,6 @@ The **SantyCSS Figma Plugin** is live — inspect Figma designs and get the exac
 - **Toggle command** — `SantyCSS: Toggle IntelliSense` in the Command Palette
 
 Install: search **SantyCSS IntelliSense** in the Extensions panel.
-
----
-
-## What's New in v2.4.7
-
-### 🎨 2078 Essential UI Icons (+78 new — final batch)
-
-78 final icons completing the Essential UI library — USB drives, volume controls, wallet, webcam, wifi, windows, wrench, x/close variants, and zoom.
-
-```html
-<span class="icon icon-volume-up-fill icon-size-xl" style="color:#3b82f6;"></span>
-<span class="icon icon-wifi icon-size-xl" style="color:#10b981;"></span>
-<span class="icon icon-wrench-adjustable-circle-fill icon-size-xl" style="color:#6366f1;"></span>
-<span class="icon icon-zoom-in icon-size-xl" style="color:#f59e0b;"></span>
-```
-
-**New icons (78):**
-
-| Group | Icons |
-|---|---|
-| USB | `usb-drive` `usb-drive-fill` `usb-fill` `usb-micro` `usb-micro-fill` `usb-mini` `usb-mini-fill` `usb-plug` `usb-plug-fill` `usb-symbol` |
-| Misc | `valentine` `valentine2` `vector-pen` `view-list` `view-stacked` `vignette` `vimeo` `vinyl` `vinyl-fill` `virus` `virus2` `voicemail` `vr` |
-| Volume | `volume-down` `volume-down-fill` `volume-mute` `volume-mute-fill` `volume-off` `volume-off-fill` `volume-up` `volume-up-fill` |
-| Wallet & Watch | `wallet` `wallet-fill` `wallet2` `watch` `water` |
-| Camera & Comms | `webcam` `webcam-fill` `wechat` `whatsapp` |
-| Wifi | `wifi` `wifi-1` `wifi-2` `wifi-off` |
-| Misc | `wikipedia` `wind` `windows` `wordpress` `xbox` `yelp` `yin-yang` `youtube` |
-| Window | `window` `window-dash` `window-desktop` `window-dock` `window-fullscreen` `window-plus` `window-sidebar` `window-split` `window-stack` `window-x` |
-| Wrench | `wrench` `wrench-adjustable` `wrench-adjustable-circle` `wrench-adjustable-circle-fill` |
-| Close / X | `x` `x-circle` `x-circle-fill` `x-diamond` `x-diamond-fill` `x-lg` `x-octagon` `x-octagon-fill` `x-square` `x-square-fill` |
-| Zoom | `zoom-in` `zoom-out` |
-
----
-
-## What's New in v2.4.6
-
-### 🎨 2000 Essential UI Icons (1000 new in this release)
-
-1000 new icons covering file types, folders, filters, gears, globes, hearts, houses, journals, media controls, people, phones, shields, signs, terminals, trash, and much more.
-
-```html
-<span class="icon icon-heart-pulse-fill icon-size-xl" style="color:#ef4444;"></span>
-<span class="icon icon-person-fill-check icon-size-xl" style="color:#10b981;"></span>
-<span class="icon icon-shield-fill-check icon-size-xl" style="color:#3b82f6;"></span>
-<span class="icon icon-rocket-takeoff-fill icon-size-xl" style="color:#8b5cf6;"></span>
-```
-
-**New icons include:** file-ruled, file-slides, file-spreadsheet, file-text, file-word, file-x, file-zip, files, files-alt, filetype-aac, filetype-ai, filetype-bmp, filetype-cs, filetype-css, filetype-csv, filetype-doc, filetype-docx, filetype-exe, filetype-gif, filetype-heic, filetype-html, filetype-java, filetype-jpg, filetype-js, filetype-json, filetype-jsx, filetype-key, filetype-m4p, filetype-md, filetype-mdx, filetype-mov, filetype-mp3, filetype-mp4, filetype-otf, filetype-pdf, filetype-php, filetype-png, filetype-ppt, filetype-pptx, filetype-psd, filetype-py, filetype-raw, filetype-rb, filetype-sass, filetype-scss, filetype-sh, filetype-sql, filetype-svg, filetype-tiff, filetype-tsx, filetype-ttf, filetype-txt, filetype-wav, filetype-woff, filetype-xls, filetype-xlsx, filetype-xml, filetype-yml, film, filter, fingerprint, fire, flag, flask, flask-florence, floppy, floppy2, flower1, flower2, flower3, folder, folder-check, folder-fill, folder-minus, folder-plus, folder-symlink, folder-x, folder2, folder2-open, fonts, fork-knife, forward, fuel-pump, fullscreen, funnel, gear, gear-fill, gear-wide, gear-wide-connected, gem, gender-ambiguous, gender-female, gender-male, gender-neuter, gender-trans, geo, geo-alt, gift, git, github, gitlab, globe, globe-americas, globe-asia-australia, globe-central-south-asia, globe-europe-africa, globe2, google, google-play, gpu-card, graph-down, graph-up, grid, grip-horizontal, grip-vertical, h-circle, h-square, hammer, hand-index, hand-index-thumb, hand-thumbs-down, hand-thumbs-up, handbag, hash, hdd, hdd-network, hdd-rack, hdd-stack, hdmi, headphones, headset, headset-vr, heart, heart-arrow, heart-pulse, heartbreak, hearts, heptagon, hexagon, highlighter, highlights, hospital, hourglass, house (all variants), houses, hr, hurricane, hypnotize, image, images, inbox, inboxes, incognito, indent, infinity, info, input-cursor, instagram, javascript, journal (all variants), joystick, justify, kanban, key, keyboard, ladder, lamp, laptop, layer-backward, layer-forward, layers, layout-sidebar, layout-split, layout-text-sidebar, layout-text-window, layout-three-columns, layout-wtf, leaf, life-preserver, lightbulb, lightning, link, linkedin, list (all variants), lock, luggage, lungs, magic, magnet, mailbox, map, markdown, mask, mastodon, megaphone, memory, menu-app, menu-button, mic, microsoft, microsoft-teams, modem, moon, mortarboard, motherboard, mouse (all variants), music-note, newspaper, nintendo-switch, node-minus, node-plus, nut, nvidia, nvme, octagon, openai, palette, paperclip, pass, passport, patch-check, patch-exclamation, patch-minus, patch-plus, patch-question, pause, paypal, pc, pci-card, peace, pen, pencil, pentagon, people, person (all 50+ variants), phone, pie-chart, piggy-bank, pin, pip, play, plug, plus, postage, postcard, power, printer, projector, puzzle, qr-code, question, quote, r-circle, radar, radioactive, rainbow, receipt, reception (0-4), record, recycle, reddit, repeat, reply, rewind, robot, rocket, router, rss, rulers, safe, save, scissors, search, send (all variants), server, share, shield (all variants), sign (all road signs), sim, skip-backward, skip-end, skip-forward, skip-start, skype, slack, slash, sliders, smartwatch, snapchat, snow, sort-alpha, sort-down, sort-numeric, sort-up, soundwave, speaker, speedometer, spotify, square, star, stickies, sticky, stop, stopwatch, strava, stripe, suit (club/diamond/heart/spade), suitcase, sun, sunrise, sunset, table, tablet, tag, taxi-front, telegram, telephone (all variants), terminal, text-center, text-indent, textarea, thermometer, threads, three-dots, thunderbolt, ticket, tiktok, toggle, tools, tornado, train-freight-front, train-front, train-lightrail-front, translate, transparency, trash (all variants), tree, trello, triangle, trophy, truck, tv, twitch, twitter, twitter-x, type (all heading variants), typescript, ubuntu, ui-checks, ui-radios, umbrella, union, unity, universal-access, unlock, upc, upload, usb, usb-c, and 50+ more fill variants.
-
----
-
-## What's New in v2.4.5
-
-### 🎨 1000 Essential UI Icons + Scrollable Grid + Sub-filters
-
-600 new icons added — calendars (all variants), camera & media, chat & messaging, cloud & weather, clipboard, checks & chevrons, database & devices, emoji, envelopes, files & documents, and more.
-
-The icon browser now features:
-- **Scrollable Essential UI grid** — browse 1000 icons in a fixed-height scrollable area
-- **Sub-filters** — filter by category: Numbers, Arrows, Calendar, Camera, Chat, Cloud, Database, Emoji, Files, Shapes, Shopping
-
-```html
-<span class="icon icon-chat-left-text-fill icon-size-xl" style="color:#6366f1;"></span>
-<span class="icon icon-cloud-lightning-rain-fill icon-size-xl" style="color:#0ea5e9;"></span>
-<span class="icon icon-file-earmark-pdf-fill icon-size-xl" style="color:#ef4444;"></span>
-<span class="icon icon-emoji-laughing-fill icon-size-xl" style="color:#f59e0b;"></span>
-```
-
-**New icons (600):**
-
-| Group | Icons |
-|---|---|
-| Calendar variants | `calendar2-fill` `calendar2-heart` `calendar2-minus` `calendar2-month` `calendar2-plus` `calendar2-range` `calendar2-week` `calendar2-x` `calendar3` `calendar3-event` `calendar3-fill` `calendar3-range` `calendar3-week` `calendar4` `calendar4-event` `calendar4-range` `calendar4-week` (+ fill variants) |
-| Camera & Media | `camera` `camera-fill` `camera-reels` `camera-video` `camera-video-off` `camera2` `cassette` `cast` |
-| Cart & Shopping | `cart` `cart-check` `cart-dash` `cart-fill` `cart-plus` `cart-x` `cart2` `cart3` `cart4` |
-| Chat & Messaging | `chat` `chat-dots` `chat-fill` `chat-heart` `chat-left` `chat-left-dots` `chat-left-fill` `chat-left-heart` `chat-left-quote` `chat-left-text` `chat-quote` `chat-right` `chat-right-dots` `chat-right-fill` `chat-right-heart` `chat-right-quote` `chat-right-text` `chat-square` `chat-square-dots` `chat-square-fill` `chat-square-heart` `chat-square-quote` `chat-square-text` `chat-text` (+ fill variants) |
-| Check & Shapes | `check` `check-all` `check-circle` `check-lg` `check-square` `check2` `check2-all` `check2-circle` `check2-square` |
-| Chevrons | `chevron-bar-contract` `chevron-bar-down` `chevron-bar-expand` `chevron-bar-left` `chevron-bar-right` `chevron-bar-up` `chevron-compact-down` `chevron-compact-left` `chevron-compact-right` `chevron-compact-up` `chevron-contract` `chevron-double-down` `chevron-double-left` `chevron-double-right` `chevron-double-up` `chevron-down` `chevron-expand` `chevron-left` `chevron-right` `chevron-up` |
-| Clipboard | `clipboard` `clipboard-check` `clipboard-data` `clipboard-fill` `clipboard-heart` `clipboard-minus` `clipboard-plus` `clipboard-pulse` `clipboard-x` `clipboard2` (+ all clipboard2 variants, + fill variants) |
-| Clock | `clock` `clock-fill` `clock-history` |
-| Cloud & Weather | `cloud` `cloud-arrow-down` `cloud-arrow-up` `cloud-check` `cloud-download` `cloud-drizzle` `cloud-fill` `cloud-fog` `cloud-fog2` `cloud-hail` `cloud-haze` `cloud-haze2` `cloud-lightning` `cloud-lightning-rain` `cloud-minus` `cloud-moon` `cloud-plus` `cloud-rain` `cloud-rain-heavy` `cloud-slash` `cloud-sleet` `cloud-snow` `cloud-sun` `cloud-upload` `clouds` `cloudy` (+ fill variants) |
-| Currency | `currency-bitcoin` `currency-dollar` `currency-euro` `currency-exchange` `currency-pound` `currency-rupee` `currency-yen` |
-| Database & Device | `database` `database-add` `database-check` `database-dash` `database-down` `database-exclamation` `database-fill` (+ all database-fill-* variants) `device-hdd` `device-ssd` |
-| Emoji | `emoji-angry` `emoji-astonished` `emoji-dizzy` `emoji-expressionless` `emoji-frown` `emoji-grimace` `emoji-grin` `emoji-heart-eyes` `emoji-kiss` `emoji-laughing` `emoji-neutral` `emoji-smile` `emoji-smile-upside-down` `emoji-sunglasses` `emoji-surprise` `emoji-tear` `emoji-wink` (+ fill variants) |
-| Envelope | `envelope` `envelope-arrow-down` `envelope-arrow-up` `envelope-at` `envelope-check` `envelope-dash` `envelope-exclamation` `envelope-fill` `envelope-heart` `envelope-open` `envelope-open-heart` `envelope-paper` `envelope-paper-heart` `envelope-plus` `envelope-slash` `envelope-x` (+ fill variants) |
-| File docs | `file` `file-arrow-down` `file-arrow-up` `file-bar-graph` `file-binary` `file-break` `file-check` `file-code` `file-diff` `file-earmark` (+ all earmark variants) `file-easel` `file-excel` `file-fill` `file-font` `file-image` `file-lock` `file-lock2` `file-medical` `file-minus` `file-music` `file-pdf` `file-person` `file-play` `file-plus` `file-post` `file-ppt` `file-richtext` (+ fill variants) |
-
----
-
-## What's New in v2.4.4
-
-### 🎯 400 Essential UI Icons (+100 new)
-
-100 more icons — boxes, buildings, browsers, calendars, brightness controls and more.
-
-```html
-<span class="icon icon-building-fill icon-size-2x" style="color:#6366f1;"></span>
-<span class="icon icon-calendar-heart-fill icon-size-xl" style="color:#ec4899;"></span>
-<span class="icon icon-briefcase-fill icon-size-xl" style="color:#3b82f6;"></span>
-<span class="icon icon-brightness-high-fill icon-size-xl" style="color:#f59e0b;"></span>
-<span class="icon icon-bug-fill icon-size-xl" style="color:#ef4444;"></span>
-```
-
-**New icons (100):**
-
-| Group | Icons |
-|---|---|
-| Boxes | `box2-fill` `box2-heart` `box2-heart-fill` `boxes` |
-| Dev | `braces` `braces-asterisk` `bricks` `bug` `bug-fill` |
-| Work | `briefcase` `briefcase-fill` `bullseye` |
-| Display | `brightness-alt-high` `brightness-alt-high-fill` `brightness-alt-low` `brightness-alt-low-fill` `brightness-high` `brightness-high-fill` `brightness-low` `brightness-low-fill` `brilliance` |
-| Media | `broadcast` `broadcast-pin` |
-| Browsers | `browser-chrome` `browser-edge` `browser-firefox` `browser-safari` |
-| Design | `brush` `brush-fill` `bucket` `bucket-fill` |
-| Buildings | `building` `building-add` `building-check` `building-dash` `building-down` `building-exclamation` `building-fill` `building-fill-add` `building-fill-check` `building-fill-dash` `building-fill-down` `building-fill-exclamation` `building-fill-gear` `building-fill-lock` `building-fill-slash` `building-fill-up` `building-fill-x` `building-gear` `building-lock` `building-slash` `building-up` `building-x` `buildings` `buildings-fill` |
-| Transport | `bus-front` `bus-front-fill` |
-| Legal | `c-circle` `c-circle-fill` `c-square` `c-square-fill` |
-| Food | `cake` `cake-fill` `cake2` `cake2-fill` |
-| Tools | `calculator` `calculator-fill` |
-| Calendars | `calendar` `calendar-check` `calendar-check-fill` `calendar-date` `calendar-date-fill` `calendar-day` `calendar-day-fill` `calendar-event` `calendar-event-fill` `calendar-fill` `calendar-heart` `calendar-heart-fill` `calendar-minus` `calendar-minus-fill` `calendar-month` `calendar-month-fill` `calendar-plus` `calendar-plus-fill` `calendar-range` `calendar-range-fill` `calendar-week` `calendar-week-fill` `calendar-x` `calendar-x-fill` `calendar2` `calendar2-check` `calendar2-check-fill` `calendar2-date` `calendar2-date-fill` `calendar2-day` `calendar2-day-fill` `calendar2-event` `calendar2-event-fill` |
-
----
-
-## What's New in v2.4.3
-
-### 🎯 300 Essential UI Icons (+100 new)
-
-100 more icons added — ban/block, charts, baskets, battery, books, bookmarks, boxes, borders and more.
-
-```html
-<span class="icon icon-ban-fill icon-size-xl" style="color:#ef4444;"></span>
-<span class="icon icon-bar-chart-fill icon-size-2x" style="color:#3b82f6;"></span>
-<span class="icon icon-bookmark-heart-fill icon-size-xl" style="color:#ec4899;"></span>
-<span class="icon icon-box-arrow-up-right icon-size-lg"></span>
-<span class="icon icon-battery-full icon-size-xl" style="color:#22c55e;"></span>
-```
-
-**New icons (100):**
-
-| Group | Icons |
-|---|---|
-| Block / Medical | `ban` `ban-fill` `bandaid` `bandaid-fill` |
-| Finance | `bank` `bank2` `bar-chart` `bar-chart-fill` `bar-chart-line` `bar-chart-line-fill` `bar-chart-steps` |
-| Shopping | `basket` `basket-fill` `basket2` `basket2-fill` `basket3` `basket3-fill` |
-| Device | `battery` `battery-charging` `battery-full` `battery-half` `battery-low` |
-| Science / Social | `beaker` `beaker-fill` `behance` `bing` `bluesky` `bluetooth` |
-| Notifications | `bell` `bell-fill` `bell-slash` `bell-slash-fill` |
-| Design | `bezier` `bezier2` `binoculars` `binoculars-fill` `bounding-box` `bounding-box-circles` |
-| Transport | `bicycle` |
-| Text | `blockquote-left` `blockquote-right` `body-text` |
-| Books | `book` `book-fill` `book-half` `bookmarks` `bookmarks-fill` `bookshelf` |
-| Bookmarks | `bookmark` `bookmark-check` `bookmark-check-fill` `bookmark-dash` `bookmark-dash-fill` `bookmark-fill` `bookmark-heart` `bookmark-heart-fill` `bookmark-plus` `bookmark-plus-fill` `bookmark-star` `bookmark-star-fill` `bookmark-x` `bookmark-x-fill` |
-| Media | `boombox` `boombox-fill` |
-| Framework | `bootstrap` `bootstrap-fill` `bootstrap-reboot` |
-| Border | `border` `border-all` `border-bottom` `border-center` `border-inner` `border-left` `border-middle` `border-outer` `border-right` `border-style` `border-top` `border-width` |
-| Boxes | `box` `box-arrow-down` `box-arrow-down-left` `box-arrow-down-right` `box-arrow-in-down` `box-arrow-in-down-left` `box-arrow-in-down-right` `box-arrow-in-left` `box-arrow-in-right` `box-arrow-in-up` `box-arrow-in-up-left` `box-arrow-in-up-right` `box-arrow-left` `box-arrow-right` `box-arrow-up` `box-arrow-up-left` `box-arrow-up-right` `box-fill` `box-seam` `box-seam-fill` `box2` |
-
----
-
-## What's New in v2.4.2
-
-### 🎯 200 Essential UI Icons (+100 new)
-
-Another 100 icons added to the **Essential UI** category — arrows (all directions, variants), aspect ratio, badges, bags, balloons, backpacks and more.
-
-```html
-<span class="icon icon-arrow-repeat icon-size-xl" style="color:#3b82f6;"></span>
-<span class="icon icon-arrows-fullscreen icon-size-lg"></span>
-<span class="icon icon-bag-heart-fill icon-size-2x" style="color:#ef4444;"></span>
-<span class="icon icon-award-fill icon-size-2x" style="color:#f59e0b;"></span>
-<span class="icon icon-balloon-heart icon-size-xl" style="color:#ec4899;"></span>
-```
-
-**New icons (100):**
-
-| Group | Icons |
-|---|---|
-| Arrows (more) | `arrow-left-right` `arrow-left-short` `arrow-left-square` `arrow-left-square-fill` `arrow-repeat` `arrow-return-left` `arrow-return-right` `arrow-right` `arrow-right-circle` `arrow-right-circle-fill` `arrow-right-short` `arrow-right-square` `arrow-right-square-fill` `arrow-through-heart` `arrow-through-heart-fill` `arrow-up` `arrow-up-circle` `arrow-up-circle-fill` `arrow-up-left` `arrow-up-left-circle` `arrow-up-left-circle-fill` `arrow-up-left-square` `arrow-up-left-square-fill` `arrow-up-right` `arrow-up-right-circle` `arrow-up-right-circle-fill` `arrow-up-right-square` `arrow-up-right-square-fill` `arrow-up-short` `arrow-up-square` `arrow-up-square-fill` |
-| Arrows (set) | `arrows` `arrows-angle-contract` `arrows-angle-expand` `arrows-collapse` `arrows-collapse-vertical` `arrows-expand` `arrows-expand-vertical` `arrows-fullscreen` `arrows-move` `arrows-vertical` |
-| UI | `aspect-ratio` `aspect-ratio-fill` `asterisk` `at` `award` `award-fill` `back` `backspace` `backspace-fill` `backspace-reverse` `backspace-reverse-fill` |
-| Bags & Packs | `backpack` `backpack-fill` `backpack2` `backpack2-fill` `backpack3` `backpack3-fill` `backpack4` `backpack4-fill` `bag` `bag-check` `bag-check-fill` `bag-dash` `bag-dash-fill` `bag-fill` `bag-heart` `bag-heart-fill` `bag-plus` `bag-plus-fill` `bag-x` `bag-x-fill` |
-| Badges | `badge-3d` `badge-3d-fill` `badge-4k` `badge-4k-fill` `badge-8k` `badge-8k-fill` `badge-ad` `badge-ad-fill` `badge-ar` `badge-ar-fill` `badge-cc` `badge-cc-fill` `badge-hd` `badge-hd-fill` `badge-sd` `badge-sd-fill` `badge-tm` `badge-tm-fill` `badge-vo` `badge-vo-fill` `badge-vr` `badge-vr-fill` `badge-wc` `badge-wc-fill` |
-| Fun | `balloon` `balloon-fill` `balloon-heart` `balloon-heart-fill` |
-
----
-
-## What's New in v2.4.1
-
-### 🎯 100 Essential UI Icons
-
-New category — **Essential UI** — adds 100 carefully selected icons to `santy-icons.css`. Use them with the same `.icon` system.
-
-```html
-<link rel="stylesheet" href="santy-icons.css">
-
-<!-- Number badges -->
-<span class="icon icon-0-circle"></span>
-<span class="icon icon-5-circle-fill icon-size-lg" style="color:#3b82f6;"></span>
-
-<!-- Arrows -->
-<span class="icon icon-arrow-down"></span>
-<span class="icon icon-arrow-clockwise icon-size-xl" style="color:#22c55e;"></span>
-
-<!-- UI chrome -->
-<span class="icon icon-activity"></span>
-<span class="icon icon-alarm icon-size-2x" style="color:#ef4444;"></span>
-<span class="icon icon-archive-fill"></span>
-```
-
-**Full icon list (100):**
-
-| Group | Icons |
-|---|---|
-| Numbers | `0-circle` `0-circle-fill` `0-square` `0-square-fill` `1-circle` `1-circle-fill` `1-square` `1-square-fill` `123` `2-circle` `2-circle-fill` `2-square` `2-square-fill` `3-circle` `3-circle-fill` `3-square` `3-square-fill` `4-circle` `4-circle-fill` `4-square` `4-square-fill` `5-circle` `5-circle-fill` `5-square` `5-square-fill` `6-circle` `6-circle-fill` `6-square` `6-square-fill` `7-circle` `7-circle-fill` `7-square` `7-square-fill` `8-circle` `8-circle-fill` `8-square` `8-square-fill` `9-circle` `9-circle-fill` `9-square` `9-square-fill` |
-| Activity & Travel | `activity` `airplane` `airplane-engines` `airplane-engines-fill` `airplane-fill` `alarm` `alarm-fill` |
-| Brands | `alexa` `alipay` `amazon` `amd` `android` `android2` `anthropic` `apple` `apple-music` `app` `app-indicator` |
-| Alignment | `align-bottom` `align-center` `align-end` `align-middle` `align-start` `align-top` |
-| Text | `alphabet` `alphabet-uppercase` `alt` |
-| Files | `archive` `archive-fill` |
-| Arrows | `arrow-90deg-down` `arrow-90deg-left` `arrow-90deg-right` `arrow-90deg-up` `arrow-bar-down` `arrow-bar-left` `arrow-bar-right` `arrow-bar-up` `arrow-clockwise` `arrow-counterclockwise` `arrow-down` `arrow-down-circle` `arrow-down-circle-fill` `arrow-down-left` `arrow-down-left-circle` `arrow-down-left-circle-fill` `arrow-down-left-square` `arrow-down-left-square-fill` `arrow-down-right` `arrow-down-right-circle` `arrow-down-right-circle-fill` `arrow-down-right-square` `arrow-down-right-square-fill` `arrow-down-short` `arrow-down-square` `arrow-down-square-fill` `arrow-down-up` `arrow-left` `arrow-left-circle` `arrow-left-circle-fill` |
-
-> 🎨 **[Icon Browser](https://santycss.santy.in/icons.html)** — filter by "Essential UI" to browse all 100
 
 ---
 
