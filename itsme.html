@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alex Martin — Creative Designer</title>
+  <meta name="description" content="Creative designer based in Melbourne with 15+ years experience in UI/UX, branding, print and web development." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="santy.css" />
+  <link rel="stylesheet" href="santy-variants.css" />
+  <link rel="stylesheet" href="santy-components.css" />
+  <link rel="stylesheet" href="santy-animations.css" />
+  <link rel="stylesheet" href="santy-icons.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; background: #fff; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    ::placeholder { color: #bbb; }
+
+    /* Grid helpers */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); }
+    .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); }
+    @media (max-width: 900px) {
+      .grid-3  { grid-template-columns: 1fr 1fr !important; }
+      .grid-4  { grid-template-columns: 1fr 1fr !important; }
+    }
+    @media (max-width: 640px) {
+      .grid-2  { grid-template-columns: 1fr !important; }
+      .grid-3  { grid-template-columns: 1fr !important; }
+      .sm-stack { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════
+       STICKY NAV
+       ════════════════════════════════════ -->
+  <header class="itsme-nav" id="top-nav">
+
+    <a href="#home" class="itsme-brand">It's <span>me</span></a>
+
+    <ul class="itsme-nav-links" id="nav-links">
+      <li><button class="itsme-nav-link itsme-nav-active" onclick="navTo('home')">Home</button></li>
+      <li><button class="itsme-nav-link" onclick="navTo('resume')">Resume</button></li>
+      <li><button class="itsme-nav-link" onclick="navTo('works')">Works</button></li>
+      <li><button class="itsme-nav-link" onclick="navTo('blog')">Blog</button></li>
+      <li><button class="itsme-nav-link" onclick="navTo('contact')">Contact</button></li>
+    </ul>
+
+    <div class="make-flex align-center gap-14">
+      <a href="#" class="itsme-nav-getcv">Get CV</a>
+      <button class="itsme-hamburger" id="ham-btn" onclick="toggleNav()" aria-label="Menu">
+        <span class="icon icon-list icon-20" style="background-color:#444;"></span>
+      </button>
+    </div>
+
+  </header>
+
+  <!-- ════════════════════════════════════
+       § 1 · HOME
+       ════════════════════════════════════ -->
+  <section id="home" class="itsme-hero" style="position:relative;">
+
+    <!-- Decorative blobs -->
+    <div class="itsme-dot-deco" style="width:400px;height:400px;top:-120px;right:-100px;"></div>
+    <div class="itsme-dot-deco" style="width:240px;height:240px;bottom:40px;left:-60px;"></div>
+
+    <!-- Profile ring -->
+    <div class="itsme-profile-ring animate-zoom-in animation-fill-forwards">
+      <div class="itsme-profile-img">AM</div>
+    </div>
+
+    <!-- Name & intro -->
+    <div class="animate-fade-in-from-bottom animation-delay-200 animation-fill-forwards" style="text-align:center;">
+      <p class="itsme-eyebrow add-margin-bottom-8">Hello, I'm</p>
+      <h1 class="itsme-hero-name">Alex Martin</h1>
+      <p class="itsme-hero-tagline">
+        Creative Designer based in Melbourne — happy to share all my knowledge
+        for building beautiful, functional digital things.
+      </p>
+
+      <div class="make-flex gap-14 justify-center flex-wrap">
+        <button class="itsme-btn" onclick="navTo('contact')">
+          <span class="icon icon-chat-dots icon-16" style="background-color:#fff;"></span>
+          Hire Me
+        </button>
+        <button class="itsme-btn itsme-btn-ghost" onclick="navTo('works')">
+          <span class="icon icon-grid icon-16" style="background-color:#f97316;"></span>
+          View Works
+        </button>
+      </div>
+    </div>
+
+    <!-- Social links -->
+    <div class="itsme-social-row animate-fade-in-from-bottom animation-delay-400 animation-fill-forwards">
+      <a href="#" class="itsme-social-btn" aria-label="LinkedIn">
+        <span class="icon icon-linkedin icon-16" style="background-color:#888;"></span>
+      </a>
+      <a href="#" class="itsme-social-btn" aria-label="GitHub">
+        <span class="icon icon-github icon-16" style="background-color:#888;"></span>
+      </a>
+      <a href="#" class="itsme-social-btn" aria-label="Twitter">
+        <span class="icon icon-twitter-x icon-16" style="background-color:#888;"></span>
+      </a>
+      <a href="#" class="itsme-social-btn" aria-label="Dribbble">
+        <span class="icon icon-dribbble icon-16" style="background-color:#888;"></span>
+      </a>
+    </div>
+
+  </section>
+
+  <!-- ════════════════════════════════════
+       § 2 · RESUME / ABOUT
+       ════════════════════════════════════ -->
+  <section id="resume" class="itsme-section itsme-section-alt">
+    <div class="itsme-section-inner">
+
+      <!-- ── Personal Info ── -->
+      <div class="add-margin-bottom-64">
+        <div class="itsme-eyebrow">About</div>
+        <h2 class="itsme-title add-margin-top-4">Know Me More</h2>
+        <div class="itsme-divider"></div>
+
+        <div class="grid-2 gap-48 align-start" style="gap:48px;">
+          <!-- Left: photo placeholder + bio -->
+          <div class="animate-fade-in-from-left animation-fill-forwards">
+            <div class="round-corners-16 add-margin-bottom-28 overflow-hidden"
+                 style="aspect-ratio:4/5;background:linear-gradient(135deg,#fde68a 0%,#f97316 50%,#dc2626 100%);display:flex;align-items:center;justify-content:center;max-width:360px;">
+              <span style="font-size:80px;font-weight:900;color:rgba(255,255,255,0.9);">AM</span>
+            </div>
+            <div class="make-flex gap-12 flex-wrap">
+              <button class="itsme-btn" onclick="navTo('contact')">Hire Me</button>
+              <a href="#" class="itsme-btn itsme-btn-ghost">Download CV</a>
+            </div>
+          </div>
+
+          <!-- Right: info + description -->
+          <div class="animate-fade-in-from-bottom animation-delay-200 animation-fill-forwards">
+            <p class="set-text-15 line-height-relaxed add-margin-bottom-28" style="color:#666;">
+              I'm a passionate <strong style="color:#1a1a2e;">Creative Designer</strong> and Front-End Developer
+              with over <strong style="color:#f97316;">15 years of experience</strong> crafting digital experiences
+              across Melbourne and globally. I specialise in UI/UX, print design, branding, and web development —
+              turning complex problems into elegant, user-centred solutions.
+            </p>
+            <div class="itsme-info-grid">
+              <div>
+                <div class="itsme-info-label">Age</div>
+                <div class="itsme-info-value">32 Years</div>
+              </div>
+              <div>
+                <div class="itsme-info-label">Residence</div>
+                <div class="itsme-info-value">Melbourne, AU</div>
+              </div>
+              <div>
+                <div class="itsme-info-label">Freelance</div>
+                <div class="itsme-info-value" style="color:#22c55e;font-weight:700;">● Available</div>
+              </div>
+              <div>
+                <div class="itsme-info-label">Address</div>
+                <div class="itsme-info-value">Victoria, Australia</div>
+              </div>
+              <div>
+                <div class="itsme-info-label">Email</div>
+                <div class="itsme-info-value">
+                  <a href="mailto:hello@alexmartin.io" style="color:#f97316;">hello@alexmartin.io</a>
+                </div>
+              </div>
+              <div>
+                <div class="itsme-info-label">Phone</div>
+                <div class="itsme-info-value">+61 412 345 678</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Services ── -->
+      <div class="add-margin-bottom-64">
+        <div class="text-center add-margin-bottom-40">
+          <div class="itsme-eyebrow">What I Offer</div>
+          <h2 class="itsme-title add-margin-top-4">Services</h2>
+          <div class="itsme-divider" style="margin:10px auto 0;"></div>
+        </div>
+
+        <div class="grid-3 gap-20" style="gap:20px;">
+
+          <div class="itsme-service-card animate-fade-in-from-bottom animation-delay-100 animation-fill-forwards">
+            <div class="itsme-service-icon">
+              <span class="icon icon-headset icon-24" style="background-color:#f97316;width:24px;height:24px;"></span>
+            </div>
+            <div class="set-text-16 text-bold add-margin-bottom-10" style="color:#1a1a2e;">Great Support</div>
+            <p class="set-text-13 line-height-relaxed add-margin-0" style="color:#777;">
+              Dedicated client support throughout the project lifecycle — from kickoff to final delivery and beyond.
+            </p>
+          </div>
+
+          <div class="itsme-service-card animate-fade-in-from-bottom animation-delay-200 animation-fill-forwards">
+            <div class="itsme-service-icon">
+              <span class="icon icon-printer icon-24" style="background-color:#f97316;width:24px;height:24px;"></span>
+            </div>
+            <div class="set-text-16 text-bold add-margin-bottom-10" style="color:#1a1a2e;">Print &amp; Branding</div>
+            <p class="set-text-13 line-height-relaxed add-margin-0" style="color:#777;">
+              Cohesive brand identity systems — logos, stationery, print collateral, and brand guidelines that stand out.
+            </p>
+          </div>
+
+          <div class="itsme-service-card animate-fade-in-from-bottom animation-delay-300 animation-fill-forwards">
+            <div class="itsme-service-icon">
+              <span class="icon icon-megaphone icon-24" style="background-color:#f97316;width:24px;height:24px;"></span>
+            </div>
+            <div class="set-text-16 text-bold add-margin-bottom-10" style="color:#1a1a2e;">Marketing</div>
+            <p class="set-text-13 line-height-relaxed add-margin-0" style="color:#777;">
+              Creative campaigns, social media assets, and digital marketing materials that convert and engage.
+            </p>
+          </div>
+
+          <div class="itsme-service-card animate-fade-in-from-bottom animation-delay-400 animation-fill-forwards">
+            <div class="itsme-service-icon">
+              <span class="icon icon-layout-wtf icon-24" style="background-color:#f97316;width:24px;height:24px;"></span>
+            </div>
+            <div class="set-text-16 text-bold add-margin-bottom-10" style="color:#1a1a2e;">Web Design</div>
+            <p class="set-text-13 line-height-relaxed add-margin-0" style="color:#777;">
+              Pixel-perfect, responsive websites with intuitive UX — crafted from wireframes to high-fidelity prototypes.
+            </p>
+          </div>
+
+          <div class="itsme-service-card animate-fade-in-from-bottom animation-delay-500 animation-fill-forwards">
+            <div class="itsme-service-icon">
+              <span class="icon icon-code-slash icon-24" style="background-color:#f97316;width:24px;height:24px;"></span>
+            </div>
+            <div class="set-text-16 text-bold add-margin-bottom-10" style="color:#1a1a2e;">Development</div>
+            <p class="set-text-13 line-height-relaxed add-margin-0" style="color:#777;">
+              Clean, semantic HTML/CSS and JavaScript — fast-loading, accessible, and built to modern standards.
+            </p>
+          </div>
+
+          <div class="itsme-service-card animate-fade-in-from-bottom animation-delay-600 animation-fill-forwards">
+            <div class="itsme-service-icon">
+              <span class="icon icon-diamond icon-24" style="background-color:#f97316;width:24px;height:24px;"></span>
+            </div>
+            <div class="set-text-16 text-bold add-margin-bottom-10" style="color:#1a1a2e;">Branding</div>
+            <p class="set-text-13 line-height-relaxed add-margin-0" style="color:#777;">
+              Strategic brand positioning — visual identity, tone of voice, and brand experiences that connect.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── Resume: Education + Experience ── -->
+      <div class="add-margin-bottom-64">
+        <div class="text-center add-margin-bottom-40">
+          <div class="itsme-eyebrow">My Story</div>
+          <h2 class="itsme-title add-margin-top-4">Experience &amp; Education</h2>
+          <div class="itsme-divider" style="margin:10px auto 0;"></div>
+        </div>
+
+        <div class="grid-2 gap-48" style="gap:48px;">
+
+          <!-- Education -->
+          <div>
+            <h3 class="set-text-18 text-bold add-margin-bottom-28" style="color:#1a1a2e;">
+              <span class="icon icon-mortarboard icon-20 add-margin-right-8" style="background-color:#f97316;"></span>
+              Education
+            </h3>
+            <div class="itsme-timeline">
+
+              <div class="itsme-timeline-item">
+                <div class="itsme-timeline-dot"></div>
+                <div class="itsme-timeline-badge">2007 – 2010</div>
+                <div class="itsme-timeline-role">Bachelor of Visual Communication</div>
+                <div class="itsme-timeline-org">RMIT University, Melbourne</div>
+                <p class="itsme-timeline-desc">Foundation in visual design, typography and media production — building a strong aesthetic vocabulary for digital and print design.</p>
+              </div>
+
+              <div class="itsme-timeline-item">
+                <div class="itsme-timeline-dot"></div>
+                <div class="itsme-timeline-badge">2010 – 2012</div>
+                <div class="itsme-timeline-role">Master of Interaction Design</div>
+                <div class="itsme-timeline-org">University of Melbourne</div>
+                <p class="itsme-timeline-desc">Advanced study in UX research, interaction design patterns, accessibility and usability testing methodologies.</p>
+              </div>
+
+              <div class="itsme-timeline-item">
+                <div class="itsme-timeline-dot"></div>
+                <div class="itsme-timeline-badge">2014</div>
+                <div class="itsme-timeline-role">Google UX Design Certificate</div>
+                <div class="itsme-timeline-org">Google / Coursera</div>
+                <p class="itsme-timeline-desc">Professional certification in UX design process — user research, wireframing, prototyping and usability testing.</p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Experience -->
+          <div>
+            <h3 class="set-text-18 text-bold add-margin-bottom-28" style="color:#1a1a2e;">
+              <span class="icon icon-briefcase icon-20 add-margin-right-8" style="background-color:#f97316;"></span>
+              Experience
+            </h3>
+            <div class="itsme-timeline">
+
+              <div class="itsme-timeline-item">
+                <div class="itsme-timeline-dot"></div>
+                <div class="itsme-timeline-badge">2021 – Present</div>
+                <div class="itsme-timeline-role">Lead UI/UX Designer</div>
+                <div class="itsme-timeline-org">Canva, Sydney</div>
+                <p class="itsme-timeline-desc">Leading the design system team — establishing component libraries, design tokens, and cross-functional design standards for 50M+ users.</p>
+              </div>
+
+              <div class="itsme-timeline-item">
+                <div class="itsme-timeline-dot"></div>
+                <div class="itsme-timeline-badge">2017 – 2021</div>
+                <div class="itsme-timeline-role">Senior Product Designer</div>
+                <div class="itsme-timeline-org">Atlassian, Melbourne</div>
+                <p class="itsme-timeline-desc">Drove end-to-end UX for Jira and Confluence mobile — conducting user research, prototyping, and shipping features to millions of teams globally.</p>
+              </div>
+
+              <div class="itsme-timeline-item">
+                <div class="itsme-timeline-dot"></div>
+                <div class="itsme-timeline-badge">2012 – 2017</div>
+                <div class="itsme-timeline-role">UI Designer &amp; Front-End Developer</div>
+                <div class="itsme-timeline-org">Freelance / Studio Martin</div>
+                <p class="itsme-timeline-desc">Delivered 60+ projects for startups and SMEs — branding, web design, print, and custom web builds using HTML/CSS/JS and WordPress.</p>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── Skills ── -->
+      <div class="add-margin-bottom-64">
+        <div class="text-center add-margin-bottom-40">
+          <div class="itsme-eyebrow">Competencies</div>
+          <h2 class="itsme-title add-margin-top-4">My Skills</h2>
+          <div class="itsme-divider" style="margin:10px auto 0;"></div>
+        </div>
+
+        <div class="grid-2 gap-48" style="gap:48px;" id="skills-section">
+
+          <!-- Design skills -->
+          <div>
+            <div class="set-text-12 text-bold add-margin-bottom-24"
+                 style="color:#aaa;text-transform:uppercase;letter-spacing:0.1em;">Design Skills</div>
+
+            <div class="itsme-skill-row">
+              <div class="itsme-skill-meta">
+                <span>UI / UX Design</span><span class="itsme-skill-pct">95%</span>
+              </div>
+              <div class="itsme-skill-track"><div class="itsme-skill-fill" data-width="95"></div></div>
+            </div>
+            <div class="itsme-skill-row">
+              <div class="itsme-skill-meta">
+                <span>Print Design</span><span class="itsme-skill-pct">88%</span>
+              </div>
+              <div class="itsme-skill-track"><div class="itsme-skill-fill" data-width="88"></div></div>
+            </div>
+            <div class="itsme-skill-row">
+              <div class="itsme-skill-meta">
+                <span>Graphic Design</span><span class="itsme-skill-pct">90%</span>
+              </div>
+              <div class="itsme-skill-track"><div class="itsme-skill-fill" data-width="90"></div></div>
+            </div>
+            <div class="itsme-skill-row">
+              <div class="itsme-skill-meta">
+                <span>Logo Design</span><span class="itsme-skill-pct">85%</span>
+              </div>
+              <div class="itsme-skill-track"><div class="itsme-skill-fill" data-width="85"></div></div>
+            </div>
+            <div class="itsme-skill-row">
+              <div class="itsme-skill-meta">
+                <span>Motion Graphics</span><span class="itsme-skill-pct">78%</span>
+              </div>
+              <div class="itsme-skill-track"><div class="itsme-skill-fill" data-width="78"></div></div>
+            </div>
+          </div>
+
+          <!-- Coding skills -->
+          <div>
+            <div class="set-text-12 text-bold add-margin-bottom-24"
+                 style="color:#aaa;text-transform:uppercase;letter-spacing:0.1em;">Development Skills</div>
+
+            <div class="itsme-skill-row">
+              <div class="itsme-skill-meta">
+                <span>HTML / CSS</span><span class="itsme-skill-pct" style="color:#3b82f6;">92%</span>
+              </div>
+              <div class="itsme-skill-track"><div class="itsme-skill-fill itsme-skill-fill-blue" data-width="92"></div></div>
+            </div>
+            <div class="itsme-skill-row">
+              <div class="itsme-skill-meta">
+                <span>JavaScript / React</span><span class="itsme-skill-pct" style="color:#3b82f6;">80%</span>
+              </div>
+              <div class="itsme-skill-track"><div class="itsme-skill-fill itsme-skill-fill-blue" data-width="80"></div></div>
+            </div>
+            <div class="itsme-skill-row">
+              <div class="itsme-skill-meta">
+                <span>Figma / Adobe XD</span><span class="itsme-skill-pct" style="color:#8b5cf6;">93%</span>
+              </div>
+              <div class="itsme-skill-track"><div class="itsme-skill-fill itsme-skill-fill-purple" data-width="93"></div></div>
+            </div>
+            <div class="itsme-skill-row">
+              <div class="itsme-skill-meta">
+                <span>PHP / WordPress</span><span class="itsme-skill-pct" style="color:#22c55e;">72%</span>
+              </div>
+              <div class="itsme-skill-track"><div class="itsme-skill-fill itsme-skill-fill-green" data-width="72"></div></div>
+            </div>
+            <div class="itsme-skill-row">
+              <div class="itsme-skill-meta">
+                <span>After Effects</span><span class="itsme-skill-pct" style="color:#8b5cf6;">75%</span>
+              </div>
+              <div class="itsme-skill-track"><div class="itsme-skill-fill itsme-skill-fill-purple" data-width="75"></div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── Testimonials ── -->
+      <div>
+        <div class="text-center add-margin-bottom-40">
+          <div class="itsme-eyebrow">Kind Words</div>
+          <h2 class="itsme-title add-margin-top-4">Testimonials</h2>
+          <div class="itsme-divider" style="margin:10px auto 0;"></div>
+        </div>
+
+        <div class="grid-2 gap-20" style="gap:20px;">
+
+          <div class="itsme-testimonial animate-fade-in-from-bottom animation-delay-100 animation-fill-forwards">
+            <div class="itsme-testimonial-quote">"</div>
+            <p class="set-text-14 line-height-relaxed add-margin-bottom-20" style="color:#666;">
+              Alex has an incredible eye for detail and always delivers work that exceeds expectations. Our brand refresh was seamless — he guided us through every decision with clarity and confidence.
+            </p>
+            <div class="make-flex align-center gap-12">
+              <div class="make-avatar make-circle" style="width:42px;height:42px;background:linear-gradient(135deg,#fde68a,#f97316);color:#fff;font-size:14px;font-weight:800;">JS</div>
+              <div>
+                <div class="set-text-14 text-bold" style="color:#1a1a2e;">Jeremy Spivak</div>
+                <div class="set-text-12" style="color:#aaa;">Business Manager, Atlassian</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="itsme-testimonial animate-fade-in-from-bottom animation-delay-200 animation-fill-forwards">
+            <div class="itsme-testimonial-quote">"</div>
+            <p class="set-text-14 line-height-relaxed add-margin-bottom-20" style="color:#666;">
+              Working with Alex transformed how we think about our digital presence. He's not just a designer — he's a strategic partner who understands both users and business goals.
+            </p>
+            <div class="make-flex align-center gap-12">
+              <div class="make-avatar make-circle" style="width:42px;height:42px;background:linear-gradient(135deg,#93c5fd,#3b82f6);color:#fff;font-size:14px;font-weight:800;">MW</div>
+              <div>
+                <div class="set-text-14 text-bold" style="color:#1a1a2e;">Melissa Wagner</div>
+                <div class="set-text-12" style="color:#aaa;">Product Director, Canva</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="itsme-testimonial animate-fade-in-from-bottom animation-delay-300 animation-fill-forwards">
+            <div class="itsme-testimonial-quote">"</div>
+            <p class="set-text-14 line-height-relaxed add-margin-bottom-20" style="color:#666;">
+              The website Alex designed for us increased our conversion rate by 40%. His ability to blend aesthetics with user psychology is genuinely rare and incredibly valuable.
+            </p>
+            <div class="make-flex align-center gap-12">
+              <div class="make-avatar make-circle" style="width:42px;height:42px;background:linear-gradient(135deg,#86efac,#22c55e);color:#fff;font-size:14px;font-weight:800;">ST</div>
+              <div>
+                <div class="set-text-14 text-bold" style="color:#1a1a2e;">Stacy Taylor</div>
+                <div class="set-text-12" style="color:#aaa;">CEO, GrowthLab</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="itsme-testimonial animate-fade-in-from-bottom animation-delay-400 animation-fill-forwards">
+            <div class="itsme-testimonial-quote">"</div>
+            <p class="set-text-14 line-height-relaxed add-margin-bottom-20" style="color:#666;">
+              Alex delivered our e-commerce redesign ahead of schedule and above spec. His communication throughout was exemplary — calm, precise, and always one step ahead.
+            </p>
+            <div class="make-flex align-center gap-12">
+              <div class="make-avatar make-circle" style="width:42px;height:42px;background:linear-gradient(135deg,#d8b4fe,#8b5cf6);color:#fff;font-size:14px;font-weight:800;">RM</div>
+              <div>
+                <div class="set-text-14 text-bold" style="color:#1a1a2e;">Renee Murphy</div>
+                <div class="set-text-12" style="color:#aaa;">Marketing Manager, Shopify</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════
+       § 3 · WORKS / PORTFOLIO
+       ════════════════════════════════════ -->
+  <section id="works" class="itsme-section">
+    <div class="itsme-section-inner">
+
+      <div class="text-center add-margin-bottom-40">
+        <div class="itsme-eyebrow">My Work</div>
+        <h2 class="itsme-title add-margin-top-4">Portfolio</h2>
+        <div class="itsme-divider" style="margin:10px auto 0;"></div>
+      </div>
+
+      <!-- Filter -->
+      <div class="itsme-filter justify-center" style="justify-content:center;">
+        <button class="itsme-filter-btn itsme-filter-active" data-filter="all">All</button>
+        <button class="itsme-filter-btn" data-filter="web">Web Design</button>
+        <button class="itsme-filter-btn" data-filter="graphic">Graphic Design</button>
+        <button class="itsme-filter-btn" data-filter="motion">Motion Graphic</button>
+      </div>
+
+      <!-- Grid -->
+      <div class="grid-3 gap-24" style="gap:24px;" id="works-grid">
+
+        <div class="itsme-work-card animate-zoom-in animation-fill-forwards" data-cat="web">
+          <div class="itsme-work-thumb">
+            <div class="itsme-work-thumb-bg" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe,#93c5fd);">
+              <span class="icon icon-layout-wtf icon-48" style="background-color:rgba(59,130,246,0.5);width:48px;height:48px;"></span>
+            </div>
+            <div class="itsme-work-overlay">
+              <span class="icon icon-eye icon-28" style="background-color:#fff;width:28px;height:28px;"></span>
+              <div class="set-text-13 text-bold" style="color:#fff;">View Project</div>
+            </div>
+          </div>
+          <div class="add-padding-18">
+            <div class="itsme-work-cat">Web Design</div>
+            <div class="set-text-15 text-bold" style="color:#1a1a2e;">E-Commerce Redesign</div>
+            <div class="set-text-12 add-margin-top-4" style="color:#aaa;">Shopify · Conversion Optimisation</div>
+          </div>
+        </div>
+
+        <div class="itsme-work-card animate-zoom-in animation-delay-100 animation-fill-forwards" data-cat="graphic">
+          <div class="itsme-work-thumb">
+            <div class="itsme-work-thumb-bg" style="background:linear-gradient(135deg,#fef3c7,#fde68a,#fbbf24);">
+              <span class="icon icon-palette icon-48" style="background-color:rgba(245,158,11,0.5);width:48px;height:48px;"></span>
+            </div>
+            <div class="itsme-work-overlay">
+              <span class="icon icon-eye icon-28" style="background-color:#fff;width:28px;height:28px;"></span>
+              <div class="set-text-13 text-bold" style="color:#fff;">View Project</div>
+            </div>
+          </div>
+          <div class="add-padding-18">
+            <div class="itsme-work-cat">Graphic Design</div>
+            <div class="set-text-15 text-bold" style="color:#1a1a2e;">Brand Identity System</div>
+            <div class="set-text-12 add-margin-top-4" style="color:#aaa;">Logo · Stationery · Guidelines</div>
+          </div>
+        </div>
+
+        <div class="itsme-work-card animate-zoom-in animation-delay-200 animation-fill-forwards" data-cat="motion">
+          <div class="itsme-work-thumb">
+            <div class="itsme-work-thumb-bg" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe,#c4b5fd);">
+              <span class="icon icon-play-circle icon-48" style="background-color:rgba(139,92,246,0.5);width:48px;height:48px;"></span>
+            </div>
+            <div class="itsme-work-overlay">
+              <span class="icon icon-play-fill icon-28" style="background-color:#fff;width:28px;height:28px;"></span>
+              <div class="set-text-13 text-bold" style="color:#fff;">Watch Video</div>
+            </div>
+          </div>
+          <div class="add-padding-18">
+            <div class="itsme-work-cat">Motion Graphic</div>
+            <div class="set-text-15 text-bold" style="color:#1a1a2e;">Product Launch Reel</div>
+            <div class="set-text-12 add-margin-top-4" style="color:#aaa;">After Effects · 2D Animation</div>
+          </div>
+        </div>
+
+        <div class="itsme-work-card animate-zoom-in animation-delay-100 animation-fill-forwards" data-cat="web">
+          <div class="itsme-work-thumb">
+            <div class="itsme-work-thumb-bg" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0,#6ee7b7);">
+              <span class="icon icon-phone icon-48" style="background-color:rgba(34,197,94,0.5);width:48px;height:48px;"></span>
+            </div>
+            <div class="itsme-work-overlay">
+              <span class="icon icon-eye icon-28" style="background-color:#fff;width:28px;height:28px;"></span>
+              <div class="set-text-13 text-bold" style="color:#fff;">View Project</div>
+            </div>
+          </div>
+          <div class="add-padding-18">
+            <div class="itsme-work-cat">Web Design</div>
+            <div class="set-text-15 text-bold" style="color:#1a1a2e;">Mobile Banking App UI</div>
+            <div class="set-text-12 add-margin-top-4" style="color:#aaa;">Figma · Prototyping · UX Research</div>
+          </div>
+        </div>
+
+        <div class="itsme-work-card animate-zoom-in animation-delay-200 animation-fill-forwards" data-cat="graphic">
+          <div class="itsme-work-thumb">
+            <div class="itsme-work-thumb-bg" style="background:linear-gradient(135deg,#fee2e2,#fecaca,#fca5a5);">
+              <span class="icon icon-image icon-48" style="background-color:rgba(239,68,68,0.4);width:48px;height:48px;"></span>
+            </div>
+            <div class="itsme-work-overlay">
+              <span class="icon icon-eye icon-28" style="background-color:#fff;width:28px;height:28px;"></span>
+              <div class="set-text-13 text-bold" style="color:#fff;">View Project</div>
+            </div>
+          </div>
+          <div class="add-padding-18">
+            <div class="itsme-work-cat">Graphic Design</div>
+            <div class="set-text-15 text-bold" style="color:#1a1a2e;">Annual Report Design</div>
+            <div class="set-text-12 add-margin-top-4" style="color:#aaa;">Print · 48 Pages · Photography</div>
+          </div>
+        </div>
+
+        <div class="itsme-work-card animate-zoom-in animation-delay-300 animation-fill-forwards" data-cat="motion">
+          <div class="itsme-work-thumb">
+            <div class="itsme-work-thumb-bg" style="background:linear-gradient(135deg,#fef9c3,#fef08a,#fde047);">
+              <span class="icon icon-camera-video icon-48" style="background-color:rgba(234,179,8,0.5);width:48px;height:48px;"></span>
+            </div>
+            <div class="itsme-work-overlay">
+              <span class="icon icon-play-fill icon-28" style="background-color:#fff;width:28px;height:28px;"></span>
+              <div class="set-text-13 text-bold" style="color:#fff;">Watch Video</div>
+            </div>
+          </div>
+          <div class="add-padding-18">
+            <div class="itsme-work-cat">Motion Graphic</div>
+            <div class="set-text-15 text-bold" style="color:#1a1a2e;">Explainer Animation</div>
+            <div class="set-text-12 add-margin-top-4" style="color:#aaa;">Whiteboard · 90s · SaaS Product</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- View all -->
+      <div class="text-center add-margin-top-40">
+        <button class="itsme-btn itsme-btn-ghost">
+          <span class="icon icon-grid icon-16" style="background-color:#f97316;"></span>
+          View All Projects
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════
+       § 4 · BLOG
+       ════════════════════════════════════ -->
+  <section id="blog" class="itsme-section itsme-section-alt">
+    <div class="itsme-section-inner">
+
+      <div class="text-center add-margin-bottom-40">
+        <div class="itsme-eyebrow">Latest Posts</div>
+        <h2 class="itsme-title add-margin-top-4">My Blog</h2>
+        <div class="itsme-divider" style="margin:10px auto 0;"></div>
+      </div>
+
+      <div class="grid-3 gap-24" style="gap:24px;">
+
+        <div class="itsme-blog-card animate-fade-in-from-bottom animation-delay-100 animation-fill-forwards">
+          <div class="itsme-blog-thumb">
+            <div class="itsme-blog-thumb-inner" style="background:linear-gradient(135deg,#fde68a,#f97316);">
+              <span class="icon icon-palette icon-44" style="background-color:rgba(255,255,255,0.4);width:44px;height:44px;"></span>
+            </div>
+          </div>
+          <div class="add-padding-22">
+            <div class="itsme-blog-tag itsme-tag-graphic">Graphic</div>
+            <a href="#" class="set-text-16 text-bold add-margin-bottom-10 make-block" style="color:#1a1a2e;">
+              10 Principles of Timeless Logo Design
+            </a>
+            <p class="set-text-13 line-height-relaxed add-margin-bottom-16" style="color:#888;">
+              Logo design isn't about trends — it's about communicating identity. Here are the principles that never go out of style.
+            </p>
+            <div class="make-flex align-center gap-10">
+              <div class="make-avatar make-circle" style="width:28px;height:28px;background:linear-gradient(135deg,#fde68a,#f97316);color:#fff;font-size:10px;font-weight:800;">AM</div>
+              <span class="set-text-12" style="color:#aaa;">Alex Martin · March 12, 2024 · 5 comments</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="itsme-blog-card animate-fade-in-from-bottom animation-delay-200 animation-fill-forwards">
+          <div class="itsme-blog-thumb">
+            <div class="itsme-blog-thumb-inner" style="background:linear-gradient(135deg,#bfdbfe,#3b82f6);">
+              <span class="icon icon-layout-wtf icon-44" style="background-color:rgba(255,255,255,0.4);width:44px;height:44px;"></span>
+            </div>
+          </div>
+          <div class="add-padding-22">
+            <div class="itsme-blog-tag itsme-tag-web">Web</div>
+            <a href="#" class="set-text-16 text-bold add-margin-bottom-10 make-block" style="color:#1a1a2e;">
+              Why Micro-Interactions Make or Break UX
+            </a>
+            <p class="set-text-13 line-height-relaxed add-margin-bottom-16" style="color:#888;">
+              The smallest details carry the biggest emotional weight. A deep dive into designing micro-interactions that delight.
+            </p>
+            <div class="make-flex align-center gap-10">
+              <div class="make-avatar make-circle" style="width:28px;height:28px;background:linear-gradient(135deg,#bfdbfe,#3b82f6);color:#fff;font-size:10px;font-weight:800;">AM</div>
+              <span class="set-text-12" style="color:#aaa;">Alex Martin · January 28, 2024 · 12 comments</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="itsme-blog-card animate-fade-in-from-bottom animation-delay-300 animation-fill-forwards">
+          <div class="itsme-blog-thumb">
+            <div class="itsme-blog-thumb-inner" style="background:linear-gradient(135deg,#ddd6fe,#8b5cf6);">
+              <span class="icon icon-film icon-44" style="background-color:rgba(255,255,255,0.4);width:44px;height:44px;"></span>
+            </div>
+          </div>
+          <div class="add-padding-22">
+            <div class="itsme-blog-tag itsme-tag-motion">Motion</div>
+            <a href="#" class="set-text-16 text-bold add-margin-bottom-10 make-block" style="color:#1a1a2e;">
+              Getting Started with After Effects for Designers
+            </a>
+            <p class="set-text-13 line-height-relaxed add-margin-bottom-16" style="color:#888;">
+              You don't need to be a video editor to create compelling motion graphics. Here's where to start as a UI designer.
+            </p>
+            <div class="make-flex align-center gap-10">
+              <div class="make-avatar make-circle" style="width:28px;height:28px;background:linear-gradient(135deg,#ddd6fe,#8b5cf6);color:#fff;font-size:10px;font-weight:800;">AM</div>
+              <span class="set-text-12" style="color:#aaa;">Alex Martin · November 5, 2023 · No comments</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="itsme-blog-card animate-fade-in-from-bottom animation-delay-100 animation-fill-forwards">
+          <div class="itsme-blog-thumb">
+            <div class="itsme-blog-thumb-inner" style="background:linear-gradient(135deg,#a7f3d0,#22c55e);">
+              <span class="icon icon-people icon-44" style="background-color:rgba(255,255,255,0.4);width:44px;height:44px;"></span>
+            </div>
+          </div>
+          <div class="add-padding-22">
+            <div class="itsme-blog-tag itsme-tag-web">Web</div>
+            <a href="#" class="set-text-16 text-bold add-margin-bottom-10 make-block" style="color:#1a1a2e;">
+              UX Research Methods That Actually Deliver
+            </a>
+            <p class="set-text-13 line-height-relaxed add-margin-bottom-16" style="color:#888;">
+              From card sorting to contextual inquiry — the research methods I rely on to uncover real user needs.
+            </p>
+            <div class="make-flex align-center gap-10">
+              <div class="make-avatar make-circle" style="width:28px;height:28px;background:linear-gradient(135deg,#a7f3d0,#22c55e);color:#fff;font-size:10px;font-weight:800;">AM</div>
+              <span class="set-text-12" style="color:#aaa;">Alex Martin · September 18, 2023 · 8 comments</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="itsme-blog-card animate-fade-in-from-bottom animation-delay-200 animation-fill-forwards">
+          <div class="itsme-blog-thumb">
+            <div class="itsme-blog-thumb-inner" style="background:linear-gradient(135deg,#fca5a5,#ef4444);">
+              <span class="icon icon-type-bold icon-44" style="background-color:rgba(255,255,255,0.4);width:44px;height:44px;"></span>
+            </div>
+          </div>
+          <div class="add-padding-22">
+            <div class="itsme-blog-tag itsme-tag-graphic">Graphic</div>
+            <a href="#" class="set-text-16 text-bold add-margin-bottom-10 make-block" style="color:#1a1a2e;">
+              Typography Rules Every Designer Must Know
+            </a>
+            <p class="set-text-13 line-height-relaxed add-margin-bottom-16" style="color:#888;">
+              Good typography is invisible — bad typography is distracting. Master these rules and your designs will speak louder.
+            </p>
+            <div class="make-flex align-center gap-10">
+              <div class="make-avatar make-circle" style="width:28px;height:28px;background:linear-gradient(135deg,#fca5a5,#ef4444);color:#fff;font-size:10px;font-weight:800;">AM</div>
+              <span class="set-text-12" style="color:#aaa;">Alex Martin · August 3, 2023 · 3 comments</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="itsme-blog-card animate-fade-in-from-bottom animation-delay-300 animation-fill-forwards">
+          <div class="itsme-blog-thumb">
+            <div class="itsme-blog-thumb-inner" style="background:linear-gradient(135deg,#fde68a,#f59e0b);">
+              <span class="icon icon-speedometer icon-44" style="background-color:rgba(255,255,255,0.4);width:44px;height:44px;"></span>
+            </div>
+          </div>
+          <div class="add-padding-22">
+            <div class="itsme-blog-tag itsme-tag-web">Web</div>
+            <a href="#" class="set-text-16 text-bold add-margin-bottom-10 make-block" style="color:#1a1a2e;">
+              Designing for Performance: Web Vitals Guide
+            </a>
+            <p class="set-text-13 line-height-relaxed add-margin-bottom-16" style="color:#888;">
+              Core Web Vitals aren't just an SEO metric — they're a design constraint. Here's how to design with performance in mind.
+            </p>
+            <div class="make-flex align-center gap-10">
+              <div class="make-avatar make-circle" style="width:28px;height:28px;background:linear-gradient(135deg,#fde68a,#f59e0b);color:#fff;font-size:10px;font-weight:800;">AM</div>
+              <span class="set-text-12" style="color:#aaa;">Alex Martin · July 15, 2023 · No comments</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="text-center add-margin-top-40">
+        <button class="itsme-btn itsme-btn-ghost">
+          <span class="icon icon-journal-richtext icon-16" style="background-color:#f97316;"></span>
+          View All Blog Posts
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════
+       § 5 · CONTACT
+       ════════════════════════════════════ -->
+  <section id="contact" class="itsme-section">
+    <div class="itsme-section-inner">
+
+      <div class="text-center add-margin-bottom-40">
+        <div class="itsme-eyebrow">Get In Touch</div>
+        <h2 class="itsme-title add-margin-top-4">Contact Me</h2>
+        <div class="itsme-divider" style="margin:10px auto 0;"></div>
+      </div>
+
+      <div class="grid-2 gap-56 align-start" style="gap:56px;">
+
+        <!-- Contact info -->
+        <div class="animate-fade-in-from-left animation-fill-forwards">
+          <p class="set-text-15 line-height-relaxed add-margin-bottom-32" style="color:#666;">
+            I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.
+            Feel free to reach out — I'll get back to you within 24 hours.
+          </p>
+
+          <div class="itsme-contact-card">
+            <div class="itsme-contact-icon">
+              <span class="icon icon-geo-alt icon-20" style="background-color:#f97316;width:20px;height:20px;"></span>
+            </div>
+            <div>
+              <div class="set-text-11 text-bold add-margin-bottom-4" style="color:#aaa;text-transform:uppercase;letter-spacing:0.06em;">Location</div>
+              <div class="set-text-14 text-semibold" style="color:#333;">Melbourne, Victoria, Australia</div>
+              <div class="set-text-12" style="color:#aaa;">Open to Remote Worldwide</div>
+            </div>
+          </div>
+
+          <div class="itsme-contact-card">
+            <div class="itsme-contact-icon">
+              <span class="icon icon-envelope icon-20" style="background-color:#f97316;width:20px;height:20px;"></span>
+            </div>
+            <div>
+              <div class="set-text-11 text-bold add-margin-bottom-4" style="color:#aaa;text-transform:uppercase;letter-spacing:0.06em;">Email</div>
+              <a href="mailto:hello@alexmartin.io" class="set-text-14 text-semibold" style="color:#f97316;">hello@alexmartin.io</a>
+            </div>
+          </div>
+
+          <div class="itsme-contact-card">
+            <div class="itsme-contact-icon">
+              <span class="icon icon-telephone icon-20" style="background-color:#f97316;width:20px;height:20px;"></span>
+            </div>
+            <div>
+              <div class="set-text-11 text-bold add-margin-bottom-4" style="color:#aaa;text-transform:uppercase;letter-spacing:0.06em;">Phone</div>
+              <div class="set-text-14 text-semibold" style="color:#333;">+61 412 345 678</div>
+            </div>
+          </div>
+
+          <div class="itsme-contact-card">
+            <div class="itsme-contact-icon">
+              <span class="icon icon-person-check icon-20" style="background-color:#22c55e;width:20px;height:20px;"></span>
+            </div>
+            <div>
+              <div class="set-text-11 text-bold add-margin-bottom-4" style="color:#aaa;text-transform:uppercase;letter-spacing:0.06em;">Freelance</div>
+              <div class="set-text-14 text-semibold" style="color:#22c55e;">● Currently Available</div>
+            </div>
+          </div>
+
+          <!-- Social -->
+          <div class="make-flex gap-10 add-margin-top-24">
+            <a href="#" class="itsme-social-btn" aria-label="LinkedIn">
+              <span class="icon icon-linkedin icon-16" style="background-color:#888;"></span>
+            </a>
+            <a href="#" class="itsme-social-btn" aria-label="GitHub">
+              <span class="icon icon-github icon-16" style="background-color:#888;"></span>
+            </a>
+            <a href="#" class="itsme-social-btn" aria-label="Twitter">
+              <span class="icon icon-twitter-x icon-16" style="background-color:#888;"></span>
+            </a>
+            <a href="#" class="itsme-social-btn" aria-label="Dribbble">
+              <span class="icon icon-dribbble icon-16" style="background-color:#888;"></span>
+            </a>
+            <a href="#" class="itsme-social-btn" aria-label="Behance">
+              <span class="icon icon-behance icon-16" style="background-color:#888;"></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Contact form -->
+        <div class="animate-fade-in-from-bottom animation-delay-200 animation-fill-forwards">
+          <form onsubmit="submitForm(event)" class="make-flex flex-column gap-16">
+            <div class="grid-2 gap-14 sm-stack" style="gap:14px;">
+              <div>
+                <label class="set-text-12 text-bold make-block add-margin-bottom-6" style="color:#666;letter-spacing:0.04em;">First Name</label>
+                <input type="text" class="itsme-input" placeholder="John" required />
+              </div>
+              <div>
+                <label class="set-text-12 text-bold make-block add-margin-bottom-6" style="color:#666;letter-spacing:0.04em;">Last Name</label>
+                <input type="text" class="itsme-input" placeholder="Doe" required />
+              </div>
+            </div>
+            <div>
+              <label class="set-text-12 text-bold make-block add-margin-bottom-6" style="color:#666;letter-spacing:0.04em;">Company</label>
+              <input type="text" class="itsme-input" placeholder="Your Company" />
+            </div>
+            <div>
+              <label class="set-text-12 text-bold make-block add-margin-bottom-6" style="color:#666;letter-spacing:0.04em;">Company Website</label>
+              <input type="url" class="itsme-input" placeholder="https://yourcompany.com" />
+            </div>
+            <div>
+              <label class="set-text-12 text-bold make-block add-margin-bottom-6" style="color:#666;letter-spacing:0.04em;">Work Email</label>
+              <input type="email" class="itsme-input" placeholder="john@company.com" required />
+            </div>
+            <div>
+              <label class="set-text-12 text-bold make-block add-margin-bottom-6" style="color:#666;letter-spacing:0.04em;">Message</label>
+              <textarea class="itsme-input itsme-textarea" placeholder="Tell me about your project, goals, and timeline…"></textarea>
+            </div>
+            <div>
+              <button type="submit" class="itsme-btn">
+                <span class="icon icon-send icon-16" style="background-color:#fff;"></span>
+                Send Message
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════
+       FOOTER
+       ════════════════════════════════════ -->
+  <footer style="background:#1a1a2e;padding:32px 40px;text-align:center;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <a href="#home" class="itsme-brand add-margin-bottom-16 make-block" style="color:#fff;">It's <span style="color:#f97316;">me</span></a>
+      <div class="make-flex gap-8 justify-center add-margin-bottom-20">
+        <button class="itsme-nav-link" onclick="navTo('home')" style="color:#aaa;font-size:11px;">Home</button>
+        <span style="color:#444;">·</span>
+        <button class="itsme-nav-link" onclick="navTo('resume')" style="color:#aaa;font-size:11px;">Resume</button>
+        <span style="color:#444;">·</span>
+        <button class="itsme-nav-link" onclick="navTo('works')" style="color:#aaa;font-size:11px;">Works</button>
+        <span style="color:#444;">·</span>
+        <button class="itsme-nav-link" onclick="navTo('blog')" style="color:#aaa;font-size:11px;">Blog</button>
+        <span style="color:#444;">·</span>
+        <button class="itsme-nav-link" onclick="navTo('contact')" style="color:#aaa;font-size:11px;">Contact</button>
+      </div>
+      <p class="set-text-12" style="color:#555;margin:0;">
+        © 2024 Alex Martin — Designed &amp; built with
+        <a href="https://santycss.santy.in" style="color:#f97316;font-weight:700;">SantyCSS</a>
+      </p>
+      <p class="set-text-11 add-margin-top-4" style="color:#444;">
+        E: hello@alexmartin.io &nbsp;·&nbsp; T: +61 412 345 678
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Mobile nav toggle ── */
+    function toggleNav() {
+      document.getElementById('nav-links').classList.toggle('open');
+    }
+
+    /* ── Smooth scroll to section ── */
+    function navTo(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('nav-links').classList.remove('open');
+    }
+
+    /* ── Active nav on scroll ── */
+    const sections  = document.querySelectorAll('section[id]');
+    const navLinks  = document.querySelectorAll('.itsme-nav-link');
+    const navObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(l => l.classList.toggle('itsme-nav-active', l.getAttribute('onclick') && l.getAttribute('onclick').includes(e.target.id)));
+        }
+      });
+    }, { threshold: 0.35 });
+    sections.forEach(s => navObserver.observe(s));
+
+    /* ── Skill bars — animate on enter ── */
+    const skillObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.itsme-skill-fill').forEach(bar => {
+            bar.style.width = (bar.dataset.width || 0) + '%';
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+    const skillSec = document.getElementById('skills-section');
+    if (skillSec) skillObserver.observe(skillSec);
+
+    /* ── Portfolio filter ── */
+    document.querySelectorAll('.itsme-filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.itsme-filter-btn').forEach(b => b.classList.remove('itsme-filter-active'));
+        btn.classList.add('itsme-filter-active');
+        const f = btn.dataset.filter;
+        document.querySelectorAll('#works-grid .itsme-work-card').forEach(card => {
+          card.style.display = (f === 'all' || card.dataset.cat === f) ? '' : 'none';
+        });
+      });
+    });
+
+    /* ── Contact form ── */
+    function submitForm(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.textContent = '✓ Message Sent!';
+      btn.style.background = '#22c55e';
+      btn.style.borderColor = '#22c55e';
+      setTimeout(() => {
+        btn.innerHTML = '<span class="icon icon-send icon-16" style="background-color:#fff;width:16px;height:16px;display:inline-block;vertical-align:middle;"></span> Send Message';
+        btn.style.background = '';
+        btn.style.borderColor = '';
+        e.target.reset();
+      }, 3000);
+    }
+
+    /* ── Close nav when clicking outside ── */
+    document.addEventListener('click', e => {
+      const nav = document.getElementById('nav-links');
+      const ham = document.getElementById('ham-btn');
+      if (nav.classList.contains('open') && !nav.contains(e.target) && !ham.contains(e.target)) {
+        nav.classList.remove('open');
+      }
+    });
+  </script>
+
+</body>
+</html>

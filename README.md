@@ -23,9 +23,18 @@ Class names read like sentences — `add-padding-24` instead of `p-6`. AI tools 
 
 ## What's New in v2.5.0
 
-### 🎨 Two Portfolio CV Templates + New Framework Components
+### 🎨 Three Portfolio Templates + Framework Fixes
 
-Two production-ready portfolio templates built entirely with SantyCSS — no custom CSS.
+Three production-ready portfolio templates built entirely with SantyCSS — no custom CSS.
+
+**New Template 3: `itsme.html` — It's Me Creative Portfolio**
+- **5 sections** — Home (hero + profile ring), Resume (bio, services, timeline, skills, testimonials), Works (filterable grid), Blog, Contact
+- **Sticky horizontal nav** — active highlight on scroll, hamburger mobile menu
+- **Orange accent** (`#f97316`) on clean white background
+- **6 service cards** with hover lift, 2 dual timelines (education + experience), 5+5 animated skill bars
+- **Portfolio filter** — All / Web / Graphic / Motion with instant show/hide
+- **6 blog cards** with category tags (web/graphic/motion), hover scale
+- **Contact form** — 5 fields + success feedback without page reload
 
 **New Template 1: `portfolio.html` — Snap-Scroll**
 - **6 sections** — About (with profile image & typewriter), Experience (timeline), Skills (animated progress bars), Projects (card grid), Hobbies, Blogs

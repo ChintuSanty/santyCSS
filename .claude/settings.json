@@ -51,7 +51,8 @@
       "Bash(ls d:/santy/santyCSS/icons/bootstrap/*.css)",
       "Bash(grep -rn \"v2\\\\.4\\\\.8\" *.html)",
       "Bash(grep -rn \"v2\\\\.4\\\\.\" *.html)",
-      "WebFetch(domain:lmpixels.com)"
+      "WebFetch(domain:lmpixels.com)",
+      "WebFetch(domain:mutationmedia.net)"
     ],
     "additionalDirectories": [
       "c:\\Users\\hello\\Downloads",
