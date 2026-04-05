@@ -21,6 +21,76 @@ Class names read like sentences — `add-padding-24` instead of `p-6`. AI tools 
 
 ---
 
+## What's New in v2.5.0
+
+### 🎨 Two Portfolio CV Templates + New Framework Components
+
+Two production-ready portfolio templates built entirely with SantyCSS — no custom CSS.
+
+**New Template 1: `portfolio.html` — Snap-Scroll**
+- **6 sections** — About (with profile image & typewriter), Experience (timeline), Skills (animated progress bars), Projects (card grid), Hobbies, Blogs
+- **Right-side dot navigation** (desktop) — hoverable labels, amber active state
+- **Hamburger + full-screen overlay** (mobile) — closes on Esc, backdrop blur
+- **Full-viewport snap scroll** — each section is exactly 100vh, no full-page scroll
+- **SantyCSS animations** — `animate-fade-in-from-left`, `animate-zoom-in`, `animate-bounce-in`, `animate-slide-in-from-left` with staggered `animation-delay-*`
+
+**New Template 2: `portfolio-cv.html` — Dark Sidebar**
+- **Fixed left sidebar** — profile initials badge, availability indicator, cyan accent nav
+- **6 sections** — About, Resume (dual timeline: experience + education), Portfolio (filterable grid), Blog, Contact, Extra
+- **Extras** — services grid, fun facts counter (IntersectionObserver), competency tags, testimonials, contact form
+- **Cyan accent** (`#0099e5`) on near-black backgrounds (`#0f0f0f` / `#1c1c1e`)
+- **Responsive** — hamburger toggles sidebar on mobile with overlay
+
+**New CSS Classes added to `santy-components.css`:**
+
+| Class | Description |
+|---|---|
+| `.portfolio-snap` | Full-page scroll-snap container (hides scrollbar) |
+| `.snap-section` | 100vh section with snap alignment |
+| `.snap-section-scrollable` | 100vh section with internal scroll (styled scrollbar) |
+| `.portfolio-right-nav` | Fixed right-side dot navigation (auto-hides on mobile) |
+| `.nav-dot` / `.nav-dot-active` | Navigation dots with tooltip labels |
+| `.glass-card` / `.glass-card-light` | Glassmorphism cards with backdrop blur |
+| `.avatar-ring-lg` | Large avatar with spinning conic-gradient ring |
+| `.skill-bar-track` / `.skill-bar-fill` | Animated skill bar + colour variants |
+| `.cv-sidebar` / `.cv-main` | Fixed left sidebar + offset main content |
+| `.cv-nav-link` / `.cv-nav-active` | Sidebar navigation link states |
+| `.cv-section` / `.cv-section-alt` | Alternating section backgrounds |
+| `.timeline-dark` / `.timeline-dot-cyan` | Dark timeline with cyan dot variant |
+| `.skill-bar-dark` / `.skill-bar-dark-fill` | Dark-mode skill bar components |
+| `.fun-fact-card` | Fun facts counter card |
+| `.project-card-dark` / `.blog-card-dark` | Dark project and blog cards |
+| `.service-card-dark` / `.what-i-do-card` | Service and skill-highlight cards |
+| `.testimonial-card-dark` | Dark testimonial card |
+| `.input-dark` / `.textarea-dark` | Dark form input and textarea |
+| `.btn-cyan` / `.btn-cyan-outline` | Cyan action buttons |
+| `.pf-filter-btn` / `.pf-active` | Portfolio filter buttons |
+| `.tag-dark` | Dark tag/pill component |
+| `.color-brand-cyan` / `.background-brand-cyan` | Cyan brand color utilities |
+| `.icon` + `.icon-16` → `.icon-48` | Base class for essential UI icons + pixel size helpers |
+| `.background-zinc-950` | Near-black `#09090b` background |
+
+```html
+<!-- Snap-scroll quick start -->
+<main class="portfolio-snap">
+  <section class="snap-section" id="about">...</section>
+  <section class="snap-section-scrollable" id="experience">...</section>
+</main>
+<nav class="portfolio-right-nav">
+  <a class="nav-dot nav-dot-active" data-label="About" data-target="about" href="#about"></a>
+</nav>
+
+<!-- Sidebar CV quick start -->
+<aside class="cv-sidebar" id="cv-sidebar">
+  <a href="#about" class="cv-nav-link cv-nav-active">About Me</a>
+</aside>
+<main class="cv-main">
+  <section id="about" class="cv-section">...</section>
+</main>
+```
+
+---
+
 ## What's New in v2.4.8
 
 ### 🚀 Homepage UX Improvements

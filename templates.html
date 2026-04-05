@@ -111,7 +111,7 @@
     <a href="index.html" class="make-flex align-center gap-10 text-no-decoration">
       <img src="assest/santy_css.png" alt="SantyCSS" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
       <span class="set-text-20 text-bold color-gray-900">Santy<span class="color-blue-600">CSS</span></span>
-      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v2.4.8</span>
+      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v2.5.0</span>
     </a>
     <button class="nav-hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
       <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -324,6 +324,126 @@
             </a>
             <button class="tpl-btn-copy" onclick="copyTemplate('template-resume-cv.html', this)" id="copy-btn-resume-cv">
               <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              Copy Code
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Template 3: Portfolio Snap-Scroll CV ── -->
+      <div class="tpl-card" data-category="portfolio">
+        <div class="tpl-thumb">
+          <div class="tpl-thumb-inner" style="background:#09090b;display:flex;flex-direction:column;height:100%;padding:10px;gap:6px;position:relative;">
+            <!-- Dot nav -->
+            <div style="position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:5px;">
+              <div style="width:7px;height:7px;border-radius:50%;background:#f7bf04;box-shadow:0 0 0 2px rgba(247,191,4,0.3);"></div>
+              <div style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.2);"></div>
+              <div style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.2);"></div>
+              <div style="width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.2);"></div>
+            </div>
+            <!-- Hero row -->
+            <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+              <div style="flex:1;">
+                <div style="width:40px;height:5px;border-radius:3px;background:rgba(247,191,4,0.3);margin-bottom:5px;"></div>
+                <div style="width:75%;height:10px;border-radius:3px;background:linear-gradient(90deg,#f7bf04,#fcd34d);margin-bottom:4px;"></div>
+                <div style="width:50%;height:6px;border-radius:3px;background:rgba(255,255,255,0.4);margin-bottom:8px;"></div>
+                <div style="width:90%;height:3px;border-radius:2px;background:rgba(255,255,255,0.15);margin-bottom:3px;"></div>
+                <div style="width:75%;height:3px;border-radius:2px;background:rgba(255,255,255,0.1);margin-bottom:8px;"></div>
+                <div style="display:flex;gap:5px;">
+                  <div style="width:36px;height:14px;border-radius:7px;background:#f7bf04;"></div>
+                  <div style="width:36px;height:14px;border-radius:7px;border:1px solid rgba(255,255,255,0.2);"></div>
+                </div>
+              </div>
+              <div style="width:44px;height:44px;border-radius:50%;border:2px solid #f7bf04;background:linear-gradient(135deg,#1e1e2e,#2d2d42);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <div style="font-size:8px;color:#f7bf04;font-weight:800;">AR</div>
+              </div>
+            </div>
+            <!-- Skill bars -->
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="display:flex;gap:4px;align-items:center;"><div style="height:3px;border-radius:2px;background:rgba(255,255,255,0.06);flex:1;"><div style="height:100%;width:88%;border-radius:2px;background:#f7bf04;"></div></div></div>
+              <div style="display:flex;gap:4px;align-items:center;"><div style="height:3px;border-radius:2px;background:rgba(255,255,255,0.06);flex:1;"><div style="height:100%;width:72%;border-radius:2px;background:#60a5fa;"></div></div></div>
+              <div style="display:flex;gap:4px;align-items:center;"><div style="height:3px;border-radius:2px;background:rgba(255,255,255,0.06);flex:1;"><div style="height:100%;width:60%;border-radius:2px;background:#a78bfa;"></div></div></div>
+            </div>
+          </div>
+          <div class="tpl-thumb-overlay">
+            <a href="portfolio.html" target="_blank" class="tpl-thumb-btn tpl-thumb-btn-preview">Preview</a>
+            <button class="tpl-thumb-btn tpl-thumb-btn-copy" onclick="copyTemplate('portfolio.html', this)">Copy Code</button>
+          </div>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-card-tags">
+            <span class="tpl-tag tpl-tag-gold">New</span>
+            <span class="tpl-tag tpl-tag-gold">Portfolio</span>
+            <span class="tpl-tag">Dark</span>
+            <span class="tpl-tag">Snap-Scroll</span>
+          </div>
+          <h3 class="tpl-card-name">Portfolio CV — Snap-Scroll</h3>
+          <p class="tpl-card-desc">Full-viewport snap-scroll CV with right-side dot nav, hamburger mobile menu, typewriter effect, animated skill bars, timeline experience, project grid, hobbies, and blogs. 100% SantyCSS.</p>
+          <div class="tpl-card-actions">
+            <a href="portfolio.html" target="_blank" class="tpl-btn-preview">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Preview
+            </a>
+            <button class="tpl-btn-copy" onclick="copyTemplate('portfolio.html', this)" id="copy-btn-portfolio-snap">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy Code
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Template 4: Portfolio CV — Dark Sidebar ── -->
+      <div class="tpl-card" data-category="portfolio">
+        <div class="tpl-thumb">
+          <div class="tpl-thumb-inner" style="background:#0f0f0f;display:flex;height:100%;overflow:hidden;">
+            <!-- Mini sidebar -->
+            <div style="width:38px;background:#1c1c1e;border-right:1px solid #2a2a2a;display:flex;flex-direction:column;align-items:center;padding:8px 0;gap:6px;flex-shrink:0;">
+              <div style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#0099e5,#005f8f);margin-bottom:4px;"></div>
+              <div style="width:16px;height:2px;border-radius:1px;background:#0099e5;"></div>
+              <div style="width:16px;height:2px;border-radius:1px;background:rgba(255,255,255,.15);"></div>
+              <div style="width:16px;height:2px;border-radius:1px;background:rgba(255,255,255,.15);"></div>
+              <div style="width:16px;height:2px;border-radius:1px;background:rgba(255,255,255,.15);"></div>
+              <div style="width:16px;height:2px;border-radius:1px;background:rgba(255,255,255,.15);"></div>
+            </div>
+            <!-- Main content preview -->
+            <div style="flex:1;padding:8px;display:flex;flex-direction:column;gap:5px;">
+              <div style="height:8px;width:70%;border-radius:2px;background:#0099e5;opacity:.8;"></div>
+              <div style="height:4px;width:50%;border-radius:2px;background:rgba(255,255,255,.15);"></div>
+              <div style="height:4px;width:40%;border-radius:2px;background:rgba(255,255,255,.08);"></div>
+              <div style="height:1px;background:rgba(255,255,255,.06);margin:3px 0;"></div>
+              <div style="display:flex;gap:4px;align-items:center;"><div style="height:3px;border-radius:2px;background:rgba(255,255,255,.06);flex:1;"><div style="height:100%;width:90%;border-radius:2px;background:#0099e5;"></div></div></div>
+              <div style="display:flex;gap:4px;align-items:center;"><div style="height:3px;border-radius:2px;background:rgba(255,255,255,.06);flex:1;"><div style="height:100%;width:75%;border-radius:2px;background:#0099e5;opacity:.7;"></div></div></div>
+              <div style="display:flex;gap:4px;align-items:center;"><div style="height:3px;border-radius:2px;background:rgba(255,255,255,.06);flex:1;"><div style="height:100%;width:60%;border-radius:2px;background:#0099e5;opacity:.5;"></div></div></div>
+              <div style="height:1px;background:rgba(255,255,255,.06);margin:3px 0;"></div>
+              <div style="display:flex;gap:3px;flex-wrap:wrap;">
+                <div style="height:10px;width:28px;border-radius:2px;background:rgba(0,153,229,.25);border:1px solid rgba(0,153,229,.4);"></div>
+                <div style="height:10px;width:22px;border-radius:2px;background:rgba(0,153,229,.15);border:1px solid rgba(0,153,229,.25);"></div>
+                <div style="height:10px;width:32px;border-radius:2px;background:rgba(0,153,229,.15);border:1px solid rgba(0,153,229,.25);"></div>
+              </div>
+            </div>
+          </div>
+          <div class="tpl-thumb-overlay">
+            <a href="portfolio-cv.html" target="_blank" class="tpl-thumb-btn tpl-thumb-btn-preview">Preview</a>
+            <button class="tpl-thumb-btn tpl-thumb-btn-copy" onclick="copyTemplate('portfolio-cv.html', this)">Copy Code</button>
+          </div>
+        </div>
+        <div class="tpl-card-body">
+          <div class="tpl-card-tags">
+            <span class="tpl-tag tpl-tag-gold">New</span>
+            <span class="tpl-tag tpl-tag-gold">Portfolio</span>
+            <span class="tpl-tag">Dark</span>
+            <span class="tpl-tag">Sidebar</span>
+            <span class="tpl-tag">CV</span>
+          </div>
+          <h3 class="tpl-card-name">Portfolio CV — Dark Sidebar</h3>
+          <p class="tpl-card-desc">Dark sidebar CV template with fixed left nav, cyan accent, typewriter titles, skill bars, dual timeline, filterable project grid, fun facts counter, testimonials, and contact form. 100% SantyCSS.</p>
+          <div class="tpl-card-actions">
+            <a href="portfolio-cv.html" target="_blank" class="tpl-btn-preview">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Preview
+            </a>
+            <button class="tpl-btn-copy" onclick="copyTemplate('portfolio-cv.html', this)" id="copy-btn-portfolio-cv">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
               Copy Code
             </button>
           </div>

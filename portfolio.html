@@ -3,955 +3,779 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alex Carter — Project Manager Portfolio</title>
+  <title>Alex Rivera — Full-Stack Developer Portfolio</title>
+  <meta name="description" content="Full-stack developer portfolio showcasing projects, experience, skills, hobbies and blogs. Built with SantyCSS." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="santy.css" />
+  <link rel="stylesheet" href="santy-variants.css" />
   <link rel="stylesheet" href="santy-components.css" />
   <link rel="stylesheet" href="santy-animations.css" />
-
+  <link rel="stylesheet" href="santy-icons.css" />
   <style>
-    /* ── Base ── */
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #f4f4f8;
-      color: #323232;
-      margin: 0;
-      transition: background .3s, color .3s;
-    }
-    .dark body, .dark { background: #0e0f11; color: #c8c7b8; }
-
+    html, body { margin: 0; padding: 0; font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
     a { text-decoration: none; color: inherit; }
-
-    /* ── Sidebar ── */
-    .layout-sidebar {
-      display: flex;
-      flex-direction: column;
-      padding: 36px 28px 28px;
-    }
-
-    /* Avatar */
-    .avatar-wrap {
-      position: relative;
-      width: 110px;
-      height: 110px;
-      margin: 0 auto 20px;
-      flex-shrink: 0;
-    }
-    .avatar-wrap::before {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      background: conic-gradient(#f7bf04 0%, #f7bf04 70%, transparent 70%);
-      animation: spin-ring 4s linear infinite;
-    }
-    @keyframes spin-ring {
-      to { transform: rotate(360deg); }
-    }
-    .avatar-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 4px solid #fff;
-      background: linear-gradient(135deg, #1c1c28 0%, #2d2d40 100%);
-      z-index: 1;
-    }
-    .dark .avatar-inner { border-color: #14141c; }
-    .avatar-inner svg { width: 100%; height: 100%; }
-
-    /* Profile name */
-    .profile-name {
-      font-size: 20px;
-      font-weight: 700;
-      text-align: center;
-      color: #111;
-      margin: 0 0 4px;
-    }
-    .dark .profile-name { color: #f1f0e8; }
-    .profile-title-wrap {
-      font-size: 13px;
-      font-weight: 400;
-      color: #6b7280;
-      text-align: center;
-      min-height: 20px;
-      margin-bottom: 20px;
-    }
-    .dark .profile-title-wrap { color: #94a3b8; }
-
-    /* Social icons */
-    .social-row { display: flex; gap: 10px; justify-content: center; margin-bottom: 24px; }
-    .social-btn {
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      border: 1.5px solid #e5e7eb;
-      display: flex; align-items: center; justify-content: center;
-      color: #6b7280;
-      transition: border-color .2s, color .2s, background .2s;
-    }
-    .social-btn:hover { border-color: #f7bf04; color: #f7bf04; background: rgba(247,191,4,.08); }
-    .dark .social-btn { border-color: #2a2a3a; color: #94a3b8; }
-    .dark .social-btn:hover { border-color: #f7bf04; color: #f7bf04; }
-
-    /* Stats */
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 24px; }
-
-    /* Divider */
-    .sidebar-divider { border: none; border-top: 1px solid #f0f0f0; margin: 16px 0; }
-    .dark .sidebar-divider { border-top-color: #1e1e2a; }
-
-    /* Nav links inside sidebar (mobile hidden) */
-    .sidebar-nav { display: flex; flex-direction: column; gap: 4px; margin-bottom: 24px; }
-    .sidebar-nav a {
-      font-size: 13px;
-      font-weight: 500;
-      color: #6b7280;
-      padding: 7px 12px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: background .2s, color .2s;
-    }
-    .sidebar-nav a:hover, .sidebar-nav a.active {
-      background: rgba(247,191,4,.12);
-      color: #a38000;
-    }
-    .dark .sidebar-nav a:hover, .dark .sidebar-nav a.active {
-      background: rgba(247,191,4,.1);
-      color: #f7bf04;
-    }
-    .sidebar-nav a svg { flex-shrink: 0; }
-
-    /* CV button */
-    .cv-btn {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      width: 100%;
-      padding: 10px 0;
-      border-radius: 9999px;
-      background: #f7bf04;
-      color: #111;
-      font-weight: 700;
-      font-size: 13px;
-      font-family: 'Poppins', sans-serif;
-      border: none; cursor: pointer;
-      transition: background .2s, transform .15s;
-      margin-bottom: 12px;
-    }
-    .cv-btn:hover { background: #e0ac00; transform: translateY(-1px); }
-
-    /* Dark toggle in sidebar */
-    .dark-toggle-row {
-      display: flex; align-items: center; justify-content: space-between;
-      font-size: 12px; color: #9ca3af;
-      margin-top: auto;
-      padding-top: 16px;
-    }
-    .toggle-switch {
-      position: relative; width: 40px; height: 22px; cursor: pointer;
-    }
-    .toggle-switch input { opacity: 0; width: 0; height: 0; }
-    .toggle-track {
-      position: absolute; inset: 0; background: #e5e7eb; border-radius: 9999px;
-      transition: background .3s;
-    }
-    .toggle-track::after {
-      content: '';
-      position: absolute;
-      left: 3px; top: 3px;
-      width: 16px; height: 16px;
-      border-radius: 50%;
-      background: #fff;
-      transition: transform .3s;
-      box-shadow: 0 1px 4px rgba(0,0,0,.2);
-    }
-    .toggle-switch input:checked ~ .toggle-track { background: #f7bf04; }
-    .toggle-switch input:checked ~ .toggle-track::after { transform: translateX(18px); }
-
-    /* ── Main content ── */
-    .layout-sidebar-main { background: #f4f4f8; transition: background .3s; }
-    .dark .layout-sidebar-main { background: #0e0f11; }
-
-    /* Mobile top bar */
-    .mobile-topbar {
-      display: none;
-      align-items: center; justify-content: space-between;
-      padding: 14px 20px;
-      background: #fff;
-      border-bottom: 1px solid #e5e7eb;
-      position: sticky; top: 0; z-index: 50;
-    }
-    .dark .mobile-topbar { background: #14141c; border-bottom-color: #22222e; }
-    @media (max-width: 900px) {
-      .mobile-topbar { display: flex; }
-      .sidebar-nav   { display: none; }
-    }
-
-    /* Section nav (sticky inside main) */
-    .section-nav {
-      display: flex; gap: 4px; flex-wrap: wrap;
-      background: #fff;
-      padding: 10px 32px;
-      border-bottom: 1px solid #e5e7eb;
-      position: sticky; top: 0; z-index: 40;
-    }
-    .dark .section-nav { background: #14141c; border-bottom-color: #22222e; }
-    .section-nav a {
-      font-size: 12px; font-weight: 600; letter-spacing: .04em;
-      padding: 5px 14px; border-radius: 9999px;
-      color: #6b7280; text-transform: uppercase;
-      transition: background .2s, color .2s;
-    }
-    .section-nav a:hover { color: #f7bf04; }
-    .section-nav a.active { background: rgba(247,191,4,.12); color: #a38000; }
-    .dark .section-nav a.active { background: rgba(247,191,4,.12); color: #f7bf04; }
-    @media (max-width: 900px) { .section-nav { display: none; } }
-
-    /* Content wrapper */
-    .content-wrap { padding: 48px 40px; max-width: 900px; }
-    @media (max-width: 600px) { .content-wrap { padding: 28px 20px; } }
-
-    /* Section title */
-    .section-title {
-      font-size: 26px; font-weight: 700; color: #111;
-      margin: 0 0 4px;
-    }
-    .dark .section-title { color: #f1f0e8; }
-    .section-subtitle {
-      font-size: 13px; color: #94a3b8; margin: 0 0 32px;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .section-subtitle::after {
-      content: '';
-      flex: 1; height: 1px; background: #e5e7eb;
-      display: block;
-    }
-    .dark .section-subtitle::after { background: #22222e; }
-    .section-accent { color: #f7bf04; }
-
-    /* About prose */
-    .about-text {
-      font-size: 14px; line-height: 1.9; color: #4b5563;
-      max-width: 680px; margin: 0 0 24px;
-    }
-    .dark .about-text { color: #9fa0a8; }
-
-    /* Info list */
-    .info-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; }
-    .info-list li { font-size: 13px; color: #6b7280; display: flex; align-items: center; gap: 8px; }
-    .info-list li span { color: #111; font-weight: 600; }
-    .dark .info-list li { color: #94a3b8; }
-    .dark .info-list li span { color: #e2e8f0; }
-    @media (max-width: 540px) { .info-list { grid-template-columns: 1fr; } }
-
-    /* Skill label row */
-    .skill-label-row {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 6px; font-size: 13px; font-weight: 500;
-    }
-    .skill-pct { color: #f7bf04; font-weight: 700; }
-    .dark .skill-pct { color: #f7bf04; }
-
-    /* Soft-skill tags */
-    .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
-    .tag {
-      font-size: 12px; font-weight: 500;
-      padding: 5px 14px; border-radius: 9999px;
-      background: #f3f4f6; color: #374151;
-      border: 1px solid #e5e7eb;
-    }
-    .dark .tag { background: #1c1c28; color: #c0c2cc; border-color: #2a2a3a; }
-
-    /* Service icon */
-    .service-icon {
-      width: 48px; height: 48px; border-radius: 12px;
-      background: rgba(247,191,4,.12);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; margin-bottom: 16px;
-      border: 1px solid rgba(247,191,4,.25);
-    }
-
-    /* Portfolio thumb placeholder */
-    .portfolio-thumb {
-      width: 100%; height: 100%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 32px;
-      transition: transform .45s ease;
-    }
-
-    /* Resume date badge */
-    .resume-date {
-      font-size: 11px; font-weight: 600; padding: 3px 10px;
-      border-radius: 9999px; background: rgba(247,191,4,.12);
-      color: #a38000; display: inline-block; margin-bottom: 6px;
-    }
-    .dark .resume-date { background: rgba(247,191,4,.1); color: #fcd34d; }
-
-    /* Contact / Discussions card */
-    .discussions-card {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      border-radius: 20px;
-      padding: 48px 40px;
-      text-align: center;
-      border: 1px solid rgba(247,191,4,.2);
-    }
-    .dark .discussions-card { background: linear-gradient(135deg, #12121e 0%, #0e0f1a 100%); }
-    .discussions-icon {
-      width: 72px; height: 72px;
-      background: rgba(247,191,4,.12);
-      border: 2px solid rgba(247,191,4,.3);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 32px;
-      margin: 0 auto 24px;
-    }
-    .discussions-link {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 14px 32px;
-      border-radius: 9999px;
-      background: #f7bf04;
-      color: #111;
-      font-weight: 700;
-      font-size: 15px;
-      font-family: 'Poppins', sans-serif;
-      transition: background .2s, transform .15s;
-    }
-    .discussions-link:hover { background: #e0ac00; transform: translateY(-2px); }
-
-    /* Contact info pills */
-    .contact-pill {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 8px 20px;
-      border-radius: 9999px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12);
-      font-size: 13px; color: #c8c7b8;
-    }
-
-    /* Footer */
-    .portfolio-footer {
-      text-align: center;
-      padding: 28px 20px;
-      font-size: 12px;
-      color: #94a3b8;
-      border-top: 1px solid #e5e7eb;
-    }
-    .dark .portfolio-footer { border-top-color: #1e1e2a; }
-    .footer-brand { color: #f7bf04; font-weight: 700; }
-
-    /* Section spacing */
-    .portfolio-section { margin-bottom: 72px; }
-    .portfolio-section:last-child { margin-bottom: 0; }
-
-    /* Responsive grid helpers */
-    @media (max-width: 640px) {
-      .grid-cols-2 { grid-template-columns: 1fr !important; }
-      .grid-cols-3 { grid-template-columns: 1fr !important; }
-    }
-    @media (max-width: 480px) {
-      .discussions-card { padding: 32px 20px; }
+    @media (max-width: 767px) {
+      .about-grid   { flex-direction: column; align-items: center; text-align: center; padding: 32px 24px; }
+      .about-text   { align-items: center; }
+      .skills-grid  { flex-direction: column; gap: 32px; }
+      .proj-grid    { grid-template-columns: 1fr !important; }
+      .hobby-grid   { grid-template-columns: 1fr 1fr !important; }
+      .blog-gap     { padding-left: 20px; padding-right: 20px; }
+      .exp-pad      { padding-left: 24px; padding-right: 24px; }
+      .section-h1   { font-size: 40px !important; }
+      .about-stat   { gap: 16px; }
     }
   </style>
 </head>
-<body>
+<body class="background-zinc-950">
 
-<!-- ═══════════════════════════════════════════════════════════════
-     LAYOUT WRAPPER
-═══════════════════════════════════════════════════════════════ -->
-<div class="layout-sidebar-wrap">
+  <!-- ═══════════════════════════════════════
+       RIGHT DOT NAVIGATION (Desktop only)
+       ═══════════════════════════════════════ -->
+  <nav class="portfolio-right-nav" id="dot-nav" aria-label="Page sections">
+    <a class="nav-dot nav-dot-active" data-label="About"      data-target="about"      href="#about"></a>
+    <a class="nav-dot"               data-label="Experience"  data-target="experience"  href="#experience"></a>
+    <a class="nav-dot"               data-label="Skills"      data-target="skills"      href="#skills"></a>
+    <a class="nav-dot"               data-label="Projects"    data-target="projects"    href="#projects"></a>
+    <a class="nav-dot"               data-label="Hobbies"     data-target="hobbies"     href="#hobbies"></a>
+    <a class="nav-dot"               data-label="Blogs"       data-target="blogs"       href="#blogs"></a>
+  </nav>
 
-  <!-- ═══════════════════
-       SIDEBAR
-  ═══════════════════ -->
-  <aside class="layout-sidebar">
+  <!-- ═══════════════════════════════════════
+       HAMBURGER (Mobile only)
+       ═══════════════════════════════════════ -->
+  <button class="portfolio-hamburger" id="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Open menu">
+    <span class="icon icon-24 icon-list" style="background-color:#fff;"></span>
+  </button>
 
-    <!-- Avatar -->
-    <div class="avatar-wrap">
-      <div class="avatar-inner">
-        <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
-          <rect width="110" height="110" fill="#1c1c28"/>
-          <circle cx="55" cy="40" r="22" fill="#2d2d44"/>
-          <ellipse cx="55" cy="90" rx="34" ry="26" fill="#2d2d44"/>
-          <circle cx="55" cy="40" r="18" fill="#3d3d5a"/>
-          <ellipse cx="55" cy="88" rx="30" ry="22" fill="#3d3d5a"/>
-        </svg>
-      </div>
-    </div>
-
-    <!-- Name + Typed title -->
-    <p class="profile-name">Alex Carter</p>
-    <p class="profile-title-wrap">
-      <span id="typed-text"></span><span class="typed-cursor" style="color:#f7bf04;"></span>
-    </p>
-
-    <!-- Social icons -->
-    <div class="social-row">
-      <a href="https://github.com" target="_blank" rel="noopener" class="social-btn" title="GitHub">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-      </a>
-      <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-btn" title="LinkedIn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </a>
-      <a href="https://twitter.com" target="_blank" rel="noopener" class="social-btn" title="Twitter / X">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      </a>
-      <a href="https://dribbble.com" target="_blank" rel="noopener" class="social-btn" title="Dribbble">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24C5.385 24 0 18.615 0 12S5.385 0 12 0s12 5.385 12 12-5.385 12-12 12zm10.12-10.358c-.35-.11-3.17-.953-6.384-.438 1.34 3.684 1.887 6.684 1.992 7.308a10.46 10.46 0 004.395-6.87zm-6.115 7.808c-.153-.9-.75-4.032-2.19-7.77l-.066.02c-5.79 2.015-7.86 6.025-8.048 6.39a10.463 10.463 0 006.29 2.113c1.37 0 2.685-.263 3.893-.752zm-8.61-1.51c.23-.45 3.006-5.188 8.272-6.87.085-.028.17-.054.255-.079a38.18 38.18 0 00-.89-1.715C9.12 12.6 3.73 12.44 3.199 12.43l-.003.18c0 2.695.99 5.16 2.62 7.044zm-2.52-8.94c.54.012 5.15.058 10.35-1.42A64.494 64.494 0 0011.68 3.93C8.785 5.155 6.44 7.586 5.074 10.59zM13.35 3.32a60.22 60.22 0 012.555 4.37c2.57-.965 4.58-2.43 5.516-3.24A10.467 10.467 0 0013.35 3.32zm9.028 4.99c-1.055.94-3.21 2.56-5.97 3.63.17.368.335.748.487 1.13.058.138.114.278.168.42 3.37-.424 6.72.27 7.054.342a10.417 10.417 0 00-1.74-5.52z"/></svg>
-      </a>
-    </div>
-
-    <!-- Stats -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-number">8+</div>
-        <div class="stat-label">Years Exp</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">96</div>
-        <div class="stat-label">Projects</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">12+</div>
-        <div class="stat-label">Awards</div>
-      </div>
-    </div>
-
-    <hr class="sidebar-divider" />
-
-    <!-- Nav links -->
-    <nav class="sidebar-nav">
-      <a href="#about" class="active">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        About
-      </a>
-      <a href="#skills">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        Skills
-      </a>
-      <a href="#services">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-        Services
-      </a>
-      <a href="#works">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-        Works
-      </a>
-      <a href="#resume">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        Resume
-      </a>
-      <a href="#contact">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-        Contact
-      </a>
-    </nav>
-
-    <!-- Download CV -->
-    <button class="cv-btn" onclick="window.open('#', '_blank')">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Download CV
+  <!-- ═══════════════════════════════════════
+       MOBILE NAV OVERLAY
+       ═══════════════════════════════════════ -->
+  <div class="mobile-menu-overlay" id="mobile-menu" role="dialog" aria-modal="true">
+    <button onclick="toggleMobileMenu()" aria-label="Close menu"
+      class="position-fixed cursor-pointer"
+      style="top:20px;right:20px;width:44px;height:44px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;display:flex;align-items:center;justify-content:center;">
+      <span class="icon icon-24 icon-x-lg" style="background-color:#fff;"></span>
     </button>
+    <a href="#about"      class="mobile-nav-link nav-dot-active" data-target="about"      onclick="navTo('about')">
+      <span class="icon icon-24 icon-person-circle"  style="background-color:#f7bf04;"></span> About
+    </a>
+    <a href="#experience" class="mobile-nav-link" data-target="experience" onclick="navTo('experience')">
+      <span class="icon icon-24 icon-briefcase"      style="background-color:rgba(255,255,255,0.4);"></span> Experience
+    </a>
+    <a href="#skills"     class="mobile-nav-link" data-target="skills"     onclick="navTo('skills')">
+      <span class="icon icon-24 icon-code-slash"     style="background-color:rgba(255,255,255,0.4);"></span> Skills
+    </a>
+    <a href="#projects"   class="mobile-nav-link" data-target="projects"   onclick="navTo('projects')">
+      <span class="icon icon-24 icon-folder2-open"   style="background-color:rgba(255,255,255,0.4);"></span> Projects
+    </a>
+    <a href="#hobbies"    class="mobile-nav-link" data-target="hobbies"    onclick="navTo('hobbies')">
+      <span class="icon icon-24 icon-heart-fill"     style="background-color:rgba(255,255,255,0.4);"></span> Hobbies
+    </a>
+    <a href="#blogs"      class="mobile-nav-link" data-target="blogs"      onclick="navTo('blogs')">
+      <span class="icon icon-24 icon-journal-text"   style="background-color:rgba(255,255,255,0.4);"></span> Blogs
+    </a>
+  </div>
 
-    <!-- Dark mode toggle -->
-    <div class="dark-toggle-row">
-      <span>Dark mode</span>
-      <label class="toggle-switch">
-        <input type="checkbox" id="darkToggle" onchange="togglePortfolioDark(this)" />
-        <span class="toggle-track"></span>
-      </label>
-    </div>
+  <!-- ═══════════════════════════════════════
+       MAIN SCROLL CONTAINER (snap)
+       ═══════════════════════════════════════ -->
+  <main class="portfolio-snap" id="portfolio-container">
 
-  </aside><!-- /sidebar -->
+    <!-- ─────────────────────────────────────
+         § 1 · ABOUT
+         ───────────────────────────────────── -->
+    <section class="snap-section" id="about">
+      <!-- Background glow decorations -->
+      <div class="position-absolute pointer-none" style="top:-80px;right:-80px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(247,191,4,0.07) 0%,transparent 70%);z-index:0;"></div>
+      <div class="position-absolute pointer-none" style="bottom:-120px;left:-60px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,0.05) 0%,transparent 70%);z-index:0;"></div>
 
-  <!-- ═══════════════════
-       MAIN CONTENT
-  ═══════════════════ -->
-  <main class="layout-sidebar-main">
+      <div class="make-flex align-center set-height-screen about-grid position-relative"
+           style="padding:48px 80px 48px 64px;gap:48px;z-index:1;">
 
-    <!-- Mobile top bar -->
-    <div class="mobile-topbar">
-      <span style="font-size:15px;font-weight:700;color:#f7bf04;">Alex Carter</span>
-      <button class="cv-btn" style="width:auto;padding:8px 18px;margin:0;font-size:12px;" onclick="window.open('#','_blank')">
-        Download CV
-      </button>
-    </div>
+        <!-- Left: text -->
+        <div class="make-flex flex-column gap-20 flex-equal about-text animate-fade-in-from-left animation-fill-forwards animation-speed-normal">
+          <span class="section-badge">
+            <span class="icon icon-16 icon-emoji-smile" style="background-color:#f7bf04;"></span>
+            Hello World
+          </span>
 
-    <!-- Section nav -->
-    <nav class="section-nav">
-      <a href="#about" class="active">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#services">Services</a>
-      <a href="#works">Works</a>
-      <a href="#resume">Resume</a>
-      <a href="#contact">Contact</a>
-    </nav>
-
-    <div class="content-wrap">
-
-      <!-- ══════════════
-           ABOUT
-      ══════════════ -->
-      <section id="about" class="portfolio-section">
-        <h2 class="section-title">About <span class="section-accent">Me</span></h2>
-        <p class="section-subtitle">Who I am &amp; what drives me</p>
-
-        <p class="about-text">
-          Senior project manager with 8+ years leading cross-functional teams from discovery to delivery. I specialize in turning complex, ambiguous product requirements into structured roadmaps that ship on time and within budget. My background spans SaaS, fintech, and enterprise software — always with a bias toward clear communication and measurable outcomes.
-        </p>
-        <p class="about-text">
-          Outside of work I contribute to open-source tooling, mentor junior PMs, and obsess over design systems. I believe great products are built at the intersection of rigorous process and genuine empathy for users.
-        </p>
-
-        <ul class="info-list">
-          <li><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#f7bf04" stroke-width="2"><path d="M20 10c0 6-8 13-8 13S4 16 4 10a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg> <span>Location:</span> Los Angeles, CA</li>
-          <li><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#f7bf04" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg> <span>Availability:</span> Open to offers</li>
-          <li><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#f7bf04" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.02 2.22 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg> <span>Phone:</span> +1 (840) 841-2569</li>
-          <li><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#f7bf04" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> <span>Email:</span> alex@portfolio.dev</li>
-          <li><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#f7bf04" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span>Experience:</span> 8+ Years</li>
-          <li><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#f7bf04" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> <span>Status:</span> Available freelance</li>
-        </ul>
-      </section>
-
-      <!-- ══════════════
-           SKILLS
-      ══════════════ -->
-      <section id="skills" class="portfolio-section skills-section">
-        <h2 class="section-title">My <span class="section-accent">Skills</span></h2>
-        <p class="section-subtitle">What I bring to every project</p>
-
-        <div class="make-grid grid-cols-2 gap-40" style="gap:40px 56px;margin-bottom:36px;">
-          <!-- Col 1 -->
           <div>
-            <div class="skill-label-row" style="margin-bottom:6px;">
-              <span>Project Management</span>
-              <span class="skill-pct">90%</span>
-            </div>
-            <div class="skill-bar"><div class="skill-fill skill-fill-gold" data-width="90%"></div></div>
-
-            <div class="skill-label-row" style="margin-top:20px;margin-bottom:6px;">
-              <span>Agile / Scrum</span>
-              <span class="skill-pct">85%</span>
-            </div>
-            <div class="skill-bar"><div class="skill-fill skill-fill-gold" data-width="85%"></div></div>
-
-            <div class="skill-label-row" style="margin-top:20px;margin-bottom:6px;">
-              <span>Risk Management</span>
-              <span class="skill-pct">78%</span>
-            </div>
-            <div class="skill-bar"><div class="skill-fill skill-fill-gold" data-width="78%"></div></div>
-
-            <div class="skill-label-row" style="margin-top:20px;margin-bottom:6px;">
-              <span>Stakeholder Communication</span>
-              <span class="skill-pct">92%</span>
-            </div>
-            <div class="skill-bar"><div class="skill-fill skill-fill-gold" data-width="92%"></div></div>
+            <div class="set-text-18 color-slate-400 text-normal add-margin-bottom-8">Hi, I'm</div>
+            <h1 class="add-margin-0 text-extra-bold text-gradient-amber-to-yellow line-height-none section-h1" style="font-size:60px;">Alex Rivera</h1>
+            <div class="set-text-22 text-medium color-slate-300 add-margin-top-12" id="typewriter" style="min-height:32px;">Full-Stack Developer</div>
           </div>
 
-          <!-- Col 2 -->
-          <div>
-            <div class="skill-label-row" style="margin-bottom:6px;">
-              <span>Data Analysis</span>
-              <span class="skill-pct">72%</span>
-            </div>
-            <div class="skill-bar"><div class="skill-fill skill-fill-gold" data-width="72%"></div></div>
+          <p class="set-text-15 color-slate-400 line-height-relaxed add-margin-0" style="max-width:480px;">
+            I craft high-performance web experiences with clean code and creative design.
+            Passionate about turning complex problems into elegant, user-centric solutions.
+          </p>
 
-            <div class="skill-label-row" style="margin-top:20px;margin-bottom:6px;">
-              <span>UX Strategy</span>
-              <span class="skill-pct">68%</span>
-            </div>
-            <div class="skill-bar"><div class="skill-fill skill-fill-gold" data-width="68%"></div></div>
+          <div class="make-flex flex-wrap gap-8">
+            <span class="chip chip-sm" style="background:rgba(255,255,255,0.05);color:#94a3b8;border:1px solid rgba(255,255,255,0.08);">
+              <span class="icon icon-14 icon-geo-alt" style="background-color:#f7bf04;width:14px;height:14px;"></span>
+              San Francisco, CA
+            </span>
+            <span class="chip chip-sm" style="background:rgba(34,197,94,0.08);color:#4ade80;border:1px solid rgba(34,197,94,0.2);">
+              <span class="icon icon-14 icon-circle-fill" style="background-color:#4ade80;width:8px;height:8px;"></span>
+              Available for Work
+            </span>
+          </div>
 
-            <div class="skill-label-row" style="margin-top:20px;margin-bottom:6px;">
-              <span>Jira / Asana / Notion</span>
-              <span class="skill-pct">95%</span>
-            </div>
-            <div class="skill-bar"><div class="skill-fill skill-fill-gold" data-width="95%"></div></div>
+          <!-- Social icons -->
+          <div class="make-flex gap-10 align-center">
+            <a href="#" aria-label="GitHub"
+               class="make-flex align-center justify-center make-circle set-width-40 set-height-40 transition-normal"
+               style="border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);"
+               onmouseover="this.style.borderColor='#f7bf04';this.style.background='rgba(247,191,4,0.1)'"
+               onmouseout="this.style.borderColor='rgba(255,255,255,0.12)';this.style.background='rgba(255,255,255,0.04)'">
+              <span class="icon icon-18" style="background-color:#e2e8f0;width:18px;height:18px;" data-icon="github">
+                <span class="icon-github" style="width:18px;height:18px;display:block;background-color:#e2e8f0;-webkit-mask:var(--icon-url) no-repeat center/contain;mask:var(--icon-url) no-repeat center/contain;"></span>
+              </span>
+            </a>
+            <a href="#" aria-label="LinkedIn"
+               class="make-flex align-center justify-center make-circle set-width-40 set-height-40 transition-normal"
+               style="border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);"
+               onmouseover="this.style.borderColor='#f7bf04';this.style.background='rgba(247,191,4,0.1)'"
+               onmouseout="this.style.borderColor='rgba(255,255,255,0.12)';this.style.background='rgba(255,255,255,0.04)'">
+              <span class="icon icon-linkedin icon-20" style="background-color:#e2e8f0;"></span>
+            </a>
+            <a href="#" aria-label="Twitter/X"
+               class="make-flex align-center justify-center make-circle set-width-40 set-height-40 transition-normal"
+               style="border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);"
+               onmouseover="this.style.borderColor='#f7bf04';this.style.background='rgba(247,191,4,0.1)'"
+               onmouseout="this.style.borderColor='rgba(255,255,255,0.12)';this.style.background='rgba(255,255,255,0.04)'">
+              <span class="icon icon-twitter-x icon-20" style="background-color:#e2e8f0;"></span>
+            </a>
+            <a href="mailto:alex@example.com" aria-label="Email"
+               class="make-flex align-center justify-center make-circle set-width-40 set-height-40 transition-normal"
+               style="border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);"
+               onmouseover="this.style.borderColor='#f7bf04';this.style.background='rgba(247,191,4,0.1)'"
+               onmouseout="this.style.borderColor='rgba(255,255,255,0.12)';this.style.background='rgba(255,255,255,0.04)'">
+              <span class="icon icon-envelope icon-20" style="background-color:#e2e8f0;"></span>
+            </a>
+          </div>
 
-            <div class="skill-label-row" style="margin-top:20px;margin-bottom:6px;">
-              <span>Budget &amp; P&amp;L Ownership</span>
-              <span class="skill-pct">80%</span>
+          <!-- CTA buttons -->
+          <div class="make-flex gap-12 flex-wrap">
+            <a href="#" class="make-flex align-center gap-8 add-padding-x-24 add-padding-y-12 make-pill text-semibold set-text-14 cursor-pointer transition-normal"
+               style="background:#f7bf04;color:#111;"
+               onmouseover="this.style.background='#e0ac00';this.style.transform='translateY(-2px)'"
+               onmouseout="this.style.background='#f7bf04';this.style.transform='translateY(0)'">
+              <span class="icon icon-download icon-16" style="background-color:#111;"></span>
+              Download CV
+            </a>
+            <a href="#projects" class="make-flex align-center gap-8 add-padding-x-24 add-padding-y-12 make-pill text-semibold set-text-14 cursor-pointer transition-normal"
+               style="border:1px solid rgba(255,255,255,0.18);color:#e2e8f0;background:transparent;"
+               onclick="event.preventDefault();scrollToSection('projects')"
+               onmouseover="this.style.borderColor='#f7bf04';this.style.color='#f7bf04'"
+               onmouseout="this.style.borderColor='rgba(255,255,255,0.18)';this.style.color='#e2e8f0'">
+              View Projects
+              <span class="icon icon-arrow-right icon-16" style="background-color:currentColor;"></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: avatar + stats -->
+        <div class="make-flex flex-column align-center gap-28 flex-shrink-none animate-zoom-in animation-delay-300 animation-fill-forwards on-mobile\:make-hidden">
+          <div class="avatar-ring-lg">
+            <div class="avatar-photo make-flex align-center justify-center"
+                 style="background:linear-gradient(135deg,#1e1e2e 0%,#2d2d42 100%);border-radius:50%;border:4px solid #09090b;">
+              <span class="set-text-40 text-extra-bold text-gradient-amber-to-yellow">AR</span>
             </div>
-            <div class="skill-bar"><div class="skill-fill skill-fill-gold" data-width="80%"></div></div>
+          </div>
+          <div class="make-flex gap-24 about-stat">
+            <div class="text-center">
+              <div class="set-text-32 text-extra-bold text-gradient-amber-to-yellow">5+</div>
+              <div class="set-text-11 color-slate-400 text-semibold" style="letter-spacing:0.06em;">YEARS</div>
+            </div>
+            <div class="text-center" style="border-left:1px solid rgba(255,255,255,0.08);padding-left:24px;">
+              <div class="set-text-32 text-extra-bold text-gradient-amber-to-yellow">40+</div>
+              <div class="set-text-11 color-slate-400 text-semibold" style="letter-spacing:0.06em;">PROJECTS</div>
+            </div>
+            <div class="text-center" style="border-left:1px solid rgba(255,255,255,0.08);padding-left:24px;">
+              <div class="set-text-32 text-extra-bold text-gradient-amber-to-yellow">15+</div>
+              <div class="set-text-11 color-slate-400 text-semibold" style="letter-spacing:0.06em;">CLIENTS</div>
+            </div>
           </div>
         </div>
 
-        <!-- Soft skills -->
-        <p style="font-size:13px;font-weight:600;color:#6b7280;margin-bottom:12px;text-transform:uppercase;letter-spacing:.06em;">Soft Skills</p>
-        <div class="tag-cloud">
-          <span class="tag">Strategic Planning</span>
-          <span class="tag">Critical Thinking</span>
-          <span class="tag">Team Leadership</span>
-          <span class="tag">Vendor Management</span>
-          <span class="tag">Problem Solving</span>
-          <span class="tag">Conflict Resolution</span>
-          <span class="tag">Cross-functional Collaboration</span>
-          <span class="tag">Executive Presentations</span>
-          <span class="tag">Business Analysis</span>
-          <span class="tag">User Research</span>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ══════════════
-           SERVICES
-      ══════════════ -->
-      <section id="services" class="portfolio-section">
-        <h2 class="section-title">My <span class="section-accent">Services</span></h2>
-        <p class="section-subtitle">How I can help you</p>
+    <!-- ─────────────────────────────────────
+         § 2 · EXPERIENCE
+         ───────────────────────────────────── -->
+    <section class="snap-section-scrollable" id="experience">
+      <div class="add-padding-y-48 exp-pad" style="max-width:800px;margin:0 auto;padding-left:64px;padding-right:80px;">
 
-        <div class="make-grid grid-cols-2 gap-16" style="gap:16px;">
-          <div class="service-card">
-            <div class="service-icon">📋</div>
-            <h3 style="font-size:16px;font-weight:700;margin:0 0 10px;color:#111;" class="dark-title">Product Roadmapping</h3>
-            <p style="font-size:13px;line-height:1.7;color:#6b7280;margin:0 0 20px;">Turn vague business goals into a clear, prioritised roadmap that engineering, design, and leadership all trust and contribute to.</p>
-            <a href="#contact" class="btn btn-outline" style="border-color:#f7bf04;color:#a38000;font-size:12px;padding:6px 18px;border-radius:9999px;">Get Started →</a>
-          </div>
-          <div class="service-card">
-            <div class="service-icon">🔄</div>
-            <h3 style="font-size:16px;font-weight:700;margin:0 0 10px;color:#111;" class="dark-title">Agile Transformation</h3>
-            <p style="font-size:13px;line-height:1.7;color:#6b7280;margin:0 0 20px;">Coach teams transitioning from waterfall to agile. Set up sprint cadences, retrospectives, and metrics that actually improve velocity.</p>
-            <a href="#contact" class="btn btn-outline" style="border-color:#f7bf04;color:#a38000;font-size:12px;padding:6px 18px;border-radius:9999px;">Get Started →</a>
-          </div>
-          <div class="service-card">
-            <div class="service-icon">📊</div>
-            <h3 style="font-size:16px;font-weight:700;margin:0 0 10px;color:#111;" class="dark-title">Stakeholder Management</h3>
-            <p style="font-size:13px;line-height:1.7;color:#6b7280;margin:0 0 20px;">Build communication rhythms, executive dashboards, and escalation paths that keep everyone informed without constant interruptions.</p>
-            <a href="#contact" class="btn btn-outline" style="border-color:#f7bf04;color:#a38000;font-size:12px;padding:6px 18px;border-radius:9999px;">Get Started →</a>
-          </div>
-          <div class="service-card">
-            <div class="service-icon">🚀</div>
-            <h3 style="font-size:16px;font-weight:700;margin:0 0 10px;color:#111;" class="dark-title">Launch &amp; Go-to-Market</h3>
-            <p style="font-size:13px;line-height:1.7;color:#6b7280;margin:0 0 20px;">Coordinate multi-team releases — from feature-freeze to post-launch monitoring — with detailed runbooks and rollback plans at every step.</p>
-            <a href="#contact" class="btn btn-outline" style="border-color:#f7bf04;color:#a38000;font-size:12px;padding:6px 18px;border-radius:9999px;">Get Started →</a>
-          </div>
-        </div>
-      </section>
-
-      <!-- ══════════════
-           WORKS
-      ══════════════ -->
-      <section id="works" class="portfolio-section">
-        <h2 class="section-title">My <span class="section-accent">Works</span></h2>
-        <p class="section-subtitle">Selected projects</p>
-
-        <!-- Filter tabs -->
-        <div class="filter-tabs" style="margin-bottom:24px;">
-          <button class="filter-tab active" data-filter="all">All</button>
-          <button class="filter-tab" data-filter="saas">SaaS</button>
-          <button class="filter-tab" data-filter="app">Mobile</button>
-          <button class="filter-tab" data-filter="design">Design</button>
-          <button class="filter-tab" data-filter="research">Research</button>
+        <div class="add-margin-bottom-36 animate-fade-in-from-bottom animation-fill-forwards">
+          <span class="section-badge">
+            <span class="icon icon-briefcase icon-16" style="background-color:#f7bf04;"></span>
+            Career Journey
+          </span>
+          <h2 class="set-text-40 text-extra-bold add-margin-top-12 add-margin-bottom-4 color-slate-50">Work Experience</h2>
+          <p class="set-text-14 color-slate-400 add-margin-0">My professional journey and key milestones</p>
         </div>
 
-        <!-- Portfolio grid -->
-        <div class="make-grid grid-cols-3" style="gap:16px;" id="portfolio-grid">
+        <div class="timeline">
 
-          <div class="portfolio-card" data-category="saas">
-            <div class="portfolio-thumb" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);">🧩</div>
-            <div class="portfolio-overlay">
-              <span class="portfolio-category">SaaS</span>
-              <strong style="font-size:14px;font-weight:700;display:block;margin-bottom:6px;">CRM Platform</strong>
-              <p style="font-size:12px;opacity:.8;margin:0;line-height:1.5;">End-to-end product lead for a B2B CRM serving 500+ enterprise clients.</p>
+          <!-- Job 1 -->
+          <div class="timeline-item animate-fade-in-from-left animation-delay-100 animation-fill-forwards">
+            <div class="timeline-dot timeline-dot-yellow">
+              <span class="icon icon-building icon-16" style="background-color:#111;"></span>
             </div>
-          </div>
-
-          <div class="portfolio-card" data-category="app">
-            <div class="portfolio-thumb" style="background:linear-gradient(135deg,#0d1b2a 0%,#1b4332 100%);">📱</div>
-            <div class="portfolio-overlay">
-              <span class="portfolio-category">Mobile</span>
-              <strong style="font-size:14px;font-weight:700;display:block;margin-bottom:6px;">Investment App</strong>
-              <p style="font-size:12px;opacity:.8;margin:0;line-height:1.5;">Led cross-functional delivery of a fintech mobile app with 80k+ users at launch.</p>
-            </div>
-          </div>
-
-          <div class="portfolio-card" data-category="design">
-            <div class="portfolio-thumb" style="background:linear-gradient(135deg,#2d1b69 0%,#11024d 100%);">🎨</div>
-            <div class="portfolio-overlay">
-              <span class="portfolio-category">Design</span>
-              <strong style="font-size:14px;font-weight:700;display:block;margin-bottom:6px;">Design System</strong>
-              <p style="font-size:12px;opacity:.8;margin:0;line-height:1.5;">Built a shared component library reducing design-to-dev handoff time by 40%.</p>
-            </div>
-          </div>
-
-          <div class="portfolio-card" data-category="saas">
-            <div class="portfolio-thumb" style="background:linear-gradient(135deg,#1a0533 0%,#3d0066 100%);">⚙️</div>
-            <div class="portfolio-overlay">
-              <span class="portfolio-category">SaaS</span>
-              <strong style="font-size:14px;font-weight:700;display:block;margin-bottom:6px;">DevOps Dashboard</strong>
-              <p style="font-size:12px;opacity:.8;margin:0;line-height:1.5;">Shipped an internal platform consolidating CI/CD metrics for a 200-person eng org.</p>
-            </div>
-          </div>
-
-          <div class="portfolio-card" data-category="research">
-            <div class="portfolio-thumb" style="background:linear-gradient(135deg,#0a2e1a 0%,#1a4b0e 100%);">🔬</div>
-            <div class="portfolio-overlay">
-              <span class="portfolio-category">Research</span>
-              <strong style="font-size:14px;font-weight:700;display:block;margin-bottom:6px;">UX Discovery Sprint</strong>
-              <p style="font-size:12px;opacity:.8;margin:0;line-height:1.5;">Ran a 2-week discovery with 40 user interviews to inform a product pivot.</p>
-            </div>
-          </div>
-
-          <div class="portfolio-card" data-category="app">
-            <div class="portfolio-thumb" style="background:linear-gradient(135deg,#1a0a00 0%,#4a1500 100%);">🛒</div>
-            <div class="portfolio-overlay">
-              <span class="portfolio-category">Mobile</span>
-              <strong style="font-size:14px;font-weight:700;display:block;margin-bottom:6px;">E-commerce App</strong>
-              <p style="font-size:12px;opacity:.8;margin:0;line-height:1.5;">Coordinated a 14-team release for a headless commerce platform relaunch.</p>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ══════════════
-           RESUME
-      ══════════════ -->
-      <section id="resume" class="portfolio-section">
-        <h2 class="section-title">My <span class="section-accent">Resume</span></h2>
-        <p class="section-subtitle">Experience &amp; education</p>
-
-        <div class="make-grid grid-cols-2 gap-48" style="gap:0 48px;">
-
-          <!-- Experience -->
-          <div>
-            <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#f7bf04;margin-bottom:20px;">Work Experience</p>
-            <div class="timeline">
-              <div class="timeline-item">
-                <div class="timeline-dot timeline-dot-gold"></div>
-                <span class="resume-date">2022 — Present</span>
-                <h4 style="font-size:15px;font-weight:700;margin:0 0 4px;color:#111;" class="dark-title">Senior PM — Stripe</h4>
-                <p style="font-size:13px;color:#6b7280;margin:0;line-height:1.7;">Leading the Payments Infrastructure squad — 3 teams, 18 engineers. Shipped 4 major platform upgrades and a self-serve onboarding redesign.</p>
+            <div class="timeline-body">
+              <span class="timeline-time">2022 — Present</span>
+              <div class="timeline-title set-text-16 text-semibold" style="color:#f1f5f9;">Senior Full-Stack Engineer</div>
+              <div class="set-text-13 add-margin-bottom-8" style="color:#f7bf04;">TechCorp Inc. · San Francisco, CA</div>
+              <p class="timeline-desc" style="color:#94a3b8;">Led development of a SaaS platform serving 500k+ users. Architected microservices with Node.js and React. Reduced load times by 60% through advanced caching strategies and CDN optimisation.</p>
+              <div class="make-flex flex-wrap gap-6 add-margin-top-10">
+                <span class="chip chip-sm" style="background:rgba(59,130,246,0.1);color:#60a5fa;border:1px solid rgba(59,130,246,0.2);">React</span>
+                <span class="chip chip-sm" style="background:rgba(59,130,246,0.1);color:#60a5fa;border:1px solid rgba(59,130,246,0.2);">Node.js</span>
+                <span class="chip chip-sm" style="background:rgba(59,130,246,0.1);color:#60a5fa;border:1px solid rgba(59,130,246,0.2);">AWS</span>
+                <span class="chip chip-sm" style="background:rgba(59,130,246,0.1);color:#60a5fa;border:1px solid rgba(59,130,246,0.2);">PostgreSQL</span>
               </div>
-              <div class="timeline-item">
-                <div class="timeline-dot timeline-dot-gold"></div>
-                <span class="resume-date">2020 — 2022</span>
-                <h4 style="font-size:15px;font-weight:700;margin:0 0 4px;color:#111;" class="dark-title">Product Manager — Notion</h4>
-                <p style="font-size:13px;color:#6b7280;margin:0;line-height:1.7;">Owned the Templates and Discovery surface. Grew template adoption from 12% to 54% of active workspaces inside 18 months.</p>
+            </div>
+          </div>
+
+          <!-- Job 2 -->
+          <div class="timeline-item animate-fade-in-from-left animation-delay-200 animation-fill-forwards">
+            <div class="timeline-dot timeline-dot-blue">
+              <span class="icon icon-building icon-16" style="background-color:#fff;"></span>
+            </div>
+            <div class="timeline-body">
+              <span class="timeline-time">2020 — 2022</span>
+              <div class="timeline-title set-text-16 text-semibold" style="color:#f1f5f9;">Full-Stack Developer</div>
+              <div class="set-text-13 add-margin-bottom-8" style="color:#60a5fa;">StartupX · Remote</div>
+              <p class="timeline-desc" style="color:#94a3b8;">Built and shipped 3 product MVPs from zero. Implemented real-time features using WebSockets. Mentored 2 junior developers and introduced code review best practices.</p>
+              <div class="make-flex flex-wrap gap-6 add-margin-top-10">
+                <span class="chip chip-sm" style="background:rgba(139,92,246,0.1);color:#a78bfa;border:1px solid rgba(139,92,246,0.2);">Vue.js</span>
+                <span class="chip chip-sm" style="background:rgba(139,92,246,0.1);color:#a78bfa;border:1px solid rgba(139,92,246,0.2);">Python</span>
+                <span class="chip chip-sm" style="background:rgba(139,92,246,0.1);color:#a78bfa;border:1px solid rgba(139,92,246,0.2);">Django</span>
+                <span class="chip chip-sm" style="background:rgba(139,92,246,0.1);color:#a78bfa;border:1px solid rgba(139,92,246,0.2);">WebSockets</span>
               </div>
-              <div class="timeline-item">
-                <div class="timeline-dot timeline-dot-gold"></div>
-                <span class="resume-date">2018 — 2020</span>
-                <h4 style="font-size:15px;font-weight:700;margin:0 0 4px;color:#111;" class="dark-title">Project Coordinator — Accenture</h4>
-                <p style="font-size:13px;color:#6b7280;margin:0;line-height:1.7;">Supported delivery of enterprise software integrations for Fortune 500 clients across healthcare and logistics verticals.</p>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-dot timeline-dot-gold"></div>
-                <span class="resume-date">2016 — 2018</span>
-                <h4 style="font-size:15px;font-weight:700;margin:0 0 4px;color:#111;" class="dark-title">Business Analyst — Deloitte</h4>
-                <p style="font-size:13px;color:#6b7280;margin:0;line-height:1.7;">Gathered requirements, modelled processes, and delivered functional specs for a global banking client's digital transformation programme.</p>
+            </div>
+          </div>
+
+          <!-- Job 3 -->
+          <div class="timeline-item animate-fade-in-from-left animation-delay-300 animation-fill-forwards">
+            <div class="timeline-dot timeline-dot-green">
+              <span class="icon icon-laptop icon-16" style="background-color:#fff;"></span>
+            </div>
+            <div class="timeline-body">
+              <span class="timeline-time">2018 — 2020</span>
+              <div class="timeline-title set-text-16 text-semibold" style="color:#f1f5f9;">Junior Front-End Developer</div>
+              <div class="set-text-13 add-margin-bottom-8" style="color:#4ade80;">DigitalAgency · New York, NY</div>
+              <p class="timeline-desc" style="color:#94a3b8;">Developed responsive web interfaces for 20+ client projects. Collaborated closely with UX designers to deliver pixel-perfect, accessible experiences.</p>
+              <div class="make-flex flex-wrap gap-6 add-margin-top-10">
+                <span class="chip chip-sm" style="background:rgba(34,197,94,0.1);color:#4ade80;border:1px solid rgba(34,197,94,0.2);">HTML/CSS</span>
+                <span class="chip chip-sm" style="background:rgba(34,197,94,0.1);color:#4ade80;border:1px solid rgba(34,197,94,0.2);">JavaScript</span>
+                <span class="chip chip-sm" style="background:rgba(34,197,94,0.1);color:#4ade80;border:1px solid rgba(34,197,94,0.2);">WordPress</span>
               </div>
             </div>
           </div>
 
           <!-- Education -->
-          <div>
-            <p style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#f7bf04;margin-bottom:20px;">Education</p>
-            <div class="timeline">
-              <div class="timeline-item">
-                <div class="timeline-dot" style="background:#8b5cf6;box-shadow:0 0 0 2px #8b5cf6;"></div>
-                <span class="resume-date" style="background:rgba(139,92,246,.1);color:#7c3aed;">2012 — 2016</span>
-                <h4 style="font-size:15px;font-weight:700;margin:0 0 4px;color:#111;" class="dark-title">BSc Computer Science</h4>
-                <p style="font-size:13px;color:#6b7280;margin:0;">Michigan Technological University — GPA 3.8. Specialised in Human-Computer Interaction and Software Engineering.</p>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-dot" style="background:#8b5cf6;box-shadow:0 0 0 2px #8b5cf6;"></div>
-                <span class="resume-date" style="background:rgba(139,92,246,.1);color:#7c3aed;">2019</span>
-                <h4 style="font-size:15px;font-weight:700;margin:0 0 4px;color:#111;" class="dark-title">PMP Certification</h4>
-                <p style="font-size:13px;color:#6b7280;margin:0;">Project Management Professional — PMI. Certificate #4201-7849.</p>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-dot" style="background:#8b5cf6;box-shadow:0 0 0 2px #8b5cf6;"></div>
-                <span class="resume-date" style="background:rgba(139,92,246,.1);color:#7c3aed;">2021</span>
-                <h4 style="font-size:15px;font-weight:700;margin:0 0 4px;color:#111;" class="dark-title">Certified Scrum Master</h4>
-                <p style="font-size:13px;color:#6b7280;margin:0;">Scrum Alliance — CSM. Completed Advanced Agile Leadership elective.</p>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-dot" style="background:#8b5cf6;box-shadow:0 0 0 2px #8b5cf6;"></div>
-                <span class="resume-date" style="background:rgba(139,92,246,.1);color:#7c3aed;">2023</span>
-                <h4 style="font-size:15px;font-weight:700;margin:0 0 4px;color:#111;" class="dark-title">Product Strategy — Stanford GSB</h4>
-                <p style="font-size:13px;color:#6b7280;margin:0;">Executive online programme. Covered market sizing, jobs-to-be-done, and monetisation strategy.</p>
-              </div>
+          <div class="timeline-item animate-fade-in-from-left animation-delay-400 animation-fill-forwards">
+            <div class="timeline-dot" style="background:#f59e0b;box-shadow:0 0 0 2px rgba(245,158,11,0.25);color:#fff;">
+              <span class="icon icon-mortarboard icon-16" style="background-color:#fff;"></span>
+            </div>
+            <div class="timeline-body">
+              <span class="timeline-time">2014 — 2018</span>
+              <div class="timeline-title set-text-16 text-semibold" style="color:#f1f5f9;">B.Sc. Computer Science</div>
+              <div class="set-text-13 add-margin-bottom-8" style="color:#fcd34d;">State University · GPA 3.8 / 4.0</div>
+              <p class="timeline-desc" style="color:#94a3b8;">Majored in Computer Science with focus on software engineering and algorithms. Final-year capstone: ML-powered automated code-review system.</p>
             </div>
           </div>
 
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ══════════════
-           CONTACT → GitHub Discussions
-      ══════════════ -->
-      <section id="contact" class="portfolio-section">
-        <h2 class="section-title">Let's <span class="section-accent">Talk</span></h2>
-        <p class="section-subtitle">Start a conversation on GitHub Discussions</p>
+    <!-- ─────────────────────────────────────
+         § 3 · SKILLS
+         ───────────────────────────────────── -->
+    <section class="snap-section" id="skills">
+      <div class="make-flex set-height-screen align-center skills-grid"
+           style="padding:40px 80px 40px 64px;gap:56px;">
 
-        <div class="discussions-card">
-          <div class="discussions-icon">💬</div>
+        <!-- Left: bars -->
+        <div class="flex-equal">
+          <span class="section-badge animate-fade-in-from-bottom animation-fill-forwards">
+            <span class="icon icon-code-slash icon-16" style="background-color:#f7bf04;"></span>
+            Technical
+          </span>
+          <h2 class="set-text-36 text-extra-bold add-margin-top-12 add-margin-bottom-24 color-slate-50">Skills &amp; Tools</h2>
 
-          <h3 style="font-size:24px;font-weight:700;color:#f1f0e8;margin:0 0 12px;line-height:1.3;">
-            Let's make your project <span style="color:#f7bf04;">brilliant.</span>
-          </h3>
-          <p style="font-size:14px;color:#9fa0a8;max-width:480px;margin:0 auto 28px;line-height:1.8;">
-            Instead of a contact form, I use <strong style="color:#f1f0e8;">GitHub Discussions</strong> — a transparent, async-friendly space to talk about project ideas, collaborations, or feedback. Everything stays public and searchable, which benefits everyone.
-          </p>
+          <div class="make-flex flex-column gap-18" id="skills-bars">
+            <div>
+              <div class="make-flex justify-between add-margin-bottom-8">
+                <span class="set-text-13 text-medium color-slate-300">React / Next.js</span>
+                <span class="set-text-12 text-semibold" style="color:#f7bf04;">92%</span>
+              </div>
+              <div class="skill-bar-track"><div class="skill-bar-fill" data-width="92"></div></div>
+            </div>
+            <div>
+              <div class="make-flex justify-between add-margin-bottom-8">
+                <span class="set-text-13 text-medium color-slate-300">Node.js / Express</span>
+                <span class="set-text-12 text-semibold" style="color:#60a5fa;">88%</span>
+              </div>
+              <div class="skill-bar-track"><div class="skill-bar-fill skill-bar-fill-blue" data-width="88"></div></div>
+            </div>
+            <div>
+              <div class="make-flex justify-between add-margin-bottom-8">
+                <span class="set-text-13 text-medium color-slate-300">TypeScript</span>
+                <span class="set-text-12 text-semibold" style="color:#a78bfa;">85%</span>
+              </div>
+              <div class="skill-bar-track"><div class="skill-bar-fill skill-bar-fill-purple" data-width="85"></div></div>
+            </div>
+            <div>
+              <div class="make-flex justify-between add-margin-bottom-8">
+                <span class="set-text-13 text-medium color-slate-300">Python / Django</span>
+                <span class="set-text-12 text-semibold" style="color:#4ade80;">80%</span>
+              </div>
+              <div class="skill-bar-track"><div class="skill-bar-fill skill-bar-fill-green" data-width="80"></div></div>
+            </div>
+            <div>
+              <div class="make-flex justify-between add-margin-bottom-8">
+                <span class="set-text-13 text-medium color-slate-300">PostgreSQL / MongoDB</span>
+                <span class="set-text-12 text-semibold" style="color:#22d3ee;">78%</span>
+              </div>
+              <div class="skill-bar-track"><div class="skill-bar-fill skill-bar-fill-cyan" data-width="78"></div></div>
+            </div>
+            <div>
+              <div class="make-flex justify-between add-margin-bottom-8">
+                <span class="set-text-13 text-medium color-slate-300">AWS / DevOps</span>
+                <span class="set-text-12 text-semibold" style="color:#f472b6;">72%</span>
+              </div>
+              <div class="skill-bar-track"><div class="skill-bar-fill skill-bar-fill-pink" data-width="72"></div></div>
+            </div>
+          </div>
+        </div>
 
-          <!-- Info pills -->
-          <div class="make-flex justify-center gap-12 flex-wrap" style="gap:10px;margin-bottom:32px;">
-            <span class="contact-pill">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.02 2.22 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
-              +1 (840) 841-2569
-            </span>
-            <span class="contact-pill">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              alex@portfolio.dev
-            </span>
-            <span class="contact-pill">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 13-8 13S4 16 4 10a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              Los Angeles, CA
-            </span>
+        <!-- Right: tags + soft skills -->
+        <div class="flex-equal">
+          <div class="add-margin-bottom-28">
+            <div class="set-text-12 text-semibold color-slate-400 add-margin-bottom-14" style="letter-spacing:0.08em;text-transform:uppercase;">Technologies</div>
+            <div class="make-flex flex-wrap gap-8">
+              <span class="chip chip-sm" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.08);">Git &amp; GitHub</span>
+              <span class="chip chip-sm" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.08);">Docker</span>
+              <span class="chip chip-sm" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.08);">Kubernetes</span>
+              <span class="chip chip-sm" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.08);">GraphQL</span>
+              <span class="chip chip-sm" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.08);">Redis</span>
+              <span class="chip chip-sm" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.08);">Figma</span>
+              <span class="chip chip-sm" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.08);">SantyCSS</span>
+              <span class="chip chip-sm" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.08);">Jest</span>
+              <span class="chip chip-sm" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.08);">Cypress</span>
+              <span class="chip chip-sm" style="background:rgba(255,255,255,0.05);color:#cbd5e1;border:1px solid rgba(255,255,255,0.08);">Terraform</span>
+            </div>
           </div>
 
-          <a href="https://github.com/orgs/community/discussions/190269" target="_blank" rel="noopener" class="discussions-link">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-            Open a Discussion
+          <div>
+            <div class="set-text-12 text-semibold color-slate-400 add-margin-bottom-14" style="letter-spacing:0.08em;text-transform:uppercase;">Soft Skills</div>
+            <div class="make-grid grid-cols-2 gap-10">
+              <div class="glass-card make-flex align-center gap-10 add-padding-12 add-padding-x-14">
+                <span class="icon icon-people icon-20" style="background-color:#f7bf04;"></span>
+                <span class="set-text-13 color-slate-300">Team Leadership</span>
+              </div>
+              <div class="glass-card make-flex align-center gap-10 add-padding-12 add-padding-x-14">
+                <span class="icon icon-lightbulb icon-20" style="background-color:#fbbf24;"></span>
+                <span class="set-text-13 color-slate-300">Problem Solving</span>
+              </div>
+              <div class="glass-card make-flex align-center gap-10 add-padding-12 add-padding-x-14">
+                <span class="icon icon-chat-dots icon-20" style="background-color:#60a5fa;"></span>
+                <span class="set-text-13 color-slate-300">Communication</span>
+              </div>
+              <div class="glass-card make-flex align-center gap-10 add-padding-12 add-padding-x-14">
+                <span class="icon icon-graph-up icon-20" style="background-color:#4ade80;"></span>
+                <span class="set-text-13 color-slate-300">Adaptability</span>
+              </div>
+              <div class="glass-card make-flex align-center gap-10 add-padding-12 add-padding-x-14">
+                <span class="icon icon-layers icon-20" style="background-color:#a78bfa;"></span>
+                <span class="set-text-13 color-slate-300">System Design</span>
+              </div>
+              <div class="glass-card make-flex align-center gap-10 add-padding-12 add-padding-x-14">
+                <span class="icon icon-clock-history icon-20" style="background-color:#22d3ee;"></span>
+                <span class="set-text-13 color-slate-300">Time Management</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────
+         § 4 · PROJECTS
+         ───────────────────────────────────── -->
+    <section class="snap-section-scrollable" id="projects">
+      <div class="add-padding-y-48 blog-gap" style="max-width:1020px;margin:0 auto;padding-left:64px;padding-right:80px;">
+
+        <div class="add-margin-bottom-32 animate-fade-in-from-bottom animation-fill-forwards">
+          <span class="section-badge">
+            <span class="icon icon-folder2-open icon-16" style="background-color:#f7bf04;"></span>
+            Portfolio
+          </span>
+          <h2 class="set-text-40 text-extra-bold add-margin-top-12 add-margin-bottom-4 color-slate-50">Featured Projects</h2>
+          <p class="set-text-14 color-slate-400 add-margin-0">A selection of work I'm proud of</p>
+        </div>
+
+        <div class="make-grid gap-20 proj-grid" style="grid-template-columns:repeat(3,1fr);">
+
+          <!-- Project 1 -->
+          <div class="glass-card add-padding-24 make-flex flex-column gap-14 animate-zoom-in animation-delay-100 animation-fill-forwards transition-normal on-hover\:scale-105">
+            <div class="make-flex align-center justify-center set-width-48 set-height-48 round-corners-12"
+                 style="background:rgba(247,191,4,0.1);border:1px solid rgba(247,191,4,0.2);">
+              <span class="icon icon-cloud-upload icon-28" style="background-color:#f7bf04;"></span>
+            </div>
+            <div>
+              <div class="set-text-16 text-semibold color-slate-50 add-margin-bottom-6">CloudSync Pro</div>
+              <p class="set-text-13 color-slate-400 line-height-relaxed add-margin-0">Real-time file synchronisation with end-to-end encryption and team collaboration.</p>
+            </div>
+            <div class="make-flex flex-wrap gap-6">
+              <span class="chip chip-sm" style="background:rgba(247,191,4,0.08);color:#fbbf24;border:1px solid rgba(247,191,4,0.2);">React</span>
+              <span class="chip chip-sm" style="background:rgba(247,191,4,0.08);color:#fbbf24;border:1px solid rgba(247,191,4,0.2);">Node.js</span>
+              <span class="chip chip-sm" style="background:rgba(247,191,4,0.08);color:#fbbf24;border:1px solid rgba(247,191,4,0.2);">AWS S3</span>
+            </div>
+            <a href="#" class="make-flex align-center gap-6 set-text-13 text-semibold add-margin-top-auto" style="color:#f7bf04;">
+              View Project <span class="icon icon-arrow-right icon-16" style="background-color:#f7bf04;"></span>
+            </a>
+          </div>
+
+          <!-- Project 2 -->
+          <div class="glass-card add-padding-24 make-flex flex-column gap-14 animate-zoom-in animation-delay-200 animation-fill-forwards transition-normal on-hover\:scale-105">
+            <div class="make-flex align-center justify-center set-width-48 set-height-48 round-corners-12"
+                 style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);">
+              <span class="icon icon-graph-up-arrow icon-28" style="background-color:#60a5fa;"></span>
+            </div>
+            <div>
+              <div class="set-text-16 text-semibold color-slate-50 add-margin-bottom-6">AnalyticsDash</div>
+              <p class="set-text-13 color-slate-400 line-height-relaxed add-margin-0">Analytics dashboard with AI-powered insights, custom reports and data visualisation.</p>
+            </div>
+            <div class="make-flex flex-wrap gap-6">
+              <span class="chip chip-sm" style="background:rgba(59,130,246,0.08);color:#60a5fa;border:1px solid rgba(59,130,246,0.2);">Next.js</span>
+              <span class="chip chip-sm" style="background:rgba(59,130,246,0.08);color:#60a5fa;border:1px solid rgba(59,130,246,0.2);">D3.js</span>
+              <span class="chip chip-sm" style="background:rgba(59,130,246,0.08);color:#60a5fa;border:1px solid rgba(59,130,246,0.2);">Python</span>
+            </div>
+            <a href="#" class="make-flex align-center gap-6 set-text-13 text-semibold add-margin-top-auto" style="color:#60a5fa;">
+              View Project <span class="icon icon-arrow-right icon-16" style="background-color:#60a5fa;"></span>
+            </a>
+          </div>
+
+          <!-- Project 3 -->
+          <div class="glass-card add-padding-24 make-flex flex-column gap-14 animate-zoom-in animation-delay-300 animation-fill-forwards transition-normal on-hover\:scale-105">
+            <div class="make-flex align-center justify-center set-width-48 set-height-48 round-corners-12"
+                 style="background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.2);">
+              <span class="icon icon-cpu icon-28" style="background-color:#a78bfa;"></span>
+            </div>
+            <div>
+              <div class="set-text-16 text-semibold color-slate-50 add-margin-bottom-6">AI Code Reviewer</div>
+              <p class="set-text-13 color-slate-400 line-height-relaxed add-margin-0">ML-powered tool that reviews PRs, suggests improvements and detects security issues.</p>
+            </div>
+            <div class="make-flex flex-wrap gap-6">
+              <span class="chip chip-sm" style="background:rgba(139,92,246,0.08);color:#a78bfa;border:1px solid rgba(139,92,246,0.2);">Python</span>
+              <span class="chip chip-sm" style="background:rgba(139,92,246,0.08);color:#a78bfa;border:1px solid rgba(139,92,246,0.2);">FastAPI</span>
+              <span class="chip chip-sm" style="background:rgba(139,92,246,0.08);color:#a78bfa;border:1px solid rgba(139,92,246,0.2);">OpenAI</span>
+            </div>
+            <a href="#" class="make-flex align-center gap-6 set-text-13 text-semibold add-margin-top-auto" style="color:#a78bfa;">
+              View Project <span class="icon icon-arrow-right icon-16" style="background-color:#a78bfa;"></span>
+            </a>
+          </div>
+
+          <!-- Project 4 -->
+          <div class="glass-card add-padding-24 make-flex flex-column gap-14 animate-zoom-in animation-delay-400 animation-fill-forwards transition-normal on-hover\:scale-105">
+            <div class="make-flex align-center justify-center set-width-48 set-height-48 round-corners-12"
+                 style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);">
+              <span class="icon icon-cart icon-28" style="background-color:#4ade80;"></span>
+            </div>
+            <div>
+              <div class="set-text-16 text-semibold color-slate-50 add-margin-bottom-6">ShopStream</div>
+              <p class="set-text-13 color-slate-400 line-height-relaxed add-margin-0">Modern e-commerce with live inventory, multi-vendor support and payment processing.</p>
+            </div>
+            <div class="make-flex flex-wrap gap-6">
+              <span class="chip chip-sm" style="background:rgba(34,197,94,0.08);color:#4ade80;border:1px solid rgba(34,197,94,0.2);">React</span>
+              <span class="chip chip-sm" style="background:rgba(34,197,94,0.08);color:#4ade80;border:1px solid rgba(34,197,94,0.2);">Stripe</span>
+              <span class="chip chip-sm" style="background:rgba(34,197,94,0.08);color:#4ade80;border:1px solid rgba(34,197,94,0.2);">MongoDB</span>
+            </div>
+            <a href="#" class="make-flex align-center gap-6 set-text-13 text-semibold add-margin-top-auto" style="color:#4ade80;">
+              View Project <span class="icon icon-arrow-right icon-16" style="background-color:#4ade80;"></span>
+            </a>
+          </div>
+
+          <!-- Project 5 -->
+          <div class="glass-card add-padding-24 make-flex flex-column gap-14 animate-zoom-in animation-delay-500 animation-fill-forwards transition-normal on-hover\:scale-105">
+            <div class="make-flex align-center justify-center set-width-48 set-height-48 round-corners-12"
+                 style="background:rgba(236,72,153,0.1);border:1px solid rgba(236,72,153,0.2);">
+              <span class="icon icon-chat-dots icon-28" style="background-color:#f472b6;"></span>
+            </div>
+            <div>
+              <div class="set-text-16 text-semibold color-slate-50 add-margin-bottom-6">ChatSpace</div>
+              <p class="set-text-13 color-slate-400 line-height-relaxed add-margin-0">Real-time messaging with rooms, DMs, file sharing and a smart notification system.</p>
+            </div>
+            <div class="make-flex flex-wrap gap-6">
+              <span class="chip chip-sm" style="background:rgba(236,72,153,0.08);color:#f472b6;border:1px solid rgba(236,72,153,0.2);">Socket.io</span>
+              <span class="chip chip-sm" style="background:rgba(236,72,153,0.08);color:#f472b6;border:1px solid rgba(236,72,153,0.2);">Vue.js</span>
+              <span class="chip chip-sm" style="background:rgba(236,72,153,0.08);color:#f472b6;border:1px solid rgba(236,72,153,0.2);">Redis</span>
+            </div>
+            <a href="#" class="make-flex align-center gap-6 set-text-13 text-semibold add-margin-top-auto" style="color:#f472b6;">
+              View Project <span class="icon icon-arrow-right icon-16" style="background-color:#f472b6;"></span>
+            </a>
+          </div>
+
+          <!-- GitHub CTA -->
+          <div class="glass-card-light add-padding-24 make-flex flex-column align-center justify-center gap-16 text-center animate-zoom-in animation-delay-600 animation-fill-forwards"
+               style="border:1px dashed rgba(247,191,4,0.22);">
+            <span class="icon icon-github icon-40" style="background-color:rgba(255,255,255,0.25);"></span>
+            <div>
+              <div class="set-text-15 text-semibold color-slate-200 add-margin-bottom-6">More on GitHub</div>
+              <p class="set-text-12 color-slate-400 add-margin-0">40+ open-source projects</p>
+            </div>
+            <a href="#" class="make-flex align-center gap-8 add-padding-x-20 add-padding-y-10 make-pill text-semibold set-text-13 cursor-pointer transition-normal"
+               style="border:1px solid rgba(247,191,4,0.3);color:#f7bf04;background:transparent;"
+               onmouseover="this.style.background='rgba(247,191,4,0.1)'"
+               onmouseout="this.style.background='transparent'">
+              <span class="icon icon-box-arrow-up-right icon-14" style="background-color:#f7bf04;width:14px;height:14px;"></span>
+              View GitHub
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────
+         § 5 · HOBBIES
+         ───────────────────────────────────── -->
+    <section class="snap-section" id="hobbies">
+      <div class="make-flex flex-column align-center justify-center set-height-screen blog-gap"
+           style="padding:40px 80px 40px 64px;">
+
+        <div class="text-center add-margin-bottom-36 animate-fade-in-from-bottom animation-fill-forwards" style="width:100%;">
+          <span class="section-badge">
+            <span class="icon icon-heart-fill icon-16" style="background-color:#f7bf04;"></span>
+            Personal
+          </span>
+          <h2 class="set-text-40 text-extra-bold add-margin-top-12 add-margin-bottom-4 color-slate-50">Hobbies &amp; Interests</h2>
+          <p class="set-text-14 color-slate-400 add-margin-0">What keeps me inspired outside of work</p>
+        </div>
+
+        <div class="make-grid gap-20 hobby-grid" style="grid-template-columns:repeat(3,1fr);max-width:840px;width:100%;">
+
+          <div class="glass-card add-padding-24 make-flex flex-column align-center text-center gap-14 animate-bounce-in animation-delay-100 animation-fill-forwards transition-normal on-hover\:scale-105">
+            <div class="make-flex align-center justify-center set-width-56 set-height-56 make-circle"
+                 style="background:rgba(247,191,4,0.1);border:1.5px solid rgba(247,191,4,0.25);">
+              <span class="icon icon-music-note-beamed icon-28" style="background-color:#f7bf04;"></span>
+            </div>
+            <div class="set-text-15 text-semibold color-slate-100">Music</div>
+            <p class="set-text-12 color-slate-400 add-margin-0">Playing guitar &amp; producing electronic music in my spare time</p>
+          </div>
+
+          <div class="glass-card add-padding-24 make-flex flex-column align-center text-center gap-14 animate-bounce-in animation-delay-200 animation-fill-forwards transition-normal on-hover\:scale-105">
+            <div class="make-flex align-center justify-center set-width-56 set-height-56 make-circle"
+                 style="background:rgba(59,130,246,0.1);border:1.5px solid rgba(59,130,246,0.25);">
+              <span class="icon icon-camera icon-28" style="background-color:#60a5fa;"></span>
+            </div>
+            <div class="set-text-15 text-semibold color-slate-100">Photography</div>
+            <p class="set-text-12 color-slate-400 add-margin-0">Capturing urban landscapes and street photography</p>
+          </div>
+
+          <div class="glass-card add-padding-24 make-flex flex-column align-center text-center gap-14 animate-bounce-in animation-delay-300 animation-fill-forwards transition-normal on-hover\:scale-105">
+            <div class="make-flex align-center justify-center set-width-56 set-height-56 make-circle"
+                 style="background:rgba(34,197,94,0.1);border:1.5px solid rgba(34,197,94,0.25);">
+              <span class="icon icon-bicycle icon-28" style="background-color:#4ade80;"></span>
+            </div>
+            <div class="set-text-15 text-semibold color-slate-100">Cycling</div>
+            <p class="set-text-12 color-slate-400 add-margin-0">Weekend rides through mountain trails and coastal paths</p>
+          </div>
+
+          <div class="glass-card add-padding-24 make-flex flex-column align-center text-center gap-14 animate-bounce-in animation-delay-400 animation-fill-forwards transition-normal on-hover\:scale-105">
+            <div class="make-flex align-center justify-center set-width-56 set-height-56 make-circle"
+                 style="background:rgba(139,92,246,0.1);border:1.5px solid rgba(139,92,246,0.25);">
+              <span class="icon icon-book icon-28" style="background-color:#a78bfa;"></span>
+            </div>
+            <div class="set-text-15 text-semibold color-slate-100">Reading</div>
+            <p class="set-text-12 color-slate-400 add-margin-0">Tech books, sci-fi novels and philosophy</p>
+          </div>
+
+          <div class="glass-card add-padding-24 make-flex flex-column align-center text-center gap-14 animate-bounce-in animation-delay-500 animation-fill-forwards transition-normal on-hover\:scale-105">
+            <div class="make-flex align-center justify-center set-width-56 set-height-56 make-circle"
+                 style="background:rgba(236,72,153,0.1);border:1.5px solid rgba(236,72,153,0.25);">
+              <span class="icon icon-controller icon-28" style="background-color:#f472b6;"></span>
+            </div>
+            <div class="set-text-15 text-semibold color-slate-100">Gaming</div>
+            <p class="set-text-12 color-slate-400 add-margin-0">Strategy &amp; indie games — big Elden Ring fan</p>
+          </div>
+
+          <div class="glass-card add-padding-24 make-flex flex-column align-center text-center gap-14 animate-bounce-in animation-delay-600 animation-fill-forwards transition-normal on-hover\:scale-105">
+            <div class="make-flex align-center justify-center set-width-56 set-height-56 make-circle"
+                 style="background:rgba(6,182,212,0.1);border:1.5px solid rgba(6,182,212,0.25);">
+              <span class="icon icon-globe icon-28" style="background-color:#22d3ee;"></span>
+            </div>
+            <div class="set-text-15 text-semibold color-slate-100">Travelling</div>
+            <p class="set-text-12 color-slate-400 add-margin-0">Visited 22 countries, collecting experiences and stories</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────────────
+         § 6 · BLOGS
+         ───────────────────────────────────── -->
+    <section class="snap-section" id="blogs">
+      <div class="make-flex flex-column align-center justify-center set-height-screen blog-gap"
+           style="padding:40px 80px 40px 64px;">
+
+        <div class="text-center add-margin-bottom-32 animate-fade-in-from-bottom animation-fill-forwards" style="width:100%;max-width:760px;">
+          <span class="section-badge">
+            <span class="icon icon-journal-text icon-16" style="background-color:#f7bf04;"></span>
+            Writing
+          </span>
+          <h2 class="set-text-40 text-extra-bold add-margin-top-12 add-margin-bottom-4 color-slate-50">Latest Blog Posts</h2>
+          <p class="set-text-14 color-slate-400 add-margin-0">Thoughts, tutorials and technical deep-dives</p>
+        </div>
+
+        <div class="make-flex flex-column gap-14" style="max-width:760px;width:100%;">
+
+          <!-- Blog 1 -->
+          <a href="#" class="glass-card add-padding-24 make-flex gap-20 align-center animate-slide-in-from-left animation-delay-100 animation-fill-forwards transition-normal on-hover\:scale-105"
+             style="cursor:pointer;">
+            <div class="make-flex align-center justify-center set-width-56 set-height-56 round-corners-12 flex-shrink-none"
+                 style="background:rgba(247,191,4,0.1);border:1px solid rgba(247,191,4,0.2);">
+              <span class="icon icon-cpu icon-28" style="background-color:#f7bf04;"></span>
+            </div>
+            <div class="flex-equal">
+              <div class="make-flex align-center gap-8 add-margin-bottom-6 flex-wrap">
+                <span class="badge" style="background:rgba(247,191,4,0.1);color:#f7bf04;border:1px solid rgba(247,191,4,0.2);font-size:10px;padding:2px 8px;">Technical</span>
+                <span class="set-text-12 color-slate-400">Mar 15, 2024 · 8 min read</span>
+              </div>
+              <div class="set-text-15 text-semibold color-slate-100 add-margin-bottom-4">Building Scalable APIs with Node.js and GraphQL</div>
+              <p class="set-text-13 color-slate-400 add-margin-0 line-height-normal">A practical guide to designing production-ready GraphQL APIs that handle millions of requests.</p>
+            </div>
+            <span class="icon icon-arrow-right-circle icon-20 flex-shrink-none" style="background-color:rgba(255,255,255,0.15);"></span>
           </a>
 
-          <p style="font-size:11px;color:#6b7280;margin:20px 0 0;">
-            You need a free GitHub account · All discussions are public · Typical response within 24h
-          </p>
+          <!-- Blog 2 -->
+          <a href="#" class="glass-card add-padding-24 make-flex gap-20 align-center animate-slide-in-from-left animation-delay-200 animation-fill-forwards transition-normal on-hover\:scale-105"
+             style="cursor:pointer;">
+            <div class="make-flex align-center justify-center set-width-56 set-height-56 round-corners-12 flex-shrink-none"
+                 style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);">
+              <span class="icon icon-palette icon-28" style="background-color:#60a5fa;"></span>
+            </div>
+            <div class="flex-equal">
+              <div class="make-flex align-center gap-8 add-margin-bottom-6 flex-wrap">
+                <span class="badge" style="background:rgba(59,130,246,0.1);color:#60a5fa;border:1px solid rgba(59,130,246,0.2);font-size:10px;padding:2px 8px;">Design</span>
+                <span class="set-text-12 color-slate-400">Feb 28, 2024 · 6 min read</span>
+              </div>
+              <div class="set-text-15 text-semibold color-slate-100 add-margin-bottom-4">The Art of CSS Utility Frameworks in 2024</div>
+              <p class="set-text-13 color-slate-400 add-margin-0 line-height-normal">Comparing modern CSS utilities — from Tailwind to SantyCSS, and why plain-English names matter.</p>
+            </div>
+            <span class="icon icon-arrow-right-circle icon-20 flex-shrink-none" style="background-color:rgba(255,255,255,0.15);"></span>
+          </a>
+
+          <!-- Blog 3 -->
+          <a href="#" class="glass-card add-padding-24 make-flex gap-20 align-center animate-slide-in-from-left animation-delay-300 animation-fill-forwards transition-normal on-hover\:scale-105"
+             style="cursor:pointer;">
+            <div class="make-flex align-center justify-center set-width-56 set-height-56 round-corners-12 flex-shrink-none"
+                 style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);">
+              <span class="icon icon-stars icon-28" style="background-color:#4ade80;"></span>
+            </div>
+            <div class="flex-equal">
+              <div class="make-flex align-center gap-8 add-margin-bottom-6 flex-wrap">
+                <span class="badge" style="background:rgba(34,197,94,0.1);color:#4ade80;border:1px solid rgba(34,197,94,0.2);font-size:10px;padding:2px 8px;">Career</span>
+                <span class="set-text-12 color-slate-400">Jan 10, 2024 · 5 min read</span>
+              </div>
+              <div class="set-text-15 text-semibold color-slate-100 add-margin-bottom-4">10 Things I Wish I Knew as a Junior Developer</div>
+              <p class="set-text-13 color-slate-400 add-margin-0 line-height-normal">Hard-earned lessons from 5 years of building software in fast-paced startup environments.</p>
+            </div>
+            <span class="icon icon-arrow-right-circle icon-20 flex-shrink-none" style="background-color:rgba(255,255,255,0.15);"></span>
+          </a>
+
+          <!-- Read all CTA -->
+          <div class="text-center add-padding-top-8">
+            <a href="#" class="make-inline-flex align-center gap-8 add-padding-x-24 add-padding-y-12 make-pill text-semibold set-text-14 cursor-pointer transition-normal"
+               style="border:1px solid rgba(255,255,255,0.14);color:#cbd5e1;background:transparent;"
+               onmouseover="this.style.borderColor='#f7bf04';this.style.color='#f7bf04'"
+               onmouseout="this.style.borderColor='rgba(255,255,255,0.14)';this.style.color='#cbd5e1'">
+              <span class="icon icon-journal-richtext icon-16" style="background-color:currentColor;"></span>
+              Read All Posts
+            </a>
+          </div>
+
         </div>
-      </section>
+      </div>
+    </section>
 
-    </div><!-- /content-wrap -->
+  </main>
 
-    <!-- Footer -->
-    <footer class="portfolio-footer">
-      Built with <span class="footer-brand">SantyCSS</span> — utility-first CSS framework ·
-      <a href="index.html" style="color:#f7bf04;">santycss.santy.in</a>
-    </footer>
+  <script>
+    /* ── Scroll-snap navigation ── */
+    const SECTIONS  = ['about','experience','skills','projects','hobbies','blogs'];
+    const container = document.getElementById('portfolio-container');
+    const dots      = document.querySelectorAll('.nav-dot');
+    const mLinks    = document.querySelectorAll('.mobile-nav-link');
 
-  </main><!-- /main -->
-</div><!-- /layout-sidebar-wrap -->
-
-<!-- ══════════════════════════════════════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════════════════════════════════════ -->
-<script>
-/* ── Dark mode ── */
-(function() {
-  try {
-    if (localStorage.getItem('portfolio-dark') === '1') {
-      document.documentElement.classList.add('dark');
-      document.addEventListener('DOMContentLoaded', function() {
-        var t = document.getElementById('darkToggle');
-        if (t) t.checked = true;
-      });
+    function setActive(id) {
+      dots.forEach(d => d.classList.toggle('nav-dot-active', d.dataset.target === id));
+      mLinks.forEach(l => l.classList.toggle('nav-dot-active', l.dataset.target === id));
     }
-  } catch(e) {}
-})();
 
-function togglePortfolioDark(checkbox) {
-  document.documentElement.classList.toggle('dark', checkbox.checked);
-  try { localStorage.setItem('portfolio-dark', checkbox.checked ? '1' : '0'); } catch(e) {}
-  // Also update dark titles
-  updateDarkTitles();
-}
-
-function updateDarkTitles() {
-  var isDark = document.documentElement.classList.contains('dark');
-  document.querySelectorAll('.dark-title').forEach(function(el) {
-    el.style.color = isDark ? '#e2e8f0' : '#111';
-  });
-  document.querySelectorAll('.service-card p').forEach(function(el) {
-    el.style.color = isDark ? '#9fa0a8' : '#6b7280';
-  });
-}
-
-/* ── Typed text ── */
-document.addEventListener('DOMContentLoaded', function() {
-  var titles = ['Project Manager', 'Product Strategist', 'Agile Coach', 'Team Leader', 'Delivery Lead'];
-  var idx = 0, charIdx = 0, isDeleting = false;
-  var el = document.getElementById('typed-text');
-  if (!el) return;
-
-  function type() {
-    var current = titles[idx];
-    el.textContent = isDeleting
-      ? current.substring(0, charIdx - 1)
-      : current.substring(0, charIdx + 1);
-    if (isDeleting) charIdx--; else charIdx++;
-
-    if (!isDeleting && charIdx === current.length) {
-      setTimeout(function() { isDeleting = true; type(); }, 1800);
-      return;
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      closeMobileMenu();
     }
-    if (isDeleting && charIdx === 0) {
-      isDeleting = false;
-      idx = (idx + 1) % titles.length;
-    }
-    setTimeout(type, isDeleting ? 55 : 90);
-  }
-  type();
 
-  /* ── Skill bars on scroll ── */
-  if ('IntersectionObserver' in window) {
-    var skillObs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.querySelectorAll('.skill-fill[data-width]').forEach(function(bar) {
-            bar.style.width = bar.getAttribute('data-width');
+    function toggleMobileMenu() {
+      document.getElementById('mobile-menu').classList.toggle('open');
+    }
+    function closeMobileMenu() {
+      document.getElementById('mobile-menu').classList.remove('open');
+    }
+    function navTo(id) { scrollToSection(id); }
+
+    /* Dot clicks */
+    dots.forEach(d => d.addEventListener('click', e => {
+      e.preventDefault();
+      scrollToSection(d.dataset.target);
+    }));
+
+    /* IntersectionObserver for active dot */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
+    }, { root: container, threshold: 0.45 });
+    SECTIONS.forEach(id => { const el = document.getElementById(id); if (el) io.observe(el); });
+
+    /* Skill bar animation triggered when skills section is visible */
+    const skillsIO = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+            bar.style.width = (bar.dataset.width || 0) + '%';
           });
-          skillObs.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.2 });
-    document.querySelectorAll('.skills-section').forEach(function(el) { skillObs.observe(el); });
-  } else {
-    document.querySelectorAll('.skill-fill[data-width]').forEach(function(bar) {
-      bar.style.width = bar.getAttribute('data-width');
-    });
-  }
+    }, { root: container, threshold: 0.3 });
+    const skillsSec = document.getElementById('skills');
+    if (skillsSec) skillsIO.observe(skillsSec);
 
-  /* ── Portfolio filter ── */
-  document.querySelectorAll('.filter-tab').forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      document.querySelectorAll('.filter-tab').forEach(function(t) { t.classList.remove('active'); });
-      tab.classList.add('active');
-      var filter = tab.getAttribute('data-filter');
-      document.querySelectorAll('#portfolio-grid > .portfolio-card').forEach(function(item) {
-        if (filter === 'all' || item.getAttribute('data-category') === filter) {
-          item.style.display = '';
-        } else {
-          item.style.display = 'none';
-        }
-      });
-    });
-  });
+    /* Typewriter for about title */
+    const TITLES = ['Full-Stack Developer', 'UI/UX Enthusiast', 'Open Source Contributor', 'Problem Solver'];
+    let ti = 0, ci = 0, del = false;
+    const tw = document.getElementById('typewriter');
+    function typeLoop() {
+      const cur = TITLES[ti];
+      if (!del) { tw.textContent = cur.slice(0, ++ci); if (ci === cur.length) { del = true; setTimeout(typeLoop, 1800); return; } }
+      else       { tw.textContent = cur.slice(0, --ci); if (ci === 0) { del = false; ti = (ti+1) % TITLES.length; } }
+      setTimeout(typeLoop, del ? 55 : 85);
+    }
+    typeLoop();
 
-  /* ── Active section nav on scroll ── */
-  var sections = ['about','skills','services','works','resume','contact'];
-  function updateActiveNav() {
-    var scrollY = window.scrollY + 120;
-    var current = sections[0];
-    sections.forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el && el.offsetTop <= scrollY) current = id;
-    });
-    document.querySelectorAll('.section-nav a, .sidebar-nav a').forEach(function(a) {
-      var href = a.getAttribute('href');
-      a.classList.toggle('active', href === '#' + current);
-    });
-  }
-  window.addEventListener('scroll', updateActiveNav, { passive: true });
-  updateActiveNav();
-
-  /* Apply initial dark state for titles */
-  updateDarkTitles();
-});
-</script>
-
+    /* Close mobile menu on Esc */
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
+  </script>
 </body>
 </html>
