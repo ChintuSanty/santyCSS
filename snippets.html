@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SantyCSS Snippets — Ready-to-use Code Examples</title>
+  <meta name="description" content="Copy-paste code snippets for SantyCSS — flexbox, grid, buttons, cards, typography, forms, and more." />
+  <link rel="icon" type="image/png" href="assest/santy_css.png" />
+  <link rel="stylesheet" href="santy.css" />
+  <style>
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    pre  { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; margin: 0; }
+
+    /* ── Syntax colours ── */
+    .c-tag  { color: #f472b6; }
+    .c-attr { color: #a5b4fc; }
+    .c-str  { color: #fcd34d; }
+    .c-com  { color: #64748b; font-style: italic; }
+    .c-cls  { color: #86efac; }
+    .c-val  { color: #7dd3fc; }
+
+    /* ── Sidebar ── */
+    .snip-sidebar {
+      width: 230px; flex-shrink: 0;
+      position: sticky; top: 61px;
+      height: calc(100vh - 61px);
+      overflow-y: auto; padding: 20px 12px 20px 0;
+      border-right: 1px solid #e5e7eb;
+      scrollbar-width: thin; scrollbar-color: #e5e7eb transparent;
+    }
+    .snip-sidebar::-webkit-scrollbar { width: 4px; }
+    .snip-sidebar::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 2px; }
+
+    .snip-group { margin-bottom: 20px; }
+    .snip-group-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: #9ca3af;
+      padding: 0 10px; margin-bottom: 4px;
+    }
+    .snip-link {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 10px; border-radius: 7px;
+      font-size: 13px; color: #475569; text-decoration: none;
+      transition: all 0.15s; margin-bottom: 1px; cursor: pointer; border: none;
+      background: none; width: 100%; text-align: left;
+    }
+    .snip-link:hover { background: #f1f5f9; color: #1e293b; }
+    .snip-link.active { background: #eff6ff; color: #2563eb; font-weight: 600; }
+    .snip-link .snip-dot {
+      width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+    }
+    .snip-link .snip-count {
+      margin-left: auto; font-size: 11px; color: #94a3b8;
+      background: #f1f5f9; border-radius: 20px; padding: 1px 7px;
+    }
+
+    /* ── Main content ── */
+    .snip-main { flex: 1; min-width: 0; padding: 32px 0 80px 40px; }
+
+    /* ── Snippet card ── */
+    .snip-card {
+      border: 1px solid #e5e7eb; border-radius: 14px;
+      overflow: hidden; margin-bottom: 32px;
+      display: none;
+    }
+    .snip-card.visible { display: block; }
+
+    .snip-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 20px; border-bottom: 1px solid #e5e7eb;
+      background: #f8fafc; gap: 12px; flex-wrap: wrap;
+    }
+    .snip-card-title { font-size: 15px; font-weight: 700; color: #1e293b; }
+    .snip-card-desc  { font-size: 13px; color: #64748b; margin-top: 2px; }
+    .snip-badge {
+      font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px;
+      background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; white-space: nowrap;
+    }
+
+    /* ── Preview pane ── */
+    .snip-preview {
+      padding: 28px 24px;
+      background: repeating-linear-gradient(
+        45deg, #f8fafc 0px, #f8fafc 10px, #f1f5f9 10px, #f1f5f9 20px
+      );
+      border-bottom: 1px solid #e5e7eb;
+      min-height: 80px;
+    }
+    .snip-preview-label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .08em; color: #94a3b8; margin-bottom: 14px;
+    }
+
+    /* Demo box used inside previews */
+    .demo-box {
+      background: #dbeafe; border: 2px dashed #93c5fd;
+      border-radius: 8px; padding: 12px 16px; font-size: 13px;
+      color: #1d4ed8; font-weight: 600; min-height: 48px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .demo-box-sm { padding: 8px 12px; font-size: 12px; min-height: 36px; }
+    .demo-box-purple { background: #f3e8ff; border-color: #c4b5fd; color: #7c3aed; }
+    .demo-box-green  { background: #dcfce7; border-color: #86efac; color: #15803d; }
+    .demo-box-amber  { background: #fef3c7; border-color: #fcd34d; color: #b45309; }
+    .demo-box-rose   { background: #ffe4e6; border-color: #fda4af; color: #be123c; }
+
+    /* ── Code pane ── */
+    .snip-code-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 16px; background: #0f172a; border-bottom: 1px solid #1e293b;
+    }
+    .snip-code-bar span { font-size: 11px; color: #64748b; font-family: ui-monospace, monospace; }
+    .snip-code-body {
+      background: #0f172a; overflow-x: auto; padding: 20px 24px;
+      font-size: 12.5px; line-height: 1.75; color: #e2e8f0;
+      scrollbar-width: thin; scrollbar-color: #334155 transparent;
+    }
+    .snip-code-body::-webkit-scrollbar { height: 4px; }
+    .snip-code-body::-webkit-scrollbar-thumb { background: #334155; border-radius: 2px; }
+
+    /* Copy button */
+    .copy-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 6px;
+      background: #1e293b; color: #7dd3fc; border: 1px solid #334155;
+      cursor: pointer; transition: all 0.2s; white-space: nowrap;
+    }
+    .copy-btn:hover { background: #334155; color: #e2e8f0; }
+    .copy-btn.copied { background: #166534; color: #86efac; border-color: #166534; }
+
+    /* ── Section title ── */
+    .snip-section-title {
+      font-size: 22px; font-weight: 800; color: #0f172a; margin-bottom: 6px;
+    }
+    .snip-section-desc { font-size: 14px; color: #64748b; margin-bottom: 28px; line-height: 1.7; }
+    .snip-section-header { margin-bottom: 28px; padding-bottom: 16px; border-bottom: 2px solid #f1f5f9; }
+
+    /* ── Nav ── */
+    .nav-link { transition: color 0.2s; }
+    .nav-link:hover { color: #3b82f6; }
+    .nav-resources { position: relative; }
+    .nav-resources-btn { background:none; border:none; cursor:pointer; font-size:14px; font-weight:600; color:#4b5563; display:flex; align-items:center; gap:5px; padding:4px 0; transition:color .15s; }
+    .nav-resources-btn:hover { color:#3b82f6; }
+    .nav-resources-btn svg { transition: transform .2s; }
+    .nav-resources-btn.open svg { transform: rotate(180deg); }
+    .nav-dropdown { display:none; position:absolute; top:calc(100% + 10px); right:0; background:#fff; border:1px solid #e2e8f0; border-radius:14px; box-shadow:0 8px 30px rgba(0,0,0,.12); min-width:180px; z-index:999; padding:6px; }
+    .nav-dropdown.open { display:block; }
+    .nav-dropdown a { display:block; padding:9px 14px; font-size:13px; font-weight:600; color:#374151; text-decoration:none; border-radius:9px; transition:background .12s; }
+    .nav-dropdown a:hover { background:#f1f5f9; color:#3b82f6; }
+    .nav-hamburger { display:none; background:none; border:1px solid #e5e7eb; border-radius:8px; padding:7px 9px; cursor:pointer; color:#374151; line-height:1; }
+
+    /* Mobile sidebar toggle */
+    .snip-mob-toggle {
+      display: none; align-items: center; gap-8px;
+      padding: 10px 0; margin-bottom: 16px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .mob-sidebar-panel {
+      display: none; position: fixed; top: 61px; left: 0; right: 0; bottom: 0;
+      background: #fff; z-index: 50; overflow-y: auto; padding: 16px;
+      border-top: 1px solid #e5e7eb;
+    }
+    .mob-sidebar-panel.open { display: block; }
+
+    @media (max-width: 767px) {
+      .nav-hamburger { display: flex; align-items: center; justify-content: center; }
+      #main-nav {
+        display: none; position: fixed; top: 61px; left: 0; right: 0; bottom: 0;
+        background: #fff; flex-direction: column; align-items: stretch;
+        padding: 16px; gap: 4px; z-index: 98; border-top: 1px solid #e5e7eb;
+        overflow-y: auto;
+      }
+      #main-nav.nav-open { display: flex; }
+      #main-nav .nav-link { display: block; padding: 12px !important; font-size: 16px !important; border-radius: 8px; color: #1f2937 !important; border-bottom: 1px solid #f3f4f6; }
+      .snip-sidebar { display: none; }
+      .snip-main { padding: 24px 0 60px; }
+      .snip-mob-toggle { display: flex; }
+    }
+    @media (max-width: 640px) {
+      .snip-code-body { font-size: 11px !important; padding: 14px 16px !important; }
+      .snip-preview { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body class="background-white">
+
+<!-- ─── TOP NAV ──────────────────────────────────────────────────────────── -->
+<header class="position-sticky pin-top-0 layer-50 background-white add-shadow-sm" style="border-bottom:1px solid #e5e7eb;">
+  <div class="container make-flex align-center justify-between add-padding-y-14">
+    <a href="index.html" class="make-flex align-center gap-10 text-no-decoration">
+      <img src="assest/santy_css.png" alt="SantyCSS" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
+      <span class="set-text-20 text-bold color-gray-900">Santy<span class="color-blue-600">CSS</span></span>
+      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v2.5.0</span>
+    </a>
+    <button class="nav-hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
+      <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg id="ham-close" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="display:none"><path d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <nav id="main-nav" class="make-flex align-center gap-20">
+      <a href="classes.html"    class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Classes</a>
+      <a href="components.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Components</a>
+      <a href="animations.html" class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Animations</a>
+      <a href="icons.html"      class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Icons</a>
+      <a href="templates.html"  class="nav-link color-gray-600 text-no-decoration set-text-14 text-semibold">Templates</a>
+      <a href="snippets.html"   class="nav-link color-blue-600 text-no-decoration set-text-14 text-bold" style="text-decoration:underline;text-underline-offset:3px;">Snippets</a>
+      <div class="nav-resources" id="navResources">
+        <button class="nav-resources-btn" id="navResBtn" onclick="toggleResources()" aria-expanded="false">
+          Resources
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="nav-dropdown" id="navDropdown">
+          <a href="index.html#ai-generator">✨ AI Generator</a>
+          <a href="webflow.html">🌊 Webflow snippets</a>
+          <a href="docs.html">📦 npm Docs</a>
+          <a href="changelog.html">📋 Changelog</a>
+        </div>
+      </div>
+      <a href="https://github.com/ChintuSanty/santyCSS" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:8px;padding:5px 12px;color:#374151;font-size:13px;font-weight:600;text-decoration:none;transition:all .15s;" onmouseover="this.style.background='#e5e7eb'" onmouseout="this.style.background='#f3f4f6'">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Star
+      </a>
+      <a href="playground.html" class="make-button style-primary size-small">⚡ Playground →</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ─── PAGE HERO ─────────────────────────────────────────────────────────── -->
+<div style="background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 60%,#312e81 100%);padding:40px 0 36px;">
+  <div class="container">
+    <div class="make-flex align-center gap-12 add-margin-bottom-10">
+      <span style="font-size:28px;">⚡</span>
+      <h1 class="set-text-32 text-extrabold color-white" style="line-height:1.1;">Code Snippets</h1>
+      <span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.1);color:#93c5fd;border:1px solid rgba(255,255,255,.15);">SantyCSS only</span>
+    </div>
+    <p class="set-text-15 add-margin-bottom-0" style="color:#94a3b8;max-width:520px;line-height:1.65;">
+      Copy-paste snippets built entirely with SantyCSS utility classes — no custom CSS required. Click any snippet on the left to see the live preview and code.
+    </p>
+  </div>
+</div>
+
+<!-- ─── LAYOUT ────────────────────────────────────────────────────────────── -->
+<div class="container make-flex gap-0" style="align-items:flex-start;padding-top:0;">
+
+  <!-- ── Sidebar ── -->
+  <aside class="snip-sidebar">
+    <div class="snip-group">
+      <div class="snip-group-label">Flexbox</div>
+      <button class="snip-link active" onclick="showSection('flex')" id="nav-flex">
+        <span class="snip-dot" style="background:#3b82f6;"></span>
+        Flex Basics
+        <span class="snip-count">5</span>
+      </button>
+      <button class="snip-link" onclick="showSection('grid')" id="nav-grid">
+        <span class="snip-dot" style="background:#8b5cf6;"></span>
+        Grid Layouts
+        <span class="snip-count">4</span>
+      </button>
+    </div>
+    <div class="snip-group">
+      <div class="snip-group-label">UI Elements</div>
+      <button class="snip-link" onclick="showSection('buttons')" id="nav-buttons">
+        <span class="snip-dot" style="background:#06b6d4;"></span>
+        Buttons
+        <span class="snip-count">5</span>
+      </button>
+      <button class="snip-link" onclick="showSection('badges')" id="nav-badges">
+        <span class="snip-dot" style="background:#f59e0b;"></span>
+        Badges &amp; Tags
+        <span class="snip-count">4</span>
+      </button>
+      <button class="snip-link" onclick="showSection('cards')" id="nav-cards">
+        <span class="snip-dot" style="background:#10b981;"></span>
+        Cards
+        <span class="snip-count">3</span>
+      </button>
+    </div>
+    <div class="snip-group">
+      <div class="snip-group-label">Typography</div>
+      <button class="snip-link" onclick="showSection('type')" id="nav-type">
+        <span class="snip-dot" style="background:#64748b;"></span>
+        Text Styles
+        <span class="snip-count">4</span>
+      </button>
+    </div>
+    <div class="snip-group">
+      <div class="snip-group-label">Forms</div>
+      <button class="snip-link" onclick="showSection('forms')" id="nav-forms">
+        <span class="snip-dot" style="background:#ef4444;"></span>
+        Form Inputs
+        <span class="snip-count">3</span>
+      </button>
+    </div>
+    <div class="snip-group">
+      <div class="snip-group-label">Navigation</div>
+      <button class="snip-link" onclick="showSection('nav')" id="nav-nav">
+        <span class="snip-dot" style="background:#f97316;"></span>
+        Navbars
+        <span class="snip-count">2</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── Mobile sidebar toggle ── -->
+  <!-- handled via mob-sidebar-panel below -->
+
+  <!-- ── Main ── -->
+  <main class="snip-main">
+
+    <!-- Mobile: sidebar toggle btn -->
+    <div class="snip-mob-toggle make-flex align-center justify-between">
+      <span class="set-text-14 text-semibold color-gray-700" id="mob-section-label">Flex Basics</span>
+      <button onclick="toggleMobSidebar()" class="make-flex align-center gap-6 set-text-13 text-semibold color-blue-600" style="background:none;border:1px solid #bfdbfe;border-radius:8px;padding:6px 12px;cursor:pointer;">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        Browse
+      </button>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         SECTION: FLEX BASICS
+    ══════════════════════════════════════ -->
+    <div id="sec-flex" class="snip-section visible">
+      <div class="snip-section-header">
+        <div class="make-flex align-center gap-10 add-margin-bottom-6">
+          <span style="font-size:22px;">↔</span>
+          <h2 class="snip-section-title">Flex Basics</h2>
+        </div>
+        <p class="snip-section-desc">
+          SantyCSS uses <code style="background:#f1f5f9;padding:2px 6px;border-radius:5px;font-size:12px;color:#2563eb;">make-flex</code> as the base flex class. Combine it with direction, alignment, gap, and wrap helpers to build any layout.
+        </p>
+      </div>
+
+      <!-- Snippet 1: Horizontal row -->
+      <div class="snip-card visible">
+        <div class="snip-card-header">
+          <div>
+            <div class="snip-card-title">Horizontal Row</div>
+            <div class="snip-card-desc">Arrange items side-by-side with a gap.</div>
+          </div>
+          <span class="snip-badge">make-flex · gap-*</span>
+        </div>
+        <div class="snip-preview">
+          <div class="snip-preview-label">Preview</div>
+          <div class="make-flex gap-12">
+            <div class="demo-box" style="flex:1;">Item A</div>
+            <div class="demo-box" style="flex:1;">Item B</div>
+            <div class="demo-box" style="flex:1;">Item C</div>
+          </div>
+        </div>
+        <div class="snip-code-bar">
+          <span>HTML</span>
+          <button class="copy-btn" onclick="copySnippet(this)">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copy
+          </button>
+        </div>
+        <div class="snip-code-body"><pre><span class="c-tag">&lt;div</span> <span class="c-attr">class=</span><span class="c-str">"make-flex gap-12"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div&gt;</span>Item A<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div&gt;</span>Item B<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div&gt;</span>Item C<span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-com">&lt;!-- Available gap sizes: gap-4 gap-8 gap-10 gap-12 gap-16 gap-20 gap-24 gap-32 --&gt;</span></pre></div>
+      </div>
+
+      <!-- Snippet 2: Flex column -->
+      <div class="snip-card visible">
+        <div class="snip-card-header">
+          <div>
+            <div class="snip-card-title">Flex Column (Stack)</div>
+            <div class="snip-card-desc">Stack items vertically with <code style="font-size:12px;">flex-column</code>.</div>
+          </div>
+          <span class="snip-badge">flex-column</span>
+        </div>
+        <div class="snip-preview">
+          <div class="snip-preview-label">Preview</div>
+          <div class="make-flex flex-column gap-10" style="max-width:260px;">
+            <div class="demo-box">Row 1</div>
+            <div class="demo-box demo-box-purple">Row 2</div>
+            <div class="demo-box demo-box-green">Row 3</div>
+          </div>
+        </div>
+        <div class="snip-code-bar">
+          <span>HTML</span>
+          <button class="copy-btn" onclick="copySnippet(this)">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copy
+          </button>
+        </div>
+        <div class="snip-code-body"><pre><span class="c-tag">&lt;div</span> <span class="c-attr">class=</span><span class="c-str">"make-flex flex-column gap-10"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div&gt;</span>Row 1<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div&gt;</span>Row 2<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div&gt;</span>Row 3<span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre></div>
+      </div>
+
+      <!-- Snippet 3: justify-between -->
+      <div class="snip-card visible">
+        <div class="snip-card-header">
+          <div>
+            <div class="snip-card-title">Space Between</div>
+            <div class="snip-card-desc">Push items to opposite ends — great for nav bars and card headers.</div>
+          </div>
+          <span class="snip-badge">justify-between · align-center</span>
+        </div>
+        <div class="snip-preview">
+          <div class="snip-preview-label">Preview</div>
+          <div class="make-flex justify-between align-center" style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px 20px;">
+            <span class="set-text-15 text-bold color-gray-900">Logo</span>
+            <div class="make-flex gap-8">
+              <span class="demo-box demo-box-sm demo-box-sm">Home</span>
+              <span class="demo-box demo-box-sm demo-box-purple">About</span>
+              <span class="demo-box demo-box-sm demo-box-green">Contact</span>
+            </div>
+          </div>
+        </div>
+        <div class="snip-code-bar">
+          <span>HTML</span>
+          <button class="copy-btn" onclick="copySnippet(this)">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copy
+          </button>
+        </div>
+        <div class="snip-code-body"><pre><span class="c-tag">&lt;div</span> <span class="c-attr">class=</span><span class="c-str">"make-flex justify-between align-center"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;span&gt;</span>Logo<span class="c-tag">&lt;/span&gt;</span>
+  <span class="c-tag">&lt;nav</span> <span class="c-attr">class=</span><span class="c-str">"make-flex gap-8"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;a</span> <span class="c-attr">href=</span><span class="c-str">"#"</span><span class="c-tag">&gt;</span>Home<span class="c-tag">&lt;/a&gt;</span>
+    <span class="c-tag">&lt;a</span> <span class="c-attr">href=</span><span class="c-str">"#"</span><span class="c-tag">&gt;</span>About<span class="c-tag">&lt;/a&gt;</span>
+    <span class="c-tag">&lt;a</span> <span class="c-attr">href=</span><span class="c-str">"#"</span><span class="c-tag">&gt;</span>Contact<span class="c-tag">&lt;/a&gt;</span>
+  <span class="c-tag">&lt;/nav&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-com">&lt;!-- Alignment: justify-start justify-center justify-between justify-end justify-around --&gt;</span>
+<span class="c-com">&lt;!-- Align:     align-start align-center align-end align-stretch --&gt;</span></pre></div>
+      </div>
+
+      <!-- Snippet 4: Centered hero -->
+      <div class="snip-card visible">
+        <div class="snip-card-header">
+          <div>
+            <div class="snip-card-title">Centered Content</div>
+            <div class="snip-card-desc">Perfectly center content both horizontally and vertically.</div>
+          </div>
+          <span class="snip-badge">justify-center · align-center</span>
+        </div>
+        <div class="snip-preview">
+          <div class="snip-preview-label">Preview</div>
+          <div class="make-flex justify-center align-center flex-column gap-8" style="background:linear-gradient(135deg,#eff6ff,#f0fdf4);border-radius:12px;min-height:100px;">
+            <span class="set-text-18 text-bold color-gray-900">Hello World</span>
+            <span class="set-text-13 color-gray-500">Centered with SantyCSS flex</span>
+          </div>
+        </div>
+        <div class="snip-code-bar">
+          <span>HTML</span>
+          <button class="copy-btn" onclick="copySnippet(this)">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copy
+          </button>
+        </div>
+        <div class="snip-code-body"><pre><span class="c-tag">&lt;div</span> <span class="c-attr">class=</span><span class="c-str">"make-flex justify-center align-center flex-column gap-8"</span>
+     <span class="c-attr">style=</span><span class="c-str">"min-height:200px;"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;h1</span> <span class="c-attr">class=</span><span class="c-str">"set-text-32 text-bold"</span><span class="c-tag">&gt;</span>Hello World<span class="c-tag">&lt;/h1&gt;</span>
+  <span class="c-tag">&lt;p</span>  <span class="c-attr">class=</span><span class="c-str">"set-text-15 color-gray-500"</span><span class="c-tag">&gt;</span>Subtext goes here<span class="c-tag">&lt;/p&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre></div>
+      </div>
+
+      <!-- Snippet 5: Flex wrap -->
+      <div class="snip-card visible">
+        <div class="snip-card-header">
+          <div>
+            <div class="snip-card-title">Flex Wrap</div>
+            <div class="snip-card-desc">Items wrap onto the next line when they run out of space — ideal for tag clouds and chip lists.</div>
+          </div>
+          <span class="snip-badge">flex-wrap</span>
+        </div>
+        <div class="snip-preview">
+          <div class="snip-preview-label">Preview</div>
+          <div class="make-flex flex-wrap gap-8">
+            <span class="demo-box demo-box-sm">React</span>
+            <span class="demo-box demo-box-sm demo-box-purple">TypeScript</span>
+            <span class="demo-box demo-box-sm demo-box-green">Node.js</span>
+            <span class="demo-box demo-box-sm demo-box-amber">Figma</span>
+            <span class="demo-box demo-box-sm demo-box-rose">SantyCSS</span>
+            <span class="demo-box demo-box-sm">Next.js</span>
+            <span class="demo-box demo-box-sm demo-box-purple">Framer</span>
+          </div>
+        </div>
+        <div class="snip-code-bar">
+          <span>HTML</span>
+          <button class="copy-btn" onclick="copySnippet(this)">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copy
+          </button>
+        </div>
+        <div class="snip-code-body"><pre><span class="c-tag">&lt;div</span> <span class="c-attr">class=</span><span class="c-str">"make-flex flex-wrap gap-8"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;span&gt;</span>React<span class="c-tag">&lt;/span&gt;</span>
+  <span class="c-tag">&lt;span&gt;</span>TypeScript<span class="c-tag">&lt;/span&gt;</span>
+  <span class="c-tag">&lt;span&gt;</span>Node.js<span class="c-tag">&lt;/span&gt;</span>
+  <span class="c-tag">&lt;span&gt;</span>Figma<span class="c-tag">&lt;/span&gt;</span>
+  <span class="c-tag">&lt;span&gt;</span>SantyCSS<span class="c-tag">&lt;/span&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-com">&lt;!-- Add flex-nowrap to disable wrapping --&gt;</span></pre></div>
+      </div>
+
+      <!-- Flex cheat sheet -->
+      <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:12px;padding:20px 24px;margin-top:8px;">
+        <p class="set-text-13 text-bold color-gray-700 add-margin-bottom-12" style="text-transform:uppercase;letter-spacing:.06em;">Flex Cheat Sheet</p>
+        <div class="make-flex flex-wrap gap-6">
+          <code style="background:#1e293b;color:#7dd3fc;padding:3px 9px;border-radius:6px;font-size:12px;border:1px solid #334155;">make-flex</code>
+          <code style="background:#1e293b;color:#7dd3fc;padding:3px 9px;border-radius:6px;font-size:12px;border:1px solid #334155;">flex-column</code>
+          <code style="background:#1e293b;color:#7dd3fc;padding:3px 9px;border-radius:6px;font-size:12px;border:1px solid #334155;">flex-wrap</code>
+          <code style="background:#1e293b;color:#7dd3fc;padding:3px 9px;border-radius:6px;font-size:12px;border:1px solid #334155;">flex-nowrap</code>
+          <code style="background:#1e293b;color:#86efac;padding:3px 9px;border-radius:6px;font-size:12px;border:1px solid #334155;">justify-start</code>
+          <code style="background:#1e293b;color:#86efac;padding:3px 9px;border-radius:6px;font-size:12px;border:1px solid #334155;">justify-center</code>
+          <code style="background:#1e293b;color:#86efac;padding:3px 9px;border-radius:6px;font-size:12px;border:1px solid #334155;">justify-between</code>
+          <code style="background:#1e293b;color:#86efac;padding:3px 9px;border-radius:6px;font-size:12px;border:1px solid #334155;">justify-end</code>
+          <code style="background:#1e293b;color:#fcd34d;padding:3px 9px;border-radius:6px;font-size:12px;border:1px solid #334155;">align-start</code>
+          <code style="background:#1e293b;color:#fcd34d;padding:3px 9px;border-radius:6px;font-size:12px;border:1px solid #334155;">align-center</code>
+          <code style="background:#1e293b;color:#fcd34d;padding:3px 9px;border-radius:6px;font-size:12px;border:1px solid #334155;">align-end</code>
+          <code style="background:#1e293b;color:#fcd34d;padding:3px 9px;border-radius:6px;font-size:12px;border:1px solid #334155;">align-stretch</code>
+          <code style="background:#1e293b;color:#f472b6;padding:3px 9px;border-radius:6px;font-size:12px;border:1px solid #334155;">gap-4</code>
+          <code style="background:#1e293b;color:#f472b6;padding:3px 9px;border-radius:6px;font-size:12px;border:1px solid #334155;">gap-8</code>
+          <code style="background:#1e293b;color:#f472b6;padding:3px 9px;border-radius:6px;font-size:12px;border:1px solid #334155;">gap-12</code>
+          <code style="background:#1e293b;color:#f472b6;padding:3px 9px;border-radius:6px;font-size:12px;border:1px solid #334155;">gap-16</code>
+          <code style="background:#1e293b;color:#f472b6;padding:3px 9px;border-radius:6px;font-size:12px;border:1px solid #334155;">gap-20</code>
+          <code style="background:#1e293b;color:#f472b6;padding:3px 9px;border-radius:6px;font-size:12px;border:1px solid #334155;">gap-24</code>
+          <code style="background:#1e293b;color:#f472b6;padding:3px 9px;border-radius:6px;font-size:12px;border:1px solid #334155;">gap-32</code>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         SECTION: GRID
+    ══════════════════════════════════════ -->
+    <div id="sec-grid" class="snip-section" style="display:none;">
+      <div class="snip-section-header">
+        <div class="make-flex align-center gap-10 add-margin-bottom-6">
+          <span style="font-size:22px;">⊞</span>
+          <h2 class="snip-section-title">Grid Layouts</h2>
+        </div>
+        <p class="snip-section-desc">SantyCSS uses <code style="background:#f1f5f9;padding:2px 6px;border-radius:5px;font-size:12px;color:#2563eb;">make-grid</code> with inline <code style="background:#f1f5f9;padding:2px 6px;border-radius:5px;font-size:12px;color:#2563eb;">grid-template-columns</code> for responsive grids.</p>
+      </div>
+      <div class="snip-card visible">
+        <div class="snip-card-header">
+          <div><div class="snip-card-title">3-Column Grid</div><div class="snip-card-desc">Equal-width three columns with gap.</div></div>
+          <span class="snip-badge">make-grid</span>
+        </div>
+        <div class="snip-preview">
+          <div class="snip-preview-label">Preview</div>
+          <div class="make-grid gap-12" style="grid-template-columns:repeat(3,1fr);">
+            <div class="demo-box">Col 1</div>
+            <div class="demo-box demo-box-purple">Col 2</div>
+            <div class="demo-box demo-box-green">Col 3</div>
+          </div>
+        </div>
+        <div class="snip-code-bar"><span>HTML</span><button class="copy-btn" onclick="copySnippet(this)"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy</button></div>
+        <div class="snip-code-body"><pre><span class="c-tag">&lt;div</span> <span class="c-attr">class=</span><span class="c-str">"make-grid gap-12"</span>
+     <span class="c-attr">style=</span><span class="c-str">"grid-template-columns: repeat(3, 1fr);"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div&gt;</span>Col 1<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div&gt;</span>Col 2<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div&gt;</span>Col 3<span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre></div>
+      </div>
+      <div class="snip-card visible">
+        <div class="snip-card-header">
+          <div><div class="snip-card-title">Auto-fit Responsive Grid</div><div class="snip-card-desc">Cards reflow automatically — no breakpoint queries needed.</div></div>
+          <span class="snip-badge">auto-fit · minmax</span>
+        </div>
+        <div class="snip-preview">
+          <div class="snip-preview-label">Preview</div>
+          <div class="make-grid gap-12" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr));">
+            <div class="demo-box">Card</div>
+            <div class="demo-box demo-box-purple">Card</div>
+            <div class="demo-box demo-box-green">Card</div>
+            <div class="demo-box demo-box-amber">Card</div>
+          </div>
+        </div>
+        <div class="snip-code-bar"><span>HTML</span><button class="copy-btn" onclick="copySnippet(this)"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy</button></div>
+        <div class="snip-code-body"><pre><span class="c-tag">&lt;div</span> <span class="c-attr">class=</span><span class="c-str">"make-grid gap-24"</span>
+     <span class="c-attr">style=</span><span class="c-str">"grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div&gt;</span>Card 1<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div&gt;</span>Card 2<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div&gt;</span>Card 3<span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span>
+
+<span class="c-com">&lt;!-- Cards auto-reflow — adjust minmax value to control min card width --&gt;</span></pre></div>
+      </div>
+      <div class="snip-card visible">
+        <div class="snip-card-header">
+          <div><div class="snip-card-title">Sidebar + Main Layout</div><div class="snip-card-desc">Fixed sidebar column with flexible main area.</div></div>
+          <span class="snip-badge">240px 1fr</span>
+        </div>
+        <div class="snip-preview">
+          <div class="snip-preview-label">Preview</div>
+          <div class="make-grid gap-12" style="grid-template-columns:140px 1fr;">
+            <div class="demo-box demo-box-purple" style="min-height:60px;">Sidebar</div>
+            <div class="demo-box" style="min-height:60px;">Main Content</div>
+          </div>
+        </div>
+        <div class="snip-code-bar"><span>HTML</span><button class="copy-btn" onclick="copySnippet(this)"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy</button></div>
+        <div class="snip-code-body"><pre><span class="c-tag">&lt;div</span> <span class="c-attr">class=</span><span class="c-str">"make-grid gap-24"</span>
+     <span class="c-attr">style=</span><span class="c-str">"grid-template-columns: 240px 1fr;"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;aside&gt;</span>Sidebar<span class="c-tag">&lt;/aside&gt;</span>
+  <span class="c-tag">&lt;main&gt;</span>Main Content<span class="c-tag">&lt;/main&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre></div>
+      </div>
+      <div class="snip-card visible">
+        <div class="snip-card-header">
+          <div><div class="snip-card-title">2-Column with Row Span</div><div class="snip-card-desc">Use inline style for grid-row/column spans.</div></div>
+          <span class="snip-badge">grid-row</span>
+        </div>
+        <div class="snip-preview">
+          <div class="snip-preview-label">Preview</div>
+          <div class="make-grid gap-8" style="grid-template-columns:1fr 1fr;grid-template-rows:60px 60px;">
+            <div class="demo-box demo-box-purple" style="grid-row:span 2;">Tall</div>
+            <div class="demo-box">Top</div>
+            <div class="demo-box demo-box-green">Bottom</div>
+          </div>
+        </div>
+        <div class="snip-code-bar"><span>HTML</span><button class="copy-btn" onclick="copySnippet(this)"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy</button></div>
+        <div class="snip-code-body"><pre><span class="c-tag">&lt;div</span> <span class="c-attr">class=</span><span class="c-str">"make-grid gap-16"</span>
+     <span class="c-attr">style=</span><span class="c-str">"grid-template-columns: 1fr 1fr;"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">style=</span><span class="c-str">"grid-row: span 2;"</span><span class="c-tag">&gt;</span>Tall Card<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div&gt;</span>Top<span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div&gt;</span>Bottom<span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         SECTION: BUTTONS
+    ══════════════════════════════════════ -->
+    <div id="sec-buttons" class="snip-section" style="display:none;">
+      <div class="snip-section-header">
+        <div class="make-flex align-center gap-10 add-margin-bottom-6"><span style="font-size:22px;">🔘</span><h2 class="snip-section-title">Buttons</h2></div>
+        <p class="snip-section-desc">Button variants built with padding, border-radius, and color utilities from SantyCSS.</p>
+      </div>
+      <div class="snip-card visible">
+        <div class="snip-card-header"><div><div class="snip-card-title">Primary &amp; Secondary</div><div class="snip-card-desc">Solid filled and outlined button styles.</div></div><span class="snip-badge">background-* · add-border-*</span></div>
+        <div class="snip-preview">
+          <div class="snip-preview-label">Preview</div>
+          <div class="make-flex gap-12 flex-wrap">
+            <button class="make-flex align-center gap-6 text-no-decoration set-text-14 text-bold add-padding-y-12 add-padding-x-24 round-corners-10 color-white transition-all on-hover:scale-105" style="background:#2563eb;border:none;cursor:pointer;">Primary</button>
+            <button class="make-flex align-center gap-6 set-text-14 text-bold add-padding-y-12 add-padding-x-24 round-corners-10 color-blue-600 transition-all on-hover:scale-105" style="background:none;border:1.5px solid #2563eb;cursor:pointer;">Secondary</button>
+            <button class="make-flex align-center gap-6 set-text-14 text-bold add-padding-y-12 add-padding-x-24 round-corners-10 color-gray-700 transition-all on-hover:scale-105" style="background:#f3f4f6;border:1px solid #e5e7eb;cursor:pointer;">Ghost</button>
+          </div>
+        </div>
+        <div class="snip-code-bar"><span>HTML</span><button class="copy-btn" onclick="copySnippet(this)"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy</button></div>
+        <div class="snip-code-body"><pre><span class="c-com">&lt;!-- Primary --&gt;</span>
+<span class="c-tag">&lt;button</span> <span class="c-attr">class=</span><span class="c-str">"set-text-14 text-bold add-padding-y-12 add-padding-x-24
+        round-corners-10 color-white transition-all on-hover:scale-105"</span>
+        <span class="c-attr">style=</span><span class="c-str">"background:#2563eb;border:none;"</span><span class="c-tag">&gt;</span>
+  Primary
+<span class="c-tag">&lt;/button&gt;</span>
+
+<span class="c-com">&lt;!-- Secondary (outlined) --&gt;</span>
+<span class="c-tag">&lt;button</span> <span class="c-attr">class=</span><span class="c-str">"set-text-14 text-bold add-padding-y-12 add-padding-x-24
+        round-corners-10 color-blue-600 transition-all on-hover:scale-105"</span>
+        <span class="c-attr">style=</span><span class="c-str">"background:none;border:1.5px solid #2563eb;"</span><span class="c-tag">&gt;</span>
+  Secondary
+<span class="c-tag">&lt;/button&gt;</span>
+
+<span class="c-com">&lt;!-- Ghost --&gt;</span>
+<span class="c-tag">&lt;button</span> <span class="c-attr">class=</span><span class="c-str">"set-text-14 text-bold add-padding-y-12 add-padding-x-24
+        round-corners-10 color-gray-700 transition-all on-hover:scale-105"</span>
+        <span class="c-attr">style=</span><span class="c-str">"background:#f3f4f6;border:1px solid #e5e7eb;"</span><span class="c-tag">&gt;</span>
+  Ghost
+<span class="c-tag">&lt;/button&gt;</span></pre></div>
+      </div>
+      <div class="snip-card visible">
+        <div class="snip-card-header"><div><div class="snip-card-title">Button with Icon</div><div class="snip-card-desc">Inline flex button pairing icon + label.</div></div><span class="snip-badge">make-flex · align-center</span></div>
+        <div class="snip-preview">
+          <div class="snip-preview-label">Preview</div>
+          <div class="make-flex gap-12 flex-wrap align-center">
+            <button class="make-flex align-center gap-8 set-text-14 text-bold add-padding-y-12 add-padding-x-22 round-corners-10 color-white transition-all on-hover:scale-105" style="background:#2563eb;border:none;cursor:pointer;">
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              Get Started
+            </button>
+            <button class="make-flex align-center gap-8 set-text-14 text-bold add-padding-y-12 add-padding-x-22 round-corners-10 color-gray-700 transition-all on-hover:scale-105" style="background:#f3f4f6;border:1px solid #e5e7eb;cursor:pointer;">
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              Download
+            </button>
+          </div>
+        </div>
+        <div class="snip-code-bar"><span>HTML</span><button class="copy-btn" onclick="copySnippet(this)"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy</button></div>
+        <div class="snip-code-body"><pre><span class="c-tag">&lt;button</span> <span class="c-attr">class=</span><span class="c-str">"make-flex align-center gap-8 set-text-14 text-bold
+        add-padding-y-12 add-padding-x-22 round-corners-10 color-white
+        transition-all on-hover:scale-105"</span>
+        <span class="c-attr">style=</span><span class="c-str">"background:#2563eb;border:none;"</span><span class="c-tag">&gt;</span>
+  <span class="c-com">&lt;!-- SVG icon here --&gt;</span>
+  Get Started
+<span class="c-tag">&lt;/button&gt;</span></pre></div>
+      </div>
+      <div class="snip-card visible">
+        <div class="snip-card-header"><div><div class="snip-card-title">Pill (Rounded) Buttons</div><div class="snip-card-desc">Fully rounded buttons using <code style="font-size:12px;">round-corners-48</code>.</div></div><span class="snip-badge">round-corners-48</span></div>
+        <div class="snip-preview">
+          <div class="snip-preview-label">Preview</div>
+          <div class="make-flex gap-10 flex-wrap">
+            <button class="set-text-13 text-bold add-padding-y-10 add-padding-x-20 round-corners-48 color-white" style="background:#8b5cf6;border:none;cursor:pointer;">Violet Pill</button>
+            <button class="set-text-13 text-bold add-padding-y-10 add-padding-x-20 round-corners-48 color-white" style="background:#10b981;border:none;cursor:pointer;">Green Pill</button>
+            <button class="set-text-13 text-bold add-padding-y-10 add-padding-x-20 round-corners-48" style="background:none;border:1.5px solid #8b5cf6;color:#8b5cf6;cursor:pointer;">Outline Pill</button>
+          </div>
+        </div>
+        <div class="snip-code-bar"><span>HTML</span><button class="copy-btn" onclick="copySnippet(this)"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy</button></div>
+        <div class="snip-code-body"><pre><span class="c-tag">&lt;button</span> <span class="c-attr">class=</span><span class="c-str">"set-text-13 text-bold add-padding-y-10 add-padding-x-20
+        round-corners-48 color-white"</span>
+        <span class="c-attr">style=</span><span class="c-str">"background:#8b5cf6;border:none;"</span><span class="c-tag">&gt;</span>
+  Pill Button
+<span class="c-tag">&lt;/button&gt;</span>
+
+<span class="c-com">&lt;!-- round-corners-48 creates a fully pill shape --&gt;</span>
+<span class="c-com">&lt;!-- Other values: round-corners-6 round-corners-8 round-corners-10 round-corners-16 --&gt;</span></pre></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         SECTION: BADGES & TAGS
+    ══════════════════════════════════════ -->
+    <div id="sec-badges" class="snip-section" style="display:none;">
+      <div class="snip-section-header">
+        <div class="make-flex align-center gap-10 add-margin-bottom-6"><span style="font-size:22px;">🏷</span><h2 class="snip-section-title">Badges &amp; Tags</h2></div>
+        <p class="snip-section-desc">Lightweight status pills and category labels built with padding + border-radius utilities.</p>
+      </div>
+      <div class="snip-card visible">
+        <div class="snip-card-header"><div><div class="snip-card-title">Status Badges</div><div class="snip-card-desc">Colored dot + label badges for status indicators.</div></div><span class="snip-badge">make-flex · add-padding-*</span></div>
+        <div class="snip-preview">
+          <div class="snip-preview-label">Preview</div>
+          <div class="make-flex gap-10 flex-wrap">
+            <span class="make-flex align-center gap-6 set-text-12 text-bold add-padding-y-4 add-padding-x-12 round-corners-20" style="background:#dcfce7;color:#15803d;">
+              <span style="width:6px;height:6px;border-radius:50%;background:#15803d;display:inline-block;"></span>Active
+            </span>
+            <span class="make-flex align-center gap-6 set-text-12 text-bold add-padding-y-4 add-padding-x-12 round-corners-20" style="background:#fef3c7;color:#b45309;">
+              <span style="width:6px;height:6px;border-radius:50%;background:#f59e0b;display:inline-block;"></span>Pending
+            </span>
+            <span class="make-flex align-center gap-6 set-text-12 text-bold add-padding-y-4 add-padding-x-12 round-corners-20" style="background:#fee2e2;color:#dc2626;">
+              <span style="width:6px;height:6px;border-radius:50%;background:#dc2626;display:inline-block;"></span>Error
+            </span>
+            <span class="make-flex align-center gap-6 set-text-12 text-bold add-padding-y-4 add-padding-x-12 round-corners-20" style="background:#f3f4f6;color:#374151;">
+              <span style="width:6px;height:6px;border-radius:50%;background:#9ca3af;display:inline-block;"></span>Inactive
+            </span>
+          </div>
+        </div>
+        <div class="snip-code-bar"><span>HTML</span><button class="copy-btn" onclick="copySnippet(this)"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy</button></div>
+        <div class="snip-code-body"><pre><span class="c-com">&lt;!-- Active badge --&gt;</span>
+<span class="c-tag">&lt;span</span> <span class="c-attr">class=</span><span class="c-str">"make-flex align-center gap-6 set-text-12 text-bold
+       add-padding-y-4 add-padding-x-12 round-corners-20"</span>
+      <span class="c-attr">style=</span><span class="c-str">"background:#dcfce7;color:#15803d;"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;span</span> <span class="c-attr">style=</span><span class="c-str">"width:6px;height:6px;border-radius:50%;background:#15803d;"</span><span class="c-tag">&gt;&lt;/span&gt;</span>
+  Active
+<span class="c-tag">&lt;/span&gt;</span></pre></div>
+      </div>
+      <div class="snip-card visible">
+        <div class="snip-card-header"><div><div class="snip-card-title">Tech Stack Tags</div><div class="snip-card-desc">Compact monospace-styled technology tags.</div></div><span class="snip-badge">round-corners-6</span></div>
+        <div class="snip-preview">
+          <div class="snip-preview-label">Preview</div>
+          <div class="make-flex flex-wrap gap-6">
+            <span class="set-text-12 text-semibold add-padding-y-4 add-padding-x-10 round-corners-6" style="background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;">React</span>
+            <span class="set-text-12 text-semibold add-padding-y-4 add-padding-x-10 round-corners-6" style="background:#f3e8ff;color:#7c3aed;border:1px solid #ddd6fe;">TypeScript</span>
+            <span class="set-text-12 text-semibold add-padding-y-4 add-padding-x-10 round-corners-6" style="background:#dcfce7;color:#15803d;border:1px solid #bbf7d0;">Node.js</span>
+            <span class="set-text-12 text-semibold add-padding-y-4 add-padding-x-10 round-corners-6" style="background:#fef3c7;color:#b45309;border:1px solid #fde68a;">Figma</span>
+            <span class="set-text-12 text-semibold add-padding-y-4 add-padding-x-10 round-corners-6" style="background:#ffe4e6;color:#be123c;border:1px solid #fecdd3;">SantyCSS</span>
+          </div>
+        </div>
+        <div class="snip-code-bar"><span>HTML</span><button class="copy-btn" onclick="copySnippet(this)"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy</button></div>
+        <div class="snip-code-body"><pre><span class="c-tag">&lt;div</span> <span class="c-attr">class=</span><span class="c-str">"make-flex flex-wrap gap-6"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;span</span> <span class="c-attr">class=</span><span class="c-str">"set-text-12 text-semibold add-padding-y-4 add-padding-x-10 round-corners-6"</span>
+        <span class="c-attr">style=</span><span class="c-str">"background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;"</span><span class="c-tag">&gt;</span>React<span class="c-tag">&lt;/span&gt;</span>
+  <span class="c-tag">&lt;span</span> <span class="c-attr">class=</span><span class="c-str">"set-text-12 text-semibold add-padding-y-4 add-padding-x-10 round-corners-6"</span>
+        <span class="c-attr">style=</span><span class="c-str">"background:#f3e8ff;color:#7c3aed;border:1px solid #ddd6fe;"</span><span class="c-tag">&gt;</span>TypeScript<span class="c-tag">&lt;/span&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         SECTION: CARDS
+    ══════════════════════════════════════ -->
+    <div id="sec-cards" class="snip-section" style="display:none;">
+      <div class="snip-section-header">
+        <div class="make-flex align-center gap-10 add-margin-bottom-6"><span style="font-size:22px;">🃏</span><h2 class="snip-section-title">Cards</h2></div>
+        <p class="snip-section-desc">Content cards using SantyCSS border, shadow, padding, and corner utilities.</p>
+      </div>
+      <div class="snip-card visible">
+        <div class="snip-card-header"><div><div class="snip-card-title">Basic Content Card</div><div class="snip-card-desc">Rounded card with shadow and inner padding.</div></div><span class="snip-badge">add-border-1 · add-shadow-md</span></div>
+        <div class="snip-preview">
+          <div class="snip-preview-label">Preview</div>
+          <div class="make-flex gap-16 flex-wrap">
+            <div class="add-border-1 round-corners-14 add-shadow-sm background-white add-padding-20" style="flex:1;min-width:180px;border-color:#e5e7eb;">
+              <p class="set-text-13 text-bold color-gray-500 add-margin-bottom-6" style="text-transform:uppercase;letter-spacing:.06em;">Revenue</p>
+              <p class="set-text-28 text-extrabold color-gray-900 add-margin-bottom-4">$24,560</p>
+              <span class="set-text-12 text-semibold" style="color:#15803d;background:#dcfce7;padding:2px 8px;border-radius:20px;">+12.4%</span>
+            </div>
+            <div class="add-border-1 round-corners-14 add-shadow-sm background-white add-padding-20" style="flex:1;min-width:180px;border-color:#e5e7eb;">
+              <p class="set-text-13 text-bold color-gray-500 add-margin-bottom-6" style="text-transform:uppercase;letter-spacing:.06em;">Users</p>
+              <p class="set-text-28 text-extrabold color-gray-900 add-margin-bottom-4">8,120</p>
+              <span class="set-text-12 text-semibold" style="color:#2563eb;background:#eff6ff;padding:2px 8px;border-radius:20px;">+5.2%</span>
+            </div>
+          </div>
+        </div>
+        <div class="snip-code-bar"><span>HTML</span><button class="copy-btn" onclick="copySnippet(this)"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy</button></div>
+        <div class="snip-code-body"><pre><span class="c-tag">&lt;div</span> <span class="c-attr">class=</span><span class="c-str">"add-border-1 round-corners-14 add-shadow-sm background-white add-padding-20"</span>
+     <span class="c-attr">style=</span><span class="c-str">"border-color:#e5e7eb;"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;p</span> <span class="c-attr">class=</span><span class="c-str">"set-text-13 text-bold color-gray-500"</span><span class="c-tag">&gt;</span>Revenue<span class="c-tag">&lt;/p&gt;</span>
+  <span class="c-tag">&lt;p</span> <span class="c-attr">class=</span><span class="c-str">"set-text-28 text-extrabold color-gray-900"</span><span class="c-tag">&gt;</span>$24,560<span class="c-tag">&lt;/p&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         SECTION: TYPOGRAPHY
+    ══════════════════════════════════════ -->
+    <div id="sec-type" class="snip-section" style="display:none;">
+      <div class="snip-section-header">
+        <div class="make-flex align-center gap-10 add-margin-bottom-6"><span style="font-size:22px;">Aa</span><h2 class="snip-section-title">Text Styles</h2></div>
+        <p class="snip-section-desc">SantyCSS text size, weight, and color utilities for headings, body copy, and captions.</p>
+      </div>
+      <div class="snip-card visible">
+        <div class="snip-card-header"><div><div class="snip-card-title">Heading Scale</div><div class="snip-card-desc">set-text-* from 11px up to 48px.</div></div><span class="snip-badge">set-text-*</span></div>
+        <div class="snip-preview">
+          <div class="snip-preview-label">Preview</div>
+          <div>
+            <p class="set-text-48 text-extrabold color-gray-900" style="line-height:1.1;margin-bottom:6px;">Heading XL</p>
+            <p class="set-text-32 text-bold color-gray-800" style="line-height:1.2;margin-bottom:6px;">Heading L</p>
+            <p class="set-text-22 text-bold color-gray-700" style="line-height:1.3;margin-bottom:6px;">Heading M</p>
+            <p class="set-text-16 text-semibold color-gray-600" style="margin-bottom:4px;">Body text at 16px</p>
+            <p class="set-text-13 color-gray-500">Caption / helper text at 13px</p>
+          </div>
+        </div>
+        <div class="snip-code-bar"><span>HTML</span><button class="copy-btn" onclick="copySnippet(this)"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy</button></div>
+        <div class="snip-code-body"><pre><span class="c-tag">&lt;h1</span> <span class="c-attr">class=</span><span class="c-str">"set-text-48 text-extrabold color-gray-900"</span><span class="c-tag">&gt;</span>Heading XL<span class="c-tag">&lt;/h1&gt;</span>
+<span class="c-tag">&lt;h2</span> <span class="c-attr">class=</span><span class="c-str">"set-text-32 text-bold color-gray-800"</span><span class="c-tag">&gt;</span>Heading L<span class="c-tag">&lt;/h2&gt;</span>
+<span class="c-tag">&lt;h3</span> <span class="c-attr">class=</span><span class="c-str">"set-text-22 text-bold color-gray-700"</span><span class="c-tag">&gt;</span>Heading M<span class="c-tag">&lt;/h3&gt;</span>
+<span class="c-tag">&lt;p</span>  <span class="c-attr">class=</span><span class="c-str">"set-text-16 text-semibold color-gray-600"</span><span class="c-tag">&gt;</span>Body text<span class="c-tag">&lt;/p&gt;</span>
+<span class="c-tag">&lt;p</span>  <span class="c-attr">class=</span><span class="c-str">"set-text-13 color-gray-500"</span><span class="c-tag">&gt;</span>Caption<span class="c-tag">&lt;/p&gt;</span>
+
+<span class="c-com">&lt;!-- Weights: text-light text-normal text-medium text-semibold text-bold text-extrabold --&gt;</span>
+<span class="c-com">&lt;!-- Sizes:   set-text-11 13 14 15 16 17 18 20 22 24 28 32 36 40 48 56 64 --&gt;</span></pre></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         SECTION: FORMS
+    ══════════════════════════════════════ -->
+    <div id="sec-forms" class="snip-section" style="display:none;">
+      <div class="snip-section-header">
+        <div class="make-flex align-center gap-10 add-margin-bottom-6"><span style="font-size:22px;">📋</span><h2 class="snip-section-title">Form Inputs</h2></div>
+        <p class="snip-section-desc">Input fields and form layouts using SantyCSS border, padding, and corner utilities.</p>
+      </div>
+      <div class="snip-card visible">
+        <div class="snip-card-header"><div><div class="snip-card-title">Text Input</div><div class="snip-card-desc">Basic styled input with label and focus ring.</div></div><span class="snip-badge">add-border-1 · round-corners-8</span></div>
+        <div class="snip-preview">
+          <div class="snip-preview-label">Preview</div>
+          <div class="make-flex flex-column gap-6" style="max-width:320px;">
+            <label class="set-text-13 text-semibold color-gray-700">Email address</label>
+            <input type="email" placeholder="you@example.com" class="add-border-1 round-corners-8 add-padding-y-10 add-padding-x-14 set-text-14 color-gray-900 background-white" style="border-color:#d1d5db;outline:none;width:100%;box-sizing:border-box;" onfocus="this.style.borderColor='#2563eb'" onblur="this.style.borderColor='#d1d5db'" />
+          </div>
+        </div>
+        <div class="snip-code-bar"><span>HTML</span><button class="copy-btn" onclick="copySnippet(this)"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy</button></div>
+        <div class="snip-code-body"><pre><span class="c-tag">&lt;div</span> <span class="c-attr">class=</span><span class="c-str">"make-flex flex-column gap-6"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;label</span> <span class="c-attr">class=</span><span class="c-str">"set-text-13 text-semibold color-gray-700"</span><span class="c-tag">&gt;</span>
+    Email address
+  <span class="c-tag">&lt;/label&gt;</span>
+  <span class="c-tag">&lt;input</span> <span class="c-attr">type=</span><span class="c-str">"email"</span> <span class="c-attr">placeholder=</span><span class="c-str">"you@example.com"</span>
+         <span class="c-attr">class=</span><span class="c-str">"add-border-1 round-corners-8 add-padding-y-10
+                add-padding-x-14 set-text-14 color-gray-900 background-white"</span>
+         <span class="c-attr">style=</span><span class="c-str">"border-color:#d1d5db;width:100%;"</span> <span class="c-tag">/&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre></div>
+      </div>
+      <div class="snip-card visible">
+        <div class="snip-card-header"><div><div class="snip-card-title">Two-Column Form Row</div><div class="snip-card-desc">Side-by-side inputs using grid.</div></div><span class="snip-badge">make-grid · gap-16</span></div>
+        <div class="snip-preview">
+          <div class="snip-preview-label">Preview</div>
+          <div class="make-grid gap-16" style="grid-template-columns:1fr 1fr;">
+            <div class="make-flex flex-column gap-6">
+              <label class="set-text-13 text-semibold color-gray-700">First name</label>
+              <input type="text" placeholder="Santy" class="add-border-1 round-corners-8 add-padding-y-10 add-padding-x-14 set-text-14 background-white" style="border-color:#d1d5db;width:100%;box-sizing:border-box;" />
+            </div>
+            <div class="make-flex flex-column gap-6">
+              <label class="set-text-13 text-semibold color-gray-700">Last name</label>
+              <input type="text" placeholder="CSS" class="add-border-1 round-corners-8 add-padding-y-10 add-padding-x-14 set-text-14 background-white" style="border-color:#d1d5db;width:100%;box-sizing:border-box;" />
+            </div>
+          </div>
+        </div>
+        <div class="snip-code-bar"><span>HTML</span><button class="copy-btn" onclick="copySnippet(this)"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy</button></div>
+        <div class="snip-code-body"><pre><span class="c-tag">&lt;div</span> <span class="c-attr">class=</span><span class="c-str">"make-grid gap-16"</span> <span class="c-attr">style=</span><span class="c-str">"grid-template-columns:1fr 1fr;"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class=</span><span class="c-str">"make-flex flex-column gap-6"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;label</span> <span class="c-attr">class=</span><span class="c-str">"set-text-13 text-semibold color-gray-700"</span><span class="c-tag">&gt;</span>First name<span class="c-tag">&lt;/label&gt;</span>
+    <span class="c-tag">&lt;input</span> <span class="c-attr">type=</span><span class="c-str">"text"</span> <span class="c-attr">class=</span><span class="c-str">"add-border-1 round-corners-8
+           add-padding-y-10 add-padding-x-14 set-text-14"</span>
+           <span class="c-attr">style=</span><span class="c-str">"border-color:#d1d5db;width:100%;"</span> <span class="c-tag">/&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class=</span><span class="c-str">"make-flex flex-column gap-6"</span><span class="c-tag">&gt;</span>
+    <span class="c-tag">&lt;label</span> <span class="c-attr">class=</span><span class="c-str">"set-text-13 text-semibold color-gray-700"</span><span class="c-tag">&gt;</span>Last name<span class="c-tag">&lt;/label&gt;</span>
+    <span class="c-tag">&lt;input</span> <span class="c-attr">type=</span><span class="c-str">"text"</span> <span class="c-attr">class=</span><span class="c-str">"add-border-1 round-corners-8
+           add-padding-y-10 add-padding-x-14 set-text-14"</span>
+           <span class="c-attr">style=</span><span class="c-str">"border-color:#d1d5db;width:100%;"</span> <span class="c-tag">/&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/div&gt;</span></pre></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         SECTION: NAVBARS
+    ══════════════════════════════════════ -->
+    <div id="sec-nav" class="snip-section" style="display:none;">
+      <div class="snip-section-header">
+        <div class="make-flex align-center gap-10 add-margin-bottom-6"><span style="font-size:22px;">🧭</span><h2 class="snip-section-title">Navbars</h2></div>
+        <p class="snip-section-desc">Sticky top navigation bars built entirely with SantyCSS flex and spacing utilities.</p>
+      </div>
+      <div class="snip-card visible">
+        <div class="snip-card-header"><div><div class="snip-card-title">Simple Sticky Nav</div><div class="snip-card-desc">Logo left, links center, CTA right with sticky positioning.</div></div><span class="snip-badge">position-sticky · pin-top-0</span></div>
+        <div class="snip-preview">
+          <div class="snip-preview-label">Preview</div>
+          <div class="make-flex justify-between align-center add-padding-y-14 add-padding-x-24 background-white add-shadow-sm round-corners-12 add-border-1" style="border-color:#e5e7eb;">
+            <span class="set-text-18 text-bold color-gray-900">Logo<span class="color-blue-600">.</span></span>
+            <nav class="make-flex gap-20">
+              <a href="#" class="set-text-14 text-semibold color-gray-600 text-no-decoration">Home</a>
+              <a href="#" class="set-text-14 text-semibold color-gray-600 text-no-decoration">About</a>
+              <a href="#" class="set-text-14 text-semibold color-gray-600 text-no-decoration">Work</a>
+            </nav>
+            <button class="set-text-13 text-bold add-padding-y-9 add-padding-x-18 round-corners-8 color-white" style="background:#2563eb;border:none;cursor:pointer;">Hire Me</button>
+          </div>
+        </div>
+        <div class="snip-code-bar"><span>HTML</span><button class="copy-btn" onclick="copySnippet(this)"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copy</button></div>
+        <div class="snip-code-body"><pre><span class="c-tag">&lt;header</span> <span class="c-attr">class=</span><span class="c-str">"position-sticky pin-top-0 layer-50 background-white add-shadow-sm"</span>
+        <span class="c-attr">style=</span><span class="c-str">"border-bottom:1px solid #e5e7eb;"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;div</span> <span class="c-attr">class=</span><span class="c-str">"container make-flex justify-between align-center add-padding-y-14"</span><span class="c-tag">&gt;</span>
+    <span class="c-com">&lt;!-- Logo --&gt;</span>
+    <span class="c-tag">&lt;a</span> <span class="c-attr">href=</span><span class="c-str">"#"</span> <span class="c-attr">class=</span><span class="c-str">"set-text-20 text-bold color-gray-900 text-no-decoration"</span><span class="c-tag">&gt;</span>Logo<span class="c-tag">&lt;/a&gt;</span>
+    <span class="c-com">&lt;!-- Links --&gt;</span>
+    <span class="c-tag">&lt;nav</span> <span class="c-attr">class=</span><span class="c-str">"make-flex gap-20"</span><span class="c-tag">&gt;</span>
+      <span class="c-tag">&lt;a</span> <span class="c-attr">href=</span><span class="c-str">"#"</span> <span class="c-attr">class=</span><span class="c-str">"set-text-14 text-semibold color-gray-600 text-no-decoration"</span><span class="c-tag">&gt;</span>Home<span class="c-tag">&lt;/a&gt;</span>
+      <span class="c-tag">&lt;a</span> <span class="c-attr">href=</span><span class="c-str">"#"</span> <span class="c-attr">class=</span><span class="c-str">"set-text-14 text-semibold color-gray-600 text-no-decoration"</span><span class="c-tag">&gt;</span>Work<span class="c-tag">&lt;/a&gt;</span>
+    <span class="c-tag">&lt;/nav&gt;</span>
+    <span class="c-com">&lt;!-- CTA --&gt;</span>
+    <span class="c-tag">&lt;button</span> <span class="c-attr">class=</span><span class="c-str">"set-text-13 text-bold add-padding-y-9 add-padding-x-18
+            round-corners-8 color-white"</span>
+            <span class="c-attr">style=</span><span class="c-str">"background:#2563eb;border:none;"</span><span class="c-tag">&gt;</span>Hire Me<span class="c-tag">&lt;/button&gt;</span>
+  <span class="c-tag">&lt;/div&gt;</span>
+<span class="c-tag">&lt;/header&gt;</span></pre></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Mobile sidebar panel -->
+<div id="mobSidebarPanel" class="mob-sidebar-panel">
+  <div class="snip-group">
+    <div class="snip-group-label">Flexbox</div>
+    <button class="snip-link" onclick="showSection('flex');closeMobSidebar()"><span class="snip-dot" style="background:#3b82f6;"></span>Flex Basics</button>
+    <button class="snip-link" onclick="showSection('grid');closeMobSidebar()"><span class="snip-dot" style="background:#8b5cf6;"></span>Grid Layouts</button>
+  </div>
+  <div class="snip-group">
+    <div class="snip-group-label">UI Elements</div>
+    <button class="snip-link" onclick="showSection('buttons');closeMobSidebar()"><span class="snip-dot" style="background:#06b6d4;"></span>Buttons</button>
+    <button class="snip-link" onclick="showSection('badges');closeMobSidebar()"><span class="snip-dot" style="background:#f59e0b;"></span>Badges &amp; Tags</button>
+    <button class="snip-link" onclick="showSection('cards');closeMobSidebar()"><span class="snip-dot" style="background:#10b981;"></span>Cards</button>
+  </div>
+  <div class="snip-group">
+    <div class="snip-group-label">Typography</div>
+    <button class="snip-link" onclick="showSection('type');closeMobSidebar()"><span class="snip-dot" style="background:#64748b;"></span>Text Styles</button>
+  </div>
+  <div class="snip-group">
+    <div class="snip-group-label">Forms</div>
+    <button class="snip-link" onclick="showSection('forms');closeMobSidebar()"><span class="snip-dot" style="background:#ef4444;"></span>Form Inputs</button>
+  </div>
+  <div class="snip-group">
+    <div class="snip-group-label">Navigation</div>
+    <button class="snip-link" onclick="showSection('nav');closeMobSidebar()"><span class="snip-dot" style="background:#f97316;"></span>Navbars</button>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────────────────────── -->
+<footer class="add-margin-top-80" style="border-top:1px solid #e5e7eb;padding:28px 0;">
+  <div class="container make-flex justify-between align-center flex-wrap gap-16">
+    <span class="set-text-13 color-gray-500">SantyCSS Snippets — copy-paste, no build step</span>
+    <div class="make-flex gap-20">
+      <a href="index.html"      class="set-text-13 color-gray-500 text-no-decoration on-hover:color-blue-600">Home</a>
+      <a href="classes.html"    class="set-text-13 color-gray-500 text-no-decoration on-hover:color-blue-600">Classes</a>
+      <a href="templates.html"  class="set-text-13 color-gray-500 text-no-decoration on-hover:color-blue-600">Templates</a>
+      <a href="changelog.html"  class="set-text-13 color-gray-500 text-no-decoration on-hover:color-blue-600">Changelog</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── Section switching ── */
+var sectionMap = {
+  flex:    'Flex Basics',
+  grid:    'Grid Layouts',
+  buttons: 'Buttons',
+  badges:  'Badges & Tags',
+  cards:   'Cards',
+  type:    'Text Styles',
+  forms:   'Form Inputs',
+  nav:     'Navbars'
+};
+
+function showSection(id) {
+  // Hide all
+  document.querySelectorAll('.snip-section').forEach(function(s) { s.style.display = 'none'; });
+  // Show target
+  var sec = document.getElementById('sec-' + id);
+  if (sec) sec.style.display = 'block';
+  // Update sidebar active
+  document.querySelectorAll('.snip-link').forEach(function(l) { l.classList.remove('active'); });
+  var navEl = document.getElementById('nav-' + id);
+  if (navEl) navEl.classList.add('active');
+  // Update mobile label
+  var lbl = document.getElementById('mob-section-label');
+  if (lbl) lbl.textContent = sectionMap[id] || id;
+}
+
+/* ── Copy snippet ── */
+function copySnippet(btn) {
+  var card = btn.closest('.snip-card');
+  var pre  = card.querySelector('.snip-code-body pre');
+  if (!pre) return;
+  var text = pre.innerText || pre.textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    btn.classList.add('copied');
+    btn.innerHTML = '<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+    setTimeout(function() {
+      btn.classList.remove('copied');
+      btn.innerHTML = '<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy';
+    }, 2000);
+  }).catch(function() { alert('Copy failed — please copy manually.'); });
+}
+
+/* ── Resources dropdown ── */
+function toggleResources() {
+  var btn = document.getElementById('navResBtn');
+  var dd  = document.getElementById('navDropdown');
+  btn.classList.toggle('open');
+  dd.classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  var res = document.getElementById('navResources');
+  if (res && !res.contains(e.target)) {
+    document.getElementById('navResBtn').classList.remove('open');
+    document.getElementById('navDropdown').classList.remove('open');
+  }
+});
+
+/* ── Mobile nav ── */
+function toggleMobileNav() {
+  var nav    = document.getElementById('main-nav');
+  var icon   = document.getElementById('ham-icon');
+  var close  = document.getElementById('ham-close');
+  var isOpen = nav.classList.toggle('nav-open');
+  icon.style.display  = isOpen ? 'none'  : '';
+  close.style.display = isOpen ? ''      : 'none';
+}
+
+/* ── Mobile sidebar ── */
+function toggleMobSidebar() {
+  document.getElementById('mobSidebarPanel').classList.toggle('open');
+}
+function closeMobSidebar() {
+  document.getElementById('mobSidebarPanel').classList.remove('open');
+}
+</script>
+</body>
+</html>
