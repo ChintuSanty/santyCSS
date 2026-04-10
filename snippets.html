@@ -692,8 +692,7 @@
 
     <!-- ═══ CARDS ═══ -->
     <div id="sec-cards" class="snip-section">
-      <div class="sec-header"><h1 class="sec-title">Card Snippets</h1><p class="sec-desc">15 ready-to-use card layouts — stat, pricing, profile, blog, hover, ribbon, cookie notice, and more.</p></div>
-      <div class="sec-filters"><label class="sec-filter-label"><span class="tog"><input type="checkbox" onchange="filterFav('cards',this)"><span class="tog-track"></span></span>Show Favourites only</label></div>
+      <div class="sec-header"><h1 class="sec-title">Card Snippets</h1><p class="sec-desc">15 ready-to-use card layouts — click any card to open a live preview with code.</p></div>
       <div class="snip-grid" id="grid-cards">
 
         <!-- 1. Stat Card -->
@@ -1435,6 +1434,104 @@ function hoverOut(card) {
 
 <script>
 var currentCode = '';
+
+/* ── Open card in new tab (preview + code) ── */
+function openCardPreview(btn) {
+  var card = btn.closest('.snip-card');
+  var name = card.querySelector('.snip-card-name').textContent.trim();
+  var encoded = btn.getAttribute('data-code');
+  var code = encoded
+    .replace(/&lt;/g,'<').replace(/&gt;/g,'>')
+    .replace(/&amp;/g,'&').replace(/&apos;/g,"'").replace(/&#10;/g,'\n');
+  var escaped = code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  var tab = window.open('', '_blank');
+  tab.document.write('<!DOCTYPE html><html lang="en"><head>'
+    + '<meta charset="UTF-8"/>'
+    + '<meta name="viewport" content="width=device-width,initial-scale=1.0"/>'
+    + '<title>' + name + ' \u2014 SantyCSS</title>'
+    + '<link rel="stylesheet" href="santy.css"/>'
+    + '<style>'
+    + '*,*::before,*::after{box-sizing:border-box;}'
+    + 'body{margin:0;font-family:ui-sans-serif,system-ui,sans-serif;background:#f8fafc;}'
+    + '.tab-shell{display:flex;height:100vh;padding-top:52px;}'
+    + '.tab-topbar{position:fixed;top:0;left:0;right:0;height:52px;background:#0f172a;display:flex;align-items:center;padding:0 20px;gap:10px;z-index:10;border-bottom:1px solid #1e293b;}'
+    + '.tab-topbar img{width:28px;height:28px;border-radius:6px;}'
+    + '.tab-brand{color:#e2e8f0;font-size:15px;font-weight:700;}'
+    + '.tab-brand span{color:#818cf8;}'
+    + '.tab-sep{color:#334155;font-size:13px;}'
+    + '.tab-name{color:#94a3b8;font-size:13px;}'
+    + '.preview-pane{flex:1;display:flex;align-items:center;justify-content:center;padding:40px;overflow:auto;'
+    + 'background:repeating-linear-gradient(45deg,#f8fafc 0,#f8fafc 8px,#f1f5f9 8px,#f1f5f9 16px);}'
+    + '.preview-box{background:#fff;border-radius:14px;border:1px solid #e5e7eb;padding:32px;'
+    + 'box-shadow:0 4px 24px rgba(0,0,0,.07);max-width:520px;width:100%;}'
+    + '.code-pane{width:440px;flex-shrink:0;background:#0f172a;display:flex;flex-direction:column;border-left:1px solid #1e293b;}'
+    + '.code-pane-head{display:flex;align-items:center;justify-content:space-between;'
+    + 'padding:14px 18px;border-bottom:1px solid #1e293b;}'
+    + '.code-pane-title{color:#e2e8f0;font-size:13px;font-weight:700;}'
+    + '.copy-code-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 13px;'
+    + 'border-radius:7px;border:1px solid #334155;background:#1e293b;color:#7dd3fc;'
+    + 'font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;}'
+    + '.copy-code-btn:hover{background:#334155;color:#e2e8f0;}'
+    + '.copy-code-btn.ok{background:#166534;color:#86efac;border-color:#166534;}'
+    + '.code-body{flex:1;overflow-y:auto;padding:20px 22px;font-family:ui-monospace,monospace;'
+    + 'font-size:12.5px;line-height:1.8;color:#e2e8f0;white-space:pre-wrap;word-break:break-all;}'
+    + '.code-body::-webkit-scrollbar{width:5px;}.code-body::-webkit-scrollbar-thumb{background:#334155;border-radius:2px;}'
+    + '@media(max-width:780px){.tab-shell{flex-direction:column;height:auto;}'
+    + '.code-pane{width:100%;height:50vh;border-left:none;border-top:1px solid #1e293b;}}'
+    + '</style>'
+    + '</head><body>'
+    + '<div class="tab-topbar">'
+    + '<img src="assest/santy_css.png" alt="SantyCSS"/>'
+    + '<span class="tab-brand">Santy<span>CSS</span></span>'
+    + '<span class="tab-sep">/</span>'
+    + '<span class="tab-name">' + name + '</span>'
+    + '</div>'
+    + '<div class="tab-shell">'
+    + '<div class="preview-pane"><div class="preview-box">' + code + '</div></div>'
+    + '<div class="code-pane">'
+    + '<div class="code-pane-head">'
+    + '<span class="code-pane-title">' + name + '</span>'
+    + '<button class="copy-code-btn" id="cpyBtn" onclick="doCopy()">'
+    + '<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>'
+    + 'Copy Code</button>'
+    + '</div>'
+    + '<div class="code-body"><pre>' + escaped + '</pre></div>'
+    + '</div></div>'
+    + '<script>var _c=' + JSON.stringify(code) + ';'
+    + 'function doCopy(){navigator.clipboard.writeText(_c).then(function(){'
+    + 'var b=document.getElementById("cpyBtn");b.classList.add("ok");b.textContent="\u2713 Copied!";'
+    + 'setTimeout(function(){b.classList.remove("ok");b.innerHTML=\'<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy Code\';},2000);});}'
+    + '<\/script>'
+    + '</body></html>');
+  tab.document.close();
+}
+
+/* ── Init: cards section — remove hearts, wire up preview tab ── */
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('#grid-cards .snip-card').forEach(function(card) {
+    // Remove crown
+    var crown = card.querySelector('.snip-crown');
+    if (crown) crown.remove();
+    // Remove heart button
+    card.querySelectorAll('.snip-action-btn').forEach(function(b) { b.remove(); });
+    // Style the card as clickable
+    card.style.cursor = 'pointer';
+    // Update copy/view button → Preview & Code
+    var btn = card.querySelector('.snip-copy-btn');
+    if (btn) {
+      btn.setAttribute('onclick', 'openCardPreview(this)');
+      btn.style.cssText = 'display:inline-flex;align-items:center;gap:5px;padding:5px 13px;border-radius:7px;border:1px solid #4f46e5;background:#4f46e5;font-size:12px;font-weight:600;color:#fff;cursor:pointer;';
+      btn.innerHTML = '<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg> Preview &amp; Code';
+    }
+    // Whole card click → open preview tab (except button itself)
+    card.addEventListener('click', function(e) {
+      if (e.target.closest('.snip-copy-btn')) return;
+      var b = card.querySelector('.snip-copy-btn');
+      if (b) openCardPreview(b);
+    });
+  });
+});
 
 /* ── Category switching ── */
 function showCat(id, btnEl, fromMobile) {
