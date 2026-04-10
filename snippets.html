@@ -247,7 +247,7 @@
     <a href="index.html" class="make-flex align-center gap-10 text-no-decoration">
       <img src="assest/santy_css.png" alt="SantyCSS" style="width:34px;height:34px;border-radius:8px;object-fit:cover;" />
       <span class="set-text-18 text-bold color-gray-900">Santy<span class="color-blue-600">CSS</span></span>
-      <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;">v2.5.0</span>
+      <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;">v2.5.1</span>
     </a>
     <button class="nav-hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
       <svg id="ham-icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -1446,10 +1446,12 @@ function openCardPreview(btn) {
     .replace(/&amp;/g,'&').replace(/&apos;/g,"'").replace(/&#10;/g,'\n');
   var escaped = code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
+  var baseUrl = window.location.href.replace(/\/[^\/]*$/, '/');
   var tab = window.open('', '_blank');
   tab.document.write('<!DOCTYPE html><html lang="en"><head>'
     + '<meta charset="UTF-8"/>'
     + '<meta name="viewport" content="width=device-width,initial-scale=1.0"/>'
+    + '<base href="' + baseUrl + '"/>'
     + '<title>' + name + ' \u2014 SantyCSS</title>'
     + '<link rel="stylesheet" href="santy.css"/>'
     + '<style>'

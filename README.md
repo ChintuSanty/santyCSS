@@ -21,6 +21,20 @@ Class names read like sentences — `add-padding-24` instead of `p-6`. AI tools 
 
 ---
 
+## What's New in v2.5.1
+
+### ⚡ Code Snippets Page
+
+New interactive snippets library at `snippets.html` — browse and copy SantyCSS component code.
+
+- **8 categories** in dark sidebar — Flex, Grid, Buttons, Badges, Cards, Typography, Forms, Nav
+- **40+ ready-to-use snippets** built entirely with SantyCSS utility classes (no custom CSS)
+- **Card variants**: Stat, Sponsor, Pricing, Cookie Notice, Image Hover, Blog Post, Feature, Dark Pricing, Free vs Pro, Profile, Ribbon, About Me, Dark Profile, Article+Author, Horizontal
+- **Live preview + code modal** — click any card to open a new tab with full preview and syntax-highlighted code
+- **Copy button** — one-click clipboard copy in the preview tab
+
+---
+
 ## What's New in v2.5.0
 
 ### 🎨 Three Portfolio Templates + Framework Fixes
