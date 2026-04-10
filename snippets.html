@@ -692,38 +692,255 @@
 
     <!-- ═══ CARDS ═══ -->
     <div id="sec-cards" class="snip-section">
-      <div class="sec-header"><h1 class="sec-title">Card Snippets</h1><p class="sec-desc">Content card layouts using SantyCSS border, shadow, padding, and corner utilities.</p></div>
+      <div class="sec-header"><h1 class="sec-title">Card Snippets</h1><p class="sec-desc">15 ready-to-use card layouts — stat, pricing, profile, blog, hover, ribbon, cookie notice, and more.</p></div>
       <div class="sec-filters"><label class="sec-filter-label"><span class="tog"><input type="checkbox" onchange="filterFav('cards',this)"><span class="tog-track"></span></span>Show Favourites only</label></div>
       <div class="snip-grid" id="grid-cards">
+
+        <!-- 1. Stat Card -->
         <div class="snip-card" data-fav="1">
           <span class="snip-crown">⭐</span>
           <div class="snip-preview-wrap">
             <div class="snip-preview-inner">
-              <div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;">
-                <p style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin:0 0 4px;">Revenue</p>
-                <p style="font-size:22px;font-weight:800;color:#0f172a;margin:0 0 6px;">$24,560</p>
-                <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:#dcfce7;color:#15803d;">+12.4%</span>
-              </div>
+              <p style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.08em;margin:0 0 4px;">Revenue</p>
+              <p style="font-size:24px;font-weight:800;color:#0f172a;margin:0 0 6px;">$24,560</p>
+              <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;background:#dcfce7;color:#15803d;">↑ +12.4%</span>
             </div>
           </div>
           <div class="snip-card-footer">
             <span class="snip-card-name">Stat Card</span>
             <div class="snip-card-actions">
               <button class="snip-action-btn saved" onclick="toggleFav(this)"><svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
-              <button class="snip-copy-btn" onclick="openCode(this)" data-code='&lt;div class="add-border-1 round-corners-14 add-shadow-sm background-white add-padding-20"&#10;     style="border-color:#e5e7eb;"&gt;&#10;  &lt;p class="set-text-11 text-bold color-gray-500" style="text-transform:uppercase;letter-spacing:.06em;"&gt;Revenue&lt;/p&gt;&#10;  &lt;p class="set-text-28 text-extrabold color-gray-900"&gt;$24,560&lt;/p&gt;&#10;  &lt;span style="font-size:11px;padding:2px 8px;border-radius:20px;background:#dcfce7;color:#15803d;"&gt;+12.4%&lt;/span&gt;&#10;&lt;/div&gt;'><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>View Code</button>
+              <button class="snip-copy-btn" onclick="openCode(this)" data-code='&lt;div class="add-border-1 round-corners-14 add-shadow-sm background-white add-padding-20"
+     style="border-color:#e5e7eb;"&gt;
+  &lt;p class="set-text-11 text-bold color-gray-500"
+     style="text-transform:uppercase;letter-spacing:.08em;"&gt;Revenue&lt;/p&gt;
+  &lt;p class="set-text-28 text-extrabold color-gray-900"&gt;$24,560&lt;/p&gt;
+  &lt;span style="font-size:11px;font-weight:700;padding:2px 8px;
+               border-radius:20px;background:#dcfce7;color:#15803d;"&gt;
+    ↑ +12.4%
+  &lt;/span&gt;
+&lt;/div&gt;'><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>View Code</button>
             </div>
           </div>
         </div>
+
+        <!-- 2. Sponsor / Brand Card -->
+        <div class="snip-card" data-fav="0">
+          <div class="snip-preview-wrap">
+            <div class="snip-preview-inner" style="position:relative;padding:0;overflow:hidden;border-radius:8px;">
+              <div style="position:absolute;top:8px;right:8px;background:#f59e0b;color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;z-index:2;">Sponsor</div>
+              <div style="display:flex;align-items:center;gap:10px;padding:14px;">
+                <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#4f46e5,#7c3aed);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:800;">B</div>
+                <div>
+                  <p style="font-size:13px;font-weight:700;color:#0f172a;margin:0 0 2px;">Your Brand!</p>
+                  <p style="font-size:11px;color:#64748b;margin:0;">Promote your product in this space.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="snip-card-footer">
+            <span class="snip-card-name">Sponsor Card</span>
+            <div class="snip-card-actions">
+              <button class="snip-action-btn" onclick="toggleFav(this)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+              <button class="snip-copy-btn" onclick="openCode(this)" data-code='&lt;div class="add-border-1 round-corners-12 background-white add-padding-16 position-relative"
+     style="border-color:#e5e7eb;"&gt;
+  &lt;!-- Sponsor badge --&gt;
+  &lt;span class="position-absolute set-text-11 text-bold color-white round-corners-20"
+        style="top:10px;right:10px;background:#f59e0b;padding:2px 10px;"&gt;Sponsor&lt;/span&gt;
+  &lt;div class="make-flex align-center gap-12"&gt;
+    &lt;!-- Brand logo --&gt;
+    &lt;div class="round-corners-10 make-flex align-center justify-center color-white set-text-18 text-bold"
+         style="width:44px;height:44px;background:linear-gradient(135deg,#4f46e5,#7c3aed);flex-shrink:0;"&gt;B&lt;/div&gt;
+    &lt;div&gt;
+      &lt;p class="set-text-15 text-bold color-gray-900 add-margin-bottom-2"&gt;Your Brand!&lt;/p&gt;
+      &lt;p class="set-text-13 color-gray-500"&gt;Promote your product in this space.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;'><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>View Code</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Pricing Card -->
+        <div class="snip-card" data-fav="1">
+          <span class="snip-crown">⭐</span>
+          <div class="snip-preview-wrap">
+            <div class="snip-preview-inner" style="text-align:center;">
+              <p style="font-size:13px;font-weight:800;color:#0f172a;margin:0 0 6px;">Standard</p>
+              <p style="font-size:26px;font-weight:800;color:#4f46e5;margin:0 0 8px;">$2.99<span style="font-size:12px;color:#64748b;font-weight:500;">/mo</span></p>
+              <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:10px;text-align:left;">
+                <span style="font-size:11px;color:#374151;">✓ Amazing Benefits</span>
+                <span style="font-size:11px;color:#374151;">✓ 40% Discount</span>
+              </div>
+              <button style="width:100%;padding:7px;border-radius:8px;background:#4f46e5;color:#fff;border:none;font-size:12px;font-weight:700;">Select Plan</button>
+            </div>
+          </div>
+          <div class="snip-card-footer">
+            <span class="snip-card-name">Pricing Card</span>
+            <div class="snip-card-actions">
+              <button class="snip-action-btn saved" onclick="toggleFav(this)"><svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+              <button class="snip-copy-btn" onclick="openCode(this)" data-code='&lt;div class="add-border-1 round-corners-16 add-shadow-md background-white add-padding-24"
+     style="border-color:#e5e7eb;text-align:center;max-width:280px;"&gt;
+  &lt;p class="set-text-16 text-extrabold color-gray-900 add-margin-bottom-6"&gt;Standard&lt;/p&gt;
+  &lt;p class="set-text-36 text-extrabold add-margin-bottom-16" style="color:#4f46e5;"&gt;
+    $2.99&lt;span class="set-text-14 color-gray-500 text-normal"&gt;/mo&lt;/span&gt;
+  &lt;/p&gt;
+  &lt;div class="make-flex flex-column gap-8 add-margin-bottom-20" style="text-align:left;"&gt;
+    &lt;span class="set-text-14 color-gray-700"&gt;✓ Amazing Benefits&lt;/span&gt;
+    &lt;span class="set-text-14 color-gray-700"&gt;✓ 40% Discount&lt;/span&gt;
+    &lt;span class="set-text-14 color-gray-700"&gt;✓ Priority Support&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;button class="set-text-14 text-bold color-white round-corners-10 add-padding-y-12 transition-all on-hover:scale-105"
+          style="width:100%;background:#4f46e5;border:none;"&gt;Select Plan&lt;/button&gt;
+&lt;/div&gt;'><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>View Code</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Cookie Notice Card -->
         <div class="snip-card" data-fav="0">
           <div class="snip-preview-wrap">
             <div class="snip-preview-inner">
-              <div style="border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;">
-                <div style="height:50px;background:linear-gradient(135deg,#4f46e5,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:22px;">🎨</div>
-                <div style="padding:10px 12px;">
-                  <p style="font-size:13px;font-weight:700;color:#0f172a;margin:0 0 4px;">Card Title</p>
-                  <p style="font-size:11px;color:#64748b;margin:0 0 8px;line-height:1.5;">Short description text goes here.</p>
-                  <button style="padding:5px 14px;border-radius:7px;background:#4f46e5;color:#fff;border:none;font-size:11px;font-weight:700;">Learn more</button>
+              <p style="font-size:13px;font-weight:700;color:#0f172a;margin:0 0 6px;">Cookie Notice 🍪</p>
+              <p style="font-size:11px;color:#64748b;line-height:1.5;margin:0 0 10px;">We use cookies to ensure that we give you the best experience on our website.</p>
+              <div style="display:flex;gap:8px;">
+                <button style="flex:1;padding:6px;border-radius:7px;background:#f1f5f9;color:#374151;border:1px solid #e5e7eb;font-size:11px;font-weight:600;">Manage</button>
+                <button style="flex:1;padding:6px;border-radius:7px;background:#4f46e5;color:#fff;border:none;font-size:11px;font-weight:700;">Accept</button>
+              </div>
+            </div>
+          </div>
+          <div class="snip-card-footer">
+            <span class="snip-card-name">Cookie Notice</span>
+            <div class="snip-card-actions">
+              <button class="snip-action-btn" onclick="toggleFav(this)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+              <button class="snip-copy-btn" onclick="openCode(this)" data-code='&lt;div class="add-border-1 round-corners-14 add-shadow-lg background-white add-padding-20"
+     style="border-color:#e5e7eb;max-width:320px;"&gt;
+  &lt;p class="set-text-16 text-bold color-gray-900 add-margin-bottom-8"&gt;Cookie Notice 🍪&lt;/p&gt;
+  &lt;p class="set-text-13 color-gray-500 add-margin-bottom-16" style="line-height:1.6;"&gt;
+    We use cookies to ensure that we give you the best experience on our website.
+  &lt;/p&gt;
+  &lt;div class="make-flex gap-10"&gt;
+    &lt;button class="set-text-13 text-semibold color-gray-700 round-corners-8 add-padding-y-10 transition-all on-hover:scale-105"
+            style="flex:1;background:#f1f5f9;border:1px solid #e5e7eb;"&gt;Manage&lt;/button&gt;
+    &lt;button class="set-text-13 text-bold color-white round-corners-8 add-padding-y-10 transition-all on-hover:scale-105"
+            style="flex:1;background:#4f46e5;border:none;"&gt;Accept&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;'><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>View Code</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Image Hover Card -->
+        <div class="snip-card" data-fav="1">
+          <span class="snip-crown">⭐</span>
+          <div class="snip-preview-wrap" style="padding:0;">
+            <div style="position:relative;overflow:hidden;border-radius:10px;margin:16px;">
+              <div style="height:120px;background:linear-gradient(135deg,#0f2027,#2c5364,#203a43);display:flex;align-items:center;justify-content:center;font-size:30px;">🏔</div>
+              <div style="position:absolute;inset:0;background:rgba(15,18,40,.72);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
+                <p style="font-size:14px;font-weight:700;color:#fff;margin:0;">Title</p>
+                <p style="font-size:11px;color:#94a3b8;margin:0;text-align:center;">Hover over the image to see the effect</p>
+                <button style="padding:5px 14px;border-radius:20px;background:#fff;color:#0f172a;border:none;font-size:11px;font-weight:700;margin-top:4px;">View →</button>
+              </div>
+            </div>
+          </div>
+          <div class="snip-card-footer">
+            <span class="snip-card-name">Image Hover Overlay</span>
+            <div class="snip-card-actions">
+              <button class="snip-action-btn saved" onclick="toggleFav(this)"><svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+              <button class="snip-copy-btn" onclick="openCode(this)" data-code='&lt;div class="position-relative overflow-hidden round-corners-14 cursor-pointer"
+     onmouseenter="hoverIn(this)" onmouseleave="hoverOut(this)"&gt;
+
+  &lt;img src="your-image.jpg" alt="Card image"
+       class="set-width-full transition-all"
+       style="height:220px;object-fit:cover;display:block;" /&gt;
+
+  &lt;div class="position-absolute make-flex flex-column align-center justify-center gap-8 transition-all"
+       style="inset:0;background:rgba(15,18,40,0);" id="overlay"&gt;
+    &lt;p class="set-text-18 text-bold color-white transition-all"
+       style="opacity:0;transform:translateY(10px);" id="overlay-title"&gt;Card Title&lt;/p&gt;
+    &lt;button class="set-text-13 text-bold color-gray-900 round-corners-20 add-padding-y-8 add-padding-x-20 transition-all"
+            style="opacity:0;transform:translateY(8px);background:#fff;border:none;" id="overlay-btn"&gt;View →&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+function hoverIn(card) {
+  var o = card.querySelector(&apos;#overlay&apos;);
+  var t = card.querySelector(&apos;#overlay-title&apos;);
+  var b = card.querySelector(&apos;#overlay-btn&apos;);
+  var img = card.querySelector(&apos;img&apos;);
+  o.style.background = &apos;rgba(15,18,40,.72)&apos;;
+  img.style.transform = &apos;scale(1.06)&apos;;
+  t.style.opacity = &apos;1&apos;; t.style.transform = &apos;none&apos;;
+  b.style.opacity = &apos;1&apos;; b.style.transform = &apos;none&apos;;
+}
+function hoverOut(card) {
+  var o = card.querySelector(&apos;#overlay&apos;);
+  var t = card.querySelector(&apos;#overlay-title&apos;);
+  var b = card.querySelector(&apos;#overlay-btn&apos;);
+  var img = card.querySelector(&apos;img&apos;);
+  o.style.background = &apos;rgba(15,18,40,0)&apos;;
+  img.style.transform = &apos;scale(1)&apos;;
+  t.style.opacity = &apos;0&apos;; t.style.transform = &apos;translateY(10px)&apos;;
+  b.style.opacity = &apos;0&apos;; b.style.transform = &apos;translateY(8px)&apos;;
+}
+&lt;/script&gt;'><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>View Code</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Blog Post Card -->
+        <div class="snip-card" data-fav="0">
+          <div class="snip-preview-wrap" style="padding:0;">
+            <div style="margin:16px;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;">
+              <div style="height:64px;background:linear-gradient(135deg,#1e3a8a,#312e81);display:flex;align-items:center;justify-content:center;font-size:22px;">📝</div>
+              <div style="padding:10px 12px;">
+                <p style="font-size:12px;font-weight:700;color:#0f172a;margin:0 0 4px;line-height:1.4;">How to build better UI with SantyCSS</p>
+                <p style="font-size:10px;color:#64748b;margin:0 0 8px;line-height:1.5;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <div style="width:20px;height:20px;border-radius:50%;background:#4f46e5;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:700;">J</div>
+                  <span style="font-size:10px;color:#64748b;">John · Jan 12, 2024</span>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div class="snip-card-footer">
+            <span class="snip-card-name">Blog Post Card</span>
+            <div class="snip-card-actions">
+              <button class="snip-action-btn" onclick="toggleFav(this)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+              <button class="snip-copy-btn" onclick="openCode(this)" data-code='&lt;div class="add-border-1 round-corners-14 overflow-hidden add-shadow-sm"
+     style="border-color:#e5e7eb;"&gt;
+  &lt;!-- Cover image --&gt;
+  &lt;img src="cover.jpg" alt="Post cover" style="width:100%;height:180px;object-fit:cover;display:block;" /&gt;
+  &lt;!-- Content --&gt;
+  &lt;div class="add-padding-20"&gt;
+    &lt;h3 class="set-text-17 text-bold color-gray-900 add-margin-bottom-8" style="line-height:1.4;"&gt;
+      How to build better UI with SantyCSS
+    &lt;/h3&gt;
+    &lt;p class="set-text-13 color-gray-500 add-margin-bottom-16" style="line-height:1.6;"&gt;
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    &lt;/p&gt;
+    &lt;!-- Author row --&gt;
+    &lt;div class="make-flex align-center gap-8"&gt;
+      &lt;div class="round-corners-48 make-flex align-center justify-center color-white set-text-12 text-bold"
+           style="width:28px;height:28px;background:#4f46e5;flex-shrink:0;"&gt;J&lt;/div&gt;
+      &lt;span class="set-text-12 color-gray-500"&gt;John · Jan 12, 2024&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;'><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>View Code</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Feature Card with Image -->
+        <div class="snip-card" data-fav="0">
+          <div class="snip-preview-wrap" style="padding:0;">
+            <div style="margin:16px;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;">
+              <div style="height:64px;background:linear-gradient(135deg,#4f46e5,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:22px;">🎨</div>
+              <div style="padding:10px 12px;">
+                <p style="font-size:13px;font-weight:700;color:#0f172a;margin:0 0 4px;">Card Title</p>
+                <p style="font-size:11px;color:#64748b;margin:0 0 8px;line-height:1.5;">Short description text goes here.</p>
+                <button style="padding:5px 14px;border-radius:7px;background:#4f46e5;color:#fff;border:none;font-size:11px;font-weight:700;">Know more</button>
               </div>
             </div>
           </div>
@@ -731,11 +948,347 @@
             <span class="snip-card-name">Feature Card</span>
             <div class="snip-card-actions">
               <button class="snip-action-btn" onclick="toggleFav(this)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
-              <button class="snip-copy-btn" onclick="openCode(this)" data-code='&lt;div class="add-border-1 round-corners-14 overflow-hidden add-shadow-sm"&#10;     style="border-color:#e5e7eb;"&gt;&#10;  &lt;!-- Image / thumb --&gt;&#10;  &lt;div style="height:160px;background:linear-gradient(135deg,#4f46e5,#7c3aed);"&gt;&lt;/div&gt;&#10;  &lt;!-- Body --&gt;&#10;  &lt;div class="add-padding-20"&gt;&#10;    &lt;p class="set-text-17 text-bold color-gray-900 add-margin-bottom-6"&gt;Card Title&lt;/p&gt;&#10;    &lt;p class="set-text-14 color-gray-500 add-margin-bottom-16"&gt;Description here.&lt;/p&gt;&#10;    &lt;button class="set-text-13 text-bold add-padding-y-9 add-padding-x-18&#10;            round-corners-8 color-white" style="background:#4f46e5;border:none;"&gt;Learn more&lt;/button&gt;&#10;  &lt;/div&gt;&#10;&lt;/div&gt;'><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>View Code</button>
+              <button class="snip-copy-btn" onclick="openCode(this)" data-code='&lt;div class="add-border-1 round-corners-14 overflow-hidden add-shadow-sm"
+     style="border-color:#e5e7eb;"&gt;
+  &lt;img src="image.jpg" alt="" style="width:100%;height:180px;object-fit:cover;display:block;" /&gt;
+  &lt;div class="add-padding-20"&gt;
+    &lt;p class="set-text-17 text-bold color-gray-900 add-margin-bottom-8"&gt;Card Title&lt;/p&gt;
+    &lt;p class="set-text-14 color-gray-500 add-margin-bottom-16" style="line-height:1.6;"&gt;
+      Short description text goes here.
+    &lt;/p&gt;
+    &lt;button class="set-text-13 text-bold color-white round-corners-8 add-padding-y-9 add-padding-x-18 transition-all on-hover:scale-105"
+            style="background:#4f46e5;border:none;"&gt;Know more&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;'><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>View Code</button>
             </div>
           </div>
         </div>
-      </div>
+
+        <!-- 8. Dark Pricing Card -->
+        <div class="snip-card" data-fav="1">
+          <span class="snip-crown">⭐</span>
+          <div class="snip-preview-wrap">
+            <div class="snip-preview-inner" style="background:#0f172a;border-radius:10px;text-align:center;padding:16px;">
+              <p style="font-size:13px;font-weight:800;color:#fff;margin:0 0 4px;">Premium</p>
+              <p style="font-size:26px;font-weight:800;color:#a78bfa;margin:0 0 8px;">$29.99<span style="font-size:12px;color:#64748b;font-weight:500;">/mo</span></p>
+              <p style="font-size:11px;color:#94a3b8;margin:0 0 10px;line-height:1.5;">Lorem ipsum dolor sit amet, consectetur.</p>
+              <button style="width:100%;padding:7px;border-radius:8px;background:#7c3aed;color:#fff;border:none;font-size:12px;font-weight:700;">Click me</button>
+            </div>
+          </div>
+          <div class="snip-card-footer">
+            <span class="snip-card-name">Dark Pricing Card</span>
+            <div class="snip-card-actions">
+              <button class="snip-action-btn saved" onclick="toggleFav(this)"><svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+              <button class="snip-copy-btn" onclick="openCode(this)" data-code='&lt;div class="round-corners-16 add-shadow-xl add-padding-24"
+     style="background:#0f172a;text-align:center;"&gt;
+  &lt;p class="set-text-16 text-extrabold color-white add-margin-bottom-6"&gt;Premium&lt;/p&gt;
+  &lt;p class="set-text-36 text-extrabold add-margin-bottom-4" style="color:#a78bfa;"&gt;
+    $29.99&lt;span class="set-text-14 text-normal" style="color:#64748b;"&gt;/mo&lt;/span&gt;
+  &lt;/p&gt;
+  &lt;p class="set-text-14 add-margin-bottom-20" style="color:#94a3b8;line-height:1.6;"&gt;
+    Everything in Free, plus advanced features.
+  &lt;/p&gt;
+  &lt;button class="set-text-14 text-bold color-white round-corners-10 add-padding-y-12 transition-all on-hover:scale-105"
+          style="width:100%;background:#7c3aed;border:none;"&gt;Get Premium&lt;/button&gt;
+&lt;/div&gt;'><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>View Code</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9. Free vs Pro Pricing Tiers -->
+        <div class="snip-card" data-fav="0">
+          <div class="snip-preview-wrap">
+            <div class="snip-preview-inner" style="display:flex;gap:8px;">
+              <div style="flex:1;border:1px solid #e5e7eb;border-radius:10px;padding:10px;text-align:center;">
+                <p style="font-size:12px;font-weight:700;color:#0f172a;margin:0 0 2px;">Free Plan</p>
+                <p style="font-size:18px;font-weight:800;color:#0f172a;margin:0 0 6px;">$0<span style="font-size:10px;color:#64748b;">/mo</span></p>
+                <div style="font-size:10px;color:#64748b;margin-bottom:8px;line-height:1.6;text-align:left;">✓ Access to all features<br>✓ Unlimited storage<br>✓ No ads</div>
+                <button style="width:100%;padding:5px;border-radius:7px;background:#f1f5f9;color:#374151;border:1px solid #e5e7eb;font-size:10px;font-weight:700;">Get Started</button>
+              </div>
+              <div style="flex:1;border:2px solid #4f46e5;border-radius:10px;padding:10px;text-align:center;background:#f5f3ff;">
+                <p style="font-size:12px;font-weight:700;color:#4f46e5;margin:0 0 2px;">Premium</p>
+                <p style="font-size:18px;font-weight:800;color:#4f46e5;margin:0 0 6px;">$9<span style="font-size:10px;color:#64748b;">/mo</span></p>
+                <div style="font-size:10px;color:#64748b;margin-bottom:8px;line-height:1.6;text-align:left;">✓ Everything in Free<br>✓ Priority support<br>✓ Custom domain</div>
+                <button style="width:100%;padding:5px;border-radius:7px;background:#4f46e5;color:#fff;border:none;font-size:10px;font-weight:700;">Upgrade</button>
+              </div>
+            </div>
+          </div>
+          <div class="snip-card-footer">
+            <span class="snip-card-name">Pricing Tiers</span>
+            <div class="snip-card-actions">
+              <button class="snip-action-btn" onclick="toggleFav(this)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+              <button class="snip-copy-btn" onclick="openCode(this)" data-code='&lt;div class="make-flex gap-16"&gt;
+  &lt;!-- Free --&gt;
+  &lt;div class="add-border-1 round-corners-16 add-padding-24 text-center" style="flex:1;border-color:#e5e7eb;"&gt;
+    &lt;p class="set-text-15 text-bold color-gray-900 add-margin-bottom-4"&gt;Free Plan&lt;/p&gt;
+    &lt;p class="set-text-32 text-extrabold color-gray-900 add-margin-bottom-16"&gt;$0&lt;span class="set-text-14 text-normal color-gray-500"&gt;/mo&lt;/span&gt;&lt;/p&gt;
+    &lt;div class="make-flex flex-column gap-8 add-margin-bottom-20" style="text-align:left;"&gt;
+      &lt;span class="set-text-13 color-gray-600"&gt;✓ All features&lt;/span&gt;
+      &lt;span class="set-text-13 color-gray-600"&gt;✓ Unlimited storage&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;button class="set-text-13 text-bold color-gray-700 round-corners-10 add-padding-y-11"
+            style="width:100%;background:#f1f5f9;border:1px solid #e5e7eb;"&gt;Get Started&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;!-- Premium --&gt;
+  &lt;div class="round-corners-16 add-padding-24 text-center" style="flex:1;border:2px solid #4f46e5;background:#f5f3ff;"&gt;
+    &lt;p class="set-text-15 text-bold add-margin-bottom-4" style="color:#4f46e5;"&gt;Premium&lt;/p&gt;
+    &lt;p class="set-text-32 text-extrabold add-margin-bottom-16" style="color:#4f46e5;"&gt;$9&lt;span class="set-text-14 text-normal color-gray-500"&gt;/mo&lt;/span&gt;&lt;/p&gt;
+    &lt;div class="make-flex flex-column gap-8 add-margin-bottom-20" style="text-align:left;"&gt;
+      &lt;span class="set-text-13 color-gray-600"&gt;✓ Everything in Free&lt;/span&gt;
+      &lt;span class="set-text-13 color-gray-600"&gt;✓ Priority support&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;button class="set-text-13 text-bold color-white round-corners-10 add-padding-y-11"
+            style="width:100%;background:#4f46e5;border:none;"&gt;Upgrade&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;'><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>View Code</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10. Profile Card -->
+        <div class="snip-card" data-fav="1">
+          <span class="snip-crown">⭐</span>
+          <div class="snip-preview-wrap">
+            <div class="snip-preview-inner" style="text-align:center;">
+              <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#4f46e5,#7c3aed);margin:0 auto 8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:800;">J</div>
+              <p style="font-size:14px;font-weight:700;color:#0f172a;margin:0 0 2px;">John Doe</p>
+              <p style="font-size:11px;color:#64748b;margin:0 0 10px;">Programmer</p>
+              <div style="display:flex;justify-content:center;gap:8px;">
+                <div style="width:28px;height:28px;border-radius:7px;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:12px;">🐦</div>
+                <div style="width:28px;height:28px;border-radius:7px;background:#f0fdf4;display:flex;align-items:center;justify-content:center;font-size:12px;">💼</div>
+                <div style="width:28px;height:28px;border-radius:7px;background:#fdf4ff;display:flex;align-items:center;justify-content:center;font-size:12px;">📸</div>
+              </div>
+            </div>
+          </div>
+          <div class="snip-card-footer">
+            <span class="snip-card-name">Profile Card</span>
+            <div class="snip-card-actions">
+              <button class="snip-action-btn saved" onclick="toggleFav(this)"><svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+              <button class="snip-copy-btn" onclick="openCode(this)" data-code='&lt;div class="add-border-1 round-corners-16 add-shadow-sm background-white add-padding-24"
+     style="border-color:#e5e7eb;text-align:center;"&gt;
+  &lt;!-- Avatar --&gt;
+  &lt;div class="round-corners-48 make-flex align-center justify-center color-white set-text-24 text-bold"
+       style="width:72px;height:72px;background:linear-gradient(135deg,#4f46e5,#7c3aed);margin:0 auto 12px;"&gt;J&lt;/div&gt;
+  &lt;p class="set-text-18 text-bold color-gray-900 add-margin-bottom-4"&gt;John Doe&lt;/p&gt;
+  &lt;p class="set-text-13 color-gray-500 add-margin-bottom-16"&gt;Programmer&lt;/p&gt;
+  &lt;!-- Social icons --&gt;
+  &lt;div class="make-flex justify-center gap-10"&gt;
+    &lt;a href="#" class="make-flex align-center justify-center round-corners-8"
+       style="width:36px;height:36px;background:#eff6ff;color:#2563eb;text-decoration:none;"&gt;
+      &lt;!-- Twitter SVG --&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="make-flex align-center justify-center round-corners-8"
+       style="width:36px;height:36px;background:#f3e8ff;color:#7c3aed;text-decoration:none;"&gt;
+      &lt;!-- LinkedIn SVG --&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;'><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>View Code</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11. Corner Ribbon Card -->
+        <div class="snip-card" data-fav="0">
+          <div class="snip-preview-wrap">
+            <div class="snip-preview-inner" style="position:relative;overflow:hidden;">
+              <div style="position:absolute;top:10px;right:-18px;background:#ef4444;color:#fff;font-size:9px;font-weight:700;padding:3px 24px;transform:rotate(35deg);transform-origin:top right;">HOT</div>
+              <p style="font-size:13px;font-weight:700;color:#0f172a;margin:0 0 6px;padding-right:28px;">Featured Item</p>
+              <p style="font-size:11px;color:#64748b;line-height:1.5;margin:0 0 10px;">Maecenas a risus non magna porta non posuere quis diam. Nullam vehicula.</p>
+              <button style="padding:6px 14px;border-radius:7px;background:#4f46e5;color:#fff;border:none;font-size:11px;font-weight:700;">Learn More</button>
+            </div>
+          </div>
+          <div class="snip-card-footer">
+            <span class="snip-card-name">Ribbon Card</span>
+            <div class="snip-card-actions">
+              <button class="snip-action-btn" onclick="toggleFav(this)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+              <button class="snip-copy-btn" onclick="openCode(this)" data-code='&lt;div class="add-border-1 round-corners-14 add-shadow-sm background-white add-padding-20 position-relative overflow-hidden"
+     style="border-color:#e5e7eb;"&gt;
+  &lt;!-- Ribbon --&gt;
+  &lt;div class="position-absolute set-text-11 text-bold color-white"
+       style="top:14px;right:-20px;background:#ef4444;padding:4px 32px;
+              transform:rotate(35deg);transform-origin:top right;"&gt;HOT&lt;/div&gt;
+  &lt;p class="set-text-17 text-bold color-gray-900 add-margin-bottom-8"&gt;Featured Item&lt;/p&gt;
+  &lt;p class="set-text-14 color-gray-500 add-margin-bottom-16" style="line-height:1.6;"&gt;
+    Description text goes here.
+  &lt;/p&gt;
+  &lt;button class="set-text-13 text-bold color-white round-corners-8 add-padding-y-10 add-padding-x-20 transition-all on-hover:scale-105"
+          style="background:#4f46e5;border:none;"&gt;Learn More&lt;/button&gt;
+&lt;/div&gt;'><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>View Code</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 12. About Me Card -->
+        <div class="snip-card" data-fav="0">
+          <div class="snip-preview-wrap">
+            <div class="snip-preview-inner">
+              <div style="display:flex;gap:10px;align-items:flex-start;">
+                <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#f97316,#ef4444);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;">S</div>
+                <div>
+                  <p style="font-size:12px;font-weight:700;color:#0f172a;margin:0 0 2px;">About Me</p>
+                  <p style="font-size:10px;color:#64748b;line-height:1.5;margin:0 0 6px;">Maecenas a risus non magna porta non posuere quis diam. Nullam vehicula vehicula arcu.</p>
+                  <div style="display:flex;gap:6px;">
+                    <span style="font-size:9px;padding:2px 7px;border-radius:20px;background:#eff6ff;color:#2563eb;font-weight:600;">Design</span>
+                    <span style="font-size:9px;padding:2px 7px;border-radius:20px;background:#f3e8ff;color:#7c3aed;font-weight:600;">Code</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="snip-card-footer">
+            <span class="snip-card-name">About Me Card</span>
+            <div class="snip-card-actions">
+              <button class="snip-action-btn" onclick="toggleFav(this)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+              <button class="snip-copy-btn" onclick="openCode(this)" data-code='&lt;div class="add-border-1 round-corners-14 add-shadow-sm background-white add-padding-20"
+     style="border-color:#e5e7eb;"&gt;
+  &lt;div class="make-flex gap-14 align-start"&gt;
+    &lt;!-- Avatar --&gt;
+    &lt;div class="round-corners-48 make-flex align-center justify-center color-white set-text-16 text-bold"
+         style="width:52px;height:52px;background:linear-gradient(135deg,#f97316,#ef4444);flex-shrink:0;"&gt;S&lt;/div&gt;
+    &lt;div&gt;
+      &lt;p class="set-text-15 text-bold color-gray-900 add-margin-bottom-4"&gt;About Me&lt;/p&gt;
+      &lt;p class="set-text-13 color-gray-500 add-margin-bottom-12" style="line-height:1.6;"&gt;
+        Short bio text goes here. Describe yourself in 1-2 sentences.
+      &lt;/p&gt;
+      &lt;div class="make-flex flex-wrap gap-6"&gt;
+        &lt;span class="set-text-11 text-semibold add-padding-y-3 add-padding-x-10 round-corners-20"
+              style="background:#eff6ff;color:#2563eb;"&gt;Design&lt;/span&gt;
+        &lt;span class="set-text-11 text-semibold add-padding-y-3 add-padding-x-10 round-corners-20"
+              style="background:#f3e8ff;color:#7c3aed;"&gt;Code&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;'><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>View Code</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 13. Dark Profile Card -->
+        <div class="snip-card" data-fav="0">
+          <div class="snip-preview-wrap">
+            <div class="snip-preview-inner" style="background:#0f172a;border-radius:10px;text-align:center;padding:16px;">
+              <div style="width:44px;height:44px;border-radius:50%;background:#334155;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;color:#e2e8f0;font-size:16px;font-weight:800;">J</div>
+              <p style="font-size:13px;font-weight:700;color:#f1f5f9;margin:0 0 2px;">John Doe</p>
+              <p style="font-size:11px;color:#94a3b8;margin:0 0 10px;">Frontend Developer</p>
+              <div style="display:flex;justify-content:center;gap:8px;">
+                <div style="width:26px;height:26px;border-radius:7px;background:#1e293b;border:1px solid #334155;display:flex;align-items:center;justify-content:center;font-size:11px;">🐦</div>
+                <div style="width:26px;height:26px;border-radius:7px;background:#1e293b;border:1px solid #334155;display:flex;align-items:center;justify-content:center;font-size:11px;">📷</div>
+                <div style="width:26px;height:26px;border-radius:7px;background:#1e293b;border:1px solid #334155;display:flex;align-items:center;justify-content:center;font-size:11px;">💼</div>
+              </div>
+            </div>
+          </div>
+          <div class="snip-card-footer">
+            <span class="snip-card-name">Dark Profile Card</span>
+            <div class="snip-card-actions">
+              <button class="snip-action-btn" onclick="toggleFav(this)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+              <button class="snip-copy-btn" onclick="openCode(this)" data-code='&lt;div class="round-corners-16 add-padding-24 add-shadow-xl"
+     style="background:#0f172a;text-align:center;"&gt;
+  &lt;!-- Avatar --&gt;
+  &lt;div class="round-corners-48 make-flex align-center justify-center set-text-20 text-bold"
+       style="width:64px;height:64px;background:#334155;color:#e2e8f0;margin:0 auto 12px;"&gt;J&lt;/div&gt;
+  &lt;p class="set-text-18 text-bold add-margin-bottom-4" style="color:#f1f5f9;"&gt;John Doe&lt;/p&gt;
+  &lt;p class="set-text-13 add-margin-bottom-16" style="color:#94a3b8;"&gt;Frontend Developer&lt;/p&gt;
+  &lt;div class="make-flex justify-center gap-10"&gt;
+    &lt;a href="#" class="make-flex align-center justify-center round-corners-8"
+       style="width:36px;height:36px;background:#1e293b;border:1px solid #334155;"&gt;
+      &lt;!-- Twitter icon SVG --&gt;
+    &lt;/a&gt;
+    &lt;a href="#" class="make-flex align-center justify-center round-corners-8"
+       style="width:36px;height:36px;background:#1e293b;border:1px solid #334155;"&gt;
+      &lt;!-- LinkedIn icon SVG --&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;'><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>View Code</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 14. Article Card with author -->
+        <div class="snip-card" data-fav="0">
+          <div class="snip-preview-wrap" style="padding:0;">
+            <div style="margin:16px;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;">
+              <div style="height:60px;background:linear-gradient(135deg,#0c4a6e,#0369a1);display:flex;align-items:flex-end;padding:8px;position:relative;">
+                <span style="font-size:9px;padding:2px 6px;border-radius:4px;background:rgba(255,255,255,.15);color:#fff;font-weight:600;">Development</span>
+              </div>
+              <div style="padding:10px 12px;">
+                <p style="font-size:12px;font-weight:700;color:#0f172a;margin:0 0 4px;line-height:1.4;">Building scalable apps with modern CSS</p>
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div style="display:flex;align-items:center;gap:5px;">
+                    <div style="width:18px;height:18px;border-radius:50%;background:#0369a1;display:flex;align-items:center;justify-content:center;color:#fff;font-size:8px;font-weight:700;">J</div>
+                    <span style="font-size:9px;color:#64748b;">John Doe</span>
+                  </div>
+                  <span style="font-size:9px;color:#94a3b8;">2 days ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="snip-card-footer">
+            <span class="snip-card-name">Article + Author Card</span>
+            <div class="snip-card-actions">
+              <button class="snip-action-btn" onclick="toggleFav(this)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+              <button class="snip-copy-btn" onclick="openCode(this)" data-code='&lt;div class="add-border-1 round-corners-14 overflow-hidden add-shadow-sm"
+     style="border-color:#e5e7eb;"&gt;
+  &lt;!-- Cover with category tag --&gt;
+  &lt;div style="position:relative;height:180px;background:linear-gradient(135deg,#0c4a6e,#0369a1);"&gt;
+    &lt;span class="set-text-11 text-bold color-white position-absolute"
+          style="bottom:12px;left:14px;padding:3px 10px;border-radius:6px;background:rgba(255,255,255,.15);"&gt;
+      Development
+    &lt;/span&gt;
+  &lt;/div&gt;
+  &lt;!-- Content --&gt;
+  &lt;div class="add-padding-18"&gt;
+    &lt;p class="set-text-16 text-bold color-gray-900 add-margin-bottom-12" style="line-height:1.4;"&gt;
+      Building scalable apps with modern CSS
+    &lt;/p&gt;
+    &lt;div class="make-flex align-center justify-between"&gt;
+      &lt;div class="make-flex align-center gap-8"&gt;
+        &lt;div class="round-corners-48 make-flex align-center justify-center color-white set-text-11 text-bold"
+             style="width:26px;height:26px;background:#0369a1;flex-shrink:0;"&gt;J&lt;/div&gt;
+        &lt;span class="set-text-12 color-gray-600"&gt;John Doe&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;span class="set-text-12 color-gray-400"&gt;2 days ago&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;'><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>View Code</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 15. Horizontal Card -->
+        <div class="snip-card" data-fav="0">
+          <div class="snip-preview-wrap">
+            <div class="snip-preview-inner" style="padding:0;overflow:hidden;border-radius:8px;border:1px solid #e5e7eb;display:flex;">
+              <div style="width:70px;flex-shrink:0;background:linear-gradient(135deg,#0f2027,#2c5364);display:flex;align-items:center;justify-content:center;font-size:22px;">🏔</div>
+              <div style="padding:10px 12px;flex:1;">
+                <p style="font-size:12px;font-weight:700;color:#0f172a;margin:0 0 3px;">Card Title</p>
+                <p style="font-size:10px;color:#64748b;margin:0 0 7px;line-height:1.4;">Lorem ipsum dolor sit amet dummy text here.</p>
+                <button style="padding:4px 10px;border-radius:6px;background:#4f46e5;color:#fff;border:none;font-size:10px;font-weight:700;">Details</button>
+              </div>
+            </div>
+          </div>
+          <div class="snip-card-footer">
+            <span class="snip-card-name">Horizontal Card</span>
+            <div class="snip-card-actions">
+              <button class="snip-action-btn" onclick="toggleFav(this)"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+              <button class="snip-copy-btn" onclick="openCode(this)" data-code='&lt;div class="add-border-1 round-corners-14 overflow-hidden add-shadow-sm make-flex"
+     style="border-color:#e5e7eb;"&gt;
+  &lt;!-- Side image --&gt;
+  &lt;img src="image.jpg" alt="" style="width:120px;flex-shrink:0;object-fit:cover;" /&gt;
+  &lt;!-- Content --&gt;
+  &lt;div class="add-padding-18 make-flex flex-column justify-center"&gt;
+    &lt;p class="set-text-16 text-bold color-gray-900 add-margin-bottom-6"&gt;Card Title&lt;/p&gt;
+    &lt;p class="set-text-13 color-gray-500 add-margin-bottom-14" style="line-height:1.5;"&gt;
+      Short description for this horizontal card layout.
+    &lt;/p&gt;
+    &lt;button class="set-text-12 text-bold color-white round-corners-8 add-padding-y-8 add-padding-x-16 transition-all on-hover:scale-105"
+            style="background:#4f46e5;border:none;align-self:flex-start;"&gt;Details&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;'><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>View Code</button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /grid-cards -->
     </div>
 
     <!-- ═══ TYPOGRAPHY ═══ -->
