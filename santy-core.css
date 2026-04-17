@@ -1,3 +1,4 @@
+/* @SANTYMOD:reset */
 /* ============================================================
    SantyCSS v2.3.0  —  Plain-English Utility CSS Framework
    https://github.com/santybad/santy_css
@@ -37,6 +38,8 @@
   --santy-shadow-inner: inset 0 2px 4px 0 rgba(0,0,0,0.06);
 }
 
+
+/* @SANTYMOD:layout */
 /* ── Display ── */
 .make-block        { display: block; }
 .make-inline       { display: inline; }
@@ -54,6 +57,8 @@
 .make-invisible { visibility: hidden; }
 .make-collapse  { visibility: collapse; }
 
+
+/* @SANTYMOD:flex */
 /* ── Flex Direction ── */
 .flex-row            { flex-direction: row; }
 .flex-row-reverse    { flex-direction: row-reverse; }
@@ -142,6 +147,8 @@
 .order-11 { order: 11; }
 .order-12 { order: 12; }
 
+/* @SANTYMOD:grid */
+
 /* ── Grid Template Columns ── */
 .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
 .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -195,6 +202,8 @@
 .grid-auto-cols-max  { grid-auto-columns: max-content; }
 .grid-auto-cols-fr   { grid-auto-columns: minmax(0, 1fr); }
 
+
+/* @SANTYMOD:spacing */
 
 /* ── Padding ── */
 .add-padding-0        { padding: 0px; }
@@ -833,6 +842,8 @@
 .gap-x-1024 { column-gap: 1024px; }
 .gap-y-1024 { row-gap: 1024px; }
 
+/* @SANTYMOD:sizing */
+
 /* ── Width ── */
 .set-width-0 { width: 0px; }
 .set-width-1 { width: 1px; }
@@ -1072,6 +1083,8 @@
 .max-height-screen { max-height: 100vh; }
 .min-width-none    { min-width: none; }
 .max-width-none    { max-width: none; }
+
+/* @SANTYMOD:borders */
 
 /* ── Border Width ── */
 .add-border-0        { border: 0px solid; }
@@ -1313,6 +1326,8 @@
 .round-left-128   { border-top-left-radius: 128px; border-bottom-left-radius: 128px; }
 .round-right-128  { border-top-right-radius: 128px; border-bottom-right-radius: 128px; }
 
+/* @SANTYMOD:typography */
+
 /* ── Font Size ── */
 .set-text-8 { font-size: 8px; }
 .set-text-9 { font-size: 9px; }
@@ -1435,6 +1450,8 @@
 .letter-space-wide   { letter-spacing: 0.025em; }
 .letter-space-wider  { letter-spacing: 0.05em; }
 .letter-space-widest { letter-spacing: 0.1em; }
+
+/* @SANTYMOD:colors */
 
 /* ── Text Colors ── */
 .color-red-50 { color: #fef2f2; }
@@ -2402,6 +2419,8 @@
 .gradient-to-bottom-right { background-image: linear-gradient(to bottom right, var(--grad-from, transparent), var(--grad-to, transparent)); }
 
 
+/* @SANTYMOD:layout */
+
 /* ── Position ── */
 .position-static   { position: static; }
 .position-relative { position: relative; }
@@ -2598,6 +2617,8 @@
 .overflow-y-visible { overflow-y: visible; }
 
 
+/* @SANTYMOD:effects */
+
 /* ── Opacity ── */
 .opacity-0 { opacity: 0; }
 .opacity-5 { opacity: 0.05; }
@@ -2730,6 +2751,8 @@
 .cursor-none        { cursor: none; }
 
 
+/* @SANTYMOD:layout */
+
 /* ── Object Fit ── */
 .fit-cover   { object-fit: cover; }
 .fit-contain { object-fit: contain; }
@@ -2773,6 +2796,8 @@
 .aspect-square     { aspect-ratio: 1 / 1; }
 .aspect-video      { aspect-ratio: 16 / 9; }
 
+
+/* @SANTYMOD:effects */
 
 /* ── Filter ── */
 .blur-sm  { filter: blur(4px); }
@@ -2923,6 +2948,8 @@
 .will-change-contents  { will-change: contents; }
 .will-change-transform { will-change: transform; }
 
+
+/* @SANTYMOD:variants */
 
 /* ═══════════════════════════════════════════════════════════════
    RESPONSIVE VARIANTS
@@ -4331,3 +4358,6 @@
 .make-container-named-section { container: section / inline-size; }
 .make-container-named-widget { container: widget / inline-size; }
 
+
+
+/* @SANTYMOD:animations */

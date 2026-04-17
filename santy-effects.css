@@ -1,0 +1,283 @@
+/* SantyCSS — effects module
+   Import individually to reduce bundle size.
+   https://santycss.santy.in */
+
+/* ── Opacity ── */
+.opacity-0 { opacity: 0; }
+.opacity-5 { opacity: 0.05; }
+.opacity-10 { opacity: 0.1; }
+.opacity-15 { opacity: 0.15; }
+.opacity-20 { opacity: 0.2; }
+.opacity-25 { opacity: 0.25; }
+.opacity-30 { opacity: 0.3; }
+.opacity-35 { opacity: 0.35; }
+.opacity-40 { opacity: 0.4; }
+.opacity-45 { opacity: 0.45; }
+.opacity-50 { opacity: 0.5; }
+.opacity-55 { opacity: 0.55; }
+.opacity-60 { opacity: 0.6; }
+.opacity-65 { opacity: 0.65; }
+.opacity-70 { opacity: 0.7; }
+.opacity-75 { opacity: 0.75; }
+.opacity-80 { opacity: 0.8; }
+.opacity-85 { opacity: 0.85; }
+.opacity-90 { opacity: 0.9; }
+.opacity-95 { opacity: 0.95; }
+.opacity-100 { opacity: 1; }
+
+/* ── Box Shadow ── */
+.add-shadow-sm  { box-shadow: var(--santy-shadow-sm); }
+.add-shadow     { box-shadow: var(--santy-shadow); }
+.add-shadow-md  { box-shadow: var(--santy-shadow-md); }
+.add-shadow-lg  { box-shadow: var(--santy-shadow-lg); }
+.add-shadow-xl  { box-shadow: var(--santy-shadow-xl); }
+.add-shadow-inner { box-shadow: var(--santy-shadow-inner); }
+.add-shadow-none  { box-shadow: none; }
+.no-shadow        { box-shadow: none; }
+
+/* ── Drop Shadow (filter) ── */
+.drop-shadow-sm  { filter: drop-shadow(0 1px 1px rgba(0,0,0,0.05)); }
+.drop-shadow     { filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1)); }
+.drop-shadow-md  { filter: drop-shadow(0 4px 3px rgba(0,0,0,0.07)); }
+.drop-shadow-lg  { filter: drop-shadow(0 10px 8px rgba(0,0,0,0.04)); }
+.drop-shadow-xl  { filter: drop-shadow(0 20px 13px rgba(0,0,0,0.03)); }
+.drop-shadow-none { filter: drop-shadow(0 0 #0000); }
+
+/* ── Text Shadow ── */
+.text-shadow-sm  { text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+.text-shadow     { text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+.text-shadow-lg  { text-shadow: 0 4px 8px rgba(0,0,0,0.4); }
+.text-shadow-none{ text-shadow: none; }
+
+
+/* ── Transition ── */
+.transition-fast   { transition: var(--santy-transition-fast); }
+.transition-normal { transition: var(--santy-transition-normal); }
+.transition-slow   { transition: var(--santy-transition-slow); }
+.transition-none   { transition: none; }
+.transition-colors { transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease; }
+.transition-opacity{ transition: opacity 0.3s ease; }
+.transition-transform{ transition: transform 0.3s ease; }
+
+/* ── Transform ── */
+.flip-horizontal  { transform: scaleX(-1); }
+.flip-vertical    { transform: scaleY(-1); }
+.rotate-45        { transform: rotate(45deg); }
+.rotate-90        { transform: rotate(90deg); }
+.rotate-135       { transform: rotate(135deg); }
+.rotate-180       { transform: rotate(180deg); }
+.rotate-270       { transform: rotate(270deg); }
+.rotate-minus-45  { transform: rotate(-45deg); }
+.rotate-minus-90  { transform: rotate(-90deg); }
+.scale-75         { transform: scale(0.75); }
+.scale-90         { transform: scale(0.90); }
+.scale-95         { transform: scale(0.95); }
+.scale-100        { transform: scale(1); }
+.scale-105        { transform: scale(1.05); }
+.scale-110        { transform: scale(1.10); }
+.scale-125        { transform: scale(1.25); }
+.scale-150        { transform: scale(1.50); }
+.skew-x-3        { transform: skewX(3deg); }
+.skew-x-6        { transform: skewX(6deg); }
+.skew-x-12       { transform: skewX(12deg); }
+.skew-y-3        { transform: skewY(3deg); }
+.skew-y-6        { transform: skewY(6deg); }
+.skew-y-12       { transform: skewY(12deg); }
+.transform-origin-center      { transform-origin: center; }
+.transform-origin-top         { transform-origin: top; }
+.transform-origin-top-right   { transform-origin: top right; }
+.transform-origin-right       { transform-origin: right; }
+.transform-origin-bottom-right{ transform-origin: bottom right; }
+.transform-origin-bottom      { transform-origin: bottom; }
+.transform-origin-bottom-left { transform-origin: bottom left; }
+.transform-origin-left        { transform-origin: left; }
+.transform-origin-top-left    { transform-origin: top left; }
+
+/* ── Animation ── */
+.animate-spin     { animation: santy-spin 1s linear infinite; }
+.animate-ping     { animation: santy-ping 1s cubic-bezier(0,0,0.2,1) infinite; }
+.animate-pulse    { animation: santy-pulse 2s cubic-bezier(0.4,0,0.6,1) infinite; }
+.animate-bounce   { animation: santy-bounce 1s infinite; }
+.animate-fade-in  { animation: santy-fade-in 0.5s ease; }
+.animate-fade-out { animation: santy-fade-out 0.5s ease; }
+.animate-slide-up { animation: santy-slide-up 0.4s ease; }
+.animate-slide-down { animation: santy-slide-down 0.4s ease; }
+.animate-zoom-in  { animation: santy-zoom-in 0.3s ease; }
+.animation-paused { animation-play-state: paused; }
+.animation-none   { animation: none; }
+
+@keyframes santy-spin    { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes santy-ping    { 75%, 100% { transform: scale(2); opacity: 0; } }
+@keyframes santy-pulse   { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+@keyframes santy-bounce  { 0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0.8,0,1,1); } 50% { transform: translateY(0); animation-timing-function: cubic-bezier(0,0,0.2,1); } }
+@keyframes santy-fade-in  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes santy-fade-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes santy-slide-up   { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes santy-slide-down { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes santy-zoom-in    { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+
+/* ── Cursor ── */
+.cursor-auto        { cursor: auto; }
+.cursor-default     { cursor: default; }
+.cursor-pointer     { cursor: pointer; }
+.cursor-wait        { cursor: wait; }
+.cursor-text        { cursor: text; }
+.cursor-move        { cursor: move; }
+.cursor-not-allowed { cursor: not-allowed; }
+.cursor-crosshair   { cursor: crosshair; }
+.cursor-grab        { cursor: grab; }
+.cursor-grabbing    { cursor: grabbing; }
+.cursor-zoom-in     { cursor: zoom-in; }
+.cursor-zoom-out    { cursor: zoom-out; }
+.cursor-help        { cursor: help; }
+.cursor-none        { cursor: none; }
+
+/* ── Filter ── */
+.blur-sm  { filter: blur(4px); }
+.blur     { filter: blur(8px); }
+.blur-md  { filter: blur(12px); }
+.blur-lg  { filter: blur(16px); }
+.blur-xl  { filter: blur(24px); }
+.blur-none{ filter: blur(0); }
+.brightness-50  { filter: brightness(0.5); }
+.brightness-75  { filter: brightness(0.75); }
+.brightness-90  { filter: brightness(0.9); }
+.brightness-100 { filter: brightness(1); }
+.brightness-110 { filter: brightness(1.1); }
+.brightness-125 { filter: brightness(1.25); }
+.brightness-150 { filter: brightness(1.5); }
+.brightness-200 { filter: brightness(2); }
+.contrast-50    { filter: contrast(0.5); }
+.contrast-75    { filter: contrast(0.75); }
+.contrast-100   { filter: contrast(1); }
+.contrast-125   { filter: contrast(1.25); }
+.contrast-150   { filter: contrast(1.5); }
+.contrast-200   { filter: contrast(2); }
+.grayscale      { filter: grayscale(100%); }
+.grayscale-0    { filter: grayscale(0); }
+.sepia          { filter: sepia(100%); }
+.sepia-0        { filter: sepia(0); }
+.invert         { filter: invert(100%); }
+.invert-0       { filter: invert(0); }
+.saturate-0     { filter: saturate(0); }
+.saturate-50    { filter: saturate(0.5); }
+.saturate-100   { filter: saturate(1); }
+.saturate-150   { filter: saturate(1.5); }
+.saturate-200   { filter: saturate(2); }
+.hue-rotate-30  { filter: hue-rotate(30deg); }
+.hue-rotate-60  { filter: hue-rotate(60deg); }
+.hue-rotate-90  { filter: hue-rotate(90deg); }
+.hue-rotate-180 { filter: hue-rotate(180deg); }
+
+
+/* ── Pointer Events ── */
+.pointer-none         { pointer-events: none; }
+.pointer-auto         { pointer-events: auto; }
+.pointer-all          { pointer-events: all; }
+/* Standard pointer-events-* aliases */
+.pointer-events-none  { pointer-events: none; }
+.pointer-events-auto  { pointer-events: auto; }
+
+/* ── User Select ── */
+.select-none  { user-select: none; }
+.select-text  { user-select: text; }
+.select-all   { user-select: all; }
+.select-auto  { user-select: auto; }
+
+/* ── Resize ── */
+.resize-none { resize: none; }
+.resize      { resize: both; }
+.resize-x    { resize: horizontal; }
+.resize-y    { resize: vertical; }
+
+/* ── Appearance ── */
+.appearance-none { appearance: none; -webkit-appearance: none; }
+.appearance-auto { appearance: auto; }
+
+/* ── Outline ── */
+.outline-none     { outline: none; }
+.outline          { outline: 2px solid currentColor; }
+.outline-dashed   { outline: 2px dashed currentColor; }
+.outline-offset-2 { outline-offset: 2px; }
+.outline-offset-4 { outline-offset: 4px; }
+
+/* ── List Style ── */
+.list-none   { list-style-type: none; padding-left: 0; }
+.list-disc   { list-style-type: disc; }
+.list-decimal{ list-style-type: decimal; }
+.list-inside { list-style-position: inside; }
+.list-outside{ list-style-position: outside; }
+
+/* ── Table ── */
+.table-auto    { table-layout: auto; }
+.table-fixed   { table-layout: fixed; }
+.border-collapse{ border-collapse: collapse; }
+.border-separate{ border-collapse: separate; }
+
+/* ── Columns ── */
+.columns-auto { columns: auto; }
+
+.columns-1 { columns: 1; }
+.columns-2 { columns: 2; }
+.columns-3 { columns: 3; }
+.columns-4 { columns: 4; }
+.columns-5 { columns: 5; }
+.columns-6 { columns: 6; }
+
+/* ── Screen Reader Only ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.not-sr-only {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* ── Break ── */
+.break-before-auto   { break-before: auto; }
+.break-before-always { break-before: always; }
+.break-before-avoid  { break-before: avoid; }
+.break-after-auto    { break-after: auto; }
+.break-after-always  { break-after: always; }
+.break-after-avoid   { break-after: avoid; }
+.break-inside-auto   { break-inside: auto; }
+.break-inside-avoid  { break-inside: avoid; }
+
+/* ── Isolation ── */
+.isolate          { isolation: isolate; }
+.isolation-auto   { isolation: auto; }
+
+/* ── Mix Blend Mode ── */
+.blend-normal      { mix-blend-mode: normal; }
+.blend-multiply    { mix-blend-mode: multiply; }
+.blend-screen      { mix-blend-mode: screen; }
+.blend-overlay     { mix-blend-mode: overlay; }
+.blend-darken      { mix-blend-mode: darken; }
+.blend-lighten     { mix-blend-mode: lighten; }
+.blend-difference  { mix-blend-mode: difference; }
+.blend-exclusion   { mix-blend-mode: exclusion; }
+.blend-hue         { mix-blend-mode: hue; }
+.blend-saturation  { mix-blend-mode: saturation; }
+.blend-color       { mix-blend-mode: color; }
+.blend-luminosity  { mix-blend-mode: luminosity; }
+
+/* ── Will Change ── */
+.will-change-auto      { will-change: auto; }
+.will-change-scroll    { will-change: scroll-position; }
+.will-change-contents  { will-change: contents; }
+.will-change-transform { will-change: transform; }

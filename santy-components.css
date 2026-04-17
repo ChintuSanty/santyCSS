@@ -1631,6 +1631,8 @@
 .set-max-width-narrow     { max-width: 45ch; }
 
 
+/* @SANTYMOD:typography */
+
 /* ── Variable Font Weights ── */
 .font-variable          { font-variation-settings: normal; }
 .font-condensed         { font-stretch: condensed;  font-variation-settings: 'wdth' 75; }
@@ -1666,6 +1668,8 @@
 .set-width-4-of-6 { width: 66.6667%; }
 .set-width-5-of-6 { width: 83.3333%; }
 
+
+/* @SANTYMOD:colors */
 
 /* ── Caret Colors (full shade scale) ── */
 .caret-red-50 { caret-color: #fef2f2; }
@@ -2267,6 +2271,8 @@
 .border-stone-tint-40 { border-color: color-mix(in srgb, #78716c 40%, #ffffff); }
 .border-stone-shade-10 { border-color: color-mix(in srgb, #78716c 90%, #000000); }
 /* ═══ VARIANTS_BLOCK_END ═══ */
+
+/* @SANTYMOD:layout */
 
 /* ═══════════════════════════════════════════════════════════════════════════
    v1.7 — ACCESSIBILITY UTILITIES

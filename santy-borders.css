@@ -1,0 +1,243 @@
+/* SantyCSS — borders module
+   Import individually to reduce bundle size.
+   https://santycss.santy.in */
+
+/* ── Border Width ── */
+.add-border-0        { border: 0px solid; }
+.add-border-top-0    { border-top: 0px solid; }
+.add-border-bottom-0 { border-bottom: 0px solid; }
+.add-border-left-0   { border-left: 0px solid; }
+.add-border-right-0  { border-right: 0px solid; }
+.add-border-x-0      { border-left: 0px solid; border-right: 0px solid; }
+.add-border-y-0      { border-top: 0px solid; border-bottom: 0px solid; }
+.add-border-1        { border: 1px solid; }
+.add-border-top-1    { border-top: 1px solid; }
+.add-border-bottom-1 { border-bottom: 1px solid; }
+.add-border-left-1   { border-left: 1px solid; }
+.add-border-right-1  { border-right: 1px solid; }
+.add-border-x-1      { border-left: 1px solid; border-right: 1px solid; }
+.add-border-y-1      { border-top: 1px solid; border-bottom: 1px solid; }
+.add-border-2        { border: 2px solid; }
+.add-border-top-2    { border-top: 2px solid; }
+.add-border-bottom-2 { border-bottom: 2px solid; }
+.add-border-left-2   { border-left: 2px solid; }
+.add-border-right-2  { border-right: 2px solid; }
+.add-border-x-2      { border-left: 2px solid; border-right: 2px solid; }
+.add-border-y-2      { border-top: 2px solid; border-bottom: 2px solid; }
+.add-border-3        { border: 3px solid; }
+.add-border-top-3    { border-top: 3px solid; }
+.add-border-bottom-3 { border-bottom: 3px solid; }
+.add-border-left-3   { border-left: 3px solid; }
+.add-border-right-3  { border-right: 3px solid; }
+.add-border-x-3      { border-left: 3px solid; border-right: 3px solid; }
+.add-border-y-3      { border-top: 3px solid; border-bottom: 3px solid; }
+.add-border-4        { border: 4px solid; }
+.add-border-top-4    { border-top: 4px solid; }
+.add-border-bottom-4 { border-bottom: 4px solid; }
+.add-border-left-4   { border-left: 4px solid; }
+.add-border-right-4  { border-right: 4px solid; }
+.add-border-x-4      { border-left: 4px solid; border-right: 4px solid; }
+.add-border-y-4      { border-top: 4px solid; border-bottom: 4px solid; }
+.add-border-5        { border: 5px solid; }
+.add-border-top-5    { border-top: 5px solid; }
+.add-border-bottom-5 { border-bottom: 5px solid; }
+.add-border-left-5   { border-left: 5px solid; }
+.add-border-right-5  { border-right: 5px solid; }
+.add-border-x-5      { border-left: 5px solid; border-right: 5px solid; }
+.add-border-y-5      { border-top: 5px solid; border-bottom: 5px solid; }
+.add-border-6        { border: 6px solid; }
+.add-border-top-6    { border-top: 6px solid; }
+.add-border-bottom-6 { border-bottom: 6px solid; }
+.add-border-left-6   { border-left: 6px solid; }
+.add-border-right-6  { border-right: 6px solid; }
+.add-border-x-6      { border-left: 6px solid; border-right: 6px solid; }
+.add-border-y-6      { border-top: 6px solid; border-bottom: 6px solid; }
+.add-border-8        { border: 8px solid; }
+.add-border-top-8    { border-top: 8px solid; }
+.add-border-bottom-8 { border-bottom: 8px solid; }
+.add-border-left-8   { border-left: 8px solid; }
+.add-border-right-8  { border-right: 8px solid; }
+.add-border-x-8      { border-left: 8px solid; border-right: 8px solid; }
+.add-border-y-8      { border-top: 8px solid; border-bottom: 8px solid; }
+.add-border-10        { border: 10px solid; }
+.add-border-top-10    { border-top: 10px solid; }
+.add-border-bottom-10 { border-bottom: 10px solid; }
+.add-border-left-10   { border-left: 10px solid; }
+.add-border-right-10  { border-right: 10px solid; }
+.add-border-x-10      { border-left: 10px solid; border-right: 10px solid; }
+.add-border-y-10      { border-top: 10px solid; border-bottom: 10px solid; }
+.add-border-12        { border: 12px solid; }
+.add-border-top-12    { border-top: 12px solid; }
+.add-border-bottom-12 { border-bottom: 12px solid; }
+.add-border-left-12   { border-left: 12px solid; }
+.add-border-right-12  { border-right: 12px solid; }
+.add-border-x-12      { border-left: 12px solid; border-right: 12px solid; }
+.add-border-y-12      { border-top: 12px solid; border-bottom: 12px solid; }
+.add-border-16        { border: 16px solid; }
+.add-border-top-16    { border-top: 16px solid; }
+.add-border-bottom-16 { border-bottom: 16px solid; }
+.add-border-left-16   { border-left: 16px solid; }
+.add-border-right-16  { border-right: 16px solid; }
+.add-border-x-16      { border-left: 16px solid; border-right: 16px solid; }
+.add-border-y-16      { border-top: 16px solid; border-bottom: 16px solid; }
+.add-border-20        { border: 20px solid; }
+.add-border-top-20    { border-top: 20px solid; }
+.add-border-bottom-20 { border-bottom: 20px solid; }
+.add-border-left-20   { border-left: 20px solid; }
+.add-border-right-20  { border-right: 20px solid; }
+.add-border-x-20      { border-left: 20px solid; border-right: 20px solid; }
+.add-border-y-20      { border-top: 20px solid; border-bottom: 20px solid; }
+.add-border-24        { border: 24px solid; }
+.add-border-top-24    { border-top: 24px solid; }
+.add-border-bottom-24 { border-bottom: 24px solid; }
+.add-border-left-24   { border-left: 24px solid; }
+.add-border-right-24  { border-right: 24px solid; }
+.add-border-x-24      { border-left: 24px solid; border-right: 24px solid; }
+.add-border-y-24      { border-top: 24px solid; border-bottom: 24px solid; }
+.add-border-28        { border: 28px solid; }
+.add-border-top-28    { border-top: 28px solid; }
+.add-border-bottom-28 { border-bottom: 28px solid; }
+.add-border-left-28   { border-left: 28px solid; }
+.add-border-right-28  { border-right: 28px solid; }
+.add-border-x-28      { border-left: 28px solid; border-right: 28px solid; }
+.add-border-y-28      { border-top: 28px solid; border-bottom: 28px solid; }
+.add-border-32        { border: 32px solid; }
+.add-border-top-32    { border-top: 32px solid; }
+.add-border-bottom-32 { border-bottom: 32px solid; }
+.add-border-left-32   { border-left: 32px solid; }
+.add-border-right-32  { border-right: 32px solid; }
+.add-border-x-32      { border-left: 32px solid; border-right: 32px solid; }
+.add-border-y-32      { border-top: 32px solid; border-bottom: 32px solid; }
+.add-border-40        { border: 40px solid; }
+.add-border-top-40    { border-top: 40px solid; }
+.add-border-bottom-40 { border-bottom: 40px solid; }
+.add-border-left-40   { border-left: 40px solid; }
+.add-border-right-40  { border-right: 40px solid; }
+.add-border-x-40      { border-left: 40px solid; border-right: 40px solid; }
+.add-border-y-40      { border-top: 40px solid; border-bottom: 40px solid; }
+.add-border-48        { border: 48px solid; }
+.add-border-top-48    { border-top: 48px solid; }
+.add-border-bottom-48 { border-bottom: 48px solid; }
+.add-border-left-48   { border-left: 48px solid; }
+.add-border-right-48  { border-right: 48px solid; }
+.add-border-x-48      { border-left: 48px solid; border-right: 48px solid; }
+.add-border-y-48      { border-top: 48px solid; border-bottom: 48px solid; }
+
+/* ── Border Style ── */
+.border-solid  { border-style: solid; }
+.border-dashed { border-style: dashed; }
+.border-dotted { border-style: dotted; }
+.border-double { border-style: double; }
+.border-hidden { border-style: hidden; }
+.border-none   { border-style: none; }
+
+/* ── Border Radius ── */
+.round-corners-0 { border-radius: 0px; }
+.round-corners-2 { border-radius: 2px; }
+.round-corners-4 { border-radius: 4px; }
+.round-corners-6 { border-radius: 6px; }
+.round-corners-8 { border-radius: 8px; }
+.round-corners-10 { border-radius: 10px; }
+.round-corners-12 { border-radius: 12px; }
+.round-corners-14 { border-radius: 14px; }
+.round-corners-16 { border-radius: 16px; }
+.round-corners-18 { border-radius: 18px; }
+.round-corners-20 { border-radius: 20px; }
+.round-corners-24 { border-radius: 24px; }
+.round-corners-28 { border-radius: 28px; }
+.round-corners-32 { border-radius: 32px; }
+.round-corners-36 { border-radius: 36px; }
+.round-corners-40 { border-radius: 40px; }
+.round-corners-48 { border-radius: 48px; }
+.round-corners-56 { border-radius: 56px; }
+.round-corners-64 { border-radius: 64px; }
+.round-corners-72 { border-radius: 72px; }
+.round-corners-96 { border-radius: 96px; }
+.round-corners-128 { border-radius: 128px; }
+.make-circle          { border-radius: 50%; }
+.make-pill            { border-radius: 9999px; }
+.round-top-0       { border-top-left-radius: 0; border-top-right-radius: 0; }
+.round-top-2    { border-top-left-radius: 2px; border-top-right-radius: 2px; }
+.round-bottom-2 { border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; }
+.round-left-2   { border-top-left-radius: 2px; border-bottom-left-radius: 2px; }
+.round-right-2  { border-top-right-radius: 2px; border-bottom-right-radius: 2px; }
+.round-top-4    { border-top-left-radius: 4px; border-top-right-radius: 4px; }
+.round-bottom-4 { border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; }
+.round-left-4   { border-top-left-radius: 4px; border-bottom-left-radius: 4px; }
+.round-right-4  { border-top-right-radius: 4px; border-bottom-right-radius: 4px; }
+.round-top-6    { border-top-left-radius: 6px; border-top-right-radius: 6px; }
+.round-bottom-6 { border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; }
+.round-left-6   { border-top-left-radius: 6px; border-bottom-left-radius: 6px; }
+.round-right-6  { border-top-right-radius: 6px; border-bottom-right-radius: 6px; }
+.round-top-8    { border-top-left-radius: 8px; border-top-right-radius: 8px; }
+.round-bottom-8 { border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; }
+.round-left-8   { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
+.round-right-8  { border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
+.round-top-10    { border-top-left-radius: 10px; border-top-right-radius: 10px; }
+.round-bottom-10 { border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; }
+.round-left-10   { border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
+.round-right-10  { border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
+.round-top-12    { border-top-left-radius: 12px; border-top-right-radius: 12px; }
+.round-bottom-12 { border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; }
+.round-left-12   { border-top-left-radius: 12px; border-bottom-left-radius: 12px; }
+.round-right-12  { border-top-right-radius: 12px; border-bottom-right-radius: 12px; }
+.round-top-14    { border-top-left-radius: 14px; border-top-right-radius: 14px; }
+.round-bottom-14 { border-bottom-left-radius: 14px; border-bottom-right-radius: 14px; }
+.round-left-14   { border-top-left-radius: 14px; border-bottom-left-radius: 14px; }
+.round-right-14  { border-top-right-radius: 14px; border-bottom-right-radius: 14px; }
+.round-top-16    { border-top-left-radius: 16px; border-top-right-radius: 16px; }
+.round-bottom-16 { border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; }
+.round-left-16   { border-top-left-radius: 16px; border-bottom-left-radius: 16px; }
+.round-right-16  { border-top-right-radius: 16px; border-bottom-right-radius: 16px; }
+.round-top-18    { border-top-left-radius: 18px; border-top-right-radius: 18px; }
+.round-bottom-18 { border-bottom-left-radius: 18px; border-bottom-right-radius: 18px; }
+.round-left-18   { border-top-left-radius: 18px; border-bottom-left-radius: 18px; }
+.round-right-18  { border-top-right-radius: 18px; border-bottom-right-radius: 18px; }
+.round-top-20    { border-top-left-radius: 20px; border-top-right-radius: 20px; }
+.round-bottom-20 { border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; }
+.round-left-20   { border-top-left-radius: 20px; border-bottom-left-radius: 20px; }
+.round-right-20  { border-top-right-radius: 20px; border-bottom-right-radius: 20px; }
+.round-top-24    { border-top-left-radius: 24px; border-top-right-radius: 24px; }
+.round-bottom-24 { border-bottom-left-radius: 24px; border-bottom-right-radius: 24px; }
+.round-left-24   { border-top-left-radius: 24px; border-bottom-left-radius: 24px; }
+.round-right-24  { border-top-right-radius: 24px; border-bottom-right-radius: 24px; }
+.round-top-28    { border-top-left-radius: 28px; border-top-right-radius: 28px; }
+.round-bottom-28 { border-bottom-left-radius: 28px; border-bottom-right-radius: 28px; }
+.round-left-28   { border-top-left-radius: 28px; border-bottom-left-radius: 28px; }
+.round-right-28  { border-top-right-radius: 28px; border-bottom-right-radius: 28px; }
+.round-top-32    { border-top-left-radius: 32px; border-top-right-radius: 32px; }
+.round-bottom-32 { border-bottom-left-radius: 32px; border-bottom-right-radius: 32px; }
+.round-left-32   { border-top-left-radius: 32px; border-bottom-left-radius: 32px; }
+.round-right-32  { border-top-right-radius: 32px; border-bottom-right-radius: 32px; }
+.round-top-36    { border-top-left-radius: 36px; border-top-right-radius: 36px; }
+.round-bottom-36 { border-bottom-left-radius: 36px; border-bottom-right-radius: 36px; }
+.round-left-36   { border-top-left-radius: 36px; border-bottom-left-radius: 36px; }
+.round-right-36  { border-top-right-radius: 36px; border-bottom-right-radius: 36px; }
+.round-top-40    { border-top-left-radius: 40px; border-top-right-radius: 40px; }
+.round-bottom-40 { border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; }
+.round-left-40   { border-top-left-radius: 40px; border-bottom-left-radius: 40px; }
+.round-right-40  { border-top-right-radius: 40px; border-bottom-right-radius: 40px; }
+.round-top-48    { border-top-left-radius: 48px; border-top-right-radius: 48px; }
+.round-bottom-48 { border-bottom-left-radius: 48px; border-bottom-right-radius: 48px; }
+.round-left-48   { border-top-left-radius: 48px; border-bottom-left-radius: 48px; }
+.round-right-48  { border-top-right-radius: 48px; border-bottom-right-radius: 48px; }
+.round-top-56    { border-top-left-radius: 56px; border-top-right-radius: 56px; }
+.round-bottom-56 { border-bottom-left-radius: 56px; border-bottom-right-radius: 56px; }
+.round-left-56   { border-top-left-radius: 56px; border-bottom-left-radius: 56px; }
+.round-right-56  { border-top-right-radius: 56px; border-bottom-right-radius: 56px; }
+.round-top-64    { border-top-left-radius: 64px; border-top-right-radius: 64px; }
+.round-bottom-64 { border-bottom-left-radius: 64px; border-bottom-right-radius: 64px; }
+.round-left-64   { border-top-left-radius: 64px; border-bottom-left-radius: 64px; }
+.round-right-64  { border-top-right-radius: 64px; border-bottom-right-radius: 64px; }
+.round-top-72    { border-top-left-radius: 72px; border-top-right-radius: 72px; }
+.round-bottom-72 { border-bottom-left-radius: 72px; border-bottom-right-radius: 72px; }
+.round-left-72   { border-top-left-radius: 72px; border-bottom-left-radius: 72px; }
+.round-right-72  { border-top-right-radius: 72px; border-bottom-right-radius: 72px; }
+.round-top-96    { border-top-left-radius: 96px; border-top-right-radius: 96px; }
+.round-bottom-96 { border-bottom-left-radius: 96px; border-bottom-right-radius: 96px; }
+.round-left-96   { border-top-left-radius: 96px; border-bottom-left-radius: 96px; }
+.round-right-96  { border-top-right-radius: 96px; border-bottom-right-radius: 96px; }
+.round-top-128    { border-top-left-radius: 128px; border-top-right-radius: 128px; }
+.round-bottom-128 { border-bottom-left-radius: 128px; border-bottom-right-radius: 128px; }
+.round-left-128   { border-top-left-radius: 128px; border-bottom-left-radius: 128px; }
+.round-right-128  { border-top-right-radius: 128px; border-bottom-right-radius: 128px; }

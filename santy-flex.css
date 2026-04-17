@@ -1,0 +1,91 @@
+/* SantyCSS — flex module
+   Import individually to reduce bundle size.
+   https://santycss.santy.in */
+
+/* ── Flex Direction ── */
+.flex-row            { flex-direction: row; }
+.flex-row-reverse    { flex-direction: row-reverse; }
+.flex-column         { flex-direction: column; }
+.flex-column-reverse { flex-direction: column-reverse; }
+
+/* ── Flex Wrap ── */
+.flex-wrap        { flex-wrap: wrap; }
+.flex-wrap-reverse{ flex-wrap: wrap-reverse; }
+.flex-nowrap      { flex-wrap: nowrap; }
+
+/* ── Flex Grow / Shrink / None ── */
+.flex-grow        { flex-grow: 1; }
+.flex-grow-none   { flex-grow: 0; }
+.flex-shrink      { flex-shrink: 1; }
+.flex-shrink-none { flex-shrink: 0; }
+.flex-auto        { flex: 1 1 auto; }
+.flex-initial     { flex: 0 1 auto; }
+.flex-none        { flex: none; }
+.flex-equal       { flex: 1; }
+
+/* ── Align Items ── */
+.align-start    { align-items: flex-start; }
+.align-end      { align-items: flex-end; }
+.align-center   { align-items: center; }
+.align-stretch  { align-items: stretch; }
+.align-baseline { align-items: baseline; }
+
+/* ── Align Self ── */
+.self-start    { align-self: flex-start; }
+.self-end      { align-self: flex-end; }
+.self-center   { align-self: center; }
+.self-stretch  { align-self: stretch; }
+.self-baseline { align-self: baseline; }
+.self-auto     { align-self: auto; }
+
+/* ── Align Content ── */
+.content-start   { align-content: flex-start; }
+.content-end     { align-content: flex-end; }
+.content-center  { align-content: center; }
+.content-stretch { align-content: stretch; }
+.content-between { align-content: space-between; }
+.content-around  { align-content: space-around; }
+.content-evenly  { align-content: space-evenly; }
+
+/* ── Justify Content ── */
+.justify-start   { justify-content: flex-start; }
+.justify-end     { justify-content: flex-end; }
+.justify-center  { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-around  { justify-content: space-around; }
+.justify-evenly  { justify-content: space-evenly; }
+
+/* ── Justify Items ── */
+.justify-items-start   { justify-items: start; }
+.justify-items-end     { justify-items: end; }
+.justify-items-center  { justify-items: center; }
+.justify-items-stretch { justify-items: stretch; }
+
+/* ── Justify Self ── */
+.justify-self-start   { justify-self: start; }
+.justify-self-end     { justify-self: end; }
+.justify-self-center  { justify-self: center; }
+.justify-self-stretch { justify-self: stretch; }
+.justify-self-auto    { justify-self: auto; }
+
+/* ── Place Content / Items / Self ── */
+.place-center  { place-items: center; place-content: center; }
+.place-stretch { place-items: stretch; }
+
+/* ── Order ── */
+.order-first { order: -9999; }
+.order-last  { order: 9999; }
+.order-none  { order: 0; }
+
+.order-1 { order: 1; }
+.order-2 { order: 2; }
+.order-3 { order: 3; }
+.order-4 { order: 4; }
+.order-5 { order: 5; }
+.order-6 { order: 6; }
+.order-7 { order: 7; }
+.order-8 { order: 8; }
+.order-9 { order: 9; }
+.order-10 { order: 10; }
+.order-11 { order: 11; }
+.order-12 { order: 12; }

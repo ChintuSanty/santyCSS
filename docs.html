@@ -195,7 +195,7 @@
     <a href="index.html" class="make-flex align-center gap-10 text-no-decoration">
       <img src="assest/santy_css.png" alt="SantyCSS" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
       <span class="set-text-20 text-bold color-gray-900">Santy<span class="color-blue-600">CSS</span></span>
-      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v2.5.1</span>
+      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v2.6.0</span>
     </a>
     <button class="nav-hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
       <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -251,12 +251,13 @@
 
     <div class="sidebar-group">
       <div class="sidebar-group-label">CSS Modules</div>
+      <a href="#modules" class="sidebar-link"><span class="sidebar-dot" style="background:#10b981;"></span>⚡ Granular Imports (v2.6)</a>
       <a href="#module-full" class="sidebar-link"><span class="sidebar-dot" style="background:#6366f1;"></span>santy.css — Full Bundle</a>
       <a href="#module-core" class="sidebar-link"><span class="sidebar-dot" style="background:#3b82f6;"></span>santy-core.css — Utilities</a>
       <a href="#module-components" class="sidebar-link"><span class="sidebar-dot" style="background:#22c55e;"></span>santy-components.css</a>
       <a href="#module-animations" class="sidebar-link"><span class="sidebar-dot" style="background:#f59e0b;"></span>santy-animations.css</a>
       <a href="#v17-features" class="sidebar-link"><span class="sidebar-dot" style="background:#8b5cf6;"></span>v1.7 Features</a>
-      <a href="changelog.html" class="sidebar-link"><span class="sidebar-dot" style="background:#6366f1;"></span>What's New in v1.8 ↗</a>
+      <a href="changelog.html" class="sidebar-link"><span class="sidebar-dot" style="background:#6366f1;"></span>What's New in v2.6 ↗</a>
       <a href="#figma-plugin" class="sidebar-link"><span class="sidebar-dot" style="background:#ec4899;"></span>🎨 Figma Plugin</a>
       <a href="#module-email" class="sidebar-link"><span class="sidebar-dot" style="background:#ec4899;"></span>santy-email.css</a>
     </div>
@@ -284,7 +285,7 @@
     <!-- Page title -->
     <div class="add-margin-bottom-48">
       <div class="make-flex align-center gap-12 add-margin-bottom-12">
-        <span class="chip chip-blue">v2.5.1</span>
+        <span class="chip chip-blue">v2.6.0</span>
         <span class="chip chip-green">MIT License</span>
         <a href="https://www.npmjs.com/package/santycss" target="_blank" class="chip chip-red" style="text-decoration:none;">npm ↗</a>
       </div>
@@ -478,6 +479,109 @@ santy.email      <span class="c-com">// → /path/to/dist/santy-email.css</span>
     <!-- ═══════════════════════════════════════════════════════════════════
          MODULE: FULL BUNDLE
     ═══════════════════════════════════════════════════════════════════ -->
+    <!-- ─── GRANULAR MODULE IMPORTS ───────────────────────────────────────────── -->
+    <section id="modules" class="doc-section">
+      <div class="module-banner" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0);">
+        <div class="module-icon" style="background:#10b981;color:#fff;">⚡</div>
+        <div>
+          <div class="make-flex align-center gap-10 add-margin-bottom-8">
+            <h2 class="set-text-24 text-bold color-gray-900" style="margin:0;">Granular Module Imports</h2>
+            <span class="chip" style="background:#d1fae5;color:#065f46;border-color:#6ee7b7;">New in v2.6.0</span>
+          </div>
+          <p class="set-text-15 color-gray-600 line-height-relaxed" style="margin:0;">Import only the CSS you need. Each module is a standalone file — combine any mix to build the smallest possible bundle for your project.</p>
+        </div>
+      </div>
+
+      <p class="set-text-14 color-gray-600 line-height-relaxed add-margin-bottom-24">Instead of loading the full 1.2 MB bundle, pick only the modules your UI actually uses. Each module is self-contained and can be imported individually in any order.</p>
+
+      <h3 class="set-text-18 text-semibold color-gray-900 add-margin-bottom-16">Available modules</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:28px;">
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;">
+          <code style="font-size:12px;font-weight:700;color:#0f172a;">reset</code><span style="font-size:11px;color:#64748b;float:right;">1.9 KB</span>
+          <p style="font-size:12px;color:#64748b;margin:6px 0 0;line-height:1.5;">CSS reset + design tokens (always include this first)</p>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;">
+          <code style="font-size:12px;font-weight:700;color:#0f172a;">layout</code><span style="font-size:11px;color:#64748b;float:right;">86 KB</span>
+          <p style="font-size:12px;color:#64748b;margin:6px 0 0;line-height:1.5;">Display, position, overflow, z-index, object-fit, aspect-ratio, a11y</p>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;">
+          <code style="font-size:12px;font-weight:700;color:#0f172a;">flex</code><span style="font-size:11px;color:#64748b;float:right;">3 KB</span>
+          <p style="font-size:12px;color:#64748b;margin:6px 0 0;line-height:1.5;">Flex direction, wrap, grow, shrink, align, justify</p>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;">
+          <code style="font-size:12px;font-weight:700;color:#0f172a;">grid</code><span style="font-size:11px;color:#64748b;float:right;">2.6 KB</span>
+          <p style="font-size:12px;color:#64748b;margin:6px 0 0;line-height:1.5;">Grid template columns, rows, span, gap</p>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;">
+          <code style="font-size:12px;font-weight:700;color:#0f172a;">spacing</code><span style="font-size:11px;color:#64748b;float:right;">30 KB</span>
+          <p style="font-size:12px;color:#64748b;margin:6px 0 0;line-height:1.5;">Padding, margin (all directions, all scale values)</p>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;">
+          <code style="font-size:12px;font-weight:700;color:#0f172a;">sizing</code><span style="font-size:11px;color:#64748b;float:right;">8.3 KB</span>
+          <p style="font-size:12px;color:#64748b;margin:6px 0 0;line-height:1.5;">Width, height, min/max dimensions, fractional sizes</p>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;">
+          <code style="font-size:12px;font-weight:700;color:#0f172a;">typography</code><span style="font-size:11px;color:#64748b;float:right;">6.3 KB</span>
+          <p style="font-size:12px;color:#64748b;margin:6px 0 0;line-height:1.5;">Font size, weight, family, line-height, text-align, decoration</p>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;">
+          <code style="font-size:12px;font-weight:700;color:#0f172a;">colors</code><span style="font-size:11px;color:#64748b;float:right;">82 KB</span>
+          <p style="font-size:12px;color:#64748b;margin:6px 0 0;line-height:1.5;">Text color, background color, border color, caret color (full palette)</p>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;">
+          <code style="font-size:12px;font-weight:700;color:#0f172a;">borders</code><span style="font-size:11px;color:#64748b;float:right;">15 KB</span>
+          <p style="font-size:12px;color:#64748b;margin:6px 0 0;line-height:1.5;">Border width, style, radius, side-specific</p>
+        </div>
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;">
+          <code style="font-size:12px;font-weight:700;color:#0f172a;">effects</code><span style="font-size:11px;color:#64748b;float:right;">11 KB</span>
+          <p style="font-size:12px;color:#64748b;margin:6px 0 0;line-height:1.5;">Opacity, shadows, filters, transitions, cursor, pointer-events</p>
+        </div>
+      </div>
+
+      <h3 class="set-text-18 text-semibold color-gray-900 add-margin-bottom-16">Import examples</h3>
+
+      <p class="set-text-14 color-gray-700 text-semibold add-margin-bottom-8">ES module / Vite / Next.js / Vue</p>
+      <div class="code-block add-margin-bottom-20">
+<pre><span class="c-com">// Minimal dashboard UI — ~50 KB total</span>
+<span class="c-kw">import</span> <span class="c-str">'santycss/css/reset'</span>;
+<span class="c-kw">import</span> <span class="c-str">'santycss/css/flex'</span>;
+<span class="c-kw">import</span> <span class="c-str">'santycss/css/grid'</span>;
+<span class="c-kw">import</span> <span class="c-str">'santycss/css/spacing'</span>;
+<span class="c-kw">import</span> <span class="c-str">'santycss/css/typography'</span>;
+<span class="c-kw">import</span> <span class="c-str">'santycss/css/colors'</span>;
+<span class="c-kw">import</span> <span class="c-str">'santycss/css/components'</span>;  <span class="c-com">// pre-built UI components</span>
+
+<span class="c-com">// Add responsive / hover / dark-mode variants if you use them</span>
+<span class="c-kw">import</span> <span class="c-str">'santycss/css/variants'</span>;</pre>
+      </div>
+
+      <p class="set-text-14 color-gray-700 text-semibold add-margin-bottom-8">CDN — individual module links</p>
+      <div class="code-block add-margin-bottom-20">
+<pre><span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-reset.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-flex.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-spacing.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-typography.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-colors.css"</span><span class="c-tag">&gt;</span></pre>
+      </div>
+
+      <p class="set-text-14 color-gray-700 text-semibold add-margin-bottom-8">Node.js path helpers</p>
+      <div class="code-block add-margin-bottom-20">
+<pre><span class="c-kw">const</span> santy <span class="c-op">=</span> <span class="c-fn">require</span>(<span class="c-str">'santycss'</span>);
+
+<span class="c-com">// Absolute paths for webpack / rollup config</span>
+santy.reset      <span class="c-com">// → /path/to/dist/santy-reset.css</span>
+santy.flex       <span class="c-com">// → /path/to/dist/santy-flex.css</span>
+santy.spacing    <span class="c-com">// → /path/to/dist/santy-spacing.css</span>
+santy.typography <span class="c-com">// → /path/to/dist/santy-typography.css</span>
+santy.colors     <span class="c-com">// → /path/to/dist/santy-colors.css</span>
+<span class="c-com">// … and: santy.layout, santy.grid, santy.sizing, santy.borders, santy.effects</span></pre>
+      </div>
+
+      <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:14px 16px;font-size:13px;color:#92400e;line-height:1.6;">
+        <strong>Note:</strong> Granular modules contain base utility classes only — no responsive (<code style="font-size:12px;background:rgba(0,0,0,.06);padding:1px 5px;border-radius:4px;">md:</code>, <code style="font-size:12px;background:rgba(0,0,0,.06);padding:1px 5px;border-radius:4px;">on-hover:</code>) or dark-mode variants. Import <code style="font-size:12px;background:rgba(0,0,0,.06);padding:1px 5px;border-radius:4px;">santycss/css/variants</code> alongside them if you need those.
+      </div>
+    </section>
+
     <section id="module-full" class="doc-section">
       <div class="module-banner" style="background:linear-gradient(135deg,#ede9fe,#dbeafe);">
         <div class="module-icon" style="background:#6366f1;color:#fff;">📦</div>
@@ -1056,7 +1160,7 @@ santy.email      <span class="c-com">// → /path/to/dist/santy-email.css</span>
           <strong class="set-text-15 color-gray-800">Full version history</strong>
           <span class="chip">New</span>
         </div>
-        <p class="set-text-13 color-gray-600">New <code class="chip">changelog.html</code> page tracks every release from v1.0.0 → v2.5.1 with New / Fix / Improve tags and a timeline layout.</p>
+        <p class="set-text-13 color-gray-600">New <code class="chip">changelog.html</code> page tracks every release from v1.0.0 → v2.6.0 with New / Fix / Improve tags and a timeline layout.</p>
       </div>
     </section>
 

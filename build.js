@@ -47,8 +47,10 @@ const namedColors = { white: '#ffffff', black: '#000000', transparent: 'transpar
 // ─── CSS OUTPUT BUILDER ─────────────────────────────────────────────────────
 const lines = [];
 const add = (...css) => lines.push(...css);
+const mod = (name) => lines.push(`\n/* @SANTYMOD:${name} */`);
 
 // ─── CSS RESET + BASE ────────────────────────────────────────────────────────
+mod('reset');
 add(
 `/* ============================================================
    SantyCSS v2.3.0  —  Plain-English Utility CSS Framework
@@ -91,6 +93,7 @@ add(
 `);
 
 // ─── DISPLAY ────────────────────────────────────────────────────────────────
+mod('layout');
 add(
 `/* ── Display ── */
 .make-block        { display: block; }
@@ -114,6 +117,7 @@ add(
 `);
 
 // ─── FLEX ────────────────────────────────────────────────────────────────────
+mod('flex');
 add(
 `/* ── Flex Direction ── */
 .flex-row            { flex-direction: row; }
@@ -194,6 +198,7 @@ add(
 for (let i = 1; i <= 12; i++) add(`.order-${i} { order: ${i}; }`);
 
 // ─── GRID ────────────────────────────────────────────────────────────────────
+mod('grid');
 add(`\n/* ── Grid Template Columns ── */`);
 gridCols.forEach(n => add(`.grid-cols-${n} { grid-template-columns: repeat(${n}, minmax(0, 1fr)); }`));
 add(`.grid-cols-none { grid-template-columns: none; }`);
@@ -221,6 +226,7 @@ add(`\n/* ── Grid Auto Flow ── */
 `);
 
 // ─── SPACING ─────────────────────────────────────────────────────────────────
+mod('spacing');
 const spDir = {
   '':       'all',
   'top':    'top',
@@ -280,6 +286,7 @@ spacing.forEach(v => {
 });
 
 // ─── SIZING ──────────────────────────────────────────────────────────────────
+mod('sizing');
 add(`\n/* ── Width ── */`);
 spacing.forEach(v => add(`.set-width-${v} { width: ${v}px; }`));
 [1,2,3,4,5,6,7,8,9,10,11,12].forEach(n => {
@@ -326,6 +333,7 @@ add(`.min-width-none    { min-width: none; }`);
 add(`.max-width-none    { max-width: none; }`);
 
 // ─── BORDER ──────────────────────────────────────────────────────────────────
+mod('borders');
 add(`\n/* ── Border Width ── */`);
 borderWidths.forEach(v => {
   add(`.add-border-${v}        { border: ${v}px solid; }`);
@@ -358,6 +366,7 @@ radii.filter(v=>v>0).forEach(v => {
 });
 
 // ─── TYPOGRAPHY ──────────────────────────────────────────────────────────────
+mod('typography');
 add(`\n/* ── Font Size ── */`);
 fontSizes.forEach(v => add(`.set-text-${v} { font-size: ${v}px; }`));
 
@@ -439,6 +448,7 @@ add(`.letter-space-wider  { letter-spacing: 0.05em; }`);
 add(`.letter-space-widest { letter-spacing: 0.1em; }`);
 
 // ─── COLORS ──────────────────────────────────────────────────────────────────
+mod('colors');
 add(`\n/* ── Text Colors ── */`);
 Object.entries(palette).forEach(([name, shades]) => {
   Object.entries(shades).forEach(([shade, hex]) => {
@@ -523,6 +533,7 @@ add(`\n/* ── Background Position ── */
 `);
 
 // ─── POSITION ────────────────────────────────────────────────────────────────
+mod('layout');
 add(`\n/* ── Position ── */
 .position-static   { position: static; }
 .position-relative { position: relative; }
@@ -583,6 +594,7 @@ add(`\n/* ── Overflow ── */
 `);
 
 // ─── OPACITY ─────────────────────────────────────────────────────────────────
+mod('effects');
 add(`\n/* ── Opacity ── */`);
 opacities.forEach(v => add(`.opacity-${v} { opacity: ${v / 100}; }`));
 
@@ -699,6 +711,7 @@ add(`\n/* ── Cursor ── */
 `);
 
 // ─── OBJECT FIT / POSITION ────────────────────────────────────────────────────
+mod('layout');
 add(`\n/* ── Object Fit ── */
 .fit-cover   { object-fit: cover; }
 .fit-contain { object-fit: contain; }
@@ -745,6 +758,7 @@ add(`\n/* ── Aspect Ratio ── */
 `);
 
 // ─── FILTER ───────────────────────────────────────────────────────────────────
+mod('effects');
 add(`\n/* ── Filter ── */
 .blur-sm  { filter: blur(4px); }
 .blur     { filter: blur(8px); }
@@ -892,6 +906,7 @@ add(`\n/* ── Screen Reader Only ── */
 `);
 
 // ─── RESPONSIVE BREAKPOINTS ───────────────────────────────────────────────────
+mod('variants');
 const breakpoints = {
   'on-mobile':  '(max-width: 639px)',
   'on-tablet':  '(min-width: 640px) and (max-width: 1023px)',
@@ -1480,6 +1495,7 @@ add('\n/* ── on-container-below-{size}: — max-width container queries ─�
 add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
 
 // ─── EXTENDED ANIMATIONS (animate.css compatible) ────────────────────────────
+mod('animations');
 add(ANIMATION_CSS);
 
 // ─── SCROLL ANIMATIONS ───────────────────────────────────────────────────────
@@ -1611,6 +1627,7 @@ add(`
 `);
 
 // ─── COMPONENT SHORTCUTS ───────────────────────────────────────────────────────
+mod('components');
 add(`\n/* ═══ SANTY COMPONENTS ═══ */
 
 /* ═══════════════════════════════════════════════════════════════
@@ -3452,6 +3469,7 @@ add(`
 `);
 
 // ─── UTILITY GAPS v1.6 ───────────────────────────────────────────────────────
+mod('typography');
 add(`
 /* ── Variable Font Weights ── */
 .font-variable          { font-variation-settings: normal; }
@@ -3490,6 +3508,7 @@ add(`
 `);
 
 // Caret colors — full shade scale
+mod('colors');
 add(`\n/* ── Caret Colors (full shade scale) ── */`);
 Object.entries(palette).forEach(([name, shades]) => {
   Object.entries(shades).forEach(([shade, hex]) => {
@@ -3520,6 +3539,7 @@ Object.entries(palette).forEach(([name, shades]) => {
 add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
 
 // ─── NEW FEATURES v1.7 ───────────────────────────────────────────────────────
+mod('layout');
 add(`
 /* ═══════════════════════════════════════════════════════════════════════════
    v1.7 — ACCESSIBILITY UTILITIES
@@ -4268,6 +4288,25 @@ add(`
 // ─── WRITE FILES (full + split) ───────────────────────────────────────────────
 const fullCSS = lines.join('\n');
 
+// ─── GRANULAR MODULE EXTRACTION ──────────────────────────────────────────────
+function extractModuleCSS(css, name) {
+  const marker = `\n/* @SANTYMOD:${name} */`;
+  const anyMarker = /\n\/\* @SANTYMOD:[a-z]+ \*\//g;
+  const segments = css.split(anyMarker);
+  const markers = [...css.matchAll(/\n\/\* @SANTYMOD:([a-z]+) \*\//g)].map(m => m[1]);
+  const parts = [];
+  for (let i = 0; i < markers.length; i++) {
+    if (markers[i] === name) parts.push(segments[i + 1].trim());
+  }
+  return parts.join('\n\n');
+}
+
+const MODULE_NAMES = ['reset', 'layout', 'flex', 'grid', 'spacing', 'sizing', 'typography', 'colors', 'borders', 'effects'];
+const moduleCSS = {};
+for (const name of MODULE_NAMES) {
+  moduleCSS[name] = `/* SantyCSS — ${name} module\n   Import individually to reduce bundle size.\n   https://santycss.santy.in */\n\n` + extractModuleCSS(fullCSS, name);
+}
+
 // Split at component marker for santy-core.css (utilities only, no components)
 const COMP_MARKER = '/* ═══ SANTY COMPONENTS ═══ */';
 const compSplit = fullCSS.indexOf(COMP_MARKER);
@@ -4998,6 +5037,12 @@ fs.writeFileSync(path.join(distDir, 'santy-animations.css'), animCSS);
 fs.writeFileSync(path.join(distDir, 'santy-email.css'), EMAIL_CSS.trim());
 fs.writeFileSync(path.join(distDir, 'santy-scroll.js'), SCROLL_JS);
 
+// Write granular module files
+for (const name of MODULE_NAMES) {
+  fs.writeFileSync(`santy-${name}.css`, moduleCSS[name]);
+  fs.writeFileSync(path.join(distDir, `santy-${name}.css`), moduleCSS[name]);
+}
+
 // Generate minified version
 const minCSS = fullCSS
   .replace(/\/\*[\s\S]*?\*\//g, '')
@@ -5023,3 +5068,8 @@ console.log(`✅ santy-animations.css — ${kb(animCSS.length)} (animations only
 console.log(`✅ santy-email.css    — ${kb(EMAIL_CSS.length)} (email templates)`);
 console.log(`✅ santy-scroll.js    — ${kb(SCROLL_JS.length)} (IntersectionObserver for when-visible:)`);
 console.log(`✅ dist/              — mirrored for NPM package`);
+console.log('');
+console.log('📦 Granular modules:');
+for (const name of MODULE_NAMES) {
+  console.log(`   santy-${name}.css — ${kb(moduleCSS[name].length)}`);
+}

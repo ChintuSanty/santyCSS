@@ -1,0 +1,161 @@
+/* SantyCSS — typography module
+   Import individually to reduce bundle size.
+   https://santycss.santy.in */
+
+/* ── Font Size ── */
+.set-text-8 { font-size: 8px; }
+.set-text-9 { font-size: 9px; }
+.set-text-10 { font-size: 10px; }
+.set-text-11 { font-size: 11px; }
+.set-text-12 { font-size: 12px; }
+.set-text-13 { font-size: 13px; }
+.set-text-14 { font-size: 14px; }
+.set-text-15 { font-size: 15px; }
+.set-text-16 { font-size: 16px; }
+.set-text-17 { font-size: 17px; }
+.set-text-18 { font-size: 18px; }
+.set-text-19 { font-size: 19px; }
+.set-text-20 { font-size: 20px; }
+.set-text-22 { font-size: 22px; }
+.set-text-24 { font-size: 24px; }
+.set-text-26 { font-size: 26px; }
+.set-text-28 { font-size: 28px; }
+.set-text-30 { font-size: 30px; }
+.set-text-32 { font-size: 32px; }
+.set-text-36 { font-size: 36px; }
+.set-text-40 { font-size: 40px; }
+.set-text-44 { font-size: 44px; }
+.set-text-48 { font-size: 48px; }
+.set-text-52 { font-size: 52px; }
+.set-text-56 { font-size: 56px; }
+.set-text-60 { font-size: 60px; }
+.set-text-64 { font-size: 64px; }
+.set-text-72 { font-size: 72px; }
+.set-text-80 { font-size: 80px; }
+.set-text-96 { font-size: 96px; }
+.set-text-120 { font-size: 120px; }
+.set-text-144 { font-size: 144px; }
+
+/* ── Font Weight ── */
+.text-thin        { font-weight: 100; }
+.text-extra-light { font-weight: 200; }
+.text-light       { font-weight: 300; }
+.text-normal      { font-weight: 400; }
+.text-medium      { font-weight: 500; }
+.text-semibold    { font-weight: 600; }
+.text-bold        { font-weight: 700; }
+.text-extra-bold  { font-weight: 800; }
+.text-black-weight{ font-weight: 900; }
+
+/* ── Font Style ── */
+.text-italic     { font-style: italic; }
+.text-not-italic { font-style: normal; }
+
+/* ── Font Family ── */
+.font-sans  { font-family: var(--santy-font-sans); }
+.font-serif { font-family: var(--santy-font-serif); }
+.font-mono  { font-family: var(--santy-font-mono); }
+
+/* ── Text Align ── */
+.text-left    { text-align: left; }
+.text-center  { text-align: center; }
+.text-right   { text-align: right; }
+.text-justify { text-align: justify; }
+.text-start   { text-align: start; }
+.text-end     { text-align: end; }
+
+/* ── Text Decoration ── */
+.text-underline      { text-decoration: underline; }
+.text-overline       { text-decoration: overline; }
+.text-strikethrough  { text-decoration: line-through; }
+.text-no-decoration  { text-decoration: none; }
+
+/* ── Text Transform ── */
+.text-uppercase  { text-transform: uppercase; }
+.text-lowercase  { text-transform: lowercase; }
+.text-capitalize { text-transform: capitalize; }
+.text-no-transform { text-transform: none; }
+
+/* ── Text Overflow ── */
+.text-truncate   { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.text-clip       { text-overflow: clip; }
+.text-ellipsis   { text-overflow: ellipsis; }
+.text-wrap       { white-space: normal; }
+.text-nowrap     { white-space: nowrap; }
+.text-pre        { white-space: pre; }
+.text-pre-wrap   { white-space: pre-wrap; }
+.text-pre-line   { white-space: pre-line; }
+.text-break-word { word-break: break-word; overflow-wrap: break-word; }
+.text-break-all  { word-break: break-all; }
+
+/* ── Line Height ── */
+.line-height-none  { line-height: 1; }
+.line-height-tight { line-height: 1.25; }
+.line-height-snug  { line-height: 1.375; }
+.line-height-normal { line-height: 1.5; }
+.line-height-relaxed { line-height: 1.625; }
+.line-height-loose { line-height: 2; }
+
+.line-height-1 { line-height: 1; }
+.line-height-1-25 { line-height: 1.25; }
+.line-height-1-375 { line-height: 1.375; }
+.line-height-1-5 { line-height: 1.5; }
+.line-height-1-625 { line-height: 1.625; }
+.line-height-1-75 { line-height: 1.75; }
+.line-height-2 { line-height: 2; }
+.line-height-2-5 { line-height: 2.5; }
+.line-height-3 { line-height: 3; }
+
+/* ── Letter Spacing ── */
+.subtract-letter-space-2 { letter-spacing: -2px; }
+.subtract-letter-space-1 { letter-spacing: -1px; }
+.add-letter-space-0 { letter-spacing: 0px; }
+.add-letter-space-1 { letter-spacing: 1px; }
+.add-letter-space-2 { letter-spacing: 2px; }
+.add-letter-space-4 { letter-spacing: 4px; }
+.add-letter-space-6 { letter-spacing: 6px; }
+.add-letter-space-8 { letter-spacing: 8px; }
+.add-letter-space-10 { letter-spacing: 10px; }
+.add-letter-space-12 { letter-spacing: 12px; }
+.add-letter-space-16 { letter-spacing: 16px; }
+.letter-space-tight  { letter-spacing: -0.05em; }
+.letter-space-snug   { letter-spacing: -0.025em; }
+.letter-space-normal { letter-spacing: 0em; }
+.letter-space-wide   { letter-spacing: 0.025em; }
+.letter-space-wider  { letter-spacing: 0.05em; }
+.letter-space-widest { letter-spacing: 0.1em; }
+
+/* ── Variable Font Weights ── */
+.font-variable          { font-variation-settings: normal; }
+.font-condensed         { font-stretch: condensed;  font-variation-settings: 'wdth' 75; }
+.font-expanded          { font-stretch: expanded;   font-variation-settings: 'wdth' 125; }
+.font-italic-variable   { font-style: italic; font-variation-settings: 'ital' 1; }
+.set-font-weight-100 { font-weight: 100; font-variation-settings: 'wght' 100; }
+.set-font-weight-200 { font-weight: 200; font-variation-settings: 'wght' 200; }
+.set-font-weight-300 { font-weight: 300; font-variation-settings: 'wght' 300; }
+.set-font-weight-400 { font-weight: 400; font-variation-settings: 'wght' 400; }
+.set-font-weight-450 { font-weight: 450; font-variation-settings: 'wght' 450; }
+.set-font-weight-500 { font-weight: 500; font-variation-settings: 'wght' 500; }
+.set-font-weight-550 { font-weight: 550; font-variation-settings: 'wght' 550; }
+.set-font-weight-600 { font-weight: 600; font-variation-settings: 'wght' 600; }
+.set-font-weight-700 { font-weight: 700; font-variation-settings: 'wght' 700; }
+.set-font-weight-800 { font-weight: 800; font-variation-settings: 'wght' 800; }
+.set-font-weight-900 { font-weight: 900; font-variation-settings: 'wght' 900; }
+
+/* ── Negative Z-index (layer behind parent) ── */
+.z-minus-1  { z-index: -1; }
+.z-minus-2  { z-index: -2; }
+.z-minus-3  { z-index: -3; }
+.z-minus-5  { z-index: -5; }
+.z-minus-10 { z-index: -10; }
+
+/* ── Fractional Widths — fifths & sixths ── */
+.set-width-1-of-5 { width: 20%; }
+.set-width-2-of-5 { width: 40%; }
+.set-width-3-of-5 { width: 60%; }
+.set-width-4-of-5 { width: 80%; }
+.set-width-1-of-6 { width: 16.6667%; }
+.set-width-2-of-6 { width: 33.3333%; }
+.set-width-3-of-6 { width: 50%; }
+.set-width-4-of-6 { width: 66.6667%; }
+.set-width-5-of-6 { width: 83.3333%; }

@@ -1,0 +1,56 @@
+/* SantyCSS — grid module
+   Import individually to reduce bundle size.
+   https://santycss.santy.in */
+
+/* ── Grid Template Columns ── */
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.grid-cols-7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.grid-cols-8 { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+.grid-cols-9 { grid-template-columns: repeat(9, minmax(0, 1fr)); }
+.grid-cols-10 { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+.grid-cols-11 { grid-template-columns: repeat(11, minmax(0, 1fr)); }
+.grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+.grid-cols-none { grid-template-columns: none; }
+
+/* ── Grid Template Rows ── */
+.grid-rows-1 { grid-template-rows: repeat(1, minmax(0, 1fr)); }
+.grid-rows-2 { grid-template-rows: repeat(2, minmax(0, 1fr)); }
+.grid-rows-3 { grid-template-rows: repeat(3, minmax(0, 1fr)); }
+.grid-rows-4 { grid-template-rows: repeat(4, minmax(0, 1fr)); }
+.grid-rows-5 { grid-template-rows: repeat(5, minmax(0, 1fr)); }
+.grid-rows-6 { grid-template-rows: repeat(6, minmax(0, 1fr)); }
+
+/* ── Grid Column / Row Span ── */
+.span-col-1 { grid-column: span 1 / span 1; }
+.span-col-2 { grid-column: span 2 / span 2; }
+.span-col-3 { grid-column: span 3 / span 3; }
+.span-col-4 { grid-column: span 4 / span 4; }
+.span-col-5 { grid-column: span 5 / span 5; }
+.span-col-6 { grid-column: span 6 / span 6; }
+.span-col-7 { grid-column: span 7 / span 7; }
+.span-col-8 { grid-column: span 8 / span 8; }
+.span-col-9 { grid-column: span 9 / span 9; }
+.span-col-10 { grid-column: span 10 / span 10; }
+.span-col-11 { grid-column: span 11 / span 11; }
+.span-col-12 { grid-column: span 12 / span 12; }
+.span-row-1 { grid-row: span 1 / span 1; }
+.span-row-2 { grid-row: span 2 / span 2; }
+.span-row-3 { grid-row: span 3 / span 3; }
+.span-row-4 { grid-row: span 4 / span 4; }
+.span-row-5 { grid-row: span 5 / span 5; }
+.span-row-6 { grid-row: span 6 / span 6; }
+.span-col-full { grid-column: 1 / -1; }
+.span-row-full { grid-row: 1 / -1; }
+
+/* ── Grid Auto Flow ── */
+.grid-flow-row    { grid-auto-flow: row; }
+.grid-flow-col    { grid-auto-flow: column; }
+.grid-flow-dense  { grid-auto-flow: dense; }
+.grid-auto-cols-min  { grid-auto-columns: min-content; }
+.grid-auto-cols-max  { grid-auto-columns: max-content; }
+.grid-auto-cols-fr   { grid-auto-columns: minmax(0, 1fr); }
