@@ -306,6 +306,15 @@
   <!-- ── Main ── -->
   <main class="snip-main">
 
+    <input
+      type="text"
+      id="snippet-search"
+      placeholder="Search snippets... e.g. card, navbar, flex"
+      class="input set-width-full add-margin-bottom-24"
+      style="display:block;width:100%;max-width:100%;padding:10px 16px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:14px;outline:none;margin-bottom:24px;transition:border-color .2s;"
+      onfocus="this.style.borderColor='#3b82f6'" onblur="this.style.borderColor='#e5e7eb'"
+    >
+
     <!-- ═══ FLEX ═══ -->
     <div id="sec-flex" class="snip-section active">
       <div class="sec-header">
@@ -1648,6 +1657,16 @@ function toggleMobileNav() {
   close.style.display = open ? ''     : 'none';
 }
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeCode(); });
+
+/* ── Snippet search ── */
+const searchInput = document.getElementById('snippet-search');
+searchInput.addEventListener('input', function() {
+  const query = this.value.toLowerCase().trim();
+  document.querySelectorAll('.snip-card').forEach(card => {
+    const title = (card.querySelector('.snip-card-name')?.textContent || '').toLowerCase();
+    card.style.display = (!query || title.includes(query)) ? '' : 'none';
+  });
+});
 </script>
 </body>
 </html>
