@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product — LuxeStore</title>
+  <link rel="stylesheet" href="../santy.css">
+  <link rel="stylesheet" href="../santy-variants.css">
+  <style>
+    html { scroll-behavior:smooth; }
+    body { font-family:var(--santy-font-sans); }
+    .site-nav { position:sticky;top:0;z-index:200;background:#fff;border-bottom:1px solid #e5e7eb;transition:box-shadow .3s; }
+    .site-nav.scrolled { box-shadow:0 4px 16px rgba(0,0,0,.08); }
+    .navbar-item { padding:8px 12px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:500;color:#374151;transition:color .2s;display:inline-flex;align-items:center; }
+    .navbar-item:hover { color:#2563eb; }
+    .desktop-nav { display:flex;align-items:center;gap:4px; }
+    .dropdown-menu { position:absolute;top:calc(100% + 8px);background:#fff;border:1px solid #e5e7eb;border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,.12);min-width:220px;z-index:300;padding:6px; }
+    .dropdown-item { display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:13px;font-weight:500;color:#374151;text-decoration:none;border-radius:9px;transition:background .15s; }
+    .dropdown-item:hover { background:#f1f5f9;color:#2563eb; }
+    .dropdown-divider { height:1px;background:#e5e7eb;margin:4px 8px; }
+    .mobile-menu-btn { background:none;border:none;cursor:pointer;font-size:22px;color:#374151;padding:4px 8px; }
+    @media(max-width:640px) { .desktop-nav { display:none !important; } .mobile-menu-btn { display:flex !important; } }
+    .cart-btn { position:relative;display:inline-flex; }
+    .cart-count { position:absolute;top:-6px;right:-6px;background:#ef4444;color:#fff;width:18px;height:18px;border-radius:50%;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center; }
+    /* Image gallery */
+    .main-image-wrap { position:relative;border-radius:20px;overflow:hidden;background:#f9fafb; }
+    .main-image-wrap img { width:100%;height:520px;object-fit:cover;transition:opacity .3s; }
+    .thumb-strip { display:flex;gap:10px;margin-top:12px; }
+    .thumb { width:76px;height:76px;border-radius:10px;overflow:hidden;cursor:pointer;border:2.5px solid transparent;transition:.2s;flex-shrink:0; }
+    .thumb.active { border-color:#2563eb; }
+    .thumb img { width:100%;height:100%;object-fit:cover; }
+    /* Zoom lens */
+    .zoom-hint { position:absolute;bottom:14px;right:14px;background:rgba(0,0,0,.6);color:#fff;font-size:12px;padding:6px 12px;border-radius:6px;pointer-events:none; }
+    /* Variant selectors */
+    .color-btn { width:36px;height:36px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:.2s;position:relative;overflow:hidden; }
+    .color-btn.active { border-color:#1e293b; }
+    .color-btn::after { content:'';position:absolute;inset:2px;border-radius:50%;background:inherit; }
+    .size-pill { padding:8px 18px;border-radius:8px;border:1.5px solid #e5e7eb;cursor:pointer;font-size:14px;font-weight:500;color:#374151;background:#fff;transition:.2s; }
+    .size-pill:hover { border-color:#2563eb;color:#2563eb; }
+    .size-pill.active { background:#0f172a;color:#fff;border-color:#0f172a; }
+    .size-pill.out { color:#d1d5db;cursor:not-allowed;text-decoration:line-through; }
+    /* Qty */
+    .qty-btn { width:40px;height:40px;border-radius:8px;border:1.5px solid #e5e7eb;background:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s; }
+    .qty-btn:hover { border-color:#2563eb;color:#2563eb; }
+    .qty-display { width:56px;text-align:center;font-size:18px;font-weight:600;color:#0f172a;border:none;outline:none; }
+    /* Stars */
+    .star { font-size:20px;cursor:pointer;color:#d1d5db;transition:.15s; }
+    .star.filled,.star:hover { color:#f59e0b; }
+    /* Tabs */
+    .tab-btn { padding:12px 24px;font-size:14px;font-weight:500;color:#6b7280;cursor:pointer;border-bottom:2px solid transparent;background:none;border-left:none;border-right:none;border-top:none;transition:.2s;white-space:nowrap; }
+    .tab-btn.active { color:#2563eb;border-bottom-color:#2563eb; }
+    .tab-panel { display:none;padding:32px 0; }
+    .tab-panel.active { display:block;animation:tabFadeIn .3s ease; }
+    @keyframes tabFadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+    /* Reviews */
+    .review-card { background:#f9fafb;border-radius:12px;padding:20px;margin-bottom:16px; }
+    .review-bar { height:8px;border-radius:4px;background:#e5e7eb;overflow:hidden;flex:1; }
+    .review-fill { height:100%;background:#f59e0b;border-radius:4px;transition:width .6s ease; }
+    /* Related products */
+    .rel-card { background:#fff;border-radius:14px;overflow:hidden;transition:.3s;cursor:pointer; }
+    .rel-card:hover { box-shadow:0 12px 28px rgba(0,0,0,.1);transform:translateY(-3px); }
+    .rel-img { height:200px;object-fit:cover;width:100%;display:block;transition:transform .4s; }
+    .rel-card:hover .rel-img { transform:scale(1.05); }
+    /* Sticky add-to-cart bar */
+    #sticky-atc { position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e5e7eb;padding:12px 24px;display:none;align-items:center;justify-content:space-between;z-index:100;gap:16px;box-shadow:0 -4px 16px rgba(0,0,0,.08); }
+    #sticky-atc.visible { display:flex; }
+    /* Toast */
+    #toast-container { position:fixed;bottom:80px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px; }
+    .toast { padding:14px 18px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.15);font-size:14px;min-width:260px;animation:toastIn .4s cubic-bezier(.68,-.55,.27,1.55);display:flex;align-items:center;gap:10px;background:#fff; }
+    @keyframes toastIn { from{transform:translateX(120%);opacity:0} to{transform:translateX(0);opacity:1} }
+    @media(max-width:900px) {
+      .product-layout { flex-direction:column !important; }
+      .product-images { width:100% !important; }
+      .main-image-wrap img { height:380px; }
+    }
+    @media(max-width:600px) {
+      .desktop-nav { display:none; }
+      .mobile-menu-btn { display:flex !important; }
+      #sticky-atc { flex-wrap:wrap; }
+    }
+  </style>
+</head>
+<body class="background-gray-50">
+
+<!-- Navbar -->
+<nav class="site-nav" id="site-nav">
+  <div class="container make-flex align-center justify-between add-padding-y-14" style="max-width:1280px">
+    <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:10px">
+      <div style="width:36px;height:36px;background:linear-gradient(135deg,#2563eb,#7c3aed);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#fff">L</div>
+      <span class="set-text-20 text-bold color-gray-900">LuxeStore</span>
+    </a>
+    <div class="desktop-nav make-flex align-center gap-4">
+      <a href="index.html" class="navbar-item" style="color:#374151">Home</a>
+      <a href="shop.html" class="navbar-item" style="color:#2563eb;font-weight:700">Shop</a>
+      <div style="position:relative" id="dropdown-wrap">
+        <button onclick="toggleDropdown()" class="navbar-item make-flex align-center gap-4" style="background:none;border:none;cursor:pointer;font-weight:500;color:#374151;font-size:14px">
+          Collections <span style="font-size:10px">▼</span>
+        </button>
+        <div id="nav-dropdown" class="dropdown-menu" style="display:none">
+          <a href="shop.html?cat=women" class="dropdown-item">👗 Women's Fashion</a>
+          <a href="shop.html?cat=men" class="dropdown-item">👔 Men's Fashion</a>
+          <a href="shop.html?cat=shoes" class="dropdown-item">👟 Shoes &amp; Footwear</a>
+          <div class="dropdown-divider"></div>
+          <a href="shop.html?cat=accessories" class="dropdown-item">💍 Accessories</a>
+          <a href="shop.html?cat=bags" class="dropdown-item">👜 Bags &amp; Luggage</a>
+          <a href="shop.html?cat=sale" class="dropdown-item" style="color:#ef4444;font-weight:600">🔥 Sale Items</a>
+        </div>
+      </div>
+      <a href="#" class="navbar-item" style="color:#374151">About</a>
+      <a href="#" class="navbar-item" style="color:#374151">Contact</a>
+    </div>
+    <div class="make-flex align-center gap-8">
+      <button class="navbar-item" style="background:none;border:none;cursor:pointer;font-size:18px;color:#6b7280" title="Search">🔍</button>
+      <a href="#" class="navbar-item" style="font-size:18px;color:#6b7280;text-decoration:none" title="Wishlist">♡</a>
+      <button onclick="toggleDark()" class="navbar-item" style="background:none;border:none;cursor:pointer;font-size:18px;color:#6b7280" title="Toggle dark mode">🌙</button>
+      <a href="cart.html" class="cart-btn navbar-item" style="font-size:20px;text-decoration:none;color:#374151" title="Cart">
+        🛒 <span class="cart-count" id="cart-count" style="display:none">0</span>
+      </a>
+      <button onclick="toggleMobileMenu()" class="mobile-menu-btn" style="display:none;background:none;border:none;cursor:pointer;font-size:22px;color:#374151;padding:4px 8px">☰</button>
+    </div>
+  </div>
+  <div id="mobile-menu" style="display:none;border-top:1px solid #e5e7eb;padding:12px 16px;background:#fff;">
+    <a href="index.html" class="navbar-item" style="display:block;padding:10px 12px;">Home</a>
+    <a href="shop.html" class="navbar-item" style="display:block;padding:10px 12px;color:#2563eb;font-weight:700;">Shop</a>
+    <a href="shop.html?cat=women" class="navbar-item" style="display:block;padding:10px 12px;">👗 Women's Fashion</a>
+    <a href="shop.html?cat=men" class="navbar-item" style="display:block;padding:10px 12px;">👔 Men's Fashion</a>
+    <a href="shop.html?cat=sale" class="navbar-item" style="display:block;padding:10px 12px;color:#ef4444;">🔥 Sale</a>
+    <a href="#" class="navbar-item" style="display:block;padding:10px 12px;">About</a>
+    <a href="#" class="navbar-item" style="display:block;padding:10px 12px;">Contact</a>
+  </div>
+</nav>
+
+<!-- Breadcrumb -->
+<div style="background:#fff;border-bottom:1px solid #e5e7eb">
+  <div class="container add-padding-y-14 set-text-13 color-gray-400" style="max-width:1280px">
+    <a href="index.html" class="color-gray-400" style="text-decoration:none">Home</a> ›
+    <a href="shop.html" class="color-gray-400" style="text-decoration:none;margin:0 4px">Shop</a> ›
+    <a href="shop.html" class="color-gray-400" style="text-decoration:none;margin:0 4px" id="bc-category">Category</a> ›
+    <span class="color-gray-700 text-semibold" id="bc-product">Product</span>
+  </div>
+</div>
+
+<!-- Product Section -->
+<div class="container" style="max-width:1280px;padding:40px 16px">
+  <div class="product-layout make-flex gap-48 align-start" id="product-layout">
+    <!-- Images -->
+    <div class="product-images" style="width:520px;flex-shrink:0">
+      <div class="main-image-wrap">
+        <img id="main-image" src="" alt="Product">
+        <div class="zoom-hint">🔍 Hover to zoom</div>
+      </div>
+      <div class="thumb-strip" id="thumb-strip"></div>
+    </div>
+
+    <!-- Info -->
+    <div style="flex:1;min-width:0">
+      <!-- Badge + category -->
+      <div class="make-flex align-center gap-8 add-margin-bottom-12">
+        <span class="badge" id="product-badge" style="display:none"></span>
+        <span class="set-text-12 color-gray-400 text-uppercase" style="letter-spacing:.08em" id="product-category"></span>
+      </div>
+
+      <h1 class="set-text-32 text-bold color-gray-900 add-margin-bottom-12" id="product-name"></h1>
+
+      <!-- Rating -->
+      <div class="make-flex align-center gap-10 add-margin-bottom-20">
+        <div id="product-stars" style="color:#f59e0b;font-size:18px"></div>
+        <span class="set-text-14 color-gray-500" id="product-rating-text"></span>
+        <span class="color-gray-300">|</span>
+        <a href="#tab-reviews" onclick="switchTab('reviews')" class="set-text-14 color-blue-600" style="text-decoration:none" id="product-reviews-link"></a>
+      </div>
+
+      <!-- Price -->
+      <div class="make-flex align-center gap-16 add-margin-bottom-24">
+        <span class="set-text-36 text-bold" style="color:#0f172a" id="product-price"></span>
+        <span class="set-text-18 color-gray-400" style="text-decoration:line-through" id="product-old-price"></span>
+        <span class="badge badge-red" id="product-discount" style="background:#fee2e2;color:#b91c1c;display:none"></span>
+      </div>
+
+      <!-- Short description -->
+      <p class="set-text-15 color-gray-600 add-margin-bottom-28" style="line-height:1.7" id="product-desc"></p>
+
+      <!-- Color selection -->
+      <div class="add-margin-bottom-24" id="color-section">
+        <div class="set-text-14 text-semibold color-gray-700 add-margin-bottom-12">
+          Color: <span class="text-normal color-gray-500" id="selected-color">Black</span>
+        </div>
+        <div class="make-flex gap-10" id="color-options">
+          <button class="color-btn active" style="background:#111827" title="Black" onclick="selectColor(this,'Black')"></button>
+          <button class="color-btn" style="background:#fff;border:2px solid #e5e7eb" title="White" onclick="selectColor(this,'White')"></button>
+          <button class="color-btn" style="background:#dc2626" title="Red" onclick="selectColor(this,'Red')"></button>
+          <button class="color-btn" style="background:#2563eb" title="Navy Blue" onclick="selectColor(this,'Navy Blue')"></button>
+          <button class="color-btn" style="background:#d97706" title="Caramel" onclick="selectColor(this,'Caramel')"></button>
+        </div>
+      </div>
+
+      <!-- Size selection -->
+      <div class="add-margin-bottom-28" id="size-section">
+        <div class="make-flex align-center justify-between add-margin-bottom-12">
+          <div class="set-text-14 text-semibold color-gray-700">Size: <span class="text-normal color-gray-500" id="selected-size">Select size</span></div>
+          <a href="#" class="set-text-13 color-blue-600" style="text-decoration:none">Size Guide ↗</a>
+        </div>
+        <div class="make-flex gap-10 flex-wrap" id="size-options">
+          <button class="size-pill" onclick="selectSize(this,'XS')">XS</button>
+          <button class="size-pill" onclick="selectSize(this,'S')">S</button>
+          <button class="size-pill active" onclick="selectSize(this,'M')">M</button>
+          <button class="size-pill" onclick="selectSize(this,'L')">L</button>
+          <button class="size-pill" onclick="selectSize(this,'XL')">XL</button>
+          <button class="size-pill out" title="Out of stock">XXL</button>
+        </div>
+      </div>
+
+      <!-- Quantity + Add to cart -->
+      <div class="make-flex gap-16 align-center add-margin-bottom-20 flex-wrap">
+        <div class="make-flex align-center gap-0" style="border:1.5px solid #e5e7eb;border-radius:10px;overflow:hidden">
+          <button class="qty-btn" onclick="changeQty(-1)" style="border:none;border-right:1px solid #e5e7eb;border-radius:0">−</button>
+          <input type="text" class="qty-display" id="qty" value="1" readonly>
+          <button class="qty-btn" onclick="changeQty(1)" style="border:none;border-left:1px solid #e5e7eb;border-radius:0">+</button>
+        </div>
+        <button class="btn btn-primary btn-lg" style="flex:1;min-width:180px;border-radius:12px;font-size:16px" onclick="addToCartBtn()" id="atc-btn">
+          🛒 Add to Cart
+        </button>
+        <button onclick="toggleWishlist()" id="wishlist-btn" style="width:52px;height:52px;border:1.5px solid #e5e7eb;border-radius:12px;background:#fff;font-size:22px;cursor:pointer;transition:.2s">♡</button>
+      </div>
+
+      <!-- Buy now -->
+      <button onclick="buyNow()" class="btn btn-lg" style="width:100%;border-radius:12px;border:1.5px solid #0f172a;background:#fff;color:#0f172a;font-size:16px;font-weight:600;margin-bottom:24px">
+        ⚡ Buy Now
+      </button>
+
+      <!-- Trust badges -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px">
+        <div class="make-flex align-center gap-10" style="background:#f9fafb;border-radius:10px;padding:12px 14px">
+          <span style="font-size:20px">🚚</span>
+          <div><div class="set-text-12 text-semibold color-gray-700">Free Shipping</div><div class="set-text-11 color-gray-400">Orders over $75</div></div>
+        </div>
+        <div class="make-flex align-center gap-10" style="background:#f9fafb;border-radius:10px;padding:12px 14px">
+          <span style="font-size:20px">↩️</span>
+          <div><div class="set-text-12 text-semibold color-gray-700">Free Returns</div><div class="set-text-11 color-gray-400">30-day policy</div></div>
+        </div>
+        <div class="make-flex align-center gap-10" style="background:#f9fafb;border-radius:10px;padding:12px 14px">
+          <span style="font-size:20px">🔒</span>
+          <div><div class="set-text-12 text-semibold color-gray-700">Secure Payment</div><div class="set-text-11 color-gray-400">SSL encrypted</div></div>
+        </div>
+        <div class="make-flex align-center gap-10" style="background:#f9fafb;border-radius:10px;padding:12px 14px">
+          <span style="font-size:20px">✅</span>
+          <div><div class="set-text-12 text-semibold color-gray-700">Authenticity</div><div class="set-text-11 color-gray-400">100% genuine</div></div>
+        </div>
+      </div>
+
+      <!-- Stock indicator -->
+      <div class="make-flex align-center gap-8 add-margin-bottom-16">
+        <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;animation:pulse 2s infinite"></div>
+        <span class="set-text-13 color-green-600 text-semibold">In Stock</span>
+        <span class="set-text-13 color-gray-400">— <span id="stock-count">8</span> items left</span>
+      </div>
+      @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(1.2)} }
+
+      <!-- Share -->
+      <div class="make-flex align-center gap-12">
+        <span class="set-text-13 color-gray-400">Share:</span>
+        <a href="#" style="text-decoration:none;font-size:18px">𝕏</a>
+        <a href="#" style="text-decoration:none;font-size:18px">f</a>
+        <a href="#" style="text-decoration:none;font-size:18px">📸</a>
+        <a href="#" style="text-decoration:none;font-size:18px">📌</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TABS ── -->
+  <div style="margin-top:64px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)">
+    <div style="display:flex;border-bottom:1px solid #e5e7eb;overflow-x:auto">
+      <button class="tab-btn active" onclick="switchTab('description')" id="tab-description">Description</button>
+      <button class="tab-btn" onclick="switchTab('reviews')" id="tab-reviews">Reviews <span style="background:#eff6ff;color:#2563eb;border-radius:4px;padding:1px 6px;font-size:11px" id="review-count-badge">0</span></button>
+      <button class="tab-btn" onclick="switchTab('shipping')">Shipping & Returns</button>
+      <button class="tab-btn" onclick="switchTab('specs')">Specifications</button>
+    </div>
+
+    <!-- Description -->
+    <div class="tab-panel active" id="panel-description" style="padding:32px">
+      <div style="max-width:720px">
+        <h3 class="set-text-20 text-bold color-gray-900 add-margin-bottom-16" id="tab-desc-title">About this product</h3>
+        <p class="set-text-15 color-gray-600 add-margin-bottom-20" style="line-height:1.8" id="tab-desc-text"></p>
+        <h4 class="set-text-16 text-semibold color-gray-800 add-margin-bottom-12">Key Features</h4>
+        <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px" id="features-list"></ul>
+      </div>
+    </div>
+
+    <!-- Reviews -->
+    <div class="tab-panel" id="panel-reviews" style="padding:32px">
+      <div style="display:grid;grid-template-columns:280px 1fr;gap:40px;align-items:start">
+        <!-- Summary -->
+        <div>
+          <div class="text-center add-margin-bottom-20">
+            <div class="set-text-64 text-bold" style="color:#0f172a;line-height:1" id="avg-rating-big">0.0</div>
+            <div style="color:#f59e0b;font-size:24px;margin:6px 0" id="avg-stars-big"></div>
+            <div class="set-text-13 color-gray-400" id="total-reviews-text"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div class="make-flex align-center gap-10 set-text-13"><span style="color:#f59e0b;width:20px">5★</span><div class="review-bar"><div class="review-fill" style="width:70%"></div></div><span class="color-gray-400 set-text-12">70%</span></div>
+            <div class="make-flex align-center gap-10 set-text-13"><span style="color:#f59e0b;width:20px">4★</span><div class="review-bar"><div class="review-fill" style="width:20%"></div></div><span class="color-gray-400 set-text-12">20%</span></div>
+            <div class="make-flex align-center gap-10 set-text-13"><span style="color:#f59e0b;width:20px">3★</span><div class="review-bar"><div class="review-fill" style="width:5%"></div></div><span class="color-gray-400 set-text-12">5%</span></div>
+            <div class="make-flex align-center gap-10 set-text-13"><span style="color:#f59e0b;width:20px">2★</span><div class="review-bar"><div class="review-fill" style="width:3%"></div></div><span class="color-gray-400 set-text-12">3%</span></div>
+            <div class="make-flex align-center gap-10 set-text-13"><span style="color:#f59e0b;width:20px">1★</span><div class="review-bar"><div class="review-fill" style="width:2%"></div></div><span class="color-gray-400 set-text-12">2%</span></div>
+          </div>
+          <button onclick="document.getElementById('write-review').classList.toggle('make-hidden')" class="btn btn-outline add-margin-top-20" style="width:100%;margin-top:20px">Write a Review</button>
+        </div>
+
+        <!-- Review list -->
+        <div>
+          <!-- Write review form -->
+          <div id="write-review" class="make-hidden" style="background:#f9fafb;border-radius:12px;padding:20px;margin-bottom:24px">
+            <h4 class="set-text-16 text-semibold add-margin-bottom-16">Write Your Review</h4>
+            <div class="add-margin-bottom-12">
+              <div class="set-text-13 text-semibold add-margin-bottom-8">Your Rating</div>
+              <div class="make-flex gap-4" id="star-input">
+                <span class="star" onclick="setRating(1)">★</span>
+                <span class="star" onclick="setRating(2)">★</span>
+                <span class="star" onclick="setRating(3)">★</span>
+                <span class="star" onclick="setRating(4)">★</span>
+                <span class="star" onclick="setRating(5)">★</span>
+              </div>
+            </div>
+            <input type="text" class="input add-margin-bottom-10" placeholder="Your name">
+            <textarea class="textarea add-margin-bottom-12" placeholder="Share your experience with this product..." rows="3"></textarea>
+            <button onclick="submitReview()" class="btn btn-primary">Submit Review</button>
+          </div>
+
+          <div id="reviews-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shipping -->
+    <div class="tab-panel" id="panel-shipping" style="padding:32px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:720px">
+        <div>
+          <h3 class="set-text-18 text-bold add-margin-bottom-16">🚚 Shipping Options</h3>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="background:#f9fafb;border-radius:10px;padding:14px 16px">
+              <div class="text-semibold color-gray-900">Standard Shipping</div>
+              <div class="set-text-13 color-gray-500">5–7 business days</div>
+              <div class="text-bold color-green-600">FREE on orders $75+</div>
+            </div>
+            <div style="background:#f9fafb;border-radius:10px;padding:14px 16px">
+              <div class="text-semibold color-gray-900">Express Shipping</div>
+              <div class="set-text-13 color-gray-500">2–3 business days</div>
+              <div class="text-bold">$9.99</div>
+            </div>
+            <div style="background:#f9fafb;border-radius:10px;padding:14px 16px">
+              <div class="text-semibold color-gray-900">Next Day Delivery</div>
+              <div class="set-text-13 color-gray-500">Order before 2pm</div>
+              <div class="text-bold">$19.99</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 class="set-text-18 text-bold add-margin-bottom-16">↩️ Returns Policy</h3>
+          <div class="set-text-14 color-gray-600" style="line-height:1.8">
+            <p class="add-margin-bottom-12">We offer a hassle-free 30-day return policy on all items.</p>
+            <ul style="padding-left:20px">
+              <li class="add-margin-bottom-8">Items must be in original condition</li>
+              <li class="add-margin-bottom-8">Tags must be attached</li>
+              <li class="add-margin-bottom-8">Receipt or order confirmation required</li>
+              <li>Returns processed within 3–5 business days</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Specs -->
+    <div class="tab-panel" id="panel-specs" style="padding:32px">
+      <div style="max-width:560px">
+        <table style="width:100%;border-collapse:collapse" id="specs-table">
+          <tbody id="specs-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── RELATED PRODUCTS ── -->
+  <div style="margin-top:64px">
+    <h2 class="set-text-28 text-bold color-gray-900 add-margin-bottom-32">You May Also Like</h2>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px" id="related-products"></div>
+  </div>
+</div>
+
+<!-- Sticky ATC bar -->
+<div id="sticky-atc">
+  <div class="make-flex align-center gap-16">
+    <img id="sticky-img" src="" style="width:48px;height:48px;object-fit:cover;border-radius:8px" alt="">
+    <div>
+      <div class="set-text-14 text-semibold color-gray-900" id="sticky-name"></div>
+      <div class="set-text-16 text-bold color-blue-600" id="sticky-price"></div>
+    </div>
+  </div>
+  <button onclick="addToCartBtn()" class="btn btn-primary">Add to Cart</button>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="../santy-scroll.js"></script>
+<script>
+const ALL_PRODUCTS = [
+  { id:1, name:'Classic White Sneakers', price:89.99, oldPrice:120, category:'Shoes', rating:4.8, reviews:124, badge:'New', img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop', imgs:['https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop','https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&h=600&fit=crop','https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?w=600&h=600&fit=crop','https://images.unsplash.com/photo-1543508282-6319a3e2621f?w=600&h=600&fit=crop'], desc:'Crafted from premium full-grain leather with a cushioned insole for all-day comfort. The classic white colorway pairs effortlessly with any outfit — jeans, chinos, or even a suit.', features:['Full-grain leather upper','Cushioned EVA midsole','Non-slip rubber outsole','Breathable mesh lining','Orthopaedic insole support'], specs:[['Material','Full-grain leather'],['Sole','Rubber'],['Lining','Breathable mesh'],['Closure','Lace-up'],['Weight','380g per shoe'],['Made in','Italy']] },
+  { id:2, name:'Premium Leather Jacket', price:249.99, oldPrice:320, category:'Men', rating:4.9, reviews:89, badge:'', img:'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&h=600&fit=crop', imgs:['https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&h=600&fit=crop','https://images.unsplash.com/photo-1512374382149-233c42b6a83b?w=600&h=600&fit=crop'], desc:'Timeless biker-style jacket in supple Italian leather. Features a quilted lining, multiple pockets and an adjustable waist belt for the perfect fit.', features:['Italian calf leather','Quilted polyester lining','YKK zip closure','4 exterior + 2 interior pockets','Adjustable waist belt'], specs:[['Material','100% Italian Calfskin'],['Lining','Polyester quilted'],['Fit','Regular/slim'],['Care','Professional leather cleaning'],['Country of Origin','Italy']] },
+  { id:3, name:'Minimalist Watch', price:179.99, oldPrice:220, category:'Accessories', rating:4.7, reviews:56, badge:'Hot', img:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=600&fit=crop', imgs:['https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=600&fit=crop','https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=600&h=600&fit=crop'], desc:'Swiss-inspired minimalist timepiece with sapphire crystal glass and Japanese quartz movement. A watch that speaks quietly but loudly.', features:['Sapphire crystal glass','Japanese quartz movement','316L surgical steel case','Genuine leather strap','Water resistant 5ATM'], specs:[['Movement','Japanese Quartz'],['Case diameter','40mm'],['Case material','316L Stainless Steel'],['Crystal','Sapphire'],['Water resistance','50m / 5ATM'],['Strap','Genuine leather']] },
+];
+
+let currentProduct = null;
+let selectedSize = 'M';
+let selectedColor = 'Black';
+let qty = 1;
+let userRating = 0;
+
+function getCart(){ return JSON.parse(localStorage.getItem('santy-cart')||'[]'); }
+function saveCart(c){ localStorage.setItem('santy-cart',JSON.stringify(c)); }
+function updateCartBadge(){
+  const n=getCart().reduce((s,i)=>s+i.quantity,0);
+  const el=document.getElementById('cart-count');
+  if(el){el.textContent=n;el.style.display=n>0?'flex':'none';}
+}
+
+function showToast(msg,type='success'){
+  const tc=document.getElementById('toast-container');
+  const t=document.createElement('div');t.className='toast';
+  t.innerHTML=`<span style="font-size:16px">${type==='success'?'✅':'ℹ️'}</span><span>${msg}</span>`;
+  tc.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transition='.3s';setTimeout(()=>t.remove(),300);},3000);
+}
+
+function loadProduct(){
+  const id = parseInt(new URLSearchParams(location.search).get('id')||'1');
+  const p = ALL_PRODUCTS.find(x=>x.id===id) || ALL_PRODUCTS[0];
+  currentProduct = p;
+
+  // Breadcrumb
+  document.getElementById('bc-category').textContent = p.category;
+  document.getElementById('bc-product').textContent = p.name;
+
+  // Images
+  document.getElementById('main-image').src = p.imgs[0];
+  document.getElementById('thumb-strip').innerHTML = p.imgs.map((img,i)=>`
+    <div class="thumb${i===0?' active':''}" onclick="switchImage(this,'${img}')">
+      <img src="${img}" alt="">
+    </div>`).join('');
+
+  // Info
+  const saved = p.oldPrice?Math.round((1-p.price/p.oldPrice)*100):0;
+  document.getElementById('product-name').textContent = p.name;
+  document.getElementById('product-category').textContent = p.category;
+  if(p.badge){
+    const b=document.getElementById('product-badge');
+    b.textContent=p.badge; b.style.display='inline-flex';
+    b.style.background=p.badge==='Sale'?'#fee2e2':p.badge==='New'?'#d1fae5':'#fef3c7';
+    b.style.color=p.badge==='Sale'?'#b91c1c':p.badge==='New'?'#065f46':'#b45309';
+  }
+  document.getElementById('product-stars').textContent = '★'.repeat(Math.floor(p.rating))+'☆'.repeat(5-Math.floor(p.rating));
+  document.getElementById('product-rating-text').textContent = `${p.rating} out of 5`;
+  document.getElementById('product-reviews-link').textContent = `${p.reviews} reviews`;
+  document.getElementById('product-price').textContent = `$${p.price.toFixed(2)}`;
+  if(p.oldPrice) document.getElementById('product-old-price').textContent = `$${p.oldPrice.toFixed(2)}`;
+  if(saved){ const d=document.getElementById('product-discount');d.textContent=`-${saved}%`;d.style.display='inline-flex'; }
+  document.getElementById('product-desc').textContent = p.desc;
+  document.getElementById('review-count-badge').textContent = p.reviews;
+
+  // Sticky
+  document.getElementById('sticky-img').src=p.imgs[0];
+  document.getElementById('sticky-name').textContent=p.name;
+  document.getElementById('sticky-price').textContent=`$${p.price.toFixed(2)}`;
+
+  // Tab description
+  document.getElementById('tab-desc-title').textContent = `About ${p.name}`;
+  document.getElementById('tab-desc-text').textContent = p.desc;
+  document.getElementById('features-list').innerHTML = p.features.map(f=>`
+    <li class="make-flex align-center gap-10 set-text-14 color-gray-700">
+      <span style="color:#22c55e;font-size:18px;flex-shrink:0">✓</span> ${f}
+    </li>`).join('');
+
+  // Specs table
+  document.getElementById('specs-body').innerHTML = p.specs.map(([k,v],i)=>`
+    <tr style="background:${i%2===0?'#f9fafb':'#fff'}">
+      <td style="padding:12px 16px;font-weight:600;font-size:14px;color:#374151;width:40%">${k}</td>
+      <td style="padding:12px 16px;font-size:14px;color:#6b7280">${v}</td>
+    </tr>`).join('');
+
+  // Avg rating
+  document.getElementById('avg-rating-big').textContent = p.rating.toFixed(1);
+  document.getElementById('avg-stars-big').textContent = '★'.repeat(Math.floor(p.rating));
+  document.getElementById('total-reviews-text').textContent = `${p.reviews} verified reviews`;
+
+  // Sample reviews
+  renderReviews();
+
+  // Related products
+  const related = ALL_PRODUCTS.filter(x=>x.id!==p.id).slice(0,4);
+  document.getElementById('related-products').innerHTML = related.map(r=>`
+    <div class="rel-card" onclick="location.href='product.html?id=${r.id}'">
+      <div style="overflow:hidden"><img class="rel-img" src="${r.img}" alt="${r.name}" loading="lazy"></div>
+      <div style="padding:14px 16px 18px">
+        <div class="set-text-12 color-gray-400">${r.category}</div>
+        <div class="set-text-14 text-semibold color-gray-900 add-margin-y-4">${r.name}</div>
+        <div style="color:#f59e0b;font-size:12px">${'★'.repeat(Math.floor(r.rating))}</div>
+        <div class="set-text-16 text-bold color-gray-900 add-margin-top-6">$${r.price.toFixed(2)}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderReviews(){
+  const reviews = [
+    { name:'Emma W.', rating:5, text:'Perfect fit, incredible quality. The material feels luxurious.', date:'3 days ago', verified:true },
+    { name:'James T.', rating:4, text:'Great product, fast delivery. Exactly as described.', date:'1 week ago', verified:true },
+    { name:'Priya M.', rating:5, text:'I love it! Already ordered in another color.', date:'2 weeks ago', verified:true },
+  ];
+  document.getElementById('reviews-list').innerHTML = reviews.map(r=>`
+    <div class="review-card">
+      <div class="make-flex align-center justify-between add-margin-bottom-10">
+        <div class="make-flex align-center gap-10">
+          <div style="width:40px;height:40px;border-radius:50%;background:#dbeafe;color:#1d4ed8;display:flex;align-items:center;justify-content:center;font-weight:700">${r.name.charAt(0)}</div>
+          <div>
+            <div class="set-text-14 text-semibold color-gray-900">${r.name}</div>
+            <div class="set-text-12 color-gray-400">${r.date}</div>
+          </div>
+        </div>
+        ${r.verified?'<span class="badge" style="background:#d1fae5;color:#065f46;font-size:11px">✓ Verified</span>':''}
+      </div>
+      <div style="color:#f59e0b;margin-bottom:8px">${'★'.repeat(r.rating)}</div>
+      <p class="set-text-14 color-gray-600">${r.text}</p>
+    </div>`).join('');
+}
+
+function switchImage(thumb, src){
+  document.getElementById('main-image').src = src;
+  document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('active'));
+  thumb.classList.add('active');
+}
+
+function switchTab(name){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.getElementById('panel-'+name).classList.add('active');
+}
+
+function selectColor(btn, color){
+  document.querySelectorAll('.color-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedColor = color;
+  document.getElementById('selected-color').textContent = color;
+}
+
+function selectSize(btn, size){
+  document.querySelectorAll('.size-pill:not(.out)').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedSize = size;
+  document.getElementById('selected-size').textContent = size;
+}
+
+function changeQty(d){
+  qty = Math.max(1, Math.min(10, qty+d));
+  document.getElementById('qty').value = qty;
+}
+
+function addToCartBtn(){
+  if(!currentProduct) return;
+  const cart=getCart();
+  const key = `${currentProduct.id}-${selectedSize}-${selectedColor}`;
+  const ex = cart.find(i=>i.key===key);
+  if(ex) ex.quantity+=qty;
+  else cart.push({id:currentProduct.id,key,name:currentProduct.name,price:currentProduct.price,img:currentProduct.imgs[0],size:selectedSize,color:selectedColor,quantity:qty});
+  saveCart(cart);
+  updateCartBadge();
+  showToast(`✅ Added ${qty}× ${currentProduct.name} (${selectedSize}, ${selectedColor}) to cart`);
+  const btn=document.getElementById('atc-btn');
+  btn.textContent='✓ Added!';
+  btn.style.background='#22c55e';
+  setTimeout(()=>{btn.textContent='🛒 Add to Cart';btn.style.background='';},2000);
+}
+
+function buyNow(){ addToCartBtn(); setTimeout(()=>location.href='cart.html',300); }
+
+function toggleWishlist(){
+  const btn=document.getElementById('wishlist-btn');
+  const wl=JSON.parse(localStorage.getItem('santy-wishlist')||'[]');
+  const id=currentProduct?.id;
+  const idx=wl.indexOf(id);
+  if(idx>-1){wl.splice(idx,1);btn.textContent='♡';btn.style.color='';showToast('Removed from wishlist','info');}
+  else{wl.push(id);btn.textContent='❤️';btn.style.color='#ef4444';showToast('❤️ Added to wishlist!');}
+  localStorage.setItem('santy-wishlist',JSON.stringify(wl));
+}
+
+function setRating(n){
+  userRating=n;
+  document.querySelectorAll('#star-input .star').forEach((s,i)=>s.classList.toggle('filled',i<n));
+}
+
+function submitReview(){
+  showToast('🙏 Thank you for your review!');
+  document.getElementById('write-review').classList.add('make-hidden');
+}
+
+// Sticky bar on scroll
+window.addEventListener('scroll',()=>{
+  const threshold = document.getElementById('product-layout').getBoundingClientRect().bottom+window.scrollY-200;
+  document.getElementById('sticky-atc').classList.toggle('visible', window.scrollY>threshold);
+});
+
+document.addEventListener('DOMContentLoaded',()=>{ updateCartBadge(); loadProduct(); });
+
+window.addEventListener('scroll',()=>{
+  document.getElementById('site-nav').classList.toggle('scrolled', window.scrollY>10);
+});
+function toggleDropdown() {
+  var dd = document.getElementById('nav-dropdown');
+  dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
+}
+document.addEventListener('click', function(e) {
+  var wrap = document.getElementById('dropdown-wrap');
+  var dd = document.getElementById('nav-dropdown');
+  if (wrap && dd && !wrap.contains(e.target)) dd.style.display = 'none';
+});
+function toggleMobileMenu() {
+  var m = document.getElementById('mobile-menu');
+  m.style.display = m.style.display === 'none' ? 'block' : 'none';
+}
+function toggleDark() {
+  document.getElementById('html-root').classList.toggle('dark');
+  localStorage.setItem('luxe-dark', document.getElementById('html-root').classList.contains('dark') ? '1' : '0');
+}
+(function() {
+  if (localStorage.getItem('luxe-dark') === '1') document.getElementById('html-root').classList.add('dark');
+})();
+</script>
+</body>
+</html>

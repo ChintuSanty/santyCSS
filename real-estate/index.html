@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Havenly — Find the Home You Deserve</title>
+<link rel="stylesheet" href="../santy.css" />
+<link rel="stylesheet" href="../santy-variants.css" />
+<style>
+  :root {
+    --brand: #0f766e;
+    --brand-dark: #115e59;
+    --brand-light: #ccfbf1;
+    --ink: #0b1220;
+    --muted: #64748b;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', system-ui, sans-serif; color: var(--ink); }
+
+  /* Navbar */
+  .site-nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(15,23,42,.06);
+    transition: box-shadow .3s;
+  }
+  .site-nav.scrolled { box-shadow: 0 8px 30px rgba(0,0,0,.06); }
+  .brand-logo {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: linear-gradient(135deg, #0f766e, #14b8a6);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 800; font-size: 18px;
+    box-shadow: 0 8px 20px rgba(15,118,110,.35);
+  }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    min-height: 92vh;
+    background:
+      linear-gradient(115deg, rgba(15,23,42,.78) 0%, rgba(15,23,42,.55) 45%, rgba(15,23,42,.15) 100%),
+      url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+    color: #fff;
+    display: flex; align-items: center;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; inset: auto 0 -1px 0; height: 120px;
+    background: linear-gradient(to bottom, transparent, #fff);
+  }
+  .hero h1 { font-size: clamp(42px, 6vw, 84px); font-weight: 800; line-height: 1.04; letter-spacing: -.02em; }
+  .hero h1 .accent {
+    background: linear-gradient(135deg, #5eead4, #f0abfc);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-sub { font-size: 18px; color: #e2e8f0; max-width: 560px; }
+
+  .search-card {
+    background: #fff; color: var(--ink);
+    border-radius: 20px;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,.35);
+    padding: 18px;
+  }
+  .search-tabs button {
+    padding: 10px 18px; border: 0; background: transparent; cursor: pointer;
+    font-weight: 600; border-radius: 999px; color: #334155;
+    transition: all .2s;
+  }
+  .search-tabs button.active { background: var(--brand); color: #fff; }
+  .search-tabs button:hover:not(.active) { background: #f1f5f9; }
+  .search-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr auto; gap: 10px; align-items: end; }
+  .search-grid label { font-size: 11px; font-weight: 700; letter-spacing: .1em; color: #64748b; text-transform: uppercase; }
+  .search-grid input, .search-grid select {
+    width: 100%; padding: 12px 14px; border: 1px solid #e2e8f0;
+    border-radius: 12px; font-size: 15px; outline: none;
+    transition: border .2s, box-shadow .2s;
+  }
+  .search-grid input:focus, .search-grid select:focus {
+    border-color: var(--brand); box-shadow: 0 0 0 4px rgba(15,118,110,.12);
+  }
+  .search-btn {
+    padding: 14px 22px; border: 0; border-radius: 12px;
+    background: linear-gradient(135deg, #0f766e, #14b8a6); color: #fff;
+    font-weight: 700; cursor: pointer; white-space: nowrap;
+    box-shadow: 0 10px 20px rgba(15,118,110,.35);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .search-btn:hover { transform: translateY(-2px); box-shadow: 0 14px 26px rgba(15,118,110,.45); }
+
+  @media (max-width: 900px) {
+    .search-grid { grid-template-columns: 1fr 1fr; }
+    .search-btn { grid-column: 1 / -1; }
+  }
+
+  /* Stats strip */
+  .stat { text-align: center; }
+  .stat-num { font-size: 40px; font-weight: 800; color: var(--brand); letter-spacing: -.02em; }
+  .stat-label { color: #64748b; font-weight: 500; }
+
+  /* Property card */
+  .prop-card {
+    background: #fff; border-radius: 20px; overflow: hidden;
+    box-shadow: 0 4px 14px rgba(2,6,23,.06);
+    transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s;
+    display: flex; flex-direction: column;
+  }
+  .prop-card:hover { transform: translateY(-8px); box-shadow: 0 30px 50px -20px rgba(2,6,23,.25); }
+  .prop-img { position: relative; aspect-ratio: 4/3; overflow: hidden; }
+  .prop-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s ease; }
+  .prop-card:hover .prop-img img { transform: scale(1.08); }
+  .prop-tag {
+    position: absolute; top: 14px; left: 14px;
+    background: #fff; padding: 6px 12px; border-radius: 999px;
+    font-size: 12px; font-weight: 700; color: var(--brand);
+    box-shadow: 0 6px 14px rgba(0,0,0,.12);
+  }
+  .prop-like {
+    position: absolute; top: 14px; right: 14px;
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,.9); border: 0; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .2s, background .2s;
+    color: #64748b;
+  }
+  .prop-like:hover { transform: scale(1.12); background: #fff; color: #e11d48; }
+  .prop-like.liked { color: #e11d48; animation: heart 0.6s ease; }
+  @keyframes heart { 0%,100% { transform: scale(1); } 30% { transform: scale(1.3); } 60% { transform: scale(.95); } }
+  .prop-price { font-size: 22px; font-weight: 800; color: var(--ink); letter-spacing: -.01em; }
+  .prop-meta { display: flex; gap: 16px; color: #64748b; font-size: 14px; }
+  .prop-meta span { display: inline-flex; align-items: center; gap: 6px; }
+
+  /* Reveal on scroll */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* Category pill */
+  .cat-card {
+    position: relative; border-radius: 20px; overflow: hidden;
+    aspect-ratio: 4/5; cursor: pointer; color: #fff;
+    box-shadow: 0 10px 30px rgba(0,0,0,.12);
+  }
+  .cat-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s ease; }
+  .cat-card:hover img { transform: scale(1.1); }
+  .cat-card::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0) 55%);
+  }
+  .cat-meta { position: absolute; left: 20px; right: 20px; bottom: 20px; z-index: 2; }
+
+  /* Testimonial */
+  .quote-card {
+    background: #fff; border-radius: 20px; padding: 28px;
+    box-shadow: 0 6px 20px rgba(2,6,23,.06);
+    border: 1px solid #f1f5f9;
+    transition: transform .4s, box-shadow .4s;
+  }
+  .quote-card:hover { transform: translateY(-6px); box-shadow: 0 24px 40px -18px rgba(2,6,23,.2); }
+  .quote-card::before {
+    content: '“'; font-family: Georgia, serif; font-size: 80px;
+    color: var(--brand-light); line-height: 1; display: block;
+    margin-top: -10px;
+  }
+
+  /* CTA */
+  .cta {
+    background: linear-gradient(135deg, #0f766e 0%, #0891b2 100%);
+    color: #fff; border-radius: 28px; overflow: hidden;
+    position: relative;
+  }
+  .cta::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 80% 20%, rgba(255,255,255,.15), transparent 50%);
+  }
+
+  /* Footer */
+  footer { background: #0b1220; color: #cbd5e1; }
+  footer a { color: #cbd5e1; text-decoration: none; transition: color .2s; }
+  footer a:hover { color: #5eead4; }
+
+  /* Floating shapes */
+  .float-y { animation: floatY 6s ease-in-out infinite; }
+  @keyframes floatY { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-14px) } }
+
+  /* Hamburger + mobile nav */
+  .hamburger { display: none; }
+  @media (max-width: 900px) {
+    .nav-links { display: none !important; }
+    .hamburger { display: inline-flex; }
+  }
+  .mobile-menu {
+    position: fixed; inset: 0; z-index: 60;
+    background: rgba(11,18,32,.96); color: #fff;
+    display: none; flex-direction: column;
+    padding: 80px 24px 24px; gap: 10px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { color: #fff; font-size: 20px; font-weight: 600; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.08); text-decoration: none; }
+
+  /* Marquee */
+  .marquee { overflow: hidden; mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent); }
+  .marquee-track { display: flex; gap: 60px; animation: marq 28s linear infinite; white-space: nowrap; }
+  @keyframes marq { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+  .marquee-item { color: #94a3b8; font-size: 22px; font-weight: 700; letter-spacing: .08em; }
+</style>
+</head>
+<body class="background-gray-50">
+
+<!-- ============ NAVBAR ============ -->
+<nav class="site-nav">
+  <div class="make-flex align-center justify-between add-padding-x-32 on-mobile:add-padding-x-20 add-padding-y-16" style="max-width:1280px; margin:0 auto;">
+    <a href="index.html" class="make-flex align-center gap-12" style="text-decoration:none;">
+      <span class="brand-logo">H</span>
+      <span class="set-text-22 text-bold color-gray-900">Havenly</span>
+    </a>
+    <div class="nav-links make-flex align-center gap-32">
+      <a href="index.html" class="set-text-15 text-medium color-gray-900" style="text-decoration:none;">Home</a>
+      <a href="listings.html" class="set-text-15 text-medium color-gray-600" style="text-decoration:none;">Listings</a>
+      <a href="agents.html" class="set-text-15 text-medium color-gray-600" style="text-decoration:none;">Agents</a>
+      <a href="about.html" class="set-text-15 text-medium color-gray-600" style="text-decoration:none;">About</a>
+      <a href="contact.html" class="set-text-15 text-medium color-gray-600" style="text-decoration:none;">Contact</a>
+    </div>
+    <div class="nav-links make-flex align-center gap-12">
+      <a href="#" class="set-text-15 text-medium color-gray-700" style="text-decoration:none;">Sign in</a>
+      <a href="listings.html" class="btn btn-primary" style="background:var(--brand); border-color:var(--brand);">List Property</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu" style="background:transparent; border:0; cursor:pointer;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button id="closeMenu" style="position:absolute; top:20px; right:20px; background:transparent; border:0; color:#fff; cursor:pointer;">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="index.html">Home</a>
+  <a href="listings.html">Listings</a>
+  <a href="agents.html">Agents</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="add-padding-x-32 on-mobile:add-padding-x-20" style="max-width:1280px; margin:0 auto; width:100%; position:relative; z-index:2;">
+    <div class="make-grid gap-48" style="grid-template-columns: 1.3fr 1fr;">
+      <div>
+        <span class="badge animate-fade-in-from-left" style="background:rgba(255,255,255,.15); color:#5eead4; padding:8px 16px; border-radius:999px; font-weight:600; backdrop-filter:blur(8px);">
+          ★ Trusted by 50,000+ families worldwide
+        </span>
+        <h1 class="add-margin-top-24 add-margin-bottom-20 animate-fade-in-from-bottom" style="animation-delay:.1s;">
+          Find the home <br/>that feels <span class="accent">uniquely yours</span>
+        </h1>
+        <p class="hero-sub add-margin-bottom-32 animate-fade-in-from-bottom" style="animation-delay:.3s;">
+          Browse thousands of handpicked homes, apartments, and villas from verified agents. Your dream address is one click away.
+        </p>
+        <div class="make-flex gap-12 add-margin-bottom-48 animate-fade-in-from-bottom" style="animation-delay:.5s;">
+          <a href="listings.html" class="btn btn-lg" style="background:#fff; color:var(--ink); border:0;">
+            Browse Listings →
+          </a>
+          <a href="#how" class="btn btn-lg" style="background:rgba(255,255,255,.14); color:#fff; border:1px solid rgba(255,255,255,.3); backdrop-filter:blur(8px);">
+            How it works
+          </a>
+        </div>
+
+        <!-- Search card -->
+        <div class="search-card animate-fade-in-from-bottom" style="animation-delay:.7s;">
+          <div class="search-tabs make-flex gap-4 add-margin-bottom-14">
+            <button class="active" data-tab="buy">Buy</button>
+            <button data-tab="rent">Rent</button>
+            <button data-tab="sell">Sell</button>
+            <button data-tab="new">New Projects</button>
+          </div>
+          <div class="search-grid">
+            <div>
+              <label>Location</label>
+              <input type="text" placeholder="City, neighborhood, ZIP" value="San Francisco" />
+            </div>
+            <div>
+              <label>Property Type</label>
+              <select>
+                <option>Any type</option>
+                <option>House</option>
+                <option>Apartment</option>
+                <option>Villa</option>
+                <option>Studio</option>
+              </select>
+            </div>
+            <div>
+              <label>Price</label>
+              <select>
+                <option>Any price</option>
+                <option>$100k – $300k</option>
+                <option>$300k – $600k</option>
+                <option>$600k – $1M</option>
+                <option>$1M+</option>
+              </select>
+            </div>
+            <button class="search-btn">Search</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="on-mobile:make-hidden" style="position:relative;">
+        <div class="float-y" style="position:absolute; top:40px; right:0; background:#fff; color:#0f172a; padding:16px 20px; border-radius:18px; box-shadow:0 20px 40px rgba(0,0,0,.25); animation-delay:0s;">
+          <div style="font-size:12px; color:#64748b; font-weight:600;">AVG HOME PRICE</div>
+          <div style="font-size:26px; font-weight:800;">$842,500</div>
+          <div style="font-size:12px; color:#059669; font-weight:700;">▲ 4.2% this month</div>
+        </div>
+        <div class="float-y" style="position:absolute; bottom:60px; left:-20px; background:linear-gradient(135deg,#0f766e,#14b8a6); color:#fff; padding:16px 20px; border-radius:18px; box-shadow:0 20px 40px rgba(15,118,110,.4); animation-delay:1.5s;">
+          <div style="font-size:12px; opacity:.8; font-weight:600;">LIVE LISTINGS</div>
+          <div style="font-size:26px; font-weight:800;">12,480+</div>
+          <div style="font-size:12px; opacity:.9;">Updated every minute</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS / MARQUEE ============ -->
+<section class="add-padding-y-60 background-white">
+  <div class="add-padding-x-32 on-mobile:add-padding-x-20" style="max-width:1280px; margin:0 auto;">
+    <div class="make-grid grid-cols-4 on-mobile:grid-cols-2 gap-32 add-margin-bottom-48">
+      <div class="stat reveal"><div class="stat-num" data-count="12480">0</div><div class="stat-label">Active Listings</div></div>
+      <div class="stat reveal"><div class="stat-num" data-count="50000">0</div><div class="stat-label">Happy Families</div></div>
+      <div class="stat reveal"><div class="stat-num" data-count="320">0</div><div class="stat-label">Expert Agents</div></div>
+      <div class="stat reveal"><div class="stat-num" data-count="42">0</div><div class="stat-label">Cities Covered</div></div>
+    </div>
+    <div class="marquee">
+      <div class="marquee-track">
+        <span class="marquee-item">★ Forbes</span><span class="marquee-item">— Bloomberg —</span>
+        <span class="marquee-item">◆ TechCrunch</span><span class="marquee-item">— Reuters —</span>
+        <span class="marquee-item">▲ NY Times</span><span class="marquee-item">— Fast Company —</span>
+        <span class="marquee-item">★ Forbes</span><span class="marquee-item">— Bloomberg —</span>
+        <span class="marquee-item">◆ TechCrunch</span><span class="marquee-item">— Reuters —</span>
+        <span class="marquee-item">▲ NY Times</span><span class="marquee-item">— Fast Company —</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CATEGORIES ============ -->
+<section class="add-padding-y-80 background-gray-50">
+  <div class="add-padding-x-32 on-mobile:add-padding-x-20" style="max-width:1280px; margin:0 auto;">
+    <div class="make-flex justify-between align-end add-margin-bottom-40 reveal">
+      <div>
+        <div class="set-text-14 text-semibold color-teal-700 letter-space-wide text-uppercase add-margin-bottom-12">— Explore</div>
+        <h2 class="set-text-40 on-mobile:set-text-28 text-bold color-gray-900" style="letter-spacing:-.02em;">Browse by category</h2>
+      </div>
+      <a href="listings.html" class="on-mobile:make-hidden set-text-15 text-semibold color-teal-700" style="text-decoration:none;">View all →</a>
+    </div>
+
+    <div class="make-grid grid-cols-4 md:grid-cols-2 on-mobile:grid-cols-1 gap-20">
+      <div class="cat-card reveal">
+        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80" alt="Apartments"/>
+        <div class="cat-meta">
+          <div style="font-size:13px; opacity:.85; font-weight:600;">3,240 listings</div>
+          <div style="font-size:22px; font-weight:700;">Apartments</div>
+        </div>
+      </div>
+      <div class="cat-card reveal">
+        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80" alt="Luxury Villas"/>
+        <div class="cat-meta">
+          <div style="font-size:13px; opacity:.85; font-weight:600;">1,180 listings</div>
+          <div style="font-size:22px; font-weight:700;">Luxury Villas</div>
+        </div>
+      </div>
+      <div class="cat-card reveal">
+        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80" alt="Family Homes"/>
+        <div class="cat-meta">
+          <div style="font-size:13px; opacity:.85; font-weight:600;">4,520 listings</div>
+          <div style="font-size:22px; font-weight:700;">Family Homes</div>
+        </div>
+      </div>
+      <div class="cat-card reveal">
+        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80" alt="Studios"/>
+        <div class="cat-meta">
+          <div style="font-size:13px; opacity:.85; font-weight:600;">2,860 listings</div>
+          <div style="font-size:22px; font-weight:700;">Studios & Lofts</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURED LISTINGS ============ -->
+<section class="add-padding-y-80 background-white">
+  <div class="add-padding-x-32 on-mobile:add-padding-x-20" style="max-width:1280px; margin:0 auto;">
+    <div class="make-flex justify-between align-end add-margin-bottom-40 reveal">
+      <div>
+        <div class="set-text-14 text-semibold color-teal-700 letter-space-wide text-uppercase add-margin-bottom-12">— Hand Picked</div>
+        <h2 class="set-text-40 on-mobile:set-text-28 text-bold color-gray-900" style="letter-spacing:-.02em;">Featured properties</h2>
+      </div>
+      <a href="listings.html" class="on-mobile:make-hidden set-text-15 text-semibold color-teal-700" style="text-decoration:none;">Explore all →</a>
+    </div>
+
+    <div class="make-grid grid-cols-4 lg:grid-cols-3 md:grid-cols-2 on-mobile:grid-cols-1 gap-28">
+      <!-- Card 1 -->
+      <a href="property.html" class="prop-card reveal" style="text-decoration:none; color:inherit;">
+        <div class="prop-img">
+          <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=900&q=80" alt="Modern Villa"/>
+          <span class="prop-tag">For Sale</span>
+          <button class="prop-like" aria-label="Like" onclick="event.preventDefault(); this.classList.toggle('liked');">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.3C.2 8.1 2.4 4 6.4 4c2 0 3.6 1 4.6 2.5C12 5 13.6 4 15.6 4c4 0 6.2 4.1 4.4 7.7C19.5 16.4 12 21 12 21z"/></svg>
+          </button>
+        </div>
+        <div class="add-padding-24">
+          <div class="make-flex align-center justify-between add-margin-bottom-10">
+            <div class="prop-price">$1,250,000</div>
+            <span class="badge badge-success">New</span>
+          </div>
+          <div class="set-text-18 text-semibold color-gray-900 add-margin-bottom-6">Modern Villa with Pool</div>
+          <div class="set-text-14 color-gray-500 add-margin-bottom-16">📍 Palo Alto, California</div>
+          <div class="prop-meta">
+            <span>🛏 4 Beds</span><span>🛁 3 Baths</span><span>📐 2,450 sqft</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 2 -->
+      <a href="property.html" class="prop-card reveal" style="text-decoration:none; color:inherit;">
+        <div class="prop-img">
+          <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=900&q=80" alt="Urban Penthouse"/>
+          <span class="prop-tag">For Sale</span>
+          <button class="prop-like" aria-label="Like" onclick="event.preventDefault(); this.classList.toggle('liked');">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.3C.2 8.1 2.4 4 6.4 4c2 0 3.6 1 4.6 2.5C12 5 13.6 4 15.6 4c4 0 6.2 4.1 4.4 7.7C19.5 16.4 12 21 12 21z"/></svg>
+          </button>
+        </div>
+        <div class="add-padding-24">
+          <div class="make-flex align-center justify-between add-margin-bottom-10">
+            <div class="prop-price">$2,480,000</div>
+            <span class="badge badge-primary">Hot</span>
+          </div>
+          <div class="set-text-18 text-semibold color-gray-900 add-margin-bottom-6">Urban Skyline Penthouse</div>
+          <div class="set-text-14 color-gray-500 add-margin-bottom-16">📍 New York, NY</div>
+          <div class="prop-meta">
+            <span>🛏 3 Beds</span><span>🛁 3 Baths</span><span>📐 3,100 sqft</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 3 -->
+      <a href="property.html" class="prop-card reveal" style="text-decoration:none; color:inherit;">
+        <div class="prop-img">
+          <img src="https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=900&q=80" alt="Suburban Home"/>
+          <span class="prop-tag" style="background:#fef3c7; color:#b45309;">For Rent</span>
+          <button class="prop-like" aria-label="Like" onclick="event.preventDefault(); this.classList.toggle('liked');">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.3C.2 8.1 2.4 4 6.4 4c2 0 3.6 1 4.6 2.5C12 5 13.6 4 15.6 4c4 0 6.2 4.1 4.4 7.7C19.5 16.4 12 21 12 21z"/></svg>
+          </button>
+        </div>
+        <div class="add-padding-24">
+          <div class="make-flex align-center justify-between add-margin-bottom-10">
+            <div class="prop-price">$4,800<span style="font-size:14px; color:#64748b; font-weight:500;">/mo</span></div>
+            <span class="badge">Pet-friendly</span>
+          </div>
+          <div class="set-text-18 text-semibold color-gray-900 add-margin-bottom-6">Cozy Suburban Family Home</div>
+          <div class="set-text-14 color-gray-500 add-margin-bottom-16">📍 Austin, Texas</div>
+          <div class="prop-meta">
+            <span>🛏 5 Beds</span><span>🛁 4 Baths</span><span>📐 3,800 sqft</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 4 -->
+      <a href="property.html" class="prop-card reveal" style="text-decoration:none; color:inherit;">
+        <div class="prop-img">
+          <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=80" alt="Beach House"/>
+          <span class="prop-tag">For Sale</span>
+          <button class="prop-like" aria-label="Like" onclick="event.preventDefault(); this.classList.toggle('liked');">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.3C.2 8.1 2.4 4 6.4 4c2 0 3.6 1 4.6 2.5C12 5 13.6 4 15.6 4c4 0 6.2 4.1 4.4 7.7C19.5 16.4 12 21 12 21z"/></svg>
+          </button>
+        </div>
+        <div class="add-padding-24">
+          <div class="make-flex align-center justify-between add-margin-bottom-10">
+            <div class="prop-price">$3,150,000</div>
+            <span class="badge badge-warning">Featured</span>
+          </div>
+          <div class="set-text-18 text-semibold color-gray-900 add-margin-bottom-6">Oceanfront Beach House</div>
+          <div class="set-text-14 color-gray-500 add-margin-bottom-16">📍 Malibu, California</div>
+          <div class="prop-meta">
+            <span>🛏 6 Beds</span><span>🛁 5 Baths</span><span>📐 5,200 sqft</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 5 -->
+      <a href="property.html" class="prop-card reveal" style="text-decoration:none; color:inherit;">
+        <div class="prop-img">
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80" alt="Loft"/>
+          <span class="prop-tag" style="background:#fef3c7; color:#b45309;">For Rent</span>
+          <button class="prop-like" aria-label="Like" onclick="event.preventDefault(); this.classList.toggle('liked');">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.3C.2 8.1 2.4 4 6.4 4c2 0 3.6 1 4.6 2.5C12 5 13.6 4 15.6 4c4 0 6.2 4.1 4.4 7.7C19.5 16.4 12 21 12 21z"/></svg>
+          </button>
+        </div>
+        <div class="add-padding-24">
+          <div class="make-flex align-center justify-between add-margin-bottom-10">
+            <div class="prop-price">$3,200<span style="font-size:14px; color:#64748b; font-weight:500;">/mo</span></div>
+            <span class="badge badge-success">Available</span>
+          </div>
+          <div class="set-text-18 text-semibold color-gray-900 add-margin-bottom-6">Industrial Downtown Loft</div>
+          <div class="set-text-14 color-gray-500 add-margin-bottom-16">📍 Chicago, Illinois</div>
+          <div class="prop-meta">
+            <span>🛏 2 Beds</span><span>🛁 2 Baths</span><span>📐 1,450 sqft</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 6 -->
+      <a href="property.html" class="prop-card reveal" style="text-decoration:none; color:inherit;">
+        <div class="prop-img">
+          <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=900&q=80" alt="Minimalist Home"/>
+          <span class="prop-tag">For Sale</span>
+          <button class="prop-like" aria-label="Like" onclick="event.preventDefault(); this.classList.toggle('liked');">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.3C.2 8.1 2.4 4 6.4 4c2 0 3.6 1 4.6 2.5C12 5 13.6 4 15.6 4c4 0 6.2 4.1 4.4 7.7C19.5 16.4 12 21 12 21z"/></svg>
+          </button>
+        </div>
+        <div class="add-padding-24">
+          <div class="make-flex align-center justify-between add-margin-bottom-10">
+            <div class="prop-price">$890,000</div>
+            <span class="badge badge-primary">Open House</span>
+          </div>
+          <div class="set-text-18 text-semibold color-gray-900 add-margin-bottom-6">Minimalist Scandinavian</div>
+          <div class="set-text-14 color-gray-500 add-margin-bottom-16">📍 Seattle, Washington</div>
+          <div class="prop-meta">
+            <span>🛏 3 Beds</span><span>🛁 2 Baths</span><span>📐 1,950 sqft</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section id="how" class="add-padding-y-80 background-gray-50">
+  <div class="add-padding-x-32 on-mobile:add-padding-x-20" style="max-width:1280px; margin:0 auto;">
+    <div class="text-center add-margin-bottom-60 reveal">
+      <div class="set-text-14 text-semibold color-teal-700 letter-space-wide text-uppercase add-margin-bottom-12">— Simple Process</div>
+      <h2 class="set-text-40 on-mobile:set-text-28 text-bold color-gray-900" style="letter-spacing:-.02em;">How it works</h2>
+      <p class="set-text-17 color-gray-500 add-margin-top-12" style="max-width:600px; margin-left:auto; margin-right:auto;">From discovery to keys in hand — our process is transparent, fast and built around you.</p>
+    </div>
+
+    <div class="make-grid grid-cols-3 on-mobile:grid-cols-1 gap-32">
+      <div class="reveal add-padding-32 background-white round-corners-20" style="border:1px solid #f1f5f9;">
+        <div class="set-width-56 set-height-56 round-corners-16 make-flex align-center justify-center add-margin-bottom-20" style="background:linear-gradient(135deg,#ccfbf1,#99f6e4); color:#0f766e; font-size:24px; font-weight:800;">01</div>
+        <div class="set-text-20 text-bold color-gray-900 add-margin-bottom-10">Discover</div>
+        <div class="set-text-15 color-gray-600 line-height-relaxed">Search thousands of listings with powerful filters — price, neighborhood, schools, commute, and more.</div>
+      </div>
+      <div class="reveal add-padding-32 background-white round-corners-20" style="border:1px solid #f1f5f9;">
+        <div class="set-width-56 set-height-56 round-corners-16 make-flex align-center justify-center add-margin-bottom-20" style="background:linear-gradient(135deg,#fce7f3,#fbcfe8); color:#be185d; font-size:24px; font-weight:800;">02</div>
+        <div class="set-text-20 text-bold color-gray-900 add-margin-bottom-10">Tour</div>
+        <div class="set-text-15 color-gray-600 line-height-relaxed">Book in-person or 3D virtual tours directly with verified agents — no spam, no pressure, just clarity.</div>
+      </div>
+      <div class="reveal add-padding-32 background-white round-corners-20" style="border:1px solid #f1f5f9;">
+        <div class="set-width-56 set-height-56 round-corners-16 make-flex align-center justify-center add-margin-bottom-20" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe); color:#1d4ed8; font-size:24px; font-weight:800;">03</div>
+        <div class="set-text-20 text-bold color-gray-900 add-margin-bottom-10">Move in</div>
+        <div class="set-text-15 color-gray-600 line-height-relaxed">From offer to keys — our concierge handles paperwork, financing introductions, and move-in coordination.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS (SLIDER) ============ -->
+<style>
+  .tslider { position:relative; overflow:hidden; padding:8px 4px 50px; }
+  .tslider-track { display:flex; gap:24px; transition: transform .6s cubic-bezier(.2,.8,.2,1); will-change: transform; }
+  .tslide {
+    flex: 0 0 calc((100% - 48px) / 3);
+    min-width: 0;
+  }
+  .tslide .quote-card { height:100%; }
+  @media (max-width: 1023px) { .tslide { flex: 0 0 calc((100% - 24px) / 2); } }
+  @media (max-width: 767px)  { .tslide { flex: 0 0 100%; } }
+
+  .tslider-ctrls { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:8px; }
+  .tslider-arrows { display:flex; gap:10px; }
+  .tslider-arrow {
+    width:48px; height:48px; border-radius:50%; border:1px solid #e2e8f0;
+    background:#fff; cursor:pointer; color:#0f172a;
+    display:inline-flex; align-items:center; justify-content:center;
+    transition: all .25s ease;
+  }
+  .tslider-arrow:hover:not(:disabled) {
+    background: var(--brand); color:#fff; border-color: var(--brand);
+    transform: translateY(-2px); box-shadow:0 10px 20px rgba(15,118,110,.3);
+  }
+  .tslider-arrow:disabled { opacity:.4; cursor:not-allowed; }
+  .tslider-dots { display:flex; gap:8px; align-items:center; }
+  .tslider-dot {
+    width:8px; height:8px; border-radius:50%; background:#cbd5e1;
+    border:0; cursor:pointer; padding:0;
+    transition: all .3s ease;
+  }
+  .tslider-dot.active { background: var(--brand); width:28px; border-radius:999px; }
+</style>
+
+<section class="add-padding-y-80 background-white">
+  <div class="add-padding-x-32 on-mobile:add-padding-x-20" style="max-width:1280px; margin:0 auto;">
+    <div class="make-flex justify-between align-end add-margin-bottom-40 reveal" style="flex-wrap:wrap; gap:16px;">
+      <div>
+        <div class="set-text-14 text-semibold color-teal-700 letter-space-wide text-uppercase add-margin-bottom-12">— Loved by many</div>
+        <h2 class="set-text-40 on-mobile:set-text-28 text-bold color-gray-900" style="letter-spacing:-.02em;">What our clients say</h2>
+      </div>
+      <div class="tslider-arrows on-mobile:make-hidden">
+        <button class="tslider-arrow" id="tPrev" aria-label="Previous">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="tslider-arrow" id="tNext" aria-label="Next">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="tslider reveal" id="tslider">
+      <div class="tslider-track" id="tTrack">
+        <div class="tslide">
+          <div class="quote-card">
+            <p class="set-text-16 color-gray-700 line-height-relaxed add-margin-bottom-20">Havenly made the whole process feel effortless. We toured six homes in a weekend and closed on our dream home two weeks later.</p>
+            <div class="make-flex align-center gap-12">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" style="width:44px; height:44px; border-radius:50%; object-fit:cover;" alt=""/>
+              <div>
+                <div class="set-text-15 text-semibold color-gray-900">Priya Shah</div>
+                <div class="set-text-13 color-gray-500">Bought in Seattle, WA</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tslide">
+          <div class="quote-card">
+            <p class="set-text-16 color-gray-700 line-height-relaxed add-margin-bottom-20">The virtual tours saved us three flights. Our agent knew the neighborhood inside out. 10/10 would recommend.</p>
+            <div class="make-flex align-center gap-12">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" style="width:44px; height:44px; border-radius:50%; object-fit:cover;" alt=""/>
+              <div>
+                <div class="set-text-15 text-semibold color-gray-900">Marcus Webb</div>
+                <div class="set-text-13 color-gray-500">Relocated to NY</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tslide">
+          <div class="quote-card">
+            <p class="set-text-16 color-gray-700 line-height-relaxed add-margin-bottom-20">I've sold three properties through Havenly. Their pricing analytics are scary accurate and every listing went fast.</p>
+            <div class="make-flex align-center gap-12">
+              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=120&q=80" style="width:44px; height:44px; border-radius:50%; object-fit:cover;" alt=""/>
+              <div>
+                <div class="set-text-15 text-semibold color-gray-900">Ana Ribeiro</div>
+                <div class="set-text-13 color-gray-500">Investor, Miami</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tslide">
+          <div class="quote-card">
+            <p class="set-text-16 color-gray-700 line-height-relaxed add-margin-bottom-20">First-time buyers and we were terrified. Our agent walked us through every document and found us a home $40k under budget.</p>
+            <div class="make-flex align-center gap-12">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" style="width:44px; height:44px; border-radius:50%; object-fit:cover;" alt=""/>
+              <div>
+                <div class="set-text-15 text-semibold color-gray-900">Daniel Okafor</div>
+                <div class="set-text-13 color-gray-500">Bought in Austin, TX</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tslide">
+          <div class="quote-card">
+            <p class="set-text-16 color-gray-700 line-height-relaxed add-margin-bottom-20">I was relocating from Tokyo and needed everything remote. The 3D tours and video walkthroughs made it feel like I was there.</p>
+            <div class="make-flex align-center gap-12">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80" style="width:44px; height:44px; border-radius:50%; object-fit:cover;" alt=""/>
+              <div>
+                <div class="set-text-15 text-semibold color-gray-900">Yuki Tanaka</div>
+                <div class="set-text-13 color-gray-500">Relocated to LA</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tslide">
+          <div class="quote-card">
+            <p class="set-text-16 color-gray-700 line-height-relaxed add-margin-bottom-20">Sold our family home in 9 days at 6% over asking. Havenly's staging recommendations and photos made the listing shine.</p>
+            <div class="make-flex align-center gap-12">
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=120&q=80" style="width:44px; height:44px; border-radius:50%; object-fit:cover;" alt=""/>
+              <div>
+                <div class="set-text-15 text-semibold color-gray-900">Rachel Brooks</div>
+                <div class="set-text-13 color-gray-500">Sold in Boston, MA</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tslider-ctrls">
+      <div class="tslider-dots" id="tDots"></div>
+      <div class="set-text-13 color-gray-500"><span id="tCurrent">1</span> / <span id="tTotal">6</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="add-padding-y-80 background-gray-50">
+  <div class="add-padding-x-32 on-mobile:add-padding-x-20" style="max-width:1280px; margin:0 auto;">
+    <div class="cta reveal add-padding-y-60 add-padding-x-80 on-mobile:add-padding-32 make-flex align-center justify-between" style="gap:40px; flex-wrap:wrap;">
+      <div style="max-width:640px; position:relative; z-index:2;">
+        <h2 class="set-text-40 on-mobile:set-text-26 text-bold" style="letter-spacing:-.02em;">Ready to find your next home?</h2>
+        <p class="set-text-17 add-margin-top-12" style="color:#e0f2fe;">Join 50,000+ families who found their dream address through Havenly. Browse listings today or talk to an agent.</p>
+      </div>
+      <div class="make-flex gap-12" style="position:relative; z-index:2;">
+        <a href="listings.html" class="btn btn-lg" style="background:#fff; color:var(--ink); border:0;">Browse Listings</a>
+        <a href="contact.html" class="btn btn-lg" style="background:rgba(255,255,255,.14); color:#fff; border:1px solid rgba(255,255,255,.4);">Talk to agent</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="add-padding-x-32 add-padding-top-128 add-padding-bottom-64 on-mobile:add-padding-x-20 on-mobile:add-padding-top-80" style="max-width:1280px; margin:0 auto;">
+    <div class="make-grid gap-48 add-margin-bottom-48" style="grid-template-columns: 1.3fr 1fr 1fr 1fr;">
+      <div>
+        <div class="make-flex align-center gap-12 add-margin-bottom-16">
+          <span class="brand-logo">H</span>
+          <span class="set-text-22 text-bold color-white">Havenly</span>
+        </div>
+        <p class="set-text-14 line-height-relaxed" style="max-width:320px;">Find the home you deserve. Thousands of verified listings, expert agents, transparent process — all in one place.</p>
+        <div class="make-flex gap-12 add-margin-top-20">
+          <a href="#" aria-label="Twitter"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 01-1.93.07 4.28 4.28 0 004 2.98 8.521 8.521 0 01-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2m-.2 2A3.6 3.6 0 004 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 011.25 1.25A1.25 1.25 0 0117.25 8 1.25 1.25 0 0116 6.75a1.25 1.25 0 011.25-1.25M12 7a5 5 0 015 5 5 5 0 01-5 5 5 5 0 01-5-5 5 5 0 015-5m0 2a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3z"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 008.44-9.9c0-5.53-4.5-10.02-10-10.02z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <div class="set-text-13 text-bold text-uppercase letter-space-wide color-white add-margin-bottom-16">Explore</div>
+        <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:10px;">
+          <li><a href="listings.html">Buy a home</a></li>
+          <li><a href="listings.html">Rent</a></li>
+          <li><a href="listings.html">Sell your home</a></li>
+          <li><a href="listings.html">New projects</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="set-text-13 text-bold text-uppercase letter-space-wide color-white add-margin-bottom-16">Company</div>
+        <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:10px;">
+          <li><a href="about.html">About us</a></li>
+          <li><a href="agents.html">Our agents</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="set-text-13 text-bold text-uppercase letter-space-wide color-white add-margin-bottom-16">Get the newsletter</div>
+        <p class="set-text-14 add-margin-bottom-14">New listings & market updates. No spam.</p>
+        <form onsubmit="event.preventDefault(); this.querySelector('input').value=''; this.querySelector('button').textContent='✓ Subscribed';">
+          <div class="make-flex gap-8">
+            <input type="email" required placeholder="you@email.com" style="flex:1; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.06); color:#fff;">
+            <button class="btn" style="background:var(--brand); color:#fff; border:0;">Join</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="make-flex justify-between align-center add-padding-top-24" style="border-top:1px solid rgba(255,255,255,.08); flex-wrap:wrap; gap:10px;">
+      <div class="set-text-13 color-gray-500">© 2026 Havenly Real Estate. All rights reserved.</div>
+      <div class="make-flex gap-20 set-text-13">
+        <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Sticky navbar shadow
+  const nav = document.querySelector('.site-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // Mobile menu
+  const hamb = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  const close = document.getElementById('closeMenu');
+  hamb && hamb.addEventListener('click', () => menu.classList.add('open'));
+  close && close.addEventListener('click', () => menu.classList.remove('open'));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+
+  // Search tabs
+  document.querySelectorAll('.search-tabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.search-tabs button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Counter
+  const countEls = document.querySelectorAll('[data-count]');
+  const countIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const target = +el.dataset.count;
+      const dur = 1500; const start = performance.now();
+      const step = (t) => {
+        const p = Math.min(1, (t - start)/dur);
+        const val = Math.floor(target * (1 - Math.pow(1-p, 3)));
+        el.textContent = val.toLocaleString() + (target >= 1000 ? '+' : '');
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+      countIO.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  countEls.forEach(el => countIO.observe(el));
+
+  // Testimonial slider
+  (function() {
+    const track = document.getElementById('tTrack');
+    const slides = track.querySelectorAll('.tslide');
+    const prevBtn = document.getElementById('tPrev');
+    const nextBtn = document.getElementById('tNext');
+    const dotsEl = document.getElementById('tDots');
+    const curEl = document.getElementById('tCurrent');
+    const totalEl = document.getElementById('tTotal');
+    const total = slides.length;
+    let visible = 3, maxIndex = 0, index = 0, autoTimer;
+
+    function computeVisible() {
+      const w = window.innerWidth;
+      visible = w <= 767 ? 1 : w <= 1023 ? 2 : 3;
+      maxIndex = Math.max(0, total - visible);
+      if (index > maxIndex) index = maxIndex;
+    }
+
+    function buildDots() {
+      dotsEl.innerHTML = '';
+      const pages = maxIndex + 1;
+      for (let i = 0; i < pages; i++) {
+        const b = document.createElement('button');
+        b.className = 'tslider-dot' + (i === index ? ' active' : '');
+        b.setAttribute('aria-label', 'Slide ' + (i+1));
+        b.addEventListener('click', () => go(i));
+        dotsEl.appendChild(b);
+      }
+      totalEl.textContent = pages;
+    }
+
+    function update() {
+      const slideW = slides[0].getBoundingClientRect().width;
+      const gap = 24;
+      track.style.transform = `translateX(-${index * (slideW + gap)}px)`;
+      dotsEl.querySelectorAll('.tslider-dot').forEach((d, i) => d.classList.toggle('active', i === index));
+      curEl.textContent = index + 1;
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === maxIndex;
+    }
+
+    function go(i) {
+      index = Math.max(0, Math.min(maxIndex, i));
+      update();
+      restartAuto();
+    }
+
+    function next() { go(index >= maxIndex ? 0 : index + 1); }
+    function prev() { go(index <= 0 ? maxIndex : index - 1); }
+
+    function restartAuto() {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(next, 5500);
+    }
+
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+
+    let rAF;
+    window.addEventListener('resize', () => {
+      cancelAnimationFrame(rAF);
+      rAF = requestAnimationFrame(() => { computeVisible(); buildDots(); update(); });
+    });
+
+    // Touch / swipe
+    let startX = 0, isDragging = false;
+    track.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; isDragging = true; }, { passive: true });
+    track.addEventListener('touchend', (e) => {
+      if (!isDragging) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (dx > 40) prev();
+      else if (dx < -40) next();
+      isDragging = false;
+    });
+
+    // Pause on hover
+    const sliderEl = document.getElementById('tslider');
+    sliderEl.addEventListener('mouseenter', () => clearInterval(autoTimer));
+    sliderEl.addEventListener('mouseleave', restartAuto);
+
+    computeVisible();
+    buildDots();
+    update();
+    restartAuto();
+  })();
+</script>
+</body>
+</html>
