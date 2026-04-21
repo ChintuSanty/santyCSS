@@ -11,6 +11,7 @@ frontend:
         - cp -r *.html *.css *.js assest site/
         - cp sitemap.xml robots.txt site/
         - cp -r dist site/dist
+        - cp -r real-estate site/real-estate
   artifacts:
     baseDirectory: site
     files:
