@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — Havenly</title>
+<link rel="stylesheet" href="../santy.css" />
+<link rel="stylesheet" href="../santy-variants.css" />
+<style>
+  :root { --brand:#0f766e; --ink:#0b1220; }
+  html { scroll-behavior: smooth; }
+  body { font-family:'Inter', system-ui, sans-serif; color:var(--ink); background:#f8fafc; }
+
+  .site-nav { position:sticky; top:0; z-index:50; background:rgba(255,255,255,.92); backdrop-filter:blur(14px); border-bottom:1px solid rgba(15,23,42,.06); }
+  .brand-logo { width:38px; height:38px; border-radius:10px; background:linear-gradient(135deg,#0f766e,#14b8a6); display:inline-flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:18px;}
+
+  .hero-banner {
+    background: linear-gradient(115deg, rgba(15,23,42,.85), rgba(15,23,42,.5)), url('https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1800&q=80') center/cover;
+    color:#fff; padding:100px 0 80px;
+  }
+
+  .reveal { opacity:0; transform: translateY(20px); transition: opacity .6s, transform .6s cubic-bezier(.2,.8,.2,1); }
+  .reveal.visible { opacity:1; transform:none; }
+
+  .contact-card { background:#fff; border-radius:22px; padding:40px; box-shadow: 0 20px 40px -20px rgba(2,6,23,.15); border:1px solid #f1f5f9; }
+  .form-grid { display:grid; grid-template-columns: 1fr 1fr; gap:20px; }
+  @media (max-width:640px) { .form-grid { grid-template-columns: 1fr; } }
+
+  .form-grid label, form label.fl { font-size:12px; font-weight:700; letter-spacing:.08em; color:#64748b; text-transform:uppercase; display:block; margin-bottom:6px; }
+  .ctl {
+    width:100%; padding:13px 16px; border:1px solid #e2e8f0; border-radius:12px; font-size:15px; outline:none;
+    background:#fff; transition: border .2s, box-shadow .2s, transform .2s;
+  }
+  .ctl:focus { border-color:var(--brand); box-shadow:0 0 0 4px rgba(15,118,110,.1); transform: translateY(-1px); }
+
+  .info-card { background:#fff; border-radius:20px; padding:26px; border:1px solid #f1f5f9; transition: transform .3s, border-color .3s; }
+  .info-card:hover { transform: translateY(-4px); border-color:#99f6e4; }
+  .info-icon { width:48px; height:48px; border-radius:14px; background:linear-gradient(135deg,#ccfbf1,#99f6e4); color:#0f766e; display:flex; align-items:center; justify-content:center; font-size:20px; margin-bottom:14px; }
+
+  .office-card { background:#fff; border-radius:20px; overflow:hidden; box-shadow:0 4px 14px rgba(2,6,23,.06); transition: transform .4s, box-shadow .4s; }
+  .office-card:hover { transform: translateY(-6px); box-shadow:0 24px 44px -18px rgba(2,6,23,.2); }
+  .office-card img { width:100%; aspect-ratio:16/10; object-fit:cover; transition: transform .6s ease; }
+  .office-card:hover img { transform: scale(1.06); }
+
+  .accordion-item { background:#fff; border:1px solid #f1f5f9; border-radius:14px; overflow:hidden; transition: border-color .2s; }
+  .accordion-item:hover { border-color:#99f6e4; }
+  .accordion-head { width:100%; background:transparent; border:0; padding:20px 22px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; font-weight:600; font-size:16px; color:#0f172a; text-align:left; }
+  .accordion-head::after { content:'+'; font-size:24px; color:#0f766e; font-weight:300; transition: transform .3s; }
+  .accordion-item.open .accordion-head::after { transform: rotate(45deg); }
+  .accordion-body { max-height:0; overflow:hidden; transition: max-height .4s ease; color:#475569; line-height:1.7; padding: 0 22px; }
+  .accordion-item.open .accordion-body { max-height:400px; padding: 0 22px 22px; }
+
+  .hamburger { display:none; }
+  @media (max-width:900px){ .nav-links{display:none!important} .hamburger{display:inline-flex} }
+  .mobile-menu { position:fixed; inset:0; z-index:60; background:rgba(11,18,32,.96); color:#fff; display:none; flex-direction:column; padding:80px 24px 24px; gap:10px; }
+  .mobile-menu.open { display:flex; }
+  .mobile-menu a { color:#fff; font-size:20px; font-weight:600; padding:14px 0; border-bottom:1px solid rgba(255,255,255,.08); text-decoration:none; }
+
+  footer { background:#0b1220; color:#cbd5e1; }
+  footer a { color:#cbd5e1; text-decoration:none; }
+  footer a:hover { color:#5eead4; }
+
+  /* Success toast */
+  .toast { position:fixed; top:24px; right:24px; background:linear-gradient(135deg,#10b981,#059669); color:#fff; padding:14px 20px; border-radius:14px; box-shadow:0 20px 40px rgba(16,185,129,.4); display:none; align-items:center; gap:10px; z-index:100; font-weight:600; animation: slideInRight .4s ease; }
+  .toast.show { display:flex; }
+  @keyframes slideInRight { from { opacity:0; transform: translateX(100px); } to { opacity:1; transform: none; } }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="make-flex align-center justify-between add-padding-x-32 on-mobile:add-padding-x-20 add-padding-y-16" style="max-width:1280px; margin:0 auto;">
+    <a href="index.html" class="make-flex align-center gap-12" style="text-decoration:none;">
+      <span class="brand-logo">H</span><span class="set-text-22 text-bold color-gray-900">Havenly</span>
+    </a>
+    <div class="nav-links make-flex align-center gap-32">
+      <a href="index.html" style="text-decoration:none; color:#475569; font-weight:500;">Home</a>
+      <a href="listings.html" style="text-decoration:none; color:#475569; font-weight:500;">Listings</a>
+      <a href="agents.html" style="text-decoration:none; color:#475569; font-weight:500;">Agents</a>
+      <a href="about.html" style="text-decoration:none; color:#475569; font-weight:500;">About</a>
+      <a href="contact.html" style="text-decoration:none; color:#0f766e; font-weight:600;">Contact</a>
+    </div>
+    <div class="nav-links make-flex align-center gap-12">
+      <a href="#" style="text-decoration:none; color:#334155; font-weight:500;">Sign in</a>
+      <a href="listings.html" class="btn btn-primary" style="background:var(--brand); border-color:var(--brand);">List Property</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu" style="background:transparent; border:0; cursor:pointer;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button id="closeMenu" style="position:absolute; top:20px; right:20px; background:transparent; border:0; color:#fff; cursor:pointer;">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="index.html">Home</a><a href="listings.html">Listings</a><a href="agents.html">Agents</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero-banner">
+  <div class="add-padding-x-32 on-mobile:add-padding-x-20 text-center" style="max-width:800px; margin:0 auto;">
+    <div class="set-text-14 text-semibold letter-space-wide text-uppercase add-margin-bottom-12 animate-fade-in-from-top" style="color:#5eead4;">— Get in touch</div>
+    <h1 class="set-text-56 on-mobile:set-text-32 text-bold animate-fade-in-from-bottom" style="letter-spacing:-.02em;">We'd love to hear from you</h1>
+    <p class="set-text-18 add-margin-top-16 animate-fade-in-from-bottom" style="color:#e2e8f0; animation-delay:.2s;">
+      Questions, a home to list, or partnership ideas — reach out and a human will reply within an hour.
+    </p>
+  </div>
+</section>
+
+<!-- QUICK INFO CARDS -->
+<section class="add-padding-x-32 add-padding-top-48 add-padding-bottom-20 on-mobile:add-padding-x-20" style="max-width:1280px; margin:0 auto;">
+  <div class="make-grid grid-cols-4 md:grid-cols-2 on-mobile:grid-cols-1 gap-20">
+    <div class="info-card reveal">
+      <div class="info-icon">📞</div>
+      <div class="set-text-13 text-bold color-gray-500 text-uppercase letter-space-wide">Call us</div>
+      <div class="set-text-18 text-bold color-gray-900 add-margin-top-4">+1 (555) 123-4567</div>
+      <div class="set-text-13 color-gray-500 add-margin-top-4">Mon–Fri · 8am – 8pm</div>
+    </div>
+    <div class="info-card reveal">
+      <div class="info-icon">✉️</div>
+      <div class="set-text-13 text-bold color-gray-500 text-uppercase letter-space-wide">Email</div>
+      <div class="set-text-18 text-bold color-gray-900 add-margin-top-4">hello@havenly.com</div>
+      <div class="set-text-13 color-gray-500 add-margin-top-4">We reply within 1 hour</div>
+    </div>
+    <div class="info-card reveal">
+      <div class="info-icon">💬</div>
+      <div class="set-text-13 text-bold color-gray-500 text-uppercase letter-space-wide">Live chat</div>
+      <div class="set-text-18 text-bold color-gray-900 add-margin-top-4">Available 24/7</div>
+      <div class="set-text-13 color-gray-500 add-margin-top-4">Bottom-right on any page</div>
+    </div>
+    <div class="info-card reveal">
+      <div class="info-icon">📍</div>
+      <div class="set-text-13 text-bold color-gray-500 text-uppercase letter-space-wide">HQ</div>
+      <div class="set-text-18 text-bold color-gray-900 add-margin-top-4">1100 Market St, SF</div>
+      <div class="set-text-13 color-gray-500 add-margin-top-4">San Francisco, CA 94103</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT FORM + MAP -->
+<section class="add-padding-y-60 add-padding-x-32 on-mobile:add-padding-x-20" style="max-width:1280px; margin:0 auto;">
+  <div class="make-grid gap-40" data-cg>
+    <style>[data-cg]{grid-template-columns:1.2fr 1fr;} @media(max-width:900px){[data-cg]{grid-template-columns:1fr;}}</style>
+
+    <!-- Form -->
+    <div class="contact-card reveal">
+      <div class="set-text-14 text-semibold color-teal-700 letter-space-wide text-uppercase add-margin-bottom-10">— Send a message</div>
+      <h2 class="set-text-32 on-mobile:set-text-24 text-bold color-gray-900 add-margin-bottom-8" style="letter-spacing:-.02em;">How can we help?</h2>
+      <p class="set-text-15 color-gray-600 add-margin-bottom-28">Tell us a bit about what you're looking for and we'll match you with the right person.</p>
+
+      <form id="cform" onsubmit="event.preventDefault(); document.getElementById('toast').classList.add('show'); this.reset(); setTimeout(()=>document.getElementById('toast').classList.remove('show'), 3500);">
+        <div class="form-grid">
+          <div>
+            <label class="fl">First name</label>
+            <input required class="ctl" placeholder="Jane" />
+          </div>
+          <div>
+            <label class="fl">Last name</label>
+            <input required class="ctl" placeholder="Doe" />
+          </div>
+          <div>
+            <label class="fl">Email</label>
+            <input required type="email" class="ctl" placeholder="jane@email.com" />
+          </div>
+          <div>
+            <label class="fl">Phone (optional)</label>
+            <input class="ctl" placeholder="+1 (555) 123-4567" />
+          </div>
+        </div>
+
+        <div class="add-margin-top-20">
+          <label class="fl">What can we help with?</label>
+          <div class="make-flex gap-8 add-margin-top-6" style="flex-wrap:wrap;">
+            <label style="display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border:1px solid #e2e8f0; border-radius:999px; cursor:pointer; transition:all .2s;">
+              <input type="radio" name="topic" checked style="accent-color:#0f766e;"/> Buying a home
+            </label>
+            <label style="display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border:1px solid #e2e8f0; border-radius:999px; cursor:pointer; transition:all .2s;">
+              <input type="radio" name="topic" style="accent-color:#0f766e;"/> Selling a home
+            </label>
+            <label style="display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border:1px solid #e2e8f0; border-radius:999px; cursor:pointer; transition:all .2s;">
+              <input type="radio" name="topic" style="accent-color:#0f766e;"/> Renting
+            </label>
+            <label style="display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border:1px solid #e2e8f0; border-radius:999px; cursor:pointer; transition:all .2s;">
+              <input type="radio" name="topic" style="accent-color:#0f766e;"/> Join as agent
+            </label>
+            <label style="display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border:1px solid #e2e8f0; border-radius:999px; cursor:pointer; transition:all .2s;">
+              <input type="radio" name="topic" style="accent-color:#0f766e;"/> Something else
+            </label>
+          </div>
+        </div>
+
+        <div class="add-margin-top-20">
+          <label class="fl">Message</label>
+          <textarea class="ctl" rows="5" placeholder="Tell us more about what you're looking for..."></textarea>
+        </div>
+
+        <div class="make-flex justify-between align-center add-margin-top-24" style="flex-wrap:wrap; gap:14px;">
+          <label class="make-flex align-center gap-8 set-text-13 color-gray-600">
+            <input type="checkbox" style="accent-color:#0f766e;"/> Sign me up for monthly market updates
+          </label>
+          <button type="submit" class="btn btn-lg" style="background:linear-gradient(135deg,#0f766e,#14b8a6); color:#fff; border:0; box-shadow:0 12px 24px rgba(15,118,110,.35);">
+            Send message →
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Map / side -->
+    <div class="reveal">
+      <div style="border-radius:22px; overflow:hidden; box-shadow:0 20px 40px -20px rgba(2,6,23,.25); aspect-ratio:4/5; background:url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80') center/cover; position:relative;">
+        <div style="position:absolute; top:40%; left:50%; transform:translate(-50%,-100%);">
+          <div style="width:22px; height:22px; border-radius:50%; background:#0f766e; border:5px solid #fff; box-shadow:0 6px 20px rgba(15,118,110,.5); position:relative;">
+            <span style="position:absolute; inset:-8px; border-radius:50%; background:rgba(15,118,110,.4); animation: ping 2s ease-out infinite;"></span>
+          </div>
+        </div>
+        <div style="position:absolute; left:20px; bottom:20px; right:20px; background:rgba(255,255,255,.95); backdrop-filter:blur(10px); padding:18px; border-radius:16px;">
+          <div class="set-text-12 text-bold color-teal-700 text-uppercase letter-space-wide">Headquarters</div>
+          <div class="set-text-18 text-bold color-gray-900 add-margin-top-4">1100 Market Street</div>
+          <div class="set-text-14 color-gray-500 add-margin-top-2">San Francisco, CA 94103</div>
+          <a href="#" class="set-text-14 text-semibold color-teal-700 add-margin-top-10" style="display:inline-block; text-decoration:none;">Get directions →</a>
+        </div>
+      </div>
+      <style>@keyframes ping{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.8);opacity:0}}</style>
+    </div>
+  </div>
+</section>
+
+<!-- OFFICES -->
+<section class="add-padding-y-60 add-padding-x-32 on-mobile:add-padding-x-20">
+  <div style="max-width:1280px; margin:0 auto;">
+    <div class="add-margin-bottom-32 reveal">
+      <div class="set-text-14 text-semibold color-teal-700 letter-space-wide text-uppercase add-margin-bottom-12">— Our offices</div>
+      <h2 class="set-text-36 on-mobile:set-text-26 text-bold color-gray-900" style="letter-spacing:-.02em;">Come say hello</h2>
+    </div>
+    <div class="make-grid grid-cols-3 md:grid-cols-2 on-mobile:grid-cols-1 gap-24">
+      <div class="office-card reveal">
+        <img src="https://images.unsplash.com/photo-1449034446853-66c86144b0ad?auto=format&fit=crop&w=800&q=80" alt="San Francisco"/>
+        <div class="add-padding-24">
+          <div class="set-text-20 text-bold color-gray-900">San Francisco</div>
+          <div class="set-text-14 color-gray-500 add-margin-top-6">1100 Market St, CA 94103</div>
+          <div class="set-text-13 color-teal-700 text-semibold add-margin-top-10">+1 (555) 123-4567</div>
+        </div>
+      </div>
+      <div class="office-card reveal">
+        <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&w=800&q=80" alt="New York"/>
+        <div class="add-padding-24">
+          <div class="set-text-20 text-bold color-gray-900">New York</div>
+          <div class="set-text-14 color-gray-500 add-margin-top-6">450 Broadway, NY 10013</div>
+          <div class="set-text-13 color-teal-700 text-semibold add-margin-top-10">+1 (555) 987-6543</div>
+        </div>
+      </div>
+      <div class="office-card reveal">
+        <img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=800&q=80" alt="Austin"/>
+        <div class="add-padding-24">
+          <div class="set-text-20 text-bold color-gray-900">Austin</div>
+          <div class="set-text-14 color-gray-500 add-margin-top-6">200 Congress Ave, TX 78701</div>
+          <div class="set-text-13 color-teal-700 text-semibold add-margin-top-10">+1 (555) 456-7890</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="add-padding-y-60 add-padding-x-32 on-mobile:add-padding-x-20">
+  <div style="max-width:900px; margin:0 auto;">
+    <div class="text-center add-margin-bottom-32 reveal">
+      <div class="set-text-14 text-semibold color-teal-700 letter-space-wide text-uppercase add-margin-bottom-12">— FAQ</div>
+      <h2 class="set-text-36 on-mobile:set-text-26 text-bold color-gray-900" style="letter-spacing:-.02em;">Frequently asked questions</h2>
+    </div>
+    <div class="make-flex flex-column gap-12">
+      <div class="accordion-item reveal">
+        <button class="accordion-head">How fast will someone get back to me?</button>
+        <div class="accordion-body">Our team typically responds to contact form submissions within one hour during business hours (8am–8pm ET) and within the next morning for overnight messages.</div>
+      </div>
+      <div class="accordion-item reveal">
+        <button class="accordion-head">Do you charge a fee for browsing or talking to agents?</button>
+        <div class="accordion-body">No. Browsing listings and connecting with our agents is always free. Commissions are only applied at the successful close of a transaction, paid by the seller.</div>
+      </div>
+      <div class="accordion-item reveal">
+        <button class="accordion-head">Can I tour a home virtually?</button>
+        <div class="accordion-body">Yes — most of our listings include a 3D virtual tour you can walk through from any device. For live tours, our agents offer guided video calls by appointment.</div>
+      </div>
+      <div class="accordion-item reveal">
+        <button class="accordion-head">How do I list my property with Havenly?</button>
+        <div class="accordion-body">Easy — fill out the contact form, pick "Selling a home" and a local agent will schedule a free valuation within 48 hours. You're under no obligation to list with us.</div>
+      </div>
+      <div class="accordion-item reveal">
+        <button class="accordion-head">Do you operate outside the US?</button>
+        <div class="accordion-body">Not yet. We're currently focused on 42 US metro areas. We have plans to expand to Canada and Mexico in 2026 — join our newsletter for updates.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="add-padding-x-32 add-padding-top-128 add-padding-bottom-64 on-mobile:add-padding-x-20 on-mobile:add-padding-top-80" style="max-width:1280px; margin:0 auto;">
+    <div class="make-grid gap-48 add-margin-bottom-48" style="grid-template-columns: 1.3fr 1fr 1fr 1fr;">
+      <div>
+        <div class="make-flex align-center gap-12 add-margin-bottom-16">
+          <span class="brand-logo">H</span>
+          <span class="set-text-22 text-bold color-white">Havenly</span>
+        </div>
+        <p class="set-text-14 line-height-relaxed" style="max-width:320px;">Find the home you deserve. Thousands of verified listings, expert agents, transparent process — all in one place.</p>
+        <div class="make-flex gap-12 add-margin-top-20">
+          <a href="#" aria-label="Twitter"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 01-1.93.07 4.28 4.28 0 004 2.98 8.521 8.521 0 01-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2m-.2 2A3.6 3.6 0 004 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 011.25 1.25A1.25 1.25 0 0117.25 8 1.25 1.25 0 0116 6.75a1.25 1.25 0 011.25-1.25M12 7a5 5 0 015 5 5 5 0 01-5 5 5 5 0 01-5-5 5 5 0 015-5m0 2a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3z"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 008.44-9.9c0-5.53-4.5-10.02-10-10.02z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <div class="set-text-13 text-bold text-uppercase letter-space-wide color-white add-margin-bottom-16">Explore</div>
+        <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:10px;">
+          <li><a href="listings.html">Buy a home</a></li>
+          <li><a href="listings.html">Rent</a></li>
+          <li><a href="listings.html">Sell your home</a></li>
+          <li><a href="listings.html">New projects</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="set-text-13 text-bold text-uppercase letter-space-wide color-white add-margin-bottom-16">Company</div>
+        <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:10px;">
+          <li><a href="about.html">About us</a></li>
+          <li><a href="agents.html">Our agents</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="set-text-13 text-bold text-uppercase letter-space-wide color-white add-margin-bottom-16">Get the newsletter</div>
+        <p class="set-text-14 add-margin-bottom-14">New listings & market updates. No spam.</p>
+        <form onsubmit="event.preventDefault(); this.querySelector('input').value=''; this.querySelector('button').textContent='✓ Subscribed';">
+          <div class="make-flex gap-8">
+            <input type="email" required placeholder="you@email.com" style="flex:1; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.06); color:#fff;">
+            <button class="btn" style="background:var(--brand); color:#fff; border:0;">Join</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="make-flex justify-between align-center add-padding-top-24" style="border-top:1px solid rgba(255,255,255,.08); flex-wrap:wrap; gap:10px;">
+      <div class="set-text-13 color-gray-500">© 2026 Havenly Real Estate. All rights reserved.</div>
+      <div class="make-flex gap-20 set-text-13">
+        <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+  Message sent! We'll reply within an hour.
+</div>
+
+<script>
+  const hamb = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  const close = document.getElementById('closeMenu');
+  hamb && hamb.addEventListener('click', () => menu.classList.add('open'));
+  close && close.addEventListener('click', () => menu.classList.remove('open'));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+
+  // Accordion
+  document.querySelectorAll('.accordion-head').forEach(h => h.addEventListener('click', () => {
+    h.parentElement.classList.toggle('open');
+  }));
+
+  // Reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold:.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

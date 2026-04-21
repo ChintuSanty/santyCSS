@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopping Cart — LuxeStore</title>
+  <link rel="stylesheet" href="../santy.css" />
+  <link rel="stylesheet" href="../santy-variants.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Progress Bar ── */
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: linear-gradient(90deg, #2563eb, #7c3aed);
+      z-index: 9999; transition: width 0.1s;
+    }
+
+    /* ── Navbar ── */
+    .site-nav { position:sticky;top:0;z-index:200;background:#fff;border-bottom:1px solid #e5e7eb;transition:box-shadow .3s; }
+    .dark .site-nav { background:#0f172a;border-color:#1e293b; }
+    .site-nav.scrolled { box-shadow:0 4px 16px rgba(0,0,0,.08); }
+    .navbar-item { padding:8px 12px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:500;color:#374151;transition:color .2s;display:inline-flex;align-items:center; }
+    .navbar-item:hover { color:#2563eb; }
+    .dark .navbar-item { color:#94a3b8; }
+    .dark .navbar-item:hover { color:#60a5fa; }
+    .desktop-nav { display:flex;align-items:center;gap:4px; }
+    .dropdown-menu { position:absolute;top:calc(100% + 8px);background:#fff;border:1px solid #e5e7eb;border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,.12);min-width:220px;z-index:300;padding:6px; }
+    .dark .dropdown-menu { background:#1e293b;border-color:#334155; }
+    .dropdown-item { display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:13px;font-weight:500;color:#374151;text-decoration:none;border-radius:9px;transition:background .15s; }
+    .dropdown-item:hover { background:#f1f5f9;color:#2563eb; }
+    .dark .dropdown-item { color:#e2e8f0; }
+    .dark .dropdown-item:hover { background:#334155;color:#60a5fa; }
+    .dropdown-divider { height:1px;background:#e5e7eb;margin:4px 8px; }
+    .dark .dropdown-divider { background:#334155; }
+    .cart-btn { position:relative;display:inline-flex; }
+    .cart-count { position:absolute;top:-6px;right:-6px;background:#ef4444;color:#fff;width:18px;height:18px;border-radius:50%;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center; }
+    .mobile-menu-btn { background:none;border:none;cursor:pointer;font-size:22px;color:#374151;padding:4px 8px; }
+    @media(max-width:640px) { .desktop-nav { display:none !important; } .mobile-menu-btn { display:flex !important; } }
+
+    /* ── Toast ── */
+    #toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9998; display: flex; flex-direction: column; gap: 10px; }
+    .toast {
+      padding: 12px 20px; border-radius: 10px; font-size: 14px; font-weight: 500;
+      color: #fff; max-width: 320px; box-shadow: 0 8px 24px rgba(0,0,0,.15);
+      animation: toastIn .3s ease; display: flex; align-items: center; gap: 8px;
+    }
+    .toast.success { background: #16a34a; }
+    .toast.error   { background: #dc2626; }
+    .toast.info    { background: #2563eb; }
+    .toast.out     { animation: toastOut .3s ease forwards; }
+    @keyframes toastIn  { from { opacity:0; transform:translateX(40px); } to { opacity:1; transform:translateX(0); } }
+    @keyframes toastOut { from { opacity:1; transform:translateX(0); } to { opacity:0; transform:translateX(40px); } }
+
+    /* ── Page Layout ── */
+    .page-wrapper { max-width: 1280px; margin: 0 auto; padding: 40px 24px 80px; }
+    .dark .page-wrapper { color: #e2e8f0; }
+
+    /* ── Breadcrumb ── */
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #64748b; margin-bottom: 32px; }
+    .breadcrumb a { color: #64748b; text-decoration: none; }
+    .breadcrumb a:hover { color: #2563eb; }
+    .breadcrumb-sep { color: #cbd5e1; }
+
+    /* ── Cart Grid ── */
+    .cart-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 32px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .cart-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Cart Items Panel ── */
+    .cart-panel {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .dark .cart-panel { background: #1e293b; border-color: #334155; }
+    .cart-panel-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .dark .cart-panel-header { border-color: #334155; }
+    .cart-panel-title { font-size: 18px; font-weight: 700; color: #0f172a; }
+    .dark .cart-panel-title { color: #f1f5f9; }
+    .clear-cart-btn {
+      font-size: 13px; color: #dc2626; background: none; border: none; cursor: pointer;
+      font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: background .2s;
+    }
+    .clear-cart-btn:hover { background: #fef2f2; }
+
+    /* ── Cart Item ── */
+    .cart-item {
+      display: flex; gap: 16px; padding: 20px 24px;
+      border-bottom: 1px solid #f1f5f9;
+      transition: background .2s;
+      animation: itemIn .3s ease;
+    }
+    .dark .cart-item { border-color: #1e293b; }
+    .cart-item:last-child { border-bottom: none; }
+    .cart-item:hover { background: #f8fafc; }
+    .dark .cart-item:hover { background: #0f172a; }
+    @keyframes itemIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    .cart-item-img {
+      width: 90px; height: 90px; border-radius: 10px;
+      object-fit: cover; flex-shrink: 0;
+      border: 1px solid #e2e8f0;
+    }
+    .dark .cart-item-img { border-color: #334155; }
+    .cart-item-info { flex: 1; min-width: 0; }
+    .cart-item-name {
+      font-size: 15px; font-weight: 600; color: #0f172a;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      text-decoration: none; display: block; margin-bottom: 4px;
+    }
+    .dark .cart-item-name { color: #f1f5f9; }
+    .cart-item-name:hover { color: #2563eb; }
+    .cart-item-meta { font-size: 13px; color: #64748b; margin-bottom: 12px; }
+    .cart-item-controls { display: flex; align-items: center; gap: 12px; }
+    .qty-control { display: flex; align-items: center; gap: 0; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+    .dark .qty-control { border-color: #334155; }
+    .qty-btn {
+      width: 32px; height: 32px; border: none; background: #f8fafc; cursor: pointer;
+      font-size: 16px; color: #374151; transition: background .15s, color .15s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dark .qty-btn { background: #334155; color: #94a3b8; }
+    .qty-btn:hover { background: #e2e8f0; color: #2563eb; }
+    .dark .qty-btn:hover { background: #475569; color: #60a5fa; }
+    .qty-display { width: 40px; text-align: center; font-weight: 600; font-size: 14px; color: #0f172a; }
+    .dark .qty-display { color: #f1f5f9; }
+    .remove-btn {
+      font-size: 13px; color: #94a3b8; background: none; border: none; cursor: pointer;
+      padding: 4px 8px; border-radius: 6px; transition: color .2s, background .2s;
+    }
+    .remove-btn:hover { color: #dc2626; background: #fef2f2; }
+    .cart-item-price {
+      font-size: 16px; font-weight: 700; color: #0f172a;
+      white-space: nowrap; display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+    }
+    .dark .cart-item-price { color: #f1f5f9; }
+    .cart-item-price-original { font-size: 13px; color: #94a3b8; text-decoration: line-through; font-weight: 400; }
+
+    /* ── Empty Cart ── */
+    .empty-cart { padding: 64px 24px; text-align: center; }
+    .empty-cart-icon { font-size: 64px; margin-bottom: 16px; opacity: .4; }
+    .empty-cart h3 { font-size: 20px; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
+    .dark .empty-cart h3 { color: #f1f5f9; }
+    .empty-cart p { color: #64748b; margin-bottom: 24px; }
+
+    /* ── Coupon ── */
+    .coupon-row { display: flex; gap: 10px; padding: 16px 24px; background: #f8fafc; border-top: 1px solid #f1f5f9; }
+    .dark .coupon-row { background: #0f172a; border-color: #1e293b; }
+    .coupon-input {
+      flex: 1; padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 8px;
+      font-size: 14px; background: #fff; color: #0f172a; outline: none;
+      transition: border-color .2s;
+    }
+    .dark .coupon-input { background: #1e293b; border-color: #334155; color: #f1f5f9; }
+    .coupon-input:focus { border-color: #2563eb; }
+    .coupon-apply {
+      padding: 10px 18px; background: #2563eb; color: #fff; border: none; border-radius: 8px;
+      font-size: 14px; font-weight: 600; cursor: pointer; transition: background .2s;
+    }
+    .coupon-apply:hover { background: #1d4ed8; }
+
+    /* ── Order Summary ── */
+    .order-summary {
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 16px;
+      overflow: hidden; position: sticky; top: 88px;
+    }
+    .dark .order-summary { background: #1e293b; border-color: #334155; }
+    .summary-header { padding: 20px 24px; border-bottom: 1px solid #e2e8f0; }
+    .dark .summary-header { border-color: #334155; }
+    .summary-title { font-size: 18px; font-weight: 700; color: #0f172a; }
+    .dark .summary-title { color: #f1f5f9; }
+    .summary-body { padding: 20px 24px; }
+    .summary-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 14px; }
+    .summary-row .label { color: #64748b; }
+    .summary-row .value { font-weight: 500; color: #0f172a; }
+    .dark .summary-row .value { color: #f1f5f9; }
+    .summary-divider { border: none; border-top: 1px solid #e2e8f0; margin: 8px 0; }
+    .dark .summary-divider { border-color: #334155; }
+    .summary-total .label { font-weight: 700; font-size: 16px; color: #0f172a; }
+    .dark .summary-total .label { color: #f1f5f9; }
+    .summary-total .value { font-size: 22px; font-weight: 800; color: #2563eb; }
+    .discount-row .value { color: #16a34a; }
+    .shipping-free .value { color: #16a34a; font-weight: 600; }
+    .summary-footer { padding: 0 24px 24px; }
+    .checkout-btn {
+      width: 100%; padding: 16px; background: linear-gradient(135deg, #1e40af, #2563eb);
+      color: #fff; border: none; border-radius: 12px; font-size: 16px; font-weight: 700;
+      cursor: pointer; transition: opacity .2s, transform .15s; display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .checkout-btn:hover { opacity: .92; transform: translateY(-1px); }
+    .checkout-btn:active { transform: translateY(0); }
+    .checkout-btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+    .secure-badges { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 14px; font-size: 12px; color: #94a3b8; }
+
+    /* ── Shipping Estimator ── */
+    .shipping-est { border-top: 1px solid #e2e8f0; padding: 20px 24px; }
+    .dark .shipping-est { border-color: #334155; }
+    .shipping-est-title { font-size: 13px; font-weight: 700; color: #374151; margin-bottom: 10px; text-transform: uppercase; letter-spacing: .5px; }
+    .dark .shipping-est-title { color: #94a3b8; }
+    .shipping-select {
+      width: 100%; padding: 9px 12px; border: 1px solid #e2e8f0; border-radius: 8px;
+      font-size: 14px; background: #f8fafc; color: #374151; outline: none;
+    }
+    .dark .shipping-select { background: #0f172a; border-color: #334155; color: #e2e8f0; }
+
+    /* ── Saved Later ── */
+    .saved-later { margin-top: 40px; }
+    .saved-later-title { font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 20px; }
+    .dark .saved-later-title { color: #f1f5f9; }
+    .saved-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+    .saved-card {
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 12px;
+      overflow: hidden; transition: box-shadow .2s, transform .2s;
+    }
+    .dark .saved-card { background: #1e293b; border-color: #334155; }
+    .saved-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.1); transform: translateY(-2px); }
+    .saved-card-img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+    .saved-card-body { padding: 12px; }
+    .saved-card-name { font-size: 14px; font-weight: 600; color: #0f172a; margin-bottom: 4px; }
+    .dark .saved-card-name { color: #f1f5f9; }
+    .saved-card-price { font-size: 15px; font-weight: 700; color: #2563eb; margin-bottom: 10px; }
+    .move-to-cart-btn {
+      width: 100%; padding: 8px; background: #f1f5f9; border: none; border-radius: 6px;
+      font-size: 13px; font-weight: 600; color: #374151; cursor: pointer; transition: background .2s;
+    }
+    .move-to-cart-btn:hover { background: #dbeafe; color: #2563eb; }
+
+    /* ── Recommended ── */
+    .rec-section { margin-top: 56px; }
+    .rec-title { font-size: 22px; font-weight: 800; color: #0f172a; margin-bottom: 24px; }
+    .dark .rec-title { color: #f1f5f9; }
+    .rec-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+    .rec-card {
+      background: #fff; border: 1px solid #e2e8f0; border-radius: 14px;
+      overflow: hidden; cursor: pointer; transition: box-shadow .25s, transform .25s;
+    }
+    .dark .rec-card { background: #1e293b; border-color: #334155; }
+    .rec-card:hover { box-shadow: 0 12px 32px rgba(0,0,0,.12); transform: translateY(-4px); }
+    .rec-card-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; }
+    .rec-card-body { padding: 14px; }
+    .rec-card-name { font-size: 14px; font-weight: 600; color: #0f172a; margin-bottom: 4px; }
+    .dark .rec-card-name { color: #f1f5f9; }
+    .rec-card-price { font-size: 16px; font-weight: 700; color: #2563eb; margin-bottom: 10px; }
+    .rec-add-btn {
+      width: 100%; padding: 8px; background: #2563eb; border: none; border-radius: 8px;
+      font-size: 13px; font-weight: 600; color: #fff; cursor: pointer; transition: background .2s;
+    }
+    .rec-add-btn:hover { background: #1d4ed8; }
+
+    /* ── Footer ── */
+    .site-footer { background: #0f172a; color: #94a3b8; padding: 40px 24px; text-align: center; font-size: 14px; margin-top: 80px; }
+    .site-footer a { color: #60a5fa; text-decoration: none; }
+    .site-footer a:hover { text-decoration: underline; }
+
+    /* ── Dark mode ── */
+    .dark body { background: #020617; }
+  </style>
+</head>
+<body style="background:#f8fafc; font-family: system-ui, -apple-system, sans-serif;">
+
+<div id="scroll-progress"></div>
+<div id="toast-container"></div>
+
+<!-- ── Navbar ── -->
+<nav class="site-nav" id="site-nav">
+  <div class="container make-flex align-center justify-between add-padding-y-14" style="max-width:1280px">
+    <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:10px">
+      <div style="width:36px;height:36px;background:linear-gradient(135deg,#2563eb,#7c3aed);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#fff">L</div>
+      <span class="set-text-20 text-bold color-gray-900">LuxeStore</span>
+    </a>
+    <div class="desktop-nav make-flex align-center gap-4">
+      <a href="index.html" class="navbar-item" style="color:#374151">Home</a>
+      <a href="shop.html" class="navbar-item" style="color:#374151">Shop</a>
+      <div style="position:relative" id="dropdown-wrap">
+        <button onclick="toggleDropdown()" class="navbar-item make-flex align-center gap-4" style="background:none;border:none;cursor:pointer;font-weight:500;color:#374151;font-size:14px">
+          Collections <span style="font-size:10px">▼</span>
+        </button>
+        <div id="nav-dropdown" class="dropdown-menu" style="display:none">
+          <a href="shop.html?cat=women" class="dropdown-item">👗 Women's Fashion</a>
+          <a href="shop.html?cat=men" class="dropdown-item">👔 Men's Fashion</a>
+          <a href="shop.html?cat=shoes" class="dropdown-item">👟 Shoes &amp; Footwear</a>
+          <div class="dropdown-divider"></div>
+          <a href="shop.html?cat=accessories" class="dropdown-item">💍 Accessories</a>
+          <a href="shop.html?cat=bags" class="dropdown-item">👜 Bags &amp; Luggage</a>
+          <a href="shop.html?cat=sale" class="dropdown-item" style="color:#ef4444;font-weight:600">🔥 Sale Items</a>
+        </div>
+      </div>
+      <a href="#" class="navbar-item" style="color:#374151">About</a>
+      <a href="#" class="navbar-item" style="color:#374151">Contact</a>
+    </div>
+    <div class="make-flex align-center gap-8">
+      <button class="navbar-item" style="background:none;border:none;cursor:pointer;font-size:18px;color:#6b7280" title="Search">🔍</button>
+      <a href="#" class="navbar-item" style="font-size:18px;color:#6b7280;text-decoration:none" title="Wishlist">♡</a>
+      <button onclick="toggleDark()" class="navbar-item" style="background:none;border:none;cursor:pointer;font-size:18px;color:#6b7280" title="Toggle dark mode">🌙</button>
+      <a href="cart.html" class="cart-btn navbar-item" style="font-size:20px;text-decoration:none;color:#2563eb;font-weight:700" title="Cart">
+        🛒 <span class="cart-count" id="cart-count" style="display:none">0</span>
+      </a>
+      <button onclick="toggleMobileMenu()" class="mobile-menu-btn" style="display:none;background:none;border:none;cursor:pointer;font-size:22px;color:#374151;padding:4px 8px">☰</button>
+    </div>
+  </div>
+  <div id="mobile-menu" style="display:none;border-top:1px solid #e5e7eb;padding:12px 16px;background:#fff;">
+    <a href="index.html" class="navbar-item" style="display:block;padding:10px 12px;">Home</a>
+    <a href="shop.html" class="navbar-item" style="display:block;padding:10px 12px;">Shop</a>
+    <a href="shop.html?cat=women" class="navbar-item" style="display:block;padding:10px 12px;">👗 Women's Fashion</a>
+    <a href="shop.html?cat=men" class="navbar-item" style="display:block;padding:10px 12px;">👔 Men's Fashion</a>
+    <a href="shop.html?cat=sale" class="navbar-item" style="display:block;padding:10px 12px;color:#ef4444;">🔥 Sale</a>
+    <a href="#" class="navbar-item" style="display:block;padding:10px 12px;">About</a>
+    <a href="#" class="navbar-item" style="display:block;padding:10px 12px;">Contact</a>
+  </div>
+</nav>
+
+<!-- ── Main Content ── -->
+<main class="page-wrapper">
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span class="breadcrumb-sep">›</span>
+    <span>Shopping Cart</span>
+  </div>
+
+  <!-- Page Title -->
+  <h1 style="font-size:28px; font-weight:800; color:#0f172a; margin-bottom:8px;" id="page-title">Shopping Cart</h1>
+  <p style="color:#64748b; margin-bottom:32px;" id="item-count-label">Loading...</p>
+
+  <!-- Cart Grid -->
+  <div class="cart-grid">
+
+    <!-- Left: Cart Items -->
+    <div>
+      <div class="cart-panel">
+        <div class="cart-panel-header">
+          <span class="cart-panel-title">Cart Items</span>
+          <button class="clear-cart-btn" onclick="clearCart()">Clear All</button>
+        </div>
+        <div id="cart-items-container">
+          <!-- Populated by JS -->
+        </div>
+        <!-- Coupon -->
+        <div class="coupon-row" id="coupon-row" style="display:none;">
+          <input type="text" class="coupon-input" id="coupon-input" placeholder="Coupon code (try LUXE20)" />
+          <button class="coupon-apply" onclick="applyCoupon()">Apply</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Order Summary -->
+    <div>
+      <div class="order-summary">
+        <div class="summary-header">
+          <div class="summary-title">Order Summary</div>
+        </div>
+        <div class="summary-body" id="summary-body">
+          <div class="summary-row">
+            <span class="label">Subtotal (<span id="summary-item-count">0</span> items)</span>
+            <span class="value" id="summary-subtotal">$0.00</span>
+          </div>
+          <div class="summary-row discount-row" id="discount-row" style="display:none;">
+            <span class="label">Discount</span>
+            <span class="value" id="summary-discount">-$0.00</span>
+          </div>
+          <div class="summary-row shipping-free" id="shipping-row">
+            <span class="label">Shipping</span>
+            <span class="value" id="summary-shipping">Free</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Estimated Tax</span>
+            <span class="value" id="summary-tax">$0.00</span>
+          </div>
+          <hr class="summary-divider" />
+          <div class="summary-row summary-total">
+            <span class="label">Total</span>
+            <span class="value" id="summary-total">$0.00</span>
+          </div>
+        </div>
+
+        <!-- Shipping Estimator -->
+        <div class="shipping-est">
+          <div class="shipping-est-title">Estimate Shipping</div>
+          <select class="shipping-select" id="shipping-method" onchange="updateShipping()">
+            <option value="0">Standard Shipping (5-7 days) — Free</option>
+            <option value="9.99">Express Shipping (2-3 days) — $9.99</option>
+            <option value="19.99">Overnight Shipping (1 day) — $19.99</option>
+          </select>
+        </div>
+
+        <div class="summary-footer">
+          <button class="checkout-btn" id="checkout-btn" onclick="proceedToCheckout()">
+            <span>Proceed to Checkout</span>
+            <span>→</span>
+          </button>
+          <div class="secure-badges">
+            <span>🔒 Secure Checkout</span>
+            <span>·</span>
+            <span>💳 SSL Encrypted</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Saved for Later -->
+  <div class="saved-later" id="saved-later-section" style="display:none;">
+    <div class="saved-later-title">Saved for Later</div>
+    <div class="saved-grid" id="saved-grid"></div>
+  </div>
+
+  <!-- Recommended Products -->
+  <div class="rec-section">
+    <div class="rec-title">You Might Also Like</div>
+    <div class="rec-grid" id="rec-grid"></div>
+  </div>
+
+</main>
+
+<!-- ── Footer ── -->
+<footer class="site-footer">
+  <p>© 2024 LuxeStore. Built with <a href="../index.html">SantyCSS</a> — Plain-English Utility CSS.</p>
+</footer>
+
+<script src="../santy-scroll.js"></script>
+<script>
+// ─── Shared Cart State ───────────────────────────────────────────
+function getCart() { try { return JSON.parse(localStorage.getItem('santy-cart') || '[]'); } catch { return []; } }
+function saveCart(cart) { localStorage.setItem('santy-cart', JSON.stringify(cart)); updateCartBadge(); }
+function updateCartBadge() {
+  const total = getCart().reduce((s, i) => s + i.quantity, 0);
+  const el = document.getElementById('cart-count');
+  if (el) { el.textContent = total; el.style.display = total > 0 ? 'flex' : 'none'; }
+}
+function getSavedLater() { try { return JSON.parse(localStorage.getItem('santy-saved') || '[]'); } catch { return []; } }
+function saveSavedLater(list) { localStorage.setItem('santy-saved', JSON.stringify(list)); }
+
+// ─── Toast ───────────────────────────────────────────────────────
+function showToast(msg, type = 'info') {
+  const icons = { success: '✓', error: '✗', info: 'ℹ' };
+  const tc = document.getElementById('toast-container');
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.innerHTML = `<span>${icons[type]}</span><span>${msg}</span>`;
+  tc.appendChild(t);
+  setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 300); }, 2800);
+}
+
+// ─── Product Data (recommendations) ──────────────────────────────
+const PRODUCTS = [
+  { id: 1, name: 'Merino Wool Crew', price: 89, img: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=80', category: 'men' },
+  { id: 2, name: 'Linen Blazer', price: 159, img: 'https://images.unsplash.com/photo-1594938298603-c8148c4b4c0b?w=400&q=80', category: 'men' },
+  { id: 3, name: 'Silk Blouse', price: 119, img: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80', category: 'women' },
+  { id: 4, name: 'Cashmere Scarf', price: 79, img: 'https://images.unsplash.com/photo-1601924921557-45e6dea0a157?w=400&q=80', category: 'accessories' },
+  { id: 5, name: 'Canvas Tote', price: 49, img: 'https://images.unsplash.com/photo-1591561954557-26941169b49e?w=400&q=80', category: 'accessories' },
+  { id: 6, name: 'Oxford Shirt', price: 95, img: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=400&q=80', category: 'men' },
+  { id: 7, name: 'Pleated Trousers', price: 129, img: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400&q=80', category: 'women' },
+  { id: 8, name: 'Leather Loafers', price: 199, img: 'https://images.unsplash.com/photo-1604671801908-6f0c6a092c05?w=400&q=80', category: 'footwear' },
+];
+
+// ─── Coupon State ─────────────────────────────────────────────────
+let appliedCoupon = null;
+const COUPONS = { 'LUXE20': 20, 'SAVE10': 10, 'FIRST15': 15 };
+
+// ─── Render Cart Items ────────────────────────────────────────────
+function renderCart() {
+  const cart = getCart();
+  const container = document.getElementById('cart-items-container');
+  const couponRow = document.getElementById('coupon-row');
+  const checkoutBtn = document.getElementById('checkout-btn');
+  const itemCountLabel = document.getElementById('item-count-label');
+  const pageTitle = document.getElementById('page-title');
+
+  const totalItems = cart.reduce((s, i) => s + i.quantity, 0);
+  itemCountLabel.textContent = totalItems === 0
+    ? 'Your cart is empty'
+    : `${totalItems} item${totalItems !== 1 ? 's' : ''} in your cart`;
+
+  if (cart.length === 0) {
+    container.innerHTML = `
+      <div class="empty-cart">
+        <div class="empty-cart-icon">🛒</div>
+        <h3>Your cart is empty</h3>
+        <p>Looks like you haven't added anything yet.</p>
+        <a href="shop.html" style="display:inline-block; padding:12px 28px; background:#2563eb; color:#fff; border-radius:10px; text-decoration:none; font-weight:600; font-size:15px;">
+          Continue Shopping
+        </a>
+      </div>`;
+    couponRow.style.display = 'none';
+    checkoutBtn.disabled = true;
+    updateSummary(0);
+    return;
+  }
+
+  couponRow.style.display = 'flex';
+  checkoutBtn.disabled = false;
+
+  container.innerHTML = cart.map(item => {
+    const linePrice = item.price * item.quantity;
+    const origPrice = Math.round(item.price * 1.15);
+    return `
+      <div class="cart-item" id="item-${item.key.replace(/[^a-z0-9]/gi,'_')}">
+        <img class="cart-item-img" src="${item.img}" alt="${item.name}" loading="lazy" />
+        <div class="cart-item-info">
+          <a href="product.html?id=${item.id}" class="cart-item-name">${item.name}</a>
+          <div class="cart-item-meta">
+            ${item.size ? `Size: <strong>${item.size}</strong>` : ''}
+            ${item.size && item.color ? ' · ' : ''}
+            ${item.color ? `Color: <strong>${item.color}</strong>` : ''}
+          </div>
+          <div class="cart-item-controls">
+            <div class="qty-control">
+              <button class="qty-btn" onclick="changeQty('${item.key}', -1)">−</button>
+              <span class="qty-display">${item.quantity}</span>
+              <button class="qty-btn" onclick="changeQty('${item.key}', 1)">+</button>
+            </div>
+            <button class="remove-btn" onclick="removeItem('${item.key}')">✕ Remove</button>
+            <button class="remove-btn" onclick="saveForLater('${item.key}')" style="color:#2563eb;">♡ Save</button>
+          </div>
+        </div>
+        <div class="cart-item-price">
+          <span>$${linePrice.toFixed(2)}</span>
+          <span class="cart-item-price-original">$${(origPrice * item.quantity).toFixed(2)}</span>
+        </div>
+      </div>`;
+  }).join('');
+
+  const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+  updateSummary(subtotal);
+}
+
+// ─── Summary ─────────────────────────────────────────────────────
+let extraShipping = 0;
+
+function updateSummary(subtotal) {
+  const cart = getCart();
+  const totalItems = cart.reduce((s, i) => s + i.quantity, 0);
+  document.getElementById('summary-item-count').textContent = totalItems;
+  document.getElementById('summary-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+
+  let discountAmt = 0;
+  const discountRow = document.getElementById('discount-row');
+  if (appliedCoupon) {
+    discountAmt = +(subtotal * appliedCoupon / 100).toFixed(2);
+    document.getElementById('summary-discount').textContent = `-$${discountAmt.toFixed(2)}`;
+    discountRow.style.display = 'flex';
+  } else {
+    discountRow.style.display = 'none';
+  }
+
+  const afterDiscount = subtotal - discountAmt;
+  const shippingRow = document.getElementById('shipping-row');
+  const shippingEl = document.getElementById('summary-shipping');
+
+  if (afterDiscount >= 75 && extraShipping === 0) {
+    shippingEl.textContent = 'Free';
+    shippingRow.classList.add('shipping-free');
+  } else {
+    const shipping = extraShipping;
+    shippingEl.textContent = shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`;
+    shippingRow.classList.toggle('shipping-free', shipping === 0);
+  }
+
+  const shippingCost = (afterDiscount >= 75 && extraShipping === 0) ? 0 : extraShipping;
+  const tax = +(afterDiscount * 0.08).toFixed(2);
+  document.getElementById('summary-tax').textContent = `$${tax.toFixed(2)}`;
+
+  const total = afterDiscount + shippingCost + tax;
+  document.getElementById('summary-total').textContent = `$${total.toFixed(2)}`;
+}
+
+function updateShipping() {
+  extraShipping = parseFloat(document.getElementById('shipping-method').value);
+  const cart = getCart();
+  const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+  updateSummary(subtotal);
+}
+
+// ─── Cart Actions ─────────────────────────────────────────────────
+function changeQty(key, delta) {
+  const cart = getCart();
+  const idx = cart.findIndex(i => i.key === key);
+  if (idx === -1) return;
+  cart[idx].quantity = Math.max(1, Math.min(10, cart[idx].quantity + delta));
+  saveCart(cart);
+  renderCart();
+}
+
+function removeItem(key) {
+  const cart = getCart().filter(i => i.key !== key);
+  saveCart(cart);
+  renderCart();
+  showToast('Item removed from cart', 'info');
+}
+
+function clearCart() {
+  if (!confirm('Remove all items from your cart?')) return;
+  saveCart([]);
+  renderCart();
+  showToast('Cart cleared', 'info');
+}
+
+function saveForLater(key) {
+  const cart = getCart();
+  const idx = cart.findIndex(i => i.key === key);
+  if (idx === -1) return;
+  const item = cart.splice(idx, 1)[0];
+  const saved = getSavedLater();
+  if (!saved.find(i => i.key === item.key)) saved.push(item);
+  saveCart(cart);
+  saveSavedLater(saved);
+  renderCart();
+  renderSavedLater();
+  showToast('Saved for later', 'success');
+}
+
+// ─── Coupon ───────────────────────────────────────────────────────
+function applyCoupon() {
+  const code = document.getElementById('coupon-input').value.trim().toUpperCase();
+  if (COUPONS[code]) {
+    appliedCoupon = COUPONS[code];
+    showToast(`Coupon applied! ${appliedCoupon}% off`, 'success');
+    const cart = getCart();
+    const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+    updateSummary(subtotal);
+  } else {
+    showToast('Invalid coupon code', 'error');
+    appliedCoupon = null;
+  }
+}
+
+// ─── Saved for Later ──────────────────────────────────────────────
+function renderSavedLater() {
+  const saved = getSavedLater();
+  const section = document.getElementById('saved-later-section');
+  const grid = document.getElementById('saved-grid');
+  if (saved.length === 0) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+  grid.innerHTML = saved.map(item => `
+    <div class="saved-card">
+      <img class="saved-card-img" src="${item.img}" alt="${item.name}" loading="lazy" />
+      <div class="saved-card-body">
+        <div class="saved-card-name">${item.name}</div>
+        <div class="saved-card-price">$${item.price.toFixed(2)}</div>
+        <button class="move-to-cart-btn" onclick="moveToCart('${item.key}')">Move to Cart</button>
+      </div>
+    </div>`).join('');
+}
+
+function moveToCart(key) {
+  const saved = getSavedLater();
+  const idx = saved.findIndex(i => i.key === key);
+  if (idx === -1) return;
+  const item = saved.splice(idx, 1)[0];
+  saveSavedLater(saved);
+  const cart = getCart();
+  const existing = cart.find(i => i.key === item.key);
+  if (existing) existing.quantity++;
+  else cart.push(item);
+  saveCart(cart);
+  renderCart();
+  renderSavedLater();
+  showToast('Moved to cart', 'success');
+}
+
+// ─── Recommendations ──────────────────────────────────────────────
+function renderRecommendations() {
+  const cart = getCart();
+  const cartIds = new Set(cart.map(i => i.id));
+  const recs = PRODUCTS.filter(p => !cartIds.has(p.id)).slice(0, 4);
+  const grid = document.getElementById('rec-grid');
+  grid.innerHTML = recs.map(p => `
+    <div class="rec-card when-visible:animate-zoom-in">
+      <img class="rec-card-img" src="${p.img}" alt="${p.name}" loading="lazy" onclick="window.location='product.html?id=${p.id}'" />
+      <div class="rec-card-body">
+        <div class="rec-card-name">${p.name}</div>
+        <div class="rec-card-price">$${p.price.toFixed(2)}</div>
+        <button class="rec-add-btn" onclick="quickAddToCart(${p.id})">Add to Cart</button>
+      </div>
+    </div>`).join('');
+}
+
+function quickAddToCart(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+  const cart = getCart();
+  const key = `${p.id}-One Size-Default`;
+  const existing = cart.find(i => i.key === key);
+  if (existing) existing.quantity++;
+  else cart.push({ id: p.id, key, name: p.name, price: p.price, img: p.img, size: 'One Size', color: 'Default', quantity: 1 });
+  saveCart(cart);
+  renderCart();
+  renderRecommendations();
+  showToast(`${p.name} added to cart!`, 'success');
+}
+
+// ─── Checkout ────────────────────────────────────────────────────
+function proceedToCheckout() {
+  const cart = getCart();
+  if (cart.length === 0) { showToast('Your cart is empty', 'error'); return; }
+  window.location.href = 'checkout.html';
+}
+
+// ─── Dark Mode ────────────────────────────────────────────────────
+function toggleDark() {
+  document.getElementById('html-root').classList.toggle('dark');
+  localStorage.setItem('luxe-dark', document.getElementById('html-root').classList.contains('dark') ? '1' : '0');
+}
+
+// ─── Scroll Effects ───────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  const prog = document.getElementById('scroll-progress');
+  const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  prog.style.width = pct + '%';
+  document.getElementById('site-nav').classList.toggle('scrolled', window.scrollY > 10);
+});
+
+// ─── Navbar helpers ───────────────────────────────────────────────
+function toggleDropdown() {
+  var dd = document.getElementById('nav-dropdown');
+  dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
+}
+document.addEventListener('click', function(e) {
+  var wrap = document.getElementById('dropdown-wrap');
+  var dd = document.getElementById('nav-dropdown');
+  if (wrap && dd && !wrap.contains(e.target)) dd.style.display = 'none';
+});
+function toggleMobileMenu() {
+  var m = document.getElementById('mobile-menu');
+  m.style.display = m.style.display === 'none' ? 'block' : 'none';
+}
+
+// ─── Init ─────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('luxe-dark') === '1') document.getElementById('html-root').classList.add('dark');
+  updateCartBadge();
+  renderCart();
+  renderSavedLater();
+  renderRecommendations();
+});
+</script>
+</body>
+</html>
