@@ -13,6 +13,9 @@ frontend:
         - cp -r dist site/dist
         - cp -r real-estate site/real-estate
         - cp -r ecommerce site/ecommerce
+        - cp -r saloon site/saloon
+        - cp -r eye-vision site/eye-vision
+        - cp -r brewery site/brewery
   artifacts:
     baseDirectory: site
     files:
