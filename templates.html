@@ -192,8 +192,10 @@
         <button class="tpl-filter-btn" data-filter="landing">Landing Page</button>
         <button class="tpl-filter-btn" data-filter="dashboard">Dashboard</button>
         <button class="tpl-filter-btn" data-filter="blog">Blog</button>
+        <button class="tpl-filter-btn" data-filter="ecommerce">E-commerce</button>
+        <button class="tpl-filter-btn" data-filter="real-estate">Real Estate</button>
       </div>
-      <span style="font-size:13px;color:#94a3b8;" id="tplCount">7 templates</span>
+      <span style="font-size:13px;color:#94a3b8;" id="tplCount">9 templates</span>
     </div>
 
     <!-- Grid -->
@@ -574,90 +576,167 @@
         </div>
       </div>
 
-      <!-- ── Template 4 (was 3): Landing Page (coming soon) ── -->
-      <div class="tpl-card tpl-card-soon" data-category="landing" style="position:relative;">
+      <!-- ── Template: LuxeStore E-commerce ── -->
+      <div class="tpl-card" data-category="ecommerce">
         <div class="tpl-thumb">
-          <div class="tpl-thumb-inner" style="background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 100%);display:flex;height:100%;flex-direction:column;padding:16px;gap:8px;">
-            <div style="height:8px;border-radius:4px;background:#0284c7;width:40%;"></div>
-            <div style="height:4px;border-radius:2px;background:#bae6fd;width:65%;"></div>
-            <div style="height:4px;border-radius:2px;background:#bae6fd;width:50%;"></div>
-            <div style="margin-top:4px;display:flex;gap:6px;">
-              <div style="height:22px;width:70px;border-radius:6px;background:#0284c7;"></div>
-              <div style="height:22px;width:70px;border-radius:6px;border:1.5px solid #0284c7;"></div>
-            </div>
-            <div style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
-              <div style="height:40px;border-radius:8px;background:#e0f2fe;border:1px solid #bae6fd;"></div>
-              <div style="height:40px;border-radius:8px;background:#e0f2fe;border:1px solid #bae6fd;"></div>
-              <div style="height:40px;border-radius:8px;background:#e0f2fe;border:1px solid #bae6fd;"></div>
-            </div>
-          </div>
-          <span class="tpl-soon-badge">Coming Soon</span>
-        </div>
-        <div class="tpl-card-body">
-          <div class="tpl-card-tags"><span class="tpl-tag">Landing Page</span><span class="tpl-tag">SaaS</span></div>
-          <h3 class="tpl-card-name">SaaS Landing Page</h3>
-          <p class="tpl-card-desc">Hero, features, pricing table, testimonials, and CTA section. Clean, modern, fully responsive.</p>
-          <div class="tpl-card-actions">
-            <button class="tpl-btn-preview" style="opacity:.5;cursor:not-allowed;">Coming Soon</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── Template 3: Dashboard (coming soon) ── -->
-      <div class="tpl-card tpl-card-soon" data-category="dashboard" style="position:relative;">
-        <div class="tpl-thumb">
-          <div class="tpl-thumb-inner" style="background:#1e293b;display:flex;height:100%;padding:12px;gap:8px;flex-direction:column;">
-            <div style="display:flex;gap:6px;margin-bottom:4px;">
-              <div style="height:20px;flex:1;border-radius:6px;background:#334155;"></div>
-              <div style="height:20px;flex:1;border-radius:6px;background:#334155;"></div>
-              <div style="height:20px;flex:1;border-radius:6px;background:#334155;"></div>
-              <div style="height:20px;flex:1;border-radius:6px;background:#3b82f6;"></div>
-            </div>
-            <div style="display:flex;gap:6px;flex:1;">
-              <div style="width:28%;background:#334155;border-radius:8px;"></div>
-              <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
-                <div style="height:30%;border-radius:8px;background:#334155;"></div>
-                <div style="flex:1;border-radius:8px;background:#2d3748;"></div>
+          <div class="tpl-thumb-inner" style="background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);display:flex;flex-direction:column;height:100%;padding:0;overflow:hidden;">
+            <!-- Mini nav -->
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:rgba(255,255,255,.07);flex-shrink:0;">
+              <div style="font-size:7px;font-weight:900;color:#93c5fd;">LuxeStore</div>
+              <div style="display:flex;gap:5px;">
+                <div style="height:3px;width:12px;border-radius:2px;background:rgba(255,255,255,.3);"></div>
+                <div style="height:3px;width:12px;border-radius:2px;background:rgba(255,255,255,.3);"></div>
+                <div style="height:3px;width:12px;border-radius:2px;background:rgba(255,255,255,.3);"></div>
+                <div style="height:12px;width:12px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:7px;">🛒</div>
               </div>
             </div>
+            <!-- Hero -->
+            <div style="padding:8px;flex-shrink:0;">
+              <div style="height:5px;width:50%;border-radius:3px;background:rgba(255,255,255,.7);margin-bottom:4px;"></div>
+              <div style="height:3px;width:70%;border-radius:2px;background:rgba(255,255,255,.3);margin-bottom:6px;"></div>
+              <div style="display:flex;gap:4px;">
+                <div style="height:14px;width:36px;border-radius:7px;background:#2563eb;"></div>
+                <div style="height:14px;width:36px;border-radius:7px;border:1px solid rgba(255,255,255,.3);"></div>
+              </div>
+            </div>
+            <!-- Product grid -->
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:0 6px 6px;flex:1;">
+              <div style="border-radius:5px;background:rgba(255,255,255,.07);overflow:hidden;display:flex;flex-direction:column;">
+                <div style="height:28px;background:linear-gradient(135deg,#1e3a5f,#2563eb);"></div>
+                <div style="padding:3px 4px;"><div style="height:3px;border-radius:1px;background:rgba(255,255,255,.5);width:80%;margin-bottom:2px;"></div><div style="height:3px;border-radius:1px;background:#f7bf04;width:50%;"></div></div>
+              </div>
+              <div style="border-radius:5px;background:rgba(255,255,255,.07);overflow:hidden;display:flex;flex-direction:column;">
+                <div style="height:28px;background:linear-gradient(135deg,#374151,#6b7280);"></div>
+                <div style="padding:3px 4px;"><div style="height:3px;border-radius:1px;background:rgba(255,255,255,.5);width:80%;margin-bottom:2px;"></div><div style="height:3px;border-radius:1px;background:#f7bf04;width:50%;"></div></div>
+              </div>
+              <div style="border-radius:5px;background:rgba(255,255,255,.07);overflow:hidden;display:flex;flex-direction:column;">
+                <div style="height:28px;background:linear-gradient(135deg,#1e293b,#0f172a);"></div>
+                <div style="padding:3px 4px;"><div style="height:3px;border-radius:1px;background:rgba(255,255,255,.5);width:80%;margin-bottom:2px;"></div><div style="height:3px;border-radius:1px;background:#f7bf04;width:50%;"></div></div>
+              </div>
+            </div>
+            <!-- Pages strip -->
+            <div style="display:flex;gap:3px;padding:4px 6px;background:rgba(0,0,0,.3);flex-shrink:0;">
+              <div style="font-size:6px;color:rgba(255,255,255,.5);background:rgba(37,99,235,.4);border-radius:3px;padding:2px 4px;">Home</div>
+              <div style="font-size:6px;color:rgba(255,255,255,.5);background:rgba(255,255,255,.08);border-radius:3px;padding:2px 4px;">Shop</div>
+              <div style="font-size:6px;color:rgba(255,255,255,.5);background:rgba(255,255,255,.08);border-radius:3px;padding:2px 4px;">Product</div>
+              <div style="font-size:6px;color:rgba(255,255,255,.5);background:rgba(255,255,255,.08);border-radius:3px;padding:2px 4px;">Cart</div>
+              <div style="font-size:6px;color:rgba(255,255,255,.5);background:rgba(255,255,255,.08);border-radius:3px;padding:2px 4px;">Checkout</div>
+            </div>
           </div>
-          <span class="tpl-soon-badge">Coming Soon</span>
+          <div class="tpl-thumb-overlay">
+            <a href="ecommerce/index.html" target="_blank" class="tpl-thumb-btn tpl-thumb-btn-preview">Preview</a>
+            <button class="tpl-thumb-btn tpl-thumb-btn-copy" onclick="copyTemplate('ecommerce/index.html', this)">Copy Code</button>
+          </div>
         </div>
         <div class="tpl-card-body">
-          <div class="tpl-card-tags"><span class="tpl-tag">Dashboard</span><span class="tpl-tag">Admin</span></div>
-          <h3 class="tpl-card-name">Admin Dashboard</h3>
-          <p class="tpl-card-desc">Sidebar nav, stat cards, charts placeholder, data table, and notifications. Dark first.</p>
+          <div class="tpl-card-tags">
+            <span class="tpl-tag tpl-tag-gold">New</span>
+            <span class="tpl-tag tpl-tag-gold">E-commerce</span>
+            <span class="tpl-tag">Multi-page</span>
+            <span class="tpl-tag">Dark Mode</span>
+          </div>
+          <h3 class="tpl-card-name">LuxeStore — E-commerce Template</h3>
+          <p class="tpl-card-desc">Full 6-page e-commerce site: Home with hero countdown &amp; categories, Shop with filters &amp; sorting, Product detail with gallery &amp; reviews, Cart with coupons, Checkout with validation, and Order success with confetti. localStorage cart, scroll animations, dark mode.</p>
           <div class="tpl-card-actions">
-            <button class="tpl-btn-preview" style="opacity:.5;cursor:not-allowed;">Coming Soon</button>
+            <a href="ecommerce/index.html" target="_blank" class="tpl-btn-preview">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Preview
+            </a>
+            <button class="tpl-btn-copy" onclick="copyTemplate('ecommerce/index.html', this)" id="copy-btn-ecommerce">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy Code
+            </button>
           </div>
         </div>
       </div>
 
-      <!-- ── Template 4: Blog (coming soon) ── -->
-      <div class="tpl-card tpl-card-soon" data-category="blog" style="position:relative;">
+      <!-- ── Template: Havenly Real Estate ── -->
+      <div class="tpl-card" data-category="real-estate">
         <div class="tpl-thumb">
-          <div class="tpl-thumb-inner" style="background:#fafaf9;display:flex;height:100%;padding:16px;flex-direction:column;gap:8px;">
-            <div style="height:6px;width:50%;border-radius:3px;background:#292524;"></div>
-            <div style="height:4px;width:75%;border-radius:2px;background:#d6d3d1;"></div>
-            <div style="height:4px;width:60%;border-radius:2px;background:#d6d3d1;"></div>
-            <div style="display:flex;gap:8px;margin-top:8px;">
-              <div style="flex:1;height:50px;border-radius:8px;background:#f5f5f4;border:1px solid #e7e5e4;"></div>
-              <div style="flex:1;height:50px;border-radius:8px;background:#f5f5f4;border:1px solid #e7e5e4;"></div>
+          <div class="tpl-thumb-inner" style="background:linear-gradient(135deg,#0f172a 0%,#115e59 100%);display:flex;flex-direction:column;height:100%;padding:0;overflow:hidden;">
+            <!-- Mini nav -->
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:rgba(255,255,255,.08);flex-shrink:0;">
+              <div style="display:flex;align-items:center;gap:4px;">
+                <div style="width:12px;height:12px;border-radius:3px;background:linear-gradient(135deg,#0f766e,#14b8a6);display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;font-weight:900;">H</div>
+                <div style="font-size:7px;font-weight:900;color:#5eead4;">Havenly</div>
+              </div>
+              <div style="display:flex;gap:4px;">
+                <div style="height:3px;width:12px;border-radius:2px;background:rgba(255,255,255,.3);"></div>
+                <div style="height:3px;width:12px;border-radius:2px;background:rgba(255,255,255,.3);"></div>
+                <div style="height:3px;width:12px;border-radius:2px;background:rgba(255,255,255,.3);"></div>
+                <div style="height:10px;width:22px;border-radius:3px;background:#0f766e;"></div>
+              </div>
+            </div>
+            <!-- Hero headline + search -->
+            <div style="padding:7px 8px;flex-shrink:0;">
+              <div style="height:4px;width:60%;border-radius:2px;background:rgba(94,234,212,.8);margin-bottom:3px;"></div>
+              <div style="height:6px;width:85%;border-radius:3px;background:#fff;margin-bottom:3px;"></div>
+              <div style="height:6px;width:55%;border-radius:3px;background:linear-gradient(90deg,#5eead4,#f0abfc);margin-bottom:6px;"></div>
+              <!-- search card -->
+              <div style="background:#fff;border-radius:5px;padding:4px;display:flex;gap:3px;align-items:center;">
+                <div style="flex:1;height:10px;border-radius:3px;background:#f1f5f9;"></div>
+                <div style="flex:1;height:10px;border-radius:3px;background:#f1f5f9;"></div>
+                <div style="height:10px;width:20px;border-radius:3px;background:linear-gradient(135deg,#0f766e,#14b8a6);"></div>
+              </div>
+            </div>
+            <!-- Property cards grid -->
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:2px 6px 6px;flex:1;">
+              <div style="border-radius:5px;background:#fff;overflow:hidden;display:flex;flex-direction:column;">
+                <div style="height:22px;background:linear-gradient(135deg,#64748b,#334155);position:relative;"><div style="position:absolute;top:2px;left:2px;background:#fff;height:4px;width:14px;border-radius:2px;"></div></div>
+                <div style="padding:3px;"><div style="height:3px;border-radius:1px;background:#0f766e;width:50%;margin-bottom:2px;"></div><div style="height:2px;border-radius:1px;background:#cbd5e1;width:80%;"></div></div>
+              </div>
+              <div style="border-radius:5px;background:#fff;overflow:hidden;display:flex;flex-direction:column;">
+                <div style="height:22px;background:linear-gradient(135deg,#1e3a5f,#0f172a);position:relative;"><div style="position:absolute;top:2px;left:2px;background:#fef3c7;height:4px;width:14px;border-radius:2px;"></div></div>
+                <div style="padding:3px;"><div style="height:3px;border-radius:1px;background:#0f766e;width:50%;margin-bottom:2px;"></div><div style="height:2px;border-radius:1px;background:#cbd5e1;width:80%;"></div></div>
+              </div>
+              <div style="border-radius:5px;background:#fff;overflow:hidden;display:flex;flex-direction:column;">
+                <div style="height:22px;background:linear-gradient(135deg,#0f766e,#14b8a6);position:relative;"><div style="position:absolute;top:2px;left:2px;background:#fff;height:4px;width:14px;border-radius:2px;"></div></div>
+                <div style="padding:3px;"><div style="height:3px;border-radius:1px;background:#0f766e;width:50%;margin-bottom:2px;"></div><div style="height:2px;border-radius:1px;background:#cbd5e1;width:80%;"></div></div>
+              </div>
+            </div>
+            <!-- Pages strip -->
+            <div style="display:flex;gap:3px;padding:4px 6px;background:rgba(0,0,0,.3);flex-shrink:0;">
+              <div style="font-size:6px;color:rgba(255,255,255,.7);background:rgba(15,118,110,.5);border-radius:3px;padding:2px 4px;">Home</div>
+              <div style="font-size:6px;color:rgba(255,255,255,.5);background:rgba(255,255,255,.08);border-radius:3px;padding:2px 4px;">Listings</div>
+              <div style="font-size:6px;color:rgba(255,255,255,.5);background:rgba(255,255,255,.08);border-radius:3px;padding:2px 4px;">Property</div>
+              <div style="font-size:6px;color:rgba(255,255,255,.5);background:rgba(255,255,255,.08);border-radius:3px;padding:2px 4px;">Agents</div>
+              <div style="font-size:6px;color:rgba(255,255,255,.5);background:rgba(255,255,255,.08);border-radius:3px;padding:2px 4px;">About</div>
+              <div style="font-size:6px;color:rgba(255,255,255,.5);background:rgba(255,255,255,.08);border-radius:3px;padding:2px 4px;">Contact</div>
             </div>
           </div>
-          <span class="tpl-soon-badge">Coming Soon</span>
+          <div class="tpl-thumb-overlay">
+            <a href="real-estate/index.html" target="_blank" class="tpl-thumb-btn tpl-thumb-btn-preview">Preview</a>
+            <button class="tpl-thumb-btn tpl-thumb-btn-copy" onclick="copyTemplate('real-estate/index.html', this)">Copy Code</button>
+          </div>
         </div>
         <div class="tpl-card-body">
-          <div class="tpl-card-tags"><span class="tpl-tag">Blog</span><span class="tpl-tag">Editorial</span></div>
-          <h3 class="tpl-card-name">Blog / Editorial</h3>
-          <p class="tpl-card-desc">Clean blog layout with featured post, article grid, sidebar, tags, and newsletter CTA.</p>
+          <div class="tpl-card-tags">
+            <span class="tpl-tag tpl-tag-gold">New</span>
+            <span class="tpl-tag tpl-tag-gold">Real Estate</span>
+            <span class="tpl-tag">6 pages</span>
+            <span class="tpl-tag">Teal Accent</span>
+          </div>
+          <h3 class="tpl-card-name">Havenly — Real Estate Template</h3>
+          <p class="tpl-card-desc">Full 6-page real estate site: Home with animated hero &amp; Buy/Rent/Sell search, Listings with filters &amp; grid/list toggle, Property detail with gallery lightbox &amp; tabs, Agents directory, About with timeline, and Contact with FAQ. Scroll reveals, counters, hover animations, and a pulsing map pin.</p>
           <div class="tpl-card-actions">
-            <button class="tpl-btn-preview" style="opacity:.5;cursor:not-allowed;">Coming Soon</button>
+            <a href="real-estate/index.html" target="_blank" class="tpl-btn-preview">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Preview
+            </a>
+            <button class="tpl-btn-copy" onclick="copyTemplate('real-estate/index.html', this)" id="copy-btn-real-estate">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy Code
+            </button>
           </div>
         </div>
       </div>
 
     </div><!-- /tplGrid -->
+
+    <div class="coming-soon-row" style="margin-top:24px;padding:20px 24px;background:#f8fafc;border:1px solid #e5e7eb;border-radius:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <p style="margin:0;font-size:14px;color:#64748b;">More templates coming soon — SaaS Landing Page · Admin Dashboard · Blog / Editorial</p>
+      <a href="https://github.com/ChintuSanty/santyCSS/discussions/1" target="_blank" style="font-size:13px;font-weight:600;color:#2563eb;text-decoration:none;">Request a template →</a>
+    </div>
 
     <!-- Request a template CTA -->
     <div style="margin-top:56px;background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border:1px solid #bae6fd;border-radius:20px;padding:40px;text-align:center;" class="dark-cta">
