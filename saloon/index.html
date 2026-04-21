@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AURUM Studio — Luxury Hair & Beauty</title>
+<link rel="stylesheet" href="../santy.css" />
+<link rel="stylesheet" href="../santy-variants.css" />
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dark: #9a7a2e;
+    --ink: #0a0804;
+    --surface: #120f08;
+    --surface2: #1c1710;
+    --muted: #7a6e5e;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Georgia', 'Times New Roman', serif; background: var(--ink); color: #e8e0d0; overflow-x: hidden; }
+
+  /* ── Nav ── */
+  .site-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+    transition: background .4s, backdrop-filter .4s;
+  }
+  .site-nav.scrolled {
+    background: rgba(10,8,4,.88);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(201,168,76,.15);
+  }
+  .nav-logo { font-size: 22px; font-weight: 400; letter-spacing: .25em; color: var(--gold); text-decoration: none; text-transform: uppercase; }
+  .nav-logo span { color: #e8e0d0; }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #b8aa98; text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); background: var(--gold); border: none; padding: 10px 22px; border-radius: 2px; cursor: pointer; text-decoration: none; transition: background .2s; }
+  .nav-cta:hover { background: var(--gold-light); }
+
+  /* ── Gold line ── */
+  .gold-line { display: inline-block; width: 40px; height: 1px; background: var(--gold); vertical-align: middle; margin-right: 14px; }
+  .eyebrow { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; }
+
+  /* ── Hero ── */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex; align-items: center;
+    background:
+      linear-gradient(105deg, rgba(10,8,4,.95) 0%, rgba(10,8,4,.7) 55%, rgba(10,8,4,.3) 100%),
+      url('https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1900&q=80') center/cover no-repeat;
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 180px;
+    background: linear-gradient(to bottom, transparent, var(--ink));
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 700px; padding: 0 40px; }
+  .hero-title {
+    font-size: clamp(52px, 7vw, 104px); font-weight: 400; line-height: 1.0;
+    letter-spacing: -.01em; color: #f0ead8; margin: 24px 0 28px;
+  }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-sub { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 16px; color: #9a8e7e; line-height: 1.75; max-width: 440px; margin-bottom: 44px; }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-gold { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; background: var(--gold); color: var(--ink); padding: 16px 36px; border: none; border-radius: 2px; cursor: pointer; text-decoration: none; transition: background .2s, transform .2s; display: inline-block; }
+  .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; background: transparent; color: #e0d8c8; padding: 15px 36px; border: 1px solid rgba(201,168,76,.4); border-radius: 2px; cursor: pointer; text-decoration: none; transition: border-color .2s, color .2s; display: inline-block; }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-stats { display: flex; gap: 48px; margin-top: 64px; padding-top: 40px; border-top: 1px solid rgba(201,168,76,.15); }
+  .hero-stat-num { font-size: 36px; font-weight: 400; color: var(--gold); letter-spacing: -.01em; }
+  .hero-stat-label { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 11px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-top: 4px; }
+
+  /* ── Marquee ── */
+  .marquee-wrap { background: var(--gold); padding: 14px 0; overflow: hidden; white-space: nowrap; }
+  .marquee-track { display: inline-flex; animation: marquee 22s linear infinite; }
+  .marquee-track span { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--ink); padding: 0 28px; }
+  .marquee-track span.dot { color: var(--ink); opacity: .4; padding: 0 4px; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── Section base ── */
+  .section { padding: 100px 40px; max-width: 1200px; margin: 0 auto; }
+  .section-full { padding: 100px 40px; }
+  .section-title { font-size: clamp(36px, 4vw, 60px); font-weight: 400; line-height: 1.1; letter-spacing: -.01em; color: #f0ead8; margin: 20px 0 16px; }
+  .section-sub { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 16px; color: var(--muted); line-height: 1.75; max-width: 520px; }
+
+  /* ── Services ── */
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 60px; }
+  .service-card {
+    background: var(--surface2); padding: 48px 36px;
+    border: 1px solid rgba(201,168,76,.08);
+    transition: border-color .3s, background .3s;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transform: scaleX(0); transition: transform .4s;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { border-color: rgba(201,168,76,.25); background: #201a10; }
+  .service-icon { font-size: 28px; margin-bottom: 20px; }
+  .service-name { font-size: 20px; font-weight: 400; color: #f0ead8; letter-spacing: .02em; margin-bottom: 12px; }
+  .service-desc { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
+  .service-price { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; font-weight: 700; color: var(--gold); letter-spacing: .08em; }
+
+  /* ── Experience ── */
+  .experience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .experience-img {
+    position: relative; border-radius: 2px; overflow: hidden;
+    aspect-ratio: 3/4;
+  }
+  .experience-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .experience-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,.12), transparent);
+  }
+  .exp-badge {
+    position: absolute; bottom: -20px; right: -20px;
+    width: 140px; height: 140px; border-radius: 50%;
+    background: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; text-align: center;
+    box-shadow: 0 20px 60px rgba(201,168,76,.35);
+    z-index: 2;
+  }
+  .exp-badge-num { font-size: 36px; font-weight: 400; color: var(--ink); line-height: 1; }
+  .exp-badge-text { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); opacity: .7; margin-top: 4px; }
+  .exp-list { list-style: none; margin: 28px 0; display: flex; flex-direction: column; gap: 16px; }
+  .exp-list li { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 14px; color: #b8aa98; padding-left: 20px; position: relative; line-height: 1.6; }
+  .exp-list li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+
+  /* ── Team ── */
+  .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 56px; }
+  .team-card { position: relative; overflow: hidden; border-radius: 2px; cursor: pointer; }
+  .team-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; filter: grayscale(30%); transition: filter .4s, transform .4s; }
+  .team-card:hover .team-img { filter: grayscale(0%); transform: scale(1.04); }
+  .team-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,8,4,.9) 0%, rgba(10,8,4,.2) 60%, transparent 100%);
+    display: flex; flex-direction: column; justify-content: flex-end; padding: 24px;
+  }
+  .team-name { font-size: 18px; font-weight: 400; color: #f0ead8; margin-bottom: 4px; }
+  .team-role { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+
+  /* ── Gallery ── */
+  .gallery-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 240px 240px; gap: 4px; margin-top: 56px; }
+  .gallery-item { overflow: hidden; }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s; }
+  .gallery-item:hover img { transform: scale(1.06); }
+  .gallery-item:first-child { grid-row: span 2; }
+
+  /* ── Testimonials ── */
+  .testimonials-bg { background: var(--surface); padding: 100px 40px; }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; margin: 60px auto 0; }
+  .testi-card {
+    background: var(--surface2); border: 1px solid rgba(201,168,76,.1);
+    border-radius: 2px; padding: 36px;
+  }
+  .testi-stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; margin-bottom: 20px; }
+  .testi-text { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 14px; color: #9a8e7e; line-height: 1.8; margin-bottom: 24px; font-style: italic; }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: var(--ink); font-family: ui-sans-serif, system-ui, sans-serif; flex-shrink: 0; }
+  .testi-name { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 14px; font-weight: 700; color: #e8e0d0; }
+  .testi-since { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 11px; color: var(--muted); }
+
+  /* ── Booking CTA ── */
+  .booking-section {
+    background:
+      linear-gradient(135deg, rgba(10,8,4,.92) 0%, rgba(10,8,4,.75) 100%),
+      url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+    padding: 120px 40px; text-align: center;
+  }
+  .booking-title { font-size: clamp(40px, 5vw, 72px); font-weight: 400; color: #f0ead8; margin: 20px 0 20px; letter-spacing: -.01em; }
+  .booking-title em { color: var(--gold); font-style: italic; }
+
+  /* ── Footer ── */
+  footer { background: #060402; border-top: 1px solid rgba(201,168,76,.12); padding: 64px 40px 32px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 48px; max-width: 1200px; margin: 0 auto 48px; }
+  .footer-brand { font-size: 20px; font-weight: 400; letter-spacing: .2em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
+  .footer-desc { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; color: var(--muted); line-height: 1.7; max-width: 260px; }
+  .footer-heading { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; color: var(--muted); text-decoration: none; transition: color .2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-hours p { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; color: var(--muted); line-height: 2; }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.06); display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 12px; color: #3a3228; }
+
+  @media (max-width: 900px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .experience-grid { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .gallery-item:first-child { grid-row: span 1; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links, .nav-cta { display: none; }
+    .hero-stats { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="site-nav" id="siteNav">
+  <a href="#" class="nav-logo">Aurum <span>Studio</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#experience">About</a></li>
+    <li><a href="#team">Our Artists</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#booking" class="nav-cta">Book Now</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="eyebrow"><span class="gold-line"></span>Luxury Hair & Beauty</div>
+    <h1 class="hero-title">Where Beauty<br>Meets <em>Artistry</em></h1>
+    <p class="hero-sub">A sanctuary of elegance in the heart of the city. Precision cuts, bespoke colour, and transformative treatments crafted just for you.</p>
+    <div class="hero-btns">
+      <a href="#booking" class="btn-gold">Reserve Your Chair</a>
+      <a href="#services" class="btn-outline">Explore Services</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">12+</div>
+        <div class="hero-stat-label">Years of Excellence</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">4,800+</div>
+        <div class="hero-stat-label">Happy Clients</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">18</div>
+        <div class="hero-stat-label">Expert Artists</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MARQUEE ── -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Precision Cuts</span><span class="dot">◆</span>
+    <span>Colour & Balayage</span><span class="dot">◆</span>
+    <span>Bridal Styling</span><span class="dot">◆</span>
+    <span>Keratin Treatments</span><span class="dot">◆</span>
+    <span>Scalp Rituals</span><span class="dot">◆</span>
+    <span>Nail Artistry</span><span class="dot">◆</span>
+    <span>Facials & Skin</span><span class="dot">◆</span>
+    <span>Precision Cuts</span><span class="dot">◆</span>
+    <span>Colour & Balayage</span><span class="dot">◆</span>
+    <span>Bridal Styling</span><span class="dot">◆</span>
+    <span>Keratin Treatments</span><span class="dot">◆</span>
+    <span>Scalp Rituals</span><span class="dot">◆</span>
+    <span>Nail Artistry</span><span class="dot">◆</span>
+    <span>Facials & Skin</span><span class="dot">◆</span>
+  </div>
+</div>
+
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="section">
+    <div class="eyebrow"><span class="gold-line"></span>Our Specialties</div>
+    <h2 class="section-title">Curated Services<br>for Every Vision</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">✂️</div>
+        <div class="service-name">Precision Haircut</div>
+        <div class="service-desc">Crafted to your face shape, hair texture, and lifestyle. Every cut is a bespoke sculpting session with our master stylists.</div>
+        <div class="service-price">From $85</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎨</div>
+        <div class="service-name">Colour & Balayage</div>
+        <div class="service-desc">Sun-kissed balayage, dimensional highlights, full colour transformations — using only Olaplex-protected techniques.</div>
+        <div class="service-price">From $180</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💫</div>
+        <div class="service-name">Keratin Smoothing</div>
+        <div class="service-desc">Eliminate frizz and unlock glass-smooth hair for up to five months with our Brazilian Blowout ritual.</div>
+        <div class="service-price">From $320</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">👑</div>
+        <div class="service-name">Bridal Package</div>
+        <div class="service-desc">From trial run to wedding day — full hair and makeup coordination for the bride and bridal party.</div>
+        <div class="service-price">From $550</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌿</div>
+        <div class="service-name">Scalp Ritual</div>
+        <div class="service-desc">A therapeutic deep-cleanse treatment that rebalances the scalp, stimulates growth, and restores shine.</div>
+        <div class="service-price">From $95</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">✨</div>
+        <div class="service-name">Nail & Skin Studio</div>
+        <div class="service-desc">Gel manicures, pedicures, lash extensions, and facial rituals — all under one roof.</div>
+        <div class="service-price">From $55</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ── -->
+<section id="experience" style="background: var(--surface); padding: 100px 0;">
+  <div class="section">
+    <div class="experience-grid">
+      <div class="experience-img">
+        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80" alt="Salon interior" />
+        <div class="exp-badge">
+          <div class="exp-badge-num">12</div>
+          <div class="exp-badge-text">Years of<br>Excellence</div>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow"><span class="gold-line"></span>The Aurum Experience</div>
+        <h2 class="section-title">More Than a<br>Salon</h2>
+        <p class="section-sub">We believe beauty is a ritual, not a transaction. From the moment you arrive, every detail is designed to make you feel extraordinary.</p>
+        <ul class="exp-list">
+          <li>Private consultation with your dedicated stylist before every appointment</li>
+          <li>Premium product bar — Olaplex, K18, Davines, Kérastase</li>
+          <li>Complimentary scalp massage with every wash</li>
+          <li>Zero-waste colour mixing — eco-conscious from root to tip</li>
+          <li>Members-only priority booking and seasonal previews</li>
+        </ul>
+        <a href="#booking" class="btn-gold">Experience It Yourself</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TEAM ── -->
+<section id="team">
+  <div class="section">
+    <div class="eyebrow"><span class="gold-line"></span>The Artists</div>
+    <h2 class="section-title">Meet Our<br>Master Stylists</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <img class="team-img" src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=600&q=80" alt="Stylist" />
+        <div class="team-overlay">
+          <div class="team-name">Sophia Laurent</div>
+          <div class="team-role">Creative Director</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <img class="team-img" src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=600&q=80" alt="Stylist" />
+        <div class="team-overlay">
+          <div class="team-name">Marco Ricci</div>
+          <div class="team-role">Colour Specialist</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <img class="team-img" src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=600&q=80" alt="Stylist" />
+        <div class="team-overlay">
+          <div class="team-name">Aisha Ndiaye</div>
+          <div class="team-role">Texture Expert</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <img class="team-img" src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=600&q=80" alt="Stylist" />
+        <div class="team-overlay">
+          <div class="team-name">Lena Vogel</div>
+          <div class="team-role">Bridal Artist</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALLERY ── -->
+<section id="gallery" style="background: var(--surface);">
+  <div class="section">
+    <div class="eyebrow"><span class="gold-line"></span>Our Work</div>
+    <h2 class="section-title">The Aurum Portfolio</h2>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1634449571010-02389ed0f9b0?auto=format&fit=crop&w=800&q=80" alt="Work 1" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=600&q=80" alt="Work 2" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=600&q=80" alt="Work 3" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1560869713-7d0a29430803?auto=format&fit=crop&w=600&q=80" alt="Work 4" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=600&q=80" alt="Work 5" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section class="testimonials-bg">
+  <div style="max-width:1200px; margin:0 auto;">
+    <div class="eyebrow" style="justify-content:center;"><span class="gold-line"></span>Client Love</div>
+    <h2 class="section-title" style="text-align:center; margin:20px auto 0; max-width:480px;">What Our Clients Say</h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"Sophia completely transformed my hair. The balayage is exactly what I pictured — warm, dimensional, and effortlessly chic. I won't go anywhere else."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">C</div>
+        <div>
+          <div class="testi-name">Camille Dubois</div>
+          <div class="testi-since">Client since 2019</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"The bridal package was an absolute dream. Every detail was handled with such care. My wedding photos still make me cry — my hair was perfect."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">R</div>
+        <div>
+          <div class="testi-name">Rachel Thompson</div>
+          <div class="testi-since">Bridal client</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"First time getting a keratin treatment and I am obsessed. Marco was incredible — knowledgeable, precise, and genuinely cared about my hair health."</div>
+      <div class="testi-author">
+        <div class="testi-avatar">M</div>
+        <div>
+          <div class="testi-name">Maya Singh</div>
+          <div class="testi-since">Client since 2021</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BOOKING ── -->
+<section id="booking" class="booking-section">
+  <div class="eyebrow" style="justify-content:center;"><span class="gold-line"></span>Reservations</div>
+  <h2 class="booking-title">Ready for Your<br><em>Transformation?</em></h2>
+  <p style="font-family:ui-sans-serif,system-ui,sans-serif; font-size:16px; color:#9a8e7e; margin-bottom:40px; max-width:440px; margin-left:auto; margin-right:auto; line-height:1.7;">Choose your service and your artist. Same-day appointments available for select services.</p>
+  <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+    <a href="tel:+1234567890" class="btn-gold" style="font-size:13px;">Call to Book — (123) 456-7890</a>
+    <a href="#" class="btn-outline">Book Online</a>
+  </div>
+  <p style="font-family:ui-sans-serif,system-ui,sans-serif; font-size:12px; color:#5a4e40; margin-top:28px; letter-spacing:.06em;">MON–SAT  9AM – 8PM  &nbsp;|&nbsp;  SUN  10AM – 6PM</p>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer id="contact">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Aurum Studio</div>
+      <p class="footer-desc">A luxury hair and beauty sanctuary dedicated to the art of personal transformation. Every visit, a new you.</p>
+      <div style="display:flex; gap:12px; margin-top:24px;">
+        <a href="#" style="width:36px; height:36px; border:1px solid rgba(201,168,76,.2); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:14px; text-decoration:none;">f</a>
+        <a href="#" style="width:36px; height:36px; border:1px solid rgba(201,168,76,.2); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:14px; text-decoration:none;">in</a>
+        <a href="#" style="width:36px; height:36px; border:1px solid rgba(201,168,76,.2); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--gold); font-size:14px; text-decoration:none;">@</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Services</div>
+      <ul class="footer-links">
+        <li><a href="#">Haircuts</a></li>
+        <li><a href="#">Colour & Balayage</a></li>
+        <li><a href="#">Keratin</a></li>
+        <li><a href="#">Bridal</a></li>
+        <li><a href="#">Nails & Skin</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Studio</div>
+      <ul class="footer-links">
+        <li><a href="#">Our Story</a></li>
+        <li><a href="#">The Artists</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Gift Cards</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-hours">
+      <div class="footer-heading">Visit Us</div>
+      <p>12 Golden Avenue, Suite 4<br>New York, NY 10001</p>
+      <p style="margin-top:12px;">Mon – Sat: 9 AM – 8 PM<br>Sunday: 10 AM – 6 PM</p>
+      <p style="margin-top:12px; color: var(--gold);">(123) 456-7890</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Aurum Studio. All rights reserved.</div>
+    <div class="footer-copy">Built with SantyCSS</div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('siteNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+</script>
+</body>
+</html>
