@@ -12,6 +12,7 @@ frontend:
         - cp sitemap.xml robots.txt site/
         - cp -r dist site/dist
         - cp -r real-estate site/real-estate
+        - cp -r ecommerce site/ecommerce
   artifacts:
     baseDirectory: site
     files:
