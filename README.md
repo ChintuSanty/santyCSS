@@ -21,6 +21,41 @@ Class names read like sentences — `add-padding-24` instead of `p-6`. AI tools 
 
 ---
 
+## What's New in v2.6.1
+
+### 🎨 4 New Industry Templates
+
+Four production-ready, full-page HTML templates built entirely with SantyCSS — copy, paste, done.
+
+- **MERIDIAN Academy** — Full 7-page school website: Home (live ticker, hero, events, notifications preview), About (timeline, facilities), Academics (tabbed grade levels, board result bars), Admissions (fee table, application form, FAQ), Faculty (department filter, hover cards), Events (type-filtered calendar), and a **grade-filtered Notifications hub** — All / Grade 1–2 / 3–5 / 6–8 / 9–10 / 11–12 / Staff — with search, sidebar, and 16 real notices
+- **AURUM Studio** — Luxury dark salon: gold accent, serif typography, animated gold marquee strip, 6 service cards, stylist team with hover overlays, photo gallery, testimonials, booking CTA
+- **OPTIXA Vision Center** — Sci-fi eye clinic: animated SVG iris ring, CSS scanline body overlay, cyan glow, concentric tech animation section, doctor cards, testimonials
+- **IRONFORGE Brewing Co.** — Dark industrial craft brewery: amber/copper palette, ember marquee strip, 6-tap beer list with ABV/IBU stats, 6-step brewing process grid, events list, newsletter CTA
+
+All templates use SantyCSS utility classes + Unsplash images. Zero external UI dependencies.
+
+→ **[Browse all 13 templates](https://santycss.santy.in/templates.html)**
+
+---
+
+## What's New in v2.6.0
+
+### ⚡ Granular Module Imports
+
+Import only the CSS you need — reduces bundle size significantly.
+
+```js
+import 'santycss/css/flex';
+import 'santycss/css/spacing';
+import 'santycss/css/typography';
+```
+
+- **10 module files** in `dist/`: reset, layout, flex, grid, spacing, sizing, typography, colors, borders, effects
+- **Package exports map** — all 10 modules as `./css/<name>` subpaths for bundlers & Vite
+- **`index.js` path helpers** — `santy.flex`, `santy.spacing`, `santy.typography`, etc.
+
+---
+
 ## What's New in v2.5.1
 
 ### ⚡ Code Snippets Page

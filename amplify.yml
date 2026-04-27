@@ -16,6 +16,7 @@ frontend:
         - cp -r saloon site/saloon
         - cp -r eye-vision site/eye-vision
         - cp -r brewery site/brewery
+        - cp -r school site/school
   artifacts:
     baseDirectory: site
     files:
