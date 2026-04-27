@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Faculty — MERIDIAN Academy</title>
+  <link rel="stylesheet" href="../santy.css" />
+  <link rel="stylesheet" href="../santy-variants.css" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .dept-btn { padding:8px 20px; border-radius:9999px; border:1.5px solid var(--gray-200); background:transparent; font-size:13px; font-weight:600; color:var(--gray-600); cursor:pointer; font-family:inherit; transition:all .15s; }
+    .dept-btn.active { background:var(--blue); color:#fff; border-color:var(--blue); }
+    .dept-btn:hover:not(.active) { border-color:var(--sky); color:var(--sky); }
+    .faculty-card { background:#fff; border:1px solid var(--gray-200); border-radius:16px; overflow:hidden; transition:box-shadow .2s,transform .2s; }
+    .faculty-card:hover { box-shadow:0 12px 32px rgba(0,0,0,.1); transform:translateY(-4px); }
+    .faculty-card:hover .faculty-overlay { opacity:1; }
+    .faculty-img-wrap { position:relative; }
+    .faculty-img-wrap img { width:100%; height:220px; object-fit:cover; display:block; }
+    .faculty-overlay { position:absolute; inset:0; background:rgba(30,58,138,.8); display:flex; align-items:center; justify-content:center; gap:12px; opacity:0; transition:opacity .25s; }
+    .faculty-body { padding:20px; }
+    .faculty-name { font-size:16px; font-weight:800; color:var(--gray-900); margin-bottom:4px; }
+    .faculty-role { font-size:13px; color:var(--sky); font-weight:600; margin-bottom:6px; }
+    .faculty-exp { font-size:12px; color:var(--gray-400); }
+    .faculty-tags { display:flex; gap:5px; flex-wrap:wrap; margin-top:10px; }
+  </style>
+</head>
+<body>
+<nav class="ms-nav">
+  <div class="ms-nav-inner">
+    <a href="index.html" class="ms-logo"><div class="ms-logo-badge">🏫</div><div><div class="ms-logo-name">MERIDIAN <span>Academy</span></div><div class="ms-logo-tag">Excellence in Education</div></div></a>
+    <button class="ms-hamburger" onclick="toggleNav()"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <div class="ms-nav-links" id="mainNav">
+      <a href="index.html">Home</a><a href="about.html">About</a><a href="academics.html">Academics</a><a href="admissions.html">Admissions</a><a href="faculty.html" class="active">Faculty</a><a href="events.html">Events</a><a href="notifications.html">🔔 Notices</a><a href="contact.html">Contact</a>
+      <a href="admissions.html" class="ms-nav-cta">Apply Now</a>
+    </div>
+  </div>
+</nav>
+
+<div class="ms-page-hero">
+  <div class="ms-page-hero-inner">
+    <div class="ms-breadcrumb"><a href="index.html">Home</a> › Faculty</div>
+    <h1>Our Faculty</h1>
+    <p>180+ experienced, passionate educators — each an expert in their field and dedicated to every student's growth.</p>
+  </div>
+</div>
+
+<!-- Stats -->
+<section style="background:#fff;padding:40px 24px;">
+  <div class="ms-container">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:16px;overflow:hidden;">
+      <div style="padding:28px;text-align:center;border-right:1px solid var(--gray-200);"><div style="font-size:32px;font-weight:900;color:var(--blue);margin-bottom:4px;">180+</div><div style="font-size:12px;color:var(--gray-600);font-weight:600;text-transform:uppercase;letter-spacing:.06em;">Faculty Members</div></div>
+      <div style="padding:28px;text-align:center;border-right:1px solid var(--gray-200);"><div style="font-size:32px;font-weight:900;color:var(--sky);margin-bottom:4px;">14 yr</div><div style="font-size:12px;color:var(--gray-600);font-weight:600;text-transform:uppercase;letter-spacing:.06em;">Avg. Experience</div></div>
+      <div style="padding:28px;text-align:center;border-right:1px solid var(--gray-200);"><div style="font-size:32px;font-weight:900;color:var(--green);margin-bottom:4px;">68%</div><div style="font-size:12px;color:var(--gray-600);font-weight:600;text-transform:uppercase;letter-spacing:.06em;">Post-Graduate</div></div>
+      <div style="padding:28px;text-align:center;"><div style="font-size:32px;font-weight:900;color:var(--amber-dark);margin-bottom:4px;">12</div><div style="font-size:12px;color:var(--gray-600);font-weight:600;text-transform:uppercase;letter-spacing:.06em;">Departments</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Department filter -->
+<section class="ms-section" style="padding-top:48px;background:#fff;">
+  <div class="ms-container">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px;">
+      <button class="dept-btn active" data-dept="all" onclick="filterDept('all')">All Departments</button>
+      <button class="dept-btn" data-dept="science" onclick="filterDept('science')">🔬 Science</button>
+      <button class="dept-btn" data-dept="math" onclick="filterDept('math')">📐 Mathematics</button>
+      <button class="dept-btn" data-dept="english" onclick="filterDept('english')">📖 English</button>
+      <button class="dept-btn" data-dept="social" onclick="filterDept('social')">🌍 Social Science</button>
+      <button class="dept-btn" data-dept="cs" onclick="filterDept('cs')">💻 Computer Science</button>
+      <button class="dept-btn" data-dept="arts" onclick="filterDept('arts')">🎨 Arts &amp; Music</button>
+      <button class="dept-btn" data-dept="pe" onclick="filterDept('pe')">⚽ Physical Ed</button>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;" id="facultyGrid">
+
+      <div class="faculty-card" data-dept="science"><div class="faculty-img-wrap"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=70" alt="Dr. Raj" /><div class="faculty-overlay"><a href="#" class="ms-btn ms-btn-primary ms-btn-sm" style="background:rgba(255,255,255,.2);">Profile</a></div></div><div class="faculty-body"><div class="faculty-name">Dr. Rajesh Kumar</div><div class="faculty-role">Head of Science Dept.</div><div class="faculty-exp">22 years experience · Ph.D. Physics</div><div class="faculty-tags"><span class="ms-badge ms-badge-blue">Physics</span><span class="ms-badge ms-badge-gray">Grade 11–12</span></div></div></div>
+
+      <div class="faculty-card" data-dept="science"><div class="faculty-img-wrap"><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&q=70" alt="Dr. Priya" /><div class="faculty-overlay"><a href="#" class="ms-btn ms-btn-primary ms-btn-sm" style="background:rgba(255,255,255,.2);">Profile</a></div></div><div class="faculty-body"><div class="faculty-name">Dr. Priya Menon</div><div class="faculty-role">Senior Chemistry Teacher</div><div class="faculty-exp">18 years experience · M.Sc., B.Ed.</div><div class="faculty-tags"><span class="ms-badge ms-badge-blue">Chemistry</span><span class="ms-badge ms-badge-gray">Grade 9–12</span></div></div></div>
+
+      <div class="faculty-card" data-dept="math"><div class="faculty-img-wrap"><img src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?w=400&q=70" alt="Mr. Arjun" /><div class="faculty-overlay"><a href="#" class="ms-btn ms-btn-primary ms-btn-sm" style="background:rgba(255,255,255,.2);">Profile</a></div></div><div class="faculty-body"><div class="faculty-name">Mr. Arjun Nair</div><div class="faculty-role">Head of Mathematics</div><div class="faculty-exp">15 years experience · M.Math, B.Ed.</div><div class="faculty-tags"><span class="ms-badge ms-badge-amber">Mathematics</span><span class="ms-badge ms-badge-gray">Grade 8–12</span></div></div></div>
+
+      <div class="faculty-card" data-dept="math"><div class="faculty-img-wrap"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=70" alt="Ms. Divya" /><div class="faculty-overlay"><a href="#" class="ms-btn ms-btn-primary ms-btn-sm" style="background:rgba(255,255,255,.2);">Profile</a></div></div><div class="faculty-body"><div class="faculty-name">Ms. Divya Rajan</div><div class="faculty-role">Mathematics Teacher</div><div class="faculty-exp">9 years experience · M.Sc. Mathematics</div><div class="faculty-tags"><span class="ms-badge ms-badge-amber">Mathematics</span><span class="ms-badge ms-badge-gray">Grade 6–8</span></div></div></div>
+
+      <div class="faculty-card" data-dept="english"><div class="faculty-img-wrap"><img src="https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=400&q=70" alt="Ms. Sarah" /><div class="faculty-overlay"><a href="#" class="ms-btn ms-btn-primary ms-btn-sm" style="background:rgba(255,255,255,.2);">Profile</a></div></div><div class="faculty-body"><div class="faculty-name">Ms. Sarah Thomas</div><div class="faculty-role">Head of English Dept.</div><div class="faculty-exp">20 years experience · MA English Literature</div><div class="faculty-tags"><span class="ms-badge ms-badge-green">English</span><span class="ms-badge ms-badge-gray">Grade 9–12</span></div></div></div>
+
+      <div class="faculty-card" data-dept="english"><div class="faculty-img-wrap"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=70" alt="Ms. Anita" /><div class="faculty-overlay"><a href="#" class="ms-btn ms-btn-primary ms-btn-sm" style="background:rgba(255,255,255,.2);">Profile</a></div></div><div class="faculty-body"><div class="faculty-name">Ms. Anita Krishnan</div><div class="faculty-role">English &amp; Creative Writing</div><div class="faculty-exp">11 years experience · MA, B.Ed.</div><div class="faculty-tags"><span class="ms-badge ms-badge-green">English</span><span class="ms-badge ms-badge-gray">Grade 6–8</span></div></div></div>
+
+      <div class="faculty-card" data-dept="cs"><div class="faculty-img-wrap"><img src="https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=400&q=70" alt="Mr. Vikram" /><div class="faculty-overlay"><a href="#" class="ms-btn ms-btn-primary ms-btn-sm" style="background:rgba(255,255,255,.2);">Profile</a></div></div><div class="faculty-body"><div class="faculty-name">Mr. Vikram Shetty</div><div class="faculty-role">Computer Science HOD</div><div class="faculty-exp">14 years · MCA, B.Ed.</div><div class="faculty-tags"><span class="ms-badge ms-badge-blue">CS</span><span class="ms-badge ms-badge-blue">Python</span><span class="ms-badge ms-badge-gray">Gr 9–12</span></div></div></div>
+
+      <div class="faculty-card" data-dept="pe"><div class="faculty-img-wrap"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=70" alt="Coach Ravi" /><div class="faculty-overlay"><a href="#" class="ms-btn ms-btn-primary ms-btn-sm" style="background:rgba(255,255,255,.2);">Profile</a></div></div><div class="faculty-body"><div class="faculty-name">Coach Ravi Suresh</div><div class="faculty-role">PE &amp; Sports Director</div><div class="faculty-exp">17 years · State-level Athlete, B.P.Ed.</div><div class="faculty-tags"><span class="ms-badge ms-badge-green">Athletics</span><span class="ms-badge ms-badge-green">Football</span></div></div></div>
+
+      <div class="faculty-card" data-dept="social"><div class="faculty-img-wrap"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=70" alt="Mr. Mohan" /><div class="faculty-overlay"><a href="#" class="ms-btn ms-btn-primary ms-btn-sm" style="background:rgba(255,255,255,.2);">Profile</a></div></div><div class="faculty-body"><div class="faculty-name">Mr. Mohan Das</div><div class="faculty-role">History &amp; Social Science</div><div class="faculty-exp">16 years · MA History, B.Ed.</div><div class="faculty-tags"><span class="ms-badge ms-badge-amber">History</span><span class="ms-badge ms-badge-gray">Grade 6–10</span></div></div></div>
+
+      <div class="faculty-card" data-dept="arts"><div class="faculty-img-wrap"><img src="https://images.unsplash.com/photo-1499557354967-2b2d8910bcca?w=400&q=70" alt="Ms. Kavitha" /><div class="faculty-overlay"><a href="#" class="ms-btn ms-btn-primary ms-btn-sm" style="background:rgba(255,255,255,.2);">Profile</a></div></div><div class="faculty-body"><div class="faculty-name">Ms. Kavitha Iyer</div><div class="faculty-role">Fine Arts &amp; Craft</div><div class="faculty-exp">12 years · BFA, M.Ed.</div><div class="faculty-tags"><span class="ms-badge ms-badge-blue">Visual Arts</span><span class="ms-badge ms-badge-gray">Grade 1–8</span></div></div></div>
+
+      <div class="faculty-card" data-dept="science"><div class="faculty-img-wrap"><img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&q=70" alt="Ms. Leena" /><div class="faculty-overlay"><a href="#" class="ms-btn ms-btn-primary ms-btn-sm" style="background:rgba(255,255,255,.2);">Profile</a></div></div><div class="faculty-body"><div class="faculty-name">Ms. Leena Varghese</div><div class="faculty-role">Biology &amp; Life Sciences</div><div class="faculty-exp">13 years · M.Sc. Zoology, B.Ed.</div><div class="faculty-tags"><span class="ms-badge ms-badge-green">Biology</span><span class="ms-badge ms-badge-gray">Grade 9–12</span></div></div></div>
+
+      <div class="faculty-card" data-dept="math"><div class="faculty-img-wrap"><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=70" alt="Mr. Sanjay" /><div class="faculty-overlay"><a href="#" class="ms-btn ms-btn-primary ms-btn-sm" style="background:rgba(255,255,255,.2);">Profile</a></div></div><div class="faculty-body"><div class="faculty-name">Mr. Sanjay Pillai</div><div class="faculty-role">Mathematics (Primary)</div><div class="faculty-exp">8 years · B.Math, B.Ed.</div><div class="faculty-tags"><span class="ms-badge ms-badge-amber">Math</span><span class="ms-badge ms-badge-gray">Grade 1–5</span></div></div></div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="ms-footer">
+  <div class="ms-footer-grid">
+    <div class="ms-footer-brand"><div class="ms-logo" style="margin-bottom:0;"><div class="ms-logo-badge" style="background:linear-gradient(135deg,#1e3a8a,#2563eb);">🏫</div><div><div class="ms-logo-name" style="color:#fff;">MERIDIAN <span>Academy</span></div><div class="ms-logo-tag" style="color:rgba(255,255,255,.4);">Excellence in Education</div></div></div><p>Nurturing future leaders since 1998.</p></div>
+    <div class="ms-footer-col"><h4>School</h4><a href="about.html">About</a><a href="academics.html">Academics</a><a href="faculty.html">Faculty</a></div>
+    <div class="ms-footer-col"><h4>Student</h4><a href="notifications.html">Notifications</a><a href="events.html">Events</a><a href="admissions.html">Admissions</a></div>
+    <div class="ms-footer-col"><h4>Contact</h4><a href="#">📍 12 Education Road, Chennai</a><a href="#">📞 +91 44 2345 6789</a></div>
+  </div>
+  <div class="ms-footer-bottom"><p>© 2026 MERIDIAN Academy.</p><p>Built with SantyCSS</p></div>
+</footer>
+<script>
+function toggleNav(){document.getElementById('mainNav').classList.toggle('open');}
+function filterDept(dept){
+  document.querySelectorAll('.dept-btn').forEach(function(b){b.classList.remove('active');});
+  document.querySelector('[data-dept="'+dept+'"]').classList.add('active');
+  document.querySelectorAll('#facultyGrid .faculty-card').forEach(function(c){
+    c.style.display=(dept==='all'||c.getAttribute('data-dept')===dept)?'':'none';
+  });
+}
+</script>
+</body>
+</html>

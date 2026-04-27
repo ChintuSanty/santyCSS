@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admissions — MERIDIAN Academy</title>
+  <link rel="stylesheet" href="../santy.css" />
+  <link rel="stylesheet" href="../santy-variants.css" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .step-card { display:flex; gap:20px; align-items:flex-start; background:#fff; border:1px solid var(--gray-200); border-radius:14px; padding:24px; transition:box-shadow .2s; }
+    .step-card:hover { box-shadow:0 8px 24px rgba(0,0,0,.08); }
+    .step-num { width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--sky)); color:#fff; font-size:18px; font-weight:900; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .fee-table { width:100%; border-collapse:collapse; }
+    .fee-table th { background:var(--blue); color:#fff; padding:14px 18px; font-size:13px; font-weight:700; text-align:left; }
+    .fee-table th:first-child { border-radius:10px 0 0 0; }
+    .fee-table th:last-child { border-radius:0 10px 0 0; }
+    .fee-table td { padding:13px 18px; font-size:14px; color:var(--gray-700); border-bottom:1px solid var(--gray-100); }
+    .fee-table tr:last-child td { border-bottom:none; }
+    .fee-table tr:nth-child(even) td { background:var(--gray-50); }
+    .faq-item { border:1px solid var(--gray-200); border-radius:12px; overflow:hidden; }
+    .faq-q { display:flex; justify-content:space-between; align-items:center; padding:18px 20px; cursor:pointer; font-size:15px; font-weight:700; color:var(--gray-900); background:#fff; transition:background .15s; }
+    .faq-q:hover { background:var(--gray-50); }
+    .faq-q svg { flex-shrink:0; transition:transform .25s; color:var(--gray-400); }
+    .faq-item.open .faq-q svg { transform:rotate(180deg); color:var(--sky); }
+    .faq-a { display:none; padding:0 20px 18px; font-size:14px; color:var(--gray-600); line-height:1.75; }
+    .faq-item.open .faq-a { display:block; }
+  </style>
+</head>
+<body>
+<nav class="ms-nav">
+  <div class="ms-nav-inner">
+    <a href="index.html" class="ms-logo"><div class="ms-logo-badge">🏫</div><div><div class="ms-logo-name">MERIDIAN <span>Academy</span></div><div class="ms-logo-tag">Excellence in Education</div></div></a>
+    <button class="ms-hamburger" onclick="toggleNav()"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <div class="ms-nav-links" id="mainNav">
+      <a href="index.html">Home</a><a href="about.html">About</a><a href="academics.html">Academics</a><a href="admissions.html" class="active">Admissions</a><a href="faculty.html">Faculty</a><a href="events.html">Events</a><a href="notifications.html">🔔 Notices</a><a href="contact.html">Contact</a>
+      <a href="admissions.html" class="ms-nav-cta">Apply Now</a>
+    </div>
+  </div>
+</nav>
+
+<div class="ms-page-hero">
+  <div class="ms-page-hero-inner">
+    <div class="ms-breadcrumb"><a href="index.html">Home</a> › Admissions</div>
+    <h1>Admissions 2025–26</h1>
+    <p>Join the MERIDIAN family. Applications are open for Grades 1–12. Limited seats — apply early.</p>
+    <div style="display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;">
+      <div style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:9px;padding:10px 18px;font-size:13px;color:rgba(255,255,255,.85);">📅 Applications close: <strong style="color:#fde68a;">June 30, 2025</strong></div>
+      <div style="background:rgba(245,158,11,.2);border:1px solid rgba(245,158,11,.4);border-radius:9px;padding:10px 18px;font-size:13px;color:#fde68a;font-weight:600;">⚡ Seats filling fast for Grade 1 &amp; 6</div>
+    </div>
+  </div>
+</div>
+
+<!-- How to Apply -->
+<section class="ms-section" style="background:#fff;">
+  <div class="ms-container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <p class="ms-section-label">📋 Process</p>
+      <h2 class="ms-section-title">How to Apply</h2>
+      <p class="ms-section-desc" style="margin:0 auto;">A simple 5-step process from inquiry to enrollment. Our admissions team is available to assist at every stage.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px;max-width:720px;margin:0 auto;">
+      <div class="step-card"><div class="step-num">1</div><div><h3 style="font-size:16px;font-weight:800;color:var(--gray-900);margin-bottom:6px;">Submit Online Application</h3><p style="font-size:14px;color:var(--gray-600);line-height:1.7;">Complete the online application form below with student details, grade applying for, previous school information, and contact details.</p></div></div>
+      <div class="step-card"><div class="step-num">2</div><div><h3 style="font-size:16px;font-weight:800;color:var(--gray-900);margin-bottom:6px;">Document Verification</h3><p style="font-size:14px;color:var(--gray-600);line-height:1.7;">Upload or bring required documents (report cards, birth certificate, transfer certificate, address proof) to the admissions office within 5 working days.</p></div></div>
+      <div class="step-card"><div class="step-num">3</div><div><h3 style="font-size:16px;font-weight:800;color:var(--gray-900);margin-bottom:6px;">Entrance Assessment</h3><p style="font-size:14px;color:var(--gray-600);line-height:1.7;">Students applying for Grade 2 and above appear for a written assessment (English, Math, Science) at the school campus. Grade 1 has an informal interaction session.</p></div></div>
+      <div class="step-card"><div class="step-num">4</div><div><h3 style="font-size:16px;font-weight:800;color:var(--gray-900);margin-bottom:6px;">Offer Letter &amp; Fee Payment</h3><p style="font-size:14px;color:var(--gray-600);line-height:1.7;">Selected students receive an offer letter within 3 working days. Admission is confirmed upon payment of the registration and first-term fee.</p></div></div>
+      <div class="step-card" style="border-color:var(--sky);"><div class="step-num" style="background:linear-gradient(135deg,var(--green),#059669);">5</div><div><h3 style="font-size:16px;font-weight:800;color:var(--gray-900);margin-bottom:6px;">Welcome to MERIDIAN! 🎉</h3><p style="font-size:14px;color:var(--gray-600);line-height:1.7;">Attend orientation, receive your ID card and timetable, and join the MERIDIAN family. Our student mentors will help you settle in from day one.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Fee Structure -->
+<section class="ms-section" style="background:var(--gray-50);">
+  <div class="ms-container">
+    <div style="text-align:center;margin-bottom:40px;">
+      <p class="ms-section-label">💳 Fees</p>
+      <h2 class="ms-section-title">Fee Structure 2025–26</h2>
+      <p class="ms-section-desc" style="margin:0 auto;">All figures in INR (₹). Fees are payable termly (3 terms). Scholarships available for merit and financial need.</p>
+    </div>
+    <div style="background:#fff;border-radius:16px;overflow:hidden;border:1px solid var(--gray-200);box-shadow:0 4px 16px rgba(0,0,0,.06);">
+      <table class="fee-table">
+        <thead><tr><th>Grade</th><th>Admission Fee (One-time)</th><th>Annual Tuition</th><th>Term Fee</th><th>Activities</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Grade 1–2</strong></td><td>₹15,000</td><td>₹72,000</td><td>₹24,000</td><td>₹8,000/yr</td></tr>
+          <tr><td><strong>Grade 3–5</strong></td><td>₹15,000</td><td>₹78,000</td><td>₹26,000</td><td>₹8,000/yr</td></tr>
+          <tr><td><strong>Grade 6–8</strong></td><td>₹18,000</td><td>₹90,000</td><td>₹30,000</td><td>₹10,000/yr</td></tr>
+          <tr><td><strong>Grade 9–10</strong></td><td>₹18,000</td><td>₹1,02,000</td><td>₹34,000</td><td>₹12,000/yr</td></tr>
+          <tr><td><strong>Grade 11–12 (Science)</strong></td><td>₹20,000</td><td>₹1,20,000</td><td>₹40,000</td><td>₹14,000/yr</td></tr>
+          <tr><td><strong>Grade 11–12 (Commerce/Arts)</strong></td><td>₹20,000</td><td>₹1,08,000</td><td>₹36,000</td><td>₹12,000/yr</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--gray-400);text-align:center;margin-top:16px;">* Transport, uniform, and stationery not included. Sibling discount: 10% on second child. Merit scholarship: up to 100% on tuition.</p>
+  </div>
+</section>
+
+<!-- Application Form -->
+<section class="ms-section" style="background:#fff;" id="apply">
+  <div class="ms-container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;">
+      <div>
+        <p class="ms-section-label">📝 Apply</p>
+        <h2 class="ms-section-title">Submit Your<br>Application</h2>
+        <p class="ms-section-desc" style="max-width:100%;margin-bottom:24px;">Fill in the form and our admissions team will contact you within 2 working days to guide you through the next steps.</p>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;gap:10px;align-items:flex-start;"><div style="width:32px;height:32px;border-radius:50%;background:var(--light-blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">✅</div><div style="font-size:13px;color:var(--gray-600);line-height:1.6;">Applications reviewed within 2 working days</div></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><div style="width:32px;height:32px;border-radius:50%;background:var(--light-blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">📞</div><div style="font-size:13px;color:var(--gray-600);line-height:1.6;">Personal call from our admissions counselor</div></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;"><div style="width:32px;height:32px;border-radius:50%;background:var(--light-blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">🏫</div><div style="font-size:13px;color:var(--gray-600);line-height:1.6;">Free campus tour arranged on request</div></div>
+        </div>
+      </div>
+      <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:20px;padding:36px;">
+        <h3 style="font-size:18px;font-weight:800;color:var(--gray-900);margin-bottom:24px;">Application Form</h3>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div><label class="ms-label">Student First Name *</label><input class="ms-input" type="text" placeholder="First name" /></div>
+            <div><label class="ms-label">Student Last Name *</label><input class="ms-input" type="text" placeholder="Last name" /></div>
+          </div>
+          <div><label class="ms-label">Grade Applying For *</label><select class="ms-input ms-select"><option value="">Select Grade</option><option>Grade 1</option><option>Grade 2</option><option>Grade 3</option><option>Grade 4</option><option>Grade 5</option><option>Grade 6</option><option>Grade 7</option><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option><option>Grade 11 — Science</option><option>Grade 11 — Commerce</option><option>Grade 11 — Arts</option><option>Grade 12 — Science</option><option>Grade 12 — Commerce</option><option>Grade 12 — Arts</option></select></div>
+          <div><label class="ms-label">Parent / Guardian Name *</label><input class="ms-input" type="text" placeholder="Full name" /></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div><label class="ms-label">Phone Number *</label><input class="ms-input" type="tel" placeholder="+91 " /></div>
+            <div><label class="ms-label">Email Address *</label><input class="ms-input" type="email" placeholder="email@domain.com" /></div>
+          </div>
+          <div><label class="ms-label">Previous School</label><input class="ms-input" type="text" placeholder="School name (if applicable)" /></div>
+          <div><label class="ms-label">How did you hear about us?</label><select class="ms-input ms-select"><option>Select…</option><option>Friend / Family</option><option>Google Search</option><option>Social Media</option><option>School Event</option><option>Other</option></select></div>
+          <div><label class="ms-label">Message (optional)</label><textarea class="ms-input" rows="3" placeholder="Any specific questions or requirements…" style="resize:vertical;"></textarea></div>
+          <button class="ms-btn ms-btn-primary" style="width:100%;justify-content:center;font-size:15px;padding:14px;">Submit Application →</button>
+          <p style="font-size:11px;color:var(--gray-400);text-align:center;margin:0;">We respect your privacy. Your data is never shared with third parties.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="ms-section" style="background:var(--gray-50);">
+  <div class="ms-container">
+    <div style="text-align:center;margin-bottom:40px;">
+      <p class="ms-section-label">❓ FAQ</p>
+      <h2 class="ms-section-title">Frequently Asked Questions</h2>
+    </div>
+    <div style="max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:10px;">
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)"><span>Is there an entrance test for Grade 1?</span><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">No. Grade 1 admissions are based on an informal interaction session between the student and the class teacher — no formal written test. We focus on readiness, communication, and curiosity.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)"><span>Can we apply mid-year if seats are available?</span><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Yes, mid-year admissions are considered on a case-by-case basis subject to seat availability. Please contact the admissions office directly for mid-year inquiries.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)"><span>Are scholarships available?</span><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Yes. MERIDIAN offers merit scholarships (up to 100% of tuition) and need-based financial assistance. Apply for scholarships during the application process — a separate scholarship form is included.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)"><span>Is the school transport available?</span><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Yes. We operate GPS-tracked, CCTV-equipped school buses covering 15+ routes across Chennai. Transport fee varies by distance zone. Contact the transport department for route details.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFAQ(this)"><span>What documents are required for admission?</span><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div><div class="faq-a">Required documents: (1) Last 2 years' report cards, (2) Transfer Certificate from previous school, (3) Birth Certificate, (4) Aadhaar Card (student), (5) Address proof, (6) 4 passport-size photos. For Grade 11–12 transfers: Mark sheets from Grade 9/10.</div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="ms-footer">
+  <div class="ms-footer-grid">
+    <div class="ms-footer-brand"><div class="ms-logo" style="margin-bottom:0;"><div class="ms-logo-badge" style="background:linear-gradient(135deg,#1e3a8a,#2563eb);">🏫</div><div><div class="ms-logo-name" style="color:#fff;">MERIDIAN <span>Academy</span></div><div class="ms-logo-tag" style="color:rgba(255,255,255,.4);">Excellence in Education</div></div></div><p>Nurturing future leaders since 1998.</p></div>
+    <div class="ms-footer-col"><h4>School</h4><a href="about.html">About</a><a href="academics.html">Academics</a><a href="faculty.html">Faculty</a></div>
+    <div class="ms-footer-col"><h4>Student</h4><a href="notifications.html">Notifications</a><a href="events.html">Events</a><a href="contact.html">Contact</a></div>
+    <div class="ms-footer-col"><h4>Admissions</h4><a href="#">Apply Online</a><a href="#">Fee Structure</a><a href="#">Scholarships</a></div>
+  </div>
+  <div class="ms-footer-bottom"><p>© 2026 MERIDIAN Academy.</p><p>Built with SantyCSS</p></div>
+</footer>
+<script>
+function toggleNav(){document.getElementById('mainNav').classList.toggle('open');}
+function toggleFAQ(el){var item=el.parentElement;item.classList.toggle('open');}
+</script>
+</body>
+</html>

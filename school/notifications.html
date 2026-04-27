@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notifications & Updates — MERIDIAN Academy</title>
+  <meta name="description" content="Latest notifications, circulars, and updates for all grades at MERIDIAN Academy." />
+  <link rel="stylesheet" href="../santy.css" />
+  <link rel="stylesheet" href="../santy-variants.css" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    /* Filter bar */
+    .notif-filter-bar {
+      background: #fff; border-bottom: 1px solid var(--gray-200);
+      position: sticky; top: 66px; z-index: 50;
+      padding: 14px 24px; overflow-x: auto;
+    }
+    .notif-filter-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 8px; align-items: center; flex-wrap: nowrap; min-width: max-content; }
+    .nf-btn { padding: 8px 18px; border-radius: 9999px; border: 1.5px solid var(--gray-200); background: transparent; font-size: 13px; font-weight: 600; color: var(--gray-600); cursor: pointer; font-family: inherit; transition: all .15s; white-space: nowrap; }
+    .nf-btn:hover { border-color: var(--sky); color: var(--sky); }
+    .nf-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .nf-divider { width: 1px; height: 24px; background: var(--gray-200); flex-shrink: 0; margin: 0 4px; }
+    .nf-search { flex: 1; min-width: 200px; max-width: 280px; margin-left: auto; }
+    .nf-search-wrap { position: relative; }
+    .nf-search-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--gray-400); pointer-events: none; }
+    .nf-search-input { width: 100%; padding: 8px 12px 8px 36px; border: 1.5px solid var(--gray-200); border-radius: 9999px; font-size: 13px; font-family: inherit; color: var(--gray-800); outline: none; transition: border-color .15s; }
+    .nf-search-input:focus { border-color: var(--sky); }
+
+    /* Notification card */
+    .notif-card {
+      background: #fff; border: 1px solid var(--gray-200); border-left: 5px solid var(--sky);
+      border-radius: 12px; padding: 22px 24px;
+      transition: box-shadow .15s, transform .15s;
+      display: flex; gap: 20px; align-items: flex-start;
+    }
+    .notif-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,.08); transform: translateY(-1px); }
+    .notif-card[data-priority="urgent"] { border-left-color: var(--red); }
+    .notif-card[data-priority="important"] { border-left-color: var(--amber); }
+    .notif-card[data-priority="info"] { border-left-color: var(--green); }
+    .notif-card[data-priority="general"] { border-left-color: var(--gray-400); }
+    .notif-card.hidden { display: none; }
+
+    .notif-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .notif-icon-urgent { background: #fef2f2; }
+    .notif-icon-important { background: #fffbeb; }
+    .notif-icon-info { background: #f0fdf4; }
+    .notif-icon-general { background: var(--gray-100); }
+
+    .notif-body { flex: 1; }
+    .notif-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+    .notif-title { font-size: 16px; font-weight: 700; color: var(--gray-900); margin-bottom: 6px; }
+    .notif-desc { font-size: 14px; color: var(--gray-600); line-height: 1.7; margin-bottom: 12px; }
+    .notif-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .notif-download { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: var(--sky); text-decoration: none; padding: 5px 12px; border: 1px solid #bfdbfe; border-radius: 7px; background: var(--light-blue); transition: background .15s; }
+    .notif-download:hover { background: #dbeafe; }
+    .notif-date-col { text-align: right; flex-shrink: 0; }
+    .notif-date-day { font-size: 24px; font-weight: 900; color: var(--gray-900); line-height: 1; }
+    .notif-date-rest { font-size: 11px; color: var(--gray-400); font-weight: 600; }
+    .notif-new-dot { display: inline-block; width: 7px; height: 7px; background: var(--red); border-radius: 50%; margin-right: 4px; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{transform:scale(1);opacity:1;} 50%{transform:scale(1.4);opacity:.6;} }
+
+    /* Empty state */
+    .notif-empty { text-align: center; padding: 80px 24px; display: none; }
+    .notif-empty.show { display: block; }
+
+    /* Grade summary pills */
+    .grade-summary { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; }
+    .grade-pill { display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--gray-200); border-radius: 10px; padding: 10px 16px; cursor: pointer; transition: all .15s; }
+    .grade-pill:hover { border-color: var(--sky); }
+    .grade-pill-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .grade-pill-label { font-size: 13px; font-weight: 700; color: var(--gray-700); }
+    .grade-pill-count { font-size: 11px; color: var(--gray-400); margin-left: 2px; }
+
+    /* Sidebar */
+    .notif-layout { display: grid; grid-template-columns: 1fr 280px; gap: 32px; align-items: start; }
+    @media (max-width: 900px) { .notif-layout { grid-template-columns: 1fr; } .notif-sidebar { display: none; } }
+    .notif-sidebar { position: sticky; top: 130px; }
+    .sidebar-box { background: #fff; border: 1px solid var(--gray-200); border-radius: 14px; padding: 22px; margin-bottom: 16px; }
+    .sidebar-box h3 { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 16px; }
+    .sidebar-link { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--gray-100); cursor: pointer; transition: color .15s; }
+    .sidebar-link:last-child { border-bottom: none; }
+    .sidebar-link:hover { color: var(--sky); }
+    .sidebar-link-label { font-size: 13px; font-weight: 600; }
+    .sidebar-link-count { font-size: 12px; background: var(--gray-100); color: var(--gray-600); padding: 2px 8px; border-radius: 9999px; }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─────────────────────────────────────────────────────────────────── -->
+<nav class="ms-nav">
+  <div class="ms-nav-inner">
+    <a href="index.html" class="ms-logo">
+      <div class="ms-logo-badge">🏫</div>
+      <div>
+        <div class="ms-logo-name">MERIDIAN <span>Academy</span></div>
+        <div class="ms-logo-tag">Excellence in Education</div>
+      </div>
+    </a>
+    <button class="ms-hamburger" onclick="toggleNav()" aria-label="Menu">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <div class="ms-nav-links" id="mainNav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="academics.html">Academics</a>
+      <a href="admissions.html">Admissions</a>
+      <a href="faculty.html">Faculty</a>
+      <a href="events.html">Events</a>
+      <a href="notifications.html" class="active">🔔 Notices</a>
+      <a href="contact.html">Contact</a>
+      <a href="admissions.html" class="ms-nav-cta">Apply Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── PAGE HERO ────────────────────────────────────────────────────────────── -->
+<div class="ms-page-hero">
+  <div class="ms-page-hero-inner">
+    <div class="ms-breadcrumb"><a href="index.html">Home</a> › Notifications</div>
+    <h1>🔔 Notifications & Updates</h1>
+    <p>All circulars, announcements, and important updates — filtered by your child's grade. Updated in real time.</p>
+    <div style="display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;">
+      <div style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:9px;padding:10px 18px;">
+        <span style="font-size:22px;font-weight:900;color:#fde68a;">24</span>
+        <span style="font-size:12px;color:rgba(255,255,255,.6);margin-left:8px;">Active Notices</span>
+      </div>
+      <div style="background:rgba(220,38,38,.2);border:1px solid rgba(220,38,38,.4);border-radius:9px;padding:10px 18px;">
+        <span style="font-size:22px;font-weight:900;color:#fca5a5;">4</span>
+        <span style="font-size:12px;color:rgba(255,255,255,.6);margin-left:8px;">Urgent</span>
+      </div>
+      <div style="background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);border-radius:9px;padding:10px 18px;">
+        <span style="font-size:22px;font-weight:900;color:#fde68a;">7</span>
+        <span style="font-size:12px;color:rgba(255,255,255,.6);margin-left:8px;">Important</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FILTER BAR ───────────────────────────────────────────────────────────── -->
+<div class="notif-filter-bar">
+  <div class="notif-filter-inner">
+    <button class="nf-btn active" data-grade="all">All Grades</button>
+    <div class="nf-divider"></div>
+    <button class="nf-btn" data-grade="grade-1-2">Grade 1–2</button>
+    <button class="nf-btn" data-grade="grade-3-5">Grade 3–5</button>
+    <button class="nf-btn" data-grade="grade-6-8">Grade 6–8</button>
+    <button class="nf-btn" data-grade="grade-9-10">Grade 9–10</button>
+    <button class="nf-btn" data-grade="grade-11-12">Grade 11–12</button>
+    <div class="nf-divider"></div>
+    <button class="nf-btn" data-grade="staff">Staff Only</button>
+    <div class="nf-search">
+      <div class="nf-search-wrap">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input class="nf-search-input" type="text" id="notifSearch" placeholder="Search notices…" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CONTENT ──────────────────────────────────────────────────────────────── -->
+<section class="ms-section" style="padding-top:40px;">
+  <div class="ms-container">
+    <div class="notif-layout">
+
+      <!-- Main notifications list -->
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+          <p style="font-size:14px;color:var(--gray-600);">Showing <strong id="notifCount">16</strong> notifications</p>
+          <select class="ms-input ms-select" style="width:auto;padding:8px 36px 8px 14px;font-size:13px;" onchange="sortNotifs(this.value)">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="priority">By Priority</option>
+          </select>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:14px;" id="notifList">
+
+          <!-- URGENT -->
+          <div class="notif-card" data-priority="urgent" data-grade="all grade-9-10 grade-11-12" data-title="Board Exam Hall Tickets">
+            <div class="notif-icon notif-icon-urgent">🚨</div>
+            <div class="notif-body">
+              <div class="notif-meta">
+                <span class="ms-badge ms-badge-red"><span class="notif-new-dot"></span>URGENT</span>
+                <span class="ms-badge ms-badge-blue">Grade 10 &amp; 12</span>
+                <span class="ms-badge ms-badge-gray">Exams</span>
+              </div>
+              <div class="notif-title">Board Exam Hall Tickets — Grade 10 &amp; 12</div>
+              <div class="notif-desc">Hall tickets for the upcoming CBSE Board Examinations (Grade 10 &amp; 12) are now ready for collection from the school office. All students must collect their hall ticket in person before <strong>May 1st, 2026</strong> with a parent/guardian signature. No student will be allowed into the examination hall without a valid hall ticket.</div>
+              <div class="notif-actions">
+                <a href="#" class="notif-download">📄 Download Schedule (PDF)</a>
+                <a href="#" class="notif-download">📋 Hall Ticket Instructions</a>
+              </div>
+            </div>
+            <div class="notif-date-col">
+              <div class="notif-date-day">27</div>
+              <div class="notif-date-rest">Apr 2026</div>
+            </div>
+          </div>
+
+          <div class="notif-card" data-priority="urgent" data-grade="all grade-11-12" data-title="Practical Exam Date Sheet Grade 12">
+            <div class="notif-icon notif-icon-urgent">⚠️</div>
+            <div class="notif-body">
+              <div class="notif-meta">
+                <span class="ms-badge ms-badge-red">URGENT</span>
+                <span class="ms-badge ms-badge-blue">Grade 12</span>
+                <span class="ms-badge ms-badge-gray">Exams</span>
+              </div>
+              <div class="notif-title">Practical Exam Date Sheet — Grade 12 Science &amp; Commerce</div>
+              <div class="notif-desc">The Practical Examination timetable for Grade 12 (Science &amp; Commerce streams) has been released. Practical exams begin May 5, 2026. Students must report to respective labs 30 minutes before scheduled time with lab records and student ID.</div>
+              <div class="notif-actions">
+                <a href="#" class="notif-download">📄 Practical Timetable (PDF)</a>
+              </div>
+            </div>
+            <div class="notif-date-col">
+              <div class="notif-date-day">26</div>
+              <div class="notif-date-rest">Apr 2026</div>
+            </div>
+          </div>
+
+          <!-- IMPORTANT -->
+          <div class="notif-card" data-priority="important" data-grade="all grade-6-8" data-title="Science Fair Registration">
+            <div class="notif-icon notif-icon-important">📌</div>
+            <div class="notif-body">
+              <div class="notif-meta">
+                <span class="ms-badge ms-badge-amber">IMPORTANT</span>
+                <span class="ms-badge ms-badge-blue">Grade 6–8</span>
+                <span class="ms-badge ms-badge-gray">Academic</span>
+              </div>
+              <div class="notif-title">Science Fair Registration Deadline — May 2nd</div>
+              <div class="notif-desc">All Grade 6–8 students participating in the Inter-School Science Fair (May 10, 2026) must submit their project abstract to the class teacher before <strong>May 2nd</strong>. Project groups may consist of 2–4 students. Topics must be original and related to the CBSE syllabus.</div>
+              <div class="notif-actions">
+                <a href="#" class="notif-download">📄 Abstract Template (DOCX)</a>
+                <a href="#" class="notif-download">📋 Fair Rules &amp; Guidelines</a>
+              </div>
+            </div>
+            <div class="notif-date-col">
+              <div class="notif-date-day">25</div>
+              <div class="notif-date-rest">Apr 2026</div>
+            </div>
+          </div>
+
+          <div class="notif-card" data-priority="important" data-grade="all grade-9-10" data-title="Pre-Board Examination Schedule Grade 9 10">
+            <div class="notif-icon notif-icon-important">📝</div>
+            <div class="notif-body">
+              <div class="notif-meta">
+                <span class="ms-badge ms-badge-amber">IMPORTANT</span>
+                <span class="ms-badge ms-badge-blue">Grade 9 &amp; 10</span>
+                <span class="ms-badge ms-badge-gray">Exams</span>
+              </div>
+              <div class="notif-title">Pre-Board Examination Schedule — Grade 9 &amp; 10</div>
+              <div class="notif-desc">The Pre-Board Examination for Grade 9 and Grade 10 will be conducted from <strong>May 12–22, 2026</strong>. Detailed timetable is attached. Students are advised to complete all pending assignments before appearing for Pre-Boards. No leave will be granted during exam period.</div>
+              <div class="notif-actions">
+                <a href="#" class="notif-download">📄 Exam Timetable (PDF)</a>
+              </div>
+            </div>
+            <div class="notif-date-col">
+              <div class="notif-date-day">25</div>
+              <div class="notif-date-rest">Apr 2026</div>
+            </div>
+          </div>
+
+          <div class="notif-card" data-priority="important" data-grade="all grade-3-5" data-title="Annual Sports Day Participation Grade 3 5">
+            <div class="notif-icon notif-icon-important">🏃</div>
+            <div class="notif-body">
+              <div class="notif-meta">
+                <span class="ms-badge ms-badge-amber">IMPORTANT</span>
+                <span class="ms-badge ms-badge-blue">Grade 3–5</span>
+                <span class="ms-badge ms-badge-gray">Sports</span>
+              </div>
+              <div class="notif-title">Annual Sports Day — Participation Cards Required (Grade 3–5)</div>
+              <div class="notif-desc">Sports Day is on <strong>May 3, 2026</strong>. Grade 3–5 students participating in track &amp; field events must carry their Participation Card issued by the PE teacher. Students without cards will not be allowed to compete. Practice sessions are daily from 6:30–7:30 AM.</div>
+            </div>
+            <div class="notif-date-col">
+              <div class="notif-date-day">24</div>
+              <div class="notif-date-rest">Apr 2026</div>
+            </div>
+          </div>
+
+          <!-- INFO -->
+          <div class="notif-card" data-priority="info" data-grade="all grade-1-2" data-title="Summer Reading Program Library">
+            <div class="notif-icon notif-icon-info">📚</div>
+            <div class="notif-body">
+              <div class="notif-meta">
+                <span class="ms-badge ms-badge-green">INFO</span>
+                <span class="ms-badge ms-badge-blue">Grade 1–2</span>
+                <span class="ms-badge ms-badge-gray">Library</span>
+              </div>
+              <div class="notif-title">Summer Reading Program — Sign-up Open (Grade 1–2)</div>
+              <div class="notif-desc">The MERIDIAN Summer Reading Program for Grade 1–2 is now open for registration at the school library. Students can borrow up to 3 books per week during summer break. Registration closes May 10, 2026.</div>
+              <div class="notif-actions">
+                <a href="#" class="notif-download">📋 Book List 2026</a>
+              </div>
+            </div>
+            <div class="notif-date-col">
+              <div class="notif-date-day">24</div>
+              <div class="notif-date-rest">Apr 2026</div>
+            </div>
+          </div>
+
+          <div class="notif-card" data-priority="info" data-grade="all grade-3-5" data-title="Summer Reading Program Grade 3 5">
+            <div class="notif-icon notif-icon-info">📖</div>
+            <div class="notif-body">
+              <div class="notif-meta">
+                <span class="ms-badge ms-badge-green">INFO</span>
+                <span class="ms-badge ms-badge-blue">Grade 3–5</span>
+                <span class="ms-badge ms-badge-gray">Library</span>
+              </div>
+              <div class="notif-title">Summer Reading Program — Grade 3–5 Book Club</div>
+              <div class="notif-desc">Grade 3–5 students are invited to join the MERIDIAN Book Club this summer. Weekly reading challenges with prizes for top readers. Sign up at the library before May 15.</div>
+            </div>
+            <div class="notif-date-col">
+              <div class="notif-date-day">24</div>
+              <div class="notif-date-rest">Apr 2026</div>
+            </div>
+          </div>
+
+          <div class="notif-card" data-priority="info" data-grade="all" data-title="Summer Camp Registrations Open">
+            <div class="notif-icon notif-icon-info">🏕️</div>
+            <div class="notif-body">
+              <div class="notif-meta">
+                <span class="ms-badge ms-badge-green">INFO</span>
+                <span class="ms-badge ms-badge-blue">All Grades</span>
+                <span class="ms-badge ms-badge-gray">Activities</span>
+              </div>
+              <div class="notif-title">Summer Camp 2026 — Registrations Open (All Grades)</div>
+              <div class="notif-desc">MERIDIAN Summer Camp 2026 is open for registration. Activities include coding, art, robotics, sports, and leadership workshops. Sessions run June 2–20, 2026. Limited seats. Early-bird discount available until April 30.</div>
+              <div class="notif-actions">
+                <a href="#" class="notif-download">📋 Camp Brochure (PDF)</a>
+                <a href="#" class="notif-download">📝 Registration Form</a>
+              </div>
+            </div>
+            <div class="notif-date-col">
+              <div class="notif-date-day">23</div>
+              <div class="notif-date-rest">Apr 2026</div>
+            </div>
+          </div>
+
+          <div class="notif-card" data-priority="important" data-grade="all grade-6-8 grade-9-10" data-title="Fee Payment Deadline Term 3">
+            <div class="notif-icon notif-icon-important">💳</div>
+            <div class="notif-body">
+              <div class="notif-meta">
+                <span class="ms-badge ms-badge-amber">IMPORTANT</span>
+                <span class="ms-badge ms-badge-blue">Grade 6–10</span>
+                <span class="ms-badge ms-badge-gray">Finance</span>
+              </div>
+              <div class="notif-title">Term 3 Fee Payment Deadline — May 10, 2026</div>
+              <div class="notif-desc">Term 3 school fees for Grade 6–10 are due by <strong>May 10, 2026</strong>. A late fee of ₹500 will be applied after the deadline. Payments can be made online via the school portal or in person at the accounts office (Mon–Fri, 9 AM–2 PM).</div>
+            </div>
+            <div class="notif-date-col">
+              <div class="notif-date-day">22</div>
+              <div class="notif-date-rest">Apr 2026</div>
+            </div>
+          </div>
+
+          <div class="notif-card" data-priority="info" data-grade="all grade-1-2 grade-3-5" data-title="Medical Checkup Grade 1 5">
+            <div class="notif-icon notif-icon-info">🏥</div>
+            <div class="notif-body">
+              <div class="notif-meta">
+                <span class="ms-badge ms-badge-green">INFO</span>
+                <span class="ms-badge ms-badge-blue">Grade 1–5</span>
+                <span class="ms-badge ms-badge-gray">Health</span>
+              </div>
+              <div class="notif-title">Annual Medical Checkup — Grade 1 to 5 (May 8)</div>
+              <div class="notif-desc">The Annual Medical Checkup for Grade 1–5 students will be held on <strong>May 8, 2026</strong> by certified doctors from Apollo Clinic. Students must bring their School Health Cards. Parents who wish to be present may register at the school office in advance.</div>
+            </div>
+            <div class="notif-date-col">
+              <div class="notif-date-day">21</div>
+              <div class="notif-date-rest">Apr 2026</div>
+            </div>
+          </div>
+
+          <div class="notif-card" data-priority="urgent" data-grade="all grade-11-12 grade-9-10" data-title="Career Counseling Session">
+            <div class="notif-icon notif-icon-urgent">🎓</div>
+            <div class="notif-body">
+              <div class="notif-meta">
+                <span class="ms-badge ms-badge-red">URGENT</span>
+                <span class="ms-badge ms-badge-blue">Grade 10–12</span>
+                <span class="ms-badge ms-badge-gray">Career</span>
+              </div>
+              <div class="notif-title">Mandatory Career Counseling Session — April 30</div>
+              <div class="notif-desc">Attendance is <strong>mandatory</strong> for all Grade 10–12 students at the Career Counseling Session on April 30, 2026 (10 AM – 1 PM, School Auditorium). Representatives from top universities and career coaches will be present. Parents are welcome.</div>
+            </div>
+            <div class="notif-date-col">
+              <div class="notif-date-day">20</div>
+              <div class="notif-date-rest">Apr 2026</div>
+            </div>
+          </div>
+
+          <!-- Staff notices -->
+          <div class="notif-card" data-priority="important" data-grade="staff" data-title="Staff Meeting April 29">
+            <div class="notif-icon notif-icon-important">👩‍🏫</div>
+            <div class="notif-body">
+              <div class="notif-meta">
+                <span class="ms-badge ms-badge-amber">IMPORTANT</span>
+                <span class="ms-badge ms-badge-gray">Staff Only</span>
+              </div>
+              <div class="notif-title">All-Staff Meeting — April 29, 2026 (3:30 PM, Conference Room B)</div>
+              <div class="notif-desc">Mandatory all-staff meeting to discuss Term 3 results analysis, upcoming exam protocols, and summer schedule planning. All teaching and non-teaching staff must attend. Minutes will be circulated post meeting.</div>
+            </div>
+            <div class="notif-date-col">
+              <div class="notif-date-day">19</div>
+              <div class="notif-date-rest">Apr 2026</div>
+            </div>
+          </div>
+
+          <div class="notif-card" data-priority="general" data-grade="all" data-title="New Library Books Available">
+            <div class="notif-icon notif-icon-general">📚</div>
+            <div class="notif-body">
+              <div class="notif-meta">
+                <span class="ms-badge ms-badge-gray">GENERAL</span>
+                <span class="ms-badge ms-badge-blue">All Grades</span>
+                <span class="ms-badge ms-badge-gray">Library</span>
+              </div>
+              <div class="notif-title">200 New Books Added to School Library</div>
+              <div class="notif-desc">The school library has added 200 new titles across fiction, non-fiction, science, and reference categories. Students can visit the library during free periods or after school (3:30–4:30 PM) to explore new arrivals.</div>
+            </div>
+            <div class="notif-date-col">
+              <div class="notif-date-day">18</div>
+              <div class="notif-date-rest">Apr 2026</div>
+            </div>
+          </div>
+
+          <div class="notif-card" data-priority="info" data-grade="all grade-6-8 grade-9-10 grade-11-12" data-title="Computer Lab Upgrade">
+            <div class="notif-icon notif-icon-info">💻</div>
+            <div class="notif-body">
+              <div class="notif-meta">
+                <span class="ms-badge ms-badge-green">INFO</span>
+                <span class="ms-badge ms-badge-blue">Grade 6–12</span>
+                <span class="ms-badge ms-badge-gray">Facilities</span>
+              </div>
+              <div class="notif-title">Computer Lab Upgrade Complete — New Systems Available</div>
+              <div class="notif-desc">The school has upgraded all 48 systems in Computer Lab 1 with the latest hardware and software. Lab will be open for regular classes from April 28, 2026. Computer Science teachers will brief students on the new setup during class.</div>
+            </div>
+            <div class="notif-date-col">
+              <div class="notif-date-day">17</div>
+              <div class="notif-date-rest">Apr 2026</div>
+            </div>
+          </div>
+
+          <div class="notif-card" data-priority="urgent" data-grade="all grade-1-2" data-title="Parent Teacher Meeting Grade 1 2">
+            <div class="notif-icon notif-icon-urgent">👪</div>
+            <div class="notif-body">
+              <div class="notif-meta">
+                <span class="ms-badge ms-badge-red">URGENT</span>
+                <span class="ms-badge ms-badge-blue">Grade 1–2</span>
+                <span class="ms-badge ms-badge-gray">PTM</span>
+              </div>
+              <div class="notif-title">Parent-Teacher Meeting — Grade 1 &amp; 2 (May 6)</div>
+              <div class="notif-desc">Parent-Teacher Meetings for Grade 1 and Grade 2 will be held on <strong>May 6, 2026</strong> between 9 AM–1 PM. Each meeting slot is 10 minutes. Please book your slot using the link below. Attendance is mandatory for at least one parent/guardian.</div>
+              <div class="notif-actions">
+                <a href="#" class="notif-download">📅 Book PTM Slot</a>
+              </div>
+            </div>
+            <div class="notif-date-col">
+              <div class="notif-date-day">16</div>
+              <div class="notif-date-rest">Apr 2026</div>
+            </div>
+          </div>
+
+          <div class="notif-card" data-priority="general" data-grade="all grade-3-5 grade-6-8" data-title="Yoga and Mindfulness Program">
+            <div class="notif-icon notif-icon-general">🧘</div>
+            <div class="notif-body">
+              <div class="notif-meta">
+                <span class="ms-badge ms-badge-gray">GENERAL</span>
+                <span class="ms-badge ms-badge-blue">Grade 3–8</span>
+                <span class="ms-badge ms-badge-gray">Wellness</span>
+              </div>
+              <div class="notif-title">Yoga &amp; Mindfulness Program Starts May 5</div>
+              <div class="notif-desc">A new weekly Yoga and Mindfulness program for Grade 3–8 students starts May 5, 2026 — every Tuesday and Thursday (7:30–8:00 AM, School Ground). Comfortable clothing recommended. No special enrollment needed.</div>
+            </div>
+            <div class="notif-date-col">
+              <div class="notif-date-day">15</div>
+              <div class="notif-date-rest">Apr 2026</div>
+            </div>
+          </div>
+
+        </div><!-- /notifList -->
+
+        <!-- Empty state -->
+        <div class="notif-empty" id="notifEmpty">
+          <div style="font-size:48px;margin-bottom:16px;">🔍</div>
+          <h3 style="font-size:20px;font-weight:700;color:var(--gray-900);margin-bottom:8px;">No notifications found</h3>
+          <p style="color:var(--gray-600);">Try selecting a different grade or clearing your search.</p>
+        </div>
+
+        <!-- Load more -->
+        <div style="text-align:center;margin-top:32px;">
+          <button class="ms-btn ms-btn-ghost">Load More Notifications</button>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="notif-sidebar">
+        <div class="sidebar-box">
+          <h3>📂 By Category</h3>
+          <div class="sidebar-link" onclick="filterCategory('Exams')">
+            <span class="sidebar-link-label">📝 Exams</span>
+            <span class="sidebar-link-count">5</span>
+          </div>
+          <div class="sidebar-link" onclick="filterCategory('Academic')">
+            <span class="sidebar-link-label">📚 Academic</span>
+            <span class="sidebar-link-count">4</span>
+          </div>
+          <div class="sidebar-link" onclick="filterCategory('Sports')">
+            <span class="sidebar-link-label">🏃 Sports</span>
+            <span class="sidebar-link-count">2</span>
+          </div>
+          <div class="sidebar-link" onclick="filterCategory('Health')">
+            <span class="sidebar-link-label">🏥 Health</span>
+            <span class="sidebar-link-count">2</span>
+          </div>
+          <div class="sidebar-link" onclick="filterCategory('Finance')">
+            <span class="sidebar-link-label">💳 Finance</span>
+            <span class="sidebar-link-count">1</span>
+          </div>
+          <div class="sidebar-link" onclick="filterCategory('Career')">
+            <span class="sidebar-link-label">🎓 Career</span>
+            <span class="sidebar-link-count">1</span>
+          </div>
+          <div class="sidebar-link" onclick="filterCategory('Library')">
+            <span class="sidebar-link-label">📖 Library</span>
+            <span class="sidebar-link-count">3</span>
+          </div>
+        </div>
+
+        <div class="sidebar-box" style="background:var(--light-blue);border-color:#bfdbfe;">
+          <h3 style="color:var(--blue);">📱 Stay Updated</h3>
+          <p style="font-size:13px;color:var(--gray-600);line-height:1.6;margin-bottom:14px;">Get instant notifications on WhatsApp when new notices are posted.</p>
+          <a href="#" class="ms-btn ms-btn-primary" style="width:100%;justify-content:center;font-size:13px;">Join WhatsApp Group</a>
+        </div>
+
+        <div class="sidebar-box">
+          <h3>📅 Important Dates</h3>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;gap:12px;align-items:center;">
+              <div style="background:#fef2f2;border-radius:8px;padding:6px 10px;text-align:center;min-width:44px;flex-shrink:0;">
+                <div style="font-size:16px;font-weight:900;color:var(--red);">30</div>
+                <div style="font-size:9px;color:var(--gray-400);font-weight:700;">APR</div>
+              </div>
+              <div style="font-size:12px;color:var(--gray-700);line-height:1.4;">Summer Camp Registration Closes</div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:center;">
+              <div style="background:#fef2f2;border-radius:8px;padding:6px 10px;text-align:center;min-width:44px;flex-shrink:0;">
+                <div style="font-size:16px;font-weight:900;color:var(--red);">01</div>
+                <div style="font-size:9px;color:var(--gray-400);font-weight:700;">MAY</div>
+              </div>
+              <div style="font-size:12px;color:var(--gray-700);line-height:1.4;">Hall Ticket Collection Deadline</div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:center;">
+              <div style="background:#fffbeb;border-radius:8px;padding:6px 10px;text-align:center;min-width:44px;flex-shrink:0;">
+                <div style="font-size:16px;font-weight:900;color:var(--amber-dark);">03</div>
+                <div style="font-size:9px;color:var(--gray-400);font-weight:700;">MAY</div>
+              </div>
+              <div style="font-size:12px;color:var(--gray-700);line-height:1.4;">Annual Sports Day</div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:center;">
+              <div style="background:#fffbeb;border-radius:8px;padding:6px 10px;text-align:center;min-width:44px;flex-shrink:0;">
+                <div style="font-size:16px;font-weight:900;color:var(--amber-dark);">10</div>
+                <div style="font-size:9px;color:var(--gray-400);font-weight:700;">MAY</div>
+              </div>
+              <div style="font-size:12px;color:var(--gray-700);line-height:1.4;">Term 3 Fee Deadline</div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:center;">
+              <div style="background:#f0fdf4;border-radius:8px;padding:6px 10px;text-align:center;min-width:44px;flex-shrink:0;">
+                <div style="font-size:16px;font-weight:900;color:var(--green);">10</div>
+                <div style="font-size:9px;color:var(--gray-400);font-weight:700;">MAY</div>
+              </div>
+              <div style="font-size:12px;color:var(--gray-700);line-height:1.4;">Inter-School Science Fair</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────────────────────── -->
+<footer class="ms-footer">
+  <div class="ms-footer-grid">
+    <div class="ms-footer-brand">
+      <div class="ms-logo" style="margin-bottom:0;">
+        <div class="ms-logo-badge" style="background:linear-gradient(135deg,#1e3a8a,#2563eb);">🏫</div>
+        <div>
+          <div class="ms-logo-name" style="color:#fff;">MERIDIAN <span>Academy</span></div>
+          <div class="ms-logo-tag" style="color:rgba(255,255,255,.4);">Excellence in Education</div>
+        </div>
+      </div>
+      <p>Nurturing future leaders since 1998. CBSE affiliated | A+ NAAC Grade | Grades 1–12.</p>
+    </div>
+    <div class="ms-footer-col">
+      <h4>School</h4>
+      <a href="about.html">About Us</a>
+      <a href="academics.html">Academics</a>
+      <a href="faculty.html">Faculty</a>
+    </div>
+    <div class="ms-footer-col">
+      <h4>Student</h4>
+      <a href="notifications.html">Notifications</a>
+      <a href="events.html">Events</a>
+      <a href="admissions.html">Admissions</a>
+    </div>
+    <div class="ms-footer-col">
+      <h4>Contact</h4>
+      <a href="#">📍 12 Education Road, Chennai</a>
+      <a href="#">📞 +91 44 2345 6789</a>
+      <a href="#">✉️ info@meridianacademy.edu.in</a>
+    </div>
+  </div>
+  <div class="ms-footer-bottom">
+    <p>© 2026 MERIDIAN Academy. All rights reserved.</p>
+    <p>Built with SantyCSS</p>
+  </div>
+</footer>
+
+<script>
+function toggleNav() { document.getElementById('mainNav').classList.toggle('open'); }
+
+/* ── Grade filter ── */
+var activeGrade = 'all';
+document.querySelectorAll('.nf-btn[data-grade]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.nf-btn[data-grade]').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    activeGrade = btn.getAttribute('data-grade');
+    applyFilters();
+  });
+});
+
+document.getElementById('notifSearch').addEventListener('input', applyFilters);
+
+function applyFilters() {
+  var search = document.getElementById('notifSearch').value.toLowerCase();
+  var cards = document.querySelectorAll('#notifList .notif-card');
+  var visible = 0;
+  cards.forEach(function(card) {
+    var grades = card.getAttribute('data-grade') || '';
+    var title  = (card.getAttribute('data-title') || '').toLowerCase();
+    var desc   = card.querySelector('.notif-desc') ? card.querySelector('.notif-desc').textContent.toLowerCase() : '';
+    var gradeMatch = (activeGrade === 'all') || grades.indexOf(activeGrade) !== -1;
+    var searchMatch = !search || title.indexOf(search) !== -1 || desc.indexOf(search) !== -1;
+    if (gradeMatch && searchMatch) { card.classList.remove('hidden'); visible++; }
+    else { card.classList.add('hidden'); }
+  });
+  document.getElementById('notifCount').textContent = visible;
+  document.getElementById('notifEmpty').classList.toggle('show', visible === 0);
+}
+
+function filterCategory(cat) { /* category filter via sidebar — visual only */ }
+function sortNotifs(val) { /* sort logic */ }
+</script>
+</body>
+</html>

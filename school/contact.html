@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — MERIDIAN Academy</title>
+  <link rel="stylesheet" href="../santy.css" />
+  <link rel="stylesheet" href="../santy-variants.css" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .contact-card { background:#fff; border:1px solid var(--gray-200); border-radius:16px; padding:28px; transition:box-shadow .2s; }
+    .contact-card:hover { box-shadow:0 8px 24px rgba(0,0,0,.08); }
+    .contact-icon { width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:22px; margin-bottom:16px; }
+    .contact-label { font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--gray-400); margin-bottom:6px; }
+    .contact-value { font-size:16px; font-weight:700; color:var(--gray-900); }
+    .contact-value a { color:var(--sky); text-decoration:none; }
+    .contact-value a:hover { text-decoration:underline; }
+    .person-card { display:flex; gap:16px; align-items:center; background:#fff; border:1px solid var(--gray-200); border-radius:14px; padding:20px; transition:box-shadow .15s; }
+    .person-card:hover { box-shadow:0 6px 18px rgba(0,0,0,.08); }
+    .person-avatar { width:56px; height:56px; border-radius:50%; object-fit:cover; flex-shrink:0; }
+    .map-placeholder { width:100%; height:360px; background:linear-gradient(135deg,var(--light-blue),#dbeafe); border-radius:16px; border:1px solid var(--gray-200); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; }
+  </style>
+</head>
+<body>
+<nav class="ms-nav">
+  <div class="ms-nav-inner">
+    <a href="index.html" class="ms-logo"><div class="ms-logo-badge">🏫</div><div><div class="ms-logo-name">MERIDIAN <span>Academy</span></div><div class="ms-logo-tag">Excellence in Education</div></div></a>
+    <button class="ms-hamburger" onclick="toggleNav()"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <div class="ms-nav-links" id="mainNav">
+      <a href="index.html">Home</a><a href="about.html">About</a><a href="academics.html">Academics</a><a href="admissions.html">Admissions</a><a href="faculty.html">Faculty</a><a href="events.html">Events</a><a href="notifications.html">🔔 Notices</a><a href="contact.html" class="active">Contact</a>
+      <a href="admissions.html" class="ms-nav-cta">Apply Now</a>
+    </div>
+  </div>
+</nav>
+
+<div class="ms-page-hero">
+  <div class="ms-page-hero-inner">
+    <div class="ms-breadcrumb"><a href="index.html">Home</a> › Contact</div>
+    <h1>Contact Us</h1>
+    <p>We're here to help. Reach out to our team — Monday to Saturday, 8 AM to 4 PM.</p>
+  </div>
+</div>
+
+<!-- Quick contact cards -->
+<section class="ms-section" style="background:#fff;padding-bottom:0;">
+  <div class="ms-container">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:56px;">
+      <div class="contact-card">
+        <div class="contact-icon" style="background:#eff6ff;">📍</div>
+        <div class="contact-label">Address</div>
+        <div class="contact-value">12 Education Road,<br>Anna Nagar, Chennai – 600040</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon" style="background:#f0fdf4;">📞</div>
+        <div class="contact-label">Phone</div>
+        <div class="contact-value"><a href="tel:+914423456789">+91 44 2345 6789</a><br><a href="tel:+914423456790" style="font-size:14px;font-weight:600;">+91 44 2345 6790</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon" style="background:#fffbeb;">✉️</div>
+        <div class="contact-label">Email</div>
+        <div class="contact-value"><a href="mailto:info@meridianacademy.edu.in">info@meridian<br>academy.edu.in</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon" style="background:#fef2f2;">🕐</div>
+        <div class="contact-label">Office Hours</div>
+        <div class="contact-value">Mon – Fri: 8 AM – 4 PM<br>Saturday: 9 AM – 1 PM</div>
+      </div>
+    </div>
+
+    <!-- Emergency bar -->
+    <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:14px;padding:20px 28px;margin-bottom:56px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+      <div style="font-size:28px;">🚨</div>
+      <div style="flex:1;">
+        <div style="font-size:15px;font-weight:800;color:var(--red);margin-bottom:4px;">Emergency Contact (24/7)</div>
+        <div style="font-size:13px;color:var(--gray-700);">For urgent matters involving student safety, medical emergencies, or after-hours security: <strong><a href="tel:+919944556677" style="color:var(--red);">+91 99445 56677</a></strong></div>
+      </div>
+      <a href="tel:+919944556677" class="ms-btn" style="background:var(--red);color:#fff;font-size:13px;padding:10px 20px;">Call Emergency Line</a>
+    </div>
+  </div>
+</section>
+
+<!-- Map + Form -->
+<section class="ms-section" style="background:var(--gray-50);padding-top:0;">
+  <div class="ms-container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;">
+      <div>
+        <div class="map-placeholder">
+          <div style="font-size:48px;">🗺️</div>
+          <div style="font-size:15px;font-weight:700;color:var(--blue);">MERIDIAN Academy</div>
+          <div style="font-size:13px;color:var(--gray-600);">12 Education Road, Anna Nagar, Chennai</div>
+          <a href="https://maps.google.com" target="_blank" class="ms-btn ms-btn-primary ms-btn-sm">Open in Google Maps</a>
+        </div>
+        <div style="margin-top:24px;background:#fff;border:1px solid var(--gray-200);border-radius:14px;padding:24px;">
+          <h3 style="font-size:15px;font-weight:800;color:var(--gray-900);margin-bottom:16px;">🚗 Getting Here</h3>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;gap:12px;font-size:13px;color:var(--gray-600);"><span style="font-size:16px;">🚇</span><span><strong>Metro:</strong> Anna Nagar East station (400m walk)</span></div>
+            <div style="display:flex;gap:12px;font-size:13px;color:var(--gray-600);"><span style="font-size:16px;">🚌</span><span><strong>Bus:</strong> Routes 12A, 47, 59 stop at Education Road</span></div>
+            <div style="display:flex;gap:12px;font-size:13px;color:var(--gray-600);"><span style="font-size:16px;">🅿️</span><span><strong>Parking:</strong> 200-vehicle free parking on campus</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#fff;border:1px solid var(--gray-200);border-radius:20px;padding:36px;">
+        <h3 style="font-size:20px;font-weight:800;color:var(--gray-900);margin-bottom:6px;">Send Us a Message</h3>
+        <p style="font-size:13px;color:var(--gray-600);margin-bottom:28px;">We reply to all inquiries within 1 working day.</p>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <div><label class="ms-label">Name *</label><input class="ms-input" type="text" placeholder="Your name" /></div>
+            <div><label class="ms-label">Phone</label><input class="ms-input" type="tel" placeholder="+91 " /></div>
+          </div>
+          <div><label class="ms-label">Email *</label><input class="ms-input" type="email" placeholder="email@example.com" /></div>
+          <div><label class="ms-label">Subject *</label><select class="ms-input ms-select"><option value="">Select subject</option><option>General Inquiry</option><option>Admissions</option><option>Fee Payment</option><option>Student Welfare</option><option>Transport</option><option>Complaint / Feedback</option><option>Other</option></select></div>
+          <div><label class="ms-label">Message *</label><textarea class="ms-input" rows="4" placeholder="Write your message…" style="resize:vertical;"></textarea></div>
+          <button class="ms-btn ms-btn-primary" style="width:100%;justify-content:center;">Send Message →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Key contacts -->
+<section class="ms-section" style="background:#fff;">
+  <div class="ms-container">
+    <div style="text-align:center;margin-bottom:40px;">
+      <p class="ms-section-label">📋 Directory</p>
+      <h2 class="ms-section-title">Key Contacts</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <div class="person-card">
+        <img class="person-avatar" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=70" alt="" />
+        <div><div style="font-size:15px;font-weight:800;color:var(--gray-900);">Dr. Lakshmi Nair</div><div style="font-size:12px;color:var(--sky);font-weight:600;margin:3px 0;">Principal</div><div style="font-size:12px;color:var(--gray-400);">principal@meridianacademy.edu.in</div></div>
+      </div>
+      <div class="person-card">
+        <img class="person-avatar" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=70" alt="" />
+        <div><div style="font-size:15px;font-weight:800;color:var(--gray-900);">Mr. Suresh Babu</div><div style="font-size:12px;color:var(--sky);font-weight:600;margin:3px 0;">Vice Principal</div><div style="font-size:12px;color:var(--gray-400);">vp@meridianacademy.edu.in</div></div>
+      </div>
+      <div class="person-card">
+        <img class="person-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=70" alt="" />
+        <div><div style="font-size:15px;font-weight:800;color:var(--gray-900);">Ms. Nitha Rajan</div><div style="font-size:12px;color:var(--sky);font-weight:600;margin:3px 0;">Admissions Head</div><div style="font-size:12px;color:var(--gray-400);">admissions@meridianacademy.edu.in</div></div>
+      </div>
+      <div class="person-card">
+        <img class="person-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=70" alt="" />
+        <div><div style="font-size:15px;font-weight:800;color:var(--gray-900);">Mr. Ramesh Iyer</div><div style="font-size:12px;color:var(--sky);font-weight:600;margin:3px 0;">Accounts Officer</div><div style="font-size:12px;color:var(--gray-400);">accounts@meridianacademy.edu.in</div></div>
+      </div>
+      <div class="person-card">
+        <img class="person-avatar" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=70" alt="" />
+        <div><div style="font-size:15px;font-weight:800;color:var(--gray-900);">Ms. Asha Pillai</div><div style="font-size:12px;color:var(--sky);font-weight:600;margin:3px 0;">Student Counselor</div><div style="font-size:12px;color:var(--gray-400);">counselor@meridianacademy.edu.in</div></div>
+      </div>
+      <div class="person-card">
+        <img class="person-avatar" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&q=70" alt="" />
+        <div><div style="font-size:15px;font-weight:800;color:var(--gray-900);">Mr. Vivek Sharma</div><div style="font-size:12px;color:var(--sky);font-weight:600;margin:3px 0;">IT &amp; Admin</div><div style="font-size:12px;color:var(--gray-400);">it@meridianacademy.edu.in</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="ms-footer">
+  <div class="ms-footer-grid">
+    <div class="ms-footer-brand"><div class="ms-logo" style="margin-bottom:0;"><div class="ms-logo-badge" style="background:linear-gradient(135deg,#1e3a8a,#2563eb);">🏫</div><div><div class="ms-logo-name" style="color:#fff;">MERIDIAN <span>Academy</span></div><div class="ms-logo-tag" style="color:rgba(255,255,255,.4);">Excellence in Education</div></div></div><p>Nurturing future leaders since 1998.</p></div>
+    <div class="ms-footer-col"><h4>School</h4><a href="about.html">About</a><a href="academics.html">Academics</a><a href="faculty.html">Faculty</a></div>
+    <div class="ms-footer-col"><h4>Student</h4><a href="notifications.html">Notifications</a><a href="events.html">Events</a><a href="admissions.html">Admissions</a></div>
+    <div class="ms-footer-col"><h4>Emergency</h4><a href="tel:+919944556677">🚨 +91 99445 56677</a><a href="#">📍 12 Education Road</a><a href="#">✉️ info@meridianacademy.edu.in</a></div>
+  </div>
+  <div class="ms-footer-bottom"><p>© 2026 MERIDIAN Academy.</p><p>Built with SantyCSS</p></div>
+</footer>
+<script>function toggleNav(){document.getElementById('mainNav').classList.toggle('open');}</script>
+</body>
+</html>

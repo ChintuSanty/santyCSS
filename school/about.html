@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — MERIDIAN Academy</title>
+  <link rel="stylesheet" href="../santy.css" />
+  <link rel="stylesheet" href="../santy-variants.css" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .value-card { background:#fff; border:1px solid var(--gray-200); border-radius:16px; padding:32px 24px; text-align:center; transition:box-shadow .2s,transform .2s; }
+    .value-card:hover { box-shadow:0 12px 32px rgba(0,0,0,.09); transform:translateY(-3px); }
+    .value-icon { font-size:36px; margin-bottom:14px; display:block; }
+    .timeline { position:relative; padding-left:40px; }
+    .timeline::before { content:''; position:absolute; left:12px; top:0; bottom:0; width:2px; background:linear-gradient(to bottom,var(--sky),var(--blue)); border-radius:2px; }
+    .timeline-item { position:relative; margin-bottom:40px; }
+    .timeline-dot { position:absolute; left:-34px; top:4px; width:14px; height:14px; border-radius:50%; background:var(--sky); border:3px solid #fff; box-shadow:0 0 0 2px var(--sky); }
+    .timeline-year { font-size:12px; font-weight:800; letter-spacing:.08em; color:var(--sky); text-transform:uppercase; margin-bottom:4px; }
+    .timeline-title { font-size:16px; font-weight:700; color:var(--gray-900); margin-bottom:6px; }
+    .timeline-desc { font-size:13px; color:var(--gray-600); line-height:1.7; }
+    .facility-card { background:#fff; border:1px solid var(--gray-200); border-radius:14px; overflow:hidden; transition:box-shadow .2s; }
+    .facility-card:hover { box-shadow:0 8px 24px rgba(0,0,0,.08); }
+    .facility-card img { width:100%; height:180px; object-fit:cover; display:block; }
+    .facility-card-body { padding:18px 20px; }
+  </style>
+</head>
+<body>
+<nav class="ms-nav">
+  <div class="ms-nav-inner">
+    <a href="index.html" class="ms-logo">
+      <div class="ms-logo-badge">🏫</div>
+      <div><div class="ms-logo-name">MERIDIAN <span>Academy</span></div><div class="ms-logo-tag">Excellence in Education</div></div>
+    </a>
+    <button class="ms-hamburger" onclick="toggleNav()" aria-label="Menu"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <div class="ms-nav-links" id="mainNav">
+      <a href="index.html">Home</a><a href="about.html" class="active">About</a><a href="academics.html">Academics</a><a href="admissions.html">Admissions</a><a href="faculty.html">Faculty</a><a href="events.html">Events</a><a href="notifications.html">🔔 Notices</a><a href="contact.html">Contact</a>
+      <a href="admissions.html" class="ms-nav-cta">Apply Now</a>
+    </div>
+  </div>
+</nav>
+
+<div class="ms-page-hero">
+  <div class="ms-page-hero-inner">
+    <div class="ms-breadcrumb"><a href="index.html">Home</a> › About</div>
+    <h1>About MERIDIAN Academy</h1>
+    <p>A legacy of academic excellence, values, and community building since 1998.</p>
+  </div>
+</div>
+
+<!-- Mission & Vision -->
+<section class="ms-section" style="background:#fff;">
+  <div class="ms-container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+      <div>
+        <p class="ms-section-label">🎯 Our Purpose</p>
+        <h2 class="ms-section-title">Mission &amp; Vision</h2>
+        <div style="background:var(--light-blue);border-left:4px solid var(--sky);border-radius:0 12px 12px 0;padding:20px 24px;margin-bottom:20px;">
+          <p style="font-size:13px;font-weight:700;color:var(--sky);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;">Our Mission</p>
+          <p style="font-size:15px;color:var(--gray-800);line-height:1.75;">To provide holistic, inclusive, and excellence-driven education that empowers every student to achieve their highest potential — academically, socially, and morally.</p>
+        </div>
+        <div style="background:#fffbeb;border-left:4px solid var(--amber);border-radius:0 12px 12px 0;padding:20px 24px;">
+          <p style="font-size:13px;font-weight:700;color:var(--amber-dark);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em;">Our Vision</p>
+          <p style="font-size:15px;color:var(--gray-800);line-height:1.75;">To be a globally recognized institution that produces compassionate, curious, and capable leaders who make a positive difference in the world.</p>
+        </div>
+      </div>
+      <div style="border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.1);">
+        <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=75" alt="MERIDIAN Academy" style="width:100%;height:420px;object-fit:cover;display:block;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Core Values -->
+<section class="ms-section" style="background:var(--gray-50);">
+  <div class="ms-container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <p class="ms-section-label">💡 What We Stand For</p>
+      <h2 class="ms-section-title">Our Core Values</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
+      <div class="value-card"><span class="value-icon">🏅</span><h3 style="font-size:16px;font-weight:800;color:var(--gray-900);margin-bottom:8px;">Excellence</h3><p style="font-size:13px;color:var(--gray-600);line-height:1.7;">We set high standards and inspire students and staff to strive beyond the ordinary.</p></div>
+      <div class="value-card"><span class="value-icon">🤝</span><h3 style="font-size:16px;font-weight:800;color:var(--gray-900);margin-bottom:8px;">Integrity</h3><p style="font-size:13px;color:var(--gray-600);line-height:1.7;">We uphold honesty and ethical conduct in everything we do — inside and outside the classroom.</p></div>
+      <div class="value-card"><span class="value-icon">🌍</span><h3 style="font-size:16px;font-weight:800;color:var(--gray-900);margin-bottom:8px;">Inclusion</h3><p style="font-size:13px;color:var(--gray-600);line-height:1.7;">Every student, regardless of background, deserves equal opportunity to learn and succeed.</p></div>
+      <div class="value-card"><span class="value-icon">🔬</span><h3 style="font-size:16px;font-weight:800;color:var(--gray-900);margin-bottom:8px;">Innovation</h3><p style="font-size:13px;color:var(--gray-600);line-height:1.7;">We embrace curiosity, creative thinking, and emerging technologies to prepare students for tomorrow.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Principal's Message -->
+<section class="ms-section" style="background:#fff;">
+  <div class="ms-container">
+    <div style="display:grid;grid-template-columns:1fr 2fr;gap:56px;align-items:start;">
+      <div style="text-align:center;">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=75" alt="Principal" style="width:200px;height:200px;border-radius:50%;object-fit:cover;border:4px solid var(--light-blue);box-shadow:0 8px 24px rgba(0,0,0,.1);margin-bottom:16px;" />
+        <div style="font-size:18px;font-weight:800;color:var(--gray-900);">Dr. Lakshmi Nair</div>
+        <div style="font-size:13px;color:var(--sky);font-weight:600;margin-top:4px;">Principal, MERIDIAN Academy</div>
+        <div style="font-size:12px;color:var(--gray-400);margin-top:4px;">M.Ed. | Ph.D. Education</div>
+      </div>
+      <div>
+        <p class="ms-section-label">✉️ Message</p>
+        <h2 class="ms-section-title">From the Principal's Desk</h2>
+        <p style="font-size:15px;color:var(--gray-600);line-height:1.85;margin-bottom:18px;">Dear Students, Parents, and Friends of MERIDIAN Academy,</p>
+        <p style="font-size:15px;color:var(--gray-600);line-height:1.85;margin-bottom:18px;">Welcome to a community where learning never stops and every child is seen, heard, and celebrated. Over the past 27 years, MERIDIAN has grown from a small institution to a home for over 2,400 students — but our core belief has never changed: <strong>every child has extraordinary potential waiting to be unlocked.</strong></p>
+        <p style="font-size:15px;color:var(--gray-600);line-height:1.85;margin-bottom:18px;">Our faculty brings passion, expertise, and genuine care to each classroom. Our programs go beyond textbooks — preparing students for board exams, for college, and for life. We are proud of our consistent results, our championship sports teams, and above all, our graduates who go on to make us proud every year.</p>
+        <p style="font-size:15px;color:var(--gray-600);line-height:1.85;">Thank you for trusting us with your most precious gift — your children.</p>
+        <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--gray-200);">
+          <div style="font-size:15px;font-weight:700;color:var(--gray-900);">Dr. Lakshmi Nair</div>
+          <div style="font-size:13px;color:var(--gray-400);">Principal, MERIDIAN Academy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- History Timeline -->
+<section class="ms-section" style="background:var(--gray-50);">
+  <div class="ms-container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;">
+      <div>
+        <p class="ms-section-label">📅 Our Journey</p>
+        <h2 class="ms-section-title">A History of<br>Milestones</h2>
+        <p class="ms-section-desc">From a modest 200-student school to a 2,400-strong institution with national recognition — every year has been a chapter of growth.</p>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">1998</div><div class="timeline-title">MERIDIAN Founded</div><div class="timeline-desc">Started with 12 teachers and 200 students in Grades 1–8 on a rented 3-acre campus in Chennai.</div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2002</div><div class="timeline-title">CBSE Affiliation Granted</div><div class="timeline-desc">Received full CBSE affiliation and expanded to Grade 10 for the first time, with 400+ students.</div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2007</div><div class="timeline-title">Grade 12 Introduced</div><div class="timeline-desc">Launched Science and Commerce streams for Grade 11–12. First batch cleared boards with 95% pass rate.</div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2015</div><div class="timeline-title">New Campus Inaugurated</div><div class="timeline-desc">Moved to purpose-built 12-acre campus with modern labs, auditorium, and sports complex.</div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2020</div><div class="timeline-title">A+ NAAC Accreditation</div><div class="timeline-desc">Received A+ NAAC accreditation and ranked #1 school in the district for the first time.</div></div>
+        <div class="timeline-item" style="margin-bottom:0;"><div class="timeline-dot" style="background:var(--amber);box-shadow:0 0 0 2px var(--amber);"></div><div class="timeline-year" style="color:var(--amber-dark);">2026</div><div class="timeline-title">27 Years Strong</div><div class="timeline-desc">2,400 students. 180 faculty. 48 national awards. Still growing, still committed.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Facilities -->
+<section class="ms-section" style="background:#fff;">
+  <div class="ms-container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <p class="ms-section-label">🏗️ Infrastructure</p>
+      <h2 class="ms-section-title">World-Class Facilities</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+      <div class="facility-card"><img src="https://images.unsplash.com/photo-1562774053-701939374585?w=600&q=70" alt="Library" /><div class="facility-card-body"><h3 style="font-size:16px;font-weight:700;color:var(--gray-900);margin-bottom:6px;">📚 Central Library</h3><p style="font-size:13px;color:var(--gray-600);line-height:1.6;">50,000+ books, digital catalogue, reading rooms, and a dedicated digital research zone.</p></div></div>
+      <div class="facility-card"><img src="https://images.unsplash.com/photo-1532094349884-543559c79d2e?w=600&q=70" alt="Science Lab" /><div class="facility-card-body"><h3 style="font-size:16px;font-weight:700;color:var(--gray-900);margin-bottom:6px;">🔬 Science Labs</h3><p style="font-size:13px;color:var(--gray-600);line-height:1.6;">State-of-the-art Physics, Chemistry, Biology, and Computer Science labs with modern equipment.</p></div></div>
+      <div class="facility-card"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=70" alt="Sports" /><div class="facility-card-body"><h3 style="font-size:16px;font-weight:700;color:var(--gray-900);margin-bottom:6px;">⚽ Sports Complex</h3><p style="font-size:13px;color:var(--gray-600);line-height:1.6;">Full-size football field, basketball courts, swimming pool, indoor badminton courts, and a gymnasium.</p></div></div>
+      <div class="facility-card"><img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&q=70" alt="Auditorium" /><div class="facility-card-body"><h3 style="font-size:16px;font-weight:700;color:var(--gray-900);margin-bottom:6px;">🎭 Auditorium</h3><p style="font-size:13px;color:var(--gray-600);line-height:1.6;">1,200-seat air-conditioned auditorium with professional AV, stage lighting, and backstage facilities.</p></div></div>
+      <div class="facility-card"><img src="https://images.unsplash.com/photo-1598620617149-01a4bab98891?w=600&q=70" alt="Computer Lab" /><div class="facility-card-body"><h3 style="font-size:16px;font-weight:700;color:var(--gray-900);margin-bottom:6px;">💻 Computer Labs</h3><p style="font-size:13px;color:var(--gray-600);line-height:1.6;">3 labs with 150 high-spec systems, 1 Gbps fiber, coding & robotics tools, and 3D printing.</p></div></div>
+      <div class="facility-card"><img src="https://images.unsplash.com/photo-1581726707445-75cbe4efc586?w=600&q=70" alt="Cafeteria" /><div class="facility-card-body"><h3 style="font-size:16px;font-weight:700;color:var(--gray-900);margin-bottom:6px;">🍱 Smart Cafeteria</h3><p style="font-size:13px;color:var(--gray-600);line-height:1.6;">Hygienic, nutrition-monitored meals by certified dietitians. Separate sections for primary and senior students.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="ms-footer">
+  <div class="ms-footer-grid">
+    <div class="ms-footer-brand">
+      <div class="ms-logo" style="margin-bottom:0;"><div class="ms-logo-badge" style="background:linear-gradient(135deg,#1e3a8a,#2563eb);">🏫</div><div><div class="ms-logo-name" style="color:#fff;">MERIDIAN <span>Academy</span></div><div class="ms-logo-tag" style="color:rgba(255,255,255,.4);">Excellence in Education</div></div></div>
+      <p>Nurturing future leaders since 1998. CBSE affiliated | A+ NAAC Grade | Grades 1–12.</p>
+    </div>
+    <div class="ms-footer-col"><h4>School</h4><a href="about.html">About Us</a><a href="academics.html">Academics</a><a href="faculty.html">Faculty</a></div>
+    <div class="ms-footer-col"><h4>Student</h4><a href="notifications.html">Notifications</a><a href="events.html">Events</a><a href="admissions.html">Admissions</a></div>
+    <div class="ms-footer-col"><h4>Contact</h4><a href="#">📍 12 Education Road, Chennai</a><a href="#">📞 +91 44 2345 6789</a><a href="#">✉️ info@meridianacademy.edu.in</a></div>
+  </div>
+  <div class="ms-footer-bottom"><p>© 2026 MERIDIAN Academy. All rights reserved.</p><p>Built with SantyCSS</p></div>
+</footer>
+<script>function toggleNav(){document.getElementById('mainNav').classList.toggle('open');}</script>
+</body>
+</html>

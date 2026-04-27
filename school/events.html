@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Events — MERIDIAN Academy</title>
+  <link rel="stylesheet" href="../santy.css" />
+  <link rel="stylesheet" href="../santy-variants.css" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .ev-filter-btn { padding:8px 18px; border-radius:9999px; border:1.5px solid var(--gray-200); background:transparent; font-size:13px; font-weight:600; color:var(--gray-600); cursor:pointer; font-family:inherit; transition:all .15s; }
+    .ev-filter-btn.active { background:var(--blue); color:#fff; border-color:var(--blue); }
+    .ev-filter-btn:hover:not(.active) { border-color:var(--sky); color:var(--sky); }
+    .ev-card { background:#fff; border:1px solid var(--gray-200); border-radius:16px; overflow:hidden; display:flex; transition:box-shadow .2s,transform .2s; }
+    .ev-card:hover { box-shadow:0 10px 28px rgba(0,0,0,.09); transform:translateY(-2px); }
+    .ev-card-date { width:80px; flex-shrink:0; background:var(--blue); color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px; text-align:center; }
+    .ev-date-day { font-size:32px; font-weight:900; line-height:1; }
+    .ev-date-month { font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; opacity:.8; margin-top:4px; }
+    .ev-card-body { padding:22px 24px; flex:1; }
+    .ev-card-meta { display:flex; align-items:center; gap:8px; margin-bottom:10px; flex-wrap:wrap; }
+    .ev-card-title { font-size:17px; font-weight:800; color:var(--gray-900); margin-bottom:6px; }
+    .ev-card-desc { font-size:14px; color:var(--gray-600); line-height:1.7; }
+    .ev-card-footer { display:flex; align-items:center; gap:12px; margin-top:14px; flex-wrap:wrap; }
+    .ev-detail { display:flex; align-items:center; gap:5px; font-size:12px; color:var(--gray-500); }
+    .ev-card[data-type="sports"] .ev-card-date { background:var(--green); }
+    .ev-card[data-type="cultural"] .ev-card-date { background:#7c3aed; }
+    .ev-card[data-type="academic"] .ev-card-date { background:var(--sky); }
+    .ev-card[data-type="exams"] .ev-card-date { background:var(--red); }
+    .ev-card[data-type="health"] .ev-card-date { background:#0891b2; }
+    .ev-card[data-type="community"] .ev-card-date { background:var(--amber-dark); }
+    .ev-card.hidden { display:none; }
+    .month-header { font-size:13px; font-weight:800; color:var(--gray-400); text-transform:uppercase; letter-spacing:.1em; padding:24px 0 12px; border-bottom:1px solid var(--gray-100); margin-bottom:16px; }
+  </style>
+</head>
+<body>
+<nav class="ms-nav">
+  <div class="ms-nav-inner">
+    <a href="index.html" class="ms-logo"><div class="ms-logo-badge">🏫</div><div><div class="ms-logo-name">MERIDIAN <span>Academy</span></div><div class="ms-logo-tag">Excellence in Education</div></div></a>
+    <button class="ms-hamburger" onclick="toggleNav()"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <div class="ms-nav-links" id="mainNav">
+      <a href="index.html">Home</a><a href="about.html">About</a><a href="academics.html">Academics</a><a href="admissions.html">Admissions</a><a href="faculty.html">Faculty</a><a href="events.html" class="active">Events</a><a href="notifications.html">🔔 Notices</a><a href="contact.html">Contact</a>
+      <a href="admissions.html" class="ms-nav-cta">Apply Now</a>
+    </div>
+  </div>
+</nav>
+
+<div class="ms-page-hero">
+  <div class="ms-page-hero-inner">
+    <div class="ms-breadcrumb"><a href="index.html">Home</a> › Events</div>
+    <h1>Events &amp; Calendar</h1>
+    <p>Stay up to date with all school events — academic, sports, cultural, exams, and community activities.</p>
+  </div>
+</div>
+
+<section class="ms-section" style="padding-top:40px;">
+  <div class="ms-container">
+    <!-- Filters -->
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px;">
+      <button class="ev-filter-btn active" data-type="all" onclick="filterEvents('all')">All Events</button>
+      <button class="ev-filter-btn" data-type="academic" onclick="filterEvents('academic')">📚 Academic</button>
+      <button class="ev-filter-btn" data-type="exams" onclick="filterEvents('exams')">📝 Exams</button>
+      <button class="ev-filter-btn" data-type="sports" onclick="filterEvents('sports')">⚽ Sports</button>
+      <button class="ev-filter-btn" data-type="cultural" onclick="filterEvents('cultural')">🎭 Cultural</button>
+      <button class="ev-filter-btn" data-type="health" onclick="filterEvents('health')">🏥 Health</button>
+      <button class="ev-filter-btn" data-type="community" onclick="filterEvents('community')">🤝 Community</button>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px;" id="eventsList">
+
+      <div class="month-header">📅 April 2026</div>
+
+      <div class="ev-card" data-type="community">
+        <div class="ev-card-date"><div class="ev-date-day">29</div><div class="ev-date-month">Apr</div></div>
+        <div class="ev-card-body">
+          <div class="ev-card-meta"><span class="ms-badge ms-badge-amber">Community</span><span class="ms-badge ms-badge-gray">All Grades</span></div>
+          <div class="ev-card-title">Career Counseling Day — Grade 10 to 12</div>
+          <div class="ev-card-desc">University representatives, career coaches, and industry mentors gather to guide Grade 10–12 students in stream and career selection. Interactive sessions and one-on-one Q&A slots available.</div>
+          <div class="ev-card-footer">
+            <div class="ev-detail">🕐 10:00 AM – 1:00 PM</div>
+            <div class="ev-detail">📍 School Auditorium</div>
+            <div class="ev-detail">👨‍👩‍👧 Parents Welcome</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="month-header">📅 May 2026</div>
+
+      <div class="ev-card" data-type="sports">
+        <div class="ev-card-date"><div class="ev-date-day">03</div><div class="ev-date-month">May</div></div>
+        <div class="ev-card-body">
+          <div class="ev-card-meta"><span class="ms-badge ms-badge-green">Sports</span><span class="ms-badge ms-badge-blue">All Grades</span></div>
+          <div class="ev-card-title">Annual Sports Day 2026</div>
+          <div class="ev-card-desc">Track &amp; field events, relay races, team sports finals, and prize distribution for the academic year's best performers. Chief Guest: State Sports Minister. Parents are invited from 8:30 AM onwards.</div>
+          <div class="ev-card-footer">
+            <div class="ev-detail">🕗 8:30 AM – 4:00 PM</div>
+            <div class="ev-detail">📍 School Sports Ground</div>
+            <div class="ev-detail">🏆 Prizes for All Events</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ev-card" data-type="health">
+        <div class="ev-card-date"><div class="ev-date-day">06</div><div class="ev-date-month">May</div></div>
+        <div class="ev-card-body">
+          <div class="ev-card-meta"><span class="ms-badge" style="background:#e0f2fe;color:#0369a1;border:1px solid #bae6fd;">Health</span><span class="ms-badge ms-badge-blue">Grade 1–2</span></div>
+          <div class="ev-card-title">Parent-Teacher Meeting — Grade 1 &amp; 2</div>
+          <div class="ev-card-desc">Scheduled one-on-one meetings between parents and class teachers to discuss student progress, strengths, and areas for improvement. Booking required via the school portal. Each slot: 10 minutes.</div>
+          <div class="ev-card-footer">
+            <div class="ev-detail">🕘 9:00 AM – 1:00 PM</div>
+            <div class="ev-detail">📍 Respective Classrooms</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ev-card" data-type="health">
+        <div class="ev-card-date"><div class="ev-date-day">08</div><div class="ev-date-month">May</div></div>
+        <div class="ev-card-body">
+          <div class="ev-card-meta"><span class="ms-badge" style="background:#e0f2fe;color:#0369a1;border:1px solid #bae6fd;">Health</span><span class="ms-badge ms-badge-blue">Grade 1–5</span></div>
+          <div class="ev-card-title">Annual Medical Checkup — Grade 1 to 5</div>
+          <div class="ev-card-desc">Certified doctors from Apollo Clinic will conduct health screenings including height/weight, vision, dental, and general wellness assessment for all Grade 1–5 students. Health cards required.</div>
+          <div class="ev-card-footer">
+            <div class="ev-detail">🕘 9:00 AM – 12:00 PM</div>
+            <div class="ev-detail">📍 School Medical Room</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ev-card" data-type="academic">
+        <div class="ev-card-date"><div class="ev-date-day">10</div><div class="ev-date-month">May</div></div>
+        <div class="ev-card-body">
+          <div class="ev-card-meta"><span class="ms-badge ms-badge-blue">Academic</span><span class="ms-badge ms-badge-blue">Grade 6–12</span></div>
+          <div class="ev-card-title">Inter-School Science Fair 2026</div>
+          <div class="ev-card-desc">Grade 6–12 students present innovative science and technology projects to a judging panel comprising IIT professors and industry experts. Over 25 schools participating this year.</div>
+          <div class="ev-card-footer">
+            <div class="ev-detail">🕘 9:00 AM – 5:00 PM</div>
+            <div class="ev-detail">📍 Science Block &amp; Ground</div>
+            <div class="ev-detail">🏆 Cash Prizes</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ev-card" data-type="exams">
+        <div class="ev-card-date"><div class="ev-date-day">12</div><div class="ev-date-month">May</div></div>
+        <div class="ev-card-body">
+          <div class="ev-card-meta"><span class="ms-badge ms-badge-red">Exams</span><span class="ms-badge ms-badge-blue">Grade 9–10</span></div>
+          <div class="ev-card-title">Pre-Board Examinations Begin — Grade 9 &amp; 10</div>
+          <div class="ev-card-desc">Pre-Board Examinations for Grade 9 and Grade 10 begin today and run through May 22. All subjects will be covered. Exam timetable has been shared via the notifications page. No leaves during exam period.</div>
+          <div class="ev-card-footer">
+            <div class="ev-detail">🕘 9:00 AM – 12:00 PM</div>
+            <div class="ev-detail">📍 Respective Exam Halls</div>
+            <div class="ev-detail">📅 Ends: May 22</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ev-card" data-type="cultural">
+        <div class="ev-card-date"><div class="ev-date-day">18</div><div class="ev-date-month">May</div></div>
+        <div class="ev-card-body">
+          <div class="ev-card-meta"><span class="ms-badge" style="background:#f5f3ff;color:#7c3aed;border:1px solid #ddd6fe;">Cultural</span><span class="ms-badge ms-badge-blue">All Grades</span></div>
+          <div class="ev-card-title">MERIDIAN Cultural Fest 2026 — "Kaleidoscope"</div>
+          <div class="ev-card-desc">The biggest event of the school year! Dance performances, drama, music concerts, art exhibitions, and food stalls — all by students from Grade 1 to 12. External audience welcome. Entry: Free for parents and guardians.</div>
+          <div class="ev-card-footer">
+            <div class="ev-detail">🕔 4:00 PM – 9:00 PM</div>
+            <div class="ev-detail">📍 School Auditorium &amp; Ground</div>
+            <div class="ev-detail">🎟️ Free Entry</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ev-card" data-type="community">
+        <div class="ev-card-date"><div class="ev-date-day">25</div><div class="ev-date-month">May</div></div>
+        <div class="ev-card-body">
+          <div class="ev-card-meta"><span class="ms-badge ms-badge-amber">Community</span><span class="ms-badge ms-badge-blue">Grade 11–12</span></div>
+          <div class="ev-card-title">Alumni Meet &amp; Graduation Ceremony — Class of 2026</div>
+          <div class="ev-card-desc">The annual graduation ceremony for Grade 12 students, followed by the alumni reunion. Families are welcome for the graduation segment (10 AM–12 PM). Alumni networking from 2 PM.</div>
+          <div class="ev-card-footer">
+            <div class="ev-detail">🕙 10:00 AM – 5:00 PM</div>
+            <div class="ev-detail">📍 Main Auditorium</div>
+            <div class="ev-detail">🎓 Graduation Ceremony</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="month-header">📅 June 2026</div>
+
+      <div class="ev-card" data-type="academic">
+        <div class="ev-card-date"><div class="ev-date-day">02</div><div class="ev-date-month">Jun</div></div>
+        <div class="ev-card-body">
+          <div class="ev-card-meta"><span class="ms-badge ms-badge-blue">Academic</span><span class="ms-badge ms-badge-blue">All Grades</span></div>
+          <div class="ev-card-title">Summer Camp 2026 Begins</div>
+          <div class="ev-card-desc">MERIDIAN Summer Camp kicks off with tracks in Robotics, Coding, Art, Leadership, and Sports. Open to all enrolled students (Grade 3–12). Runs June 2–20. Registration closed.</div>
+          <div class="ev-card-footer">
+            <div class="ev-detail">🕗 8:00 AM – 1:00 PM</div>
+            <div class="ev-detail">📍 Various Classrooms</div>
+            <div class="ev-detail">📅 Until June 20</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ev-card" data-type="academic">
+        <div class="ev-card-date"><div class="ev-date-day">16</div><div class="ev-date-month">Jun</div></div>
+        <div class="ev-card-body">
+          <div class="ev-card-meta"><span class="ms-badge ms-badge-green">New Year</span><span class="ms-badge ms-badge-blue">All Grades</span></div>
+          <div class="ev-card-title">Academic Year 2026–27 Begins</div>
+          <div class="ev-card-desc">The new academic year commences. All students in Grades 1–12 are expected to report on this date with new supplies, uniform, and ID card. Timetables will be distributed on the first day.</div>
+          <div class="ev-card-footer">
+            <div class="ev-detail">🕗 8:00 AM – 12:30 PM</div>
+            <div class="ev-detail">📍 School Campus</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="ms-footer">
+  <div class="ms-footer-grid">
+    <div class="ms-footer-brand"><div class="ms-logo" style="margin-bottom:0;"><div class="ms-logo-badge" style="background:linear-gradient(135deg,#1e3a8a,#2563eb);">🏫</div><div><div class="ms-logo-name" style="color:#fff;">MERIDIAN <span>Academy</span></div><div class="ms-logo-tag" style="color:rgba(255,255,255,.4);">Excellence in Education</div></div></div><p>Nurturing future leaders since 1998.</p></div>
+    <div class="ms-footer-col"><h4>School</h4><a href="about.html">About</a><a href="academics.html">Academics</a><a href="faculty.html">Faculty</a></div>
+    <div class="ms-footer-col"><h4>Student</h4><a href="notifications.html">Notifications</a><a href="events.html">Events</a><a href="admissions.html">Admissions</a></div>
+    <div class="ms-footer-col"><h4>Contact</h4><a href="#">📍 12 Education Road, Chennai</a><a href="#">📞 +91 44 2345 6789</a></div>
+  </div>
+  <div class="ms-footer-bottom"><p>© 2026 MERIDIAN Academy.</p><p>Built with SantyCSS</p></div>
+</footer>
+<script>
+function toggleNav(){document.getElementById('mainNav').classList.toggle('open');}
+function filterEvents(type){
+  document.querySelectorAll('.ev-filter-btn').forEach(function(b){b.classList.remove('active');});
+  document.querySelector('[data-type="'+type+'"]').classList.add('active');
+  document.querySelectorAll('#eventsList .ev-card').forEach(function(c){
+    c.classList.toggle('hidden', type!=='all' && c.getAttribute('data-type')!==type);
+  });
+}
+</script>
+</body>
+</html>

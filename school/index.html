@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MERIDIAN Academy — Excellence in Education</title>
+  <meta name="description" content="MERIDIAN Academy — nurturing future leaders through excellence in education since 1998." />
+  <link rel="stylesheet" href="../santy.css" />
+  <link rel="stylesheet" href="../santy-variants.css" />
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    /* ── Home-specific ── */
+    .ticker-wrap { background: var(--blue); color: #fff; padding: 9px 16px; overflow: hidden; font-size: 13px; display: flex; gap: 24px; align-items: center; }
+    .ticker-label { background: var(--amber); color: var(--gray-900); padding: 2px 10px; border-radius: 4px; font-size: 11px; font-weight: 800; letter-spacing: .06em; white-space: nowrap; flex-shrink: 0; }
+    .ticker-track { overflow: hidden; flex: 1; }
+    .ticker-inner { display: flex; gap: 56px; width: max-content; animation: tickerRun 22s linear infinite; }
+    .ticker-inner span { white-space: nowrap; color: rgba(255,255,255,.85); }
+    .ticker-inner span strong { color: #fde68a; }
+    @keyframes tickerRun { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* Hero */
+    .home-hero { background: linear-gradient(135deg, #0f2460 0%, #1e3a8a 55%, #1d4ed8 100%); color: #fff; min-height: 88vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 48px; padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
+    @media (max-width: 900px) { .home-hero { grid-template-columns: 1fr; text-align: center; padding: 60px 24px; min-height: auto; } .home-hero-img { display: none; } }
+    .home-hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(245,158,11,.15); border: 1px solid rgba(245,158,11,.35); border-radius: 9999px; padding: 5px 16px; font-size: 12px; font-weight: 700; color: #fde68a; margin-bottom: 20px; }
+    .home-hero h1 { font-size: clamp(40px, 5vw, 64px); font-weight: 900; letter-spacing: -.02em; line-height: 1.08; margin-bottom: 20px; }
+    .home-hero h1 em { font-style: normal; color: var(--amber); }
+    .home-hero p { font-size: 17px; color: rgba(255,255,255,.72); line-height: 1.8; margin-bottom: 36px; max-width: 500px; }
+    .home-hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .home-hero-img { border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 32px 80px rgba(0,0,0,.35); }
+    .home-hero-img img { width: 100%; height: 440px; object-fit: cover; display: block; }
+    .home-hero-img-badge { position: absolute; bottom: 20px; left: 20px; background: rgba(255,255,255,.95); border-radius: 12px; padding: 12px 18px; display: flex; align-items: center; gap: 12px; }
+    .home-hero-img-badge-num { font-size: 26px; font-weight: 900; color: var(--blue); line-height: 1; }
+    .home-hero-img-badge-text { font-size: 12px; color: var(--gray-600); font-weight: 600; }
+
+    /* Stats strip */
+    .stats-strip { background: var(--blue); color: #fff; }
+    .stats-strip-inner { max-width: 1200px; margin: 0 auto; padding: 32px 24px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+    @media (max-width: 600px) { .stats-strip-inner { grid-template-columns: repeat(2, 1fr); gap: 24px 0; } }
+    .stat-item { text-align: center; padding: 0 16px; border-right: 1px solid rgba(255,255,255,.12); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-size: 40px; font-weight: 900; color: var(--amber); line-height: 1; margin-bottom: 6px; }
+    .stat-lbl { font-size: 12px; color: rgba(255,255,255,.6); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+
+    /* Quick links */
+    .quick-links { max-width: 1200px; margin: -28px auto 0; padding: 0 24px; position: relative; z-index: 10; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    @media (max-width: 700px) { .quick-links { grid-template-columns: repeat(2, 1fr); } }
+    .quick-link-card { background: #fff; border: 1px solid var(--gray-200); border-radius: 14px; padding: 22px 18px; display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--gray-800); box-shadow: 0 4px 16px rgba(0,0,0,.07); transition: all .2s; }
+    .quick-link-card:hover { border-color: var(--sky); box-shadow: 0 8px 28px rgba(37,99,235,.12); transform: translateY(-2px); }
+    .quick-link-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .quick-link-label { font-size: 14px; font-weight: 700; color: var(--gray-900); }
+    .quick-link-sub { font-size: 12px; color: var(--gray-400); margin-top: 2px; }
+
+    /* News/Events */
+    .news-card { background: #fff; border: 1px solid var(--gray-200); border-radius: 14px; overflow: hidden; transition: box-shadow .2s, transform .2s; }
+    .news-card:hover { box-shadow: 0 12px 32px rgba(0,0,0,.09); transform: translateY(-3px); }
+    .news-card img { width: 100%; height: 180px; object-fit: cover; display: block; }
+    .news-card-body { padding: 20px; }
+    .news-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .news-date { font-size: 12px; color: var(--gray-400); }
+
+    /* Notification preview cards */
+    .notif-preview { background: #fff; border: 1px solid var(--gray-200); border-left: 4px solid var(--sky); border-radius: 10px; padding: 16px 20px; transition: box-shadow .15s; }
+    .notif-preview:hover { box-shadow: 0 6px 20px rgba(0,0,0,.07); }
+    .notif-preview.urgent { border-left-color: var(--red); }
+    .notif-preview.important { border-left-color: var(--amber); }
+    .notif-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+    .notif-title { font-size: 15px; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; }
+    .notif-desc { font-size: 13px; color: var(--gray-600); line-height: 1.6; }
+
+    /* Gallery strip */
+    .gallery-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    @media (max-width: 600px) { .gallery-strip { grid-template-columns: repeat(2, 1fr); } }
+    .gallery-strip img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; display: block; transition: transform .4s, opacity .3s; }
+    .gallery-strip img:hover { transform: scale(1.04); opacity: .92; }
+
+    /* Testimonials */
+    .testi-card { background: #fff; border: 1px solid var(--gray-200); border-radius: 14px; padding: 28px; }
+    .testi-stars { color: var(--amber); font-size: 15px; margin-bottom: 14px; }
+    .testi-text { font-size: 14px; color: var(--gray-700); line-height: 1.8; margin-bottom: 20px; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+    .testi-name { font-size: 14px; font-weight: 700; color: var(--gray-900); }
+    .testi-role { font-size: 12px; color: var(--gray-400); }
+
+    /* Wrap for hero + section bg */
+    .hero-bg { background: linear-gradient(135deg, #0f2460 0%, #1e3a8a 100%); }
+  </style>
+</head>
+<body>
+
+<!-- ─── TICKER ──────────────────────────────────────────────────────────────── -->
+<div class="ticker-wrap">
+  <span class="ticker-label">🔔 NOTICE</span>
+  <div class="ticker-track">
+    <div class="ticker-inner">
+      <span>📋 <strong>Annual Sports Day</strong> — May 3rd, All students must carry participation cards</span>
+      <span>📝 <strong>Grade 10 & 12 Board Exam Schedules</strong> released — check Notifications page</span>
+      <span>🎉 <strong>Summer Camp Registrations</strong> open until April 30th</span>
+      <span>🏥 <strong>Medical Checkup</strong> — Grade 1 to 5 on May 8th, bring health cards</span>
+      <span>📚 <strong>New Library Books</strong> available — visit Library before May 15th</span>
+      <!-- duplicate -->
+      <span>📋 <strong>Annual Sports Day</strong> — May 3rd, All students must carry participation cards</span>
+      <span>📝 <strong>Grade 10 & 12 Board Exam Schedules</strong> released — check Notifications page</span>
+      <span>🎉 <strong>Summer Camp Registrations</strong> open until April 30th</span>
+      <span>🏥 <strong>Medical Checkup</strong> — Grade 1 to 5 on May 8th, bring health cards</span>
+      <span>📚 <strong>New Library Books</strong> available — visit Library before May 15th</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── NAV ─────────────────────────────────────────────────────────────────── -->
+<nav class="ms-nav">
+  <div class="ms-nav-inner">
+    <a href="index.html" class="ms-logo">
+      <div class="ms-logo-badge">🏫</div>
+      <div>
+        <div class="ms-logo-name">MERIDIAN <span>Academy</span></div>
+        <div class="ms-logo-tag">Excellence in Education</div>
+      </div>
+    </a>
+    <button class="ms-hamburger" onclick="toggleNav()" aria-label="Menu">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <div class="ms-nav-links" id="mainNav">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="academics.html">Academics</a>
+      <a href="admissions.html">Admissions</a>
+      <a href="faculty.html">Faculty</a>
+      <a href="events.html">Events</a>
+      <a href="notifications.html">🔔 Notices</a>
+      <a href="contact.html">Contact</a>
+      <a href="admissions.html" class="ms-nav-cta">Apply Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────────────────────────────────────── -->
+<div class="hero-bg">
+  <div class="home-hero">
+    <div>
+      <div class="home-hero-eyebrow">⭐ Ranked #1 School in the District — 2025</div>
+      <h1>Where <em>Future<br>Leaders</em> Are<br>Forged</h1>
+      <p>MERIDIAN Academy has been shaping curious minds and building character since 1998. Grades 1–12 with world-class faculty, modern infrastructure, and a nurturing community.</p>
+      <div class="home-hero-btns">
+        <a href="admissions.html" class="ms-btn ms-btn-amber">Apply for Admission</a>
+        <a href="about.html" class="ms-btn ms-btn-outline">Explore School →</a>
+      </div>
+    </div>
+    <div class="home-hero-img">
+      <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=75" alt="Students at MERIDIAN Academy" />
+      <div class="home-hero-img-badge">
+        <div>
+          <div class="home-hero-img-badge-num">98%</div>
+          <div class="home-hero-img-badge-text">Board Pass Rate<br>2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── STATS ────────────────────────────────────────────────────────────────── -->
+<div class="stats-strip">
+  <div class="stats-strip-inner">
+    <div class="stat-item">
+      <div class="stat-num">2,400+</div>
+      <div class="stat-lbl">Students Enrolled</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">180+</div>
+      <div class="stat-lbl">Faculty Members</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">27</div>
+      <div class="stat-lbl">Years of Excellence</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">48</div>
+      <div class="stat-lbl">National Awards</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── QUICK LINKS ──────────────────────────────────────────────────────────── -->
+<div style="background:#fff;padding-bottom:20px;">
+  <div class="quick-links">
+    <a href="notifications.html" class="quick-link-card">
+      <div class="quick-link-icon" style="background:#fef2f2;">🔔</div>
+      <div>
+        <div class="quick-link-label">Notifications</div>
+        <div class="quick-link-sub">Notices by grade</div>
+      </div>
+    </a>
+    <a href="events.html" class="quick-link-card">
+      <div class="quick-link-icon" style="background:#eff6ff;">📅</div>
+      <div>
+        <div class="quick-link-label">Events Calendar</div>
+        <div class="quick-link-sub">Upcoming events</div>
+      </div>
+    </a>
+    <a href="admissions.html" class="quick-link-card">
+      <div class="quick-link-icon" style="background:#f0fdf4;">📋</div>
+      <div>
+        <div class="quick-link-label">Admissions</div>
+        <div class="quick-link-sub">Apply for 2025–26</div>
+      </div>
+    </a>
+    <a href="faculty.html" class="quick-link-card">
+      <div class="quick-link-icon" style="background:#fffbeb;">👩‍🏫</div>
+      <div>
+        <div class="quick-link-label">Faculty</div>
+        <div class="quick-link-sub">Meet our teachers</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- ─── ABOUT PREVIEW ────────────────────────────────────────────────────────── -->
+<section class="ms-section" style="background:#fff;">
+  <div class="ms-container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+      <div>
+        <p class="ms-section-label">🏫 About MERIDIAN</p>
+        <h2 class="ms-section-title">A Legacy of<br>Academic Excellence</h2>
+        <p class="ms-section-desc" style="max-width:100%;margin-bottom:20px;">Founded in 1998, MERIDIAN Academy stands on the belief that every student deserves a world-class education in a safe, inclusive environment. From Grade 1 through Grade 12, we prepare students not just for exams — but for life.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px;">
+          <div style="background:var(--light-blue);border-radius:12px;padding:16px;">
+            <div style="font-size:22px;font-weight:900;color:var(--blue);">CBSE</div>
+            <div style="font-size:12px;color:var(--gray-600);margin-top:2px;">Affiliated Board</div>
+          </div>
+          <div style="background:#fffbeb;border-radius:12px;padding:16px;">
+            <div style="font-size:22px;font-weight:900;color:var(--amber-dark);">A+ Grade</div>
+            <div style="font-size:12px;color:var(--gray-600);margin-top:2px;">NAAC Accreditation</div>
+          </div>
+        </div>
+        <a href="about.html" class="ms-btn ms-btn-primary">Learn More About Us →</a>
+      </div>
+      <div style="border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.12);">
+        <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=800&q=75" alt="School building" style="width:100%;height:420px;object-fit:cover;display:block;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ACADEMICS PREVIEW ─────────────────────────────────────────────────────── -->
+<section class="ms-section" style="background:var(--gray-50);">
+  <div class="ms-container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <p class="ms-section-label">📚 Academics</p>
+      <h2 class="ms-section-title">Three Levels,<br>One Standard of Excellence</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+      <div class="ms-card" style="padding:32px 28px;text-align:center;">
+        <div style="width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#eff6ff,#dbeafe);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 20px;">🌱</div>
+        <h3 style="font-size:18px;font-weight:800;color:var(--gray-900);margin-bottom:8px;">Primary School</h3>
+        <p style="font-size:12px;font-weight:700;color:var(--sky);margin-bottom:12px;letter-spacing:.05em;text-transform:uppercase;">Grades 1 – 5</p>
+        <p style="font-size:13px;color:var(--gray-600);line-height:1.7;margin-bottom:20px;">Foundational literacy, numeracy, arts, and life skills in a nurturing, play-based environment.</p>
+        <a href="academics.html#primary" class="ms-btn ms-btn-ghost ms-btn-sm">Explore →</a>
+      </div>
+      <div class="ms-card" style="padding:32px 28px;text-align:center;border-color:var(--sky);box-shadow:0 8px 32px rgba(37,99,235,.1);">
+        <div style="width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#1e3a8a,#2563eb);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 20px;">🎓</div>
+        <h3 style="font-size:18px;font-weight:800;color:var(--gray-900);margin-bottom:8px;">Middle School</h3>
+        <p style="font-size:12px;font-weight:700;color:var(--sky);margin-bottom:12px;letter-spacing:.05em;text-transform:uppercase;">Grades 6 – 8</p>
+        <p style="font-size:13px;color:var(--gray-600);line-height:1.7;margin-bottom:20px;">Deepening curiosity with science, mathematics, languages, social studies, and elective programs.</p>
+        <a href="academics.html#middle" class="ms-btn ms-btn-primary ms-btn-sm">Explore →</a>
+      </div>
+      <div class="ms-card" style="padding:32px 28px;text-align:center;">
+        <div style="width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#fffbeb,#fef3c7);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 20px;">🏆</div>
+        <h3 style="font-size:18px;font-weight:800;color:var(--gray-900);margin-bottom:8px;">Senior School</h3>
+        <p style="font-size:12px;font-weight:700;color:var(--amber-dark);margin-bottom:12px;letter-spacing:.05em;text-transform:uppercase;">Grades 9 – 12</p>
+        <p style="font-size:13px;color:var(--gray-600);line-height:1.7;margin-bottom:20px;">Board exam preparation, streams (Science/Commerce/Arts), career counseling, and college guidance.</p>
+        <a href="academics.html#senior" class="ms-btn ms-btn-ghost ms-btn-sm">Explore →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── LATEST NOTIFICATIONS ──────────────────────────────────────────────────── -->
+<section class="ms-section" style="background:#fff;">
+  <div class="ms-container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;flex-wrap:wrap;gap:16px;">
+      <div>
+        <p class="ms-section-label">🔔 Latest Updates</p>
+        <h2 class="ms-section-title">Important Notifications</h2>
+      </div>
+      <a href="notifications.html" class="ms-btn ms-btn-ghost ms-btn-sm">All Notifications →</a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="notif-preview urgent">
+        <div class="notif-meta">
+          <span class="ms-badge ms-badge-red">URGENT</span>
+          <span class="ms-badge ms-badge-blue">All Grades</span>
+          <span class="notif-date" style="font-size:12px;color:var(--gray-400);margin-left:auto;">Apr 27, 2026</span>
+        </div>
+        <div class="notif-title">Board Exam Hall Tickets — Grade 10 & 12</div>
+        <div class="notif-desc">Hall tickets for Grade 10 and Grade 12 board examinations are ready for collection from the school office. Students must collect before May 1st with guardian signature.</div>
+      </div>
+      <div class="notif-preview important">
+        <div class="notif-meta">
+          <span class="ms-badge ms-badge-amber">IMPORTANT</span>
+          <span class="ms-badge ms-badge-blue">Grade 6–8</span>
+          <span class="notif-date" style="font-size:12px;color:var(--gray-400);margin-left:auto;">Apr 25, 2026</span>
+        </div>
+        <div class="notif-title">Science Fair Registration Deadline — May 2nd</div>
+        <div class="notif-desc">All Grade 6–8 students participating in the Inter-School Science Fair must submit project abstracts to their class teacher before May 2nd.</div>
+      </div>
+      <div class="notif-preview">
+        <div class="notif-meta">
+          <span class="ms-badge ms-badge-green">INFO</span>
+          <span class="ms-badge ms-badge-blue">Grade 1–5</span>
+          <span class="notif-date" style="font-size:12px;color:var(--gray-400);margin-left:auto;">Apr 24, 2026</span>
+        </div>
+        <div class="notif-title">Summer Reading Program — Library Sign-up Open</div>
+        <div class="notif-desc">The Summer Reading Program for Grade 1–5 is now open for registration at the school library. Books will be issued from May 20th onwards.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── UPCOMING EVENTS ───────────────────────────────────────────────────────── -->
+<section class="ms-section" style="background:var(--gray-50);">
+  <div class="ms-container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;flex-wrap:wrap;gap:16px;">
+      <div>
+        <p class="ms-section-label">📅 Calendar</p>
+        <h2 class="ms-section-title">Upcoming Events</h2>
+      </div>
+      <a href="events.html" class="ms-btn ms-btn-ghost ms-btn-sm">View All Events →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+      <div class="news-card">
+        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=70" alt="Sports Day" />
+        <div class="news-card-body">
+          <div class="news-meta">
+            <span class="ms-badge ms-badge-green">Sports</span>
+            <span class="news-date">May 3, 2026</span>
+          </div>
+          <h3 style="font-size:16px;font-weight:700;color:var(--gray-900);margin-bottom:8px;">Annual Sports Day 2026</h3>
+          <p style="font-size:13px;color:var(--gray-600);line-height:1.6;">Track & field, team sports, and individual competitions for all grades. Parents invited from 9 AM.</p>
+        </div>
+      </div>
+      <div class="news-card">
+        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=70" alt="Science Fair" />
+        <div class="news-card-body">
+          <div class="news-meta">
+            <span class="ms-badge ms-badge-blue">Academic</span>
+            <span class="news-date">May 10, 2026</span>
+          </div>
+          <h3 style="font-size:16px;font-weight:700;color:var(--gray-900);margin-bottom:8px;">Inter-School Science Fair</h3>
+          <p style="font-size:13px;color:var(--gray-600);line-height:1.6;">Grade 6–12 students present innovative science projects. Expert panel from IIT will judge entries.</p>
+        </div>
+      </div>
+      <div class="news-card">
+        <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&q=70" alt="Cultural Fest" />
+        <div class="news-card-body">
+          <div class="news-meta">
+            <span class="ms-badge ms-badge-amber">Cultural</span>
+            <span class="news-date">May 18, 2026</span>
+          </div>
+          <h3 style="font-size:16px;font-weight:700;color:var(--gray-900);margin-bottom:8px;">MERIDIAN Cultural Fest 2026</h3>
+          <p style="font-size:13px;color:var(--gray-600);line-height:1.6;">Dance, drama, music, and art exhibitions by students from Grade 1 to 12. Families welcome!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── GALLERY STRIP ─────────────────────────────────────────────────────────── -->
+<section style="padding:0 0 80px;">
+  <div class="ms-container">
+    <div style="text-align:center;margin-bottom:32px;padding-top:80px;">
+      <p class="ms-section-label">📸 Campus Life</p>
+      <h2 class="ms-section-title">Life at MERIDIAN</h2>
+    </div>
+    <div class="gallery-strip">
+      <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?w=500&q=70" alt="Classroom" />
+      <img src="https://images.unsplash.com/photo-1598620617149-01a4bab98891?w=500&q=70" alt="Science lab" />
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=70" alt="Sports" />
+      <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=500&q=70" alt="Students" />
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ──────────────────────────────────────────────────────────── -->
+<section class="ms-section" style="background:var(--gray-50);">
+  <div class="ms-container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <p class="ms-section-label">💬 Voices</p>
+      <h2 class="ms-section-title">What Our Community Says</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"MERIDIAN completely transformed my daughter's confidence. The teachers genuinely care about every student's growth, not just academics."</p>
+        <div class="testi-author">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=70" alt="" class="testi-avatar" />
+          <div>
+            <div class="testi-name">Priya Sharma</div>
+            <div class="testi-role">Parent — Grade 8</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"I scored 97% in my boards and got into IIT — MERIDIAN's science faculty made all the difference. They go beyond the textbook every single class."</p>
+        <div class="testi-author">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=70" alt="" class="testi-avatar" />
+          <div>
+            <div class="testi-name">Arjun Mehta</div>
+            <div class="testi-role">Alumni — Batch of 2024</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"The notification system is excellent — I always know exactly what's happening in my child's grade. Communication from the school is top-notch."</p>
+        <div class="testi-author">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=70" alt="" class="testi-avatar" />
+          <div>
+            <div class="testi-name">Rajan Pillai</div>
+            <div class="testi-role">Parent — Grade 3</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ───────────────────────────────────────────────────────────────────── -->
+<section style="background:linear-gradient(135deg,#1e3a8a,#1d4ed8);padding:80px 24px;text-align:center;color:#fff;">
+  <div class="ms-container">
+    <p class="ms-section-label" style="color:#bfdbfe;">🎓 Admissions Open</p>
+    <h2 style="font-size:clamp(28px,4vw,48px);font-weight:900;letter-spacing:-.02em;margin-bottom:16px;">Begin Your Child's<br>Journey at MERIDIAN</h2>
+    <p style="font-size:16px;color:rgba(255,255,255,.7);max-width:480px;margin:0 auto 36px;line-height:1.7;">Limited seats for 2025–26. Apply now and secure your place in a community that believes in every student's potential.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="admissions.html" class="ms-btn ms-btn-amber">Apply for Admission</a>
+      <a href="contact.html" class="ms-btn ms-btn-outline">Schedule a Campus Tour</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────────────────────── -->
+<footer class="ms-footer">
+  <div class="ms-footer-grid">
+    <div class="ms-footer-brand">
+      <div class="ms-logo" style="margin-bottom:0;">
+        <div class="ms-logo-badge" style="background:linear-gradient(135deg,#1e3a8a,#2563eb);">🏫</div>
+        <div>
+          <div class="ms-logo-name" style="color:#fff;">MERIDIAN <span>Academy</span></div>
+          <div class="ms-logo-tag" style="color:rgba(255,255,255,.4);">Excellence in Education</div>
+        </div>
+      </div>
+      <p>Nurturing future leaders since 1998. CBSE affiliated | A+ NAAC Grade | Grades 1–12.</p>
+    </div>
+    <div class="ms-footer-col">
+      <h4>School</h4>
+      <a href="about.html">About Us</a>
+      <a href="academics.html">Academics</a>
+      <a href="faculty.html">Faculty</a>
+      <a href="gallery.html">Gallery</a>
+    </div>
+    <div class="ms-footer-col">
+      <h4>Student</h4>
+      <a href="notifications.html">Notifications</a>
+      <a href="events.html">Events</a>
+      <a href="admissions.html">Admissions</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="ms-footer-col">
+      <h4>Contact</h4>
+      <a href="#">📍 12 Education Road, Chennai</a>
+      <a href="#">📞 +91 44 2345 6789</a>
+      <a href="#">✉️ info@meridianacademy.edu.in</a>
+      <a href="#">🕐 Mon–Sat: 8 AM – 4 PM</a>
+    </div>
+  </div>
+  <div class="ms-footer-bottom">
+    <p>© 2026 MERIDIAN Academy. All rights reserved.</p>
+    <p>Built with SantyCSS</p>
+  </div>
+</footer>
+
+<script>
+  function toggleNav() {
+    document.getElementById('mainNav').classList.toggle('open');
+  }
+</script>
+</body>
+</html>
