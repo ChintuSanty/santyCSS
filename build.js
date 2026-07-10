@@ -53,12 +53,15 @@ const mod = (name) => lines.push(`\n/* @SANTYMOD:${name} */`);
 mod('reset');
 add(
 `/* ============================================================
-   SantyCSS v2.3.0  —  Plain-English Utility CSS Framework
+   SantyCSS v2.7.0  —  Plain-English Utility CSS Framework
    https://github.com/santybad/santy_css
    ============================================================ */
 
 /* ── Box Sizing Reset ── */
 *, *::before, *::after { box-sizing: border-box; }
+
+/* ── Responsive Media Reset ── */
+img, video, picture, svg { max-width: 100%; height: auto; }
 
 /* ── CSS Custom Properties (Theme) ── */
 :root {
@@ -71,6 +74,13 @@ add(
   --santy-warning:        #f59e0b;
   --santy-danger:         #ef4444;
   --santy-info:           #06b6d4;
+  /* ── Semantic Surface Tokens (v2.7.0 — flip with [data-theme] / .dark) ── */
+  --santy-surface:        #ffffff;
+  --santy-surface-alt:    #f9fafb;
+  --santy-surface-raised: #ffffff;
+  --santy-text:           #111827;
+  --santy-text-muted:     #6b7280;
+  --santy-border-color:   #e5e7eb;
   --santy-radius-sm:      4px;
   --santy-radius:         8px;
   --santy-radius-md:      12px;
@@ -473,6 +483,33 @@ Object.entries(palette).forEach(([name, shades]) => {
 });
 Object.entries(namedColors).forEach(([name, val]) => add(`.border-color-${name} { border-color: ${val}; }`));
 
+// ─── SEMANTIC COLOR UTILITIES (v2.7.0) ───
+// Consume theme tokens — flip automatically with [data-theme="…"] or .dark
+add(`
+/* ── Semantic Colors (v2.7.0) — respond to [data-theme] / .dark ── */
+.background-surface        { background-color: var(--santy-surface); }
+.background-surface-alt    { background-color: var(--santy-surface-alt); }
+.background-surface-raised { background-color: var(--santy-surface-raised); }
+.background-primary        { background-color: var(--santy-primary); }
+.background-secondary      { background-color: var(--santy-secondary); }
+.background-accent         { background-color: var(--santy-accent, var(--santy-success)); }
+.color-text                { color: var(--santy-text); }
+.color-text-muted          { color: var(--santy-text-muted); }
+.color-primary             { color: var(--santy-primary); }
+.color-secondary           { color: var(--santy-secondary); }
+.border-color-default      { border-color: var(--santy-border-color); }
+.border-color-primary      { border-color: var(--santy-primary); }
+/* Dark defaults for semantic tokens */
+.dark, [data-theme="dark"] {
+  --santy-surface:        #0f172a;
+  --santy-surface-alt:    #1e293b;
+  --santy-surface-raised: #1e293b;
+  --santy-text:           #f1f5f9;
+  --santy-text-muted:     #94a3b8;
+  --santy-border-color:   #334155;
+}
+`);
+
 add(`\n/* ── Fill (SVG) ── */`);
 Object.entries(palette).forEach(([name, shades]) => {
   Object.entries(shades).forEach(([shade, hex]) => {
@@ -630,6 +667,8 @@ add(`\n/* ── Transition ── */
 .transition-normal { transition: var(--santy-transition-normal); }
 .transition-slow   { transition: var(--santy-transition-slow); }
 .transition-none   { transition: none; }
+.transition-all    { transition: all 0.3s ease; } /* fixed v2.7.0 — was documented but missing */
+.transition-shadow { transition: box-shadow 0.3s ease; }
 .transition-colors { transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease; }
 .transition-opacity{ transition: opacity 0.3s ease; }
 .transition-transform{ transition: transform 0.3s ease; }
@@ -1338,6 +1377,43 @@ add(`\n/* ── Motion Variants ── */
 }
 `);
 add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
+
+// ─── :has() PARENT VARIANTS (v2.7.0) ─────────────────────────────────────────
+// Style a PARENT based on its children — no JS needed.
+add(`\n/* ── :has() Parent Variants (v2.7.0) ──
+   Style a parent element based on the state of its children.
+   Usage: class="has-checked:background-blue-50 has-focus:add-shadow-md" */`);
+const hasVariants = [
+  ['has-checked',  ':has(:checked)'],
+  ['has-focus',    ':has(:focus)'],
+  ['has-focus-within', ':has(:focus-within)'],
+  ['has-hover',    ':has(:hover)'],
+  ['has-invalid',  ':has(:invalid)'],
+  ['has-valid',    ':has(:valid)'],
+  ['has-disabled', ':has(:disabled)'],
+  ['has-required', ':has(:required)'],
+  ['has-open',     ':has([open])'],
+  ['has-placeholder-shown', ':has(:placeholder-shown)'],
+];
+hasVariants.forEach(([prefix, pseudo]) => {
+  add(`\n/* ${prefix} */`);
+  stateClasses.forEach(([cls, prop]) => {
+    add(`.${prefix}\\:${cls}${pseudo} { ${prop}; }`);
+  });
+});
+// group-has: — style a child when the marked ancestor .group contains a match
+['checked','focus','hover','invalid'].forEach(state => {
+  add(`\n/* group-has-${state} */`);
+  [
+    ['make-block','display:block'],['make-hidden','display:none'],
+    ['opacity-100','opacity:1'],['opacity-0','opacity:0'],
+    ['color-blue-600','color:#2563eb'],
+    ['background-blue-50','background-color:#eff6ff'],
+    ['border-color-blue-500','border-color:#3b82f6'],
+  ].forEach(([cls, prop]) => {
+    add(`.group:has(:${state}) .group-has-${state}\\:${cls} { ${prop}; }`);
+  });
+});
 
 // ─── EXTRA STATE VARIANTS ────────────────────────────────────────────────────
 add(`\n/* ═══ VARIANTS_BLOCK_START ═══ */`);
@@ -3468,6 +3544,129 @@ add(`
 .set-max-width-narrow     { max-width: 45ch; }
 `);
 
+// ─── NEW COMPONENTS v2.7.0 ────────────────────────────────────────────────────
+add(`
+/* ═══════════════════════════════════════════════════════════════
+   NEW COMPONENTS (v2.7.0)
+   Toast · Switch · Checkbox · Radio · Range · Carousel ·
+   Dialog (native) · Popover (native) · File Drop
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Toast (stacked, top-right by default) ──
+   <div class="toast-container">
+     <div class="toast toast-success show">Saved!</div>
+   </div>  */
+.toast-container { position: fixed; top: 16px; right: 16px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; max-width: min(360px, calc(100vw - 32px)); }
+.toast-container.pin-bottom { top: auto; bottom: 16px; }
+.toast-container.pin-left   { right: auto; left: 16px; }
+.toast-container.pin-center { right: auto; left: 50%; transform: translateX(-50%); }
+.toast { pointer-events: auto; display: flex; align-items: center; gap: 10px; background: #1f2937; color: #f9fafb; padding: 12px 16px; border-radius: 10px; font-size: 14px; line-height: 1.4; box-shadow: var(--santy-shadow-lg); opacity: 0; transform: translateY(-8px); transition: opacity .25s ease, transform .25s ease; }
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast-success { background: #052e16; color: #86efac; border: 1px solid #166534; }
+.toast-error   { background: #2d0a0a; color: #fca5a5; border: 1px solid #991b1b; }
+.toast-warning { background: #2d1b00; color: #fcd34d; border: 1px solid #92400e; }
+.toast-info    { background: #0c1a2e; color: #93c5fd; border: 1px solid #1e3a5f; }
+.toast-light   { background: #ffffff; color: #111827; border: 1px solid #e5e7eb; }
+.toast-close { margin-left: auto; background: none; border: none; color: inherit; opacity: .6; cursor: pointer; font-size: 16px; line-height: 1; padding: 0 0 0 8px; }
+.toast-close:hover { opacity: 1; }
+
+/* ── Switch (plain-English alias of toggle) ──
+   <label class="switch"><input type="checkbox"><span class="switch-slider"></span></label> */
+.switch { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0; }
+.switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+.switch-slider { position: absolute; cursor: pointer; inset: 0; background-color: #d1d5db; border-radius: 9999px; transition: background-color 0.2s; }
+.switch-slider::before { content: ''; position: absolute; width: 20px; height: 20px; left: 2px; top: 2px; background-color: #fff; border-radius: 50%; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+.switch input:checked + .switch-slider { background-color: var(--santy-primary, #3b82f6); }
+.switch input:checked + .switch-slider::before { transform: translateX(20px); }
+.switch input:disabled + .switch-slider { opacity: 0.5; cursor: not-allowed; }
+.switch input:focus-visible + .switch-slider { box-shadow: 0 0 0 3px rgba(59,130,246,.4); }
+.switch-sm { width: 34px; height: 18px; }
+.switch-sm .switch-slider::before { width: 14px; height: 14px; }
+.switch-sm input:checked + .switch-slider::before { transform: translateX(16px); }
+.switch-lg { width: 56px; height: 30px; }
+.switch-lg .switch-slider::before { width: 26px; height: 26px; }
+.switch-lg input:checked + .switch-slider::before { transform: translateX(26px); }
+.switch-success input:checked + .switch-slider { background-color: var(--santy-success, #22c55e); }
+.switch-danger  input:checked + .switch-slider { background-color: var(--santy-danger, #ef4444); }
+
+/* ── Checkbox & Radio (custom styled) ──
+   <input type="checkbox" class="checkbox">  <input type="radio" class="radio"> */
+.checkbox, .radio { appearance: none; -webkit-appearance: none; width: 18px; height: 18px; border: 2px solid #d1d5db; background: #fff; cursor: pointer; display: inline-block; vertical-align: middle; position: relative; transition: border-color .15s, background-color .15s; flex-shrink: 0; }
+.checkbox { border-radius: 5px; }
+.radio    { border-radius: 50%; }
+.checkbox:checked, .radio:checked { border-color: var(--santy-primary, #3b82f6); background-color: var(--santy-primary, #3b82f6); }
+.checkbox:checked::after { content: ''; position: absolute; left: 4px; top: 1px; width: 6px; height: 10px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.radio:checked::after { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: #fff; }
+.checkbox:focus-visible, .radio:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(59,130,246,.4); }
+.checkbox:disabled, .radio:disabled { opacity: .5; cursor: not-allowed; }
+.checkbox-lg, .radio-lg { width: 22px; height: 22px; }
+.checkbox-lg:checked::after { left: 5px; top: 2px; width: 7px; height: 12px; }
+
+/* ── Range Slider ──  <input type="range" class="range"> */
+.range { appearance: none; -webkit-appearance: none; width: 100%; height: 6px; border-radius: 9999px; background: #e5e7eb; outline: none; cursor: pointer; }
+.range::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--santy-primary, #3b82f6); border: 2px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); cursor: grab; }
+.range::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: var(--santy-primary, #3b82f6); border: 2px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); cursor: grab; }
+.range::-webkit-slider-thumb:active { cursor: grabbing; }
+.range:disabled { opacity: .5; cursor: not-allowed; }
+.range-sm { height: 4px; }
+.range-sm::-webkit-slider-thumb { width: 14px; height: 14px; }
+.range-sm::-moz-range-thumb { width: 14px; height: 14px; }
+.range-lg { height: 8px; }
+.range-lg::-webkit-slider-thumb { width: 24px; height: 24px; }
+.range-lg::-moz-range-thumb { width: 24px; height: 24px; }
+
+/* ── Carousel (pure CSS, scroll-snap) ──
+   <div class="carousel"><div class="carousel-item">…</div>…</div> */
+.carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; gap: 16px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.carousel::-webkit-scrollbar { display: none; }
+.carousel-item { flex: 0 0 100%; scroll-snap-align: center; }
+.carousel-item-half  { flex-basis: calc(50% - 8px); }
+.carousel-item-third { flex-basis: calc(33.333% - 11px); }
+.carousel-peek .carousel-item { flex-basis: 85%; }
+.carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
+.carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: #d1d5db; border: none; cursor: pointer; padding: 0; transition: background-color .15s, transform .15s; }
+.carousel-dot.active { background: var(--santy-primary, #3b82f6); transform: scale(1.25); }
+
+/* ── Dialog (native <dialog>) ──
+   <dialog class="dialog" id="d"><div class="dialog-header">…</div></dialog>
+   Open with: document.getElementById('d').showModal() */
+.dialog { border: none; border-radius: var(--santy-radius-lg, 16px); padding: 0; max-width: min(480px, calc(100vw - 32px)); width: 100%; box-shadow: var(--santy-shadow-xl); }
+.dialog::backdrop { background: rgba(15, 23, 42, 0.55); backdrop-filter: blur(2px); }
+.dialog[open] { animation: santy-dialog-in .2s ease-out; }
+@keyframes santy-dialog-in { from { opacity: 0; transform: translateY(12px) scale(.97); } to { opacity: 1; transform: none; } }
+.dialog-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid #e5e7eb; font-weight: 600; font-size: 16px; }
+.dialog-body   { padding: 20px; font-size: 14px; color: #4b5563; line-height: 1.6; }
+.dialog-footer { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 20px; border-top: 1px solid #e5e7eb; }
+.dialog-lg { max-width: min(720px, calc(100vw - 32px)); }
+.dialog-fullscreen { max-width: 100vw; width: 100vw; height: 100vh; max-height: 100vh; border-radius: 0; }
+.dark .dialog { background: #1e293b; color: #f1f5f9; }
+.dark .dialog-header, .dark .dialog-footer { border-color: #334155; }
+.dark .dialog-body { color: #cbd5e1; }
+
+/* ── Popover (native Popover API, zero JS) ──
+   <button popovertarget="p" class="btn">Open</button>
+   <div popover id="p" class="popover">…</div> */
+.popover { border: 1px solid #e5e7eb; border-radius: var(--santy-radius-md, 12px); padding: 16px; box-shadow: var(--santy-shadow-lg); font-size: 14px; max-width: 320px; margin: auto; }
+.popover:popover-open { animation: santy-dialog-in .15s ease-out; }
+.dark .popover { background: #1e293b; color: #e2e8f0; border-color: #334155; }
+
+/* ── File Drop Zone ──
+   <label class="file-drop"><input type="file"><span>Drop files or click to browse</span></label> */
+.file-drop { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 32px 24px; border: 2px dashed #d1d5db; border-radius: var(--santy-radius-md, 12px); background: #f9fafb; color: #6b7280; font-size: 14px; cursor: pointer; text-align: center; transition: border-color .15s, background-color .15s; }
+.file-drop:hover, .file-drop.dragover { border-color: var(--santy-primary, #3b82f6); background: #eff6ff; color: #2563eb; }
+.file-drop input[type="file"] { display: none; }
+.dark .file-drop { background: #0f172a; border-color: #334155; color: #94a3b8; }
+.dark .file-drop:hover { border-color: #3b82f6; background: #172554; }
+
+/* Dark mode for new components */
+.dark .toast-light { background: #1e293b; color: #f1f5f9; border-color: #334155; }
+.dark .checkbox, .dark .radio { background: #1e293b; border-color: #475569; }
+.dark .checkbox:checked, .dark .radio:checked { background: var(--santy-primary, #3b82f6); border-color: var(--santy-primary, #3b82f6); }
+.dark .range { background: #334155; }
+.dark .carousel-dot { background: #475569; }
+`);
+
+
 // ─── UTILITY GAPS v1.6 ───────────────────────────────────────────────────────
 mod('typography');
 add(`
@@ -5015,6 +5214,72 @@ const SCROLL_JS = `/*! santy-scroll.js — SantyCSS Scroll Observer v2.1
 }());
 `;
 
+// ─── PREBUILT THEMES (v2.7.0) ─────────────────────────────────────────────────
+const THEMES_CSS = `/* SantyCSS Themes — prebuilt design-token presets (v2.7.0)
+   Usage: <html data-theme="ocean">  +  <link …/santy-themes.css>
+   Semantic utilities (.background-surface, .color-text, .border-color-default,
+   .background-primary, …) automatically follow the active theme.
+   https://santycss.santy.in */
+
+[data-theme] { color-scheme: light; }
+[data-theme="dark"] { color-scheme: dark; }
+
+/* ── Ocean — deep blue, calm ── */
+[data-theme="ocean"] {
+  --santy-primary: #0284c7; --santy-primary-dark: #0369a1; --santy-primary-light: #e0f2fe;
+  --santy-secondary: #475569; --santy-accent: #06b6d4;
+  --santy-surface: #f8fafc; --santy-surface-alt: #f1f5f9; --santy-surface-raised: #ffffff;
+  --santy-text: #0f172a; --santy-text-muted: #64748b; --santy-border-color: #e2e8f0;
+}
+/* ── Sunset — warm orange/rose ── */
+[data-theme="sunset"] {
+  --santy-primary: #ea580c; --santy-primary-dark: #c2410c; --santy-primary-light: #ffedd5;
+  --santy-secondary: #78716c; --santy-accent: #f43f5e;
+  --santy-surface: #fffbf7; --santy-surface-alt: #fef3e7; --santy-surface-raised: #ffffff;
+  --santy-text: #1c1917; --santy-text-muted: #78716c; --santy-border-color: #f0e4d7;
+}
+/* ── Forest — green, natural ── */
+[data-theme="forest"] {
+  --santy-primary: #16a34a; --santy-primary-dark: #15803d; --santy-primary-light: #dcfce7;
+  --santy-secondary: #57534e; --santy-accent: #84cc16;
+  --santy-surface: #f7fdf9; --santy-surface-alt: #ecfdf3; --santy-surface-raised: #ffffff;
+  --santy-text: #14532d; --santy-text-muted: #4d7c0f; --santy-border-color: #d9f0e0;
+}
+/* ── Midnight — dark violet ── */
+[data-theme="midnight"] {
+  color-scheme: dark;
+  --santy-primary: #8b5cf6; --santy-primary-dark: #7c3aed; --santy-primary-light: #2e1065;
+  --santy-secondary: #94a3b8; --santy-accent: #22d3ee;
+  --santy-surface: #0b0716; --santy-surface-alt: #1e1b31; --santy-surface-raised: #241f3d;
+  --santy-text: #ede9fe; --santy-text-muted: #a5b4fc; --santy-border-color: #312e5e;
+}
+/* ── Mono — neutral grayscale ── */
+[data-theme="mono"] {
+  --santy-primary: #171717; --santy-primary-dark: #000000; --santy-primary-light: #e5e5e5;
+  --santy-secondary: #737373; --santy-accent: #404040;
+  --santy-surface: #fafafa; --santy-surface-alt: #f5f5f5; --santy-surface-raised: #ffffff;
+  --santy-text: #171717; --santy-text-muted: #737373; --santy-border-color: #e5e5e5;
+}
+`;
+
+// ─── CLASSMAP / INTELLISENSE DATA (v2.7.0) ───────────────────────────────────
+// Every generated class name — powers editor IntelliSense, AI tooling, linters.
+const pkgVersion = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8')).version;
+const classSet = new Set();
+const allGeneratedCSS = fullCSS + '\n' + THEMES_CSS;
+for (const m of allGeneratedCSS.matchAll(/\.((?:[a-zA-Z0-9_-]+|\\:)+)/g)) {
+  const cls = m[1].replace(/\\:/g, ':').replace(/\\/g, '');
+  if (/^[0-9]/.test(cls)) continue;
+  classSet.add(cls);
+}
+const CLASSMAP_JSON = JSON.stringify({
+  name: 'santycss',
+  version: pkgVersion,
+  generated: new Date().toISOString().slice(0, 10),
+  count: classSet.size,
+  classes: [...classSet].sort(),
+});
+
 // Write all output files
 fs.writeFileSync('santy.css', fullCSS);
 fs.writeFileSync('santy-core.css', slimmedCoreCSS);
@@ -5024,6 +5289,8 @@ fs.writeFileSync('santy-components.css', compCSS);
 fs.writeFileSync('santy-animations.css', animCSS);
 fs.writeFileSync('santy-email.css', EMAIL_CSS.trim());
 fs.writeFileSync('santy-scroll.js', SCROLL_JS);
+fs.writeFileSync('santy-themes.css', THEMES_CSS);
+fs.writeFileSync('santy-classmap.json', CLASSMAP_JSON);
 
 // Mirror to dist/ for NPM package
 const distDir = path.join(__dirname, 'dist');
@@ -5036,6 +5303,8 @@ fs.writeFileSync(path.join(distDir, 'santy-components.css'), compCSS);
 fs.writeFileSync(path.join(distDir, 'santy-animations.css'), animCSS);
 fs.writeFileSync(path.join(distDir, 'santy-email.css'), EMAIL_CSS.trim());
 fs.writeFileSync(path.join(distDir, 'santy-scroll.js'), SCROLL_JS);
+fs.writeFileSync(path.join(distDir, 'santy-themes.css'), THEMES_CSS);
+fs.writeFileSync(path.join(distDir, 'santy-classmap.json'), CLASSMAP_JSON);
 
 // Write granular module files
 for (const name of MODULE_NAMES) {
@@ -5067,6 +5336,8 @@ console.log(`✅ santy-components.css — ${kb(compCSS.length)} (components only
 console.log(`✅ santy-animations.css — ${kb(animCSS.length)} (animations only)`);
 console.log(`✅ santy-email.css    — ${kb(EMAIL_CSS.length)} (email templates)`);
 console.log(`✅ santy-scroll.js    — ${kb(SCROLL_JS.length)} (IntersectionObserver for when-visible:)`);
+console.log(`✅ santy-themes.css   — ${kb(THEMES_CSS.length)} (5 prebuilt data-theme presets)`);
+console.log(`✅ santy-classmap.json — ${kb(CLASSMAP_JSON.length)} (${classSet.size.toLocaleString()} class names for IntelliSense/AI)`);
 console.log(`✅ dist/              — mirrored for NPM package`);
 console.log('');
 console.log('📦 Granular modules:');

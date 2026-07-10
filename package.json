@@ -1,6 +1,6 @@
 {
   "name": "santycss",
-  "version": "2.6.1",
+  "version": "2.7.0",
   "description": "Plain-English utility-first CSS framework — no build step, just classes",
   "main": "index.js",
   "style": "dist/santy.css",
@@ -23,6 +23,8 @@
     "./css/colors": "./dist/santy-colors.css",
     "./css/borders": "./dist/santy-borders.css",
     "./css/effects": "./dist/santy-effects.css",
+    "./css/themes": "./dist/santy-themes.css",
+    "./classmap": "./dist/santy-classmap.json",
     "./min": "./dist/santy.min.css",
     "./postcss": "./postcss/index.js",
     "./jit": "./santy-jit.js",
@@ -36,6 +38,7 @@
     "postcss/",
     "lib/",
     "index.js",
+    "cli.js",
     "santy-jit.js",
     "vite-plugin-santycss.js",
     "purge.js",
@@ -43,7 +46,7 @@
     "README.md"
   ],
   "bin": {
-    "santycss": "./purge.js",
+    "santycss": "./cli.js",
     "santycss-migrate": "./migrate.js"
   },
   "keywords": [
@@ -62,6 +65,7 @@
   ],
   "scripts": {
     "build": "node build.js",
+    "test": "node build.js && node test/run-tests.js",
     "purge": "node purge.js",
     "dev": "node build.js && echo 'Watching...'",
     "prepublish": "node build.js"

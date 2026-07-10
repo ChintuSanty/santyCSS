@@ -21,6 +21,48 @@ Class names read like sentences — `add-padding-24` instead of `p-6`. AI tools 
 
 ---
 
+## What's New in v2.7.0
+
+### 🪄 `:has()` Parent Variants — style parents from children, zero JS
+
+```html
+<!-- Card highlights itself when its checkbox is ticked -->
+<label class="card add-padding-20 add-border-2 border-color-gray-200
+              has-checked:border-color-blue-500 has-checked:background-blue-50 transition-all">
+  <input type="checkbox" class="checkbox"> Pro plan — $12/mo
+</label>
+```
+
+10 parent variants: `has-checked:` `has-focus:` `has-focus-within:` `has-hover:` `has-invalid:` `has-valid:` `has-disabled:` `has-required:` `has-open:` `has-placeholder-shown:` — plus `group-has-*:` for styling children when an ancestor `.group` contains a match.
+
+### 🧩 9 New Components
+
+`​.toast` stacked notifications · `.switch` (with `-sm/-lg`, success/danger) · custom `.checkbox` / `.radio` · `.range` slider · pure-CSS `.carousel` (scroll-snap + dots) · native `.dialog` (`<dialog>` + styled `::backdrop`) · native `.popover` (Popover API, zero JS) · `.file-drop` upload zone. All with dark-mode styles.
+
+### 🎨 Semantic Theming + 5 Prebuilt Themes
+
+```html
+<html data-theme="ocean">  <!-- or sunset · forest · midnight · mono -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy-themes.css">
+  <body class="background-surface color-text">
+```
+
+New semantic utilities — `background-surface`, `background-surface-alt`, `background-primary`, `color-text`, `color-text-muted`, `border-color-default` — consume design tokens and flip automatically with `data-theme` or `.dark`.
+
+### 🛠 Tooling
+
+- **`npx santycss init`** — scaffold a CDN-wired starter page in one command
+- **`santy-classmap.json`** — all 21,000+ class names as JSON (`santycss/classmap`) for IntelliSense, linters, and AI tools
+- **`npm test`** — new 83-check regression suite over the build output
+
+### 🐛 Fixes
+
+- `transition-all` was documented but never generated — now emitted (plus `transition-shadow`)
+- Templates page **Copy Code** now rewrites local CSS paths to CDN URLs, so pasted templates work anywhere (was: broken styles outside the site), with clipboard fallback
+
+---
+
 ## What's New in v2.6.1
 
 ### 🎨 4 New Industry Templates

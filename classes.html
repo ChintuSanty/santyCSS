@@ -1254,48 +1254,4 @@ function applyFilters() {
     section.classList.remove('hidden');
 
     if (!searchTerm) {
-      // No search — show all rows in this section
-      section.querySelectorAll('tbody tr').forEach(function(row) {
-        row.classList.remove('row-hidden', 'row-match');
-      });
-      totalVisible++;
-      return;
-    }
-
-    // Row-level search within the section
-    var sectionHasMatch = false;
-    section.querySelectorAll('tbody tr').forEach(function(row) {
-      var text = row.textContent.toLowerCase();
-      if (text.includes(searchTerm)) {
-        row.classList.remove('row-hidden');
-        row.classList.add('row-match');
-        sectionHasMatch = true;
-      } else {
-        row.classList.add('row-hidden');
-        row.classList.remove('row-match');
-      }
-    });
-
-    if (sectionHasMatch) {
-      section.classList.remove('hidden');
-      totalVisible++;
-    } else {
-      section.classList.add('hidden');
-    }
-  });
-
-  // Update count badge
-  var countEl = document.getElementById('result-count');
-  if (searchTerm) {
-    var matchCount = document.querySelectorAll('tbody tr.row-match').length;
-    countEl.textContent = matchCount + ' match' + (matchCount !== 1 ? 'es' : '');
-  } else {
-    countEl.textContent = '';
-  }
-
-  // No results state
-  document.getElementById('no-results').style.display = (totalVisible === 0) ? 'block' : 'none';
-}
-</script>
-</body>
-</html>
+      // No search — 

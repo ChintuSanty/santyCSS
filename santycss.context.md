@@ -136,6 +136,8 @@ opacity-0   opacity-25   opacity-50   opacity-75   opacity-100
 on-hover:{class}       on-focus:{class}       on-active:{class}
 dark:{class}           group-hover:{class}    peer-hover:{class}
 peer-checked:{class}   on-visited:{class}
+has-checked:{class}    has-focus:{class}      has-invalid:{class}   (parent :has() — v2.7.0)
+has-hover:{class}      has-disabled:{class}   group-has-checked:{class}
 ```
 
 ## Responsive Breakpoints
@@ -207,7 +209,25 @@ to-{color}-{shade}      /* sets --grad-to   */
 .steps   .step   .step-dot   .step-label
 .pagination   .page-link   .page-item
 .notification   .notification-success   .notification-warning   .notification-danger
+.toast   .toast-container   .toast-success/error/warning/info   .toast-close
+.switch  .switch-slider   .switch-sm   .switch-lg
+.checkbox   .radio          (custom-styled inputs)
+.range   .range-sm   .range-lg
+.carousel   .carousel-item   .carousel-dots   .carousel-dot
+.dialog   .dialog-header   .dialog-body   .dialog-footer     (native <dialog>)
+.popover                                                      (native Popover API)
+.file-drop
 ```
+
+## Semantic Theme Utilities (v2.7.0 — flip with data-theme / .dark)
+
+```
+background-surface   background-surface-alt   background-surface-raised
+background-primary   background-secondary     background-accent
+color-text           color-text-muted         color-primary   color-secondary
+border-color-default border-color-primary
+```
+Prebuilt themes (santy-themes.css): <html data-theme="ocean|sunset|forest|midnight|mono">
 
 ## Email Module (santycss/css/email)
 
@@ -264,4 +284,4 @@ to-{color}-{shade}      /* sets --grad-to   */
 
 ---
 
-*Generated from SantyCSS v1.1 · https://santycss.santy.in · https://github.com/ChintuSanty/santyCSS*
+*Generated from SantyCSS v2.7.0 · https://santycss.santy.in · https://github.com/ChintuSanty/santyCSS*
