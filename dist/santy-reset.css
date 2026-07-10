@@ -3,12 +3,15 @@
    https://santycss.santy.in */
 
 /* ============================================================
-   SantyCSS v2.3.0  —  Plain-English Utility CSS Framework
+   SantyCSS v2.7.0  —  Plain-English Utility CSS Framework
    https://github.com/santybad/santy_css
    ============================================================ */
 
 /* ── Box Sizing Reset ── */
 *, *::before, *::after { box-sizing: border-box; }
+
+/* ── Responsive Media Reset ── */
+img, video, picture, svg { max-width: 100%; height: auto; }
 
 /* ── CSS Custom Properties (Theme) ── */
 :root {
@@ -21,6 +24,13 @@
   --santy-warning:        #f59e0b;
   --santy-danger:         #ef4444;
   --santy-info:           #06b6d4;
+  /* ── Semantic Surface Tokens (v2.7.0 — flip with [data-theme] / .dark) ── */
+  --santy-surface:        #ffffff;
+  --santy-surface-alt:    #f9fafb;
+  --santy-surface-raised: #ffffff;
+  --santy-text:           #111827;
+  --santy-text-muted:     #6b7280;
+  --santy-border-color:   #e5e7eb;
   --santy-radius-sm:      4px;
   --santy-radius:         8px;
   --santy-radius-md:      12px;

@@ -58,6 +58,10 @@ const colors     = path.join(dist, 'santy-colors.css');
 const borders    = path.join(dist, 'santy-borders.css');
 const effects    = path.join(dist, 'santy-effects.css');
 
+// Themes + classmap (v2.7.0)
+const themes     = path.join(dist, 'santy-themes.css');
+const classmap   = path.join(dist, 'santy-classmap.json');
+
 // Purge API (tree-shaking)
 const { purge, purgeFiles, extractClasses, minify, EXTS } = require('./lib/purge-core');
 
@@ -67,6 +71,9 @@ module.exports = {
 
   // Granular modules
   reset, layout, flex, grid, spacing, sizing, typography, colors, borders, effects,
+
+  // Themes + classmap (v2.7.0)
+  themes, classmap,
 
   // Purge API
   purge, purgeFiles, extractClasses, minify, EXTS,

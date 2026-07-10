@@ -1627,46 +1627,4 @@ function copyFromModal() {
 }
 
 /* ── Mobile sidebar ── */
-function openMobSidebar() {
-  document.getElementById('mobDrawer').classList.add('open');
-  document.getElementById('mobOverlay').classList.add('open');
-}
-function closeMobSidebar() {
-  document.getElementById('mobDrawer').classList.remove('open');
-  document.getElementById('mobOverlay').classList.remove('open');
-}
-
-/* ── Top nav ── */
-function toggleResources() {
-  document.getElementById('navResBtn').classList.toggle('open');
-  document.getElementById('navDropdown').classList.toggle('open');
-}
-document.addEventListener('click', function(e) {
-  var res = document.getElementById('navResources');
-  if (res && !res.contains(e.target)) {
-    document.getElementById('navResBtn').classList.remove('open');
-    document.getElementById('navDropdown').classList.remove('open');
-  }
-});
-function toggleMobileNav() {
-  var nav   = document.getElementById('main-nav');
-  var icon  = document.getElementById('ham-icon');
-  var close = document.getElementById('ham-close');
-  var open  = nav.classList.toggle('nav-open');
-  icon.style.display  = open ? 'none' : '';
-  close.style.display = open ? ''     : 'none';
-}
-document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeCode(); });
-
-/* ── Snippet search ── */
-const searchInput = document.getElementById('snippet-search');
-searchInput.addEventListener('input', function() {
-  const query = this.value.toLowerCase().trim();
-  document.querySelectorAll('.snip-card').forEach(card => {
-    const title = (card.querySelector('.snip-card-name')?.textContent || '').toLowerCase();
-    card.style.display = (!query || title.includes(query)) ? '' : 'none';
-  });
-});
-</script>
-</body>
-</html>
+function openMobSidebar(
