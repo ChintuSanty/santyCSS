@@ -560,6 +560,30 @@
 .border-color-transparent { border-color: transparent; }
 .border-color-current { border-color: currentColor; }
 
+/* ── Semantic Colors (v2.7.0) — respond to [data-theme] / .dark ── */
+.background-surface        { background-color: var(--santy-surface); }
+.background-surface-alt    { background-color: var(--santy-surface-alt); }
+.background-surface-raised { background-color: var(--santy-surface-raised); }
+.background-primary        { background-color: var(--santy-primary); }
+.background-secondary      { background-color: var(--santy-secondary); }
+.background-accent         { background-color: var(--santy-accent, var(--santy-success)); }
+.color-text                { color: var(--santy-text); }
+.color-text-muted          { color: var(--santy-text-muted); }
+.color-primary             { color: var(--santy-primary); }
+.color-secondary           { color: var(--santy-secondary); }
+.border-color-default      { border-color: var(--santy-border-color); }
+.border-color-primary      { border-color: var(--santy-primary); }
+/* Dark defaults for semantic tokens */
+.dark, [data-theme="dark"] {
+  --santy-surface:        #0f172a;
+  --santy-surface-alt:    #1e293b;
+  --santy-surface-raised: #1e293b;
+  --santy-text:           #f1f5f9;
+  --santy-text-muted:     #94a3b8;
+  --santy-border-color:   #334155;
+}
+
+
 /* ── Fill (SVG) ── */
 .fill-red-50 { fill: #fef2f2; }
 .fill-red-100 { fill: #fee2e2; }

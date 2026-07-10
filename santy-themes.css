@@ -1,0 +1,45 @@
+/* SantyCSS Themes — prebuilt design-token presets (v2.7.0)
+   Usage: <html data-theme="ocean">  +  <link …/santy-themes.css>
+   Semantic utilities (.background-surface, .color-text, .border-color-default,
+   .background-primary, …) automatically follow the active theme.
+   https://santycss.santy.in */
+
+[data-theme] { color-scheme: light; }
+[data-theme="dark"] { color-scheme: dark; }
+
+/* ── Ocean — deep blue, calm ── */
+[data-theme="ocean"] {
+  --santy-primary: #0284c7; --santy-primary-dark: #0369a1; --santy-primary-light: #e0f2fe;
+  --santy-secondary: #475569; --santy-accent: #06b6d4;
+  --santy-surface: #f8fafc; --santy-surface-alt: #f1f5f9; --santy-surface-raised: #ffffff;
+  --santy-text: #0f172a; --santy-text-muted: #64748b; --santy-border-color: #e2e8f0;
+}
+/* ── Sunset — warm orange/rose ── */
+[data-theme="sunset"] {
+  --santy-primary: #ea580c; --santy-primary-dark: #c2410c; --santy-primary-light: #ffedd5;
+  --santy-secondary: #78716c; --santy-accent: #f43f5e;
+  --santy-surface: #fffbf7; --santy-surface-alt: #fef3e7; --santy-surface-raised: #ffffff;
+  --santy-text: #1c1917; --santy-text-muted: #78716c; --santy-border-color: #f0e4d7;
+}
+/* ── Forest — green, natural ── */
+[data-theme="forest"] {
+  --santy-primary: #16a34a; --santy-primary-dark: #15803d; --santy-primary-light: #dcfce7;
+  --santy-secondary: #57534e; --santy-accent: #84cc16;
+  --santy-surface: #f7fdf9; --santy-surface-alt: #ecfdf3; --santy-surface-raised: #ffffff;
+  --santy-text: #14532d; --santy-text-muted: #4d7c0f; --santy-border-color: #d9f0e0;
+}
+/* ── Midnight — dark violet ── */
+[data-theme="midnight"] {
+  color-scheme: dark;
+  --santy-primary: #8b5cf6; --santy-primary-dark: #7c3aed; --santy-primary-light: #2e1065;
+  --santy-secondary: #94a3b8; --santy-accent: #22d3ee;
+  --santy-surface: #0b0716; --santy-surface-alt: #1e1b31; --santy-surface-raised: #241f3d;
+  --santy-text: #ede9fe; --santy-text-muted: #a5b4fc; --santy-border-color: #312e5e;
+}
+/* ── Mono — neutral grayscale ── */
+[data-theme="mono"] {
+  --santy-primary: #171717; --santy-primary-dark: #000000; --santy-primary-light: #e5e5e5;
+  --santy-secondary: #737373; --santy-accent: #404040;
+  --santy-surface: #fafafa; --santy-surface-alt: #f5f5f5; --santy-surface-raised: #ffffff;
+  --santy-text: #171717; --santy-text-muted: #737373; --santy-border-color: #e5e5e5;
+}
