@@ -50,7 +50,7 @@
     }
     * { box-sizing: border-box; }
     html { overflow-x: hidden; }
-    body { margin: 0; background: var(--bg); color: var(--text); font-family: ui-sans-serif, system-ui, sans-serif; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: ui-sans-serif, system-ui, sans-serif; overflow-x: hidden; }
 
     /* Nav */
     .nav-link { transition: color 0.2s; }
@@ -1106,32 +1106,4 @@ document.addEventListener('click', function(e) {
     document.getElementById('navDropdown').classList.remove('open');
   }
 });
-function toggleDark() {
-  var isDark = document.documentElement.classList.toggle('dark');
-  document.getElementById('dark-icon-moon').style.display = isDark ? 'none' : '';
-  document.getElementById('dark-icon-sun').style.display  = isDark ? '' : 'none';
-  try { localStorage.setItem('scb-dark', isDark ? '1' : '0'); } catch(e){}
-}
-(function() {
-  try {
-    if (localStorage.getItem('scb-dark') === '1') {
-      document.documentElement.classList.add('dark');
-      document.addEventListener('DOMContentLoaded', function() {
-        var moon = document.getElementById('dark-icon-moon');
-        var sun  = document.getElementById('dark-icon-sun');
-        if (moon) moon.style.display = 'none';
-        if (sun)  sun.style.display  = '';
-      });
-    }
-  } catch(e){}
-})();
-document.querySelectorAll('#main-nav .nav-link, #main-nav .btn').forEach(function(el) {
-  el.addEventListener('click', function() {
-    document.getElementById('main-nav').classList.remove('nav-open');
-    document.getElementById('ham-icon').style.display = 'block';
-    document.getElementById('ham-close').style.display = 'none';
-  });
-});
-</script>
-</body>
-</html>
+function toggl

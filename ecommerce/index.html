@@ -12,8 +12,8 @@
       --brand-dark: #1d4ed8;
       --brand-light: #eff6ff;
     }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--santy-font-sans); }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { font-family: var(--santy-font-sans); overflow-x: hidden; }
 
     /* ── Announcement bar ── */
     #announcement-bar { transition: max-height 0.3s ease, opacity 0.3s ease; overflow: hidden; max-height: 48px; }
@@ -866,8 +866,4 @@ function subscribeNewsletter(e) {
   e.preventDefault();
   const email = e.target.querySelector('input').value;
   showToast(`🎉 Welcome! You're subscribed with ${email}`,'success');
-  e.target.reset();
-}
-</script>
-</body>
-</html>
+  e.target.re

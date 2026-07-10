@@ -43,7 +43,7 @@
   <style>
     /* Tiny extras for the docs page only */
     html { scroll-behavior: smooth; overflow-x: hidden; }
-    body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    body { font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; overflow-x: hidden; }
     pre  { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
     .code-block {
       background: #0f172a;
@@ -216,13 +216,17 @@
       #main-nav .nav-link:hover { background: #f9fafb; }
       #main-nav .btn { margin-top: 8px; text-align: center; padding: 12px; font-size: 15px; }
       /* Grid collapse */
-      .grid-cols-2, .grid-cols-3, .grid-cols-4, .grid-cols-5 { grid-template-columns: 1fr !important; }
+      .grid-cols-2, .grid-cols-3, .grid-cols-4, .grid-cols-5, .grid-cols-6 { grid-template-columns: 1fr !important; }
       [style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
       /* Hero text */
       .set-text-64 { font-size: 32px !important; letter-spacing: -1px !important; }
       .set-text-48 { font-size: 26px !important; }
       .set-text-40 { font-size: 24px !important; }
+      .set-text-32 { font-size: 22px !important; }
+      .set-text-28 { font-size: 20px !important; }
       .add-padding-y-96 { padding-top: 48px !important; padding-bottom: 48px !important; }
+      .add-padding-y-80 { padding-top: 40px !important; padding-bottom: 40px !important; }
+      .add-padding-x-128, .add-padding-x-96, .add-padding-x-80, .add-padding-x-64 { padding-left: 20px !important; padding-right: 20px !important; }
       /* Docs layout */
       .docs-layout { display: block !important; }
       .docs-sidebar { display: none !important; }
@@ -230,6 +234,13 @@
       .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
       .hero-cta-group { flex-direction: column !important; gap: 12px !important; }
       .hero-cta-group .btn { width: 100%; justify-content: center; }
+      /* Hero editor — convert side-by-side split to stacked on mobile */
+      #hero-editor [style*="border-right:1px solid"], #hero-editor [style*="border-right: 1px solid"] { border-right: none !important; border-bottom: 1px solid #e5e7eb !important; }
+      #hero-editor textarea, #hero-editor iframe { min-height: 200px !important; height: 200px !important; }
+      /* Prevent wide pre/code content from blowing the layout */
+      pre { max-width: 100%; overflow-x: auto; }
+      /* Wide flex children with min-width must allow shrink */
+      [style*="min-width:260px"] { min-width: 0 !important; }
     }
   </style>
 </head>
@@ -289,7 +300,7 @@
 <!-- HERO -->
 <section style="padding:48px 24px 32px;text-align:center;background:#fff;">
   <!-- India's First badge -->
-  <div style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(255,153,51,.12),rgba(19,136,8,.12));border:1px solid rgba(255,153,51,.35);border-radius:9999px;padding:5px 16px;font-size:12.5px;font-weight:700;color:#374151;margin-bottom:14px;">
+  <div style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(255,153,51,.12),rgba(19,136,8,.12));border:1px solid rgba(255,153,51,.35);border-radius:9999px;padding:5px 16px;font-size:12.5px;font-weight:700;color:#374151;margin-bottom:14px;flex-wrap:wrap;justify-content:center;max-width:calc(100vw - 48px);">
     🇮🇳 India's First Utility-First CSS Framework
   </div>
   <!-- Eyebrow pills -->
@@ -4268,114 +4279,4 @@ const CLASS_DICT = [
   ['add-shadow-lg','Adds a large box-shadow'],
   ['add-border-{n}','Adds border of {n}px width. E.g. add-border-1'],
   ['add-border-left-{n}','Adds left border of {n}px. E.g. add-border-left-4'],
-  ['border-color-blue-{n}','Sets border color to blue shade'],
-  ['set-width-full','Sets width:100%'],
-  ['set-width-{n}-of-{d}','Sets fractional width. E.g. set-width-1-of-2 → width:50%'],
-  ['set-height-full','Sets height:100%'],
-  ['position-sticky','Sets position:sticky'],
-  ['position-relative','Sets position:relative'],
-  ['position-absolute','Sets position:absolute'],
-  ['pin-top-{n}','Sets top:{n}px on positioned element'],
-  ['layer-{n}','Sets z-index:{n}. E.g. layer-50 → z-index:50'],
-  ['on-hover:add-shadow-lg','Applies add-shadow-lg on hover'],
-  ['on-hover:color-blue-600','Changes text color to blue-600 on hover'],
-  ['transition-normal','Adds CSS transition for smooth animations'],
-  ['card','SantyCSS card component — white bg, rounded corners, subtle shadow'],
-  ['btn','SantyCSS base button class'],
-  ['btn-primary','Primary button — blue background, white text'],
-  ['btn-outline','Outline button — transparent bg with border'],
-  ['badge','Small inline label/tag — use with background/color classes'],
-  ['input','Styled form input — border, padding, border-radius'],
-  ['grid-cols-{n}','Sets grid-template-columns to {n} equal columns. E.g. grid-cols-3'],
-  ['line-height-relaxed','Sets line-height:1.625 for comfortable reading'],
-  ['overflow-hidden','Sets overflow:hidden'],
-  ['text-ellipsis','Truncates text with ... (text-overflow:ellipsis)'],
-  ['add-border-radius-full','Sets border-radius:9999px — pill shape'],
-];
-
-function searchClass(q) {
-  const out = document.getElementById('class-search-result');
-  if (!out) return;
-  q = q.trim().toLowerCase();
-  if (!q) { out.innerHTML = ''; return; }
-  const matches = CLASS_DICT.filter(([cls]) => cls.toLowerCase().includes(q) || cls.replace(/-\{[^}]+\}/g,'').includes(q));
-  if (!matches.length) {
-    out.innerHTML = '<p style="font-size:13px;color:#9ca3af;margin:0;">No match found — try <a href="classes.html" style="color:#3b82f6;">the full class reference</a> for all 8,500+ classes.</p>';
-    return;
-  }
-  out.innerHTML = matches.slice(0,4).map(([cls,desc]) =>
-    `<div style="display:flex;align-items:flex-start;gap:12px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:10px 14px;text-align:left;margin-bottom:6px;">
-      <code style="font-family:ui-monospace,'SF Mono',monospace;font-size:12px;color:#2563eb;background:#eff6ff;padding:2px 8px;border-radius:5px;white-space:nowrap;flex-shrink:0;">.${cls}</code>
-      <span style="font-size:13px;color:#374151;line-height:1.5;">${desc}</span>
-    </div>`
-  ).join('') + (matches.length > 4 ? `<p style="font-size:12px;color:#9ca3af;margin:4px 0 0;text-align:center;">+${matches.length-4} more — <a href="classes.html" style="color:#3b82f6;">view all</a></p>` : '');
-}
-
-function copyCDNStrip() {
-  const text = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css">';
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.getElementById('cdn-strip-btn');
-    if (btn) { btn.textContent = 'Copied!'; btn.style.color = '#16a34a'; setTimeout(() => { btn.textContent = 'Copy CDN'; btn.style.color = '#374151'; }, 1500); }
-  });
-}
-
-function formatHTML() {
-  const ta = document.getElementById('hero-textarea');
-  if (!ta) return;
-  // Simple indent formatting
-  let html = ta.value;
-  let indent = 0;
-  const lines = html.replace(/>\s*</g, '>\n<').split('\n');
-  const formatted = lines.map(line => {
-    line = line.trim();
-    if (!line) return '';
-    if (line.match(/^<\//) && indent > 0) indent--;
-    const result = '  '.repeat(indent) + line;
-    if (line.match(/^<[^/!]/) && !line.match(/\/>$/) && !line.match(/<\/.*>$/) && !line.match(/^<(br|hr|img|input|link|meta|area|base|col|embed|param|source|track|wbr)/i)) indent++;
-    return result;
-  });
-  ta.value = formatted.filter(l => l !== '').join('\n');
-  scheduleRender();
-}
-
-function shareSnippet() {
-  const ta = document.getElementById('hero-textarea');
-  if (!ta) return;
-  const encoded = btoa(unescape(encodeURIComponent(ta.value)));
-  const url = window.location.origin + '/playground.html?code=' + encoded;
-  navigator.clipboard.writeText(url).then(() => alert('Share link copied to clipboard!'));
-}
-
-// Dark mode
-function toggleDark() {
-  document.documentElement.classList.toggle('dark-mode');
-  const btn = document.getElementById('dark-toggle');
-  const isDark = document.documentElement.classList.contains('dark-mode');
-  if (btn) btn.textContent = isDark ? '☀️' : '🌙';
-  localStorage.setItem('santy-dark', isDark ? '1' : '0');
-}
-
-// Init
-document.addEventListener('DOMContentLoaded', function() {
-  // Check saved dark mode
-  if (localStorage.getItem('santy-dark') === '1') {
-    document.documentElement.classList.add('dark-mode');
-    const btn = document.getElementById('dark-toggle');
-    if (btn) btn.textContent = '☀️';
-  }
-  // Load default preset
-  const ta = document.getElementById('hero-textarea');
-  if (ta) {
-    ta.value = PRESETS.card;
-    renderIframe();
-  }
-  // Check for stored dark mode preference
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('santy-dark')) {
-    document.documentElement.classList.add('dark-mode');
-    const btn = document.getElementById('dark-toggle');
-    if (btn) btn.textContent = '☀️';
-  }
-});
-</script>
-</body>
-</html>
+  ['border-color-blue-{n}

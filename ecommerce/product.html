@@ -7,8 +7,8 @@
   <link rel="stylesheet" href="../santy.css">
   <link rel="stylesheet" href="../santy-variants.css">
   <style>
-    html { scroll-behavior:smooth; }
-    body { font-family:var(--santy-font-sans); }
+    html { scroll-behavior:smooth; overflow-x:hidden; }
+    body { font-family:var(--santy-font-sans); overflow-x:hidden; }
     .site-nav { position:sticky;top:0;z-index:200;background:#fff;border-bottom:1px solid #e5e7eb;transition:box-shadow .3s; }
     .site-nav.scrolled { box-shadow:0 4px 16px rgba(0,0,0,.08); }
     .navbar-item { padding:8px 12px;border-radius:8px;text-decoration:none;font-size:14px;font-weight:500;color:#374151;transition:color .2s;display:inline-flex;align-items:center; }
@@ -630,7 +630,3 @@ function toggleDark() {
 }
 (function() {
   if (localStorage.getItem('luxe-dark') === '1') document.getElementById('html-root').classList.add('dark');
-})();
-</script>
-</body>
-</html>

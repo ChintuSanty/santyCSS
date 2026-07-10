@@ -60,6 +60,9 @@ add(
 /* ── Box Sizing Reset ── */
 *, *::before, *::after { box-sizing: border-box; }
 
+/* ── Responsive Media Reset ── */
+img, video, picture, svg { max-width: 100%; height: auto; }
+
 /* ── CSS Custom Properties (Theme) ── */
 :root {
   /* ── Design Tokens (override to customise) ── */
