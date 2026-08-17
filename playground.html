@@ -1320,7 +1320,7 @@ function copyHTML() {
 }
 function downloadHTML() {
   const base = location.href.replace(/[^/]*/,'');
-  const full = `<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>SantyCSS Component</title>\n  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.css">\n</head>\n<body style="font-family:ui-sans-serif,system-ui,sans-serif;">\n${editor.value}\n</body>\n</html>`;
+  const full = `<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <title>SantyCSS Component</title>\n  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2/dist/santy.css">\n</head>\n<body style="font-family:ui-sans-serif,system-ui,sans-serif;">\n${editor.value}\n</body>\n</html>`;
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([full],{type:'text/html'}));
   a.download = 'santycss-component.html';

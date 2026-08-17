@@ -44,6 +44,59 @@ const palette = {
 };
 const namedColors = { white: '#ffffff', black: '#000000', transparent: 'transparent', current: 'currentColor' };
 
+// ─── USER CONFIGURATION (santy.config.json) ─────────────────────────────────
+// Optional. Looked up in the working directory (or via SANTY_CONFIG env path).
+// Supported keys:
+//   colors      { name: '#hex' | { 50..900: '#hex' } }  — extend/override palette
+//   spacing     [numbers]                                — extra px values
+//   fontSizes   [numbers]                                — extra font-size px values
+//   breakpoints { prefix: '(min-width: 900px)' }         — extend/override breakpoints
+//   prefix      'sty-'                                   — prefix every class name
+//   output      './my-css'                               — write files to this dir only
+const configPath = process.env.SANTY_CONFIG
+  ? path.resolve(process.env.SANTY_CONFIG)
+  : path.join(process.cwd(), 'santy.config.json');
+let userConfig = {};
+if (fs.existsSync(configPath)) {
+  try {
+    userConfig = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+    console.log(`🔧 Config loaded: ${configPath}`);
+  } catch (e) {
+    console.error(`❌ Invalid JSON in ${configPath}: ${e.message}`);
+    process.exit(1);
+  }
+}
+
+if (userConfig.colors) {
+  const SHADES = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+  for (const [name, val] of Object.entries(userConfig.colors)) {
+    if (typeof val === 'string') {
+      palette[name] = Object.fromEntries(SHADES.map(s => [s, val]));
+    } else {
+      palette[name] = { ...(palette[name] || {}), ...val };
+    }
+  }
+}
+if (Array.isArray(userConfig.spacing)) {
+  userConfig.spacing.forEach(v => { if (!spacing.includes(v)) spacing.push(v); });
+  spacing.sort((a, b) => a - b);
+}
+if (Array.isArray(userConfig.fontSizes)) {
+  userConfig.fontSizes.forEach(v => { if (!fontSizes.includes(v)) fontSizes.push(v); });
+  fontSizes.sort((a, b) => a - b);
+}
+
+// Optional class prefix — applied to every generated class selector at output time.
+// url(...) bodies are shielded so data URIs are never touched.
+function applyPrefix(css) {
+  const prefix = userConfig.prefix;
+  if (!prefix) return css;
+  const urls = [];
+  css = css.replace(/url\([^)]*\)/g, m => { urls.push(m); return `\x00URL${urls.length - 1}\x00`; });
+  css = css.replace(/\.([A-Za-z_](?:[\w-]|\\.)*)/g, (m, cls) => `.${prefix}${cls}`);
+  return css.replace(/\x00URL(\d+)\x00/g, (m, i) => urls[+i]);
+}
+
 // ─── CSS OUTPUT BUILDER ─────────────────────────────────────────────────────
 const lines = [];
 const add = (...css) => lines.push(...css);
@@ -958,6 +1011,7 @@ const breakpoints = {
   'xl':  '(min-width: 1280px)',
   'xxl': '(min-width: 1536px)',
 };
+Object.assign(breakpoints, userConfig.breakpoints || {});
 
 // Responsive variants for the most commonly needed classes
 const responsiveClasses = [
@@ -1452,6 +1506,103 @@ extraStateVariants.forEach(([prefix, pseudo]) => {
   extraStateClasses.forEach(([cls, prop]) => {
     add(`.${prefix}\\:${cls}${pseudo} { ${prop}; }`);
   });
+});
+add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
+
+// ─── ARIA VARIANTS ───────────────────────────────────────────────────────────
+// Style elements based on ARIA state — great for accessible tabs, accordions,
+// menus. Usage: class="aria-expanded:rotate-180 aria-selected:background-blue-50"
+add(`\n/* ═══ VARIANTS_BLOCK_START ═══ */`);
+add(`\n/* ── ARIA Variants ──
+   Usage: class="aria-expanded:rotate-180 aria-selected:background-blue-50" */`);
+const ariaVariants = [
+  ['aria-expanded', '[aria-expanded="true"]'],
+  ['aria-selected', '[aria-selected="true"]'],
+  ['aria-checked',  '[aria-checked="true"]'],
+  ['aria-pressed',  '[aria-pressed="true"]'],
+  ['aria-disabled', '[aria-disabled="true"]'],
+  ['aria-current',  '[aria-current="page"]'],
+  ['aria-hidden',   '[aria-hidden="true"]'],
+  ['aria-busy',     '[aria-busy="true"]'],
+  ['aria-invalid',  '[aria-invalid="true"]'],
+];
+const ariaClasses = [
+  ...extraStateClasses,
+  ['rotate-180','transform:rotate(180deg)'],
+  ['rotate-0','transform:rotate(0deg)'],
+  ['text-bold','font-weight:700'],
+  ['text-underline','text-decoration:underline'],
+  ['cursor-not-allowed','cursor:not-allowed'],
+];
+ariaVariants.forEach(([prefix, attr]) => {
+  add(`\n/* ${prefix} */`);
+  ariaClasses.forEach(([cls, prop]) => {
+    add(`.${prefix}\\:${cls}${attr} { ${prop}; }`);
+  });
+});
+// group-aria: — style children when a marked .group ancestor carries the ARIA state
+['expanded','selected','checked','current'].forEach(state => {
+  const attr = state === 'current' ? '[aria-current="page"]' : `[aria-${state}="true"]`;
+  add(`\n/* group-aria-${state} */`);
+  [
+    ['make-block','display:block'],['make-hidden','display:none'],
+    ['opacity-100','opacity:1'],['opacity-0','opacity:0'],
+    ['rotate-180','transform:rotate(180deg)'],
+    ['color-blue-600','color:#2563eb'],
+    ['background-blue-50','background-color:#eff6ff'],
+  ].forEach(([cls, prop]) => {
+    add(`.group${attr} .group-aria-${state}\\:${cls} { ${prop}; }`);
+  });
+});
+add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
+
+// ─── RTL / LTR VARIANTS ──────────────────────────────────────────────────────
+// Direction-aware overrides for internationalised layouts.
+// Usage: <html dir="rtl"> + class="text-left rtl:text-right"
+add(`\n/* ═══ VARIANTS_BLOCK_START ═══ */`);
+add(`\n/* ── RTL / LTR Variants ──
+   Usage: <html dir="rtl"> + class="text-left rtl:text-right" */`);
+const dirClasses = [
+  ['text-left','text-align:left'],['text-right','text-align:right'],
+  ['flex-row','flex-direction:row'],['flex-row-reverse','flex-direction:row-reverse'],
+  ['make-hidden','display:none'],['make-block','display:block'],
+];
+[0,4,8,12,16,24,32,48].forEach(v => {
+  dirClasses.push([`add-margin-left-${v}`,`margin-left:${v}px`]);
+  dirClasses.push([`add-margin-right-${v}`,`margin-right:${v}px`]);
+  dirClasses.push([`add-padding-left-${v}`,`padding-left:${v}px`]);
+  dirClasses.push([`add-padding-right-${v}`,`padding-right:${v}px`]);
+});
+dirClasses.push(['add-margin-left-auto','margin-left:auto']);
+dirClasses.push(['add-margin-right-auto','margin-right:auto']);
+[['rtl','[dir="rtl"]'],['ltr','[dir="ltr"]']].forEach(([prefix, dirSel]) => {
+  add(`\n/* ${prefix}: */`);
+  dirClasses.forEach(([cls, prop]) => {
+    add(`${dirSel} .${prefix}\\:${cls} { ${prop}; }`);
+  });
+});
+add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
+
+// ─── MAX-WIDTH BREAKPOINT VARIANTS ───────────────────────────────────────────
+// Tailwind-style max-* breakpoints: apply *below* a viewport width.
+// Usage: class="grid-cols-3 max-md:grid-cols-1"
+add(`\n/* ═══ VARIANTS_BLOCK_START ═══ */`);
+add(`\n/* ── Max-Width Breakpoints ──
+   Usage: class="grid-cols-3 max-md:grid-cols-1" (applies BELOW the breakpoint) */`);
+const maxBreakpoints = {
+  'max-sm':  '(max-width: 639px)',
+  'max-md':  '(max-width: 767px)',
+  'max-lg':  '(max-width: 1023px)',
+  'max-xl':  '(max-width: 1279px)',
+  'max-xxl': '(max-width: 1535px)',
+};
+Object.entries(maxBreakpoints).forEach(([prefix, mq]) => {
+  add(`\n@media ${mq} {`);
+  responsiveClasses.forEach(([cls, props]) => {
+    const val = props.split(';').map(p => p.trim()).filter(Boolean).map(p => p + ';').join(' ');
+    add(`  .${prefix}\\:${cls} { ${val} }`);
+  });
+  add(`}`);
 });
 add(`/* ═══ VARIANTS_BLOCK_END ═══ */`);
 
@@ -5170,7 +5321,7 @@ const startCSS = `/* SantyCSS Start — Drop-in CDN build
 const SCROLL_JS = `/*! santy-scroll.js — SantyCSS Scroll Observer v2.1
  * Activates when-visible: viewport-entry animations via IntersectionObserver.
  *
- * CDN: <script src="https://cdn.jsdelivr.net/npm/santycss/dist/santy-scroll.js"></script>
+ * CDN: <script src="https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-scroll.js"></script>
  *
  * Modifiers read from element classes:
  *   enter-at-{15|25|50|75}  — threshold (default: 0.15)
@@ -5262,11 +5413,26 @@ const THEMES_CSS = `/* SantyCSS Themes — prebuilt design-token presets (v2.7.0
 }
 `;
 
+// ─── APPLY OPTIONAL CLASS PREFIX (santy.config.json → "prefix") ──────────────
+const OUT_CSS = {
+  'santy.css': applyPrefix(fullCSS),
+  'santy-core.css': applyPrefix(slimmedCoreCSS),
+  'santy-variants.css': applyPrefix(variantsCSS),
+  'santy-start.css': applyPrefix(startCSS),
+  'santy-components.css': applyPrefix(compCSS),
+  'santy-animations.css': applyPrefix(animCSS),
+  'santy-email.css': applyPrefix(EMAIL_CSS.trim()),
+  'santy-themes.css': applyPrefix(THEMES_CSS),
+};
+for (const name of MODULE_NAMES) {
+  OUT_CSS[`santy-${name}.css`] = applyPrefix(moduleCSS[name]);
+}
+
 // ─── CLASSMAP / INTELLISENSE DATA (v2.7.0) ───────────────────────────────────
 // Every generated class name — powers editor IntelliSense, AI tooling, linters.
 const pkgVersion = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8')).version;
 const classSet = new Set();
-const allGeneratedCSS = fullCSS + '\n' + THEMES_CSS;
+const allGeneratedCSS = OUT_CSS['santy.css'] + '\n' + OUT_CSS['santy-themes.css'];
 for (const m of allGeneratedCSS.matchAll(/\.((?:[a-zA-Z0-9_-]+|\\:)+)/g)) {
   const cls = m[1].replace(/\\:/g, ':').replace(/\\/g, '');
   if (/^[0-9]/.test(cls)) continue;
@@ -5280,40 +5446,8 @@ const CLASSMAP_JSON = JSON.stringify({
   classes: [...classSet].sort(),
 });
 
-// Write all output files
-fs.writeFileSync('santy.css', fullCSS);
-fs.writeFileSync('santy-core.css', slimmedCoreCSS);
-fs.writeFileSync('santy-variants.css', variantsCSS);
-fs.writeFileSync('santy-start.css', startCSS);
-fs.writeFileSync('santy-components.css', compCSS);
-fs.writeFileSync('santy-animations.css', animCSS);
-fs.writeFileSync('santy-email.css', EMAIL_CSS.trim());
-fs.writeFileSync('santy-scroll.js', SCROLL_JS);
-fs.writeFileSync('santy-themes.css', THEMES_CSS);
-fs.writeFileSync('santy-classmap.json', CLASSMAP_JSON);
-
-// Mirror to dist/ for NPM package
-const distDir = path.join(__dirname, 'dist');
-if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true });
-fs.writeFileSync(path.join(distDir, 'santy.css'), fullCSS);
-fs.writeFileSync(path.join(distDir, 'santy-core.css'), slimmedCoreCSS);
-fs.writeFileSync(path.join(distDir, 'santy-variants.css'), variantsCSS);
-fs.writeFileSync(path.join(distDir, 'santy-start.css'), startCSS);
-fs.writeFileSync(path.join(distDir, 'santy-components.css'), compCSS);
-fs.writeFileSync(path.join(distDir, 'santy-animations.css'), animCSS);
-fs.writeFileSync(path.join(distDir, 'santy-email.css'), EMAIL_CSS.trim());
-fs.writeFileSync(path.join(distDir, 'santy-scroll.js'), SCROLL_JS);
-fs.writeFileSync(path.join(distDir, 'santy-themes.css'), THEMES_CSS);
-fs.writeFileSync(path.join(distDir, 'santy-classmap.json'), CLASSMAP_JSON);
-
-// Write granular module files
-for (const name of MODULE_NAMES) {
-  fs.writeFileSync(`santy-${name}.css`, moduleCSS[name]);
-  fs.writeFileSync(path.join(distDir, `santy-${name}.css`), moduleCSS[name]);
-}
-
 // Generate minified version
-const minCSS = fullCSS
+const minCSS = OUT_CSS['santy.css']
   .replace(/\/\*[\s\S]*?\*\//g, '')
   .replace(/\s*\{\s*/g, '{')
   .replace(/\s*\}\s*/g, '}')
@@ -5323,8 +5457,34 @@ const minCSS = fullCSS
   .replace(/\n+/g, '')
   .replace(/\s{2,}/g, ' ')
   .trim();
-fs.writeFileSync('santy.min.css', minCSS);
-fs.writeFileSync(path.join(distDir, 'santy.min.css'), minCSS);
+OUT_CSS['santy.min.css'] = minCSS;
+
+const OUT_FILES = {
+  ...OUT_CSS,
+  'santy-scroll.js': SCROLL_JS,
+  'santy-classmap.json': CLASSMAP_JSON,
+};
+
+// ─── WRITE OUTPUT FILES ──────────────────────────────────────────────────────
+// Default: repo root + dist/ mirror (NPM package layout).
+// With "output" in santy.config.json: write everything to that directory only —
+// used by `npx santycss build` so custom builds never touch node_modules.
+const outDir = userConfig.output ? path.resolve(process.cwd(), userConfig.output) : null;
+const distDir = path.join(__dirname, 'dist');
+if (outDir) {
+  fs.mkdirSync(outDir, { recursive: true });
+} else if (!fs.existsSync(distDir)) {
+  fs.mkdirSync(distDir, { recursive: true });
+}
+for (const [name, content] of Object.entries(OUT_FILES)) {
+  if (outDir) {
+    fs.writeFileSync(path.join(outDir, name), content);
+  } else {
+    fs.writeFileSync(name, content);
+    fs.writeFileSync(path.join(distDir, name), content);
+  }
+}
+if (outDir) console.log(`📁 Output written to ${outDir}`);
 
 const kb = n => (n / 1024).toFixed(1) + 'KB';
 console.log(`✅ santy-start.css    — ${kb(startCSS.length)} (CDN drop-in: base + components, no extended variants/animations)`);

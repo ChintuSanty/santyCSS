@@ -8,7 +8,7 @@ SantyCSS is a plain-English utility-first CSS framework. Classes read like Engli
 No build step required — just link `santy.css` and use the classes directly.
 
 Install: `npm install santycss`
-CDN: `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.css">`
+CDN: `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2/dist/santy.css">`
 
 ---
 

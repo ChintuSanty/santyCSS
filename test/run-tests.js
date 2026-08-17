@@ -123,8 +123,11 @@ test('santy.css braces balanced', () => {
 // ── 9. package.json exports resolve to real files ────────────────────────────
 test('package.json exports resolve', () => {
   const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
-  for (const [key, rel] of Object.entries(pkg.exports)) {
-    assert(fs.existsSync(path.join(ROOT, rel)), `export "${key}" → ${rel} missing`);
+  for (const [key, val] of Object.entries(pkg.exports)) {
+    const rels = typeof val === 'string' ? [val] : Object.values(val);
+    for (const rel of rels) {
+      assert(fs.existsSync(path.join(ROOT, rel)), `export "${key}" → ${rel} missing`);
+    }
   }
   for (const [name, rel] of Object.entries(pkg.bin || {})) {
     assert(fs.existsSync(path.join(ROOT, rel)), `bin "${name}" → ${rel} missing`);
@@ -141,6 +144,47 @@ test('cli.js init scaffolds a starter', () => {
   assert(fs.existsSync(out), 'index.html not created');
   const html = fs.readFileSync(out, 'utf8');
   assert(html.includes('cdn.jsdelivr.net/npm/santycss'), 'CDN link missing');
+  fs.rmSync(tmp, { recursive: true, force: true });
+});
+
+// ── 11. v2.8.0 variants: ARIA, RTL/LTR, max-width breakpoints ──────────────
+[
+  'aria-expanded\\:', 'aria-selected\\:', 'aria-checked\\:', 'aria-pressed\\:',
+  'aria-disabled\\:', 'aria-current\\:', 'aria-invalid\\:', 'group-aria-expanded\\:',
+  'rtl\\:', 'ltr\\:', 'max-sm\\:', 'max-md\\:', 'max-lg\\:', 'max-xl\\:',
+].forEach(v => test(`v2.8 variant ${v.replace('\\', '')}`, () => assert(css.includes('.' + v), `${v} not found`)));
+
+test('ARIA variant rules use attribute selectors', () => {
+  assert(/\.aria-expanded\\:rotate-180\[aria-expanded="true"\]/.test(css), 'aria-expanded rule malformed');
+});
+test('rtl: rules keyed off [dir="rtl"]', () => {
+  assert(/\[dir="rtl"\] \.rtl\\:[a-z]/.test(css), 'rtl rule malformed');
+});
+test('max-md: wrapped in max-width media query', () => {
+  const i = css.indexOf('.max-md\\:');
+  assert(i > -1 && css.lastIndexOf('@media (max-width: 767px)', i) > -1, 'max-md media query malformed');
+});
+
+// ── 12. santy.config.json customization (colors, breakpoints, prefix) ───────
+test('config: custom colors, spacing, breakpoints, prefix, output', () => {
+  const os = require('os');
+  const { execFileSync } = require('child_process');
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'santy-cfg-'));
+  fs.writeFileSync(path.join(tmp, 'santy.config.json'), JSON.stringify({
+    colors: { brand: { 500: '#0a5cff' }, solidcolor: '#123456' },
+    spacing: [13],
+    breakpoints: { 'tablet-up': '(min-width: 900px)' },
+    prefix: 'sty-',
+    output: './out',
+  }));
+  execFileSync('node', [path.join(ROOT, 'build.js')], { cwd: tmp, stdio: 'ignore' });
+  const out = fs.readFileSync(path.join(tmp, 'out', 'santy.css'), 'utf8');
+  assert(out.includes('.sty-make-flex'), 'prefix not applied');
+  assert(out.includes('.sty-background-brand-500'), 'custom color shade missing');
+  assert(out.includes('.sty-background-solidcolor-500'), 'single-hex color missing');
+  assert(out.includes('.sty-add-padding-13'), 'custom spacing missing');
+  assert(out.includes('.sty-tablet-up\\:'), 'custom breakpoint missing');
+  assert(!fs.existsSync(path.join(tmp, 'dist')), 'custom output should not write ./dist');
   fs.rmSync(tmp, { recursive: true, force: true });
 });
 

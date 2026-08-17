@@ -1,7 +1,7 @@
 /*! santy-scroll.js — SantyCSS Scroll Observer v2.1
  * Activates when-visible: viewport-entry animations via IntersectionObserver.
  *
- * CDN: <script src="https://cdn.jsdelivr.net/npm/santycss/dist/santy-scroll.js"></script>
+ * CDN: <script src="https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-scroll.js"></script>
  *
  * Modifiers read from element classes:
  *   enter-at-{15|25|50|75}  — threshold (default: 0.15)
