@@ -53,7 +53,7 @@ Search **"SantyCSS IntelliSense"** in the VS Code Extensions panel, or install f
 SantyCSS is a utility-first CSS framework with 8,500+ classes and no build step required.
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2/dist/santy.css">
 ```
 
 → [santycss.santy.in](https://santycss.santy.in)

@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build CSS
+        run: node build.js
+
+      - name: Run test suite
+        run: node test/run-tests.js
+
+      - name: TypeScript declaration check
+        run: npx --yes -p typescript@5 tsc index.d.ts --noEmit --strict --lib es2015
+
+      - name: Check committed dist is in sync with build.js
+        # The classmap embeds the build date, so it is excluded from the drift check.
+        run: |
+          git diff --exit-code -- . \
+            ':(exclude)santy-classmap.json' \
+            ':(exclude)dist/santy-classmap.json' \
+            || (echo '::error::Committed CSS is out of sync with build.js — run `node build.js` and commit the result.' && exit 1)
