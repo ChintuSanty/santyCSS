@@ -21,6 +21,92 @@ Class names read like sentences — `add-padding-24` instead of `p-6`. AI tools 
 
 ---
 
+## What's New in v2.8.0
+
+### 🔧 Configuration System — `santy.config.json`
+
+Customize the framework without forking. Drop a `santy.config.json` in your project and run one command:
+
+```json
+{
+  "colors": { "brand": { "500": "#0a5cff" }, "accent": "#7c3aed" },
+  "spacing": [13, 26],
+  "fontSizes": [15, 22],
+  "breakpoints": { "tablet-up": "(min-width: 900px)" },
+  "prefix": "sty-",
+  "output": "./santy-dist"
+}
+```
+
+```bash
+npx santycss build   # generates your customized bundles into ./santy-dist
+```
+
+| Key | What it does |
+|---|---|
+| `colors` | Add brand colors — a single hex applies to all shades, or pass a `{ 50…900 }` shade map. Generates `background-brand-500`, `color-brand-500`, etc. |
+| `spacing` | Extra px values for padding/margin/gap scales |
+| `fontSizes` | Extra px values for `set-text-{n}` |
+| `breakpoints` | Custom responsive prefixes — `tablet-up:make-flex` |
+| `prefix` | Prefix every class (`sty-make-flex`) to avoid collisions in legacy codebases |
+| `output` | Output directory for the custom build |
+
+### ♿ ARIA State Variants
+
+Style straight from accessibility attributes — the state and the styling can never drift apart:
+
+```html
+<button aria-expanded="false" class="make-flex align-center gap-8">
+  Menu <span class="aria-expanded:rotate-180 transition-all">▾</span>
+</button>
+```
+
+`aria-expanded:` `aria-selected:` `aria-checked:` `aria-pressed:` `aria-disabled:` `aria-current:` `aria-hidden:` `aria-busy:` `aria-invalid:` — plus `group-aria-*:` to style children from a `.group` ancestor's ARIA state.
+
+### 🌐 RTL / LTR Variants
+
+```html
+<div class="add-padding-left-24 rtl:add-padding-left-0 rtl:add-padding-right-24">…</div>
+```
+
+`rtl:` and `ltr:` prefixes activate based on `<html dir="rtl|ltr">` — alongside the existing logical-property utilities (`add-padding-inline-{n}`, `text-start`, `ms-auto`).
+
+### 📐 Max-Width Breakpoints
+
+```html
+<div class="grid-cols-3 max-md:grid-cols-1">…</div>
+```
+
+`max-sm:` `max-md:` `max-lg:` `max-xl:` `max-xxl:` apply **below** the breakpoint — handy for desktop-first layouts.
+
+### 🛠 DX & Project Health
+
+- **TypeScript declarations** (`index.d.ts`) for the package entry and the `santy.config.json` shape
+- **CI on every PR** — build, 83-check test suite, type-check, and generated-CSS drift check; npm publishes now run tests first
+- `LICENSE` (MIT), `CHANGELOG.md`, `CONTRIBUTING.md`, `SECURITY.md` added
+- Docs and the CLI starter now pin the CDN to the current major (`santycss@2`)
+
+---
+
+## Browser Support
+
+Core utilities (flex, grid, spacing, colors, typography, borders, effects) work in **all evergreen browsers** and are safe everywhere. Some opt-in features rely on modern CSS:
+
+| Feature | Classes | Chrome/Edge | Firefox | Safari |
+|---|---|---|---|---|
+| `:has()` parent variants | `has-checked:` `group-has-*:` | 105+ | 121+ | 15.4+ |
+| Container queries | `container-query`, `cq-sm:` | 105+ | 110+ | 16+ |
+| Popover API | `.popover` | 114+ | 125+ | 17+ |
+| `<dialog>` | `.dialog` | 37+ | 98+ | 15.4+ |
+| Dynamic viewport units | `set-height-dvh/svh/lvh` | 108+ | 101+ | 15.4+ |
+| Scroll snap / carousel | `.carousel`, `scroll-snap-x` | 69+ | 68+ | 11+ |
+| `text-wrap: balance` | `text-balance` | 114+ | 121+ | 17.5+ |
+| View Transitions | `view-transition-*` | 111+ | — | 18+ |
+
+Everything degrades gracefully — unsupported features simply don't apply; layout and content remain intact.
+
+---
+
 ## What's New in v2.7.0
 
 ### 🪄 `:has()` Parent Variants — style parents from children, zero JS
@@ -43,8 +129,8 @@ Class names read like sentences — `add-padding-24` instead of `p-6`. AI tools 
 
 ```html
 <html data-theme="ocean">  <!-- or sunset · forest · midnight · mono -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy-themes.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2/dist/santy.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-themes.css">
   <body class="background-surface color-text">
 ```
 
@@ -942,21 +1028,21 @@ npm install santycss
 **CDN — drop in and go (recommended for beginners):**
 ```html
 <!-- Base utilities + components, no extended variants/animations -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy-start.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-start.css">
 ```
 
 **CDN — full responsive coverage:**
 ```html
 <!-- Core utilities (slimmed) -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy-core.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-core.css">
 <!-- xl:, xxl:, on-wide:, peer-*, group-*, print:, motion-*, RTL -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy-variants.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-variants.css">
 ```
 
 **CDN — PostCSS/Vite purge workflow (teams):**
 ```html
 <!-- Full bundle — purge down to ~15KB with PostCSS/Vite -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/santycss@2/dist/santy.min.css">
 ```
 
 **Import in JS/TS (React, Vue, Next, Nuxt, Vite):**
@@ -1090,10 +1176,17 @@ sm:{class}          640px+
 md:{class}          768px+
 lg:{class}          1024px+
 xl:{class}          1280px+
-on-mobile:{class}   max 767px
-on-tablet:{class}   768–1023px
+xxl:{class}         1536px+
+max-sm:{class}      below 640px
+max-md:{class}      below 768px
+max-lg:{class}      below 1024px
+max-xl:{class}      below 1280px
+on-mobile:{class}   max 639px
+on-tablet:{class}   640–1023px
 on-desktop:{class}  1024px+
 ```
+
+Add your own with `santy.config.json` → `"breakpoints": { "tablet-up": "(min-width: 900px)" }` and `npx santycss build`.
 
 ---
 

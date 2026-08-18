@@ -3,6 +3,7 @@
  * SantyCSS CLI  —  npx santycss <command>
  *
  *   init [dir]      Scaffold a starter index.html wired to the SantyCSS CDN
+ *   build           Build custom CSS from santy.config.json (colors, prefix, breakpoints…)
  *   purge [...]     Strip unused classes (same flags as before — see purge.js)
  *   classes         Print class count + classmap location
  *   --help          Show this help
@@ -14,11 +15,12 @@
 
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
 const args = process.argv.slice(2);
 const cmd = args[0];
 
-const CDN = 'https://cdn.jsdelivr.net/npm/santycss/dist';
+const CDN = 'https://cdn.jsdelivr.net/npm/santycss@2/dist';
 
 const STARTER_HTML = `<!DOCTYPE html>
 <html lang="en">
@@ -71,6 +73,8 @@ function help() {
 SantyCSS CLI
 
   npx santycss init [dir]     Scaffold a starter index.html (default: current dir)
+  npx santycss build          Build custom CSS from santy.config.json in the current dir
+                              (keys: colors, spacing, fontSizes, breakpoints, prefix, output)
   npx santycss purge [flags]  Remove unused classes  (--input=, --out=, --css=, --keep=, …)
   npx santycss classes        Show class count from the bundled classmap
   npx santycss --help         This help
@@ -90,6 +94,21 @@ if (cmd === 'init') {
   fs.writeFileSync(target, STARTER_HTML);
   console.log(`✅  Created ${target}`);
   console.log('   Open it in a browser — no build step needed.');
+} else if (cmd === 'build') {
+  // Build from ./santy.config.json (or SANTY_CONFIG). Defaults output to ./santy-dist
+  // so a custom build never overwrites the files inside node_modules.
+  const cfgPath = process.env.SANTY_CONFIG || path.join(process.cwd(), 'santy.config.json');
+  let cfg = {};
+  if (fs.existsSync(cfgPath)) cfg = JSON.parse(fs.readFileSync(cfgPath, 'utf8'));
+  if (!cfg.output) {
+    cfg.output = './santy-dist';
+    const tmpCfg = path.join(os.tmpdir(), `santy-config-${process.pid}.json`);
+    fs.writeFileSync(tmpCfg, JSON.stringify(cfg));
+    process.env.SANTY_CONFIG = tmpCfg;
+  } else {
+    process.env.SANTY_CONFIG = cfgPath;
+  }
+  require('./build.js');
 } else if (cmd === 'classes') {
   const mapPath = path.join(__dirname, 'dist', 'santy-classmap.json');
   if (!fs.existsSync(mapPath)) {

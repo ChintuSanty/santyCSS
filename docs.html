@@ -199,7 +199,7 @@
     <a href="index.html" class="make-flex align-center gap-10 text-no-decoration">
       <img src="assest/santy_css.png" alt="SantyCSS" style="width:36px;height:36px;border-radius:8px;object-fit:cover;" />
       <span class="set-text-20 text-bold color-gray-900">Santy<span class="color-blue-600">CSS</span></span>
-      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v2.6.1</span>
+      <span class="badge background-blue-100 color-blue-700" style="font-size:11px;">v2.8.0</span>
     </a>
     <button class="nav-hamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
       <svg id="ham-icon" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -251,6 +251,7 @@
       <a href="#package-structure" class="sidebar-link"><span class="sidebar-dot" style="background:#3b82f6;"></span>Package Structure</a>
       <a href="#import-options" class="sidebar-link"><span class="sidebar-dot" style="background:#3b82f6;"></span>Import Options</a>
       <a href="#cdn" class="sidebar-link"><span class="sidebar-dot" style="background:#3b82f6;"></span>CDN Links</a>
+      <a href="#configuration" class="sidebar-link"><span class="sidebar-dot" style="background:#3b82f6;"></span>Configuration</a>
     </div>
 
     <div class="sidebar-group">
@@ -290,7 +291,7 @@
     <!-- Page title -->
     <div class="add-margin-bottom-48">
       <div class="make-flex align-center gap-12 add-margin-bottom-12">
-        <span class="chip chip-blue">v2.6.1</span>
+        <span class="chip chip-blue">v2.8.0</span>
         <span class="chip chip-green">MIT License</span>
         <a href="https://www.npmjs.com/package/santycss" target="_blank" class="chip chip-red" style="text-decoration:none;">npm ↗</a>
       </div>
@@ -327,6 +328,42 @@
           <div class="set-text-20 text-bold color-green-600">Zero</div>
           <div class="set-text-12 color-gray-400">no runtime deps</div>
         </div>
+      </div>
+    </section>
+
+    <!-- ── CONFIGURATION ───────────────────────────────────────── -->
+    <section id="configuration" class="doc-section">
+      <h2 class="set-text-28 text-bold color-gray-900 add-margin-bottom-8">Configuration — santy.config.json <span class="make-badge style-primary set-text-12">v2.8.0</span></h2>
+      <p class="set-text-15 color-gray-500 add-margin-bottom-24 line-height-relaxed">Customize the framework without forking. Create a <code class="chip">santy.config.json</code> in your project root and run <code class="chip">npx santycss build</code> — your customized bundles are generated into <code class="chip">./santy-dist</code> (or the directory set by <code class="chip">output</code>).</p>
+
+      <div class="code-block add-margin-bottom-24">
+<pre>{
+  <span class="c-attr">"colors"</span>:      { <span class="c-str">"brand"</span>: { <span class="c-str">"500"</span>: <span class="c-str">"#0a5cff"</span> }, <span class="c-str">"accent"</span>: <span class="c-str">"#7c3aed"</span> },
+  <span class="c-attr">"spacing"</span>:     [13, 26],
+  <span class="c-attr">"fontSizes"</span>:   [15, 22],
+  <span class="c-attr">"breakpoints"</span>: { <span class="c-str">"tablet-up"</span>: <span class="c-str">"(min-width: 900px)"</span> },
+  <span class="c-attr">"prefix"</span>:      <span class="c-str">"sty-"</span>,
+  <span class="c-attr">"output"</span>:      <span class="c-str">"./santy-dist"</span>
+}</pre>
+      </div>
+
+      <div class="table-wrap add-margin-bottom-24">
+        <table>
+          <thead><tr><th>Key</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><code class="chip">colors</code></td><td>Add brand colors — a single hex applies to all shades, or pass a <code class="chip">{ 50…900 }</code> shade map. Generates <code class="chip">background-brand-500</code>, <code class="chip">color-brand-500</code>, etc.</td></tr>
+            <tr><td><code class="chip">spacing</code></td><td>Extra px values for padding / margin / gap scales</td></tr>
+            <tr><td><code class="chip">fontSizes</code></td><td>Extra px values for <code class="chip">set-text-{n}</code></td></tr>
+            <tr><td><code class="chip">breakpoints</code></td><td>Custom responsive prefixes — <code class="chip">tablet-up:make-flex</code></td></tr>
+            <tr><td><code class="chip">prefix</code></td><td>Prefix every class (<code class="chip">sty-make-flex</code>) to avoid collisions in legacy codebases</td></tr>
+            <tr><td><code class="chip">output</code></td><td>Output directory for the custom build (default <code class="chip">./santy-dist</code>)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="install-box">
+        <code>npx santycss build</code>
+        <button class="copy-btn" onclick="copyText('npx santycss build', this)">Copy</button>
       </div>
     </section>
 
@@ -459,25 +496,25 @@ santy.email      <span class="c-com">// → /path/to/dist/santy-email.css</span>
 
       <div class="code-block add-margin-bottom-16">
 <pre><span class="c-com">&lt;!-- Full minified bundle — recommended for production --&gt;</span>
-<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@2/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
 
 <span class="c-com">&lt;!-- Version-pinned (best practice for production) --&gt;</span>
 <span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@1.7.0/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
 
 <span class="c-com">&lt;!-- Utilities only --&gt;</span>
-<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-core.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-core.css"</span><span class="c-tag">&gt;</span>
 
 <span class="c-com">&lt;!-- Components --&gt;</span>
-<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-components.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-components.css"</span><span class="c-tag">&gt;</span>
 
 <span class="c-com">&lt;!-- Animations --&gt;</span>
-<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-animations.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-animations.css"</span><span class="c-tag">&gt;</span>
 
 <span class="c-com">&lt;!-- Email module --&gt;</span>
-<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-email.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-email.css"</span><span class="c-tag">&gt;</span>
 
 <span class="c-com">&lt;!-- unpkg alternative --&gt;</span>
-<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://unpkg.com/santycss/dist/santy.css"</span><span class="c-tag">&gt;</span></pre>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://unpkg.com/santycss@2/dist/santy.css"</span><span class="c-tag">&gt;</span></pre>
       </div>
     </section>
 
@@ -598,11 +635,11 @@ santy.email      <span class="c-com">// → /path/to/dist/santy-email.css</span>
 
       <p class="set-text-14 color-gray-700 text-semibold add-margin-bottom-8">CDN — individual module links</p>
       <div class="code-block add-margin-bottom-20">
-<pre><span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-reset.css"</span><span class="c-tag">&gt;</span>
-<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-flex.css"</span><span class="c-tag">&gt;</span>
-<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-spacing.css"</span><span class="c-tag">&gt;</span>
-<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-typography.css"</span><span class="c-tag">&gt;</span>
-<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-colors.css"</span><span class="c-tag">&gt;</span></pre>
+<pre><span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-reset.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-flex.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-spacing.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-typography.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-colors.css"</span><span class="c-tag">&gt;</span></pre>
       </div>
 
       <p class="set-text-14 color-gray-700 text-semibold add-margin-bottom-8">Node.js path helpers</p>
@@ -656,7 +693,7 @@ santy.colors     <span class="c-com">// → /path/to/dist/santy-colors.css</span
 <pre><span class="c-com">&lt;!-- HTML --&gt;</span>
 <span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"santy.css"</span><span class="c-tag">&gt;</span>
 <span class="c-com">&lt;!-- or --&gt;</span>
-<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@2/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
 
 <span class="c-com">// JS</span>
 <span class="c-key">import</span> <span class="c-str">'santycss/css'</span>;</pre>
@@ -1372,7 +1409,7 @@ santy.colors     <span class="c-com">// → /path/to/dist/santy-colors.css</span
         <div class="code-block" style="margin:0;">
           <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin-bottom:8px;">① CDN / Plain HTML email</div>
 <pre style="margin:0;"><span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span>
-  <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-email.css"</span><span class="c-tag">&gt;</span></pre>
+  <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-email.css"</span><span class="c-tag">&gt;</span></pre>
         </div>
         <div class="code-block" style="margin:0;">
           <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin-bottom:8px;">② npm (React / Vue / Next.js)</div>
@@ -1602,7 +1639,7 @@ Use the <span class="c-tag">&lt;code</span> <span class="c-attr">class</span>=<s
 
       <h3 class="set-text-18 text-semibold color-gray-800 add-margin-bottom-16">Complete email template</h3>
       <div class="code-block">
-<pre><span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy-email.css"</span><span class="c-tag">&gt;</span>
+<pre><span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-email.css"</span><span class="c-tag">&gt;</span>
 
 <span class="c-tag">&lt;table</span> <span class="c-attr">class</span>=<span class="c-str">"email-wrapper"</span> <span class="c-attr">role</span>=<span class="c-str">"presentation"</span><span class="c-tag">&gt;</span>
   <span class="c-tag">&lt;tr&gt;&lt;td&gt;</span>
@@ -1794,7 +1831,7 @@ npm install santycss
   <span class="c-tag">&lt;meta</span> <span class="c-attr">name</span>=<span class="c-str">"viewport"</span> <span class="c-attr">content</span>=<span class="c-str">"width=device-width, initial-scale=1.0"</span><span class="c-tag">&gt;</span>
   <span class="c-com">&lt;!-- Option 1: CDN --&gt;</span>
   <span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span>
-        <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
+        <span class="c-attr">href</span>=<span class="c-str">"https://cdn.jsdelivr.net/npm/santycss@2/dist/santy.min.css"</span><span class="c-tag">&gt;</span>
   <span class="c-com">&lt;!-- Option 2: Local file --&gt;</span>
   <span class="c-tag">&lt;link</span> <span class="c-attr">rel</span>=<span class="c-str">"stylesheet"</span> <span class="c-attr">href</span>=<span class="c-str">"santy.css"</span><span class="c-tag">&gt;</span>
 <span class="c-tag">&lt;/head&gt;</span>
