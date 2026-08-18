@@ -1845,4 +1845,65 @@ function toggleMobileNav() {
 function toggleResources() {
   var btn = document.getElementById('navResBtn');
   var dd  = document.getElementById('navDropdown');
-  var open = btn.classList.toggle
+  var open = btn.classList.toggle('open');
+  dd.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', open);
+}
+document.addEventListener('click', function(e) {
+  var res = document.getElementById('navResources');
+  if (res && !res.contains(e.target)) {
+    document.getElementById('navResBtn').classList.remove('open');
+    document.getElementById('navDropdown').classList.remove('open');
+  }
+});
+function toggleDark() {
+  var isDark = document.documentElement.classList.toggle('dark');
+  document.getElementById('dark-icon-moon').style.display = isDark ? 'none' : '';
+  document.getElementById('dark-icon-sun').style.display  = isDark ? '' : 'none';
+  try { localStorage.setItem('scb-dark', isDark ? '1' : '0'); } catch(e){}
+}
+(function() {
+  try {
+    if (localStorage.getItem('scb-dark') === '1') {
+      document.documentElement.classList.add('dark');
+      document.addEventListener('DOMContentLoaded', function() {
+        var moon = document.getElementById('dark-icon-moon');
+        var sun  = document.getElementById('dark-icon-sun');
+        if (moon) moon.style.display = 'none';
+        if (sun)  sun.style.display  = '';
+      });
+    }
+  } catch(e){}
+})();
+
+// Copy button
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(function() {
+    var orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    btn.style.background = '#166534';
+    btn.style.color = '#bbf7d0';
+    setTimeout(function() {
+      btn.textContent = orig;
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 1800);
+  });
+}
+
+// Active sidebar link on scroll
+var sections = document.querySelectorAll('.doc-section');
+var links    = document.querySelectorAll('.sidebar-link');
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      links.forEach(function(l) { l.classList.remove('active'); });
+      var link = document.querySelector('.sidebar-link[href="#' + entry.target.id + '"]');
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -60% 0px' });
+sections.forEach(function(s) { observer.observe(s); });
+</script>
+</body>
+</html>

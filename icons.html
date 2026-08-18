@@ -1793,4 +1793,50 @@ GitHub</div>
     setTimeout(() => toast.classList.remove('show'), 2000);
   }
 
-  /* 
+  /* ── Hamburger ── */
+  const hamburger = document.getElementById('hamburger-btn');
+  const mainNav   = document.getElementById('main-nav');
+  const iconMenu  = document.getElementById('icon-menu');
+  const iconClose = document.getElementById('icon-close');
+  hamburger.addEventListener('click', () => {
+    const open = mainNav.classList.toggle('open');
+    iconMenu.style.display  = open ? 'none'  : '';
+    iconClose.style.display = open ? ''      : 'none';
+  });
+
+function toggleResources() {
+  var btn = document.getElementById('navResBtn');
+  var dd  = document.getElementById('navDropdown');
+  var open = btn.classList.toggle('open');
+  dd.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', open);
+}
+document.addEventListener('click', function(e) {
+  var res = document.getElementById('navResources');
+  if (res && !res.contains(e.target)) {
+    document.getElementById('navResBtn').classList.remove('open');
+    document.getElementById('navDropdown').classList.remove('open');
+  }
+});
+function toggleDark() {
+  var isDark = document.documentElement.classList.toggle('dark');
+  document.getElementById('dark-icon-moon').style.display = isDark ? 'none' : '';
+  document.getElementById('dark-icon-sun').style.display  = isDark ? '' : 'none';
+  try { localStorage.setItem('scb-dark', isDark ? '1' : '0'); } catch(e){}
+}
+(function() {
+  try {
+    if (localStorage.getItem('scb-dark') === '1') {
+      document.documentElement.classList.add('dark');
+      document.addEventListener('DOMContentLoaded', function() {
+        var moon = document.getElementById('dark-icon-moon');
+        var sun  = document.getElementById('dark-icon-sun');
+        if (moon) moon.style.display = 'none';
+        if (sun)  sun.style.display  = '';
+      });
+    }
+  } catch(e){}
+})();
+</script>
+</body>
+</html>

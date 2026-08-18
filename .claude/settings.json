@@ -52,7 +52,9 @@
       "Bash(grep -rn \"v2\\\\.4\\\\.8\" *.html)",
       "Bash(grep -rn \"v2\\\\.4\\\\.\" *.html)",
       "WebFetch(domain:lmpixels.com)",
-      "WebFetch(domain:mutationmedia.net)"
+      "WebFetch(domain:mutationmedia.net)",
+      "Bash(ls d:/santy/santyCSS/*.html)",
+      "Bash(ls d:/santy/santyCSS/*.json)"
     ],
     "additionalDirectories": [
       "c:\\Users\\hello\\Downloads",
