@@ -219,6 +219,72 @@ to-{color}-{shade}      /* sets --grad-to   */
 .file-drop
 ```
 
+## Behavior Layer — santy.js (v2.9.0)
+
+Components are styled by CSS but driven by `santy.js`. Load it once:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/santycss@2/dist/santy.js" defer></script>
+```
+
+Then use data attributes — never hand-write toggle JavaScript:
+
+```
+data-santy-toggle="modal|drawer|offcanvas|bottom-sheet|dropdown|collapse|accordion|tab|popover"
+data-santy-target="#id"          /* what the toggle controls        */
+data-santy-dismiss               /* closes nearest overlay (or ="#id") */
+data-santy-theme-toggle          /* light/dark toggle, persisted     */
+data-santy-tooltip="text"        /* collision-aware tooltip          */
+data-santy-placement="top|bottom|left|right|bottom-start|bottom-end|…"
+data-santy-ripple                /* Material press feedback          */
+data-santy-scrollspy             /* on a <nav> of #anchor links      */
+data-santy-carousel              /* + data-santy-interval="5000"     */
+data-santy-carousel-prev="#sel"  data-santy-carousel-next="#sel"
+data-santy-backdrop="static"     /* backdrop click will not close    */
+data-santy-keyboard="false"      /* Esc will not close               */
+data-santy-multi="true"          /* on .accordion: allow many open   */
+data-santy-autofocus             /* element to focus when opened     */
+```
+
+Programmatic API:
+
+```js
+Santy.modal.open('#confirm');    Santy.modal.close('#confirm');
+Santy.drawer.toggle('#nav');     Santy.dropdown.closeAll();
+Santy.tabs.show('#tab-2');       Santy.collapse.toggle('#panel');
+Santy.carousel.next('#slides');  Santy.scrollspy('#toc');
+Santy.toast('Saved');
+Santy.toast.success('Done', { title: 'Upload', duration: 6000,
+                              action: { label: 'Undo', onClick: undo } });
+Santy.theme.get() / .set('dark') / .toggle() / .system();
+Santy.init(container);           // re-scan after injecting markup
+```
+
+Lifecycle events (cancelable — `preventDefault()` vetoes the transition):
+`santy:show` → `santy:shown` → `santy:hide` → `santy:hidden`
+
+### Example: modal wired with zero custom JS
+
+```html
+<button class="btn btn-danger" data-santy-toggle="modal" data-santy-target="#confirm">
+  Delete
+</button>
+
+<div class="modal-overlay" id="confirm">
+  <div class="modal-box add-padding-24">
+    <h3 class="modal-title set-text-20 text-bold">Delete this project?</h3>
+    <p class="set-text-14 color-text-muted line-height-relaxed">This cannot be undone.</p>
+    <div class="modal-footer make-flex gap-12 justify-end">
+      <button class="btn btn-ghost" data-santy-dismiss>Cancel</button>
+      <button class="btn btn-danger" data-santy-autofocus>Delete</button>
+    </div>
+  </div>
+</div>
+```
+
+Focus trap, focus restore, `inert` background, scroll lock, Esc and backdrop
+click are all handled. Do not add your own `classList.toggle('open')` handlers.
+
 ## Semantic Theme Utilities (v2.7.0 — flip with data-theme / .dark)
 
 ```

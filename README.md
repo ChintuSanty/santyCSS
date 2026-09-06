@@ -21,6 +21,82 @@ Class names read like sentences — `add-padding-24` instead of `p-6`. AI tools 
 
 ---
 
+## What's New in v2.9.0
+
+### ⚡ `santy.js` — the behavior layer
+
+Components used to be CSS shells: the styles for `.open` / `.active` / `.show` shipped,
+but you had to write the JavaScript that toggled them. `santy.js` closes that gap —
+one 50KB file, **zero dependencies**, no build step.
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/santycss@2/dist/santy.js" defer></script>
+```
+
+Declarative — nothing to call:
+
+```html
+<button data-santy-toggle="modal" data-santy-target="#confirm">Delete account</button>
+
+<div class="modal-overlay" id="confirm">
+  <div class="modal-box">
+    <h3 class="modal-title">Are you sure?</h3>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" data-santy-dismiss>Cancel</button>
+      <button class="btn btn-danger">Delete</button>
+    </div>
+  </div>
+</div>
+```
+
+That single attribute gives you a focus trap, focus restore on close, `inert`
+background, scroll lock with scrollbar compensation, Esc to dismiss, backdrop
+click, and the right ARIA wiring.
+
+**Covered:** modal · drawer/offcanvas · bottom sheet · dropdown · collapse ·
+accordion · tabs · tooltip · popover · carousel · toast · theme · scrollspy · ripple
+
+```js
+Santy.modal.open('#confirm');
+Santy.toast.success('Saved', { action: { label: 'Undo', onClick: revert } });
+Santy.theme.toggle();
+```
+
+| Attribute | Does |
+|---|---|
+| `data-santy-toggle="modal\|drawer\|bottom-sheet\|dropdown\|collapse\|accordion\|tab\|popover"` | Toggles the target |
+| `data-santy-target="#id"` | What to toggle |
+| `data-santy-dismiss` | Closes the nearest overlay (or `="#id"` for a specific one) |
+| `data-santy-theme-toggle` | Light/dark toggle, persisted, with OS sync |
+| `data-santy-tooltip="text"` | Collision-aware tooltip |
+| `data-santy-ripple` | Material-style press feedback |
+| `data-santy-scrollspy` | Highlights nav links for the section in view |
+| `data-santy-backdrop="static"` | Backdrop click will not close |
+
+**Accessibility is the point, not a footnote.** Tabs implement the WAI-ARIA tabs
+pattern with roving tabindex and arrow keys; dropdowns support Arrow/Home/End;
+accordions get `aria-expanded` + `aria-controls`; toasts announce as `status`
+(or `alert` for errors); dialogs stack, so a modal opened from a drawer restores
+focus correctly on the way out. Everything honours `prefers-reduced-motion`.
+
+Dropdowns, popovers and tooltips are positioned with a flip-and-shift engine, so
+they stay on screen near viewport edges and escape `overflow: hidden` ancestors.
+
+Every component emits cancelable lifecycle events:
+
+```js
+document.querySelector('#confirm').addEventListener('santy:show', (e) => {
+  if (unsaved) e.preventDefault();   // veto the open
+});
+// santy:show → santy:shown → santy:hide → santy:hidden
+```
+
+Importing `santycss` on a server is safe — the module no-ops without a DOM.
+
+Full API and types: [`index.d.ts`](index.d.ts) (`SantyRuntime`).
+
+---
+
 ## What's New in v2.8.0
 
 ### 🔧 Configuration System — `santy.config.json`

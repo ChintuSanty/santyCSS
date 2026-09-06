@@ -22,7 +22,9 @@ jobs:
         run: node test/run-tests.js
 
       - name: TypeScript declaration check
-        run: npx --yes -p typescript@5 tsc index.d.ts --noEmit --strict --lib es2015
+        # `dom` is required since v2.9.0: the behavior-layer types reference
+        # Element, HTMLElement, IntersectionObserver and friends.
+        run: npx --yes -p typescript@5 tsc index.d.ts --noEmit --strict --lib es2015,dom
 
       - name: Check committed dist is in sync with build.js
         # The classmap embeds the build date, so it is excluded from the drift check.

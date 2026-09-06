@@ -188,6 +188,87 @@ test('config: custom colors, spacing, breakpoints, prefix, output', () => {
   fs.rmSync(tmp, { recursive: true, force: true });
 });
 
+// ── Behavior layer (santy.js — v2.9.0) ──────────────────────────────────────
+test('santy.js is emitted to dist and mirrors the source file', () => {
+  const distJs = read('santy.js');
+  const srcJs = fs.readFileSync(path.join(ROOT, 'santy.js'), 'utf8');
+  assert(distJs.length > 20000, `dist/santy.js too small (${distJs.length})`);
+  assert(distJs === srcJs, 'dist/santy.js does not match source santy.js');
+});
+
+test('santy.js loads without a DOM (SSR-safe)', () => {
+  // Next.js / Nuxt import this during server render — it must not touch document.
+  const modPath = path.join(ROOT, 'santy.js');
+  delete require.cache[modPath];
+  assert(typeof document === 'undefined', 'test env unexpectedly has a document');
+  const Santy = require(modPath);
+  assert(Santy && typeof Santy === 'object', 'module did not export an object');
+});
+
+test('santy.js exposes the documented public API', () => {
+  const modPath = path.join(ROOT, 'santy.js');
+  delete require.cache[modPath];
+  const Santy = require(modPath);
+  const expected = [
+    'version', 'init', 'modal', 'drawer', 'offcanvas', 'sheet', 'bottomSheet',
+    'dropdown', 'collapse', 'tabs', 'tooltip', 'popover', 'carousel',
+    'toast', 'theme', 'scrollspy', 'utils',
+  ];
+  for (const key of expected) {
+    assert(key in Santy, `Santy.${key} missing from public API`);
+  }
+  for (const m of ['modal', 'drawer', 'sheet']) {
+    for (const fn of ['open', 'close', 'toggle', 'isOpen']) {
+      assert(typeof Santy[m][fn] === 'function', `Santy.${m}.${fn} is not a function`);
+    }
+  }
+  for (const v of ['success', 'error', 'warning', 'info']) {
+    assert(typeof Santy.toast[v] === 'function', `Santy.toast.${v} missing`);
+  }
+  for (const fn of ['get', 'set', 'toggle', 'system', 'init']) {
+    assert(typeof Santy.theme[fn] === 'function', `Santy.theme.${fn} missing`);
+  }
+  assert(typeof Santy.utils.position === 'function', 'utils.position missing');
+  assert(typeof Santy.utils.focusTrap.activate === 'function', 'utils.focusTrap missing');
+});
+
+test('santy.js version matches package.json', () => {
+  const modPath = path.join(ROOT, 'santy.js');
+  delete require.cache[modPath];
+  const Santy = require(modPath);
+  const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+  assert(Santy.version === pkg.version,
+    `santy.js version ${Santy.version} !== package.json ${pkg.version}`);
+});
+
+test('behavior-layer CSS ships in every bundle that carries components', () => {
+  // The JS toggles these classes; if the CSS is missing the components stay invisible.
+  const required = [
+    '.modal-overlay.open', '.drawer-overlay.open', '.santy-tip', '.santy-ripple',
+    '.toast-action', '.toast-container-bottom-right',
+  ];
+  for (const file of ['santy.css', 'santy-components.css', 'santy-start.css']) {
+    const css = read(file);
+    for (const sel of required) {
+      assert(css.includes(sel), `${sel} missing from ${file}`);
+    }
+  }
+});
+
+test('ripple animation is disabled under prefers-reduced-motion', () => {
+  const css = read('santy-components.css');
+  const idx = css.indexOf('@media (prefers-reduced-motion: reduce)', css.indexOf('.santy-ripple'));
+  assert(idx > -1, 'no reduced-motion guard after .santy-ripple');
+  assert(css.slice(idx, idx + 200).includes('.santy-ripple'),
+    'reduced-motion block does not neutralise .santy-ripple');
+});
+
+test('package.json exposes the behavior layer', () => {
+  const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+  assert(pkg.exports['./js'] === './dist/santy.js', 'exports["./js"] missing');
+  assert(pkg.files.includes('santy.js'), 'santy.js not in files[]');
+});
+
 // ── Report ───────────────────────────────────────────────────────────────────
 console.log(`\n${passed} passed, ${failed} failed`);
 if (failed) {

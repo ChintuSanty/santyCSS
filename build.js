@@ -5267,7 +5267,92 @@ const ITSME_CSS = `
   display: flex; align-items: center; justify-content: center;
 }
 `;
-const compCSS  = compSplit > -1 ? fullCSS.slice(compSplit) + PORTFOLIO_CSS + PORTFOLIO_CV_CSS + ITSME_CSS : '';
+// ─── BEHAVIOR LAYER SUPPORT (v2.9.0) ─────────────────────────────────────────
+// States santy.js drives. The CSS-only :target paths still work untouched —
+// these rules simply add a JS-controllable .open contract alongside them.
+const BEHAVIOR_CSS = `
+/* ═══════════════════════════════════════════════════════════════════════
+   SANTY BEHAVIOR LAYER  (santy.js — v2.9.0)
+   Loaded automatically by santy.css; santy.js toggles these classes.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Overlays opened by JS rather than :target ── */
+.modal-overlay.open  { display: flex; }
+.drawer-overlay.open { display: block; }
+.drawer-overlay.open .drawer-panel       { transform: translateX(0); }
+.drawer-overlay.open .drawer-panel-right { transform: translateX(0); }
+
+/* ── Popover: native [popover] keeps UA behaviour, JS-driven ones need a box ── */
+.popover:not([popover]) {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  background: var(--santy-surface, #fff);
+  color: var(--santy-text, #111827);
+}
+.popover:not([popover]).open { display: block; }
+
+/* ── Tooltip built by Santy.tooltip (distinct from the CSS-only .tooltip) ── */
+.santy-tip {
+  position: fixed;
+  z-index: 10000;
+  max-width: 280px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #1f2937;
+  color: #f9fafb;
+  font-size: 12px;
+  line-height: 1.4;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .15s ease;
+}
+.santy-tip.show { opacity: 1; }
+.dark .santy-tip, [data-theme="midnight"] .santy-tip { background: #f9fafb; color: #111827; }
+
+/* ── Toast: structural parts Santy.toast() builds ── */
+.toast-body    { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 auto; }
+.toast-title   { font-weight: 600; }
+.toast-message { opacity: .92; word-break: break-word; }
+.toast-action {
+  flex-shrink: 0;
+  padding: 0 4px;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.toast-action:hover { opacity: .8; }
+.toast-container-top-right     { top: 16px; right: 16px; bottom: auto; left: auto; }
+.toast-container-top-left      { top: 16px; left: 16px; bottom: auto; right: auto; }
+.toast-container-bottom-right  { bottom: 16px; right: 16px; top: auto; left: auto; }
+.toast-container-bottom-left   { bottom: 16px; left: 16px; top: auto; right: auto; }
+.toast-container-top-center    { top: 16px; left: 50%; right: auto; bottom: auto; transform: translateX(-50%); }
+.toast-container-bottom-center { bottom: 16px; left: 50%; right: auto; top: auto; transform: translateX(-50%); }
+
+/* ── Ripple press feedback (Material parity) ── */
+[data-santy-ripple] { position: relative; overflow: hidden; }
+.santy-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: .28;
+  transform: scale(0);
+  pointer-events: none;
+  animation: santy-ripple .5s ease-out;
+}
+@keyframes santy-ripple { to { transform: scale(2.2); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .santy-ripple { animation: none; display: none; }
+  .santy-tip { transition: none; }
+}
+`;
+
+const compCSS  = compSplit > -1 ? fullCSS.slice(compSplit) + PORTFOLIO_CSS + PORTFOLIO_CV_CSS + ITSME_CSS + BEHAVIOR_CSS : '';
 
 // ─── Extract variant blocks to build slimmed core and start CSS ───
 const VSTART = '/* ═══ VARIANTS_BLOCK_START ═══ */';
@@ -5318,6 +5403,10 @@ const startCSS = `/* SantyCSS Start — Drop-in CDN build
    https://santycss.santy.in */\n\n` + slimmedCoreCSS + '\n\n' + compCSS;
 
 // ─── santy-scroll.js ──────────────────────────────────────────────────────────
+// Behaviour layer is authored as a real source file (santy.js) rather than a
+// template string, so it can be linted, unit-tested and diffed like normal code.
+const BEHAVIOR_JS = fs.readFileSync(path.join(__dirname, 'santy.js'), 'utf8');
+
 const SCROLL_JS = `/*! santy-scroll.js — SantyCSS Scroll Observer v2.1
  * Activates when-visible: viewport-entry animations via IntersectionObserver.
  *
@@ -5415,7 +5504,9 @@ const THEMES_CSS = `/* SantyCSS Themes — prebuilt design-token presets (v2.7.0
 
 // ─── APPLY OPTIONAL CLASS PREFIX (santy.config.json → "prefix") ──────────────
 const OUT_CSS = {
-  'santy.css': applyPrefix(fullCSS),
+  // BEHAVIOR_CSS is appended here too: it lives past the component marker, so
+  // it reaches santy-components.css via compCSS but never fullCSS on its own.
+  'santy.css': applyPrefix(fullCSS + BEHAVIOR_CSS),
   'santy-core.css': applyPrefix(slimmedCoreCSS),
   'santy-variants.css': applyPrefix(variantsCSS),
   'santy-start.css': applyPrefix(startCSS),
@@ -5462,6 +5553,8 @@ OUT_CSS['santy.min.css'] = minCSS;
 const OUT_FILES = {
   ...OUT_CSS,
   'santy-scroll.js': SCROLL_JS,
+  // Behaviour layer lives in its own source file so it stays lintable/testable.
+  'santy.js': BEHAVIOR_JS,
   'santy-classmap.json': CLASSMAP_JSON,
 };
 
@@ -5496,6 +5589,7 @@ console.log(`✅ santy-components.css — ${kb(compCSS.length)} (components only
 console.log(`✅ santy-animations.css — ${kb(animCSS.length)} (animations only)`);
 console.log(`✅ santy-email.css    — ${kb(EMAIL_CSS.length)} (email templates)`);
 console.log(`✅ santy-scroll.js    — ${kb(SCROLL_JS.length)} (IntersectionObserver for when-visible:)`);
+console.log(`✅ santy.js           — ${kb(BEHAVIOR_JS.length)} (behavior layer: modal, drawer, dropdown, tabs, toast, theme)`);
 console.log(`✅ santy-themes.css   — ${kb(THEMES_CSS.length)} (5 prebuilt data-theme presets)`);
 console.log(`✅ santy-classmap.json — ${kb(CLASSMAP_JSON.length)} (${classSet.size.toLocaleString()} class names for IntelliSense/AI)`);
 console.log(`✅ dist/              — mirrored for NPM package`);
