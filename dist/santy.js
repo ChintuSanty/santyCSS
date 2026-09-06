@@ -980,6 +980,322 @@
     });
   }
 
+  /* ─── data table ─────────────────────────────────────────────────────── */
+
+  /**
+   * Sort a .data-table by the given header column.
+   *
+   * Cell values come from data-sort-value when present, otherwise textContent.
+   * Columns declare their kind with data-sort-type="number|date|text" (default
+   * text, compared with localeCompare so accented names order correctly).
+   */
+  function sortTable(th, direction) {
+    var table = th.closest('table');
+    if (!table) return;
+    var tbody = table.tBodies[0];
+    if (!tbody) return;
+    var headers = $$('th', th.parentElement);
+    var col = headers.indexOf(th);
+    if (col < 0) return;
+
+    var current = attr(th, 'aria-sort');
+    var dir = direction || (current === 'ascending' ? 'descending' : 'ascending');
+    if (!emit(table, 'santy:sort', { column: col, direction: dir })) return;
+
+    var type = attr(th, 'data-sort-type') || 'text';
+    var sign = dir === 'ascending' ? 1 : -1;
+
+    function keyOf(row) {
+      var cell = row.cells[col];
+      if (!cell) return '';
+      var raw = attr(cell, 'data-sort-value');
+      return raw === null ? cell.textContent.trim() : raw;
+    }
+
+    // Detail rows belong to the row above and must travel with it.
+    var rows = $$('tr', tbody).filter(function (r) { return !hasClass(r, 'data-table-detail'); });
+    var details = {};
+    rows.forEach(function (r) {
+      var next = r.nextElementSibling;
+      if (next && hasClass(next, 'data-table-detail')) details[rows.indexOf(r)] = next;
+    });
+
+    var decorated = rows.map(function (row, i) { return { row: row, key: keyOf(row), i: i }; });
+    decorated.sort(function (a, b) {
+      var av = a.key, bv = b.key, cmp;
+      if (type === 'number') {
+        var an = parseFloat(String(av).replace(/[^0-9.eE+-]/g, ''));
+        var bn = parseFloat(String(bv).replace(/[^0-9.eE+-]/g, ''));
+        // Blanks always sink, regardless of direction.
+        if (isNaN(an) && isNaN(bn)) cmp = 0;
+        else if (isNaN(an)) return 1;
+        else if (isNaN(bn)) return -1;
+        else cmp = an - bn;
+      } else if (type === 'date') {
+        var ad = Date.parse(av), bd = Date.parse(bv);
+        if (isNaN(ad) && isNaN(bd)) cmp = 0;
+        else if (isNaN(ad)) return 1;
+        else if (isNaN(bd)) return -1;
+        else cmp = ad - bd;
+      } else {
+        cmp = String(av).localeCompare(String(bv), undefined, { numeric: true, sensitivity: 'base' });
+      }
+      // Fall back to original order so equal keys keep a stable sort.
+      return cmp === 0 ? a.i - b.i : cmp * sign;
+    });
+
+    var frag = document.createDocumentFragment();
+    decorated.forEach(function (d) {
+      frag.appendChild(d.row);
+      if (details[d.i]) frag.appendChild(details[d.i]);
+    });
+    tbody.appendChild(frag);
+
+    headers.forEach(function (h) { if (h !== th && attr(h, 'aria-sort')) attr(h, 'aria-sort', 'none'); });
+    attr(th, 'aria-sort', dir);
+    emit(table, 'santy:sorted', { column: col, direction: dir });
+  }
+
+  /** Toggle every row checkbox from the header checkbox, and keep it in sync. */
+  function tableSelectAll(master) {
+    var table = master.closest('table');
+    if (!table) return;
+    var boxes = $$('tbody .data-table-select input[type="checkbox"]', table)
+      .filter(function (b) { return !b.disabled; });
+    boxes.forEach(function (b) {
+      b.checked = master.checked;
+      var row = b.closest('tr');
+      if (row) row.classList.toggle('selected', master.checked);
+    });
+    master.indeterminate = false;
+    emit(table, 'santy:select', { count: master.checked ? boxes.length : 0 });
+  }
+
+  function tableRowSelect(box) {
+    var table = box.closest('table');
+    var row = box.closest('tr');
+    if (row) row.classList.toggle('selected', box.checked);
+    if (!table) return;
+    var boxes = $$('tbody .data-table-select input[type="checkbox"]', table);
+    var checked = boxes.filter(function (b) { return b.checked; }).length;
+    var master = $('thead .data-table-select input[type="checkbox"]', table);
+    if (master) {
+      master.checked = checked > 0 && checked === boxes.length;
+      // Partial selection is a third state, not just "off".
+      master.indeterminate = checked > 0 && checked < boxes.length;
+    }
+    emit(table, 'santy:select', { count: checked });
+  }
+
+  var table = {
+    sort: function (th, dir) { var el = $(th); if (el) sortTable(el, dir); },
+    selectAll: function (t) { var el = $(t); if (el) tableSelectAll(el); }
+  };
+
+  /* ─── combobox / autocomplete ────────────────────────────────────────── */
+
+  function comboOptions(combo) {
+    return $$('.combobox-option', combo).filter(function (o) {
+      return attr(o, 'aria-disabled') !== 'true';
+    });
+  }
+
+  function escapeRegExp(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+  /** Filter the list to options containing `query`, highlighting the match. */
+  function comboFilter(combo, query) {
+    var q = (query || '').trim();
+    var re = q ? new RegExp('(' + escapeRegExp(q) + ')', 'i') : null;
+    var shown = 0;
+
+    $$('.combobox-option', combo).forEach(function (opt) {
+      var label = $('.combobox-option-label', opt);
+      // Without a dedicated label node, only a text-only option is safe to
+      // rewrite — otherwise highlighting would blow away child markup.
+      var target = label || (opt.children.length === 0 ? opt : null);
+      var text = attr(opt, 'data-value') ||
+                 (target ? target.textContent : opt.textContent);
+      var match = !q || text.toLowerCase().indexOf(q.toLowerCase()) > -1;
+      opt.hidden = !match;
+      if (match) {
+        shown++;
+        if (target) {
+          if (re) target.innerHTML = escapeHTML(text).replace(re, '<mark>$1</mark>');
+          else target.textContent = text;
+        }
+      }
+      removeClass(opt, 'active');
+    });
+
+    // Hide a group heading when everything under it is filtered out.
+    $$('.combobox-group-label', combo).forEach(function (g) {
+      var any = false, n = g.nextElementSibling;
+      while (n && !hasClass(n, 'combobox-group-label')) {
+        if (hasClass(n, 'combobox-option') && !n.hidden) { any = true; break; }
+        n = n.nextElementSibling;
+      }
+      g.hidden = !any;
+    });
+
+    var empty = $('.combobox-empty', combo);
+    if (empty) empty.hidden = shown > 0;
+    return shown;
+  }
+
+  function escapeHTML(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function comboOpen(combo) {
+    if (hasClass(combo, 'open') || !emit(combo, 'santy:show')) return;
+    addClass(combo, 'open');
+    var input = $('.combobox-input', combo);
+    if (input) attr(input, 'aria-expanded', 'true');
+    emit(combo, 'santy:shown');
+  }
+
+  function comboClose(combo) {
+    if (!hasClass(combo, 'open') || !emit(combo, 'santy:hide')) return;
+    removeClass(combo, 'open');
+    var input = $('.combobox-input', combo);
+    if (input) { attr(input, 'aria-expanded', 'false'); attr(input, 'aria-activedescendant', null); }
+    $$('.combobox-option.active', combo).forEach(function (o) { removeClass(o, 'active'); });
+    emit(combo, 'santy:hidden');
+  }
+
+  /** Move the virtual cursor; the input keeps DOM focus for typing. */
+  function comboMove(combo, delta) {
+    var opts = comboOptions(combo).filter(function (o) { return !o.hidden; });
+    if (!opts.length) return;
+    var currentIdx = -1;
+    opts.forEach(function (o, i) { if (hasClass(o, 'active')) currentIdx = i; });
+    var next = currentIdx + delta;
+    if (next < 0) next = opts.length - 1;
+    if (next >= opts.length) next = 0;
+    opts.forEach(function (o) { removeClass(o, 'active'); });
+    var target = opts[next];
+    addClass(target, 'active');
+    if (!target.id) target.id = 'santy-opt-' + Math.random().toString(36).slice(2, 8);
+    var input = $('.combobox-input', combo);
+    if (input) attr(input, 'aria-activedescendant', target.id);
+    // scrollIntoView with block:'nearest' avoids yanking the whole page.
+    if (target.scrollIntoView) target.scrollIntoView({ block: 'nearest' });
+  }
+
+  function comboSelect(combo, option) {
+    if (!option) return;
+    var multi = attr(combo, 'data-santy-multiple') === 'true';
+    var label = $('.combobox-option-label', option) || option;
+    var value = attr(option, 'data-value') || label.textContent.trim();
+    var input = $('.combobox-input', combo);
+
+    if (!emit(combo, 'santy:select', { value: value, option: option })) return;
+
+    if (multi) {
+      var already = attr(option, 'aria-selected') === 'true';
+      attr(option, 'aria-selected', already ? 'false' : 'true');
+      if (already) removeChip(combo, value); else addChip(combo, value);
+      if (input) { input.value = ''; comboFilter(combo, ''); input.focus(); }
+    } else {
+      comboOptions(combo).forEach(function (o) { attr(o, 'aria-selected', 'false'); });
+      attr(option, 'aria-selected', 'true');
+      if (input) input.value = value;
+      comboClose(combo);
+    }
+    syncComboValue(combo);
+    emit(combo, 'santy:change', { value: comboValue(combo) });
+  }
+
+  function addChip(combo, value) {
+    var control = $('.combobox-control', combo);
+    var input = $('.combobox-input', combo);
+    if (!control) return;
+    var chip = document.createElement('span');
+    chip.className = 'combobox-chip';
+    chip.setAttribute('data-value', value);
+    var lab = document.createElement('span');
+    lab.className = 'combobox-chip-label';
+    lab.textContent = value;
+    var rm = document.createElement('button');
+    rm.type = 'button';
+    rm.className = 'combobox-chip-remove';
+    rm.setAttribute('aria-label', 'Remove ' + value);
+    rm.innerHTML = '&times;';
+    chip.appendChild(lab);
+    chip.appendChild(rm);
+    control.insertBefore(chip, input || null);
+  }
+
+  function removeChip(combo, value) {
+    $$('.combobox-chip', combo).forEach(function (c) {
+      if (attr(c, 'data-value') === value && c.parentNode) c.parentNode.removeChild(c);
+    });
+  }
+
+  function comboValue(combo) {
+    if (attr(combo, 'data-santy-multiple') === 'true') {
+      return $$('.combobox-chip', combo).map(function (c) { return attr(c, 'data-value'); });
+    }
+    var sel = $('.combobox-option[aria-selected="true"]', combo);
+    return sel ? (attr(sel, 'data-value') || sel.textContent.trim()) : '';
+  }
+
+  /** Mirror the selection into a hidden input so plain form posts work. */
+  function syncComboValue(combo) {
+    var hidden = $('input[type="hidden"]', combo);
+    if (!hidden) return;
+    var v = comboValue(combo);
+    hidden.value = Array.isArray(v) ? v.join(',') : v;
+  }
+
+  function comboKeydown(e) {
+    var combo = e.target.closest && e.target.closest('.combobox');
+    if (!combo) return;
+    var open = hasClass(combo, 'open');
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (!open) comboOpen(combo);
+      comboMove(combo, 1);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!open) comboOpen(combo);
+      comboMove(combo, -1);
+    } else if (e.key === 'Enter') {
+      if (open) {
+        var active = $('.combobox-option.active', combo);
+        if (active) { e.preventDefault(); comboSelect(combo, active); }
+      }
+    } else if (e.key === 'Escape') {
+      if (open) { e.stopPropagation(); comboClose(combo); }
+    } else if (e.key === 'Backspace') {
+      // Empty input + Backspace removes the last chip, as in every chip UI.
+      var input = $('.combobox-input', combo);
+      if (input && !input.value) {
+        var chips = $$('.combobox-chip', combo);
+        var last = chips[chips.length - 1];
+        if (last) {
+          var v = attr(last, 'data-value');
+          removeChip(combo, v);
+          $$('.combobox-option', combo).forEach(function (o) {
+            if ((attr(o, 'data-value') || o.textContent.trim()) === v) attr(o, 'aria-selected', 'false');
+          });
+          syncComboValue(combo);
+          emit(combo, 'santy:change', { value: comboValue(combo) });
+        }
+      }
+    }
+  }
+
+  var combobox = {
+    open:   function (t) { var c = $(t); if (c) comboOpen(c); },
+    close:  function (t) { var c = $(t); if (c) comboClose(c); },
+    filter: function (t, q) { var c = $(t); return c ? comboFilter(c, q) : 0; },
+    value:  function (t) { var c = $(t); return c ? comboValue(c) : null; }
+  };
+
   /* ─── global delegated event wiring ──────────────────────────────────── */
 
   var OVERLAY_KINDS = {
@@ -1077,6 +1393,74 @@
       return;
     }
 
+    /* number input steppers */
+    var numBtn = t.closest('.number-input-btn');
+    if (numBtn) {
+      e.preventDefault();
+      numberStep(numBtn, attr(numBtn, 'data-santy-step') === 'down' ? -1 : 1);
+      return;
+    }
+
+    /* sortable table headers */
+    var sortTh = t.closest('th[aria-sort]');
+    if (sortTh) { e.preventDefault(); sortTable(sortTh); return; }
+
+    /* data-table row expand */
+    var rowToggle = t.closest('.data-table-row-toggle');
+    if (rowToggle) {
+      e.preventDefault();
+      var tr = rowToggle.closest('tr');
+      var detail = tr && tr.nextElementSibling;
+      if (detail && hasClass(detail, 'data-table-detail')) {
+        var nowOpen = detail.hidden;
+        detail.hidden = !nowOpen;
+        attr(rowToggle, 'aria-expanded', nowOpen ? 'true' : 'false');
+      }
+      return;
+    }
+
+    /* combobox */
+    var chipRemove = t.closest('.combobox-chip-remove');
+    if (chipRemove) {
+      e.preventDefault();
+      var chip = chipRemove.closest('.combobox-chip');
+      var cb = chipRemove.closest('.combobox');
+      if (chip && cb) {
+        var val = attr(chip, 'data-value');
+        removeChip(cb, val);
+        $$('.combobox-option', cb).forEach(function (o) {
+          if ((attr(o, 'data-value') || o.textContent.trim()) === val) attr(o, 'aria-selected', 'false');
+        });
+        syncComboValue(cb);
+        emit(cb, 'santy:change', { value: comboValue(cb) });
+      }
+      return;
+    }
+    var comboOpt = t.closest('.combobox-option');
+    if (comboOpt) {
+      e.preventDefault();
+      var cbo = comboOpt.closest('.combobox');
+      if (cbo) comboSelect(cbo, comboOpt);
+      return;
+    }
+    var comboHit = t.closest('.combobox-control, .combobox-toggle');
+    if (comboHit) {
+      var cb2 = comboHit.closest('.combobox');
+      if (cb2) {
+        if (t.closest('.combobox-toggle')) {
+          e.preventDefault();
+          hasClass(cb2, 'open') ? comboClose(cb2) : comboOpen(cb2);
+        } else {
+          comboOpen(cb2);
+          var inp = $('.combobox-input', cb2);
+          if (inp) inp.focus();
+        }
+      }
+      return;
+    }
+    // Any click elsewhere closes open comboboxes.
+    $$('.combobox.open').forEach(function (c) { if (!c.contains(t)) comboClose(c); });
+
     /* theme toggle */
     var themeBtn = t.closest('[data-santy-theme-toggle]');
     if (themeBtn) {
@@ -1110,6 +1494,80 @@
       dropdownKeydown(e);
     }
     tabsKeydown(e);
+    comboKeydown(e);
+    pinKeydown(e);
+  }
+
+  /* ─── pin / OTP input ────────────────────────────────────────────────── */
+
+  function pinDigits(wrap) {
+    return $$('.pin-digit', wrap).filter(function (d) { return !d.disabled; });
+  }
+
+  /** Advance on entry, retreat on Backspace, and accept a pasted full code. */
+  function pinInput(e) {
+    var digit = e.target.closest && e.target.closest('.pin-digit');
+    if (!digit) return;
+    var wrap = digit.closest('.pin-input');
+    if (!wrap) return;
+    var digits = pinDigits(wrap);
+    var idx = digits.indexOf(digit);
+
+    // A paste lands entirely in one box — spread it across the rest.
+    if (digit.value.length > 1) {
+      var chars = digit.value.split('');
+      for (var i = 0; i < chars.length && idx + i < digits.length; i++) {
+        digits[idx + i].value = chars[i];
+      }
+      var last = Math.min(idx + chars.length, digits.length - 1);
+      digits[last].focus();
+    } else if (digit.value && idx < digits.length - 1) {
+      digits[idx + 1].focus();
+    }
+
+    var code = digits.map(function (d) { return d.value; }).join('');
+    emit(wrap, 'santy:change', { value: code });
+    if (code.length === digits.length) emit(wrap, 'santy:complete', { value: code });
+  }
+
+  function pinKeydown(e) {
+    var digit = e.target.closest && e.target.closest('.pin-digit');
+    if (!digit) return;
+    var wrap = digit.closest('.pin-input');
+    if (!wrap) return;
+    var digits = pinDigits(wrap);
+    var idx = digits.indexOf(digit);
+
+    if (e.key === 'Backspace' && !digit.value && idx > 0) {
+      e.preventDefault();
+      digits[idx - 1].focus();
+      digits[idx - 1].value = '';
+    } else if (e.key === 'ArrowLeft' && idx > 0) {
+      e.preventDefault();
+      digits[idx - 1].focus();
+    } else if (e.key === 'ArrowRight' && idx < digits.length - 1) {
+      e.preventDefault();
+      digits[idx + 1].focus();
+    }
+  }
+
+  /* ─── number input ───────────────────────────────────────────────────── */
+
+  function numberStep(btn, dir) {
+    var wrap = btn.closest('.number-input');
+    var field = wrap && $('.number-input-field', wrap);
+    if (!field) return;
+    var step = parseFloat(attr(field, 'step')) || 1;
+    var min = attr(field, 'min') === null ? -Infinity : parseFloat(attr(field, 'min'));
+    var max = attr(field, 'max') === null ? Infinity : parseFloat(attr(field, 'max'));
+    var current = parseFloat(field.value);
+    if (isNaN(current)) current = isFinite(min) ? min : 0;
+    var next = Math.min(max, Math.max(min, current + dir * step));
+    // Re-round to the step's precision so 0.1 + 0.2 does not leak through.
+    var decimals = (String(step).split('.')[1] || '').length;
+    field.value = decimals ? next.toFixed(decimals) : String(next);
+    emit(field, 'input', { value: field.value });
+    emit(wrap, 'santy:change', { value: field.value });
   }
 
   /* ─── initialisation ─────────────────────────────────────────────────── */
@@ -1241,6 +1699,125 @@
       el.__santySpy = true;
       scrollspy(el);
     });
+
+    /* data tables — sortable headers need to be keyboard operable */
+    $$('.data-table', root).forEach(function (tbl) {
+      $$('thead th[data-sort-type], thead th[data-santy-sortable]', tbl).forEach(function (th) {
+        if (!attr(th, 'aria-sort')) attr(th, 'aria-sort', 'none');
+        if (th.tabIndex < 0) attr(th, 'tabindex', '0');
+        if (!attr(th, 'role')) attr(th, 'role', 'columnheader');
+        if (th.__santySort) return;
+        th.__santySort = true;
+        on(th, 'keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); sortTable(th); }
+        });
+      });
+      // Detail rows start collapsed unless the author expanded them.
+      $$('.data-table-row-toggle', tbl).forEach(function (tg) {
+        if (!attr(tg, 'aria-expanded')) attr(tg, 'aria-expanded', 'false');
+        var tr = tg.closest('tr');
+        var detail = tr && tr.nextElementSibling;
+        if (detail && hasClass(detail, 'data-table-detail')) {
+          detail.hidden = attr(tg, 'aria-expanded') !== 'true';
+        }
+      });
+      if (tbl.__santySelect) return;
+      tbl.__santySelect = true;
+      on(tbl, 'change', function (e) {
+        var box = e.target.closest && e.target.closest('.data-table-select input[type="checkbox"]');
+        if (!box) return;
+        if (box.closest('thead')) tableSelectAll(box); else tableRowSelect(box);
+      });
+    });
+
+    /* comboboxes */
+    $$('.combobox', root).forEach(function (combo) {
+      var input = $('.combobox-input', combo);
+      var list = $('.combobox-list', combo);
+      if (list && !list.id) list.id = 'santy-combo-' + Math.random().toString(36).slice(2, 8);
+      if (list && !attr(list, 'role')) attr(list, 'role', 'listbox');
+      $$('.combobox-option', combo).forEach(function (o) {
+        if (!attr(o, 'role')) attr(o, 'role', 'option');
+        if (!attr(o, 'aria-selected')) attr(o, 'aria-selected', 'false');
+      });
+      if (input) {
+        attr(input, 'role', 'combobox');
+        attr(input, 'aria-autocomplete', 'list');
+        if (!attr(input, 'aria-expanded')) attr(input, 'aria-expanded', 'false');
+        if (list) attr(input, 'aria-controls', list.id);
+        if (!input.__santyCombo) {
+          input.__santyCombo = true;
+          on(input, 'input', function () {
+            comboOpen(combo);
+            comboFilter(combo, input.value);
+          });
+        }
+      }
+    });
+
+    /* pin / OTP inputs */
+    $$('.pin-input', root).forEach(function (wrap) {
+      if (wrap.__santyPin) return;
+      wrap.__santyPin = true;
+      $$('.pin-digit', wrap).forEach(function (d) {
+        if (!attr(d, 'inputmode')) attr(d, 'inputmode', 'numeric');
+        if (!attr(d, 'autocomplete')) attr(d, 'autocomplete', 'one-time-code');
+        if (!attr(d, 'maxlength')) attr(d, 'maxlength', '1');
+      });
+      on(wrap, 'input', pinInput);
+    });
+
+    /* file uploaders — drag-over affordance */
+    $$('.uploader', root).forEach(function (up) {
+      if (up.__santyUpload) return;
+      up.__santyUpload = true;
+      ['dragenter', 'dragover'].forEach(function (evt) {
+        on(up, evt, function (e) { e.preventDefault(); addClass(up, 'dragover'); });
+      });
+      ['dragleave', 'drop'].forEach(function (evt) {
+        on(up, evt, function (e) {
+          e.preventDefault();
+          // dragleave fires for child elements too; ignore those.
+          if (evt === 'dragleave' && up.contains(e.relatedTarget)) return;
+          removeClass(up, 'dragover');
+        });
+      });
+      on(up, 'drop', function (e) {
+        var files = e.dataTransfer && e.dataTransfer.files;
+        if (files && files.length) emit(up, 'santy:files', { files: files });
+      });
+    });
+
+    /* speed dial */
+    $$('.speed-dial', root).forEach(function (dial) {
+      if (dial.__santyDial) return;
+      dial.__santyDial = true;
+      var toggle = $('.fab, .speed-dial-toggle', dial);
+      if (!toggle) return;
+      if (!attr(toggle, 'aria-expanded')) attr(toggle, 'aria-expanded', 'false');
+      on(toggle, 'click', function (e) {
+        e.preventDefault();
+        var open = dial.classList.toggle('open');
+        attr(toggle, 'aria-expanded', open ? 'true' : 'false');
+      });
+      // Pointer users expect hover; keyboard users get the click toggle above.
+      on(dial, 'mouseleave', function () {
+        removeClass(dial, 'open');
+        attr(toggle, 'aria-expanded', 'false');
+      });
+    });
+
+    /* infinite scroll sentinels */
+    $$('.infinite-sentinel', root).forEach(function (sentinel) {
+      if (sentinel.__santyInfinite || typeof IntersectionObserver === 'undefined') return;
+      sentinel.__santyInfinite = true;
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) emit(sentinel, 'santy:loadmore', { sentinel: sentinel });
+        });
+      }, { rootMargin: attr(sentinel, 'data-santy-margin') || '200px' });
+      obs.observe(sentinel);
+    });
   }
 
   /* ─── auto-start ─────────────────────────────────────────────────────── */
@@ -1270,6 +1847,8 @@
     tooltip: tooltip,
     popover: popover,
     carousel: carousel,
+    table: table,
+    combobox: combobox,
     toast: toast,
     theme: theme,
     scrollspy: scrollspy,

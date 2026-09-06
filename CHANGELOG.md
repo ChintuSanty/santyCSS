@@ -5,6 +5,42 @@ The full illustrated changelog lives at [santycss.santy.in/changelog.html](https
 
 ## [2.9.0] — 2026-09-06
 
+### Added — extended components (MUI / Quasar parity)
+- **Data table** — `.data-table` with sticky header, sortable columns
+  (`data-sort-type="number|date|text"`, stable sort, blanks always sink),
+  pinned first column, row selection with an indeterminate header checkbox,
+  expandable detail rows that travel with their parent when sorted, three
+  density modes, toolbar/footer, empty and loading states.
+- **Combobox / autocomplete / multiselect** — `.combobox` with substring
+  filtering and `<mark>` highlighting, removable chips, option groups that hide
+  when empty, full keyboard support (Arrow/Enter/Esc, Backspace removes the last
+  chip), `aria-activedescendant` roving, and a hidden input so plain form posts work.
+- **Text field variants** — `.field-outlined` / `.field-filled` / `.field-standard`
+  (MUI TextField parity) with floating labels that ride on `:placeholder-shown`
+  (no JS), prefix/suffix adornments, helper text, character counter, and
+  validation keyed off `:user-invalid` so fields do not turn red before anyone types.
+- **Stepper** — horizontal and vertical, with active/complete/error/disabled
+  states and connectors that stop at the dots.
+- **Tree view** — built on `<details>`/`<summary>`, so expansion needs no JS.
+- **Context menu + cascading submenus** — submenus open on hover *or*
+  `:focus-within`, so they are keyboard reachable.
+- **Segmented control / toggle button group** — real radio inputs, so keyboard
+  and form semantics come free.
+- **Pin/OTP input** — auto-advance, Backspace retreat, arrow keys, and a pasted
+  code spreads across the boxes; emits `santy:complete`.
+- **Number input** with stepper buttons that respect `min`/`max`/`step` and
+  re-round to the step's precision.
+- **Also**: color picker, time picker, calendar/scheduler, uploader with
+  progress and drag-and-drop, skeleton variants (text/circle/rect + wave
+  shimmer), snackbar, banner, speed dial, bottom navigation, nav rail,
+  virtual-scroll and infinite-scroll scaffolding, loading overlay, backdrop.
+- **`.prose`** — long-form typography for CMS/Markdown HTML (the Tailwind
+  Typography gap), with `-sm`/`-lg`/`-xl`/`-full` sizes.
+- All of the above are token-driven (`--santy-*`), dark-mode aware, and honour
+  `prefers-reduced-motion`.
+- **`Santy.table`** and **`Santy.combobox`** modules, plus init-time wiring for
+  pin inputs, number inputs, uploaders, speed dials and infinite-scroll sentinels.
+
 ### Added
 - **`santy.js` — the behavior layer.** Zero-dependency, ~50KB, no build step.
   Drives the state classes the CSS already shipped (`.open` / `.active` / `.show`),

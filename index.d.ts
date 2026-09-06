@@ -194,6 +194,26 @@ declare namespace santy {
       pause(target: ElementRef): void;
     };
 
+    /** Data table sorting and row selection. */
+    table: {
+      /**
+       * Sort by a header cell. Direction toggles when omitted.
+       * Reads `data-sort-value` per cell (falling back to text) and
+       * `data-sort-type="number|date|text"` on the header.
+       */
+      sort(th: ElementRef, direction?: 'ascending' | 'descending'): void;
+      /** Apply the header checkbox's state to every row checkbox. */
+      selectAll(master: ElementRef): void;
+    };
+    combobox: {
+      open(target: ElementRef): void;
+      close(target: ElementRef): void;
+      /** Filter options by substring; returns how many remain visible. */
+      filter(target: ElementRef, query: string): number;
+      /** Current value — an array when `data-santy-multiple="true"`. */
+      value(target: ElementRef): string | string[] | null;
+    };
+
     toast: ToastAPI;
     theme: ThemeAPI;
     scrollspy(nav: ElementRef, options?: { rootMargin?: string; threshold?: number[] }): IntersectionObserver | undefined;

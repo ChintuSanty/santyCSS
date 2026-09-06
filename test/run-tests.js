@@ -269,6 +269,74 @@ test('package.json exposes the behavior layer', () => {
   assert(pkg.files.includes('santy.js'), 'santy.js not in files[]');
 });
 
+// ── Extended components (v2.9.0) ────────────────────────────────────────────
+const EXTENDED = [
+  '.data-table', '.data-table-wrap', '.data-table-pin-first', '.data-table-detail',
+  '.combobox', '.combobox-list', '.combobox-option', '.combobox-chip',
+  '.field', '.field-outlined', '.field-filled', '.field-standard', '.field-label',
+  '.stepper', '.stepper-dot', '.stepper-vertical',
+  '.tree', '.tree-node', '.tree-caret',
+  '.context-menu', '.context-menu-item', '.menu-sub-list',
+  '.segmented', '.segmented-label', '.toggle-group',
+  '.pin-input', '.pin-digit',
+  '.number-input', '.number-input-btn',
+  '.color-picker', '.color-swatch', '.color-input',
+  '.time-picker', '.time-option',
+  '.calendar', '.calendar-grid', '.calendar-event',
+  '.uploader', '.upload-item', '.upload-progress-bar',
+  '.skeleton-text', '.skeleton-circle', '.skeleton-rect', '.skeleton-wave',
+  '.snackbar', '.snackbar-action',
+  '.banner', '.banner-actions',
+  '.speed-dial', '.speed-dial-action',
+  '.bottom-nav', '.bottom-nav-item', '.nav-rail', '.nav-rail-wide',
+  '.virtual-scroll', '.infinite-sentinel',
+  '.loading-overlay', '.backdrop',
+  '.prose', '.prose-lg', '.prose-full',
+];
+EXTENDED.forEach(sel => test(`extended component ${sel}`, () => {
+  assert(read('santy-components.css').includes(sel + ' ') ||
+         read('santy-components.css').includes(sel + ','), `${sel} not found in components`);
+}));
+
+test('extended components ship in every bundle that carries components', () => {
+  for (const file of ['santy.css', 'santy-components.css', 'santy-start.css']) {
+    const c = read(file);
+    for (const sel of ['.data-table', '.combobox', '.prose', '.stepper', '.field-outlined']) {
+      assert(c.includes(sel), `${sel} missing from ${file}`);
+    }
+  }
+});
+
+test('floating label works without JS (rides on :placeholder-shown)', () => {
+  const c = read('santy-components.css');
+  assert(c.includes(':not(:placeholder-shown) ~ .field-label'),
+    'floating label does not use :placeholder-shown');
+});
+
+test('validation styling uses :user-invalid, not :invalid', () => {
+  const c = read('santy-components.css');
+  assert(c.includes('.field-input:user-invalid'), ':user-invalid not used');
+  // :invalid would flag empty required fields before the user typed anything.
+  assert(!/\.field-input:invalid[^-]/.test(c), 'bare :invalid would fire too early');
+});
+
+test('extended components respect prefers-reduced-motion', () => {
+  const c = read('santy-components.css');
+  const i = c.indexOf('.skeleton-wave::after { animation: none');
+  assert(i > -1, 'skeleton wave not disabled under reduced motion');
+});
+
+test('santy.js exposes table and combobox modules', () => {
+  const modPath = path.join(ROOT, 'santy.js');
+  delete require.cache[modPath];
+  const Santy = require(modPath);
+  assert(typeof Santy.table.sort === 'function', 'Santy.table.sort missing');
+  assert(typeof Santy.table.selectAll === 'function', 'Santy.table.selectAll missing');
+  for (const fn of ['open', 'close', 'filter', 'value']) {
+    assert(typeof Santy.combobox[fn] === 'function', `Santy.combobox.${fn} missing`);
+  }
+});
+
 // ── Report ───────────────────────────────────────────────────────────────────
 console.log(`\n${passed} passed, ${failed} failed`);
 if (failed) {
