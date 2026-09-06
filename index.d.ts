@@ -47,6 +47,8 @@ declare const santy: {
   effects: string;
   /** dist/santy-classmap.json — every generated class name */
   classmap: string;
+  /** dist/santy.js — the behavior layer (modal, drawer, dropdown, tabs, toast, theme) */
+  js: string;
 
   /** Remove unused classes from a CSS string. `content` is file paths or raw markup. */
   purge: (options: {
@@ -79,6 +81,142 @@ declare namespace santy {
       rulesDropped: number;
       originalSize: number;
       outputSize: number;
+    };
+  }
+
+  /* ── Behavior layer (santy.js, v2.9.0) ─────────────────────────────────
+   * These describe the global `Santy` object created by dist/santy.js.
+   * They are not returned by `require('santycss')` — that export only hands
+   * back the file path. Reference them via `santy.SantyRuntime`.
+   */
+
+  type ElementRef = string | Element;
+
+  /** open / close / toggle façade shared by modal, drawer and bottom sheet. */
+  interface OverlayAPI {
+    open(target: ElementRef): void;
+    close(target: ElementRef): void;
+    toggle(target: ElementRef): void;
+    isOpen(target: ElementRef): boolean;
+  }
+
+  interface ToastOptions {
+    /** Visual variant; also decides whether the toast announces as alert or status. */
+    variant?: 'success' | 'error' | 'warning' | 'info' | 'light';
+    /** Bold line above the message. */
+    title?: string;
+    /** Auto-dismiss delay in ms. `0` keeps it until dismissed. Default 4000. */
+    duration?: number;
+    /** Corner to render in. Default top-right. */
+    position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
+             | 'top-center' | 'bottom-center';
+    /** Optional inline action button. */
+    action?: { label: string; onClick?: () => void };
+    /** Show the × button. Default true. */
+    dismissible?: boolean;
+    /** Accessible label for the × button. Default "Dismiss notification". */
+    closeLabel?: string;
+    /** Extra classes on the toast element. */
+    className?: string;
+    onDismiss?: () => void;
+  }
+
+  interface ToastHandle {
+    el: HTMLElement;
+    dismiss(): void;
+  }
+
+  interface ToastAPI {
+    (message: string, options?: ToastOptions): ToastHandle;
+    success(message: string, options?: ToastOptions): ToastHandle;
+    error(message: string, options?: ToastOptions): ToastHandle;
+    warning(message: string, options?: ToastOptions): ToastHandle;
+    info(message: string, options?: ToastOptions): ToastHandle;
+  }
+
+  interface ThemeAPI {
+    /** Current theme name, e.g. "light" | "dark" | "ocean". */
+    get(): string;
+    /** Apply a theme. Pass `persist: false` to skip writing localStorage. */
+    set(name: string, persist?: boolean): string;
+    /** Flip between light and dark. */
+    toggle(): string;
+    /** Forget the saved choice and follow `prefers-color-scheme` again. */
+    system(): string;
+    init(): void;
+  }
+
+  interface PositionOptions {
+    placement?: 'top' | 'bottom' | 'left' | 'right'
+              | 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'
+              | 'left-start' | 'left-end' | 'right-start' | 'right-end';
+    /** Gap between anchor and floating element, px. Default 8. */
+    offset?: number;
+    /** Minimum distance from the viewport edge, px. Default 8. */
+    padding?: number;
+  }
+
+  /** The global `Santy` object exposed by dist/santy.js. */
+  interface SantyRuntime {
+    version: string;
+    /** Wire up ARIA and instances inside `root`. Safe to re-run after DOM injection. */
+    init(root?: ParentNode): void;
+
+    modal: OverlayAPI;
+    drawer: OverlayAPI;
+    offcanvas: OverlayAPI;
+    sheet: OverlayAPI;
+    bottomSheet: OverlayAPI;
+
+    dropdown: {
+      open(target: ElementRef): void;
+      close(target: ElementRef): void;
+      toggle(target: ElementRef): void;
+      closeAll(): void;
+    };
+    collapse: {
+      show(target: ElementRef): void;
+      hide(target: ElementRef): void;
+      toggle(target: ElementRef): void;
+    };
+    tabs: { show(target: ElementRef): void };
+    tooltip: { show(target: ElementRef): void; hide(): void };
+    popover: {
+      open(trigger: ElementRef): void;
+      close(target: ElementRef): void;
+      closeAll(): void;
+    };
+    carousel: {
+      next(target: ElementRef): void;
+      prev(target: ElementRef): void;
+      go(target: ElementRef, index: number): void;
+      play(target: ElementRef): void;
+      pause(target: ElementRef): void;
+    };
+
+    toast: ToastAPI;
+    theme: ThemeAPI;
+    scrollspy(nav: ElementRef, options?: { rootMargin?: string; threshold?: number[] }): IntersectionObserver | undefined;
+
+    /** Primitives for building your own components on the same machinery. */
+    utils: {
+      $(selector: ElementRef, ctx?: ParentNode): Element | null;
+      $$(selector: string, ctx?: ParentNode): Element[];
+      on(el: EventTarget, type: string, fn: EventListener, opts?: boolean | AddEventListenerOptions): void;
+      off(el: EventTarget, type: string, fn: EventListener, opts?: boolean | EventListenerOptions): void;
+      /** Fire a cancelable event; returns false if a listener called preventDefault(). */
+      emit(el: Element, name: string, detail?: unknown): boolean;
+      /** Place `floating` against `anchor`, flipping and shifting to stay on screen. */
+      position(anchor: Element, floating: HTMLElement, options?: PositionOptions): string;
+      focusTrap: {
+        activate(el: Element, opts?: { restore?: boolean }): void;
+        deactivate(el: Element): void;
+      };
+      lockScroll(): void;
+      unlockScroll(): void;
+      tabbables(container: Element): HTMLElement[];
+      afterTransition(el: Element, fn: () => void): void;
+      prefersReducedMotion(): boolean;
     };
   }
 

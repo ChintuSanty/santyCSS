@@ -3,6 +3,51 @@
 All notable changes to SantyCSS are documented here.
 The full illustrated changelog lives at [santycss.santy.in/changelog.html](https://santycss.santy.in/changelog.html).
 
+## [2.9.0] — 2026-09-06
+
+### Added
+- **`santy.js` — the behavior layer.** Zero-dependency, ~50KB, no build step.
+  Drives the state classes the CSS already shipped (`.open` / `.active` / `.show`),
+  so no existing markup or stylesheet needs to change.
+  - Components: modal, drawer/offcanvas, bottom sheet, dropdown, collapse,
+    accordion, tabs, tooltip, popover, carousel, toast, theme, scrollspy, ripple.
+  - Declarative API via `data-santy-toggle` / `data-santy-target` /
+    `data-santy-dismiss`, plus a programmatic `Santy.*` façade.
+  - Overlay machinery: focus trap with a nesting stack, focus restore,
+    background `inert`, scroll lock with scrollbar-width compensation,
+    Esc handling, and backdrop dismissal (`data-santy-backdrop="static"` to opt out).
+  - Flip-and-shift positioning engine for dropdowns, popovers and tooltips —
+    keeps them on screen and outside `overflow: hidden` ancestors.
+  - WAI-ARIA patterns: tabs with roving tabindex + arrow keys, dropdown
+    Arrow/Home/End, accordion `aria-expanded`/`aria-controls`, toasts as
+    `status` (`alert` for errors), dialog labelling.
+  - Cancelable lifecycle events: `santy:show` → `santy:shown` → `santy:hide` → `santy:hidden`.
+  - `Santy.theme` persists to localStorage and follows `prefers-color-scheme`
+    until the user chooses explicitly.
+  - Honours `prefers-reduced-motion` throughout.
+  - SSR-safe: importing it without a DOM is a no-op.
+- **Behavior-layer CSS** — `.modal-overlay.open`, `.drawer-overlay.open`,
+  `.santy-tip`, `.santy-ripple`, toast structure (`.toast-body`, `.toast-title`,
+  `.toast-message`, `.toast-action`) and six `.toast-container-*` positions.
+  The CSS-only `:target` paths still work untouched.
+- **TypeScript declarations** for the runtime (`santy.SantyRuntime`), and
+  `require('santycss').js` → path to `dist/santy.js`.
+- **New exports** — `santycss/js` and `santycss/behavior`.
+
+### Fixed
+- `santy.css` did not include the behavior-layer block, because CSS appended past
+  the component marker reached `santy-components.css` but never the full bundle.
+
+### Changed
+- CI TypeScript check now runs with `--lib es2015,dom`; the runtime types
+  reference `Element`, `HTMLElement` and `IntersectionObserver`.
+
+### Known issues
+- `santy.css` is still missing the portfolio/CV/itsme template blocks that
+  `santy-components.css` and `santy-start.css` carry — same root cause as the
+  fix above, tracked separately to avoid changing the flagship bundle's
+  contents in a behavior-layer release.
+
 ## [2.8.0] — 2026-08-17
 
 ### Added

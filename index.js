@@ -62,6 +62,9 @@ const effects    = path.join(dist, 'santy-effects.css');
 const themes     = path.join(dist, 'santy-themes.css');
 const classmap   = path.join(dist, 'santy-classmap.json');
 
+// Behavior layer (v2.9.0) — interactive component runtime
+const js         = path.join(dist, 'santy.js');
+
 // Purge API (tree-shaking)
 const { purge, purgeFiles, extractClasses, minify, EXTS } = require('./lib/purge-core');
 
@@ -74,6 +77,9 @@ module.exports = {
 
   // Themes + classmap (v2.7.0)
   themes, classmap,
+
+  // Behavior layer (v2.9.0)
+  js,
 
   // Purge API
   purge, purgeFiles, extractClasses, minify, EXTS,
