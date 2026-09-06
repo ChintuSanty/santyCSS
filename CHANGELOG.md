@@ -5,6 +5,29 @@ The full illustrated changelog lives at [santycss.santy.in/changelog.html](https
 
 ## [2.9.0] — 2026-09-06
 
+### Added — framework adapters
+- **Custom elements** (`santycss/elements`, `dist/santy-elements.js`) —
+  `<santy-modal>`, `<santy-drawer>`, `<santy-bottom-sheet>`, `<santy-tabs>`,
+  `<santy-dropdown>`, `<santy-theme-toggle>`, `<santy-tooltip>`. One build
+  covers React 19+, Vue, Svelte, Angular, Astro and plain HTML. They render
+  into the light DOM deliberately: a shadow root would cut SantyCSS utility
+  classes off from the content inside.
+- **React adapter** (`santycss/react`) — `useModal`, `useDrawer`,
+  `useBottomSheet`, `useTheme`, `useToast`, `useDisclosure`, `useSanty`, plus
+  `Button`, `Card`, `Modal`, `Alert`, `Badge`, `Prose` and friends. Authored
+  with `createElement`, so the package ships as plain JS with no build step.
+- **Vue 3 adapter** (`santycss/vue`) — the same composables, `h()`-based
+  components, `v-model` support on `<SantyModal>`, and an installable plugin.
+- **`cn()`** (`santycss/merge`) — conflict-aware class merging. Composed class
+  strings are otherwise resolved by CSS source order rather than argument
+  order, so a caller's override silently loses. `cn()` drops the earlier class
+  whenever a later one targets the same property, scopes conflicts per variant
+  (`md:add-padding-4` never collides with `add-padding-8`), lets transform
+  utilities compose, accepts clsx-style arguments, and is extensible via
+  `cn.extend()`. Ships with TypeScript declarations.
+- React and Vue are declared as **optional** peer dependencies — installing
+  `santycss` does not pull either into the tree.
+
 ### Added — extended components (MUI / Quasar parity)
 - **Data table** — `.data-table` with sticky header, sortable columns
   (`data-sort-type="number|date|text"`, stable sort, blanks always sink),

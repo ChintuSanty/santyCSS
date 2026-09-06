@@ -37,7 +37,11 @@
     "./migrate": "./migrate.js",
     "./scroll": "./dist/santy-scroll.js",
     "./js": "./dist/santy.js",
-    "./behavior": "./dist/santy.js"
+    "./behavior": "./dist/santy.js",
+    "./elements": "./dist/santy-elements.js",
+    "./merge": "./packages/merge/santy-merge.js",
+    "./react": "./packages/react/index.js",
+    "./vue": "./packages/vue/index.js"
   },
   "files": [
     "dist/",
@@ -49,6 +53,7 @@
     "cli.js",
     "santy-jit.js",
     "santy.js",
+    "packages/",
     "vite-plugin-santycss.js",
     "purge.js",
     "migrate.js",
@@ -80,10 +85,18 @@
     "prepublishOnly": "node build.js && node test/run-tests.js"
   },
   "peerDependencies": {
-    "postcss": ">=8.0.0"
+    "postcss": ">=8.0.0",
+    "react": ">=17.0.0",
+    "vue": ">=3.0.0"
   },
   "peerDependenciesMeta": {
     "postcss": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "vue": {
       "optional": true
     }
   },

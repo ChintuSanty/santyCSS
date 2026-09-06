@@ -178,6 +178,90 @@ inside and every element is styled:
 Everything above is token-driven (`--santy-*`), dark-mode aware, and honours
 `prefers-reduced-motion`.
 
+### ⚛️ Framework adapters
+
+MUI *is* React. Quasar *is* Vue. A class-only library can never replace them for
+those users, so v2.9.0 ships adapters — none of which require a build step.
+
+**Custom elements** — one file, every framework (React 19+, Vue, Svelte, Angular, Astro, plain HTML):
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/santycss@2/dist/santy.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/santycss@2/dist/santy-elements.js" defer></script>
+
+<santy-modal id="confirm"><div class="modal-box add-padding-24">…</div></santy-modal>
+<santy-theme-toggle class="btn btn-ghost">🌙</santy-theme-toggle>
+```
+
+```js
+document.querySelector('#confirm').open = true;
+```
+
+These render into the **light DOM** on purpose — a shadow root would cut every
+SantyCSS utility class off from the content inside it.
+
+**React** — hooks and components, authored with `createElement` so the package
+ships as plain JavaScript:
+
+```jsx
+import { useModal, useTheme, useToast, Modal, ModalBox, Button, cn } from 'santycss/react';
+
+function DeleteButton() {
+  const modal = useModal();
+  const toast = useToast();
+  const { isDark, toggle } = useTheme();
+
+  return (
+    <>
+      <Button variant="danger" ripple onClick={modal.open}>Delete</Button>
+      <div ref={modal.ref} className="modal-overlay">
+        <ModalBox className="add-padding-24">
+          <p>This cannot be undone.</p>
+          <Button variant="ghost" onClick={modal.close}>Cancel</Button>
+          <Button variant="danger" onClick={() => toast.success('Deleted')}>Confirm</Button>
+        </ModalBox>
+      </div>
+    </>
+  );
+}
+```
+
+**Vue 3** — composables, components, and an installable plugin:
+
+```vue
+<script setup>
+import { useModal, useToast, SantyButton, SantyModal } from 'santycss/vue';
+const modal = useModal();
+const toast = useToast();
+</script>
+
+<template>
+  <SantyButton variant="danger" @click="modal.open">Delete</SantyButton>
+  <SantyModal v-model="modal.isOpen.value">…</SantyModal>
+</template>
+```
+
+React and Vue are **optional** peer dependencies — installing `santycss` does
+not pull either into your tree.
+
+**`cn()` — conflict-aware class merging.** The problem it solves: composed class
+strings are resolved by CSS source order, not argument order, so a caller's
+override silently loses.
+
+```js
+import { cn } from 'santycss/merge';
+
+cn('add-padding-24', 'add-padding-8')           // → 'add-padding-8'      (last wins)
+cn('background-blue-500', 'background-red-500') // → 'background-red-500'
+cn('add-padding-24', 'add-padding-x-8')         // → both — different axes
+cn('md:add-padding-24', 'add-padding-8')        // → both — different breakpoints
+cn('btn', { 'btn-lg': isLarge }, className)     // clsx-style arguments
+```
+
+Variants are scoped, so `md:add-padding-4` never collides with `add-padding-8`.
+Transform utilities compose rather than conflict. Extend it with your own
+conflict groups via `cn.extend()`.
+
 ---
 
 ## What's New in v2.8.0
