@@ -285,6 +285,59 @@ Lifecycle events (cancelable — `preventDefault()` vetoes the transition):
 Focus trap, focus restore, `inert` background, scroll lock, Esc and backdrop
 click are all handled. Do not add your own `classList.toggle('open')` handlers.
 
+## Extended Components (v2.9.0 — MUI / Quasar parity)
+
+```
+.data-table   .data-table-wrap   .data-table-toolbar   .data-table-footer
+.data-table-compact/-relaxed/-striped/-bordered/-pin-first
+.data-table-select   .data-table-detail   .data-table-row-toggle   .data-table-empty
+   → sortable: <th data-sort-type="number|date|text">; cells may carry data-sort-value
+
+.combobox   .combobox-control   .combobox-input   .combobox-toggle
+.combobox-list   .combobox-option   .combobox-option-label   .combobox-option-desc
+.combobox-chip   .combobox-chip-remove   .combobox-group-label   .combobox-empty
+   → data-santy-multiple="true" for chips/multiselect
+
+.field   .field-box   .field-input   .field-label   .field-help   .field-counter
+.field-outlined   .field-filled   .field-standard   .field-sm/-lg
+.field-prefix   .field-suffix   .field-has-prefix   .field-has-suffix   .field-error
+   → floating label needs placeholder=" " on the input (rides :placeholder-shown)
+
+.stepper   .stepper-item   .stepper-dot   .stepper-label   .stepper-desc
+.stepper-vertical   .stepper-mobile-stack     states: .active .complete .error .disabled
+
+.tree   .tree-item   .tree-node   .tree-caret   .tree-icon   .tree-label   .tree-leaf
+   → wrap children in <details><summary class="tree-node">; no JS needed
+
+.context-menu   .context-menu-item   .context-menu-icon   .context-menu-shortcut
+.context-menu-divider   .context-menu-label   .context-menu-item-danger
+.menu-sub   .menu-sub-list   .menu-sub-left
+
+.segmented   .segmented-item   .segmented-label   .segmented-sm/-lg/-full
+.toggle-group   .toggle-group-vertical        (radio inputs inside .segmented-item)
+
+.pin-input   .pin-digit   .pin-separator   .pin-input-sm/-lg/-error
+.number-input   .number-input-field   .number-input-btn   (data-santy-step="down")
+.color-picker  .color-swatch-grid  .color-swatch  .color-input  .color-picker-chip
+.time-picker   .time-column   .time-option   .time-picker-footer
+.calendar  .calendar-header  .calendar-weekdays  .calendar-grid  .calendar-cell
+.calendar-date  .calendar-event(-success/-danger/-warning)  .calendar-compact
+.uploader  .uploader-icon  .upload-list  .upload-item  .upload-progress-bar  .upload-remove
+.skeleton-text  .skeleton-title  .skeleton-circle  .skeleton-rect  .skeleton-wave
+.snackbar  .snackbar-message  .snackbar-action  .snackbar-left/-right
+.banner  .banner-icon  .banner-body  .banner-actions  .banner-info/-success/-warning/-danger
+.speed-dial  .speed-dial-actions  .speed-dial-action  .speed-dial-action-label
+.bottom-nav  .bottom-nav-item  .bottom-nav-icon  .nav-rail  .nav-rail-item  .nav-rail-wide
+.virtual-scroll  .infinite-sentinel  .infinite-loader
+.loading-overlay  .backdrop  .backdrop-blur
+.prose  .prose-sm  .prose-lg  .prose-xl  .prose-full   /* long-form CMS/Markdown HTML */
+```
+
+New JS modules: `Santy.table.sort(th)`, `Santy.table.selectAll(cb)`,
+`Santy.combobox.open/close/filter/value`.
+Events: `santy:sort`/`santy:sorted`, `santy:select`, `santy:change`,
+`santy:complete` (pin), `santy:files` (uploader), `santy:loadmore` (infinite scroll).
+
 ## Semantic Theme Utilities (v2.7.0 — flip with data-theme / .dark)
 
 ```

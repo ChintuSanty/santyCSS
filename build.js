@@ -5267,6 +5267,12 @@ const ITSME_CSS = `
   display: flex; align-items: center; justify-content: center;
 }
 `;
+// ─── EXTENDED COMPONENTS (v2.9.0) ────────────────────────────────────────────
+// Data table, combobox, stepper, tree, context menu, field variants, prose and
+// the rest of the MUI/Quasar-parity set. Authored as a real stylesheet so it
+// stays readable and diffable rather than buried in a template literal.
+const EXTENDED_COMPONENTS_CSS = fs.readFileSync(path.join(__dirname, 'lib', 'components-extended.css'), 'utf8');
+
 // ─── BEHAVIOR LAYER SUPPORT (v2.9.0) ─────────────────────────────────────────
 // States santy.js drives. The CSS-only :target paths still work untouched —
 // these rules simply add a JS-controllable .open contract alongside them.
@@ -5352,7 +5358,7 @@ const BEHAVIOR_CSS = `
 }
 `;
 
-const compCSS  = compSplit > -1 ? fullCSS.slice(compSplit) + PORTFOLIO_CSS + PORTFOLIO_CV_CSS + ITSME_CSS + BEHAVIOR_CSS : '';
+const compCSS  = compSplit > -1 ? fullCSS.slice(compSplit) + PORTFOLIO_CSS + PORTFOLIO_CV_CSS + ITSME_CSS + EXTENDED_COMPONENTS_CSS + BEHAVIOR_CSS : '';
 
 // ─── Extract variant blocks to build slimmed core and start CSS ───
 const VSTART = '/* ═══ VARIANTS_BLOCK_START ═══ */';
@@ -5506,7 +5512,7 @@ const THEMES_CSS = `/* SantyCSS Themes — prebuilt design-token presets (v2.7.0
 const OUT_CSS = {
   // BEHAVIOR_CSS is appended here too: it lives past the component marker, so
   // it reaches santy-components.css via compCSS but never fullCSS on its own.
-  'santy.css': applyPrefix(fullCSS + BEHAVIOR_CSS),
+  'santy.css': applyPrefix(fullCSS + EXTENDED_COMPONENTS_CSS + BEHAVIOR_CSS),
   'santy-core.css': applyPrefix(slimmedCoreCSS),
   'santy-variants.css': applyPrefix(variantsCSS),
   'santy-start.css': applyPrefix(startCSS),
@@ -5583,7 +5589,9 @@ const kb = n => (n / 1024).toFixed(1) + 'KB';
 console.log(`✅ santy-start.css    — ${kb(startCSS.length)} (CDN drop-in: base + components, no extended variants/animations)`);
 console.log(`✅ santy-core.css     — ${kb(slimmedCoreCSS.length)} (utilities only, no extended variants)`);
 console.log(`✅ santy-variants.css — ${kb(variantsCSS.length)} (xl, xxl, on-wide, peer, group, print, motion, RTL)`);
-console.log(`✅ santy.css          — ${kb(fullCSS.length)} (${fullCSS.split('\n').length.toLocaleString()} lines)`);
+// Report what is actually written, not fullCSS — the bundle also carries the
+// extended-component and behavior blocks appended past the component marker.
+console.log(`✅ santy.css          — ${kb(OUT_CSS['santy.css'].length)} (${OUT_CSS['santy.css'].split('\n').length.toLocaleString()} lines)`);
 console.log(`✅ santy.min.css      — ${kb(minCSS.length)} (minified)`);
 console.log(`✅ santy-components.css — ${kb(compCSS.length)} (components only)`);
 console.log(`✅ santy-animations.css — ${kb(animCSS.length)} (animations only)`);

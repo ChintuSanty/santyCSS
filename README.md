@@ -95,6 +95,89 @@ Importing `santycss` on a server is safe — the module no-ops without a DOM.
 
 Full API and types: [`index.d.ts`](index.d.ts) (`SantyRuntime`).
 
+### 🧩 The components MUI and Quasar had and we didn't
+
+**Data table** — sortable, selectable, expandable, with a sticky header and pinned first column:
+
+```html
+<div class="data-table-wrap data-table-wrap-md">
+  <table class="data-table data-table-striped data-table-pin-first">
+    <thead>
+      <tr>
+        <th class="data-table-select"><input type="checkbox"></th>
+        <th data-sort-type="text">Name</th>
+        <th data-sort-type="number" class="numeric">Revenue</th>
+        <th data-sort-type="date">Signed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="data-table-select"><input type="checkbox"></td>
+        <td>Acme Corp</td>
+        <td class="numeric" data-sort-value="128400">₹1,28,400</td>
+        <td data-sort-value="2026-03-14">14 Mar 2026</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+Sorting is stable, blanks always sink, and `data-sort-value` keeps display
+formatting independent of sort order. The header checkbox goes indeterminate on
+a partial selection. Detail rows stay attached to their parent when the table re-sorts.
+
+**Combobox / multiselect** — filtering, chips, and full keyboard support:
+
+```html
+<div class="combobox" data-santy-multiple="true">
+  <div class="combobox-control">
+    <input class="combobox-input" placeholder="Search frameworks…">
+    <button class="combobox-toggle" aria-label="Open"></button>
+  </div>
+  <ul class="combobox-list">
+    <li class="combobox-option"><span class="combobox-option-label">SantyCSS</span></li>
+    <li class="combobox-option"><span class="combobox-option-label">Bootstrap</span></li>
+    <li class="combobox-empty" hidden>No matches</li>
+  </ul>
+</div>
+```
+
+**Text fields with floating labels** — MUI's three variants, and the label
+animation is pure CSS (`:placeholder-shown`), so it works with JS disabled:
+
+```html
+<div class="field field-outlined field-has-prefix">
+  <div class="field-box">
+    <span class="field-prefix">₹</span>
+    <input class="field-input" id="amt" placeholder=" " required>
+    <label class="field-label" for="amt">Amount</label>
+  </div>
+  <div class="field-help"><span>Excluding GST</span><span class="field-counter">0/10</span></div>
+</div>
+```
+
+Validation uses `:user-invalid`, so a required field doesn't turn red before
+the user has typed anything.
+
+**Also new:** stepper (horizontal + vertical) · tree view (on `<details>`, no JS) ·
+context menu with cascading submenus · segmented control · toggle button group ·
+pin/OTP input (auto-advance, paste-to-fill) · number input · color picker ·
+time picker · calendar · uploader with progress · skeleton variants
+(text/circle/rect/wave) · snackbar · banner · speed dial · bottom navigation ·
+nav rail · virtual + infinite scroll · loading overlay · backdrop.
+
+**`.prose`** closes the Tailwind Typography gap — drop raw CMS or Markdown HTML
+inside and every element is styled:
+
+```html
+<article class="prose prose-lg">
+  <!-- unstyled HTML from your CMS -->
+</article>
+```
+
+Everything above is token-driven (`--santy-*`), dark-mode aware, and honours
+`prefers-reduced-motion`.
+
 ---
 
 ## What's New in v2.8.0
