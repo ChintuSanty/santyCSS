@@ -5413,6 +5413,11 @@ const startCSS = `/* SantyCSS Start — Drop-in CDN build
 // template string, so it can be linted, unit-tested and diffed like normal code.
 const BEHAVIOR_JS = fs.readFileSync(path.join(__dirname, 'santy.js'), 'utf8');
 
+// Framework adapters. The universal ones (custom elements, class merge) are
+// mirrored into dist/ for CDN use; the React/Vue packages ship as source.
+const ELEMENTS_JS = fs.readFileSync(path.join(__dirname, 'packages', 'elements', 'santy-elements.js'), 'utf8');
+const MERGE_JS    = fs.readFileSync(path.join(__dirname, 'packages', 'merge', 'santy-merge.js'), 'utf8');
+
 const SCROLL_JS = `/*! santy-scroll.js — SantyCSS Scroll Observer v2.1
  * Activates when-visible: viewport-entry animations via IntersectionObserver.
  *
@@ -5561,6 +5566,8 @@ const OUT_FILES = {
   'santy-scroll.js': SCROLL_JS,
   // Behaviour layer lives in its own source file so it stays lintable/testable.
   'santy.js': BEHAVIOR_JS,
+  'santy-elements.js': ELEMENTS_JS,
+  'santy-merge.js': MERGE_JS,
   'santy-classmap.json': CLASSMAP_JSON,
 };
 
@@ -5598,6 +5605,8 @@ console.log(`✅ santy-animations.css — ${kb(animCSS.length)} (animations only
 console.log(`✅ santy-email.css    — ${kb(EMAIL_CSS.length)} (email templates)`);
 console.log(`✅ santy-scroll.js    — ${kb(SCROLL_JS.length)} (IntersectionObserver for when-visible:)`);
 console.log(`✅ santy.js           — ${kb(BEHAVIOR_JS.length)} (behavior layer: modal, drawer, dropdown, tabs, toast, theme)`);
+console.log(`✅ santy-elements.js  — ${kb(ELEMENTS_JS.length)} (custom elements: React/Vue/Svelte/Angular/HTML)`);
+console.log(`✅ santy-merge.js     — ${kb(MERGE_JS.length)} (cn() conflict-aware class merge)`);
 console.log(`✅ santy-themes.css   — ${kb(THEMES_CSS.length)} (5 prebuilt data-theme presets)`);
 console.log(`✅ santy-classmap.json — ${kb(CLASSMAP_JSON.length)} (${classSet.size.toLocaleString()} class names for IntelliSense/AI)`);
 console.log(`✅ dist/              — mirrored for NPM package`);

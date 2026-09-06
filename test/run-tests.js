@@ -337,6 +337,94 @@ test('santy.js exposes table and combobox modules', () => {
   }
 });
 
+// ── Framework adapters (v2.9.0) ─────────────────────────────────────────────
+test('cn() resolves conflicting utilities so the last argument wins', () => {
+  const cn = require(path.join(ROOT, 'packages', 'merge', 'santy-merge.js'));
+  const cases = [
+    [['add-padding-24', 'add-padding-8'], 'add-padding-8'],
+    [['background-blue-500', 'background-red-500'], 'background-red-500'],
+    [['make-flex', 'make-grid'], 'make-grid'],
+    [['text-bold', 'text-light'], 'text-light'],
+    [['round-corners-8', 'make-pill'], 'make-pill'],
+    [['set-width-320', 'set-width-full'], 'set-width-full'],
+    [['add-shadow-sm', 'add-shadow-lg'], 'add-shadow-lg'],
+  ];
+  for (const [input, expected] of cases) {
+    const got = cn(...input);
+    assert(got === expected, `cn(${input.join(', ')}) → "${got}", expected "${expected}"`);
+  }
+});
+
+test('cn() keeps classes that target different properties', () => {
+  const cn = require(path.join(ROOT, 'packages', 'merge', 'santy-merge.js'));
+  // padding-x and padding are different axes; both must survive.
+  assert(cn('add-padding-24', 'add-padding-x-8') === 'add-padding-24 add-padding-x-8',
+    'axis-specific padding wrongly dropped');
+  assert(cn('color-gray-900', 'background-white') === 'color-gray-900 background-white',
+    'text and background colour wrongly collided');
+  // Transforms compose rather than conflict.
+  assert(cn('scale-105', 'rotate-45') === 'scale-105 rotate-45', 'transforms wrongly collided');
+});
+
+test('cn() scopes conflicts to matching variants', () => {
+  const cn = require(path.join(ROOT, 'packages', 'merge', 'santy-merge.js'));
+  assert(cn('md:add-padding-24', 'add-padding-8') === 'md:add-padding-24 add-padding-8',
+    'a breakpoint class must not conflict with the base class');
+  assert(cn('md:add-padding-24', 'md:add-padding-8') === 'md:add-padding-8',
+    'same-variant classes should still collide');
+  assert(cn('on-hover:scale-110', 'scale-100') === 'on-hover:scale-110 scale-100',
+    'state variant must not conflict with the base class');
+});
+
+test('cn() accepts clsx-style arrays and condition objects', () => {
+  const cn = require(path.join(ROOT, 'packages', 'merge', 'santy-merge.js'));
+  const out = cn('btn', { 'btn-lg': true, 'btn-sm': false }, ['add-padding-8'], null, undefined, false);
+  assert(out === 'btn btn-lg add-padding-8', `got "${out}"`);
+});
+
+test('adapters load without React, Vue or a DOM (SSR-safe)', () => {
+  assert(typeof document === 'undefined', 'test env unexpectedly has a document');
+  const el = require(path.join(ROOT, 'packages', 'elements', 'santy-elements.js'));
+  assert(el.defined === false, 'custom elements tried to register without a DOM');
+  const r = require(path.join(ROOT, 'packages', 'react', 'index.js'));
+  assert(typeof r.useModal === 'function', 'React adapter missing useModal');
+  const v = require(path.join(ROOT, 'packages', 'vue', 'index.js'));
+  assert(typeof v.useModal === 'function', 'Vue adapter missing useModal');
+});
+
+test('React adapter exposes the documented surface', () => {
+  const r = require(path.join(ROOT, 'packages', 'react', 'index.js'));
+  ['cn', 'useSanty', 'useModal', 'useDrawer', 'useBottomSheet', 'useTheme',
+   'useToast', 'useDisclosure', 'Button', 'Card', 'Modal', 'Prose']
+    .forEach(k => assert(k in r, `React adapter missing ${k}`));
+});
+
+test('Vue adapter exposes composables and an installable plugin', () => {
+  const v = require(path.join(ROOT, 'packages', 'vue', 'index.js'));
+  ['cn', 'useSanty', 'useModal', 'useTheme', 'useToast', 'SantyButton', 'SantyModal']
+    .forEach(k => assert(k in v, `Vue adapter missing ${k}`));
+  assert(typeof v.plugin.install === 'function', 'Vue plugin is not installable');
+});
+
+test('adapters are mirrored into dist for CDN use', () => {
+  for (const f of ['santy-elements.js', 'santy-merge.js']) {
+    const p = path.join(DIST, f);
+    assert(fs.existsSync(p), `dist/${f} missing`);
+    assert(fs.statSync(p).size > 2000, `dist/${f} suspiciously small`);
+  }
+  const src = fs.readFileSync(path.join(ROOT, 'packages', 'merge', 'santy-merge.js'), 'utf8');
+  assert(read('santy-merge.js') === src, 'dist/santy-merge.js drifted from source');
+});
+
+test('react and vue are declared as OPTIONAL peer dependencies', () => {
+  const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf8'));
+  for (const dep of ['react', 'vue']) {
+    assert(pkg.peerDependencies[dep], `${dep} not declared as a peer dependency`);
+    assert(pkg.peerDependenciesMeta[dep] && pkg.peerDependenciesMeta[dep].optional,
+      `${dep} must be optional — installing santycss should not pull it in`);
+  }
+});
+
 // ── Report ───────────────────────────────────────────────────────────────────
 console.log(`\n${passed} passed, ${failed} failed`);
 if (failed) {
